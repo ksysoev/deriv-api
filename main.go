@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"time"
 )
 
@@ -16,13 +15,19 @@ func main() {
 		return
 	}
 
-	for {
-		resp, err := api.SendTime()
-		if err != nil {
-			log.Fatal(err)
-		}
+	respChan, err := api.SubscribeTicks("R_50")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
-		fmt.Println(*resp.Time)
-		time.Sleep(2 * time.Second)
+	for {
+		select {
+		case resp := <-respChan:
+			fmt.Println(resp)
+		case <-time.After(5 * time.Second):
+			fmt.Println("Timeout")
+			return
+		}
 	}
 }

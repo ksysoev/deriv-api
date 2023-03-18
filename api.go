@@ -178,6 +178,32 @@ func (api *DerivAPI) SendRequest(reqID int, request ApiReqest, response ApiObjec
 	return err
 }
 
+func (api *DerivAPI) SubscribeRequest(reqID int, request ApiReqest) (chan string, error) {
+	respChan := make(chan string)
+	if api.ws == nil {
+		err := api.Connect()
+
+		if err != nil {
+			return respChan, err
+		}
+	}
+
+	requestJSON, err := json.Marshal(request)
+	if err != nil {
+		return respChan, err
+	}
+
+	api.responseMap[reqID] = respChan
+
+	err = websocket.Message.Send(api.ws, requestJSON)
+	if err != nil {
+		defer delete(api.responseMap, reqID)
+		return respChan, err
+	}
+
+	return respChan, nil
+}
+
 func (api *DerivAPI) SendTime() (TimeResponse, error) {
 	var response TimeResponse
 
@@ -187,11 +213,44 @@ func (api *DerivAPI) SendTime() (TimeResponse, error) {
 
 	err := api.SendRequest(reqID, request, &response)
 
-	if err != nil {
-		return response, err
-	}
+	return response, err
+}
+
+func (api *DerivAPI) SendAuthorize(apiToken string) (AuthorizeResponse, error) {
+	var response AuthorizeResponse
+
+	reqID := api.getNextRequestID()
+
+	request := AuthorizeRequest{Authorize: apiToken, ReqId: &reqID}
+
+	err := api.SendRequest(reqID, request, &response)
 
 	return response, err
+}
+
+func (api *DerivAPI) SubscribeTicks(symbol string) (chan TicksResponse, error) {
+	reqID := api.getNextRequestID()
+	var subscibe TicksRequestSubscribe
+	subscibe = 1
+	request := TicksRequest{Ticks: symbol, ReqId: &reqID, Subscribe: &subscibe}
+
+	respChan, err := api.SubscribeRequest(reqID, request)
+
+	parsedChan := make(chan TicksResponse)
+
+	go func(outChan chan TicksResponse, inChan chan string) {
+		for {
+			responseString := <-inChan
+			var response TicksResponse
+			err := response.UnmarshalJSON([]byte(responseString))
+			if err != nil {
+				log.Fatal(err)
+			}
+			outChan <- response
+		}
+	}(parsedChan, respChan)
+
+	return parsedChan, err
 }
 
 func (api *DerivAPI) getNextRequestID() int {
