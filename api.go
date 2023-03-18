@@ -11,14 +11,24 @@ import (
 )
 
 type DerivAPI struct {
-	Origin   *url.URL
-	Endpoint *url.URL
-	AppID    int
-	Lang     string
-	ws       *websocket.Conn
+	Origin        *url.URL
+	Endpoint      *url.URL
+	AppID         int
+	Lang          string
+	ws            *websocket.Conn
+	lastRequestID int
+	responseMap   map[int]chan string
 }
 
 type ApiReqest interface {
+}
+type ApiObjectResponse interface {
+	UnmarshalJSON([]byte) error
+}
+
+type APIResponse struct {
+	ReqID   int    `json:"req_id"`
+	MsgType string `json:"msg_type"`
 }
 
 // NewDerivAPI creates a new instance of DerivAPI by parsing and validating the given
@@ -72,10 +82,12 @@ func NewDerivAPI(endpoint string, appID int, lang string, origin string) (*Deriv
 	urlEnpoint.RawQuery = query.Encode()
 
 	api := DerivAPI{
-		Origin:   urlOrigin,
-		Endpoint: urlEnpoint,
-		AppID:    appID,
-		Lang:     lang,
+		Origin:        urlOrigin,
+		Endpoint:      urlEnpoint,
+		AppID:         appID,
+		Lang:          lang,
+		lastRequestID: 0,
+		responseMap:   make(map[int]chan string),
 	}
 	return &api, nil
 }
@@ -115,14 +127,27 @@ func (api *DerivAPI) handleResponses() {
 
 		var msg string
 		err := websocket.Message.Receive(api.ws, &msg)
+
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println(msg)
+
+		var response APIResponse
+
+		err = json.Unmarshal([]byte(msg), &response)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		channel, ok := api.responseMap[response.ReqID]
+
+		if ok {
+			channel <- msg
+		}
 	}
 }
 
-func (api *DerivAPI) SendRequest(request ApiReqest) (err error) {
+func (api *DerivAPI) SendRequest(reqID int, request ApiReqest, response ApiObjectResponse) (err error) {
 
 	if api.ws == nil {
 		err = api.Connect()
@@ -137,6 +162,39 @@ func (api *DerivAPI) SendRequest(request ApiReqest) (err error) {
 		return err
 	}
 
+	respChan := make(chan string)
+
+	api.responseMap[reqID] = respChan
+	defer delete(api.responseMap, reqID)
+
 	err = websocket.Message.Send(api.ws, requestJSON)
+	if err != nil {
+		return err
+	}
+
+	responseJSON := <-respChan
+	err = response.UnmarshalJSON([]byte(responseJSON))
+
 	return err
+}
+
+func (api *DerivAPI) SendTime() (TimeResponse, error) {
+	var response TimeResponse
+
+	reqID := api.getNextRequestID()
+
+	request := TimeRequest{Time: 1, ReqId: &reqID}
+
+	err := api.SendRequest(reqID, request, &response)
+
+	if err != nil {
+		return response, err
+	}
+
+	return response, err
+}
+
+func (api *DerivAPI) getNextRequestID() int {
+	api.lastRequestID++
+	return api.lastRequestID
 }

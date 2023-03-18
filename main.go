@@ -17,11 +17,12 @@ func main() {
 	}
 
 	for {
-		timeRequest := TimeRequest{Time: 1}
-		err = api.SendRequest(timeRequest)
+		resp, err := api.SendTime()
 		if err != nil {
 			log.Fatal(err)
 		}
+
+		fmt.Println(*resp.Time)
 		time.Sleep(2 * time.Second)
 	}
 }
