@@ -17,11 +17,11 @@ func main() {
 	}
 
 	for {
-		err = api.SendRequest("{\"time\": 1}")
+		timeRequest := TimeRequest{Time: 1}
+		err = api.SendRequest(timeRequest)
 		if err != nil {
 			log.Fatal(err)
 		}
-		time.Sleep(5 * time.Second)
-
+		time.Sleep(2 * time.Second)
 	}
 }

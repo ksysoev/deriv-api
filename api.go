@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/url"
@@ -15,6 +16,9 @@ type DerivAPI struct {
 	AppID    int
 	Lang     string
 	ws       *websocket.Conn
+}
+
+type ApiReqest interface {
 }
 
 // NewDerivAPI creates a new instance of DerivAPI by parsing and validating the given
@@ -118,15 +122,21 @@ func (api *DerivAPI) handleResponses() {
 	}
 }
 
-func (api *DerivAPI) SendRequest(request string) error {
+func (api *DerivAPI) SendRequest(request ApiReqest) (err error) {
+
 	if api.ws == nil {
-		err := api.Connect()
+		err = api.Connect()
 
 		if err != nil {
 			return err
 		}
 	}
 
-	err := websocket.Message.Send(api.ws, request)
+	requestJSON, err := json.Marshal(request)
+	if err != nil {
+		return err
+	}
+
+	err = websocket.Message.Send(api.ws, requestJSON)
 	return err
 }
