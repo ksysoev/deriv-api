@@ -31,21 +31,6 @@ type APIResponse struct {
 	MsgType string `json:"msg_type"`
 }
 
-type APIError struct {
-	Code    string         `json:"code"`
-	Message string         `json:"message"`
-	Details map[string]any `json:"details"`
-}
-
-type APIErrorResponse struct {
-	APIResponse
-	Error APIError `json:"error"`
-}
-
-func (e *APIError) Error() string {
-	return e.Message
-}
-
 // NewDerivAPI creates a new instance of DerivAPI by parsing and validating the given
 // endpoint URL, appID, language, and origin URL. It returns a pointer to a DerivAPI object
 // or an error if any of the validation checks fail.
@@ -189,14 +174,10 @@ func (api *DerivAPI) SendRequest(reqID int, request ApiReqest, response ApiObjec
 
 	responseJSON := <-respChan
 
-	var errorResponse APIErrorResponse
-	err = json.Unmarshal([]byte(responseJSON), &errorResponse)
+	err = ParseError(responseJSON)
+
 	if err != nil {
 		return err
-	}
-
-	if errorResponse.Error.Code != "" {
-		return &errorResponse.Error
 	}
 
 	err = response.UnmarshalJSON([]byte(responseJSON))
@@ -270,15 +251,9 @@ func (api *DerivAPI) SubscribeTicks(symbol string) (chan TicksResponse, error) {
 			fmt.Println(responseString)
 			var response TicksResponse
 
-			var errorResponse APIErrorResponse
-			err := json.Unmarshal([]byte(responseString), &errorResponse)
-			if err == nil {
+			err := ParseError(responseString)
+			if err != nil {
 				log.Fatal(err)
-				return
-			}
-
-			if errorResponse.Error.Code != "" {
-				log.Fatal(errorResponse.Error)
 				return
 			}
 
