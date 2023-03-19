@@ -3,10 +3,12 @@ package main
 import (
 	"fmt"
 	"time"
+
+	"github.com/ksysoev/deriv-api"
 )
 
 func main() {
-	api, err := NewDerivAPI("wss://ws.binaryws.com/websockets/v3", 1, "en", "https://www.binary.com")
+	api, err := deriv.NewDerivAPI("wss://ws.binaryws.com/websockets/v3", 1, "en", "https://www.binary.com")
 
 	defer api.Disconnect()
 

@@ -12,6 +12,6 @@ mv schema/transaction_response_tmp.json schema/transaction_response.json
 sed  's/"5000"/5000/g' schema/ticks_history_request.json > schema/ticks_history_request_tmp.json
 mv schema/ticks_history_request_tmp.json schema/ticks_history_request.json
 
-gojsonschema -p main schema/*.json > ../../../shema.go 
+gojsonschema -p deriv schema/*.json > ../../../schema.go 
 cd ../../../
 rm -rf deriv-developers-portal schema
