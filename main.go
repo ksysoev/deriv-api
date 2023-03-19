@@ -15,7 +15,16 @@ func main() {
 		return
 	}
 
-	respChan, err := api.SubscribeTicks("R_50")
+	resp, err := api.SendTime()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println(resp, err)
+	return
+
+	respChan, err := api.SubscribeTicks("R_51")
 	if err != nil {
 		fmt.Println(err)
 		return
