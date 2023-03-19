@@ -23,10 +23,9 @@ func main() {
 		return
 	}
 
-	fmt.Println(resp, err)
-	return
+	fmt.Println(*resp.Time)
 
-	respChan, err := api.SubscribeTicks("R_51")
+	respChan, err := api.SubscribeTicks("R_50")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -35,7 +34,7 @@ func main() {
 	for {
 		select {
 		case resp := <-respChan:
-			fmt.Println(resp)
+			fmt.Println(*resp.Tick.Symbol, *resp.Tick.Quote)
 		case <-time.After(5 * time.Second):
 			fmt.Println("Timeout")
 			return

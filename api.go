@@ -211,64 +211,6 @@ func (api *DerivAPI) SubscribeRequest(reqID int, request ApiReqest) (chan string
 	return respChan, nil
 }
 
-func (api *DerivAPI) SendTime() (TimeResponse, error) {
-	var response TimeResponse
-
-	reqID := api.getNextRequestID()
-
-	request := TimeRequest{Time: 1, ReqId: &reqID}
-
-	err := api.SendRequest(reqID, request, &response)
-
-	return response, err
-}
-
-func (api *DerivAPI) SendAuthorize(apiToken string) (AuthorizeResponse, error) {
-	var response AuthorizeResponse
-
-	reqID := api.getNextRequestID()
-
-	request := AuthorizeRequest{Authorize: apiToken, ReqId: &reqID}
-
-	err := api.SendRequest(reqID, request, &response)
-
-	return response, err
-}
-
-func (api *DerivAPI) SubscribeTicks(symbol string) (chan TicksResponse, error) {
-	reqID := api.getNextRequestID()
-	var subscibe TicksRequestSubscribe
-	subscibe = 1
-	request := TicksRequest{Ticks: symbol, ReqId: &reqID, Subscribe: &subscibe}
-
-	respChan, err := api.SubscribeRequest(reqID, request)
-
-	parsedChan := make(chan TicksResponse)
-
-	go func(outChan chan TicksResponse, inChan chan string) {
-		for {
-			responseString := <-inChan
-			fmt.Println(responseString)
-			var response TicksResponse
-
-			err := ParseError(responseString)
-			if err != nil {
-				log.Fatal(err)
-				return
-			}
-
-			err = response.UnmarshalJSON([]byte(responseString))
-			if err != nil {
-				log.Fatal(err)
-				return
-			}
-			outChan <- response
-		}
-	}(parsedChan, respChan)
-
-	return parsedChan, err
-}
-
 func (api *DerivAPI) getNextRequestID() int {
 	api.lastRequestID++
 	return api.lastRequestID
