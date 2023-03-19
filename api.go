@@ -92,7 +92,8 @@ func NewDerivAPI(endpoint string, appID int, lang string, origin string) (*Deriv
 	return &api, nil
 }
 
-// Connect connects to the Deriv API
+// Connect establishes a WebSocket connection with the Deriv API endpoint.
+// Returns an error if the dialing process fails.
 func (api *DerivAPI) Connect() error {
 	if api.ws != nil {
 		return nil
@@ -147,6 +148,7 @@ func (api *DerivAPI) handleResponses() {
 	}
 }
 
+// SendRequest sends a request to the Deriv API and returns the response
 func (api *DerivAPI) SendRequest(reqID int, request ApiReqest, response ApiObjectResponse) (err error) {
 
 	if api.ws == nil {
@@ -185,6 +187,7 @@ func (api *DerivAPI) SendRequest(reqID int, request ApiReqest, response ApiObjec
 	return err
 }
 
+// SubscribeRequest sends a request to the Deriv API and returns a channel that will receive responses
 func (api *DerivAPI) SubscribeRequest(reqID int, request ApiReqest) (chan string, error) {
 	respChan := make(chan string)
 	if api.ws == nil {
