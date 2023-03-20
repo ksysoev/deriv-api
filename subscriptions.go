@@ -10,29 +10,49 @@ func (api *DerivAPI) SubscribeTicks(symbol string) (chan TicksResponse, error) {
 	subscibe = 1
 	request := TicksRequest{Ticks: symbol, ReqId: &reqID, Subscribe: &subscibe}
 
-	respChan, err := api.SubscribeRequest(reqID, request)
+	inChan, err := api.Send(reqID, request)
 
-	parsedChan := make(chan TicksResponse)
+	if err != nil {
+		return nil, err
+	}
 
-	go func(outChan chan TicksResponse, inChan chan string) {
-		for {
-			responseString := <-inChan
-			var response TicksResponse
+	initResponse := <-inChan
 
-			err := ParseError(responseString)
+	if err = ParseError(initResponse); err != nil {
+		close(inChan)
+		delete(api.responseMap, reqID)
+		return nil, err
+	}
+
+	var response TicksResponse
+	err = response.UnmarshalJSON([]byte(initResponse))
+	if err != nil {
+		close(inChan)
+		delete(api.responseMap, reqID)
+		return nil, err
+	}
+
+	outChan := make(chan TicksResponse, 1)
+	outChan <- response
+
+	go func(inChan chan string, outChan chan TicksResponse) {
+		defer close(outChan)
+		for rawResponse := range inChan {
+			err := ParseError(rawResponse)
 			if err != nil {
-				log.Fatal(err)
-				return
+				log.Printf("Error in subsciption message: %v", err)
+				continue
 			}
 
-			err = response.UnmarshalJSON([]byte(responseString))
+			var response TicksResponse
+			err = response.UnmarshalJSON([]byte(rawResponse))
 			if err != nil {
-				log.Fatal(err)
-				return
+				log.Printf("Error in subsciption message: %v", err)
+				continue
 			}
 			outChan <- response
 		}
-	}(parsedChan, respChan)
+	}(inChan, outChan)
 
-	return parsedChan, err
+	return outChan, nil
 }

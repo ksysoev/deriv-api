@@ -148,67 +148,62 @@ func (api *DerivAPI) handleResponses() {
 	}
 }
 
-// SendRequest sends a request to the Deriv API and returns the response
-func (api *DerivAPI) SendRequest(reqID int, request ApiReqest, response ApiObjectResponse) (err error) {
+func (api *DerivAPI) Send(reqID int, request ApiReqest) (chan string, error) {
+	var err error
 
 	if api.ws == nil {
 		err = api.Connect()
 
 		if err != nil {
-			return err
+			return nil, err
 		}
 	}
 
-	requestJSON, err := json.Marshal(request)
+	msg, err := json.Marshal(request)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	respChan := make(chan string)
-
 	api.responseMap[reqID] = respChan
-	defer delete(api.responseMap, reqID)
 
-	err = websocket.Message.Send(api.ws, requestJSON)
+	err = websocket.Message.Send(api.ws, msg)
+	if err != nil {
+		delete(api.responseMap, reqID)
+		close(respChan)
+		// TODO: Disconnect from the API. Need to handle this error properly
+		return nil, err
+	}
+
+	return respChan, nil
+}
+
+// SendRequest sends a request to the Deriv API and returns the response
+func (api *DerivAPI) SendRequest(reqID int, request ApiReqest, response ApiObjectResponse) (err error) {
+	respChan, err := api.Send(reqID, request)
+
 	if err != nil {
 		return err
 	}
+
+	defer close(respChan)
+	defer delete(api.responseMap, reqID)
 
 	responseJSON := <-respChan
 
-	err = ParseError(responseJSON)
-
-	if err != nil {
+	if err = ParseError(responseJSON); err != nil {
 		return err
 	}
 
-	err = response.UnmarshalJSON([]byte(responseJSON))
-
-	return err
+	return response.UnmarshalJSON([]byte(responseJSON))
 }
 
 // SubscribeRequest sends a request to the Deriv API and returns a channel that will receive responses
 func (api *DerivAPI) SubscribeRequest(reqID int, request ApiReqest) (chan string, error) {
-	respChan := make(chan string)
-	if api.ws == nil {
-		err := api.Connect()
+	respChan, err := api.Send(reqID, request)
 
-		if err != nil {
-			return respChan, err
-		}
-	}
-
-	requestJSON, err := json.Marshal(request)
 	if err != nil {
-		return respChan, err
-	}
-
-	api.responseMap[reqID] = respChan
-
-	err = websocket.Message.Send(api.ws, requestJSON)
-	if err != nil {
-		defer delete(api.responseMap, reqID)
-		return respChan, err
+		return nil, err
 	}
 
 	return respChan, nil
