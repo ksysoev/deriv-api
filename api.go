@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/url"
 	"strconv"
+	"sync/atomic"
 
 	"golang.org/x/net/websocket"
 )
@@ -16,7 +17,7 @@ type DerivAPI struct {
 	AppID         int
 	Lang          string
 	ws            *websocket.Conn
-	lastRequestID int
+	lastRequestID int64
 	responseMap   map[int]chan string
 }
 
@@ -210,6 +211,5 @@ func (api *DerivAPI) SubscribeRequest(reqID int, request ApiReqest) (chan string
 }
 
 func (api *DerivAPI) getNextRequestID() int {
-	api.lastRequestID++
-	return api.lastRequestID
+	return int(atomic.AddInt64(&api.lastRequestID, 1))
 }
