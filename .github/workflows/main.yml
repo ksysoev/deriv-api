@@ -21,6 +21,6 @@ jobs:
         run: go version
 
       - name: Build
-        run: go build -v ./...
+        run: go build -v .
       - name: Test
         run: go test -coverprofile=coverage.out -covermode=atomic -v ./...
