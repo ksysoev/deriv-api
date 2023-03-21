@@ -38,9 +38,9 @@ func main() {
 	return`)
 
 		// Combine the signature and body into a complete function
-		function := fmt.Sprintf("%s {\n\t%s\n}\n", signature, body)
+		function := fmt.Sprintf("%s {\n\t%s\n}\n\n", signature, body)
 
 		// Print the function
-		fmt.Println(function)
+		fmt.Print(function)
 	}
 }
