@@ -45,7 +45,7 @@ func NewSubcription[Resp any](api *DerivAPI) *Subsciption[Resp] {
 
 func (s *Subsciption[Resp]) Forget() error {
 	if s.IsActive {
-		_, err := s.API.Forget(s.SubsciptionID)
+		_, err := s.API.Forget(Forget{Forget: s.SubsciptionID})
 
 		if err != nil {
 			return err

@@ -17,7 +17,7 @@ func main() {
 		return
 	}
 
-	resp, err := api.Time()
+	resp, err := api.Time(deriv.Time{Time: 1})
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -25,7 +25,7 @@ func main() {
 
 	fmt.Println(*resp.Time)
 
-	sub, err := api.SubscribeTicks("R_50")
+	sub, err := api.SubscribeTicks(deriv.Ticks{Ticks: "R_50"})
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -38,6 +38,5 @@ func main() {
 			fmt.Println("Timeout")
 			return
 		}
-		sub.Forget()
 	}
 }

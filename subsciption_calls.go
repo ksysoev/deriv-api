@@ -1,12 +1,13 @@
 package deriv
 
-func (api *DerivAPI) SubscribeTicks(symbol string) (*Subsciption[TicksResponse], error) {
+func (api *DerivAPI) SubscribeTicks(request Ticks) (*Subsciption[TicksResp], error) {
 	reqID := api.getNextRequestID()
-	var subscibe TicksRequestSubscribe
-	subscibe = 1
-	request := TicksRequest{Ticks: symbol, ReqId: &reqID, Subscribe: &subscibe}
+	var subscibeFlag TicksSubscribe
+	subscibeFlag = 1
+	request.ReqId = &reqID
+	request.Subscribe = &subscibeFlag
 
-	sub := NewSubcription[TicksResponse](api)
+	sub := NewSubcription[TicksResp](api)
 
 	err := sub.Start(reqID, request)
 
