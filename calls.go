@@ -1,6 +1,6 @@
 package deriv
 
-func (api *DerivAPI) SendTime() (TimeResponse, error) {
+func (api *DerivAPI) Time() (TimeResponse, error) {
 	var response TimeResponse
 
 	reqID := api.getNextRequestID()
@@ -12,7 +12,19 @@ func (api *DerivAPI) SendTime() (TimeResponse, error) {
 	return response, err
 }
 
-func (api *DerivAPI) SendAuthorize(apiToken string) (AuthorizeResponse, error) {
+func (api *DerivAPI) Forget(subscriptionID string) (ForgetResponse, error) {
+	var response ForgetResponse
+
+	reqID := api.getNextRequestID()
+
+	request := ForgetRequest{Forget: subscriptionID, ReqId: &reqID}
+
+	err := api.SendRequest(reqID, request, &response)
+
+	return response, err
+}
+
+func (api *DerivAPI) Authorize(apiToken string) (AuthorizeResponse, error) {
 	var response AuthorizeResponse
 
 	reqID := api.getNextRequestID()

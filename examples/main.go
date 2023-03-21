@@ -17,7 +17,7 @@ func main() {
 		return
 	}
 
-	resp, err := api.SendTime()
+	resp, err := api.Time()
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -25,19 +25,19 @@ func main() {
 
 	fmt.Println(*resp.Time)
 
-	respChan, err := api.SubscribeTicks("R_50")
+	sub, err := api.SubscribeTicks("R_50")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-
 	for {
 		select {
-		case resp := <-respChan:
+		case resp := <-sub.Stream:
 			fmt.Println(*resp.Tick.Symbol, *resp.Tick.Quote)
 		case <-time.After(5 * time.Second):
 			fmt.Println("Timeout")
 			return
 		}
+		sub.Forget()
 	}
 }
