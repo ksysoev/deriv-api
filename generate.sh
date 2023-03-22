@@ -1,11 +1,9 @@
 #!/bin/sh
 git clone https://github.com/binary-com/deriv-developers-portal.git
+
+go run bin/generate_calls.go
+
 cd deriv-developers-portal/config/v3/
-
-# generate api calls methods
-ls | go run ../../../bin/generate_calls.go > ../../../calls.go
-grep -r '"subscribe": {' . | grep send.json | sed 's/^\.\///;s/\/.*//' | go run ../../../bin/generate_subscriptions.go > ../../../subscriptions_calls.go
-
 mkdir schema
 find . -type f | grep -v example | grep -v schema |  sed 'p; s/^\./.\/schema/; s/\/send//; s/\/receive/_resp/g' | xargs -n2 cp -f
 
