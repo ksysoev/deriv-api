@@ -1,0 +1,25 @@
+name: Schema Updater 
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Display Go version
+        run: go version
+
+      - name: generate schema
+        run: make all
+
+      - name: Test
+        run: go test -coverprofile=coverage.out -covermode=atomic -v .
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          default_author: github_actions
+          message: 'Updates API schema'
+          add: '*.go'
