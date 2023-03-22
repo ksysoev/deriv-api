@@ -8,9 +8,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - uses: actions/setup-go@v4
+        with:
+          go-version: 'stable'
+
       - name: Display Go version
         run: go version
-
+      - name: Install schema generator
+        run: go install github.com/atombender/go-jsonschema/cmd/gojsonschema@v0.8.0
       - name: generate schema
         run: make all
 
