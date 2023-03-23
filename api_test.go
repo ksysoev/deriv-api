@@ -77,3 +77,31 @@ func TestNewDerivAPI(t *testing.T) {
 		t.Errorf("Expected error, got nil")
 	}
 }
+
+func TestGetNextRequestID(t *testing.T) {
+	api := &DerivAPI{lastRequestID: 0}
+	requestIDs := make(map[int]bool)
+	orderedRequestIDs := make([]int, 0)
+	numRequests := 5
+
+	for i := 0; i < numRequests; i++ {
+		requestID := api.getNextRequestID()
+		if _, ok := requestIDs[requestID]; ok {
+			t.Errorf("Request ID %d already used", requestID)
+		}
+		requestIDs[requestID] = true
+		orderedRequestIDs = append(orderedRequestIDs, requestID)
+	}
+
+	if len(requestIDs) != numRequests {
+		t.Errorf("Expected %d unique request IDs, but got %d", numRequests, len(requestIDs))
+	}
+
+	lastID := 0
+	for _, id := range orderedRequestIDs {
+		if id <= lastID {
+			t.Errorf("Request IDs not increasing, lastID=%d currentID=%d", lastID, id)
+		}
+		lastID = id
+	}
+}

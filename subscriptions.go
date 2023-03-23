@@ -17,10 +17,12 @@ type Subsciption[Resp any] struct {
 }
 
 type SubscriptionResponse struct {
-	Error        APIError `json:"error"`
-	Subscription struct {
-		ID string `json:"id"`
-	} `json:"subscription,omitempty"`
+	Error        APIError               `json:"error"`
+	Subscription SubscriptionIDResponse `json:"subscription,omitempty"`
+}
+
+type SubscriptionIDResponse struct {
+	ID string `json:"id"`
 }
 
 // parseSubscription parses a subscription-related API response in JSON format.
@@ -38,6 +40,10 @@ func parseSubsciption(rawResponse string) (SubscriptionResponse, error) {
 
 	if sub.Error.Code != "" {
 		return sub, &sub.Error
+	}
+
+	if sub.Subscription.ID == "" {
+		return sub, fmt.Errorf("subscription ID is empty")
 	}
 
 	return sub, nil

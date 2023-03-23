@@ -1,7 +1,7 @@
 # .PHONY: all
-.DEFAULT_GOAL := all
+.DEFAULT_GOAL := generate_all
 
-all: clone generate-calls prepare-schema generate-schema clean
+generate_all: clone generate-calls prepare-schema generate-schema clean
 
 clone:
 	git clone https://github.com/binary-com/deriv-developers-portal.git
@@ -26,4 +26,10 @@ clean:
 	rm -rf deriv-developers-portal
 
 test:
-	go test -v -cover  .
+	go test -v  .
+
+coverage:
+	go test -covermode=count -coverprofile=coverage.out ./...
+	cat coverage.out | grep -v "/schema.go" | grep -v "/calls.go" | grep -v "subscription_calls.go" > coverage.final.out
+	go tool cover -func=coverage.final.out
+	rm coverage.out coverage.final.out
