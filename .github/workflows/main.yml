@@ -24,3 +24,9 @@ jobs:
         run: go build -v .
       - name: Test
         run: go test -coverprofile=coverage.out -covermode=atomic -v .
+      - name: Prepare coverage reports
+        run: |
+          cat coverage.out | grep -v "/schema.go" | grep -v "/calls.go" | grep -v "subscription_calls.go" > coverage.final.out
+          mv coverage.final.out coverage.out
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
