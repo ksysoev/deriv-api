@@ -1,6 +1,7 @@
 # Deriv Api Client
 
 [![Tests](https://github.com/ksysoev/deriv-api/actions/workflows/main.yml/badge.svg)](https://github.com/ksysoev/deriv-api/actions/workflows/main.yml)
+[![codecov](https://codecov.io/gh/ksysoev/deriv-api/branch/main/graph/badge.svg?token=V89HZZ5L9H)](https://codecov.io/gh/ksysoev/deriv-api)
 [![Schema Updated](https://github.com/ksysoev/deriv-api/actions/workflows/schema.yml/badge.svg)](https://github.com/ksysoev/deriv-api/actions/workflows/schema.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/ksysoev/deriv-api)](https://goreportcard.com/report/github.com/ksysoev/deriv-api)
 [![Go Reference](https://pkg.go.dev/badge/github.com/ksysoev/deriv-api.svg)](https://pkg.go.dev/github.com/ksysoev/deriv-api)
