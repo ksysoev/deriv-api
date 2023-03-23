@@ -1,8 +1,8 @@
 # Deriv Api Client
 
 [![Tests](https://github.com/ksysoev/deriv-api/actions/workflows/main.yml/badge.svg)](https://github.com/ksysoev/deriv-api/actions/workflows/main.yml)
-
 [![Schema Updated](https://github.com/ksysoev/deriv-api/actions/workflows/schema.yml/badge.svg)](https://github.com/ksysoev/deriv-api/actions/workflows/schema.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/ksysoev/deriv-api)](https://goreportcard.com/report/github.com/ksysoev/deriv-api)
 
 This is unofficial library for working with [Deriv API](https://api.deriv.com) 
 
