@@ -11,25 +11,28 @@ import (
 	"golang.org/x/net/websocket"
 )
 
+// DerivAPI is the main struct for the DerivAPI client.
 type DerivAPI struct {
-	Origin        *url.URL
-	Endpoint      *url.URL
-	AppID         int
-	Lang          string
-	ws            *websocket.Conn
-	lastRequestID int64
-	responseMap   map[int]chan string
+	Origin        *url.URL            // The origin URL for the DerivAPI server
+	Endpoint      *url.URL            // The WebSocket endpoint URL for the DerivAPI server
+	AppID         int                 // The app ID for the DerivAPI server
+	Lang          string              // The language code (ISO 639-1) for the DerivAPI server
+	ws            *websocket.Conn     // The WebSocket connection to the DerivAPI server
+	lastRequestID int64               // The last request ID used for the DerivAPI server
+	responseMap   map[int]chan string // A map of request IDs to response channels for the DerivAPI server
 }
 
+// ApiReqest is an interface for all API requests.
 type ApiReqest interface {
 }
-type ApiObjectResponse interface {
+
+// ApiObjectRequest is an interface for all API requests that return an object.
+type ApiResponse interface {
 	UnmarshalJSON([]byte) error
 }
 
-type APIResponse struct {
-	ReqID   int    `json:"req_id"`
-	MsgType string `json:"msg_type"`
+type APIResponseReqID struct {
+	ReqID int `json:"req_id"`
 }
 
 // NewDerivAPI creates a new instance of DerivAPI by parsing and validating the given
@@ -131,14 +134,13 @@ func (api *DerivAPI) handleResponses() {
 		err := websocket.Message.Receive(api.ws, &msg)
 
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
 		}
 
-		var response APIResponse
-
+		var response APIResponseReqID
 		err = json.Unmarshal([]byte(msg), &response)
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
 		}
 
 		channel, ok := api.responseMap[response.ReqID]
@@ -149,6 +151,7 @@ func (api *DerivAPI) handleResponses() {
 	}
 }
 
+// Send sends a request to the Deriv API and returns a channel that will receive the response
 func (api *DerivAPI) Send(reqID int, request ApiReqest) (chan string, error) {
 	var err error
 
@@ -180,7 +183,7 @@ func (api *DerivAPI) Send(reqID int, request ApiReqest) (chan string, error) {
 }
 
 // SendRequest sends a request to the Deriv API and returns the response
-func (api *DerivAPI) SendRequest(reqID int, request ApiReqest, response ApiObjectResponse) (err error) {
+func (api *DerivAPI) SendRequest(reqID int, request ApiReqest, response ApiResponse) (err error) {
 	respChan, err := api.Send(reqID, request)
 
 	if err != nil {
@@ -210,6 +213,7 @@ func (api *DerivAPI) SubscribeRequest(reqID int, request ApiReqest) (chan string
 	return respChan, nil
 }
 
+// getNextRequestID returns the next request ID
 func (api *DerivAPI) getNextRequestID() int {
 	return int(atomic.AddInt64(&api.lastRequestID, 1))
 }
