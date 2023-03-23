@@ -25,11 +25,11 @@ type APIErrorResponse struct {
 	Error APIError `json:"error"`
 }
 
-// ParseError parses a JSON error response from the Deriv API service into an error.
+// parseError parses a JSON error response from the Deriv API service into an error.
 // If the response is not a valid JSON-encoded APIErrorResponse, an error is returned.
 // If the APIErrorResponse contains a non-empty APIError, it is returned as an error.
 // Otherwise, nil is returned.
-func ParseError(rawResponse string) error {
+func parseError(rawResponse string) error {
 	var errorResponse APIErrorResponse
 
 	err := json.Unmarshal([]byte(rawResponse), &errorResponse)

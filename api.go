@@ -195,7 +195,7 @@ func (api *DerivAPI) SendRequest(reqID int, request ApiReqest, response ApiRespo
 
 	responseJSON := <-respChan
 
-	if err = ParseError(responseJSON); err != nil {
+	if err = parseError(responseJSON); err != nil {
 		return err
 	}
 

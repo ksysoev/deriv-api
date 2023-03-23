@@ -36,10 +36,10 @@ func TestParseError_ValidResponse(t *testing.T) {
 	}
 
 	expected := &errorResponse.Error
-	actual := ParseError(string(rawResponse))
+	actual := parseError(string(rawResponse))
 
 	if actual.Error() != expected.Error() {
-		t.Errorf("ParseError() returned %v, expected %v", actual, expected)
+		t.Errorf("parseError() returned %v, expected %v", actual, expected)
 	}
 }
 
@@ -47,10 +47,10 @@ func TestParseError_InvalidResponse(t *testing.T) {
 	rawResponse := "invalid-json"
 
 	expected := errors.New("invalid character 'i' looking for beginning of value")
-	actual := ParseError(rawResponse)
+	actual := parseError(rawResponse)
 
 	if actual.Error() != expected.Error() {
-		t.Errorf("ParseError() returned %v, expected %v", actual, expected)
+		t.Errorf("parseError() returned %v, expected %v", actual, expected)
 	}
 }
 
@@ -58,10 +58,10 @@ func TestParseError_EmptyErrorResponse(t *testing.T) {
 	rawResponse := "{}"
 
 	expected := (error)(nil)
-	actual := ParseError(rawResponse)
+	actual := parseError(rawResponse)
 
 	if actual != expected {
-		t.Errorf("ParseError() returned %v, expected %v", actual, expected)
+		t.Errorf("parseError() returned %v, expected %v", actual, expected)
 	}
 }
 
@@ -76,9 +76,9 @@ func TestParseError_EmptyAPIError(t *testing.T) {
 	}
 
 	expected := (error)(nil)
-	actual := ParseError(string(rawResponse))
+	actual := parseError(string(rawResponse))
 
 	if actual != expected {
-		t.Errorf("ParseError() returned %v, expected %v", actual, expected)
+		t.Errorf("parseError() returned %v, expected %v", actual, expected)
 	}
 }

@@ -128,7 +128,7 @@ func (s *Subsciption[Resp]) messageHandler(inChan chan string) {
 	}()
 
 	for rawResponse := range inChan {
-		err := ParseError(rawResponse)
+		err := parseError(rawResponse)
 		if err != nil {
 			log.Printf("Error in subsciption message: %v", err)
 			continue
