@@ -19,7 +19,7 @@ jobs:
       - name: Install schema generator
         run: go install github.com/atombender/go-jsonschema/cmd/gojsonschema@v0.8.0
       - name: generate schema
-        run: make all
+        run: make generate_all
 
       - name: Test
         run: go test -coverprofile=coverage.out -covermode=atomic -v .
