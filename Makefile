@@ -29,7 +29,7 @@ test:
 	go test -v  .
 
 coverage:
-	go test -covermode=count -coverprofile=coverage.out ./...
+	go test -covermode=count -coverprofile=coverage.out .
 	cat coverage.out | grep -v "/schema.go" | grep -v "/calls.go" | grep -v "subscription_calls.go" > coverage.final.out
 	go tool cover -func=coverage.final.out
 	rm coverage.out coverage.final.out

@@ -142,3 +142,88 @@ func TestStart(t *testing.T) {
 		t.Fatalf("Expected to get a response, but got nothing")
 	}
 }
+
+func TestForget(t *testing.T) {
+	responses := make(chan string, 2)
+
+	responses <- `{
+		"echo_req": {
+		  "subscribe": 1,
+		  "ticks": "R_50"
+		},
+		"req_id": 1,
+		"msg_type": "tick",
+		"subscription": {
+		  "id": "9ed45a5e-8f87-c735-2b63-36108719eadd"
+		},
+		"tick": {
+		  "ask": 186.9688,
+		  "bid": 186.9488,
+		  "epoch": 1679722832,
+		  "id": "9ed45a5e-8f87-c735-2b63-36108719eadd",
+		  "pip_size": 4,
+		  "quote": 186.9588,
+		  "symbol": "R_50"
+		}
+	  }`
+	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
+		for resp := range responses {
+			ws.Write([]byte(resp))
+		}
+	}))
+	url := "ws://" + server.Listener.Addr().String()
+	defer server.Close()
+
+	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
+	err := api.Connect()
+	if err != nil {
+		t.Errorf("Unexpected error: %v", err)
+	}
+
+	sub := NewSubcription[TicksResp](api)
+
+	if sub == nil {
+		t.Errorf("Expected a subscription, but got nil")
+	}
+
+	reqID := api.getNextRequestID()
+	fmt.Println(reqID)
+	var f TicksSubscribe = 1
+	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
+	err = sub.Start(reqID, req)
+
+	if err != nil {
+		t.Errorf("Unexpected error: %v", err)
+	}
+
+	if sub.Stream == nil {
+		t.Errorf("Expected a stream, but got nil")
+	}
+
+	if sub.IsActive != true {
+		t.Errorf("Expected subscription to be active, but got false")
+	}
+
+	go func() {
+		time.Sleep(time.Millisecond * 5)
+		responses <- `{
+			"echo_req": {
+			  "forget": "9ed45a5e-8f87-c735-2b63-36108719eadd"
+			},
+			"req_id": 2,
+			"forget": 1,
+			"msg_type": "forget"
+		  }`
+	}()
+	sub.Forget()
+
+	if sub.IsActive == true {
+		t.Errorf("Expected subscription to be deactivated, but got true")
+	}
+
+	sub.Forget()
+
+	if sub.IsActive == true {
+		t.Errorf("Expected subscription to be deactivated, but got true")
+	}
+}

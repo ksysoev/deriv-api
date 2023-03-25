@@ -12,6 +12,7 @@ import (
 type Subsciption[Resp any] struct {
 	API           *DerivAPI
 	Stream        chan Resp
+	reqID         int
 	IsActive      bool
 	SubsciptionID string
 }
@@ -70,6 +71,16 @@ func (s *Subsciption[Resp]) Forget() error {
 		if err != nil {
 			return err
 		}
+
+		s.IsActive = false
+
+		inChan, ok := s.API.responseMap[s.reqID]
+		if ok {
+			close(inChan)
+			delete(s.API.responseMap, s.reqID)
+		}
+
+		return nil
 	}
 
 	return nil
@@ -118,7 +129,7 @@ func (s *Subsciption[Resp]) Start(reqID int, request any) error {
 	}
 
 	s.IsActive = true
-
+	s.reqID = reqID
 	s.Stream <- response
 
 	go s.messageHandler(inChan)

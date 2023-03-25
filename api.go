@@ -138,9 +138,8 @@ func (api *DerivAPI) handleResponses() {
 			case "EOF":
 				api.Disconnect()
 				return
-
 			default:
-				log.Println("ERRRRR", err)
+				log.Println(err)
 				continue
 			}
 		}
