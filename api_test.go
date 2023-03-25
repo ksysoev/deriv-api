@@ -1,6 +1,10 @@
 package deriv
 
 import (
+	"fmt"
+	"golang.org/x/net/websocket"
+	"io"
+	"net/http/httptest"
 	"testing"
 )
 
@@ -103,5 +107,48 @@ func TestGetNextRequestID(t *testing.T) {
 			t.Errorf("Request IDs not increasing, lastID=%d currentID=%d", lastID, id)
 		}
 		lastID = id
+	}
+}
+
+func TestConnect(t *testing.T) {
+	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) { io.Copy(ws, ws) }))
+	url := "ws://" + server.Listener.Addr().String()
+
+	fmt.Println("Server URL:", url)
+
+	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
+
+	err := api.Connect()
+	if err != nil {
+		t.Fatalf("Failed to connect to mocked WebSocket server: %v", err)
+	}
+
+	if api.ws == nil {
+		t.Fatalf("WebSocket connection not established")
+	}
+
+	ws1 := api.ws
+
+	err = api.Connect()
+	if err != nil {
+		t.Fatalf("Failed to connect to mocked WebSocket server: %v", err)
+	}
+
+	if api.ws != ws1 {
+		t.Fatalf("Expected WebSocket connection to be the same, but got a different connection")
+	}
+
+	// Close the WebSocket connection and test that we can't connect again
+	server.Close()
+
+	api, _ = NewDerivAPI(url, 123, "en", "http://example.com")
+
+	err = api.Connect()
+	if err == nil {
+		t.Fatalf("Expected fail to connect but didn't get any error")
+	}
+
+	if api.ws != nil {
+		t.Fatalf("Expected fail to connect, but WebSocket connection was established")
 	}
 }

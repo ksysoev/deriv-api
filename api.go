@@ -67,12 +67,12 @@ func NewDerivAPI(endpoint string, appID int, lang string, origin string) (*Deriv
 		return nil, err
 	}
 
-	if urlEnpoint.Scheme != "wss" {
-		return nil, fmt.Errorf("Invalid endpoint scheme")
+	if urlEnpoint.Scheme != "wss" && urlEnpoint.Scheme != "ws" {
+		return nil, fmt.Errorf("invalid endpoint scheme")
 	}
 
 	if appID < 1 {
-		return nil, fmt.Errorf("Invalid app id")
+		return nil, fmt.Errorf("invalid app id")
 	}
 
 	if lang == "" || len(lang) != 2 {
@@ -97,7 +97,7 @@ func NewDerivAPI(endpoint string, appID int, lang string, origin string) (*Deriv
 }
 
 // Connect establishes a WebSocket connection with the Deriv API endpoint.
-// Returns an error if the dialing process fails.
+// Returns an error if it fails to connect to WebSoket server.
 func (api *DerivAPI) Connect() error {
 	if api.ws != nil {
 		return nil
