@@ -126,25 +126,45 @@ func TestStart(t *testing.T) {
 	select {
 	case tick := <-sub.Stream:
 		if *tick.Tick.Quote != 186.9588 {
-			t.Fatalf("Expected message to be %v, but got %v", 186.9588, *tick.Tick.Quote)
+			t.Errorf("Expected message to be %v, but got %v", 186.9588, *tick.Tick.Quote)
 		}
 	case <-time.After(time.Millisecond):
-		t.Fatalf("Expected to get a response, but got nothing")
+		t.Errorf("Expected to get a response, but got nothing")
 	}
 
 	// Second message
 	select {
 	case tick := <-sub.Stream:
 		if *tick.Tick.Quote != 186.9588 {
-			t.Fatalf("Expected message to be %v, but got %v", 186.9588, tick.Tick.Quote)
+			t.Errorf("Expected message to be %v, but got %v", 186.9588, tick.Tick.Quote)
 		}
 	case <-time.After(time.Millisecond):
-		t.Fatalf("Expected to get a response, but got nothing")
+		t.Errorf("Expected to get a response, but got nothing")
 	}
 
 	sub.Start(reqID, req)
 	if sub.IsActive == false {
 		t.Errorf("Expected subscription to be active, but got inactive")
+	}
+}
+
+func TestStartFailed(t *testing.T) {
+	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
+		ws.Write([]byte(""))
+	}))
+	url := "ws://" + server.Listener.Addr().String()
+	server.Close()
+	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
+
+	sub := NewSubcription[TicksResp](api)
+
+	reqID := 1
+	var f TicksSubscribe = 1
+	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
+	err := sub.Start(reqID, req)
+
+	if err == nil {
+		t.Errorf("Expected an error, but got nil")
 	}
 }
 
@@ -367,16 +387,16 @@ func TestStartInvalidResponseInSubscription(t *testing.T) {
 	select {
 	case tick := <-sub.Stream:
 		if *tick.Tick.Quote != 186.9588 {
-			t.Fatalf("Expected message to be %v, but got %v", 186.9588, *tick.Tick.Quote)
+			t.Errorf("Expected message to be %v, but got %v", 186.9588, *tick.Tick.Quote)
 		}
 	case <-time.After(time.Millisecond):
-		t.Fatalf("Expected to get a response, but got nothing")
+		t.Errorf("Expected to get a response, but got nothing")
 	}
 
 	// Second message
 	select {
 	case tick := <-sub.Stream:
-		t.Fatalf("Expected to get noting, but got response: %v", tick)
+		t.Errorf("Expected to get noting, but got response: %v", tick)
 	case <-time.After(time.Millisecond):
 	}
 

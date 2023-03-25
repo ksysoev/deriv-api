@@ -32,7 +32,7 @@ func TestParseError_ValidResponse(t *testing.T) {
 
 	rawResponse, err := json.Marshal(&errorResponse)
 	if err != nil {
-		t.Fatalf("Unexpected error: %v", err)
+		t.Errorf("Unexpected error: %v", err)
 	}
 
 	expected := &errorResponse.Error
@@ -72,7 +72,7 @@ func TestParseError_EmptyAPIError(t *testing.T) {
 
 	rawResponse, err := json.Marshal(&errorResponse)
 	if err != nil {
-		t.Fatalf("Unexpected error: %v", err)
+		t.Errorf("Unexpected error: %v", err)
 	}
 
 	expected := (error)(nil)
