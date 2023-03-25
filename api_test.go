@@ -1,11 +1,11 @@
 package deriv
 
 import (
-	"fmt"
 	"golang.org/x/net/websocket"
 	"io"
 	"net/http/httptest"
 	"testing"
+	"time"
 )
 
 func TestNewDerivAPI(t *testing.T) {
@@ -114,8 +114,6 @@ func TestConnect(t *testing.T) {
 	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) { io.Copy(ws, ws) }))
 	url := "ws://" + server.Listener.Addr().String()
 
-	fmt.Println("Server URL:", url)
-
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
 
 	err := api.Connect()
@@ -150,5 +148,142 @@ func TestConnect(t *testing.T) {
 
 	if api.ws != nil {
 		t.Fatalf("Expected fail to connect, but WebSocket connection was established")
+	}
+}
+
+func TestDisconnect(t *testing.T) {
+	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) { io.Copy(ws, ws) }))
+	url := "ws://" + server.Listener.Addr().String()
+
+	defer server.Close()
+
+	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
+
+	api.Disconnect()
+
+	if api.ws != nil {
+		t.Fatalf("Expected WebSocket connection to be nil, but got a connection")
+	}
+
+	err := api.Connect()
+	if err != nil {
+		t.Fatalf("Failed to connect to mocked WebSocket server: %v", err)
+	}
+
+	if api.ws == nil {
+		t.Fatalf("WebSocket connection not established")
+	}
+
+	api.Disconnect()
+
+	if api.ws != nil {
+		t.Fatalf("Expected WebSocket connection to be nil, but got a connection")
+	}
+}
+
+func TestSend(t *testing.T) {
+	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) { io.Copy(ws, ws) }))
+	url := "ws://" + server.Listener.Addr().String()
+
+	defer server.Close()
+
+	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
+
+	err := api.Connect()
+	if err != nil {
+		t.Fatalf("Failed to connect to mocked WebSocket server: %v", err)
+	}
+
+	if api.ws == nil {
+		t.Fatalf("WebSocket connection not established")
+	}
+
+	respChan, err := api.Send(1, struct {
+		ReqID int `json:"req_id"`
+	}{1})
+	if err != nil {
+		t.Fatalf("Failed to send message: %v", err)
+	}
+
+	if respChan == nil {
+		t.Fatalf("Response channel is nil")
+	}
+
+	msg := <-respChan
+	testMsg := "{\"req_id\":1}"
+	if msg != testMsg {
+		t.Fatalf("Expected message to be %s, but got %s", testMsg, msg)
+	}
+}
+
+func TestSendToDisconnectedConnection(t *testing.T) {
+	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) { io.Copy(ws, ws) }))
+	url := "ws://" + server.Listener.Addr().String()
+	server.Close()
+
+	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
+
+	respChan, err := api.Send(1, struct {
+		ReqID int `json:"req_id"`
+	}{1})
+
+	if err == nil {
+		t.Fatalf("Expected error, got nil")
+	}
+
+	if respChan != nil {
+		t.Fatalf("Expected response channel to be nil, but got a channel")
+	}
+}
+
+func TestSendReqWhichNobodyWaits(t *testing.T) {
+	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) { io.Copy(ws, ws) }))
+	url := "ws://" + server.Listener.Addr().String()
+
+	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
+
+	respChan, err := api.Send(2, struct {
+		ReqID int `json:"req_id"`
+	}{1})
+
+	if err != nil {
+		t.Fatalf("Failed to send message: %v", err)
+	}
+	select {
+	case <-respChan:
+		t.Fatalf("Expected no response, but got a response")
+	case <-time.After(time.Millisecond):
+	}
+}
+
+func TestSendRequest(t *testing.T) {
+	testResp := `{
+		"echo_req": {
+		  "ping": 1,
+		  "req_id": 1
+		},
+		"msg_type": "ping",
+		"ping": "pong",
+		"req_id": 1
+	  }`
+	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) { ws.Write([]byte(testResp)) }))
+	url := "ws://" + server.Listener.Addr().String()
+	defer server.Close()
+
+	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
+
+	_ = api.Connect()
+
+	reqID := 1
+	req := Ping{Ping: 1, ReqId: &reqID}
+	var resp PingResp
+	err := api.SendRequest(reqID, req, &resp)
+
+	if err != nil {
+		t.Fatalf("Failed to send message: %v", err)
+	}
+
+	if *resp.Ping != "pong" {
+		t.Fatalf("Expected response to be pong, but got %s", *resp.Ping)
 	}
 }
