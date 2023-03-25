@@ -141,6 +141,11 @@ func TestStart(t *testing.T) {
 	case <-time.After(time.Millisecond):
 		t.Fatalf("Expected to get a response, but got nothing")
 	}
+
+	sub.Start(reqID, req)
+	if sub.IsActive == false {
+		t.Errorf("Expected subscription to be active, but got inactive")
+	}
 }
 
 func TestForget(t *testing.T) {
@@ -304,4 +309,75 @@ func TestStartInvalidResponse(t *testing.T) {
 	if err == nil {
 		t.Errorf("Expected an error, but got nil")
 	}
+}
+
+func TestStartInvalidResponseInSubscription(t *testing.T) {
+	responses := []string{`{
+		"echo_req": {
+		  "subscribe": 1,
+		  "ticks": "R_50"
+		},
+		"req_id": 1,
+		"msg_type": "tick",
+		"subscription": {
+		  "id": "9ed45a5e-8f87-c735-2b63-36108719eadd"
+		},
+		"tick": {
+		  "ask": 186.9688,
+		  "bid": 186.9488,
+		  "epoch": 1679722832,
+		  "id": "9ed45a5e-8f87-c735-2b63-36108719eadd",
+		  "pip_size": 4,
+		  "quote": 186.9588,
+		  "symbol": "R_50"
+		}
+	  }`,
+		`{ "req_id": 1 }`}
+
+	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
+		for _, resp := range responses {
+			ws.Write([]byte(resp))
+		}
+	}))
+	url := "ws://" + server.Listener.Addr().String()
+	fmt.Println(url)
+	defer server.Close()
+	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
+	err := api.Connect()
+	if err != nil {
+		t.Errorf("Unexpected error: %v", err)
+	}
+
+	sub := NewSubcription[TicksResp](api)
+
+	if sub == nil {
+		t.Errorf("Expected a subscription, but got nil")
+	}
+
+	reqID := 1
+	var f TicksSubscribe = 1
+	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
+	err = sub.Start(reqID, req)
+
+	if err != nil {
+		t.Errorf("Expected no error, but got %v", err)
+	}
+
+	// First message
+	select {
+	case tick := <-sub.Stream:
+		if *tick.Tick.Quote != 186.9588 {
+			t.Fatalf("Expected message to be %v, but got %v", 186.9588, *tick.Tick.Quote)
+		}
+	case <-time.After(time.Millisecond):
+		t.Fatalf("Expected to get a response, but got nothing")
+	}
+
+	// Second message
+	select {
+	case tick := <-sub.Stream:
+		t.Fatalf("Expected to get noting, but got response: %v", tick)
+	case <-time.After(time.Millisecond):
+	}
+
 }
