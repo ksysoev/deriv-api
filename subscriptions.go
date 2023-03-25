@@ -118,7 +118,7 @@ func (s *Subsciption[Resp]) Start(reqID int, request any) error {
 	var response Resp
 	apiResp, ok := any(&response).(ApiResponse)
 	if !ok {
-		return fmt.Errorf("response object must implement ApiResponse")
+		panic("Response object must implement ApiResponse interface")
 	}
 
 	err = apiResp.UnmarshalJSON([]byte(initResponse))
@@ -154,8 +154,7 @@ func (s *Subsciption[Resp]) messageHandler(inChan chan string) {
 		var response Resp
 		apiResp, ok := any(&response).(ApiResponse)
 		if !ok {
-			log.Fatal("Response object must implement ApiResponse")
-			return
+			panic("Response object must implement ApiResponse interface")
 		}
 
 		err = apiResp.UnmarshalJSON([]byte(rawResponse))
