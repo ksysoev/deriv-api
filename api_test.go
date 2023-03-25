@@ -256,6 +256,30 @@ func TestSendReqWhichNobodyWaits(t *testing.T) {
 	}
 }
 
+func TestSendRequestAndGotInvalidJSON(t *testing.T) {
+	testResp := `{Corrupted JSON}`
+	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) { ws.Write([]byte(testResp)) }))
+	url := "ws://" + server.Listener.Addr().String()
+	defer server.Close()
+
+	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
+
+	_ = api.Connect()
+
+	respChan, err := api.Send(2, struct {
+		ReqID int `json:"req_id"`
+	}{1})
+
+	if err != nil {
+		t.Fatalf("Failed to send message: %v", err)
+	}
+	select {
+	case <-respChan:
+		t.Fatalf("Expected no response, but got a response")
+	case <-time.After(time.Millisecond):
+	}
+}
+
 func TestSendRequest(t *testing.T) {
 	testResp := `{
 		"echo_req": {

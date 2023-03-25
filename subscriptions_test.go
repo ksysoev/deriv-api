@@ -227,3 +227,81 @@ func TestForget(t *testing.T) {
 		t.Errorf("Expected subscription to be deactivated, but got true")
 	}
 }
+
+func TestStartAPIError(t *testing.T) {
+	testResp := `{
+		"echo_req": {
+		  "subscribe": 1,
+		  "ticks": "R_50"
+		},
+		"req_id": 1,
+		"msg_type": "tick",
+		"error": {
+			"code": "WrongRequest",
+			"message": "Invalid request"
+		}
+	  }`
+	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
+		ws.Write([]byte(testResp))
+	}))
+	url := "ws://" + server.Listener.Addr().String()
+	fmt.Println(url)
+	defer server.Close()
+	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
+	err := api.Connect()
+	if err != nil {
+		t.Errorf("Unexpected error: %v", err)
+	}
+
+	sub := NewSubcription[TicksResp](api)
+
+	if sub == nil {
+		t.Errorf("Expected a subscription, but got nil")
+	}
+
+	reqID := 1
+	var f TicksSubscribe = 1
+	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
+	err = sub.Start(reqID, req)
+
+	if err == nil {
+		t.Errorf("Expected an error, but got nil")
+	}
+}
+
+func TestStartInvalidResponse(t *testing.T) {
+	testResp := `{
+		"req_id": 1,
+		"msg_type": "tick",
+		"subscription": {
+		  "id": "9ed45a5e-8f87-c735-2b63-36108719eadd"
+		},
+		"tick": 1
+	  }`
+	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
+		ws.Write([]byte(testResp))
+	}))
+	url := "ws://" + server.Listener.Addr().String()
+	fmt.Println(url)
+	defer server.Close()
+	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
+	err := api.Connect()
+	if err != nil {
+		t.Errorf("Unexpected error: %v", err)
+	}
+
+	sub := NewSubcription[TicksResp](api)
+
+	if sub == nil {
+		t.Errorf("Expected a subscription, but got nil")
+	}
+
+	reqID := 1
+	var f TicksSubscribe = 1
+	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
+	err = sub.Start(reqID, req)
+
+	if err == nil {
+		t.Errorf("Expected an error, but got nil")
+	}
+}
