@@ -287,3 +287,70 @@ func TestSendRequest(t *testing.T) {
 		t.Fatalf("Expected response to be pong, but got %s", *resp.Ping)
 	}
 }
+
+func TestSubscribeRequest(t *testing.T) {
+	testResp := `{
+		"echo_req": {
+		  "subscribe": 1,
+		  "ticks": "R_50"
+		},
+		"req_id": 1,
+		"msg_type": "tick",
+		"subscription": {
+		  "id": "9ed45a5e-8f87-c735-2b63-36108719eadd"
+		},
+		"tick": {
+		  "ask": 186.9688,
+		  "bid": 186.9488,
+		  "epoch": 1679722832,
+		  "id": "9ed45a5e-8f87-c735-2b63-36108719eadd",
+		  "pip_size": 4,
+		  "quote": 186.9588,
+		  "symbol": "R_50"
+		}
+	  }`
+	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
+		ws.Write([]byte(testResp))
+		ws.Write([]byte(testResp))
+	}))
+	url := "ws://" + server.Listener.Addr().String()
+	defer server.Close()
+
+	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
+
+	_ = api.Connect()
+
+	reqID := 1
+	var f TicksSubscribe = 1
+	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
+	respChan, err := api.SubscribeRequest(reqID, req)
+
+	if err != nil {
+		t.Fatalf("Failed to send message: %v", err)
+	}
+
+	if respChan == nil {
+		t.Fatalf("Expected to get response channel, but got nil")
+	}
+
+	// First message
+	select {
+	case msg := <-respChan:
+		if msg != testResp {
+			t.Fatalf("Expected message to be %s, but got %s", testResp, msg)
+		}
+	case <-time.After(time.Millisecond):
+		t.Fatalf("Expected to get a response, but got nothing")
+	}
+
+	// Second message
+	select {
+	case msg := <-respChan:
+		if msg != testResp {
+			t.Fatalf("Expected message to be %s, but got %s", testResp, msg)
+		}
+	case <-time.After(time.Millisecond):
+		t.Fatalf("Expected to get a response, but got nothing")
+	}
+
+}
