@@ -134,13 +134,21 @@ func (api *DerivAPI) handleResponses() {
 		err := websocket.Message.Receive(api.ws, &msg)
 
 		if err != nil {
-			log.Println(err)
-		}
+			switch err.Error() {
+			case "EOF":
+				api.Disconnect()
+				return
 
+			default:
+				log.Println("ERRRRR", err)
+				continue
+			}
+		}
 		var response APIResponseReqID
 		err = json.Unmarshal([]byte(msg), &response)
 		if err != nil {
 			log.Println(err)
+			continue
 		}
 
 		channel, ok := api.responseMap[response.ReqID]
