@@ -256,6 +256,23 @@ func TestSendReqWhichNobodyWaits(t *testing.T) {
 	}
 }
 
+func TestSendRequestTimeout(t *testing.T) {
+	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {}))
+	url := "ws://" + server.Listener.Addr().String()
+
+	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
+	api.TimeOut = time.Millisecond
+
+	reqID := 1
+	req := Ping{Ping: 1, ReqId: &reqID}
+	var resp PingResp
+	err := api.SendRequest(reqID, req, &resp)
+
+	if err != nil && err.Error() != "timeout" {
+		t.Errorf("Expected timeout error, got %v", err)
+	}
+}
+
 func TestSendRequestAndGotInvalidJSON(t *testing.T) {
 	testResp := `{Corrupted JSON}`
 	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) { ws.Write([]byte(testResp)) }))

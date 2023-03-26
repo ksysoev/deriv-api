@@ -7,6 +7,7 @@ import (
 	"net/url"
 	"strconv"
 	"sync/atomic"
+	"time"
 
 	"golang.org/x/net/websocket"
 )
@@ -20,6 +21,7 @@ type DerivAPI struct {
 	ws            *websocket.Conn     // The WebSocket connection to the DerivAPI server
 	lastRequestID int64               // The last request ID used for the DerivAPI server
 	responseMap   map[int]chan string // A map of request IDs to response channels for the DerivAPI server
+	TimeOut       time.Duration       // The timeout duration for the DerivAPI server api calls
 }
 
 // ApiReqest is an interface for all API requests.
@@ -92,6 +94,7 @@ func NewDerivAPI(endpoint string, appID int, lang string, origin string) (*Deriv
 		Lang:          lang,
 		lastRequestID: 0,
 		responseMap:   make(map[int]chan string),
+		TimeOut:       30 * time.Second,
 	}
 	return &api, nil
 }
@@ -200,13 +203,15 @@ func (api *DerivAPI) SendRequest(reqID int, request ApiReqest, response ApiRespo
 	defer close(respChan)
 	defer delete(api.responseMap, reqID)
 
-	responseJSON := <-respChan
-
-	if err = parseError(responseJSON); err != nil {
-		return err
+	select {
+	case <-time.After(api.TimeOut):
+		return fmt.Errorf("timeout")
+	case responseJSON := <-respChan:
+		if err = parseError(responseJSON); err != nil {
+			return err
+		}
+		return response.UnmarshalJSON([]byte(responseJSON))
 	}
-
-	return response.UnmarshalJSON([]byte(responseJSON))
 }
 
 // SubscribeRequest sends a request to the Deriv API and returns a channel that will receive responses

@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"time"
 )
 
 // Subscription represents a subscription instance.
@@ -105,36 +106,39 @@ func (s *Subsciption[Resp]) Start(reqID int, request any) error {
 		return err
 	}
 
-	initResponse := <-inChan
+	select {
+	case <-time.After(s.API.TimeOut):
+		return fmt.Errorf("timeout")
+	case initResponse := <-inChan:
+		subResp, err := parseSubsciption(initResponse)
+		if err != nil {
+			close(inChan)
+			delete(s.API.responseMap, reqID)
+			return err
+		}
+		s.SubsciptionID = subResp.Subscription.ID
 
-	subResp, err := parseSubsciption(initResponse)
-	if err != nil {
-		close(inChan)
-		delete(s.API.responseMap, reqID)
-		return err
+		var response Resp
+		apiResp, ok := any(&response).(ApiResponse)
+		if !ok {
+			panic("Response object must implement ApiResponse interface")
+		}
+
+		err = apiResp.UnmarshalJSON([]byte(initResponse))
+		if err != nil {
+			close(inChan)
+			delete(s.API.responseMap, reqID)
+			return err
+		}
+
+		s.IsActive = true
+		s.reqID = reqID
+		s.Stream <- response
+
+		go s.messageHandler(inChan)
+
+		return nil
 	}
-	s.SubsciptionID = subResp.Subscription.ID
-
-	var response Resp
-	apiResp, ok := any(&response).(ApiResponse)
-	if !ok {
-		panic("Response object must implement ApiResponse interface")
-	}
-
-	err = apiResp.UnmarshalJSON([]byte(initResponse))
-	if err != nil {
-		close(inChan)
-		delete(s.API.responseMap, reqID)
-		return err
-	}
-
-	s.IsActive = true
-	s.reqID = reqID
-	s.Stream <- response
-
-	go s.messageHandler(inChan)
-
-	return nil
 }
 
 // messageHandler is a goroutine that handles subscription updates received on the channel passed to it.

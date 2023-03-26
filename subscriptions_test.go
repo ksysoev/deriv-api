@@ -569,3 +569,22 @@ func TestStartAPIErrorInSubscription(t *testing.T) {
 	}
 
 }
+
+func TestStartTimeout(t *testing.T) {
+	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {}))
+	url := "ws://" + server.Listener.Addr().String()
+
+	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
+	api.TimeOut = time.Millisecond
+
+	sub := NewSubcription[TicksResp](api)
+
+	reqID := 1
+	var f TicksSubscribe = 1
+	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
+	err := sub.Start(reqID, req)
+
+	if err != nil && err.Error() != "timeout" {
+		t.Errorf("Expected timeout error, got %v", err)
+	}
+}
