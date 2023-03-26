@@ -2,11 +2,15 @@ package deriv
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 	"log"
 	"net/url"
 	"strconv"
+	"sync"
 	"sync/atomic"
+	"syscall"
 	"time"
 
 	"golang.org/x/net/websocket"
@@ -14,14 +18,15 @@ import (
 
 // DerivAPI is the main struct for the DerivAPI client.
 type DerivAPI struct {
-	Origin        *url.URL            // The origin URL for the DerivAPI server
-	Endpoint      *url.URL            // The WebSocket endpoint URL for the DerivAPI server
-	AppID         int                 // The app ID for the DerivAPI server
-	Lang          string              // The language code (ISO 639-1) for the DerivAPI server
-	ws            *websocket.Conn     // The WebSocket connection to the DerivAPI server
-	lastRequestID int64               // The last request ID used for the DerivAPI server
-	responseMap   map[int]chan string // A map of request IDs to response channels for the DerivAPI server
-	TimeOut       time.Duration       // The timeout duration for the DerivAPI server api calls
+	Origin         *url.URL            // The origin URL for the DerivAPI server
+	Endpoint       *url.URL            // The WebSocket endpoint URL for the DerivAPI server
+	AppID          int                 // The app ID for the DerivAPI server
+	Lang           string              // The language code (ISO 639-1) for the DerivAPI server
+	ws             *websocket.Conn     // The WebSocket connection to the DerivAPI server
+	lastRequestID  int64               // The last request ID used for the DerivAPI server
+	responseMap    map[int]chan string // A map of request IDs to response channels for the DerivAPI server
+	TimeOut        time.Duration       // The timeout duration for the DerivAPI server api calls
+	connectionLock sync.Mutex          // A lock for the DerivAPI server connection
 }
 
 // ApiReqest is an interface for all API requests.
@@ -88,13 +93,14 @@ func NewDerivAPI(endpoint string, appID int, lang string, origin string) (*Deriv
 	urlEnpoint.RawQuery = query.Encode()
 
 	api := DerivAPI{
-		Origin:        urlOrigin,
-		Endpoint:      urlEnpoint,
-		AppID:         appID,
-		Lang:          lang,
-		lastRequestID: 0,
-		responseMap:   make(map[int]chan string),
-		TimeOut:       30 * time.Second,
+		Origin:         urlOrigin,
+		Endpoint:       urlEnpoint,
+		AppID:          appID,
+		Lang:           lang,
+		lastRequestID:  0,
+		responseMap:    make(map[int]chan string),
+		TimeOut:        30 * time.Second,
+		connectionLock: sync.Mutex{},
 	}
 	return &api, nil
 }
@@ -105,6 +111,9 @@ func (api *DerivAPI) Connect() error {
 	if api.ws != nil {
 		return nil
 	}
+
+	api.connectionLock.Lock()
+	defer api.connectionLock.Unlock()
 
 	ws, err := websocket.Dial(api.Endpoint.String(), "", api.Origin.String())
 	if err != nil {
@@ -119,9 +128,17 @@ func (api *DerivAPI) Connect() error {
 
 // Disconnect closes the websocket connection to the Deriv API
 func (api *DerivAPI) Disconnect() {
+	api.connectionLock.Lock()
+	defer api.connectionLock.Unlock()
 	if api.ws == nil {
 		return
 	}
+
+	for reqID, channel := range api.responseMap {
+		close(channel)
+		delete(api.responseMap, reqID)
+	}
+
 	api.ws.Close()
 	api.ws = nil
 }
@@ -137,19 +154,21 @@ func (api *DerivAPI) handleResponses() {
 		err := websocket.Message.Receive(api.ws, &msg)
 
 		if err != nil {
-			switch err.Error() {
-			case "EOF":
+			if errors.Is(err, syscall.ECONNRESET) {
 				api.Disconnect()
 				return
-			default:
-				log.Println(err)
-				continue
 			}
+
+			if errors.Is(err, io.EOF) {
+				api.Disconnect()
+				return
+			}
+
+			log.Println("Error reading from websocket connection: ", err)
 		}
 		var response APIResponseReqID
 		err = json.Unmarshal([]byte(msg), &response)
 		if err != nil {
-			log.Println(err)
 			continue
 		}
 
@@ -178,14 +197,11 @@ func (api *DerivAPI) Send(reqID int, request ApiReqest) (chan string, error) {
 		return nil, err
 	}
 
-	respChan := make(chan string)
-	api.responseMap[reqID] = respChan
+	respChan := api.createRequestChannel(reqID)
 
 	err = websocket.Message.Send(api.ws, msg)
 	if err != nil {
-		delete(api.responseMap, reqID)
-		close(respChan)
-		// TODO: Disconnect from the API. Need to handle this error properly
+		api.Disconnect()
 		return nil, err
 	}
 
@@ -200,13 +216,16 @@ func (api *DerivAPI) SendRequest(reqID int, request ApiReqest, response ApiRespo
 		return err
 	}
 
-	defer close(respChan)
-	defer delete(api.responseMap, reqID)
+	defer api.closeRequestChannel(reqID)
 
 	select {
 	case <-time.After(api.TimeOut):
 		return fmt.Errorf("timeout")
-	case responseJSON := <-respChan:
+	case responseJSON, ok := <-respChan:
+		if !ok {
+			return fmt.Errorf("connection closed")
+		}
+
 		if err = parseError(responseJSON); err != nil {
 			return err
 		}
@@ -228,4 +247,27 @@ func (api *DerivAPI) SubscribeRequest(reqID int, request ApiReqest) (chan string
 // getNextRequestID returns the next request ID
 func (api *DerivAPI) getNextRequestID() int {
 	return int(atomic.AddInt64(&api.lastRequestID, 1))
+}
+
+// closeRequestChannel closes the channel that receives the response for a request
+func (api *DerivAPI) closeRequestChannel(reqID int) {
+	api.connectionLock.Lock()
+	defer api.connectionLock.Unlock()
+	channel, ok := api.responseMap[reqID]
+
+	if ok {
+		close(channel)
+		delete(api.responseMap, reqID)
+	}
+}
+
+// createRequestChannel creates a channel that receives the response for a request
+func (api *DerivAPI) createRequestChannel(reqID int) chan string {
+	api.connectionLock.Lock()
+	defer api.connectionLock.Unlock()
+
+	respChan := make(chan string)
+	api.responseMap[reqID] = respChan
+
+	return respChan
 }

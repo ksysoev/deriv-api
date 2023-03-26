@@ -75,11 +75,7 @@ func (s *Subsciption[Resp]) Forget() error {
 
 		s.IsActive = false
 
-		inChan, ok := s.API.responseMap[s.reqID]
-		if ok {
-			close(inChan)
-			delete(s.API.responseMap, s.reqID)
-		}
+		s.API.closeRequestChannel(s.reqID)
 
 		return nil
 	}
@@ -109,11 +105,13 @@ func (s *Subsciption[Resp]) Start(reqID int, request any) error {
 	select {
 	case <-time.After(s.API.TimeOut):
 		return fmt.Errorf("timeout")
-	case initResponse := <-inChan:
+	case initResponse, ok := <-inChan:
+		if !ok {
+			return fmt.Errorf("connection closed")
+		}
 		subResp, err := parseSubsciption(initResponse)
 		if err != nil {
-			close(inChan)
-			delete(s.API.responseMap, reqID)
+			s.API.closeRequestChannel(reqID)
 			return err
 		}
 		s.SubsciptionID = subResp.Subscription.ID
@@ -126,8 +124,7 @@ func (s *Subsciption[Resp]) Start(reqID int, request any) error {
 
 		err = apiResp.UnmarshalJSON([]byte(initResponse))
 		if err != nil {
-			close(inChan)
-			delete(s.API.responseMap, reqID)
+			s.API.closeRequestChannel(reqID)
 			return err
 		}
 

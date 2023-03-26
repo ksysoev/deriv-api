@@ -257,7 +257,10 @@ func TestSendReqWhichNobodyWaits(t *testing.T) {
 }
 
 func TestSendRequestTimeout(t *testing.T) {
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {}))
+	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
+		time.Sleep(time.Millisecond * 2)
+	}))
+	defer server.Close()
 	url := "ws://" + server.Listener.Addr().String()
 
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
@@ -275,7 +278,10 @@ func TestSendRequestTimeout(t *testing.T) {
 
 func TestSendRequestAndGotInvalidJSON(t *testing.T) {
 	testResp := `{Corrupted JSON}`
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) { ws.Write([]byte(testResp)) }))
+	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
+		ws.Write([]byte(testResp))
+		time.Sleep(time.Millisecond)
+	}))
 	url := "ws://" + server.Listener.Addr().String()
 	defer server.Close()
 
@@ -291,8 +297,10 @@ func TestSendRequestAndGotInvalidJSON(t *testing.T) {
 		t.Errorf("Failed to send message: %v", err)
 	}
 	select {
-	case <-respChan:
-		t.Errorf("Expected no response, but got a response")
+	case _, ok := <-respChan:
+		if ok {
+			t.Errorf("Expected no response, but got a response")
+		}
 	case <-time.After(time.Millisecond):
 	}
 }

@@ -93,9 +93,10 @@ func TestStart(t *testing.T) {
 	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
 		ws.Write([]byte(testResp))
 		ws.Write([]byte(testResp))
+		time.Sleep(time.Millisecond)
 	}))
 	url := "ws://" + server.Listener.Addr().String()
-	fmt.Println(url)
+
 	defer server.Close()
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
 	err := api.Connect()
@@ -116,10 +117,6 @@ func TestStart(t *testing.T) {
 
 	if err != nil {
 		t.Errorf("Unexpected error: %v", err)
-	}
-
-	if sub.Stream == nil {
-		t.Errorf("Expected a stream, but got nil")
 	}
 
 	// First message
@@ -212,7 +209,6 @@ func TestForget(t *testing.T) {
 	}
 
 	reqID := api.getNextRequestID()
-	fmt.Println(reqID)
 	var f TicksSubscribe = 1
 	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
 	err = sub.Start(reqID, req)
@@ -297,7 +293,6 @@ func TestForgetFailed(t *testing.T) {
 	}
 
 	reqID := api.getNextRequestID()
-	fmt.Println(reqID)
 	var f TicksSubscribe = 1
 	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
 	err = sub.Start(reqID, req)
@@ -356,7 +351,6 @@ func TestStartAPIError(t *testing.T) {
 		ws.Write([]byte(testResp))
 	}))
 	url := "ws://" + server.Listener.Addr().String()
-	fmt.Println(url)
 	defer server.Close()
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
 	err := api.Connect()
@@ -393,7 +387,6 @@ func TestStartInvalidResponse(t *testing.T) {
 		ws.Write([]byte(testResp))
 	}))
 	url := "ws://" + server.Listener.Addr().String()
-	fmt.Println(url)
 	defer server.Close()
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
 	err := api.Connect()
@@ -443,10 +436,10 @@ func TestStartInvalidResponseInSubscription(t *testing.T) {
 	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
 		for _, resp := range responses {
 			ws.Write([]byte(resp))
+			time.Sleep(time.Millisecond)
 		}
 	}))
 	url := "ws://" + server.Listener.Addr().String()
-	fmt.Println(url)
 	defer server.Close()
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
 	err := api.Connect()
@@ -481,8 +474,10 @@ func TestStartInvalidResponseInSubscription(t *testing.T) {
 
 	// Second message
 	select {
-	case tick := <-sub.Stream:
-		t.Errorf("Expected to get noting, but got response: %v", tick)
+	case tick, ok := <-sub.Stream:
+		if ok {
+			t.Errorf("Expected to get noting, but got response: %v", tick)
+		}
 	case <-time.After(time.Millisecond):
 	}
 
@@ -525,10 +520,10 @@ func TestStartAPIErrorInSubscription(t *testing.T) {
 	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
 		for _, resp := range responses {
 			ws.Write([]byte(resp))
+			time.Sleep(time.Millisecond)
 		}
 	}))
 	url := "ws://" + server.Listener.Addr().String()
-	fmt.Println(url)
 	defer server.Close()
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
 	err := api.Connect()
@@ -553,8 +548,8 @@ func TestStartAPIErrorInSubscription(t *testing.T) {
 
 	// First message
 	select {
-	case tick := <-sub.Stream:
-		if *tick.Tick.Quote != 186.9588 {
+	case tick, ok := <-sub.Stream:
+		if !ok || *tick.Tick.Quote != 186.9588 {
 			t.Errorf("Expected message to be %v, but got %v", 186.9588, *tick.Tick.Quote)
 		}
 	case <-time.After(time.Millisecond):
@@ -563,15 +558,20 @@ func TestStartAPIErrorInSubscription(t *testing.T) {
 
 	// Second message
 	select {
-	case tick := <-sub.Stream:
-		t.Errorf("Expected to get noting, but got response: %v", tick)
+	case tick, ok := <-sub.Stream:
+		if ok {
+			t.Errorf("Expected to get noting, but got response: %v", tick)
+		}
 	case <-time.After(time.Millisecond):
 	}
 
 }
 
 func TestStartTimeout(t *testing.T) {
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {}))
+	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
+		time.Sleep(time.Millisecond * 2)
+	}))
+	defer server.Close()
 	url := "ws://" + server.Listener.Addr().String()
 
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
