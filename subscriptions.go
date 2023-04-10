@@ -10,7 +10,7 @@ import (
 )
 
 // Subscription represents a subscription instance.
-type Subsciption[Resp any] struct {
+type Subsciption[initResp any, Resp any] struct {
 	API           *DerivAPI
 	Stream        chan Resp
 	reqID         int
@@ -54,8 +54,8 @@ func parseSubsciption(rawResponse string) (SubscriptionResponse, error) {
 // NewSubscription creates and returns a new Subscription instance with the given DerivAPI client.
 // The Subscription instance has a Stream channel that will receive subscription updates, and an
 // IsActive boolean that is set to false initially.
-func NewSubcription[Resp any](api *DerivAPI) *Subsciption[Resp] {
-	return &Subsciption[Resp]{
+func NewSubcription[initResp any, Resp any](api *DerivAPI) *Subsciption[initResp, Resp] {
+	return &Subsciption[initResp, Resp]{
 		API:      api,
 		Stream:   make(chan Resp, 1),
 		IsActive: false,
@@ -65,7 +65,7 @@ func NewSubcription[Resp any](api *DerivAPI) *Subsciption[Resp] {
 // Forget cancels an active subscription by sending a Forget request to the API using the DerivAPI.Forget method.
 // If the subscription is not currently active, this method does nothing. If an error occurs while sending the Forget
 // request, it returns the error.
-func (s *Subsciption[Resp]) Forget() error {
+func (s *Subsciption[initResp, Resp]) Forget() error {
 	if s.IsActive {
 		_, err := s.API.Forget(Forget{Forget: s.SubsciptionID})
 
@@ -91,33 +91,33 @@ func (s *Subsciption[Resp]) Forget() error {
 // is set to the subscription ID returned by the API, and the IsActive field is set to true. The method then sends the
 // initial subscription update to the Stream channel, and starts a new goroutine to handle subsequent updates received
 // on the channel. If the response object does not implement the ApiResponse interface, the method returns an error
-func (s *Subsciption[Resp]) Start(reqID int, request any) error {
+func (s *Subsciption[initResp, Resp]) Start(reqID int, request any) (initResp, error) {
+	var resp initResp
 	if s.IsActive {
-		return nil
+		return resp, nil
 	}
 
 	inChan, err := s.API.Send(reqID, request)
 
 	if err != nil {
-		return err
+		return resp, err
 	}
 
 	select {
 	case <-time.After(s.API.TimeOut):
-		return fmt.Errorf("timeout")
+		return resp, fmt.Errorf("timeout")
 	case initResponse, ok := <-inChan:
 		if !ok {
-			return fmt.Errorf("connection closed")
+			return resp, fmt.Errorf("connection closed")
 		}
 		subResp, err := parseSubsciption(initResponse)
 		if err != nil {
 			s.API.closeRequestChannel(reqID)
-			return err
+			return resp, err
 		}
 		s.SubsciptionID = subResp.Subscription.ID
 
-		var response Resp
-		apiResp, ok := any(&response).(ApiResponse)
+		apiResp, ok := any(&resp).(ApiResponse)
 		if !ok {
 			panic("Response object must implement ApiResponse interface")
 		}
@@ -125,21 +125,20 @@ func (s *Subsciption[Resp]) Start(reqID int, request any) error {
 		err = apiResp.UnmarshalJSON([]byte(initResponse))
 		if err != nil {
 			s.API.closeRequestChannel(reqID)
-			return err
+			return resp, err
 		}
 
 		s.IsActive = true
 		s.reqID = reqID
-		s.Stream <- response
 
 		go s.messageHandler(inChan)
 
-		return nil
+		return resp, nil
 	}
 }
 
 // messageHandler is a goroutine that handles subscription updates received on the channel passed to it.
-func (s *Subsciption[Resp]) messageHandler(inChan chan string) {
+func (s *Subsciption[initResp, Resp]) messageHandler(inChan chan string) {
 	defer func() {
 		close(s.Stream)
 		s.IsActive = false

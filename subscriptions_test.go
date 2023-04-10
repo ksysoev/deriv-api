@@ -63,7 +63,7 @@ func TestParseSubscription_EmptySubscriptionData(t *testing.T) {
 
 func TestNewNewSubcription(t *testing.T) {
 	api, _ := NewDerivAPI("ws://example.com", 123, "en", "http://example.com")
-	sub := NewSubcription[TicksResp](api)
+	sub := NewSubcription[TicksResp, TicksResp](api)
 	if sub == nil {
 		t.Errorf("Expected a subscription, but got nil")
 	}
@@ -104,7 +104,7 @@ func TestStart(t *testing.T) {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
-	sub := NewSubcription[TicksResp](api)
+	sub := NewSubcription[TicksResp, TicksResp](api)
 
 	if sub == nil {
 		t.Errorf("Expected a subscription, but got nil")
@@ -113,20 +113,15 @@ func TestStart(t *testing.T) {
 	reqID := 1
 	var f TicksSubscribe = 1
 	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
-	err = sub.Start(reqID, req)
+	initResp, err := sub.Start(reqID, req)
 
 	if err != nil {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
 	// First message
-	select {
-	case tick := <-sub.Stream:
-		if *tick.Tick.Quote != 186.9588 {
-			t.Errorf("Expected message to be %v, but got %v", 186.9588, *tick.Tick.Quote)
-		}
-	case <-time.After(time.Millisecond):
-		t.Errorf("Expected to get a response, but got nothing")
+	if *initResp.Tick.Quote != 186.9588 {
+		t.Errorf("Expected message to be %v, but got %v", 186.9588, *initResp.Tick.Quote)
 	}
 
 	// Second message
@@ -153,12 +148,12 @@ func TestStartFailed(t *testing.T) {
 	server.Close()
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
 
-	sub := NewSubcription[TicksResp](api)
+	sub := NewSubcription[TicksResp, TicksResp](api)
 
 	reqID := 1
 	var f TicksSubscribe = 1
 	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
-	err := sub.Start(reqID, req)
+	_, err := sub.Start(reqID, req)
 
 	if err == nil {
 		t.Errorf("Expected an error, but got nil")
@@ -202,7 +197,7 @@ func TestForget(t *testing.T) {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
-	sub := NewSubcription[TicksResp](api)
+	sub := NewSubcription[TicksResp, TicksResp](api)
 
 	if sub == nil {
 		t.Errorf("Expected a subscription, but got nil")
@@ -211,7 +206,7 @@ func TestForget(t *testing.T) {
 	reqID := api.getNextRequestID()
 	var f TicksSubscribe = 1
 	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
-	err = sub.Start(reqID, req)
+	_, err = sub.Start(reqID, req)
 
 	if err != nil {
 		t.Errorf("Unexpected error: %v", err)
@@ -286,7 +281,7 @@ func TestForgetFailed(t *testing.T) {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
-	sub := NewSubcription[TicksResp](api)
+	sub := NewSubcription[TicksResp, TicksResp](api)
 
 	if sub == nil {
 		t.Errorf("Expected a subscription, but got nil")
@@ -295,7 +290,7 @@ func TestForgetFailed(t *testing.T) {
 	reqID := api.getNextRequestID()
 	var f TicksSubscribe = 1
 	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
-	err = sub.Start(reqID, req)
+	_, err = sub.Start(reqID, req)
 
 	if err != nil {
 		t.Errorf("Unexpected error: %v", err)
@@ -358,7 +353,7 @@ func TestStartAPIError(t *testing.T) {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
-	sub := NewSubcription[TicksResp](api)
+	sub := NewSubcription[TicksResp, TicksResp](api)
 
 	if sub == nil {
 		t.Errorf("Expected a subscription, but got nil")
@@ -367,7 +362,7 @@ func TestStartAPIError(t *testing.T) {
 	reqID := 1
 	var f TicksSubscribe = 1
 	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
-	err = sub.Start(reqID, req)
+	_, err = sub.Start(reqID, req)
 
 	if err == nil {
 		t.Errorf("Expected an error, but got nil")
@@ -394,7 +389,7 @@ func TestStartInvalidResponse(t *testing.T) {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
-	sub := NewSubcription[TicksResp](api)
+	sub := NewSubcription[TicksResp, TicksResp](api)
 
 	if sub == nil {
 		t.Errorf("Expected a subscription, but got nil")
@@ -403,7 +398,7 @@ func TestStartInvalidResponse(t *testing.T) {
 	reqID := 1
 	var f TicksSubscribe = 1
 	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
-	err = sub.Start(reqID, req)
+	_, err = sub.Start(reqID, req)
 
 	if err == nil {
 		t.Errorf("Expected an error, but got nil")
@@ -447,7 +442,7 @@ func TestStartInvalidResponseInSubscription(t *testing.T) {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
-	sub := NewSubcription[TicksResp](api)
+	sub := NewSubcription[TicksResp, TicksResp](api)
 
 	if sub == nil {
 		t.Errorf("Expected a subscription, but got nil")
@@ -456,20 +451,15 @@ func TestStartInvalidResponseInSubscription(t *testing.T) {
 	reqID := 1
 	var f TicksSubscribe = 1
 	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
-	err = sub.Start(reqID, req)
+	initResp, err := sub.Start(reqID, req)
 
 	if err != nil {
 		t.Errorf("Expected no error, but got %v", err)
 	}
 
 	// First message
-	select {
-	case tick := <-sub.Stream:
-		if *tick.Tick.Quote != 186.9588 {
-			t.Errorf("Expected message to be %v, but got %v", 186.9588, *tick.Tick.Quote)
-		}
-	case <-time.After(time.Millisecond):
-		t.Errorf("Expected to get a response, but got nothing")
+	if *initResp.Tick.Quote != 186.9588 {
+		t.Errorf("Expected message to be %v, but got %v", 186.9588, *initResp.Tick.Quote)
 	}
 
 	// Second message
@@ -531,7 +521,7 @@ func TestStartAPIErrorInSubscription(t *testing.T) {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
-	sub := NewSubcription[TicksResp](api)
+	sub := NewSubcription[TicksResp, TicksResp](api)
 
 	if sub == nil {
 		t.Errorf("Expected a subscription, but got nil")
@@ -540,20 +530,15 @@ func TestStartAPIErrorInSubscription(t *testing.T) {
 	reqID := 1
 	var f TicksSubscribe = 1
 	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
-	err = sub.Start(reqID, req)
+	initResp, err := sub.Start(reqID, req)
 
 	if err != nil {
 		t.Errorf("Expected no error, but got %v", err)
 	}
 
 	// First message
-	select {
-	case tick, ok := <-sub.Stream:
-		if !ok || *tick.Tick.Quote != 186.9588 {
-			t.Errorf("Expected message to be %v, but got %v", 186.9588, *tick.Tick.Quote)
-		}
-	case <-time.After(time.Millisecond):
-		t.Errorf("Expected to get a response, but got nothing")
+	if *initResp.Tick.Quote != 186.9588 {
+		t.Errorf("Expected message to be %v, but got %v", 186.9588, *initResp.Tick.Quote)
 	}
 
 	// Second message
@@ -577,12 +562,12 @@ func TestStartTimeout(t *testing.T) {
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
 	api.TimeOut = time.Millisecond
 
-	sub := NewSubcription[TicksResp](api)
+	sub := NewSubcription[TicksResp, TicksResp](api)
 
 	reqID := 1
 	var f TicksSubscribe = 1
 	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
-	err := sub.Start(reqID, req)
+	_, err := sub.Start(reqID, req)
 
 	if err != nil && err.Error() != "timeout" {
 		t.Errorf("Expected timeout error, got %v", err)

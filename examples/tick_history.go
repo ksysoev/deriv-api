@@ -16,14 +16,24 @@ func main() {
 
 	defer api.Disconnect()
 
-	resp, sub, err := api.SubscribeTicks(deriv.Ticks{Ticks: "R_50"})
+	var startTime deriv.TicksHistoryAdjustStartTime = 1
+	start := 1
+	resp, sub, err := api.SubscribeTicksHistory(deriv.TicksHistory{
+		TicksHistory:    "R_50",
+		AdjustStartTime: &startTime,
+		End:             "latest",
+		Start:           &start,
+		Style:           "ticks",
+		Count:           10})
 
 	if err != nil {
 		log.Fatal(err)
 		return
 	}
 
-	fmt.Println("Symbol: ", *resp.Tick.Symbol, "Quote: ", *resp.Tick.Quote)
+	for _, price := range resp.History.Prices {
+		fmt.Println("Symbol: ", "R_50", "Quote: ", price)
+	}
 
 	for tick := range sub.Stream {
 		fmt.Println("Symbol: ", *tick.Tick.Symbol, "Quote: ", *tick.Tick.Quote)

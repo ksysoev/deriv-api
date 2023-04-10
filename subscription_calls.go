@@ -3,167 +3,167 @@
 package deriv
 
 // SubscribeBalance Get user account balance
-func (a *DerivAPI) SubscribeBalance(r Balance) (s *Subsciption[BalanceResp], err error) {
+func (a *DerivAPI) SubscribeBalance(r Balance) (rsp BalanceResp, s *Subsciption[BalanceResp, BalanceResp], err error) {
 	id := a.getNextRequestID()
 	var f BalanceSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[BalanceResp](a)
-	err = s.Start(id, r)
+	s = NewSubcription[BalanceResp, BalanceResp](a)
+	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeBuy Buy a Contract
-func (a *DerivAPI) SubscribeBuy(r Buy) (s *Subsciption[BuyResp], err error) {
+func (a *DerivAPI) SubscribeBuy(r Buy) (rsp BuyResp, s *Subsciption[BuyResp, ProposalOpenContractResp], err error) {
 	id := a.getNextRequestID()
 	var f BuySubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[BuyResp](a)
-	err = s.Start(id, r)
+	s = NewSubcription[BuyResp, ProposalOpenContractResp](a)
+	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeExchangeRates Retrieves the exchange rates from a base currency to all currencies supported by the system.
-func (a *DerivAPI) SubscribeExchangeRates(r ExchangeRates) (s *Subsciption[ExchangeRatesResp], err error) {
+func (a *DerivAPI) SubscribeExchangeRates(r ExchangeRates) (rsp ExchangeRatesResp, s *Subsciption[ExchangeRatesResp, ExchangeRatesResp], err error) {
 	id := a.getNextRequestID()
 	var f ExchangeRatesSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[ExchangeRatesResp](a)
-	err = s.Start(id, r)
+	s = NewSubcription[ExchangeRatesResp, ExchangeRatesResp](a)
+	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeP2PAdvertInfo Retrieve information about a P2P advert.
-func (a *DerivAPI) SubscribeP2PAdvertInfo(r P2PAdvertInfo) (s *Subsciption[P2PAdvertInfoResp], err error) {
+func (a *DerivAPI) SubscribeP2PAdvertInfo(r P2PAdvertInfo) (rsp P2PAdvertInfoResp, s *Subsciption[P2PAdvertInfoResp, P2PAdvertInfoResp], err error) {
 	id := a.getNextRequestID()
 	var f P2PAdvertInfoSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[P2PAdvertInfoResp](a)
-	err = s.Start(id, r)
+	s = NewSubcription[P2PAdvertInfoResp, P2PAdvertInfoResp](a)
+	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeP2PAdvertiserCreate Registers the client as a P2P advertiser.
-func (a *DerivAPI) SubscribeP2PAdvertiserCreate(r P2PAdvertiserCreate) (s *Subsciption[P2PAdvertiserCreateResp], err error) {
+func (a *DerivAPI) SubscribeP2PAdvertiserCreate(r P2PAdvertiserCreate) (rsp P2PAdvertiserCreateResp, s *Subsciption[P2PAdvertiserCreateResp, P2PAdvertiserCreateResp], err error) {
 	id := a.getNextRequestID()
 	var f P2PAdvertiserCreateSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[P2PAdvertiserCreateResp](a)
-	err = s.Start(id, r)
+	s = NewSubcription[P2PAdvertiserCreateResp, P2PAdvertiserCreateResp](a)
+	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeP2PAdvertiserInfo Retrieve information about a P2P advertiser.
-func (a *DerivAPI) SubscribeP2PAdvertiserInfo(r P2PAdvertiserInfo) (s *Subsciption[P2PAdvertiserInfoResp], err error) {
+func (a *DerivAPI) SubscribeP2PAdvertiserInfo(r P2PAdvertiserInfo) (rsp P2PAdvertiserInfoResp, s *Subsciption[P2PAdvertiserInfoResp, P2PAdvertiserInfoResp], err error) {
 	id := a.getNextRequestID()
 	var f P2PAdvertiserInfoSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[P2PAdvertiserInfoResp](a)
-	err = s.Start(id, r)
+	s = NewSubcription[P2PAdvertiserInfoResp, P2PAdvertiserInfoResp](a)
+	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeP2POrderCreate Creates a P2P order for the specified advert.
-func (a *DerivAPI) SubscribeP2POrderCreate(r P2POrderCreate) (s *Subsciption[P2POrderCreateResp], err error) {
+func (a *DerivAPI) SubscribeP2POrderCreate(r P2POrderCreate) (rsp P2POrderCreateResp, s *Subsciption[P2POrderCreateResp, P2POrderInfoResp], err error) {
 	id := a.getNextRequestID()
 	var f P2POrderCreateSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[P2POrderCreateResp](a)
-	err = s.Start(id, r)
+	s = NewSubcription[P2POrderCreateResp, P2POrderInfoResp](a)
+	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeP2POrderInfo Retrieves the information about a P2P order.
-func (a *DerivAPI) SubscribeP2POrderInfo(r P2POrderInfo) (s *Subsciption[P2POrderInfoResp], err error) {
+func (a *DerivAPI) SubscribeP2POrderInfo(r P2POrderInfo) (rsp P2POrderInfoResp, s *Subsciption[P2POrderInfoResp, P2POrderInfoResp], err error) {
 	id := a.getNextRequestID()
 	var f P2POrderInfoSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[P2POrderInfoResp](a)
-	err = s.Start(id, r)
+	s = NewSubcription[P2POrderInfoResp, P2POrderInfoResp](a)
+	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeP2POrderList List active orders.
-func (a *DerivAPI) SubscribeP2POrderList(r P2POrderList) (s *Subsciption[P2POrderListResp], err error) {
+func (a *DerivAPI) SubscribeP2POrderList(r P2POrderList) (rsp P2POrderListResp, s *Subsciption[P2POrderListResp, P2POrderInfoResp], err error) {
 	id := a.getNextRequestID()
 	var f P2POrderListSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[P2POrderListResp](a)
-	err = s.Start(id, r)
+	s = NewSubcription[P2POrderListResp, P2POrderInfoResp](a)
+	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeProposal Gets latest price for a specific contract.
-func (a *DerivAPI) SubscribeProposal(r Proposal) (s *Subsciption[ProposalResp], err error) {
+func (a *DerivAPI) SubscribeProposal(r Proposal) (rsp ProposalResp, s *Subsciption[ProposalResp, ProposalResp], err error) {
 	id := a.getNextRequestID()
 	var f ProposalSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[ProposalResp](a)
-	err = s.Start(id, r)
+	s = NewSubcription[ProposalResp, ProposalResp](a)
+	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeProposalOpenContract Get latest price (and other information) for a contract in the user's portfolio
-func (a *DerivAPI) SubscribeProposalOpenContract(r ProposalOpenContract) (s *Subsciption[ProposalOpenContractResp], err error) {
+func (a *DerivAPI) SubscribeProposalOpenContract(r ProposalOpenContract) (rsp ProposalOpenContractResp, s *Subsciption[ProposalOpenContractResp, ProposalOpenContractResp], err error) {
 	id := a.getNextRequestID()
 	var f ProposalOpenContractSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[ProposalOpenContractResp](a)
-	err = s.Start(id, r)
+	s = NewSubcription[ProposalOpenContractResp, ProposalOpenContractResp](a)
+	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeTicks Initiate a continuous stream of spot price updates for a given symbol.
-func (a *DerivAPI) SubscribeTicks(r Ticks) (s *Subsciption[TicksResp], err error) {
+func (a *DerivAPI) SubscribeTicks(r Ticks) (rsp TicksResp, s *Subsciption[TicksResp, TicksResp], err error) {
 	id := a.getNextRequestID()
 	var f TicksSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[TicksResp](a)
-	err = s.Start(id, r)
+	s = NewSubcription[TicksResp, TicksResp](a)
+	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeTicksHistory Get historic tick data for a given symbol.
-func (a *DerivAPI) SubscribeTicksHistory(r TicksHistory) (s *Subsciption[TicksHistoryResp], err error) {
+func (a *DerivAPI) SubscribeTicksHistory(r TicksHistory) (rsp TicksHistoryResp, s *Subsciption[TicksHistoryResp, TicksResp], err error) {
 	id := a.getNextRequestID()
 	var f TicksHistorySubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[TicksHistoryResp](a)
-	err = s.Start(id, r)
+	s = NewSubcription[TicksHistoryResp, TicksResp](a)
+	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeTransaction Subscribe to transaction notifications
-func (a *DerivAPI) SubscribeTransaction(r Transaction) (s *Subsciption[TransactionResp], err error) {
+func (a *DerivAPI) SubscribeTransaction(r Transaction) (rsp TransactionResp, s *Subsciption[TransactionResp, TransactionResp], err error) {
 	id := a.getNextRequestID()
 	var f TransactionSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = f
-	s = NewSubcription[TransactionResp](a)
-	err = s.Start(id, r)
+	s = NewSubcription[TransactionResp, TransactionResp](a)
+	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeWebsiteStatus Request server status.
-func (a *DerivAPI) SubscribeWebsiteStatus(r WebsiteStatus) (s *Subsciption[WebsiteStatusResp], err error) {
+func (a *DerivAPI) SubscribeWebsiteStatus(r WebsiteStatus) (rsp WebsiteStatusResp, s *Subsciption[WebsiteStatusResp, WebsiteStatusResp], err error) {
 	id := a.getNextRequestID()
 	var f WebsiteStatusSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[WebsiteStatusResp](a)
-	err = s.Start(id, r)
+	s = NewSubcription[WebsiteStatusResp, WebsiteStatusResp](a)
+	rsp, err = s.Start(id, r)
 	return
 }
 

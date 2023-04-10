@@ -97,7 +97,21 @@ func CreateApiCallFunction(title string, description string) string {
 }
 
 func CreateSubscriptionCallFunction(title string, description string) string {
-	signature := fmt.Sprintf("// Subscribe%s %s\nfunc (a *DerivAPI) Subscribe%s(r %s) (s *Subsciption[%sResp], err error)", title, description, title, title, title)
+	initResp := title + "Resp"
+	var Resp string
+
+	switch title {
+	case "Buy":
+		Resp = "ProposalOpenContractResp"
+	case "TicksHistory":
+		Resp = "TicksResp"
+	case "P2POrderCreate", "P2POrderList":
+		Resp = "P2POrderInfoResp"
+	default:
+		Resp = initResp
+	}
+
+	signature := fmt.Sprintf("// Subscribe%s %s\nfunc (a *DerivAPI) Subscribe%s(r %s) (rsp %s, s *Subsciption[%s, %s], err error)", title, description, title, title, initResp, initResp, Resp)
 
 	var body string
 	if title == "Transaction" {
@@ -106,18 +120,18 @@ func CreateSubscriptionCallFunction(title string, description string) string {
 	var f %sSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = f
-	s = NewSubcription[%sResp](a)
-	err = s.Start(id, r)
-	return`, title, title)
+	s = NewSubcription[%s, %s](a)
+	rsp, err = s.Start(id, r)
+	return`, title, initResp, Resp)
 	} else {
 		body = fmt.Sprintf(
 			`id := a.getNextRequestID()
 	var f %sSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[%sResp](a)
-	err = s.Start(id, r)
-	return`, title, title)
+	s = NewSubcription[%s, %s](a)
+	rsp, err = s.Start(id, r)
+	return`, title, initResp, Resp)
 	}
 
 	return fmt.Sprintf("%s {\n\t%s\n}\n\n", signature, body)
