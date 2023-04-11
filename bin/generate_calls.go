@@ -107,6 +107,8 @@ func CreateSubscriptionCallFunction(title string, description string) string {
 		Resp = "TicksResp"
 	case "P2POrderCreate", "P2POrderList":
 		Resp = "P2POrderInfoResp"
+	case "P2PAdvertiserCreate":
+		Resp = "P2PAdvertInfoResp"
 	default:
 		Resp = initResp
 	}

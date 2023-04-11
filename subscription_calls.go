@@ -47,12 +47,12 @@ func (a *DerivAPI) SubscribeP2PAdvertInfo(r P2PAdvertInfo) (rsp P2PAdvertInfoRes
 }
 
 // SubscribeP2PAdvertiserCreate Registers the client as a P2P advertiser.
-func (a *DerivAPI) SubscribeP2PAdvertiserCreate(r P2PAdvertiserCreate) (rsp P2PAdvertiserCreateResp, s *Subsciption[P2PAdvertiserCreateResp, P2PAdvertiserCreateResp], err error) {
+func (a *DerivAPI) SubscribeP2PAdvertiserCreate(r P2PAdvertiserCreate) (rsp P2PAdvertiserCreateResp, s *Subsciption[P2PAdvertiserCreateResp, P2PAdvertInfoResp], err error) {
 	id := a.getNextRequestID()
 	var f P2PAdvertiserCreateSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[P2PAdvertiserCreateResp, P2PAdvertiserCreateResp](a)
+	s = NewSubcription[P2PAdvertiserCreateResp, P2PAdvertInfoResp](a)
 	rsp, err = s.Start(id, r)
 	return
 }
