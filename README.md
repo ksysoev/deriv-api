@@ -28,12 +28,14 @@ if err != nil {
 
 defer api.Disconnect()
 
-sub, err := api.SubscribeTicks(deriv.Ticks{Ticks: "R_50"})
+resp, sub, err := api.SubscribeTicks(deriv.Ticks{Ticks: "R_50"})
 
 if err != nil {
     log.Fatal(err)
     return
 }
+
+fmt.Println("Symbol: ", *resp.Tick.Symbol, "Quote: ", *resp.Tick.Quote)
 
 for tick := range sub.Stream {
     fmt.Println("Symbol: ", *tick.Tick.Symbol, "Quote: ", *tick.Tick.Quote)
