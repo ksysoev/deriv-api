@@ -3,11 +3,12 @@ package deriv
 import (
 	"errors"
 	"fmt"
-	"golang.org/x/net/websocket"
 	"net/http/httptest"
 	"reflect"
 	"testing"
 	"time"
+
+	"golang.org/x/net/websocket"
 )
 
 func TestParseSubscription_ValidInput(t *testing.T) {
@@ -135,7 +136,7 @@ func TestStart(t *testing.T) {
 	}
 
 	sub.Start(reqID, req)
-	if sub.IsActive == false {
+	if sub.IsActive() == false {
 		t.Errorf("Expected subscription to be active, but got inactive")
 	}
 }
@@ -216,7 +217,7 @@ func TestForget(t *testing.T) {
 		t.Errorf("Expected a stream, but got nil")
 	}
 
-	if sub.IsActive != true {
+	if sub.IsActive() != true {
 		t.Errorf("Expected subscription to be active, but got false")
 	}
 
@@ -233,13 +234,13 @@ func TestForget(t *testing.T) {
 	}()
 	sub.Forget()
 
-	if sub.IsActive == true {
+	if sub.IsActive() == true {
 		t.Errorf("Expected subscription to be deactivated, but got true")
 	}
 
 	sub.Forget()
 
-	if sub.IsActive == true {
+	if sub.IsActive() == true {
 		t.Errorf("Expected subscription to be deactivated, but got true")
 	}
 }
@@ -300,7 +301,7 @@ func TestForgetFailed(t *testing.T) {
 		t.Errorf("Expected a stream, but got nil")
 	}
 
-	if sub.IsActive != true {
+	if sub.IsActive() != true {
 		t.Errorf("Expected subscription to be active, but got false")
 	}
 
@@ -324,7 +325,7 @@ func TestForgetFailed(t *testing.T) {
 		t.Errorf("Expected error, but got nil")
 	}
 
-	if sub.IsActive == false {
+	if sub.IsActive() == false {
 		t.Errorf("Expected subscription to be active, but got false")
 	}
 }

@@ -108,12 +108,12 @@ func NewDerivAPI(endpoint string, appID int, lang string, origin string) (*Deriv
 // Connect establishes a WebSocket connection with the Deriv API endpoint.
 // Returns an error if it fails to connect to WebSoket server.
 func (api *DerivAPI) Connect() error {
+	api.connectionLock.Lock()
+	defer api.connectionLock.Unlock()
+
 	if api.ws != nil {
 		return nil
 	}
-
-	api.connectionLock.Lock()
-	defer api.connectionLock.Unlock()
 
 	ws, err := websocket.Dial(api.Endpoint.String(), "", api.Origin.String())
 	if err != nil {
@@ -130,6 +130,7 @@ func (api *DerivAPI) Connect() error {
 func (api *DerivAPI) Disconnect() {
 	api.connectionLock.Lock()
 	defer api.connectionLock.Unlock()
+
 	if api.ws == nil {
 		return
 	}
@@ -146,12 +147,16 @@ func (api *DerivAPI) Disconnect() {
 // handleResponses handles the responses from the Deriv API
 func (api *DerivAPI) handleResponses() {
 	for {
-		if api.ws == nil {
+		api.connectionLock.Lock()
+		wsConn := api.ws
+		api.connectionLock.Unlock()
+
+		if wsConn == nil {
 			return
 		}
 
 		var msg string
-		err := websocket.Message.Receive(api.ws, &msg)
+		err := websocket.Message.Receive(wsConn, &msg)
 
 		if err != nil {
 			if errors.Is(err, syscall.ECONNRESET) {
@@ -171,8 +176,9 @@ func (api *DerivAPI) handleResponses() {
 		if err != nil {
 			continue
 		}
-
+		api.connectionLock.Lock()
 		channel, ok := api.responseMap[response.ReqID]
+		api.connectionLock.Unlock()
 
 		if ok {
 			channel <- msg
@@ -182,14 +188,10 @@ func (api *DerivAPI) handleResponses() {
 
 // Send sends a request to the Deriv API and returns a channel that will receive the response
 func (api *DerivAPI) Send(reqID int, request ApiReqest) (chan string, error) {
-	var err error
+	err := api.Connect()
 
-	if api.ws == nil {
-		err = api.Connect()
-
-		if err != nil {
-			return nil, err
-		}
+	if err != nil {
+		return nil, err
 	}
 
 	msg, err := json.Marshal(request)
@@ -197,15 +199,29 @@ func (api *DerivAPI) Send(reqID int, request ApiReqest) (chan string, error) {
 		return nil, err
 	}
 
-	respChan := api.createRequestChannel(reqID)
+	err = api.sendMessage(msg)
 
-	err = websocket.Message.Send(api.ws, msg)
 	if err != nil {
-		api.Disconnect()
 		return nil, err
 	}
 
+	respChan := api.createRequestChannel(reqID)
+
 	return respChan, nil
+}
+
+func (api *DerivAPI) sendMessage(msg []byte) error {
+	api.connectionLock.Lock()
+
+	err := websocket.Message.Send(api.ws, msg)
+	if err != nil {
+		api.connectionLock.Unlock()
+		api.Disconnect()
+		return err
+	}
+
+	api.connectionLock.Unlock()
+	return nil
 }
 
 // SendRequest sends a request to the Deriv API and returns the response

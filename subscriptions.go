@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"sync"
 	"time"
 )
 
@@ -14,8 +15,9 @@ type Subsciption[initResp any, Resp any] struct {
 	API           *DerivAPI
 	Stream        chan Resp
 	reqID         int
-	IsActive      bool
+	isActive      bool
 	SubsciptionID string
+	statusLock    sync.Mutex
 }
 
 type SubscriptionResponse struct {
@@ -58,7 +60,7 @@ func NewSubcription[initResp any, Resp any](api *DerivAPI) *Subsciption[initResp
 	return &Subsciption[initResp, Resp]{
 		API:      api,
 		Stream:   make(chan Resp, 1),
-		IsActive: false,
+		isActive: false,
 	}
 }
 
@@ -66,14 +68,17 @@ func NewSubcription[initResp any, Resp any](api *DerivAPI) *Subsciption[initResp
 // If the subscription is not currently active, this method does nothing. If an error occurs while sending the Forget
 // request, it returns the error.
 func (s *Subsciption[initResp, Resp]) Forget() error {
-	if s.IsActive {
+	s.statusLock.Lock()
+	defer s.statusLock.Unlock()
+
+	if s.isActive {
 		_, err := s.API.Forget(Forget{Forget: s.SubsciptionID})
 
 		if err != nil {
 			return err
 		}
 
-		s.IsActive = false
+		s.isActive = false
 
 		s.API.closeRequestChannel(s.reqID)
 
@@ -93,7 +98,11 @@ func (s *Subsciption[initResp, Resp]) Forget() error {
 // on the channel. If the response object does not implement the ApiResponse interface, the method returns an error
 func (s *Subsciption[initResp, Resp]) Start(reqID int, request any) (initResp, error) {
 	var resp initResp
-	if s.IsActive {
+
+	s.statusLock.Lock()
+	defer s.statusLock.Unlock()
+
+	if s.isActive {
 		return resp, nil
 	}
 
@@ -128,7 +137,7 @@ func (s *Subsciption[initResp, Resp]) Start(reqID int, request any) (initResp, e
 			return resp, err
 		}
 
-		s.IsActive = true
+		s.isActive = true
 		s.reqID = reqID
 
 		go s.messageHandler(inChan)
@@ -140,8 +149,12 @@ func (s *Subsciption[initResp, Resp]) Start(reqID int, request any) (initResp, e
 // messageHandler is a goroutine that handles subscription updates received on the channel passed to it.
 func (s *Subsciption[initResp, Resp]) messageHandler(inChan chan string) {
 	defer func() {
-		close(s.Stream)
-		s.IsActive = false
+		s.statusLock.Lock()
+		if s.isActive {
+			s.isActive = false
+			close(s.Stream)
+		}
+		s.statusLock.Unlock()
 	}()
 
 	for rawResponse := range inChan {
@@ -164,4 +177,16 @@ func (s *Subsciption[initResp, Resp]) messageHandler(inChan chan string) {
 		}
 		s.Stream <- response
 	}
+}
+
+// GetStream returns the Stream channel of the Subscription instance.
+func (s *Subsciption[initResp, Resp]) GetStream() chan Resp {
+	return s.Stream
+}
+
+// IsActive returns the IsActive field of the Subscription instance.
+func (s *Subsciption[initResp, Resp]) IsActive() bool {
+	s.statusLock.Lock()
+	defer s.statusLock.Unlock()
+	return s.isActive
 }
