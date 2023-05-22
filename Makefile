@@ -20,7 +20,7 @@ prepare-schema:
 
 generate-schema:
 	cd deriv-developers-portal/config/v3/schema && \
-	gojsonschema -p deriv *.json > ../../../schema.go
+	gojsonschema -p deriv *.json > ../../../../schema.go
 
 clean:
 	rm -rf deriv-developers-portal
