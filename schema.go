@@ -11916,6 +11916,9 @@ type ProposalOpenContractRespProposalOpenContract struct {
 	// The number of barriers a contract has.
 	BarrierCount *float64 `json:"barrier_count,omitempty"`
 
+	// [Only for accumulator] Absolute difference between high/low barrier and spot
+	BarrierSpotDistance *string `json:"barrier_spot_distance,omitempty"`
+
 	// Price at which the contract could be sold back to the company.
 	BidPrice *float64 `json:"bid_price,omitempty"`
 
@@ -12370,6 +12373,9 @@ type ProposalRespProposalCancellation struct {
 type ProposalRespProposalContractDetails struct {
 	// Barrier of the contract.
 	Barrier *string `json:"barrier,omitempty"`
+
+	// Absolute difference between high/low barrier and spot
+	BarrierSpotDistance *string `json:"barrier_spot_distance,omitempty"`
 
 	// High barrier calculated based on current spot
 	HighBarrier *string `json:"high_barrier,omitempty"`
