@@ -1,5 +1,6 @@
 name: Schema Updater 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "0 8 * * 1-5"
 
@@ -30,10 +31,3 @@ jobs:
           default_author: user_info
           message: 'Updates API schema'
           add: '*.go'
-          signoff: false
-          push: false
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
