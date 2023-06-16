@@ -12076,6 +12076,9 @@ type ProposalOpenContractRespProposalOpenContract struct {
 	// Display name of underlying
 	DisplayName *string `json:"display_name,omitempty"`
 
+	// [Only for vanilla or turbos options] The implied number of contracts
+	DisplayNumberOfContracts *string `json:"display_number_of_contracts,omitempty"`
+
 	// The `bid_price` with the correct precision
 	DisplayValue *string `json:"display_value,omitempty"`
 
@@ -12169,7 +12172,7 @@ type ProposalOpenContractRespProposalOpenContract struct {
 	// multiplier = Payout
 	Multiplier *float64 `json:"multiplier,omitempty"`
 
-	// [Only for vanilla options] The implied number of contracts
+	// [Only for vanilla or turbos options] The implied number of contracts
 	NumberOfContracts *float64 `json:"number_of_contracts,omitempty"`
 
 	// Payout value of the contract.
@@ -12425,6 +12428,9 @@ type ProposalRespProposal struct {
 	// The start date of the contract.
 	DateStart int `json:"date_start"`
 
+	// [Only for vanilla or turbos options] The implied number of contracts
+	DisplayNumberOfContracts *string `json:"display_number_of_contracts,omitempty"`
+
 	// Same as `ask_price`.
 	DisplayValue string `json:"display_value"`
 
@@ -12440,10 +12446,10 @@ type ProposalRespProposal struct {
 	// 15 minutes after contract start time.
 	Longcode string `json:"longcode"`
 
-	// [Only for vanilla options and turbos options] Maximum stakes allowed
+	// [Only for vanilla or turbos options] Maximum stakes allowed
 	MaxStake *float64 `json:"max_stake,omitempty"`
 
-	// [Only for vanilla options and turbos options] Minimum stakes allowed
+	// [Only for vanilla or turbos options] Minimum stakes allowed
 	MinStake *float64 `json:"min_stake,omitempty"`
 
 	// [Only for lookback trades] Multiplier applies when calculating the final payoff
