@@ -1,0 +1,85 @@
+diff --git a/config/v3/ticks_history/receive.json b/config/v3/ticks_history/receive.json
+index e9f4218..82fb80a 100644
+--- a/config/v3/ticks_history/receive.json
++++ b/config/v3/ticks_history/receive.json
+@@ -63,6 +63,54 @@
+                 }
+             }
+         },
++        "ohlc": {
++            "title": "ohlc",
++            "description": "Historic tick data for a given symbol. Note: this will always return the latest possible set of ticks with accordance to the parameters specified.",
++            "type": "object",
++            "additionalProperties": false,
++            "properties": {
++                "close": {
++                    "description": "It is the close price value for the given time",
++                    "type": "string"
++                },
++                "epoch": {
++                    "description": "It is an epoch value",
++                    "type": "integer"
++                },
++                "granularity": {
++                    "description": "Granularity",
++                    "type": "integer"
++                },
++                "high": {
++                    "description": "It is the high price value for the given time",
++                    "type": "string"
++                },
++                "id": {
++                    "description": "Subscription unique identifier. Can be passed to the `forget` API call to unsubscribe.",
++                    "type": "string"
++                },
++                "low":{
++                    "description": "It is the low price value for the given time",
++                    "type": "string"
++                },
++                "open": {
++                    "description": "It is the open price value for the given time",
++                    "type": "string"
++                },
++                "open_time": {
++                    "description": "It is an epoch of open time",
++                    "type": "integer"
++                },
++                "pip_size": {
++                    "description": "PIP size",
++                    "type": "integer"
++                },
++                "symbol": {
++                    "description": "Symbol name",
++                    "type": "string"
++                }
++            }
++        },
+         "pip_size": {
+             "description": "Indicates the number of decimal points that the returned amounts must be displayed with",
+             "type": "number"
+diff --git a/config/v3/ticks_history/send.json b/config/v3/ticks_history/send.json
+index d9d39db..0cc7b01 100644
+--- a/config/v3/ticks_history/send.json
++++ b/config/v3/ticks_history/send.json
+@@ -25,7 +25,7 @@
+         "count": {
+             "description": "[Optional] An upper limit on ticks to receive.",
+             "type": "integer",
+-            "default": "5000"
++            "default": 5000
+         },
+         "end": {
+             "description": "Epoch value representing the latest boundary of the returned ticks. If `latest` is specified, this will be the latest available timestamp.",
+diff --git a/config/v3/transaction/receive.json b/config/v3/transaction/receive.json
+index 3fbfd10..1c4e73d 100644
+--- a/config/v3/transaction/receive.json
++++ b/config/v3/transaction/receive.json
+@@ -38,7 +38,7 @@
+                 "balance": {
+                     "description": "Balance amount",
+                     "type": "number",
+-                    "maximum": 9999999999999999999,
++                    "maximum": 9223372036854775807,
+                     "minimum": 0
+                 },
+                 "barrier": {
