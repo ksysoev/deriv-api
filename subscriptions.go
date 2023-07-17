@@ -175,7 +175,9 @@ func (s *Subsciption[initResp, Resp]) messageHandler(inChan chan string) {
 			log.Printf("Error in subsciption message: %v", err)
 			continue
 		}
+		s.statusLock.Lock()
 		s.Stream <- response
+		s.statusLock.Unlock()
 	}
 }
 
