@@ -23,10 +23,15 @@ type DerivAPI struct {
 	responseMap    map[int]chan string // A map of request IDs to response channels for the DerivAPI server
 	TimeOut        time.Duration       // The timeout duration for the DerivAPI server api calls
 	connectionLock sync.Mutex          // A lock for the DerivAPI server connection
+	reqChan        chan ApiReqest      // A channel for sending requests to the DerivAPI server
+	closingChan    chan int            // A channel for closing the DerivAPI server connection
 }
 
 // ApiReqest is an interface for all API requests.
-type ApiReqest interface {
+type ApiReqest struct {
+	id       int
+	msg      []byte
+	respChan chan string
 }
 
 // ApiObjectRequest is an interface for all API requests that return an object.
@@ -118,9 +123,14 @@ func (api *DerivAPI) Connect() error {
 
 	api.ws = ws
 
+	api.reqChan = make(chan ApiReqest)
+	api.closingChan = make(chan int)
 	respChan := make(chan string)
+	outputChan := make(chan []byte)
+
 	go api.handleResponses(ws, respChan)
-	go api.requestMapper(respChan)
+	go api.requestSender(ws, outputChan)
+	go api.requestMapper(respChan, outputChan, api.reqChan, api.closingChan)
 
 	return nil
 }
@@ -143,6 +153,21 @@ func (api *DerivAPI) Disconnect() {
 	api.ws = nil
 }
 
+// requestSender sends requests to the Deriv API
+
+func (api *DerivAPI) requestSender(wsConn *websocket.Conn, reqChan chan []byte) {
+	defer close(reqChan)
+
+	for req := range reqChan {
+		err := websocket.Message.Send(wsConn, req)
+
+		if err != nil {
+			api.Disconnect()
+			return
+		}
+	}
+}
+
 // handleResponses handles the responses from the Deriv API
 func (api *DerivAPI) handleResponses(wsConn *websocket.Conn, respChan chan string) {
 	defer close(respChan)
@@ -152,6 +177,7 @@ func (api *DerivAPI) handleResponses(wsConn *websocket.Conn, respChan chan strin
 		err := websocket.Message.Receive(wsConn, &msg)
 
 		if err != nil {
+			api.Disconnect()
 			return
 		}
 
@@ -160,25 +186,51 @@ func (api *DerivAPI) handleResponses(wsConn *websocket.Conn, respChan chan strin
 }
 
 // requestMapper handles the responses from the Deriv API
-func (api *DerivAPI) requestMapper(respChan chan string) {
-	for rawResp := range respChan {
-		var response APIResponseReqID
-		err := json.Unmarshal([]byte(rawResp), &response)
-		if err != nil {
-			continue
-		}
-		api.connectionLock.Lock()
-		channel, ok := api.responseMap[response.ReqID]
-		api.connectionLock.Unlock()
+func (api *DerivAPI) requestMapper(respChan chan string, outputChan chan []byte, reqChan chan ApiReqest, closingChan chan int) {
+	for {
+		select {
+		case rawResp, ok := <-respChan:
+			if !ok {
+				return
+			}
 
-		if ok {
-			channel <- rawResp
+			var response APIResponseReqID
+			err := json.Unmarshal([]byte(rawResp), &response)
+			if err != nil {
+				continue
+			}
+			channel, ok := api.responseMap[response.ReqID]
+
+			if ok {
+				channel <- rawResp
+			}
+		case req, ok := <-reqChan:
+			if !ok {
+				api.Disconnect()
+				return
+			}
+
+			api.responseMap[req.id] = req.respChan
+			outputChan <- req.msg
+		case reqID, ok := <-closingChan:
+			if !ok {
+				api.Disconnect()
+				return
+			}
+
+			channel, okGet := api.responseMap[reqID]
+
+			if okGet {
+				close(channel)
+				delete(api.responseMap, reqID)
+			}
+
 		}
 	}
 }
 
 // Send sends a request to the Deriv API and returns a channel that will receive the response
-func (api *DerivAPI) Send(reqID int, request ApiReqest) (chan string, error) {
+func (api *DerivAPI) Send(reqID int, request any) (chan string, error) {
 	err := api.Connect()
 
 	if err != nil {
@@ -190,13 +242,15 @@ func (api *DerivAPI) Send(reqID int, request ApiReqest) (chan string, error) {
 		return nil, err
 	}
 
-	err = api.sendMessage(msg)
+	respChan := make(chan string)
 
-	if err != nil {
-		return nil, err
+	ApiReqest := ApiReqest{
+		id:       reqID,
+		msg:      msg,
+		respChan: respChan,
 	}
 
-	respChan := api.createRequestChannel(reqID)
+	api.reqChan <- ApiReqest
 
 	return respChan, nil
 }
@@ -216,7 +270,7 @@ func (api *DerivAPI) sendMessage(msg []byte) error {
 }
 
 // SendRequest sends a request to the Deriv API and returns the response
-func (api *DerivAPI) SendRequest(reqID int, request ApiReqest, response ApiResponse) (err error) {
+func (api *DerivAPI) SendRequest(reqID int, request any, response ApiResponse) (err error) {
 	respChan, err := api.Send(reqID, request)
 
 	if err != nil {
@@ -241,7 +295,7 @@ func (api *DerivAPI) SendRequest(reqID int, request ApiReqest, response ApiRespo
 }
 
 // SubscribeRequest sends a request to the Deriv API and returns a channel that will receive responses
-func (api *DerivAPI) SubscribeRequest(reqID int, request ApiReqest) (chan string, error) {
+func (api *DerivAPI) SubscribeRequest(reqID int, request any) (chan string, error) {
 	respChan, err := api.Send(reqID, request)
 
 	if err != nil {
@@ -258,23 +312,5 @@ func (api *DerivAPI) getNextRequestID() int {
 
 // closeRequestChannel closes the channel that receives the response for a request
 func (api *DerivAPI) closeRequestChannel(reqID int) {
-	api.connectionLock.Lock()
-	defer api.connectionLock.Unlock()
-	channel, ok := api.responseMap[reqID]
-
-	if ok {
-		close(channel)
-		delete(api.responseMap, reqID)
-	}
-}
-
-// createRequestChannel creates a channel that receives the response for a request
-func (api *DerivAPI) createRequestChannel(reqID int) chan string {
-	api.connectionLock.Lock()
-	defer api.connectionLock.Unlock()
-
-	respChan := make(chan string)
-	api.responseMap[reqID] = respChan
-
-	return respChan
+	api.closingChan <- reqID
 }
