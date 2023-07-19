@@ -1,11 +1,12 @@
 package deriv
 
 import (
-	"golang.org/x/net/websocket"
 	"io"
 	"net/http/httptest"
 	"testing"
 	"time"
+
+	"golang.org/x/net/websocket"
 )
 
 func TestNewDerivAPI(t *testing.T) {
@@ -258,6 +259,7 @@ func TestSendReqWhichNobodyWaits(t *testing.T) {
 
 func TestSendRequestTimeout(t *testing.T) {
 	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
+		ws.Write([]byte(""))
 		time.Sleep(time.Millisecond * 2)
 	}))
 	defer server.Close()
@@ -315,18 +317,26 @@ func TestSendRequest(t *testing.T) {
 		"ping": "pong",
 		"req_id": 1
 	  }`
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) { ws.Write([]byte(testResp)) }))
-	url := "ws://" + server.Listener.Addr().String()
+	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
+		ws.Write([]byte(testResp))
+		time.Sleep(time.Millisecond)
+	}))
 	defer server.Close()
+
+	url := "ws://" + server.Listener.Addr().String()
 
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
 
-	_ = api.Connect()
+	err := api.Connect()
+
+	if err != nil {
+		t.Errorf("Failed to connect to mocked WebSocket server: %v", err)
+	}
 
 	reqID := 1
 	req := Ping{Ping: 1, ReqId: &reqID}
 	var resp PingResp
-	err := api.SendRequest(reqID, req, &resp)
+	err = api.SendRequest(reqID, req, &resp)
 
 	if err != nil {
 		t.Errorf("Failed to send message: %v", err)
@@ -338,7 +348,10 @@ func TestSendRequest(t *testing.T) {
 }
 
 func TestSendRequestFailed(t *testing.T) {
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) { ws.Write([]byte("")) }))
+	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
+		ws.Write([]byte(""))
+		time.Sleep(time.Millisecond)
+	}))
 	url := "ws://" + server.Listener.Addr().String()
 	server.Close()
 
@@ -378,6 +391,7 @@ func TestSubscribeRequest(t *testing.T) {
 	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
 		ws.Write([]byte(testResp))
 		ws.Write([]byte(testResp))
+		time.Sleep(time.Millisecond)
 	}))
 	url := "ws://" + server.Listener.Addr().String()
 	defer server.Close()
@@ -424,6 +438,7 @@ func TestSubscribeRequest(t *testing.T) {
 func TestSubscribeRequestFailed(t *testing.T) {
 	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
 		ws.Write([]byte(""))
+		time.Sleep(time.Millisecond)
 	}))
 	url := "ws://" + server.Listener.Addr().String()
 	server.Close()

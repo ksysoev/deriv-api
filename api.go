@@ -2,15 +2,11 @@ package deriv
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
-	"io"
-	"log"
 	"net/url"
 	"strconv"
 	"sync"
 	"sync/atomic"
-	"syscall"
 	"time"
 
 	"golang.org/x/net/websocket"
@@ -121,7 +117,10 @@ func (api *DerivAPI) Connect() error {
 	}
 
 	api.ws = ws
-	go api.handleResponses()
+
+	respChan := make(chan string)
+	go api.handleResponses(ws, respChan)
+	go api.requestMapper(respChan)
 
 	return nil
 }
@@ -145,34 +144,26 @@ func (api *DerivAPI) Disconnect() {
 }
 
 // handleResponses handles the responses from the Deriv API
-func (api *DerivAPI) handleResponses() {
+func (api *DerivAPI) handleResponses(wsConn *websocket.Conn, respChan chan string) {
+	defer close(respChan)
+
 	for {
-		api.connectionLock.Lock()
-		wsConn := api.ws
-		api.connectionLock.Unlock()
-
-		if wsConn == nil {
-			return
-		}
-
 		var msg string
 		err := websocket.Message.Receive(wsConn, &msg)
 
 		if err != nil {
-			if errors.Is(err, syscall.ECONNRESET) {
-				api.Disconnect()
-				return
-			}
-
-			if errors.Is(err, io.EOF) {
-				api.Disconnect()
-				return
-			}
-
-			log.Println("Error reading from websocket connection: ", err)
+			return
 		}
+
+		respChan <- msg
+	}
+}
+
+// requestMapper handles the responses from the Deriv API
+func (api *DerivAPI) requestMapper(respChan chan string) {
+	for rawResp := range respChan {
 		var response APIResponseReqID
-		err = json.Unmarshal([]byte(msg), &response)
+		err := json.Unmarshal([]byte(rawResp), &response)
 		if err != nil {
 			continue
 		}
@@ -181,7 +172,7 @@ func (api *DerivAPI) handleResponses() {
 		api.connectionLock.Unlock()
 
 		if ok {
-			channel <- msg
+			channel <- rawResp
 		}
 	}
 }
