@@ -14,17 +14,16 @@ import (
 
 // DerivAPI is the main struct for the DerivAPI client.
 type DerivAPI struct {
-	Origin         *url.URL            // The origin URL for the DerivAPI server
-	Endpoint       *url.URL            // The WebSocket endpoint URL for the DerivAPI server
-	AppID          int                 // The app ID for the DerivAPI server
-	Lang           string              // The language code (ISO 639-1) for the DerivAPI server
-	ws             *websocket.Conn     // The WebSocket connection to the DerivAPI server
-	lastRequestID  int64               // The last request ID used for the DerivAPI server
-	responseMap    map[int]chan string // A map of request IDs to response channels for the DerivAPI server
-	TimeOut        time.Duration       // The timeout duration for the DerivAPI server api calls
-	connectionLock sync.Mutex          // A lock for the DerivAPI server connection
-	reqChan        chan ApiReqest      // A channel for sending requests to the DerivAPI server
-	closingChan    chan int            // A channel for closing the DerivAPI server connection
+	Origin         *url.URL        // The origin URL for the DerivAPI server
+	Endpoint       *url.URL        // The WebSocket endpoint URL for the DerivAPI server
+	AppID          int             // The app ID for the DerivAPI server
+	Lang           string          // The language code (ISO 639-1) for the DerivAPI server
+	ws             *websocket.Conn // The WebSocket connection to the DerivAPI server
+	lastRequestID  int64           // The last request ID used for the DerivAPI server
+	TimeOut        time.Duration   // The timeout duration for the DerivAPI server api calls
+	connectionLock sync.Mutex      // A lock for the DerivAPI server connection
+	reqChan        chan ApiReqest  // A channel for sending requests to the DerivAPI server
+	closingChan    chan int        // A channel for closing the DerivAPI server connection
 }
 
 // ApiReqest is an interface for all API requests.
@@ -99,9 +98,9 @@ func NewDerivAPI(endpoint string, appID int, lang string, origin string) (*Deriv
 		AppID:          appID,
 		Lang:           lang,
 		lastRequestID:  0,
-		responseMap:    make(map[int]chan string),
 		TimeOut:        30 * time.Second,
 		connectionLock: sync.Mutex{},
+		closingChan:    make(chan int),
 	}
 	return &api, nil
 }
@@ -124,7 +123,6 @@ func (api *DerivAPI) Connect() error {
 	api.ws = ws
 
 	api.reqChan = make(chan ApiReqest)
-	api.closingChan = make(chan int)
 	respChan := make(chan string)
 	outputChan := make(chan []byte)
 
@@ -144,10 +142,7 @@ func (api *DerivAPI) Disconnect() {
 		return
 	}
 
-	for reqID, channel := range api.responseMap {
-		close(channel)
-		delete(api.responseMap, reqID)
-	}
+	close(api.reqChan)
 
 	api.ws.Close()
 	api.ws = nil
@@ -156,8 +151,6 @@ func (api *DerivAPI) Disconnect() {
 // requestSender sends requests to the Deriv API
 
 func (api *DerivAPI) requestSender(wsConn *websocket.Conn, reqChan chan []byte) {
-	defer close(reqChan)
-
 	for req := range reqChan {
 		err := websocket.Message.Send(wsConn, req)
 
@@ -187,6 +180,15 @@ func (api *DerivAPI) handleResponses(wsConn *websocket.Conn, respChan chan strin
 
 // requestMapper handles the responses from the Deriv API
 func (api *DerivAPI) requestMapper(respChan chan string, outputChan chan []byte, reqChan chan ApiReqest, closingChan chan int) {
+	responseMap := make(map[int]chan string)
+
+	defer func() {
+		for reqID, channel := range responseMap {
+			close(channel)
+			delete(responseMap, reqID)
+		}
+	}()
+
 	for {
 		select {
 		case rawResp, ok := <-respChan:
@@ -199,30 +201,26 @@ func (api *DerivAPI) requestMapper(respChan chan string, outputChan chan []byte,
 			if err != nil {
 				continue
 			}
-			channel, ok := api.responseMap[response.ReqID]
+			channel, ok := responseMap[response.ReqID]
 
 			if ok {
 				channel <- rawResp
 			}
 		case req, ok := <-reqChan:
 			if !ok {
-				api.Disconnect()
 				return
 			}
-
-			api.responseMap[req.id] = req.respChan
+			responseMap[req.id] = req.respChan
 			outputChan <- req.msg
 		case reqID, ok := <-closingChan:
 			if !ok {
-				api.Disconnect()
 				return
 			}
-
-			channel, okGet := api.responseMap[reqID]
+			channel, okGet := responseMap[reqID]
 
 			if okGet {
 				close(channel)
-				delete(api.responseMap, reqID)
+				delete(responseMap, reqID)
 			}
 
 		}
@@ -255,20 +253,6 @@ func (api *DerivAPI) Send(reqID int, request any) (chan string, error) {
 	return respChan, nil
 }
 
-func (api *DerivAPI) sendMessage(msg []byte) error {
-	api.connectionLock.Lock()
-
-	err := websocket.Message.Send(api.ws, msg)
-	if err != nil {
-		api.connectionLock.Unlock()
-		api.Disconnect()
-		return err
-	}
-
-	api.connectionLock.Unlock()
-	return nil
-}
-
 // SendRequest sends a request to the Deriv API and returns the response
 func (api *DerivAPI) SendRequest(reqID int, request any, response ApiResponse) (err error) {
 	respChan, err := api.Send(reqID, request)
@@ -290,19 +274,9 @@ func (api *DerivAPI) SendRequest(reqID int, request any, response ApiResponse) (
 		if err = parseError(responseJSON); err != nil {
 			return err
 		}
+
 		return response.UnmarshalJSON([]byte(responseJSON))
 	}
-}
-
-// SubscribeRequest sends a request to the Deriv API and returns a channel that will receive responses
-func (api *DerivAPI) SubscribeRequest(reqID int, request any) (chan string, error) {
-	respChan, err := api.Send(reqID, request)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return respChan, nil
 }
 
 // getNextRequestID returns the next request ID

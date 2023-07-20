@@ -92,9 +92,11 @@ func TestStart(t *testing.T) {
 		}
 	  }`
 	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
+		var msg string
+		_ = websocket.Message.Receive(ws, &msg) // wait for request
 		ws.Write([]byte(testResp))
 		ws.Write([]byte(testResp))
-		time.Sleep(time.Millisecond)
+		time.Sleep(time.Second) // to keep the connection open
 	}))
 	url := "ws://" + server.Listener.Addr().String()
 
@@ -118,6 +120,7 @@ func TestStart(t *testing.T) {
 
 	if err != nil {
 		t.Errorf("Unexpected error: %v", err)
+		return
 	}
 
 	// First message
@@ -127,8 +130,10 @@ func TestStart(t *testing.T) {
 
 	// Second message
 	select {
-	case tick := <-sub.Stream:
-		if *tick.Tick.Quote != 186.9588 {
+	case tick, ok := <-sub.GetStream():
+		if !ok {
+			t.Errorf("Expected to get a response, but channel is closed")
+		} else if *tick.Tick.Quote != 186.9588 {
 			t.Errorf("Expected message to be %v, but got %v", 186.9588, tick.Tick.Quote)
 		}
 	case <-time.After(time.Millisecond):
@@ -143,7 +148,10 @@ func TestStart(t *testing.T) {
 
 func TestStartFailed(t *testing.T) {
 	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
+		var msg string
+		_ = websocket.Message.Receive(ws, &msg) // wait for request
 		ws.Write([]byte(""))
+		time.Sleep(time.Second) // to keep the connection open
 	}))
 	url := "ws://" + server.Listener.Addr().String()
 	server.Close()
@@ -185,9 +193,12 @@ func TestForget(t *testing.T) {
 		}
 	  }`
 	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
+		var msg string
+		_ = websocket.Message.Receive(ws, &msg) // wait for request
 		for resp := range responses {
 			ws.Write([]byte(resp))
 		}
+		time.Sleep(time.Second) // to keep the connection open
 	}))
 	url := "ws://" + server.Listener.Addr().String()
 	defer server.Close()
@@ -269,9 +280,12 @@ func TestForgetFailed(t *testing.T) {
 		}
 	  }`
 	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
+		var msg string
+		_ = websocket.Message.Receive(ws, &msg) // wait for request
 		for resp := range responses {
 			ws.Write([]byte(resp))
 		}
+		time.Sleep(time.Second) // to keep the connection open
 	}))
 	url := "ws://" + server.Listener.Addr().String()
 	defer server.Close()
@@ -344,7 +358,10 @@ func TestStartAPIError(t *testing.T) {
 		}
 	  }`
 	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
+		var msg string
+		_ = websocket.Message.Receive(ws, &msg) // wait for request
 		ws.Write([]byte(testResp))
+		time.Sleep(time.Second) // to keep the connection open
 	}))
 	url := "ws://" + server.Listener.Addr().String()
 	defer server.Close()
@@ -380,7 +397,10 @@ func TestStartInvalidResponse(t *testing.T) {
 		"tick": 1
 	  }`
 	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
+		var msg string
+		_ = websocket.Message.Receive(ws, &msg) // wait for request
 		ws.Write([]byte(testResp))
+		time.Sleep(time.Second) // to keep the connection open
 	}))
 	url := "ws://" + server.Listener.Addr().String()
 	defer server.Close()
@@ -430,10 +450,12 @@ func TestStartInvalidResponseInSubscription(t *testing.T) {
 		`{ "req_id": 1 }`}
 
 	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
+		var msg string
+		_ = websocket.Message.Receive(ws, &msg) // wait for request
 		for _, resp := range responses {
 			ws.Write([]byte(resp))
-			time.Sleep(time.Millisecond)
 		}
+		time.Sleep(time.Second) // to keep the connection open
 	}))
 	url := "ws://" + server.Listener.Addr().String()
 	defer server.Close()
@@ -465,7 +487,7 @@ func TestStartInvalidResponseInSubscription(t *testing.T) {
 
 	// Second message
 	select {
-	case tick, ok := <-sub.Stream:
+	case tick, ok := <-sub.GetStream():
 		if ok {
 			t.Errorf("Expected to get noting, but got response: %v", tick)
 		}
@@ -509,10 +531,12 @@ func TestStartAPIErrorInSubscription(t *testing.T) {
 		}`}
 
 	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
+		var msg string
+		_ = websocket.Message.Receive(ws, &msg) // wait for request
 		for _, resp := range responses {
 			ws.Write([]byte(resp))
-			time.Sleep(time.Millisecond)
 		}
+		time.Sleep(time.Second) // to keep the connection open
 	}))
 	url := "ws://" + server.Listener.Addr().String()
 	defer server.Close()
@@ -544,7 +568,7 @@ func TestStartAPIErrorInSubscription(t *testing.T) {
 
 	// Second message
 	select {
-	case tick, ok := <-sub.Stream:
+	case tick, ok := <-sub.GetStream():
 		if ok {
 			t.Errorf("Expected to get noting, but got response: %v", tick)
 		}
@@ -555,7 +579,9 @@ func TestStartAPIErrorInSubscription(t *testing.T) {
 
 func TestStartTimeout(t *testing.T) {
 	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
-		time.Sleep(time.Millisecond * 2)
+		var msg string
+		_ = websocket.Message.Receive(ws, &msg) // wait for request
+		time.Sleep(time.Second)                 // to keep the connection open
 	}))
 	defer server.Close()
 	url := "ws://" + server.Listener.Addr().String()

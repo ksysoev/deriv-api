@@ -156,7 +156,6 @@ func (s *Subsciption[initResp, Resp]) messageHandler(inChan chan string) {
 		}
 		s.statusLock.Unlock()
 	}()
-
 	for rawResponse := range inChan {
 		err := parseError(rawResponse)
 		if err != nil {
