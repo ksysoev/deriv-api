@@ -133,7 +133,10 @@ func (api *DerivAPI) Connect() error {
 	return nil
 }
 
-// Disconnect closes the websocket connection to the Deriv API
+// Disconnect gracefully disconnects from the Deriv API WebSocket server
+// and cleans up any resources associated with the connection.
+// This function should only be called after
+// the WebSocket connection has been established using the Connect method.
 func (api *DerivAPI) Disconnect() {
 	api.connectionLock.Lock()
 	defer api.connectionLock.Unlock()
@@ -148,7 +151,9 @@ func (api *DerivAPI) Disconnect() {
 	api.ws = nil
 }
 
-// requestSender sends requests to the Deriv API
+// requestSender sends requests to the Deriv API WebSocket server over the provided WebSocket connection.
+// It reads requests from the reqChan channel and sends them using the websocket.Message.Send method.
+// If an error occurs while sending a request, it calls the Disconnect method to gracefully disconnect from the WebSocket server.
 func (api *DerivAPI) requestSender(wsConn *websocket.Conn, reqChan chan []byte) {
 	for req := range reqChan {
 		err := websocket.Message.Send(wsConn, req)
@@ -160,7 +165,10 @@ func (api *DerivAPI) requestSender(wsConn *websocket.Conn, reqChan chan []byte) 
 	}
 }
 
-// handleResponses handles the responses from the Deriv API
+// handleResponses reads responses from the Deriv API WebSocket server over the provided WebSocket connection.
+// It reads responses using the websocket.Message.Receive method and sends them to the respChan channel.
+// If an error occurs while receiving a response, it calls the Disconnect method to gracefully disconnect from the WebSocket server.
+// The function returns when the WebSocket connection is closed or when an error occurs.
 func (api *DerivAPI) handleResponses(wsConn *websocket.Conn, respChan chan string) {
 	defer close(respChan)
 
@@ -177,7 +185,8 @@ func (api *DerivAPI) handleResponses(wsConn *websocket.Conn, respChan chan strin
 	}
 }
 
-// requestMapper handles the responses from the Deriv API
+// requestMapper forward requests to the Deriv API WebSocket server and
+// responses from the WebSocket server to the appropriate channels.
 func (api *DerivAPI) requestMapper(respChan chan string, outputChan chan []byte, reqChan chan ApiReqest, closingChan chan int) {
 	responseMap := make(map[int]chan string)
 
