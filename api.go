@@ -149,7 +149,6 @@ func (api *DerivAPI) Disconnect() {
 }
 
 // requestSender sends requests to the Deriv API
-
 func (api *DerivAPI) requestSender(wsConn *websocket.Conn, reqChan chan []byte) {
 	for req := range reqChan {
 		err := websocket.Message.Send(wsConn, req)
@@ -191,11 +190,7 @@ func (api *DerivAPI) requestMapper(respChan chan string, outputChan chan []byte,
 
 	for {
 		select {
-		case rawResp, ok := <-respChan:
-			if !ok {
-				return
-			}
-
+		case rawResp := <-respChan:
 			var response APIResponseReqID
 			err := json.Unmarshal([]byte(rawResp), &response)
 			if err != nil {
@@ -212,10 +207,7 @@ func (api *DerivAPI) requestMapper(respChan chan string, outputChan chan []byte,
 			}
 			responseMap[req.id] = req.respChan
 			outputChan <- req.msg
-		case reqID, ok := <-closingChan:
-			if !ok {
-				return
-			}
+		case reqID := <-closingChan:
 			channel, okGet := responseMap[reqID]
 
 			if okGet {
