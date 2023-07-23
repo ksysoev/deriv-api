@@ -6,10 +6,10 @@ import (
 	"log"
 	"net/http/httptest"
 	"os"
+	"strings"
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/assert"
 	"golang.org/x/net/websocket"
 )
 
@@ -444,5 +444,7 @@ func TestDebugLogs(t *testing.T) {
 	got := scanner.Text()
 	want := "Connecting to " + url
 
-	assert.Contains(t, got, want)
+	if !strings.Contains(got, want) {
+		t.Errorf("Expected log to contain %s, but got %s", want, got)
+	}
 }
