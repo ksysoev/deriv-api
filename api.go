@@ -14,16 +14,19 @@ import (
 
 // DerivAPI is the main struct for the DerivAPI client.
 type DerivAPI struct {
-	Origin         *url.URL        // The origin URL for the DerivAPI server
-	Endpoint       *url.URL        // The WebSocket endpoint URL for the DerivAPI server
-	AppID          int             // The app ID for the DerivAPI server
-	Lang           string          // The language code (ISO 639-1) for the DerivAPI server
-	ws             *websocket.Conn // The WebSocket connection to the DerivAPI server
-	lastRequestID  int64           // The last request ID used for the DerivAPI server
-	TimeOut        time.Duration   // The timeout duration for the DerivAPI server api calls
-	connectionLock sync.Mutex      // A lock for the DerivAPI server connection
-	reqChan        chan ApiReqest  // A channel for sending requests to the DerivAPI server
-	closingChan    chan int        // A channel for closing the DerivAPI server connection
+	Origin                *url.URL        // The origin URL for the DerivAPI server
+	Endpoint              *url.URL        // The WebSocket endpoint URL for the DerivAPI server
+	AppID                 int             // The app ID for the DerivAPI server
+	Lang                  string          // The language code (ISO 639-1) for the DerivAPI server
+	ws                    *websocket.Conn // The WebSocket connection to the DerivAPI server
+	lastRequestID         int64           // The last request ID used for the DerivAPI server
+	TimeOut               time.Duration   // The timeout duration for the DerivAPI server api calls
+	connectionLock        sync.Mutex      // A lock for the DerivAPI server connection
+	reqChan               chan ApiReqest  // A channel for sending requests to the DerivAPI server
+	closingChan           chan int        // A channel for closing the DerivAPI server connection
+	keepAlive             bool            // A flag to keep the connection alive
+	keepAliveOnDisconnect chan bool       // A channel to keep the connection alive
+	keepAliveInterval     time.Duration   // The interval to send ping requests
 }
 
 // ApiReqest is an interface for all API requests.
@@ -41,6 +44,8 @@ type ApiResponse interface {
 type APIResponseReqID struct {
 	ReqID int `json:"req_id"`
 }
+
+type DerivApiOption func(api *DerivAPI)
 
 // NewDerivAPI creates a new instance of DerivAPI by parsing and validating the given
 // endpoint URL, appID, language, and origin URL. It returns a pointer to a DerivAPI object
@@ -63,7 +68,7 @@ type APIResponseReqID struct {
 //	if err != nil {
 //		log.Fatal(err)
 //	}
-func NewDerivAPI(endpoint string, appID int, lang string, origin string) (*DerivAPI, error) {
+func NewDerivAPI(endpoint string, appID int, lang string, origin string, opts ...DerivApiOption) (*DerivAPI, error) {
 	urlEnpoint, err := url.Parse(endpoint)
 	if err != nil {
 		return nil, err
@@ -93,16 +98,28 @@ func NewDerivAPI(endpoint string, appID int, lang string, origin string) (*Deriv
 	urlEnpoint.RawQuery = query.Encode()
 
 	api := DerivAPI{
-		Origin:         urlOrigin,
-		Endpoint:       urlEnpoint,
-		AppID:          appID,
-		Lang:           lang,
-		lastRequestID:  0,
-		TimeOut:        30 * time.Second,
-		connectionLock: sync.Mutex{},
-		closingChan:    make(chan int),
+		Origin:            urlOrigin,
+		Endpoint:          urlEnpoint,
+		AppID:             appID,
+		Lang:              lang,
+		lastRequestID:     0,
+		TimeOut:           30 * time.Second,
+		connectionLock:    sync.Mutex{},
+		closingChan:       make(chan int),
+		keepAliveInterval: 25 * time.Second,
 	}
+
+	for _, opt := range opts {
+		opt(&api)
+	}
+
 	return &api, nil
+}
+
+// KeepAlive option which keeps the connection alive by sending ping requests.
+// By default the websocket connection is closed after 30 seconds of inactivity.
+func KeepAlive(api *DerivAPI) {
+	api.keepAlive = true
 }
 
 // Connect establishes a WebSocket connection with the Deriv API endpoint.
@@ -130,6 +147,25 @@ func (api *DerivAPI) Connect() error {
 	go api.requestSender(ws, outputChan)
 	go api.requestMapper(respChan, outputChan, api.reqChan, api.closingChan)
 
+	if api.keepAlive {
+		api.keepAliveOnDisconnect = make(chan bool, 1)
+
+		go func(interval time.Duration, onDisconnect chan bool) {
+			for {
+				select {
+				case <-time.After(interval):
+					_, err := api.Ping(Ping{Ping: 1})
+					if err != nil {
+						return
+					}
+				case <-onDisconnect:
+					return
+				}
+
+			}
+		}(api.keepAliveInterval, api.keepAliveOnDisconnect)
+	}
+
 	return nil
 }
 
@@ -146,6 +182,11 @@ func (api *DerivAPI) Disconnect() {
 	}
 
 	close(api.reqChan)
+
+	if api.keepAlive {
+		api.keepAliveOnDisconnect <- true
+		close(api.keepAliveOnDisconnect)
+	}
 
 	api.ws.Close()
 	api.ws = nil
@@ -175,17 +216,15 @@ func (api *DerivAPI) handleResponses(wsConn *websocket.Conn, respChan chan strin
 	for {
 		var msg string
 		err := websocket.Message.Receive(wsConn, &msg)
-
 		if err != nil {
 			api.Disconnect()
 			return
 		}
-
 		respChan <- msg
 	}
 }
 
-// requestMapper forward requests to the Deriv API WebSocket server and
+// requestMapper forward requests to the Deriv API server and
 // responses from the WebSocket server to the appropriate channels.
 func (api *DerivAPI) requestMapper(respChan chan string, outputChan chan []byte, reqChan chan ApiReqest, closingChan chan int) {
 	responseMap := make(map[int]chan string)

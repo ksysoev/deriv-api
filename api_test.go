@@ -373,3 +373,49 @@ func TestSendRequestFailed(t *testing.T) {
 		t.Errorf("Expected error, got nil")
 	}
 }
+
+func TestKeepConnectionAlive(t *testing.T) {
+	resChan := make(chan string)
+	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
+		var msg string
+		_ = websocket.Message.Receive(ws, &msg) // wait for request
+		resChan <- msg
+		ws.Write([]byte(`{
+			"echo_req": {
+			  "ping": 1,
+			  "req_id": 1
+			},
+			"msg_type": "ping",
+			"ping": "pong",
+			"req_id": 1
+		  }`))
+		time.Sleep(time.Second) // to keep the connection open
+	}))
+
+	url := "ws://" + server.Listener.Addr().String()
+	defer server.Close()
+
+	api, _ := NewDerivAPI(url, 123, "en", "http://example.com", KeepAlive)
+	api.keepAliveInterval = time.Millisecond
+	api.Connect()
+	select {
+	case msg := <-resChan:
+		if msg == "" {
+			t.Errorf("Expected to receive ping request, but got nothing")
+		}
+	case <-time.After(time.Millisecond * 2):
+		t.Errorf("Expected to receive ping request, but got nothing")
+	}
+
+	api.Disconnect()
+	api.keepAlive = false
+	api.Connect()
+
+	select {
+	case msg, ok := <-resChan:
+		if ok && msg != "" {
+			t.Errorf("Expected to not receive ping request, but got n%sn>", msg)
+		}
+	case <-time.After(time.Millisecond * 2):
+	}
+}
