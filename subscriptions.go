@@ -5,7 +5,6 @@ package deriv
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"sync"
 	"time"
 )
@@ -114,9 +113,11 @@ func (s *Subsciption[initResp, Resp]) Start(reqID int, request any) (initResp, e
 
 	select {
 	case <-time.After(s.API.TimeOut):
+		s.API.logDebugf("Timeout waiting for response for request %d", reqID)
 		return resp, fmt.Errorf("timeout")
 	case initResponse, ok := <-inChan:
 		if !ok {
+			s.API.logDebugf("Connection closed while waiting for response for request %d", reqID)
 			return resp, fmt.Errorf("connection closed")
 		}
 		subResp, err := parseSubsciption(initResponse)
@@ -133,6 +134,7 @@ func (s *Subsciption[initResp, Resp]) Start(reqID int, request any) (initResp, e
 
 		err = apiResp.UnmarshalJSON([]byte(initResponse))
 		if err != nil {
+			s.API.logDebugf("Failed to parse response for request %d: %s", reqID, err.Error())
 			s.API.closeRequestChannel(reqID)
 			return resp, err
 		}
@@ -159,7 +161,7 @@ func (s *Subsciption[initResp, Resp]) messageHandler(inChan chan string) {
 	for rawResponse := range inChan {
 		err := parseError(rawResponse)
 		if err != nil {
-			log.Printf("Error in subsciption message: %v", err)
+			s.API.logDebugf("Error in subsciption message: %v", err)
 			continue
 		}
 
@@ -171,7 +173,7 @@ func (s *Subsciption[initResp, Resp]) messageHandler(inChan chan string) {
 
 		err = apiResp.UnmarshalJSON([]byte(rawResponse))
 		if err != nil {
-			log.Printf("Error in subsciption message: %v", err)
+			s.API.logDebugf("Failed to parse response in subscription: %s", err.Error())
 			continue
 		}
 		s.statusLock.Lock()

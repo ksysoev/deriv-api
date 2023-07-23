@@ -3,6 +3,7 @@ package deriv
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/url"
 	"strconv"
 	"sync"
@@ -27,6 +28,7 @@ type DerivAPI struct {
 	keepAlive             bool            // A flag to keep the connection alive
 	keepAliveOnDisconnect chan bool       // A channel to keep the connection alive
 	keepAliveInterval     time.Duration   // The interval to send ping requests
+	debugEnabled          bool            // A flag to print debug messages
 }
 
 // ApiReqest is an interface for all API requests.
@@ -56,6 +58,9 @@ type DerivApiOption func(api *DerivAPI)
 // - appID: int - The app ID for the DerivAPI server
 // - lang: string - The language code (ISO 639-1) for the DerivAPI server
 // - origin: string - The origin URL for the DerivAPI server
+// - opts: DerivApiOption - A variadic list of DerivApiOption functions to configure the DerivAPI object (optional)
+//   - KeepAlive: A DerivApiOption function to keep the connection alive by sending ping requests.
+//   - Debug: A DerivApiOption function to enable debug messages.
 //
 // Returns:
 //   - *DerivAPI: A pointer to a new instance of DerivAPI with the validated endpoint, appID,
@@ -122,6 +127,18 @@ func KeepAlive(api *DerivAPI) {
 	api.keepAlive = true
 }
 
+// Debug option which enables debug messages.
+func Debug(api *DerivAPI) {
+	api.debugEnabled = true
+}
+
+// logDebugf prints a debug message if debug is enabled.
+func (api *DerivAPI) logDebugf(format string, v ...interface{}) {
+	if api.debugEnabled {
+		log.Printf(format, v...)
+	}
+}
+
 // Connect establishes a WebSocket connection with the Deriv API endpoint.
 // Returns an error if it fails to connect to WebSoket server.
 func (api *DerivAPI) Connect() error {
@@ -132,10 +149,14 @@ func (api *DerivAPI) Connect() error {
 		return nil
 	}
 
+	api.logDebugf("Connecting to %s", api.Endpoint.String())
+
 	ws, err := websocket.Dial(api.Endpoint.String(), "", api.Origin.String())
 	if err != nil {
+		api.logDebugf("Failed to establish WS connection: %s", err.Error())
 		return err
 	}
+	api.logDebugf("Connected to %s", api.Endpoint.String())
 
 	api.ws = ws
 
@@ -181,6 +202,8 @@ func (api *DerivAPI) Disconnect() {
 		return
 	}
 
+	api.logDebugf("Disconnecting from %s", api.Endpoint.String())
+
 	close(api.reqChan)
 
 	if api.keepAlive {
@@ -197,9 +220,11 @@ func (api *DerivAPI) Disconnect() {
 // If an error occurs while sending a request, it calls the Disconnect method to gracefully disconnect from the WebSocket server.
 func (api *DerivAPI) requestSender(wsConn *websocket.Conn, reqChan chan []byte) {
 	for req := range reqChan {
+		api.logDebugf("Sending request: %s", req)
 		err := websocket.Message.Send(wsConn, req)
 
 		if err != nil {
+			api.logDebugf("Failed to send request: %s", err.Error())
 			api.Disconnect()
 			return
 		}
@@ -217,9 +242,12 @@ func (api *DerivAPI) handleResponses(wsConn *websocket.Conn, respChan chan strin
 		var msg string
 		err := websocket.Message.Receive(wsConn, &msg)
 		if err != nil {
+			api.logDebugf("Failed to receive response: %s", err.Error())
 			api.Disconnect()
 			return
 		}
+
+		api.logDebugf("Received response: %s", msg)
 		respChan <- msg
 	}
 }
@@ -305,9 +333,11 @@ func (api *DerivAPI) SendRequest(reqID int, request any, response ApiResponse) (
 
 	select {
 	case <-time.After(api.TimeOut):
+		api.logDebugf("Timeout waiting for response for request %d", reqID)
 		return fmt.Errorf("timeout")
 	case responseJSON, ok := <-respChan:
 		if !ok {
+			api.logDebugf("Connection closed while waiting for response for request %d", reqID)
 			return fmt.Errorf("connection closed")
 		}
 
@@ -315,7 +345,14 @@ func (api *DerivAPI) SendRequest(reqID int, request any, response ApiResponse) (
 			return err
 		}
 
-		return response.UnmarshalJSON([]byte(responseJSON))
+		err = response.UnmarshalJSON([]byte(responseJSON))
+		if err != nil {
+			api.logDebugf("Failed to parse response for request %d: %s", reqID, err.Error())
+			return err
+		}
+
+		return nil
+
 	}
 }
 

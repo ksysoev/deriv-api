@@ -1,11 +1,15 @@
 package deriv
 
 import (
+	"bufio"
 	"io"
+	"log"
 	"net/http/httptest"
+	"os"
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/assert"
 	"golang.org/x/net/websocket"
 )
 
@@ -37,7 +41,7 @@ func TestNewDerivAPI(t *testing.T) {
 	origin = "https://example.com"
 	appID = 123
 	lang = "en"
-	api, err = NewDerivAPI(endpoint, appID, lang, origin)
+	_, err = NewDerivAPI(endpoint, appID, lang, origin)
 	if err == nil {
 		t.Errorf("Expected error, got nil")
 	}
@@ -47,7 +51,7 @@ func TestNewDerivAPI(t *testing.T) {
 	origin = "https://example.com"
 	appID = -1
 	lang = "en"
-	api, err = NewDerivAPI(endpoint, appID, lang, origin)
+	_, err = NewDerivAPI(endpoint, appID, lang, origin)
 	if err == nil {
 		t.Errorf("Expected error, got nil")
 	}
@@ -57,7 +61,7 @@ func TestNewDerivAPI(t *testing.T) {
 	origin = "https://example.com"
 	appID = 123
 	lang = "eng"
-	api, err = NewDerivAPI(endpoint, appID, lang, origin)
+	_, err = NewDerivAPI(endpoint, appID, lang, origin)
 	if err == nil {
 		t.Errorf("Expected error, got nil")
 	}
@@ -67,7 +71,7 @@ func TestNewDerivAPI(t *testing.T) {
 	origin = "https://example.com"
 	appID = 123
 	lang = "en"
-	api, err = NewDerivAPI(endpoint, appID, lang, origin)
+	_, err = NewDerivAPI(endpoint, appID, lang, origin)
 	if err == nil {
 		t.Errorf("Expected error, got nil")
 	}
@@ -77,7 +81,7 @@ func TestNewDerivAPI(t *testing.T) {
 	origin = ":invalid:"
 	appID = 123
 	lang = "en"
-	api, err = NewDerivAPI(endpoint, appID, lang, origin)
+	_, err = NewDerivAPI(endpoint, appID, lang, origin)
 	if err == nil {
 		t.Errorf("Expected error, got nil")
 	}
@@ -418,4 +422,27 @@ func TestKeepConnectionAlive(t *testing.T) {
 		}
 	case <-time.After(time.Millisecond * 2):
 	}
+}
+
+func TestDebugLogs(t *testing.T) {
+	reader, writer, err := os.Pipe()
+	if err != nil {
+		t.Errorf("Failed to create pipe: %v", err)
+	}
+	defer reader.Close()
+	log.SetOutput(writer)
+	scanner := bufio.NewScanner(reader)
+
+	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) { io.Copy(ws, ws) }))
+	url := "ws://" + server.Listener.Addr().String()
+
+	api, _ := NewDerivAPI(url, 123, "en", "http://example.com", Debug)
+
+	_ = api.Connect()
+
+	scanner.Scan()
+	got := scanner.Text()
+	want := "Connecting to " + url
+
+	assert.Contains(t, got, want)
 }
