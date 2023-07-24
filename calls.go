@@ -2,8 +2,10 @@
 
 package deriv
 
+import "github.com/ksysoev/deriv-api/schema"
+
 // ActiveSymbols Retrieve a list of all currently active symbols (underlying markets upon which contracts are available for trading).
-func (a *DerivAPI) ActiveSymbols(r ActiveSymbols) (resp ActiveSymbolsResp, err error) {
+func (a *DerivAPI) ActiveSymbols(r schema.ActiveSymbols) (resp schema.ActiveSymbolsResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -11,7 +13,7 @@ func (a *DerivAPI) ActiveSymbols(r ActiveSymbols) (resp ActiveSymbolsResp, err e
 }
 
 // ApiToken This call manages API tokens
-func (a *DerivAPI) ApiToken(r ApiToken) (resp ApiTokenResp, err error) {
+func (a *DerivAPI) ApiToken(r schema.ApiToken) (resp schema.ApiTokenResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -19,7 +21,7 @@ func (a *DerivAPI) ApiToken(r ApiToken) (resp ApiTokenResp, err error) {
 }
 
 // AppDelete The request for deleting an application.
-func (a *DerivAPI) AppDelete(r AppDelete) (resp AppDeleteResp, err error) {
+func (a *DerivAPI) AppDelete(r schema.AppDelete) (resp schema.AppDeleteResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -27,7 +29,7 @@ func (a *DerivAPI) AppDelete(r AppDelete) (resp AppDeleteResp, err error) {
 }
 
 // AppGet To get the information of the OAuth application specified by 'app_id'
-func (a *DerivAPI) AppGet(r AppGet) (resp AppGetResp, err error) {
+func (a *DerivAPI) AppGet(r schema.AppGet) (resp schema.AppGetResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -35,7 +37,7 @@ func (a *DerivAPI) AppGet(r AppGet) (resp AppGetResp, err error) {
 }
 
 // AppList List all of the account's OAuth applications
-func (a *DerivAPI) AppList(r AppList) (resp AppListResp, err error) {
+func (a *DerivAPI) AppList(r schema.AppList) (resp schema.AppListResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -43,7 +45,7 @@ func (a *DerivAPI) AppList(r AppList) (resp AppListResp, err error) {
 }
 
 // AppMarkupDetails Retrieve details of `app_markup` according to criteria specified.
-func (a *DerivAPI) AppMarkupDetails(r AppMarkupDetails) (resp AppMarkupDetailsResp, err error) {
+func (a *DerivAPI) AppMarkupDetails(r schema.AppMarkupDetails) (resp schema.AppMarkupDetailsResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -51,7 +53,7 @@ func (a *DerivAPI) AppMarkupDetails(r AppMarkupDetails) (resp AppMarkupDetailsRe
 }
 
 // AppMarkupStatistics Retrieve statistics of `app_markup`.
-func (a *DerivAPI) AppMarkupStatistics(r AppMarkupStatistics) (resp AppMarkupStatisticsResp, err error) {
+func (a *DerivAPI) AppMarkupStatistics(r schema.AppMarkupStatistics) (resp schema.AppMarkupStatisticsResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -59,7 +61,7 @@ func (a *DerivAPI) AppMarkupStatistics(r AppMarkupStatistics) (resp AppMarkupSta
 }
 
 // AppRegister Register a new OAuth application
-func (a *DerivAPI) AppRegister(r AppRegister) (resp AppRegisterResp, err error) {
+func (a *DerivAPI) AppRegister(r schema.AppRegister) (resp schema.AppRegisterResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -67,7 +69,7 @@ func (a *DerivAPI) AppRegister(r AppRegister) (resp AppRegisterResp, err error) 
 }
 
 // AppUpdate Update a new OAuth application
-func (a *DerivAPI) AppUpdate(r AppUpdate) (resp AppUpdateResp, err error) {
+func (a *DerivAPI) AppUpdate(r schema.AppUpdate) (resp schema.AppUpdateResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -75,7 +77,7 @@ func (a *DerivAPI) AppUpdate(r AppUpdate) (resp AppUpdateResp, err error) {
 }
 
 // AssetIndex Retrieve a list of all available underlyings and the corresponding contract types and duration boundaries. If the user is logged in, only the assets available for that user's landing company will be returned.
-func (a *DerivAPI) AssetIndex(r AssetIndex) (resp AssetIndexResp, err error) {
+func (a *DerivAPI) AssetIndex(r schema.AssetIndex) (resp schema.AssetIndexResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -83,7 +85,7 @@ func (a *DerivAPI) AssetIndex(r AssetIndex) (resp AssetIndexResp, err error) {
 }
 
 // Authorize Authorize current WebSocket session to act on behalf of the owner of a given token. Must precede requests that need to access client account, for example purchasing and selling contracts or viewing portfolio.
-func (a *DerivAPI) Authorize(r Authorize) (resp AuthorizeResp, err error) {
+func (a *DerivAPI) Authorize(r schema.Authorize) (resp schema.AuthorizeResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -91,7 +93,7 @@ func (a *DerivAPI) Authorize(r Authorize) (resp AuthorizeResp, err error) {
 }
 
 // Balance Get user account balance
-func (a *DerivAPI) Balance(r Balance) (resp BalanceResp, err error) {
+func (a *DerivAPI) Balance(r schema.Balance) (resp schema.BalanceResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -99,7 +101,7 @@ func (a *DerivAPI) Balance(r Balance) (resp BalanceResp, err error) {
 }
 
 // Buy Buy a Contract
-func (a *DerivAPI) Buy(r Buy) (resp BuyResp, err error) {
+func (a *DerivAPI) Buy(r schema.Buy) (resp schema.BuyResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -107,7 +109,7 @@ func (a *DerivAPI) Buy(r Buy) (resp BuyResp, err error) {
 }
 
 // BuyContractForMultipleAccounts Buy a Contract for multiple Accounts specified by the `tokens` parameter. Note, although this is an authorized call, the contract is not bought for the authorized account.
-func (a *DerivAPI) BuyContractForMultipleAccounts(r BuyContractForMultipleAccounts) (resp BuyContractForMultipleAccountsResp, err error) {
+func (a *DerivAPI) BuyContractForMultipleAccounts(r schema.BuyContractForMultipleAccounts) (resp schema.BuyContractForMultipleAccountsResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -115,7 +117,7 @@ func (a *DerivAPI) BuyContractForMultipleAccounts(r BuyContractForMultipleAccoun
 }
 
 // Cancel Cancel contract with contract id
-func (a *DerivAPI) Cancel(r Cancel) (resp CancelResp, err error) {
+func (a *DerivAPI) Cancel(r schema.Cancel) (resp schema.CancelResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -123,7 +125,7 @@ func (a *DerivAPI) Cancel(r Cancel) (resp CancelResp, err error) {
 }
 
 // Cashier Request the cashier info for the specified type.
-func (a *DerivAPI) Cashier(r Cashier) (resp CashierResp, err error) {
+func (a *DerivAPI) Cashier(r schema.Cashier) (resp schema.CashierResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -131,7 +133,7 @@ func (a *DerivAPI) Cashier(r Cashier) (resp CashierResp, err error) {
 }
 
 // ContractUpdate Update a contract condition.
-func (a *DerivAPI) ContractUpdate(r ContractUpdate) (resp ContractUpdateResp, err error) {
+func (a *DerivAPI) ContractUpdate(r schema.ContractUpdate) (resp schema.ContractUpdateResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -139,7 +141,7 @@ func (a *DerivAPI) ContractUpdate(r ContractUpdate) (resp ContractUpdateResp, er
 }
 
 // ContractUpdateHistory Request for contract update history.
-func (a *DerivAPI) ContractUpdateHistory(r ContractUpdateHistory) (resp ContractUpdateHistoryResp, err error) {
+func (a *DerivAPI) ContractUpdateHistory(r schema.ContractUpdateHistory) (resp schema.ContractUpdateHistoryResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -147,7 +149,7 @@ func (a *DerivAPI) ContractUpdateHistory(r ContractUpdateHistory) (resp Contract
 }
 
 // ContractsFor For a given symbol, get the list of currently available contracts, and the latest barrier and duration limits for each contract.
-func (a *DerivAPI) ContractsFor(r ContractsFor) (resp ContractsForResp, err error) {
+func (a *DerivAPI) ContractsFor(r schema.ContractsFor) (resp schema.ContractsForResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -155,7 +157,7 @@ func (a *DerivAPI) ContractsFor(r ContractsFor) (resp ContractsForResp, err erro
 }
 
 // CopyStart Start copy trader bets
-func (a *DerivAPI) CopyStart(r CopyStart) (resp CopyStartResp, err error) {
+func (a *DerivAPI) CopyStart(r schema.CopyStart) (resp schema.CopyStartResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -163,7 +165,7 @@ func (a *DerivAPI) CopyStart(r CopyStart) (resp CopyStartResp, err error) {
 }
 
 // CopyStop Stop copy trader bets
-func (a *DerivAPI) CopyStop(r CopyStop) (resp CopyStopResp, err error) {
+func (a *DerivAPI) CopyStop(r schema.CopyStop) (resp schema.CopyStopResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -171,7 +173,7 @@ func (a *DerivAPI) CopyStop(r CopyStop) (resp CopyStopResp, err error) {
 }
 
 // CopytradingList Retrieves a list of active copiers and/or traders for Copy Trading
-func (a *DerivAPI) CopytradingList(r CopytradingList) (resp CopytradingListResp, err error) {
+func (a *DerivAPI) CopytradingList(r schema.CopytradingList) (resp schema.CopytradingListResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -179,7 +181,7 @@ func (a *DerivAPI) CopytradingList(r CopytradingList) (resp CopytradingListResp,
 }
 
 // CopytradingStatistics Retrieve performance, trading, risk and copiers statistics of trader.
-func (a *DerivAPI) CopytradingStatistics(r CopytradingStatistics) (resp CopytradingStatisticsResp, err error) {
+func (a *DerivAPI) CopytradingStatistics(r schema.CopytradingStatistics) (resp schema.CopytradingStatisticsResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -187,7 +189,7 @@ func (a *DerivAPI) CopytradingStatistics(r CopytradingStatistics) (resp Copytrad
 }
 
 // CryptoConfig The request for cryptocurrencies configuration.
-func (a *DerivAPI) CryptoConfig(r CryptoConfig) (resp CryptoConfigResp, err error) {
+func (a *DerivAPI) CryptoConfig(r schema.CryptoConfig) (resp schema.CryptoConfigResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -195,7 +197,7 @@ func (a *DerivAPI) CryptoConfig(r CryptoConfig) (resp CryptoConfigResp, err erro
 }
 
 // DocumentUpload Request KYC information from client
-func (a *DerivAPI) DocumentUpload(r DocumentUpload) (resp DocumentUploadResp, err error) {
+func (a *DerivAPI) DocumentUpload(r schema.DocumentUpload) (resp schema.DocumentUploadResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -203,7 +205,7 @@ func (a *DerivAPI) DocumentUpload(r DocumentUpload) (resp DocumentUploadResp, er
 }
 
 // EconomicCalendar Specify a currency to receive a list of events related to that specific currency. For example, specifying USD will return a list of USD-related events. If the currency is omitted, you will receive a list for all currencies.
-func (a *DerivAPI) EconomicCalendar(r EconomicCalendar) (resp EconomicCalendarResp, err error) {
+func (a *DerivAPI) EconomicCalendar(r schema.EconomicCalendar) (resp schema.EconomicCalendarResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -211,7 +213,7 @@ func (a *DerivAPI) EconomicCalendar(r EconomicCalendar) (resp EconomicCalendarRe
 }
 
 // ExchangeRates Retrieves the exchange rates from a base currency to all currencies supported by the system.
-func (a *DerivAPI) ExchangeRates(r ExchangeRates) (resp ExchangeRatesResp, err error) {
+func (a *DerivAPI) ExchangeRates(r schema.ExchangeRates) (resp schema.ExchangeRatesResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -219,7 +221,7 @@ func (a *DerivAPI) ExchangeRates(r ExchangeRates) (resp ExchangeRatesResp, err e
 }
 
 // Forget Immediately cancel the real-time stream of messages with a specific ID.
-func (a *DerivAPI) Forget(r Forget) (resp ForgetResp, err error) {
+func (a *DerivAPI) Forget(r schema.Forget) (resp schema.ForgetResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -227,7 +229,7 @@ func (a *DerivAPI) Forget(r Forget) (resp ForgetResp, err error) {
 }
 
 // ForgetAll Immediately cancel the real-time streams of messages of given type.
-func (a *DerivAPI) ForgetAll(r ForgetAll) (resp ForgetAllResp, err error) {
+func (a *DerivAPI) ForgetAll(r schema.ForgetAll) (resp schema.ForgetAllResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -235,7 +237,7 @@ func (a *DerivAPI) ForgetAll(r ForgetAll) (resp ForgetAllResp, err error) {
 }
 
 // GetAccountStatus Get Account Status
-func (a *DerivAPI) GetAccountStatus(r GetAccountStatus) (resp GetAccountStatusResp, err error) {
+func (a *DerivAPI) GetAccountStatus(r schema.GetAccountStatus) (resp schema.GetAccountStatusResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -243,7 +245,7 @@ func (a *DerivAPI) GetAccountStatus(r GetAccountStatus) (resp GetAccountStatusRe
 }
 
 // GetFinancialAssessment This call gets the financial assessment details. The 'financial assessment' is a questionnaire that clients of certain Landing Companies need to complete, due to regulatory and KYC (know your client) requirements.
-func (a *DerivAPI) GetFinancialAssessment(r GetFinancialAssessment) (resp GetFinancialAssessmentResp, err error) {
+func (a *DerivAPI) GetFinancialAssessment(r schema.GetFinancialAssessment) (resp schema.GetFinancialAssessmentResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -251,7 +253,7 @@ func (a *DerivAPI) GetFinancialAssessment(r GetFinancialAssessment) (resp GetFin
 }
 
 // GetLimits Trading and Withdrawal Limits for a given user
-func (a *DerivAPI) GetLimits(r GetLimits) (resp GetLimitsResp, err error) {
+func (a *DerivAPI) GetLimits(r schema.GetLimits) (resp schema.GetLimitsResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -259,7 +261,7 @@ func (a *DerivAPI) GetLimits(r GetLimits) (resp GetLimitsResp, err error) {
 }
 
 // GetSelfExclusion Allows users to exclude themselves from the website for certain periods of time, or to set limits on their trading activities. This facility is a regulatory requirement for certain Landing Companies.
-func (a *DerivAPI) GetSelfExclusion(r GetSelfExclusion) (resp GetSelfExclusionResp, err error) {
+func (a *DerivAPI) GetSelfExclusion(r schema.GetSelfExclusion) (resp schema.GetSelfExclusionResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -267,7 +269,7 @@ func (a *DerivAPI) GetSelfExclusion(r GetSelfExclusion) (resp GetSelfExclusionRe
 }
 
 // GetSettings Get User Settings (email, date of birth, address etc)
-func (a *DerivAPI) GetSettings(r GetSettings) (resp GetSettingsResp, err error) {
+func (a *DerivAPI) GetSettings(r schema.GetSettings) (resp schema.GetSettingsResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -275,7 +277,7 @@ func (a *DerivAPI) GetSettings(r GetSettings) (resp GetSettingsResp, err error) 
 }
 
 // IdentityVerificationDocumentAdd Adds document information such as issuing country, id and type for identity verification processes.
-func (a *DerivAPI) IdentityVerificationDocumentAdd(r IdentityVerificationDocumentAdd) (resp IdentityVerificationDocumentAddResp, err error) {
+func (a *DerivAPI) IdentityVerificationDocumentAdd(r schema.IdentityVerificationDocumentAdd) (resp schema.IdentityVerificationDocumentAddResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -283,7 +285,7 @@ func (a *DerivAPI) IdentityVerificationDocumentAdd(r IdentityVerificationDocumen
 }
 
 // LandingCompany The company has a number of licensed subsidiaries in various jurisdictions, which are called Landing Companies. This call will return the appropriate Landing Company for clients of a given country. The landing company may differ for Gaming contracts (Synthetic Indices) and Financial contracts (Forex, Stock Indices, Commodities).
-func (a *DerivAPI) LandingCompany(r LandingCompany) (resp LandingCompanyResp, err error) {
+func (a *DerivAPI) LandingCompany(r schema.LandingCompany) (resp schema.LandingCompanyResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -291,7 +293,7 @@ func (a *DerivAPI) LandingCompany(r LandingCompany) (resp LandingCompanyResp, er
 }
 
 // LandingCompanyDetails The company has a number of licensed subsidiaries in various jurisdictions, which are called Landing Companies (and which are wholly owned subsidiaries of the Deriv Group). This call provides information about each Landing Company.
-func (a *DerivAPI) LandingCompanyDetails(r LandingCompanyDetails) (resp LandingCompanyDetailsResp, err error) {
+func (a *DerivAPI) LandingCompanyDetails(r schema.LandingCompanyDetails) (resp schema.LandingCompanyDetailsResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -299,7 +301,7 @@ func (a *DerivAPI) LandingCompanyDetails(r LandingCompanyDetails) (resp LandingC
 }
 
 // LoginHistory Retrieve a summary of login history for user.
-func (a *DerivAPI) LoginHistory(r LoginHistory) (resp LoginHistoryResp, err error) {
+func (a *DerivAPI) LoginHistory(r schema.LoginHistory) (resp schema.LoginHistoryResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -307,7 +309,7 @@ func (a *DerivAPI) LoginHistory(r LoginHistory) (resp LoginHistoryResp, err erro
 }
 
 // Logout Logout the session
-func (a *DerivAPI) Logout(r Logout) (resp LogoutResp, err error) {
+func (a *DerivAPI) Logout(r schema.Logout) (resp schema.LogoutResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -315,7 +317,7 @@ func (a *DerivAPI) Logout(r Logout) (resp LogoutResp, err error) {
 }
 
 // Mt5Deposit This call allows deposit into MT5 account from Binary account.
-func (a *DerivAPI) Mt5Deposit(r Mt5Deposit) (resp Mt5DepositResp, err error) {
+func (a *DerivAPI) Mt5Deposit(r schema.Mt5Deposit) (resp schema.Mt5DepositResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -323,7 +325,7 @@ func (a *DerivAPI) Mt5Deposit(r Mt5Deposit) (resp Mt5DepositResp, err error) {
 }
 
 // Mt5GetSettings Get MT5 user account settings
-func (a *DerivAPI) Mt5GetSettings(r Mt5GetSettings) (resp Mt5GetSettingsResp, err error) {
+func (a *DerivAPI) Mt5GetSettings(r schema.Mt5GetSettings) (resp schema.Mt5GetSettingsResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -331,7 +333,7 @@ func (a *DerivAPI) Mt5GetSettings(r Mt5GetSettings) (resp Mt5GetSettingsResp, er
 }
 
 // Mt5LoginList Get list of MT5 accounts for client
-func (a *DerivAPI) Mt5LoginList(r Mt5LoginList) (resp Mt5LoginListResp, err error) {
+func (a *DerivAPI) Mt5LoginList(r schema.Mt5LoginList) (resp schema.Mt5LoginListResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -339,7 +341,7 @@ func (a *DerivAPI) Mt5LoginList(r Mt5LoginList) (resp Mt5LoginListResp, err erro
 }
 
 // Mt5NewAccount This call creates new MT5 user, either demo or real money user.
-func (a *DerivAPI) Mt5NewAccount(r Mt5NewAccount) (resp Mt5NewAccountResp, err error) {
+func (a *DerivAPI) Mt5NewAccount(r schema.Mt5NewAccount) (resp schema.Mt5NewAccountResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -347,7 +349,7 @@ func (a *DerivAPI) Mt5NewAccount(r Mt5NewAccount) (resp Mt5NewAccountResp, err e
 }
 
 // Mt5PasswordChange To change passwords of the MT5 account.
-func (a *DerivAPI) Mt5PasswordChange(r Mt5PasswordChange) (resp Mt5PasswordChangeResp, err error) {
+func (a *DerivAPI) Mt5PasswordChange(r schema.Mt5PasswordChange) (resp schema.Mt5PasswordChangeResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -355,7 +357,7 @@ func (a *DerivAPI) Mt5PasswordChange(r Mt5PasswordChange) (resp Mt5PasswordChang
 }
 
 // Mt5PasswordCheck This call validates the main password for the MT5 user
-func (a *DerivAPI) Mt5PasswordCheck(r Mt5PasswordCheck) (resp Mt5PasswordCheckResp, err error) {
+func (a *DerivAPI) Mt5PasswordCheck(r schema.Mt5PasswordCheck) (resp schema.Mt5PasswordCheckResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -363,7 +365,7 @@ func (a *DerivAPI) Mt5PasswordCheck(r Mt5PasswordCheck) (resp Mt5PasswordCheckRe
 }
 
 // Mt5PasswordReset To reset the password of MT5 account.
-func (a *DerivAPI) Mt5PasswordReset(r Mt5PasswordReset) (resp Mt5PasswordResetResp, err error) {
+func (a *DerivAPI) Mt5PasswordReset(r schema.Mt5PasswordReset) (resp schema.Mt5PasswordResetResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -371,7 +373,7 @@ func (a *DerivAPI) Mt5PasswordReset(r Mt5PasswordReset) (resp Mt5PasswordResetRe
 }
 
 // Mt5Withdrawal This call allows withdrawal from MT5 account to Binary account.
-func (a *DerivAPI) Mt5Withdrawal(r Mt5Withdrawal) (resp Mt5WithdrawalResp, err error) {
+func (a *DerivAPI) Mt5Withdrawal(r schema.Mt5Withdrawal) (resp schema.Mt5WithdrawalResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -379,7 +381,7 @@ func (a *DerivAPI) Mt5Withdrawal(r Mt5Withdrawal) (resp Mt5WithdrawalResp, err e
 }
 
 // NewAccountMaltainvest This call opens a new real-money account with the `maltainvest` Landing Company. This call can be made from a virtual-money account or real-money account at Deriv (Europe) Limited. If it is the latter, client information fields in this call will be ignored and data from your existing real-money account will be used.
-func (a *DerivAPI) NewAccountMaltainvest(r NewAccountMaltainvest) (resp NewAccountMaltainvestResp, err error) {
+func (a *DerivAPI) NewAccountMaltainvest(r schema.NewAccountMaltainvest) (resp schema.NewAccountMaltainvestResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -387,7 +389,7 @@ func (a *DerivAPI) NewAccountMaltainvest(r NewAccountMaltainvest) (resp NewAccou
 }
 
 // NewAccountReal This call opens a new real-money account. This call can be made from a virtual-money or a real-money account. If it is the latter, client information fields in this call will be ignored and data from your existing real-money account will be used.
-func (a *DerivAPI) NewAccountReal(r NewAccountReal) (resp NewAccountRealResp, err error) {
+func (a *DerivAPI) NewAccountReal(r schema.NewAccountReal) (resp schema.NewAccountRealResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -395,7 +397,7 @@ func (a *DerivAPI) NewAccountReal(r NewAccountReal) (resp NewAccountRealResp, er
 }
 
 // NewAccountVirtual Create a new virtual-money account.
-func (a *DerivAPI) NewAccountVirtual(r NewAccountVirtual) (resp NewAccountVirtualResp, err error) {
+func (a *DerivAPI) NewAccountVirtual(r schema.NewAccountVirtual) (resp schema.NewAccountVirtualResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -403,7 +405,7 @@ func (a *DerivAPI) NewAccountVirtual(r NewAccountVirtual) (resp NewAccountVirtua
 }
 
 // OauthApps List all my used OAuth applications.
-func (a *DerivAPI) OauthApps(r OauthApps) (resp OauthAppsResp, err error) {
+func (a *DerivAPI) OauthApps(r schema.OauthApps) (resp schema.OauthAppsResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -411,7 +413,7 @@ func (a *DerivAPI) OauthApps(r OauthApps) (resp OauthAppsResp, err error) {
 }
 
 // P2PAdvertCreate Creates a P2P (Peer to Peer) advert. Can only be used by an approved P2P advertiser.
-func (a *DerivAPI) P2PAdvertCreate(r P2PAdvertCreate) (resp P2PAdvertCreateResp, err error) {
+func (a *DerivAPI) P2PAdvertCreate(r schema.P2PAdvertCreate) (resp schema.P2PAdvertCreateResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -419,7 +421,7 @@ func (a *DerivAPI) P2PAdvertCreate(r P2PAdvertCreate) (resp P2PAdvertCreateResp,
 }
 
 // P2PAdvertInfo Retrieve information about a P2P advert.
-func (a *DerivAPI) P2PAdvertInfo(r P2PAdvertInfo) (resp P2PAdvertInfoResp, err error) {
+func (a *DerivAPI) P2PAdvertInfo(r schema.P2PAdvertInfo) (resp schema.P2PAdvertInfoResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -427,7 +429,7 @@ func (a *DerivAPI) P2PAdvertInfo(r P2PAdvertInfo) (resp P2PAdvertInfoResp, err e
 }
 
 // P2PAdvertList Returns available adverts for use with `p2p_order_create` .
-func (a *DerivAPI) P2PAdvertList(r P2PAdvertList) (resp P2PAdvertListResp, err error) {
+func (a *DerivAPI) P2PAdvertList(r schema.P2PAdvertList) (resp schema.P2PAdvertListResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -435,7 +437,7 @@ func (a *DerivAPI) P2PAdvertList(r P2PAdvertList) (resp P2PAdvertListResp, err e
 }
 
 // P2PAdvertUpdate Updates a P2P advert. Can only be used by the advertiser.
-func (a *DerivAPI) P2PAdvertUpdate(r P2PAdvertUpdate) (resp P2PAdvertUpdateResp, err error) {
+func (a *DerivAPI) P2PAdvertUpdate(r schema.P2PAdvertUpdate) (resp schema.P2PAdvertUpdateResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -443,7 +445,7 @@ func (a *DerivAPI) P2PAdvertUpdate(r P2PAdvertUpdate) (resp P2PAdvertUpdateResp,
 }
 
 // P2PAdvertiserAdverts Returns all P2P adverts created by the authorized client. Can only be used by a registered P2P advertiser.
-func (a *DerivAPI) P2PAdvertiserAdverts(r P2PAdvertiserAdverts) (resp P2PAdvertiserAdvertsResp, err error) {
+func (a *DerivAPI) P2PAdvertiserAdverts(r schema.P2PAdvertiserAdverts) (resp schema.P2PAdvertiserAdvertsResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -451,7 +453,7 @@ func (a *DerivAPI) P2PAdvertiserAdverts(r P2PAdvertiserAdverts) (resp P2PAdverti
 }
 
 // P2PAdvertiserCreate Registers the client as a P2P advertiser.
-func (a *DerivAPI) P2PAdvertiserCreate(r P2PAdvertiserCreate) (resp P2PAdvertiserCreateResp, err error) {
+func (a *DerivAPI) P2PAdvertiserCreate(r schema.P2PAdvertiserCreate) (resp schema.P2PAdvertiserCreateResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -459,7 +461,7 @@ func (a *DerivAPI) P2PAdvertiserCreate(r P2PAdvertiserCreate) (resp P2PAdvertise
 }
 
 // P2PAdvertiserInfo Retrieve information about a P2P advertiser.
-func (a *DerivAPI) P2PAdvertiserInfo(r P2PAdvertiserInfo) (resp P2PAdvertiserInfoResp, err error) {
+func (a *DerivAPI) P2PAdvertiserInfo(r schema.P2PAdvertiserInfo) (resp schema.P2PAdvertiserInfoResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -467,7 +469,7 @@ func (a *DerivAPI) P2PAdvertiserInfo(r P2PAdvertiserInfo) (resp P2PAdvertiserInf
 }
 
 // P2PAdvertiserList Retrieve advertisers has/had trade with the current advertiser.
-func (a *DerivAPI) P2PAdvertiserList(r P2PAdvertiserList) (resp P2PAdvertiserListResp, err error) {
+func (a *DerivAPI) P2PAdvertiserList(r schema.P2PAdvertiserList) (resp schema.P2PAdvertiserListResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -475,7 +477,7 @@ func (a *DerivAPI) P2PAdvertiserList(r P2PAdvertiserList) (resp P2PAdvertiserLis
 }
 
 // P2PAdvertiserPaymentMethods Manage or list P2P advertiser payment methods.
-func (a *DerivAPI) P2PAdvertiserPaymentMethods(r P2PAdvertiserPaymentMethods) (resp P2PAdvertiserPaymentMethodsResp, err error) {
+func (a *DerivAPI) P2PAdvertiserPaymentMethods(r schema.P2PAdvertiserPaymentMethods) (resp schema.P2PAdvertiserPaymentMethodsResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -483,7 +485,7 @@ func (a *DerivAPI) P2PAdvertiserPaymentMethods(r P2PAdvertiserPaymentMethods) (r
 }
 
 // P2PAdvertiserRelations Updates and returns favourite and blocked advertisers of the current user.
-func (a *DerivAPI) P2PAdvertiserRelations(r P2PAdvertiserRelations) (resp P2PAdvertiserRelationsResp, err error) {
+func (a *DerivAPI) P2PAdvertiserRelations(r schema.P2PAdvertiserRelations) (resp schema.P2PAdvertiserRelationsResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -491,7 +493,7 @@ func (a *DerivAPI) P2PAdvertiserRelations(r P2PAdvertiserRelations) (resp P2PAdv
 }
 
 // P2PAdvertiserUpdate Update the information of the P2P advertiser for the current account. Can only be used by an approved P2P advertiser.
-func (a *DerivAPI) P2PAdvertiserUpdate(r P2PAdvertiserUpdate) (resp P2PAdvertiserUpdateResp, err error) {
+func (a *DerivAPI) P2PAdvertiserUpdate(r schema.P2PAdvertiserUpdate) (resp schema.P2PAdvertiserUpdateResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -499,7 +501,7 @@ func (a *DerivAPI) P2PAdvertiserUpdate(r P2PAdvertiserUpdate) (resp P2PAdvertise
 }
 
 // P2PChatCreate Creates a P2P chat for the specified order.
-func (a *DerivAPI) P2PChatCreate(r P2PChatCreate) (resp P2PChatCreateResp, err error) {
+func (a *DerivAPI) P2PChatCreate(r schema.P2PChatCreate) (resp schema.P2PChatCreateResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -507,7 +509,7 @@ func (a *DerivAPI) P2PChatCreate(r P2PChatCreate) (resp P2PChatCreateResp, err e
 }
 
 // P2POrderCancel Cancel a P2P order.
-func (a *DerivAPI) P2POrderCancel(r P2POrderCancel) (resp P2POrderCancelResp, err error) {
+func (a *DerivAPI) P2POrderCancel(r schema.P2POrderCancel) (resp schema.P2POrderCancelResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -515,7 +517,7 @@ func (a *DerivAPI) P2POrderCancel(r P2POrderCancel) (resp P2POrderCancelResp, er
 }
 
 // P2POrderConfirm Confirm a P2P order.
-func (a *DerivAPI) P2POrderConfirm(r P2POrderConfirm) (resp P2POrderConfirmResp, err error) {
+func (a *DerivAPI) P2POrderConfirm(r schema.P2POrderConfirm) (resp schema.P2POrderConfirmResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -523,7 +525,7 @@ func (a *DerivAPI) P2POrderConfirm(r P2POrderConfirm) (resp P2POrderConfirmResp,
 }
 
 // P2POrderCreate Creates a P2P order for the specified advert.
-func (a *DerivAPI) P2POrderCreate(r P2POrderCreate) (resp P2POrderCreateResp, err error) {
+func (a *DerivAPI) P2POrderCreate(r schema.P2POrderCreate) (resp schema.P2POrderCreateResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -531,7 +533,7 @@ func (a *DerivAPI) P2POrderCreate(r P2POrderCreate) (resp P2POrderCreateResp, er
 }
 
 // P2POrderDispute Dispute a P2P order.
-func (a *DerivAPI) P2POrderDispute(r P2POrderDispute) (resp P2POrderDisputeResp, err error) {
+func (a *DerivAPI) P2POrderDispute(r schema.P2POrderDispute) (resp schema.P2POrderDisputeResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -539,7 +541,7 @@ func (a *DerivAPI) P2POrderDispute(r P2POrderDispute) (resp P2POrderDisputeResp,
 }
 
 // P2POrderInfo Retrieves the information about a P2P order.
-func (a *DerivAPI) P2POrderInfo(r P2POrderInfo) (resp P2POrderInfoResp, err error) {
+func (a *DerivAPI) P2POrderInfo(r schema.P2POrderInfo) (resp schema.P2POrderInfoResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -547,7 +549,7 @@ func (a *DerivAPI) P2POrderInfo(r P2POrderInfo) (resp P2POrderInfoResp, err erro
 }
 
 // P2POrderList List active orders.
-func (a *DerivAPI) P2POrderList(r P2POrderList) (resp P2POrderListResp, err error) {
+func (a *DerivAPI) P2POrderList(r schema.P2POrderList) (resp schema.P2POrderListResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -555,7 +557,7 @@ func (a *DerivAPI) P2POrderList(r P2POrderList) (resp P2POrderListResp, err erro
 }
 
 // P2POrderReview Creates a review for the specified order.
-func (a *DerivAPI) P2POrderReview(r P2POrderReview) (resp P2POrderReviewResp, err error) {
+func (a *DerivAPI) P2POrderReview(r schema.P2POrderReview) (resp schema.P2POrderReviewResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -563,7 +565,7 @@ func (a *DerivAPI) P2POrderReview(r P2POrderReview) (resp P2POrderReviewResp, er
 }
 
 // P2PPaymentMethods List all P2P payment methods.
-func (a *DerivAPI) P2PPaymentMethods(r P2PPaymentMethods) (resp P2PPaymentMethodsResp, err error) {
+func (a *DerivAPI) P2PPaymentMethods(r schema.P2PPaymentMethods) (resp schema.P2PPaymentMethodsResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -571,7 +573,7 @@ func (a *DerivAPI) P2PPaymentMethods(r P2PPaymentMethods) (resp P2PPaymentMethod
 }
 
 // P2PPing Keeps the connection alive and updates the P2P advertiser's online status. The advertiser will be considered offline 60 seconds after a call is made.
-func (a *DerivAPI) P2PPing(r P2PPing) (resp P2PPingResp, err error) {
+func (a *DerivAPI) P2PPing(r schema.P2PPing) (resp schema.P2PPingResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -579,7 +581,7 @@ func (a *DerivAPI) P2PPing(r P2PPing) (resp P2PPingResp, err error) {
 }
 
 // PaymentMethods Will return a list payment methods available for the given country. If the request is authenticated the client's residence country will be used.
-func (a *DerivAPI) PaymentMethods(r PaymentMethods) (resp PaymentMethodsResp, err error) {
+func (a *DerivAPI) PaymentMethods(r schema.PaymentMethods) (resp schema.PaymentMethodsResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -587,7 +589,7 @@ func (a *DerivAPI) PaymentMethods(r PaymentMethods) (resp PaymentMethodsResp, er
 }
 
 // PaymentagentCreate Saves client's payment agent details.
-func (a *DerivAPI) PaymentagentCreate(r PaymentagentCreate) (resp PaymentagentCreateResp, err error) {
+func (a *DerivAPI) PaymentagentCreate(r schema.PaymentagentCreate) (resp schema.PaymentagentCreateResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -595,7 +597,7 @@ func (a *DerivAPI) PaymentagentCreate(r PaymentagentCreate) (resp PaymentagentCr
 }
 
 // PaymentagentDetails Gets client's payment agent details.
-func (a *DerivAPI) PaymentagentDetails(r PaymentagentDetails) (resp PaymentagentDetailsResp, err error) {
+func (a *DerivAPI) PaymentagentDetails(r schema.PaymentagentDetails) (resp schema.PaymentagentDetailsResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -603,7 +605,7 @@ func (a *DerivAPI) PaymentagentDetails(r PaymentagentDetails) (resp Paymentagent
 }
 
 // PaymentagentList Will return a list of Payment Agents for a given country for a given currency. Payment agents allow users to deposit and withdraw funds using local payment methods that might not be available via the main website's cashier system.
-func (a *DerivAPI) PaymentagentList(r PaymentagentList) (resp PaymentagentListResp, err error) {
+func (a *DerivAPI) PaymentagentList(r schema.PaymentagentList) (resp schema.PaymentagentListResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -611,7 +613,7 @@ func (a *DerivAPI) PaymentagentList(r PaymentagentList) (resp PaymentagentListRe
 }
 
 // PaymentagentTransfer Payment Agent Transfer - this call is available only to accounts that are approved Payment Agents.
-func (a *DerivAPI) PaymentagentTransfer(r PaymentagentTransfer) (resp PaymentagentTransferResp, err error) {
+func (a *DerivAPI) PaymentagentTransfer(r schema.PaymentagentTransfer) (resp schema.PaymentagentTransferResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -619,7 +621,7 @@ func (a *DerivAPI) PaymentagentTransfer(r PaymentagentTransfer) (resp Paymentage
 }
 
 // PaymentagentWithdraw Initiate a withdrawal to an approved Payment Agent.
-func (a *DerivAPI) PaymentagentWithdraw(r PaymentagentWithdraw) (resp PaymentagentWithdrawResp, err error) {
+func (a *DerivAPI) PaymentagentWithdraw(r schema.PaymentagentWithdraw) (resp schema.PaymentagentWithdrawResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -627,7 +629,7 @@ func (a *DerivAPI) PaymentagentWithdraw(r PaymentagentWithdraw) (resp Paymentage
 }
 
 // PaymentagentWithdrawJustification Provide justification to perform withdrawal using a Payment Agent.
-func (a *DerivAPI) PaymentagentWithdrawJustification(r PaymentagentWithdrawJustification) (resp PaymentagentWithdrawJustificationResp, err error) {
+func (a *DerivAPI) PaymentagentWithdrawJustification(r schema.PaymentagentWithdrawJustification) (resp schema.PaymentagentWithdrawJustificationResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -635,7 +637,7 @@ func (a *DerivAPI) PaymentagentWithdrawJustification(r PaymentagentWithdrawJusti
 }
 
 // PayoutCurrencies Retrieve a list of available option payout currencies. If a user is logged in, only the currencies available for the account will be returned.
-func (a *DerivAPI) PayoutCurrencies(r PayoutCurrencies) (resp PayoutCurrenciesResp, err error) {
+func (a *DerivAPI) PayoutCurrencies(r schema.PayoutCurrencies) (resp schema.PayoutCurrenciesResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -643,7 +645,7 @@ func (a *DerivAPI) PayoutCurrencies(r PayoutCurrencies) (resp PayoutCurrenciesRe
 }
 
 // Ping To send the ping request to the server. Mostly used to test the connection or to keep it alive.
-func (a *DerivAPI) Ping(r Ping) (resp PingResp, err error) {
+func (a *DerivAPI) Ping(r schema.Ping) (resp schema.PingResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -651,7 +653,7 @@ func (a *DerivAPI) Ping(r Ping) (resp PingResp, err error) {
 }
 
 // Portfolio Receive information about my current portfolio of outstanding options
-func (a *DerivAPI) Portfolio(r Portfolio) (resp PortfolioResp, err error) {
+func (a *DerivAPI) Portfolio(r schema.Portfolio) (resp schema.PortfolioResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -659,7 +661,7 @@ func (a *DerivAPI) Portfolio(r Portfolio) (resp PortfolioResp, err error) {
 }
 
 // ProfitTable Retrieve a summary of account Profit Table, according to given search criteria
-func (a *DerivAPI) ProfitTable(r ProfitTable) (resp ProfitTableResp, err error) {
+func (a *DerivAPI) ProfitTable(r schema.ProfitTable) (resp schema.ProfitTableResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -667,7 +669,7 @@ func (a *DerivAPI) ProfitTable(r ProfitTable) (resp ProfitTableResp, err error) 
 }
 
 // Proposal Gets latest price for a specific contract.
-func (a *DerivAPI) Proposal(r Proposal) (resp ProposalResp, err error) {
+func (a *DerivAPI) Proposal(r schema.Proposal) (resp schema.ProposalResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -675,7 +677,7 @@ func (a *DerivAPI) Proposal(r Proposal) (resp ProposalResp, err error) {
 }
 
 // ProposalOpenContract Get latest price (and other information) for a contract in the user's portfolio
-func (a *DerivAPI) ProposalOpenContract(r ProposalOpenContract) (resp ProposalOpenContractResp, err error) {
+func (a *DerivAPI) ProposalOpenContract(r schema.ProposalOpenContract) (resp schema.ProposalOpenContractResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -683,7 +685,7 @@ func (a *DerivAPI) ProposalOpenContract(r ProposalOpenContract) (resp ProposalOp
 }
 
 // RealityCheck Retrieve summary of client's trades and account for the Reality Check facility. A 'reality check' means a display of time elapsed since the session began, and associated client profit/loss. The Reality Check facility is a regulatory requirement for certain landing companies.
-func (a *DerivAPI) RealityCheck(r RealityCheck) (resp RealityCheckResp, err error) {
+func (a *DerivAPI) RealityCheck(r schema.RealityCheck) (resp schema.RealityCheckResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -691,7 +693,7 @@ func (a *DerivAPI) RealityCheck(r RealityCheck) (resp RealityCheckResp, err erro
 }
 
 // ResidenceList This call returns a list of countries and 2-letter country codes, suitable for populating the account opening form.
-func (a *DerivAPI) ResidenceList(r ResidenceList) (resp ResidenceListResp, err error) {
+func (a *DerivAPI) ResidenceList(r schema.ResidenceList) (resp schema.ResidenceListResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -699,7 +701,7 @@ func (a *DerivAPI) ResidenceList(r ResidenceList) (resp ResidenceListResp, err e
 }
 
 // RevokeOauthApp Used for revoking access of particular app.
-func (a *DerivAPI) RevokeOauthApp(r RevokeOauthApp) (resp RevokeOauthAppResp, err error) {
+func (a *DerivAPI) RevokeOauthApp(r schema.RevokeOauthApp) (resp schema.RevokeOauthAppResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -707,7 +709,7 @@ func (a *DerivAPI) RevokeOauthApp(r RevokeOauthApp) (resp RevokeOauthAppResp, er
 }
 
 // Sell Sell a Contract as identified from a previous `portfolio` call.
-func (a *DerivAPI) Sell(r Sell) (resp SellResp, err error) {
+func (a *DerivAPI) Sell(r schema.Sell) (resp schema.SellResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -715,7 +717,7 @@ func (a *DerivAPI) Sell(r Sell) (resp SellResp, err error) {
 }
 
 // SellContractForMultipleAccounts Sell contracts for multiple accounts simultaneously. Uses the shortcode response from `buy_contract_for_multiple_accounts` to identify the contract, and authorisation tokens to select which accounts to sell those contracts on. Note that only the accounts identified by the tokens will be affected. This will not sell the contract on the currently-authorised account unless you include the token for the current account.
-func (a *DerivAPI) SellContractForMultipleAccounts(r SellContractForMultipleAccounts) (resp SellContractForMultipleAccountsResp, err error) {
+func (a *DerivAPI) SellContractForMultipleAccounts(r schema.SellContractForMultipleAccounts) (resp schema.SellContractForMultipleAccountsResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -723,7 +725,7 @@ func (a *DerivAPI) SellContractForMultipleAccounts(r SellContractForMultipleAcco
 }
 
 // SellExpired This call will try to sell any expired contracts and return the number of sold contracts.
-func (a *DerivAPI) SellExpired(r SellExpired) (resp SellExpiredResp, err error) {
+func (a *DerivAPI) SellExpired(r schema.SellExpired) (resp schema.SellExpiredResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -731,7 +733,7 @@ func (a *DerivAPI) SellExpired(r SellExpired) (resp SellExpiredResp, err error) 
 }
 
 // SetAccountCurrency Set account currency, this will be default currency for your account i.e currency for trading, deposit. Please note that account currency can only be set once, and then can never be changed.
-func (a *DerivAPI) SetAccountCurrency(r SetAccountCurrency) (resp SetAccountCurrencyResp, err error) {
+func (a *DerivAPI) SetAccountCurrency(r schema.SetAccountCurrency) (resp schema.SetAccountCurrencyResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -739,7 +741,7 @@ func (a *DerivAPI) SetAccountCurrency(r SetAccountCurrency) (resp SetAccountCurr
 }
 
 // SetFinancialAssessment This call sets the financial assessment details based on the client's answers to analyze whether they possess the experience and knowledge to understand the risks involved with binary options trading.
-func (a *DerivAPI) SetFinancialAssessment(r SetFinancialAssessment) (resp SetFinancialAssessmentResp, err error) {
+func (a *DerivAPI) SetFinancialAssessment(r schema.SetFinancialAssessment) (resp schema.SetFinancialAssessmentResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -747,7 +749,7 @@ func (a *DerivAPI) SetFinancialAssessment(r SetFinancialAssessment) (resp SetFin
 }
 
 // SetSelfExclusion Set Self-Exclusion (this call should be used in conjunction with `get_self_exclusion`)
-func (a *DerivAPI) SetSelfExclusion(r SetSelfExclusion) (resp SetSelfExclusionResp, err error) {
+func (a *DerivAPI) SetSelfExclusion(r schema.SetSelfExclusion) (resp schema.SetSelfExclusionResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -755,7 +757,7 @@ func (a *DerivAPI) SetSelfExclusion(r SetSelfExclusion) (resp SetSelfExclusionRe
 }
 
 // SetSettings Set User Settings (this call should be used in conjunction with `get_settings`)
-func (a *DerivAPI) SetSettings(r SetSettings) (resp SetSettingsResp, err error) {
+func (a *DerivAPI) SetSettings(r schema.SetSettings) (resp schema.SetSettingsResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -763,7 +765,7 @@ func (a *DerivAPI) SetSettings(r SetSettings) (resp SetSettingsResp, err error) 
 }
 
 // Statement Retrieve a summary of account transactions, according to given search criteria
-func (a *DerivAPI) Statement(r Statement) (resp StatementResp, err error) {
+func (a *DerivAPI) Statement(r schema.Statement) (resp schema.StatementResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -771,7 +773,7 @@ func (a *DerivAPI) Statement(r Statement) (resp StatementResp, err error) {
 }
 
 // StatesList For a given country, returns a list of States of that country. This is useful to populate the account opening form.
-func (a *DerivAPI) StatesList(r StatesList) (resp StatesListResp, err error) {
+func (a *DerivAPI) StatesList(r schema.StatesList) (resp schema.StatesListResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -779,7 +781,7 @@ func (a *DerivAPI) StatesList(r StatesList) (resp StatesListResp, err error) {
 }
 
 // Ticks Initiate a continuous stream of spot price updates for a given symbol.
-func (a *DerivAPI) Ticks(r Ticks) (resp TicksResp, err error) {
+func (a *DerivAPI) Ticks(r schema.Ticks) (resp schema.TicksResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -787,7 +789,7 @@ func (a *DerivAPI) Ticks(r Ticks) (resp TicksResp, err error) {
 }
 
 // TicksHistory Get historic tick data for a given symbol.
-func (a *DerivAPI) TicksHistory(r TicksHistory) (resp TicksHistoryResp, err error) {
+func (a *DerivAPI) TicksHistory(r schema.TicksHistory) (resp schema.TicksHistoryResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -795,7 +797,7 @@ func (a *DerivAPI) TicksHistory(r TicksHistory) (resp TicksHistoryResp, err erro
 }
 
 // Time Request back-end server epoch time.
-func (a *DerivAPI) Time(r Time) (resp TimeResp, err error) {
+func (a *DerivAPI) Time(r schema.Time) (resp schema.TimeResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -803,7 +805,7 @@ func (a *DerivAPI) Time(r Time) (resp TimeResp, err error) {
 }
 
 // TncApproval To approve the latest version of terms and conditions.
-func (a *DerivAPI) TncApproval(r TncApproval) (resp TncApprovalResp, err error) {
+func (a *DerivAPI) TncApproval(r schema.TncApproval) (resp schema.TncApprovalResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -811,7 +813,7 @@ func (a *DerivAPI) TncApproval(r TncApproval) (resp TncApprovalResp, err error) 
 }
 
 // TopupVirtual When a virtual-money's account balance becomes low, it can be topped up using this call.
-func (a *DerivAPI) TopupVirtual(r TopupVirtual) (resp TopupVirtualResp, err error) {
+func (a *DerivAPI) TopupVirtual(r schema.TopupVirtual) (resp schema.TopupVirtualResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -819,7 +821,7 @@ func (a *DerivAPI) TopupVirtual(r TopupVirtual) (resp TopupVirtualResp, err erro
 }
 
 // TradingDurations Retrieve a list of all available underlyings and the corresponding contract types and trading duration boundaries. If the user is logged in, only the assets available for that user's landing company will be returned.
-func (a *DerivAPI) TradingDurations(r TradingDurations) (resp TradingDurationsResp, err error) {
+func (a *DerivAPI) TradingDurations(r schema.TradingDurations) (resp schema.TradingDurationsResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -827,7 +829,7 @@ func (a *DerivAPI) TradingDurations(r TradingDurations) (resp TradingDurationsRe
 }
 
 // TradingPlatformInvestorPasswordReset Reset the investor password of a Trading Platform Account
-func (a *DerivAPI) TradingPlatformInvestorPasswordReset(r TradingPlatformInvestorPasswordReset) (resp TradingPlatformInvestorPasswordResetResp, err error) {
+func (a *DerivAPI) TradingPlatformInvestorPasswordReset(r schema.TradingPlatformInvestorPasswordReset) (resp schema.TradingPlatformInvestorPasswordResetResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -835,7 +837,7 @@ func (a *DerivAPI) TradingPlatformInvestorPasswordReset(r TradingPlatformInvesto
 }
 
 // TradingPlatformPasswordReset Reset the password of a Trading Platform Account
-func (a *DerivAPI) TradingPlatformPasswordReset(r TradingPlatformPasswordReset) (resp TradingPlatformPasswordResetResp, err error) {
+func (a *DerivAPI) TradingPlatformPasswordReset(r schema.TradingPlatformPasswordReset) (resp schema.TradingPlatformPasswordResetResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -843,7 +845,7 @@ func (a *DerivAPI) TradingPlatformPasswordReset(r TradingPlatformPasswordReset) 
 }
 
 // TradingServers Get the list of servers for a trading platform.
-func (a *DerivAPI) TradingServers(r TradingServers) (resp TradingServersResp, err error) {
+func (a *DerivAPI) TradingServers(r schema.TradingServers) (resp schema.TradingServersResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -851,7 +853,7 @@ func (a *DerivAPI) TradingServers(r TradingServers) (resp TradingServersResp, er
 }
 
 // TradingTimes Receive a list of market opening times for a given date.
-func (a *DerivAPI) TradingTimes(r TradingTimes) (resp TradingTimesResp, err error) {
+func (a *DerivAPI) TradingTimes(r schema.TradingTimes) (resp schema.TradingTimesResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -859,7 +861,7 @@ func (a *DerivAPI) TradingTimes(r TradingTimes) (resp TradingTimesResp, err erro
 }
 
 // Transaction Subscribe to transaction notifications
-func (a *DerivAPI) Transaction(r Transaction) (resp TransactionResp, err error) {
+func (a *DerivAPI) Transaction(r schema.Transaction) (resp schema.TransactionResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -867,7 +869,7 @@ func (a *DerivAPI) Transaction(r Transaction) (resp TransactionResp, err error) 
 }
 
 // TransferBetweenAccounts This call allows transfers between accounts held by a given user. Transfer funds between your fiat and cryptocurrency accounts (for a fee). Please note that account_from should be same as current authorized account.
-func (a *DerivAPI) TransferBetweenAccounts(r TransferBetweenAccounts) (resp TransferBetweenAccountsResp, err error) {
+func (a *DerivAPI) TransferBetweenAccounts(r schema.TransferBetweenAccounts) (resp schema.TransferBetweenAccountsResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -875,7 +877,7 @@ func (a *DerivAPI) TransferBetweenAccounts(r TransferBetweenAccounts) (resp Tran
 }
 
 // UnsubscribeEmail It unsubscribe user from the email subscription.
-func (a *DerivAPI) UnsubscribeEmail(r UnsubscribeEmail) (resp UnsubscribeEmailResp, err error) {
+func (a *DerivAPI) UnsubscribeEmail(r schema.UnsubscribeEmail) (resp schema.UnsubscribeEmailResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -883,7 +885,7 @@ func (a *DerivAPI) UnsubscribeEmail(r UnsubscribeEmail) (resp UnsubscribeEmailRe
 }
 
 // VerifyEmail Verify an email address for various purposes. The system will send an email to the address containing a security code for verification.
-func (a *DerivAPI) VerifyEmail(r VerifyEmail) (resp VerifyEmailResp, err error) {
+func (a *DerivAPI) VerifyEmail(r schema.VerifyEmail) (resp schema.VerifyEmailResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -891,7 +893,7 @@ func (a *DerivAPI) VerifyEmail(r VerifyEmail) (resp VerifyEmailResp, err error) 
 }
 
 // VerifyEmailCellxpert Verify an email address for Cellxpert. The system will send an email to the address containing a security code for verification.
-func (a *DerivAPI) VerifyEmailCellxpert(r VerifyEmailCellxpert) (resp VerifyEmailCellxpertResp, err error) {
+func (a *DerivAPI) VerifyEmailCellxpert(r schema.VerifyEmailCellxpert) (resp schema.VerifyEmailCellxpertResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)
@@ -899,7 +901,7 @@ func (a *DerivAPI) VerifyEmailCellxpert(r VerifyEmailCellxpert) (resp VerifyEmai
 }
 
 // WebsiteStatus Request server status.
-func (a *DerivAPI) WebsiteStatus(r WebsiteStatus) (resp WebsiteStatusResp, err error) {
+func (a *DerivAPI) WebsiteStatus(r schema.WebsiteStatus) (resp schema.WebsiteStatusResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
 	err = a.SendRequest(id, r, &resp)

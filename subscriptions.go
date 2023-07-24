@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"sync"
 	"time"
+
+	"github.com/ksysoev/deriv-api/schema"
 )
 
 // Subscription represents a subscription instance.
@@ -71,7 +73,7 @@ func (s *Subsciption[initResp, Resp]) Forget() error {
 	defer s.statusLock.Unlock()
 
 	if s.isActive {
-		_, err := s.API.Forget(Forget{Forget: s.SubsciptionID})
+		_, err := s.API.Forget(schema.Forget{Forget: s.SubsciptionID})
 
 		if err != nil {
 			return err
