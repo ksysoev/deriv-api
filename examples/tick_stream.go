@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/ksysoev/deriv-api"
+	"github.com/ksysoev/deriv-api/schema"
 )
 
 func main() {
@@ -16,7 +17,7 @@ func main() {
 
 	defer api.Disconnect()
 
-	resp, sub, err := api.SubscribeTicks(deriv.Ticks{Ticks: "R_50"})
+	resp, sub, err := api.SubscribeTicks(schema.Ticks{Ticks: "R_50"})
 
 	if err != nil {
 		log.Fatal(err)

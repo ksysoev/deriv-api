@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/ksysoev/deriv-api"
+	"github.com/ksysoev/deriv-api/schema"
 )
 
 const ApiToken = "YOUR_API_TOKEN_HERE" // Replace with your API token
@@ -18,7 +19,7 @@ func main() {
 	defer api.Disconnect()
 
 	// First, we need to authorize the connection
-	reqAuth := deriv.Authorize{Authorize: ApiToken}
+	reqAuth := schema.Authorize{Authorize: ApiToken}
 	_, err = api.Authorize(reqAuth)
 
 	if err != nil {
@@ -27,12 +28,12 @@ func main() {
 
 	// Now we can send request for creating a new app
 
-	scopes := []deriv.AppRegisterScopesElem{
-		deriv.AppRegisterScopesElemRead,
-		deriv.AppRegisterScopesElemTrade,
+	scopes := []schema.AppRegisterScopesElem{
+		schema.AppRegisterScopesElemRead,
+		schema.AppRegisterScopesElemTrade,
 	}
 	// Create a new app
-	reqAppReg := deriv.AppRegister{
+	reqAppReg := schema.AppRegister{
 		AppRegister: 1,
 		Name:        "Example App",
 		Scopes:      scopes,

@@ -10,6 +10,7 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/ksysoev/deriv-api/schema"
 	"golang.org/x/net/websocket"
 )
 
@@ -175,7 +176,7 @@ func (api *DerivAPI) Connect() error {
 			for {
 				select {
 				case <-time.After(interval):
-					_, err := api.Ping(Ping{Ping: 1})
+					_, err := api.Ping(schema.Ping{Ping: 1})
 					if err != nil {
 						return
 					}

@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/ksysoev/deriv-api"
+	"github.com/ksysoev/deriv-api/schema"
 )
 
 const ApiToken = "YOUR_API_TOKEN_HERE" // Replace with your API token
@@ -18,7 +19,7 @@ func main() {
 	defer api.Disconnect()
 
 	// First, we need to authorize the connection
-	reqAuth := deriv.Authorize{Authorize: ApiToken}
+	reqAuth := schema.Authorize{Authorize: ApiToken}
 	_, err = api.Authorize(reqAuth)
 
 	if err != nil {
@@ -28,17 +29,17 @@ func main() {
 	amount := 100.0
 	barrier := "+0.001"
 	duration := 5
-	basis := deriv.ProposalBasisPayout
+	basis := schema.ProposalBasisPayout
 
-	reqProp := deriv.Proposal{
+	reqProp := schema.Proposal{
 		Proposal:     1,
 		Amount:       &amount,
 		Barrier:      &barrier,
 		Basis:        &basis,
-		ContractType: deriv.ProposalContractTypeCALL,
+		ContractType: schema.ProposalContractTypeCALL,
 		Currency:     "USD",
 		Duration:     &duration,
-		DurationUnit: deriv.ProposalDurationUnitT,
+		DurationUnit: schema.ProposalDurationUnitT,
 		Symbol:       "R_50",
 	}
 
@@ -49,7 +50,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	buyReq := deriv.Buy{
+	buyReq := schema.Buy{
 		Buy:   proposal.Proposal.Id,
 		Price: 100.0,
 	}

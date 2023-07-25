@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/ksysoev/deriv-api"
+	"github.com/ksysoev/deriv-api/schema"
 )
 
 func main() {
@@ -16,9 +17,9 @@ func main() {
 
 	defer api.Disconnect()
 
-	var startTime deriv.TicksHistoryAdjustStartTime = 1
+	var startTime schema.TicksHistoryAdjustStartTime = 1
 	start := 1
-	resp, sub, err := api.SubscribeTicksHistory(deriv.TicksHistory{
+	resp, sub, err := api.SubscribeTicksHistory(schema.TicksHistory{
 		TicksHistory:    "R_50",
 		AdjustStartTime: &startTime,
 		End:             "latest",

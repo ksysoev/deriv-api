@@ -2,167 +2,169 @@
 
 package deriv
 
+import "github.com/ksysoev/deriv-api/schema"
+
 // SubscribeBalance Get user account balance
-func (a *DerivAPI) SubscribeBalance(r Balance) (rsp BalanceResp, s *Subsciption[BalanceResp, BalanceResp], err error) {
+func (a *DerivAPI) SubscribeBalance(r schema.Balance) (rsp schema.BalanceResp, s *Subsciption[schema.BalanceResp, schema.BalanceResp], err error) {
 	id := a.getNextRequestID()
-	var f BalanceSubscribe = 1
+	var f schema.BalanceSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[BalanceResp, BalanceResp](a)
+	s = NewSubcription[schema.BalanceResp, schema.BalanceResp](a)
 	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeBuy Buy a Contract
-func (a *DerivAPI) SubscribeBuy(r Buy) (rsp BuyResp, s *Subsciption[BuyResp, ProposalOpenContractResp], err error) {
+func (a *DerivAPI) SubscribeBuy(r schema.Buy) (rsp schema.BuyResp, s *Subsciption[schema.BuyResp, schema.ProposalOpenContractResp], err error) {
 	id := a.getNextRequestID()
-	var f BuySubscribe = 1
+	var f schema.BuySubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[BuyResp, ProposalOpenContractResp](a)
+	s = NewSubcription[schema.BuyResp, schema.ProposalOpenContractResp](a)
 	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeExchangeRates Retrieves the exchange rates from a base currency to all currencies supported by the system.
-func (a *DerivAPI) SubscribeExchangeRates(r ExchangeRates) (rsp ExchangeRatesResp, s *Subsciption[ExchangeRatesResp, ExchangeRatesResp], err error) {
+func (a *DerivAPI) SubscribeExchangeRates(r schema.ExchangeRates) (rsp schema.ExchangeRatesResp, s *Subsciption[schema.ExchangeRatesResp, schema.ExchangeRatesResp], err error) {
 	id := a.getNextRequestID()
-	var f ExchangeRatesSubscribe = 1
+	var f schema.ExchangeRatesSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[ExchangeRatesResp, ExchangeRatesResp](a)
+	s = NewSubcription[schema.ExchangeRatesResp, schema.ExchangeRatesResp](a)
 	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeP2PAdvertInfo Retrieve information about a P2P advert.
-func (a *DerivAPI) SubscribeP2PAdvertInfo(r P2PAdvertInfo) (rsp P2PAdvertInfoResp, s *Subsciption[P2PAdvertInfoResp, P2PAdvertInfoResp], err error) {
+func (a *DerivAPI) SubscribeP2PAdvertInfo(r schema.P2PAdvertInfo) (rsp schema.P2PAdvertInfoResp, s *Subsciption[schema.P2PAdvertInfoResp, schema.P2PAdvertInfoResp], err error) {
 	id := a.getNextRequestID()
-	var f P2PAdvertInfoSubscribe = 1
+	var f schema.P2PAdvertInfoSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[P2PAdvertInfoResp, P2PAdvertInfoResp](a)
+	s = NewSubcription[schema.P2PAdvertInfoResp, schema.P2PAdvertInfoResp](a)
 	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeP2PAdvertiserCreate Registers the client as a P2P advertiser.
-func (a *DerivAPI) SubscribeP2PAdvertiserCreate(r P2PAdvertiserCreate) (rsp P2PAdvertiserCreateResp, s *Subsciption[P2PAdvertiserCreateResp, P2PAdvertInfoResp], err error) {
+func (a *DerivAPI) SubscribeP2PAdvertiserCreate(r schema.P2PAdvertiserCreate) (rsp schema.P2PAdvertiserCreateResp, s *Subsciption[schema.P2PAdvertiserCreateResp, schema.P2PAdvertInfoResp], err error) {
 	id := a.getNextRequestID()
-	var f P2PAdvertiserCreateSubscribe = 1
+	var f schema.P2PAdvertiserCreateSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[P2PAdvertiserCreateResp, P2PAdvertInfoResp](a)
+	s = NewSubcription[schema.P2PAdvertiserCreateResp, schema.P2PAdvertInfoResp](a)
 	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeP2PAdvertiserInfo Retrieve information about a P2P advertiser.
-func (a *DerivAPI) SubscribeP2PAdvertiserInfo(r P2PAdvertiserInfo) (rsp P2PAdvertiserInfoResp, s *Subsciption[P2PAdvertiserInfoResp, P2PAdvertiserInfoResp], err error) {
+func (a *DerivAPI) SubscribeP2PAdvertiserInfo(r schema.P2PAdvertiserInfo) (rsp schema.P2PAdvertiserInfoResp, s *Subsciption[schema.P2PAdvertiserInfoResp, schema.P2PAdvertiserInfoResp], err error) {
 	id := a.getNextRequestID()
-	var f P2PAdvertiserInfoSubscribe = 1
+	var f schema.P2PAdvertiserInfoSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[P2PAdvertiserInfoResp, P2PAdvertiserInfoResp](a)
+	s = NewSubcription[schema.P2PAdvertiserInfoResp, schema.P2PAdvertiserInfoResp](a)
 	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeP2POrderCreate Creates a P2P order for the specified advert.
-func (a *DerivAPI) SubscribeP2POrderCreate(r P2POrderCreate) (rsp P2POrderCreateResp, s *Subsciption[P2POrderCreateResp, P2POrderInfoResp], err error) {
+func (a *DerivAPI) SubscribeP2POrderCreate(r schema.P2POrderCreate) (rsp schema.P2POrderCreateResp, s *Subsciption[schema.P2POrderCreateResp, schema.P2POrderInfoResp], err error) {
 	id := a.getNextRequestID()
-	var f P2POrderCreateSubscribe = 1
+	var f schema.P2POrderCreateSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[P2POrderCreateResp, P2POrderInfoResp](a)
+	s = NewSubcription[schema.P2POrderCreateResp, schema.P2POrderInfoResp](a)
 	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeP2POrderInfo Retrieves the information about a P2P order.
-func (a *DerivAPI) SubscribeP2POrderInfo(r P2POrderInfo) (rsp P2POrderInfoResp, s *Subsciption[P2POrderInfoResp, P2POrderInfoResp], err error) {
+func (a *DerivAPI) SubscribeP2POrderInfo(r schema.P2POrderInfo) (rsp schema.P2POrderInfoResp, s *Subsciption[schema.P2POrderInfoResp, schema.P2POrderInfoResp], err error) {
 	id := a.getNextRequestID()
-	var f P2POrderInfoSubscribe = 1
+	var f schema.P2POrderInfoSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[P2POrderInfoResp, P2POrderInfoResp](a)
+	s = NewSubcription[schema.P2POrderInfoResp, schema.P2POrderInfoResp](a)
 	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeP2POrderList List active orders.
-func (a *DerivAPI) SubscribeP2POrderList(r P2POrderList) (rsp P2POrderListResp, s *Subsciption[P2POrderListResp, P2POrderInfoResp], err error) {
+func (a *DerivAPI) SubscribeP2POrderList(r schema.P2POrderList) (rsp schema.P2POrderListResp, s *Subsciption[schema.P2POrderListResp, schema.P2POrderInfoResp], err error) {
 	id := a.getNextRequestID()
-	var f P2POrderListSubscribe = 1
+	var f schema.P2POrderListSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[P2POrderListResp, P2POrderInfoResp](a)
+	s = NewSubcription[schema.P2POrderListResp, schema.P2POrderInfoResp](a)
 	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeProposal Gets latest price for a specific contract.
-func (a *DerivAPI) SubscribeProposal(r Proposal) (rsp ProposalResp, s *Subsciption[ProposalResp, ProposalResp], err error) {
+func (a *DerivAPI) SubscribeProposal(r schema.Proposal) (rsp schema.ProposalResp, s *Subsciption[schema.ProposalResp, schema.ProposalResp], err error) {
 	id := a.getNextRequestID()
-	var f ProposalSubscribe = 1
+	var f schema.ProposalSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[ProposalResp, ProposalResp](a)
+	s = NewSubcription[schema.ProposalResp, schema.ProposalResp](a)
 	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeProposalOpenContract Get latest price (and other information) for a contract in the user's portfolio
-func (a *DerivAPI) SubscribeProposalOpenContract(r ProposalOpenContract) (rsp ProposalOpenContractResp, s *Subsciption[ProposalOpenContractResp, ProposalOpenContractResp], err error) {
+func (a *DerivAPI) SubscribeProposalOpenContract(r schema.ProposalOpenContract) (rsp schema.ProposalOpenContractResp, s *Subsciption[schema.ProposalOpenContractResp, schema.ProposalOpenContractResp], err error) {
 	id := a.getNextRequestID()
-	var f ProposalOpenContractSubscribe = 1
+	var f schema.ProposalOpenContractSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[ProposalOpenContractResp, ProposalOpenContractResp](a)
+	s = NewSubcription[schema.ProposalOpenContractResp, schema.ProposalOpenContractResp](a)
 	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeTicks Initiate a continuous stream of spot price updates for a given symbol.
-func (a *DerivAPI) SubscribeTicks(r Ticks) (rsp TicksResp, s *Subsciption[TicksResp, TicksResp], err error) {
+func (a *DerivAPI) SubscribeTicks(r schema.Ticks) (rsp schema.TicksResp, s *Subsciption[schema.TicksResp, schema.TicksResp], err error) {
 	id := a.getNextRequestID()
-	var f TicksSubscribe = 1
+	var f schema.TicksSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[TicksResp, TicksResp](a)
+	s = NewSubcription[schema.TicksResp, schema.TicksResp](a)
 	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeTicksHistory Get historic tick data for a given symbol.
-func (a *DerivAPI) SubscribeTicksHistory(r TicksHistory) (rsp TicksHistoryResp, s *Subsciption[TicksHistoryResp, TicksResp], err error) {
+func (a *DerivAPI) SubscribeTicksHistory(r schema.TicksHistory) (rsp schema.TicksHistoryResp, s *Subsciption[schema.TicksHistoryResp, schema.TicksResp], err error) {
 	id := a.getNextRequestID()
-	var f TicksHistorySubscribe = 1
+	var f schema.TicksHistorySubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[TicksHistoryResp, TicksResp](a)
+	s = NewSubcription[schema.TicksHistoryResp, schema.TicksResp](a)
 	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeTransaction Subscribe to transaction notifications
-func (a *DerivAPI) SubscribeTransaction(r Transaction) (rsp TransactionResp, s *Subsciption[TransactionResp, TransactionResp], err error) {
+func (a *DerivAPI) SubscribeTransaction(r schema.Transaction) (rsp schema.TransactionResp, s *Subsciption[schema.TransactionResp, schema.TransactionResp], err error) {
 	id := a.getNextRequestID()
-	var f TransactionSubscribe = 1
+	var f schema.TransactionSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = f
-	s = NewSubcription[TransactionResp, TransactionResp](a)
+	s = NewSubcription[schema.TransactionResp, schema.TransactionResp](a)
 	rsp, err = s.Start(id, r)
 	return
 }
 
 // SubscribeWebsiteStatus Request server status.
-func (a *DerivAPI) SubscribeWebsiteStatus(r WebsiteStatus) (rsp WebsiteStatusResp, s *Subsciption[WebsiteStatusResp, WebsiteStatusResp], err error) {
+func (a *DerivAPI) SubscribeWebsiteStatus(r schema.WebsiteStatus) (rsp schema.WebsiteStatusResp, s *Subsciption[schema.WebsiteStatusResp, schema.WebsiteStatusResp], err error) {
 	id := a.getNextRequestID()
-	var f WebsiteStatusSubscribe = 1
+	var f schema.WebsiteStatusSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[WebsiteStatusResp, WebsiteStatusResp](a)
+	s = NewSubcription[schema.WebsiteStatusResp, schema.WebsiteStatusResp](a)
 	rsp, err = s.Start(id, r)
 	return
 }

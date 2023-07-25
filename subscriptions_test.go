@@ -8,6 +8,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/ksysoev/deriv-api/schema"
 	"golang.org/x/net/websocket"
 )
 
@@ -64,7 +65,7 @@ func TestParseSubscription_EmptySubscriptionData(t *testing.T) {
 
 func TestNewNewSubcription(t *testing.T) {
 	api, _ := NewDerivAPI("ws://example.com", 123, "en", "http://example.com")
-	sub := NewSubcription[TicksResp, TicksResp](api)
+	sub := NewSubcription[schema.TicksResp, schema.TicksResp](api)
 	if sub == nil {
 		t.Errorf("Expected a subscription, but got nil")
 	}
@@ -107,15 +108,15 @@ func TestStart(t *testing.T) {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
-	sub := NewSubcription[TicksResp, TicksResp](api)
+	sub := NewSubcription[schema.TicksResp, schema.TicksResp](api)
 
 	if sub == nil {
 		t.Errorf("Expected a subscription, but got nil")
 	}
 
 	reqID := 1
-	var f TicksSubscribe = 1
-	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
+	var f schema.TicksSubscribe = 1
+	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
 	initResp, err := sub.Start(reqID, req)
 
 	if err != nil {
@@ -157,11 +158,11 @@ func TestStartFailed(t *testing.T) {
 	server.Close()
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
 
-	sub := NewSubcription[TicksResp, TicksResp](api)
+	sub := NewSubcription[schema.TicksResp, schema.TicksResp](api)
 
 	reqID := 1
-	var f TicksSubscribe = 1
-	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
+	var f schema.TicksSubscribe = 1
+	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
 	_, err := sub.Start(reqID, req)
 
 	if err == nil {
@@ -209,15 +210,15 @@ func TestForget(t *testing.T) {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
-	sub := NewSubcription[TicksResp, TicksResp](api)
+	sub := NewSubcription[schema.TicksResp, schema.TicksResp](api)
 
 	if sub == nil {
 		t.Errorf("Expected a subscription, but got nil")
 	}
 
 	reqID := api.getNextRequestID()
-	var f TicksSubscribe = 1
-	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
+	var f schema.TicksSubscribe = 1
+	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
 	_, err = sub.Start(reqID, req)
 
 	if err != nil {
@@ -296,15 +297,15 @@ func TestForgetFailed(t *testing.T) {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
-	sub := NewSubcription[TicksResp, TicksResp](api)
+	sub := NewSubcription[schema.TicksResp, schema.TicksResp](api)
 
 	if sub == nil {
 		t.Errorf("Expected a subscription, but got nil")
 	}
 
 	reqID := api.getNextRequestID()
-	var f TicksSubscribe = 1
-	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
+	var f schema.TicksSubscribe = 1
+	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
 	_, err = sub.Start(reqID, req)
 
 	if err != nil {
@@ -371,15 +372,15 @@ func TestStartAPIError(t *testing.T) {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
-	sub := NewSubcription[TicksResp, TicksResp](api)
+	sub := NewSubcription[schema.TicksResp, schema.TicksResp](api)
 
 	if sub == nil {
 		t.Errorf("Expected a subscription, but got nil")
 	}
 
 	reqID := 1
-	var f TicksSubscribe = 1
-	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
+	var f schema.TicksSubscribe = 1
+	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
 	_, err = sub.Start(reqID, req)
 
 	if err == nil {
@@ -410,15 +411,15 @@ func TestStartInvalidResponse(t *testing.T) {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
-	sub := NewSubcription[TicksResp, TicksResp](api)
+	sub := NewSubcription[schema.TicksResp, schema.TicksResp](api)
 
 	if sub == nil {
 		t.Errorf("Expected a subscription, but got nil")
 	}
 
 	reqID := 1
-	var f TicksSubscribe = 1
-	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
+	var f schema.TicksSubscribe = 1
+	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
 	_, err = sub.Start(reqID, req)
 
 	if err == nil {
@@ -465,15 +466,15 @@ func TestStartInvalidResponseInSubscription(t *testing.T) {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
-	sub := NewSubcription[TicksResp, TicksResp](api)
+	sub := NewSubcription[schema.TicksResp, schema.TicksResp](api)
 
 	if sub == nil {
 		t.Errorf("Expected a subscription, but got nil")
 	}
 
 	reqID := 1
-	var f TicksSubscribe = 1
-	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
+	var f schema.TicksSubscribe = 1
+	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
 	initResp, err := sub.Start(reqID, req)
 
 	if err != nil {
@@ -546,15 +547,15 @@ func TestStartAPIErrorInSubscription(t *testing.T) {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
-	sub := NewSubcription[TicksResp, TicksResp](api)
+	sub := NewSubcription[schema.TicksResp, schema.TicksResp](api)
 
 	if sub == nil {
 		t.Errorf("Expected a subscription, but got nil")
 	}
 
 	reqID := 1
-	var f TicksSubscribe = 1
-	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
+	var f schema.TicksSubscribe = 1
+	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
 	initResp, err := sub.Start(reqID, req)
 
 	if err != nil {
@@ -589,11 +590,11 @@ func TestStartTimeout(t *testing.T) {
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
 	api.TimeOut = time.Millisecond
 
-	sub := NewSubcription[TicksResp, TicksResp](api)
+	sub := NewSubcription[schema.TicksResp, schema.TicksResp](api)
 
 	reqID := 1
-	var f TicksSubscribe = 1
-	req := Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
+	var f schema.TicksSubscribe = 1
+	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
 	_, err := sub.Start(reqID, req)
 
 	if err != nil && err.Error() != "timeout" {

@@ -10,6 +10,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/ksysoev/deriv-api/schema"
 	"golang.org/x/net/websocket"
 )
 
@@ -274,8 +275,8 @@ func TestSendRequestTimeout(t *testing.T) {
 	api.TimeOut = time.Millisecond
 
 	reqID := 1
-	req := Ping{Ping: 1, ReqId: &reqID}
-	var resp PingResp
+	req := schema.Ping{Ping: 1, ReqId: &reqID}
+	var resp schema.PingResp
 	err := api.SendRequest(reqID, req, &resp)
 
 	if err != nil && err.Error() != "timeout" {
@@ -343,8 +344,8 @@ func TestSendRequest(t *testing.T) {
 	}
 
 	reqID := 1
-	req := Ping{Ping: 1, ReqId: &reqID}
-	var resp PingResp
+	req := schema.Ping{Ping: 1, ReqId: &reqID}
+	var resp schema.PingResp
 	err = api.SendRequest(reqID, req, &resp)
 
 	if err != nil {
@@ -369,8 +370,8 @@ func TestSendRequestFailed(t *testing.T) {
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
 
 	reqID := 1
-	req := Ping{Ping: 1, ReqId: &reqID}
-	var resp PingResp
+	req := schema.Ping{Ping: 1, ReqId: &reqID}
+	var resp schema.PingResp
 	err := api.SendRequest(reqID, req, &resp)
 
 	if err == nil {
