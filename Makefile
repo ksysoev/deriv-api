@@ -14,11 +14,11 @@ prepare-schema:
 	git apply ../schema.patch && \
 	cd config/v3/ && \
 	mkdir schema && \
-	find . -type f | grep -v example | grep -v schema | sed 'p; s/^\./.\/schema/; s/\/send//; s/\/receive/_resp/g' | xargs -n2 cp -f
+	find . -type f | grep -v example | grep -v schema | sed 'p; s/^\./.\/schema/; s/\/send//; s/\/receive/_resp/; s/\.json//;' | xargs -n2 cp -f
 
 generate-schema:
 	cd deriv-developers-portal/config/v3/schema && \
-	for file in *.json; do gojsonschema -p schema "$$file" > "../../../../schema/$${file%.*}.go"; done
+	for file in *; do gojsonschema -p schema "$$file" > "../../../../schema/$${file%.*}.go"; done
 
 clean:
 	rm -rf deriv-developers-portal
