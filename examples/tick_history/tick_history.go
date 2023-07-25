@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	api, err := deriv.NewDerivAPI("wss://ws.binaryws.com/websockets/v3", 1, "en", "https://www.binary.com")
+	api, err := deriv.NewDerivAPI("wss://ws.binaryws.com/websockets/v3", 1089, "en", "https://localhost/")
 
 	if err != nil {
 		log.Fatal(err)
