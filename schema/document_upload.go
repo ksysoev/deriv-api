@@ -15,7 +15,7 @@ type DocumentUpload struct {
 	// License)
 	DocumentId *string `json:"document_id,omitempty"`
 
-	// [Optional] 2-letter country code
+	// 2-letter country code, mandatory for POI only
 	DocumentIssuingCountry *string `json:"document_issuing_country,omitempty"`
 
 	// Document type

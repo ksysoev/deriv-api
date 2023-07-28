@@ -108,6 +108,10 @@ type GetAccountStatusRespGetAccountStatus struct {
 	// - `transfers_blocked`: it block any transfer between two accounts.
 	// - `df_deposit_requires_poi`: the DF deposit will be blocked until the client
 	// gets age verified.
+	// - `authenticated_with_idv_photoid`: the client has been fully authenticated by
+	// IDV.
+	// - `idv_revoked`: the client used to be fully authenticated by IDV but it was
+	// taken away due to compliance criteria.
 	Status []string `json:"status"`
 }
 
