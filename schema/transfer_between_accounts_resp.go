@@ -6,51 +6,6 @@ import "fmt"
 import "reflect"
 import "encoding/json"
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *TransferBetweenAccountsRespAccountsElemMarketType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_TransferBetweenAccountsRespAccountsElemMarketType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TransferBetweenAccountsRespAccountsElemMarketType, v)
-	}
-	*j = TransferBetweenAccountsRespAccountsElemMarketType(v)
-	return nil
-}
-
-const TransferBetweenAccountsRespAccountsElemAccountTypeMt5 TransferBetweenAccountsRespAccountsElemAccountType = "mt5"
-
-type TransferBetweenAccountsRespAccountsElemAccountType string
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *TransferBetweenAccountsResp) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
-	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
-	}
-	type Plain TransferBetweenAccountsResp
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = TransferBetweenAccountsResp(plain)
-	return nil
-}
-
 // The result of transfer order.
 type TransferBetweenAccountsResp struct {
 	// The available accounts to transfer, or the accounts affected by a successful
@@ -78,50 +33,6 @@ type TransferBetweenAccountsResp struct {
 
 	// If set to 1, transfer succeeded.
 	TransferBetweenAccounts *TransferBetweenAccountsRespTransferBetweenAccounts `json:"transfer_between_accounts,omitempty"`
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *TransferBetweenAccountsRespTransferBetweenAccounts) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_TransferBetweenAccountsRespTransferBetweenAccounts {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TransferBetweenAccountsRespTransferBetweenAccounts, v)
-	}
-	*j = TransferBetweenAccountsRespTransferBetweenAccounts(v)
-	return nil
-}
-
-const TransferBetweenAccountsRespAccountsElemAccountTypeDxtrade TransferBetweenAccountsRespAccountsElemAccountType = "dxtrade"
-const TransferBetweenAccountsRespAccountsElemAccountTypeDerivez TransferBetweenAccountsRespAccountsElemAccountType = "derivez"
-const TransferBetweenAccountsRespAccountsElemAccountTypeBinary TransferBetweenAccountsRespAccountsElemAccountType = "binary"
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *TransferBetweenAccountsRespMsgType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_TransferBetweenAccountsRespMsgType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TransferBetweenAccountsRespMsgType, v)
-	}
-	*j = TransferBetweenAccountsRespMsgType(v)
-	return nil
 }
 
 type TransferBetweenAccountsRespAccountsElem struct {
@@ -154,6 +65,55 @@ type TransferBetweenAccountsRespAccountsElem struct {
 	Status interface{} `json:"status,omitempty"`
 }
 
+type TransferBetweenAccountsRespAccountsElemAccountType string
+
+const TransferBetweenAccountsRespAccountsElemAccountTypeBinary TransferBetweenAccountsRespAccountsElemAccountType = "binary"
+const TransferBetweenAccountsRespAccountsElemAccountTypeCtrader TransferBetweenAccountsRespAccountsElemAccountType = "ctrader"
+const TransferBetweenAccountsRespAccountsElemAccountTypeDerivez TransferBetweenAccountsRespAccountsElemAccountType = "derivez"
+const TransferBetweenAccountsRespAccountsElemAccountTypeDxtrade TransferBetweenAccountsRespAccountsElemAccountType = "dxtrade"
+const TransferBetweenAccountsRespAccountsElemAccountTypeMt5 TransferBetweenAccountsRespAccountsElemAccountType = "mt5"
+const TransferBetweenAccountsRespAccountsElemAccountTypeTrading TransferBetweenAccountsRespAccountsElemAccountType = "trading"
+const TransferBetweenAccountsRespAccountsElemAccountTypeWallet TransferBetweenAccountsRespAccountsElemAccountType = "wallet"
+
+type TransferBetweenAccountsRespAccountsElemDemoAccount int
+
+type TransferBetweenAccountsRespAccountsElemMarketType string
+
+const TransferBetweenAccountsRespAccountsElemMarketTypeAll TransferBetweenAccountsRespAccountsElemMarketType = "all"
+const TransferBetweenAccountsRespAccountsElemMarketTypeFinancial TransferBetweenAccountsRespAccountsElemMarketType = "financial"
+const TransferBetweenAccountsRespAccountsElemMarketTypeSynthetic TransferBetweenAccountsRespAccountsElemMarketType = "synthetic"
+
+// Echo of the request made.
+type TransferBetweenAccountsRespEchoReq map[string]interface{}
+
+type TransferBetweenAccountsRespMsgType string
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *TransferBetweenAccountsRespAccountsElemMarketType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_TransferBetweenAccountsRespAccountsElemMarketType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TransferBetweenAccountsRespAccountsElemMarketType, v)
+	}
+	*j = TransferBetweenAccountsRespAccountsElemMarketType(v)
+	return nil
+}
+
+var enumValues_TransferBetweenAccountsRespAccountsElemMarketType = []interface{}{
+	"financial",
+	"synthetic",
+	"all",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TransferBetweenAccountsRespAccountsElemDemoAccount) UnmarshalJSON(b []byte) error {
 	var v int
@@ -172,6 +132,11 @@ func (j *TransferBetweenAccountsRespAccountsElemDemoAccount) UnmarshalJSON(b []b
 	}
 	*j = TransferBetweenAccountsRespAccountsElemDemoAccount(v)
 	return nil
+}
+
+var enumValues_TransferBetweenAccountsRespAccountsElemDemoAccount = []interface{}{
+	0,
+	1,
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -194,24 +159,58 @@ func (j *TransferBetweenAccountsRespAccountsElemAccountType) UnmarshalJSON(b []b
 	return nil
 }
 
-const TransferBetweenAccountsRespAccountsElemMarketTypeSynthetic TransferBetweenAccountsRespAccountsElemMarketType = "synthetic"
-const TransferBetweenAccountsRespAccountsElemAccountTypeTrading TransferBetweenAccountsRespAccountsElemAccountType = "trading"
-const TransferBetweenAccountsRespAccountsElemMarketTypeFinancial TransferBetweenAccountsRespAccountsElemMarketType = "financial"
-const TransferBetweenAccountsRespAccountsElemAccountTypeWallet TransferBetweenAccountsRespAccountsElemAccountType = "wallet"
-const TransferBetweenAccountsRespAccountsElemMarketTypeAll TransferBetweenAccountsRespAccountsElemMarketType = "all"
+var enumValues_TransferBetweenAccountsRespMsgType = []interface{}{
+	"transfer_between_accounts",
+}
 
-type TransferBetweenAccountsRespAccountsElemMarketType string
-
-type TransferBetweenAccountsRespAccountsElemDemoAccount int
-
-// Echo of the request made.
-type TransferBetweenAccountsRespEchoReq map[string]interface{}
-
-type TransferBetweenAccountsRespMsgType string
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *TransferBetweenAccountsRespMsgType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_TransferBetweenAccountsRespMsgType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TransferBetweenAccountsRespMsgType, v)
+	}
+	*j = TransferBetweenAccountsRespMsgType(v)
+	return nil
+}
 
 const TransferBetweenAccountsRespMsgTypeTransferBetweenAccounts TransferBetweenAccountsRespMsgType = "transfer_between_accounts"
 
 type TransferBetweenAccountsRespTransferBetweenAccounts int
+
+var enumValues_TransferBetweenAccountsRespTransferBetweenAccounts = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *TransferBetweenAccountsRespTransferBetweenAccounts) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_TransferBetweenAccountsRespTransferBetweenAccounts {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TransferBetweenAccountsRespTransferBetweenAccounts, v)
+	}
+	*j = TransferBetweenAccountsRespTransferBetweenAccounts(v)
+	return nil
+}
 
 var enumValues_TransferBetweenAccountsRespAccountsElemAccountType = []interface{}{
 	"trading",
@@ -220,20 +219,26 @@ var enumValues_TransferBetweenAccountsRespAccountsElemAccountType = []interface{
 	"dxtrade",
 	"derivez",
 	"binary",
+	"ctrader",
 }
-var enumValues_TransferBetweenAccountsRespAccountsElemDemoAccount = []interface{}{
-	0,
-	1,
-}
-var enumValues_TransferBetweenAccountsRespAccountsElemMarketType = []interface{}{
-	"financial",
-	"synthetic",
-	"all",
-}
-var enumValues_TransferBetweenAccountsRespMsgType = []interface{}{
-	"transfer_between_accounts",
-}
-var enumValues_TransferBetweenAccountsRespTransferBetweenAccounts = []interface{}{
-	0,
-	1,
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *TransferBetweenAccountsResp) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if v, ok := raw["echo_req"]; !ok || v == nil {
+		return fmt.Errorf("field echo_req: required")
+	}
+	if v, ok := raw["msg_type"]; !ok || v == nil {
+		return fmt.Errorf("field msg_type: required")
+	}
+	type Plain TransferBetweenAccountsResp
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = TransferBetweenAccountsResp(plain)
+	return nil
 }
