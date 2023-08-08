@@ -42,7 +42,6 @@ const VerifyEmailTypeResetPassword VerifyEmailType = "reset_password"
 const VerifyEmailTypeTradingPlatformDxtradePasswordReset VerifyEmailType = "trading_platform_dxtrade_password_reset"
 const VerifyEmailTypeTradingPlatformInvestorPasswordReset VerifyEmailType = "trading_platform_investor_password_reset"
 const VerifyEmailTypeTradingPlatformMt5PasswordReset VerifyEmailType = "trading_platform_mt5_password_reset"
-const VerifyEmailTypeTradingPlatformPasswordReset VerifyEmailType = "trading_platform_password_reset"
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *VerifyEmailType) UnmarshalJSON(b []byte) error {
@@ -182,7 +181,6 @@ var enumValues_VerifyEmailType = []interface{}{
 	"reset_password",
 	"paymentagent_withdraw",
 	"payment_withdraw",
-	"trading_platform_password_reset",
 	"trading_platform_dxtrade_password_reset",
 	"trading_platform_mt5_password_reset",
 	"trading_platform_investor_password_reset",

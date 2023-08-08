@@ -79,7 +79,7 @@ func (j *AppRegister) UnmarshalJSON(b []byte) error {
 // Register a new OAuth application
 type AppRegister struct {
 	// [Optional] Markup to be added to contract prices (as a percentage of contract
-	// payout).
+	// payout). Max markup: 3%.
 	AppMarkupPercentage *float64 `json:"app_markup_percentage,omitempty"`
 
 	// Must be `1`

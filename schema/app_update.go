@@ -43,7 +43,7 @@ func (j *AppUpdateScopesElem) UnmarshalJSON(b []byte) error {
 // Update a new OAuth application
 type AppUpdate struct {
 	// [Optional] Markup to be added to contract prices (as a percentage of contract
-	// payout).
+	// payout). Max markup: 3%.
 	AppMarkupPercentage *float64 `json:"app_markup_percentage,omitempty"`
 
 	// Application app_id.
