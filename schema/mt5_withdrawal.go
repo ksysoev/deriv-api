@@ -45,7 +45,7 @@ type Mt5Withdrawal struct {
 	Mt5Withdrawal Mt5WithdrawalMt5Withdrawal `json:"mt5_withdrawal"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough Mt5WithdrawalPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -56,7 +56,7 @@ type Mt5Withdrawal struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type Mt5WithdrawalPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

@@ -38,7 +38,7 @@ type P2PPaymentMethods struct {
 	P2PPaymentMethods P2PPaymentMethodsP2PPaymentMethods `json:"p2p_payment_methods"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough P2PPaymentMethodsPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -46,7 +46,7 @@ type P2PPaymentMethods struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type P2PPaymentMethodsPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

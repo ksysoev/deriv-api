@@ -33,7 +33,7 @@ func (j *ExchangeRatesExchangeRates) UnmarshalJSON(b []byte) error {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type ExchangeRatesPassthrough map[string]interface{}
 
 type ExchangeRatesSubscribe int
@@ -72,7 +72,7 @@ type ExchangeRates struct {
 	ExchangeRates ExchangeRatesExchangeRates `json:"exchange_rates"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough ExchangeRatesPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.

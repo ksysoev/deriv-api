@@ -45,7 +45,7 @@ type Mt5Deposit struct {
 	Mt5Deposit Mt5DepositMt5Deposit `json:"mt5_deposit"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough Mt5DepositPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -56,7 +56,7 @@ type Mt5Deposit struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type Mt5DepositPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

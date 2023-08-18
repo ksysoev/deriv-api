@@ -33,7 +33,7 @@ func (j *TncApprovalAffiliateCocAgreement) UnmarshalJSON(b []byte) error {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type TncApprovalPassthrough map[string]interface{}
 
 type TncApprovalTncApproval float64
@@ -94,7 +94,7 @@ type TncApproval struct {
 	AffiliateCocAgreement *TncApprovalAffiliateCocAgreement `json:"affiliate_coc_agreement,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough TncApprovalPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.

@@ -7,7 +7,7 @@ import "reflect"
 import "encoding/json"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type TimePassthrough map[string]interface{}
 
 type TimeTime int
@@ -39,7 +39,7 @@ func (j *TimeTime) UnmarshalJSON(b []byte) error {
 // Request back-end server epoch time.
 type Time struct {
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough TimePassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.

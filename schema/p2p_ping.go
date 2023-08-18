@@ -39,7 +39,7 @@ type P2PPing struct {
 	P2PPing P2PPingP2PPing `json:"p2p_ping"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough P2PPingPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -47,7 +47,7 @@ type P2PPing struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type P2PPingPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

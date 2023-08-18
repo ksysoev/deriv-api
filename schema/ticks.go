@@ -7,7 +7,7 @@ import "reflect"
 import "encoding/json"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type TicksPassthrough map[string]interface{}
 
 type TicksSubscribe int
@@ -39,7 +39,7 @@ func (j *TicksSubscribe) UnmarshalJSON(b []byte) error {
 // Initiate a continuous stream of spot price updates for a given symbol.
 type Ticks struct {
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough TicksPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.

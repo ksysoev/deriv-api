@@ -33,7 +33,7 @@ func (j *BalanceBalance) UnmarshalJSON(b []byte) error {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type BalancePassthrough map[string]interface{}
 
 type BalanceSubscribe int
@@ -74,7 +74,7 @@ type Balance struct {
 	Balance BalanceBalance `json:"balance"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough BalancePassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.

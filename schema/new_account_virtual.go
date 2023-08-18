@@ -30,7 +30,7 @@ type NewAccountVirtual struct {
 	NewAccountVirtual NewAccountVirtualNewAccountVirtual `json:"new_account_virtual"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough NewAccountVirtualPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -104,7 +104,7 @@ type NewAccountVirtualEmailConsent int
 type NewAccountVirtualNewAccountVirtual int
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type NewAccountVirtualPassthrough map[string]interface{}
 
 type NewAccountVirtualSignupDevice string

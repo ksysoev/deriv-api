@@ -7,7 +7,7 @@ import "reflect"
 import "encoding/json"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type SellExpiredPassthrough map[string]interface{}
 
 type SellExpiredSellExpired int
@@ -40,7 +40,7 @@ func (j *SellExpiredSellExpired) UnmarshalJSON(b []byte) error {
 // contracts.
 type SellExpired struct {
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough SellExpiredPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.

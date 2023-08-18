@@ -10,7 +10,7 @@ import "encoding/json"
 // address containing a security code for verification.
 type VerifyEmailCellxpert struct {
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough VerifyEmailCellxpertPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -27,7 +27,7 @@ type VerifyEmailCellxpert struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type VerifyEmailCellxpertPassthrough map[string]interface{}
 
 type VerifyEmailCellxpertType string

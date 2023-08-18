@@ -7,7 +7,7 @@ import "reflect"
 import "encoding/json"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type RealityCheckPassthrough map[string]interface{}
 
 type RealityCheckRealityCheck int
@@ -42,7 +42,7 @@ func (j *RealityCheckRealityCheck) UnmarshalJSON(b []byte) error {
 // requirement for certain landing companies.
 type RealityCheck struct {
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough RealityCheckPassthrough `json:"passthrough,omitempty"`
 
 	// Must be `1`

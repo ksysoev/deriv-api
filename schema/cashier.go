@@ -22,7 +22,7 @@ type Cashier struct {
 	DryRun CashierDryRun `json:"dry_run,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough CashierPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Cashier provider. `crypto` will be default option for crypto
@@ -49,7 +49,7 @@ const CashierCashierWithdraw CashierCashier = "withdraw"
 type CashierDryRun int
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type CashierPassthrough map[string]interface{}
 
 type CashierProvider string

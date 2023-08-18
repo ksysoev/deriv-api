@@ -60,7 +60,7 @@ func (j *P2POrderListP2POrderList) UnmarshalJSON(b []byte) error {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type P2POrderListPassthrough map[string]interface{}
 
 type P2POrderListSubscribe int
@@ -107,7 +107,7 @@ type P2POrderList struct {
 	P2POrderList P2POrderListP2POrderList `json:"p2p_order_list"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough P2POrderListPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.

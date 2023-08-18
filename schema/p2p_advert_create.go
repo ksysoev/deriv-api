@@ -37,7 +37,7 @@ type P2PAdvertCreate struct {
 	P2PAdvertCreate P2PAdvertCreateP2PAdvertCreate `json:"p2p_advert_create"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough P2PAdvertCreatePassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Payment instructions.
@@ -75,7 +75,7 @@ type P2PAdvertCreateBlockTrade int
 type P2PAdvertCreateP2PAdvertCreate int
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type P2PAdvertCreatePassthrough map[string]interface{}
 
 type P2PAdvertCreateRateType string

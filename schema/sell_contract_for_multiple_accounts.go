@@ -7,7 +7,7 @@ import "reflect"
 import "encoding/json"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type SellContractForMultipleAccountsPassthrough map[string]interface{}
 
 type SellContractForMultipleAccountsSellContractForMultipleAccounts int
@@ -44,7 +44,7 @@ func (j *SellContractForMultipleAccountsSellContractForMultipleAccounts) Unmarsh
 // token for the current account.
 type SellContractForMultipleAccounts struct {
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough SellContractForMultipleAccountsPassthrough `json:"passthrough,omitempty"`
 
 	// Minimum price at which to sell the contract, or `0` for 'sell at market'.

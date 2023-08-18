@@ -18,7 +18,7 @@ type BuyContractForMultipleAccounts struct {
 	Parameters *BuyContractForMultipleAccountsParameters `json:"parameters,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough BuyContractForMultipleAccountsPassthrough `json:"passthrough,omitempty"`
 
 	// Maximum price at which to purchase the contract.
@@ -277,7 +277,7 @@ func (j *BuyContractForMultipleAccountsParameters) UnmarshalJSON(b []byte) error
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type BuyContractForMultipleAccountsPassthrough map[string]interface{}
 
 var enumValues_BuyContractForMultipleAccountsParametersBasis = []interface{}{

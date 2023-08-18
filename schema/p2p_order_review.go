@@ -33,7 +33,7 @@ func (j *P2POrderReviewP2POrderReview) UnmarshalJSON(b []byte) error {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type P2POrderReviewPassthrough map[string]interface{}
 
 type P2POrderReviewRecommended struct {
@@ -82,7 +82,7 @@ type P2POrderReview struct {
 	P2POrderReview P2POrderReviewP2POrderReview `json:"p2p_order_review"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough P2POrderReviewPassthrough `json:"passthrough,omitempty"`
 
 	// Rating for the transaction, 1 to 5.

@@ -67,7 +67,7 @@ type P2PAdvertiserPaymentMethods struct {
 	P2PAdvertiserPaymentMethods P2PAdvertiserPaymentMethodsP2PAdvertiserPaymentMethods `json:"p2p_advertiser_payment_methods"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough P2PAdvertiserPaymentMethodsPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -78,7 +78,7 @@ type P2PAdvertiserPaymentMethods struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type P2PAdvertiserPaymentMethodsPassthrough map[string]interface{}
 
 // Contains payment methods to update.

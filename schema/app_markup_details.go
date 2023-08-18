@@ -33,7 +33,7 @@ type AppMarkupDetails struct {
 	Offset *int `json:"offset,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough AppMarkupDetailsPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -53,7 +53,7 @@ type AppMarkupDetailsAppMarkupDetails int
 type AppMarkupDetailsDescription int
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type AppMarkupDetailsPassthrough map[string]interface{}
 
 type AppMarkupDetailsSort string

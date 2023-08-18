@@ -373,7 +373,7 @@ var enumValues_SetSettingsTradingHub = []interface{}{
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type SetSettingsPassthrough map[string]interface{}
 
 // Set User Settings (this call should be used in conjunction with `get_settings`)
@@ -445,7 +445,7 @@ type SetSettings struct {
 	NonPepDeclaration *SetSettingsNonPepDeclaration `json:"non_pep_declaration,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough SetSettingsPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Note: not applicable for virtual account. Starting with `+` followed

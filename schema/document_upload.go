@@ -43,7 +43,7 @@ type DocumentUpload struct {
 	PageType *DocumentUploadPageType `json:"page_type,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough DocumentUploadPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] It contains info about the proof of ownership being uploaded
@@ -267,7 +267,7 @@ const DocumentUploadPageTypeBack DocumentUploadPageType = "back"
 const DocumentUploadPageTypePhoto DocumentUploadPageType = "photo"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type DocumentUploadPassthrough map[string]interface{}
 
 // A collection of unspecific information related to the proof of ownership being

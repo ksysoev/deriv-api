@@ -34,7 +34,7 @@ func (j *PaymentagentTransferDryRun) UnmarshalJSON(b []byte) error {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type PaymentagentTransferPassthrough map[string]interface{}
 
 type PaymentagentTransferPaymentagentTransfer int
@@ -79,7 +79,7 @@ type PaymentagentTransfer struct {
 	DryRun *PaymentagentTransferDryRun `json:"dry_run,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough PaymentagentTransferPassthrough `json:"passthrough,omitempty"`
 
 	// Must be `1`

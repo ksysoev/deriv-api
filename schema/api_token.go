@@ -21,7 +21,7 @@ type ApiToken struct {
 	NewTokenScopes []ApiTokenNewTokenScopesElem `json:"new_token_scopes,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough ApiTokenPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -43,7 +43,7 @@ const ApiTokenNewTokenScopesElemTrade ApiTokenNewTokenScopesElem = "trade"
 const ApiTokenNewTokenScopesElemTradingInformation ApiTokenNewTokenScopesElem = "trading_information"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type ApiTokenPassthrough map[string]interface{}
 
 type ApiTokenValidForCurrentIpOnly int

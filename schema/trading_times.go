@@ -8,7 +8,7 @@ import "encoding/json"
 // Receive a list of market opening times for a given date.
 type TradingTimes struct {
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough TradingTimesPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -20,7 +20,7 @@ type TradingTimes struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type TradingTimesPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

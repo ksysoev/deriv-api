@@ -11,7 +11,7 @@ type CopyStop struct {
 	CopyStop string `json:"copy_stop"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough CopyStopPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -19,7 +19,7 @@ type CopyStop struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type CopyStopPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

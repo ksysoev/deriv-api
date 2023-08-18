@@ -38,7 +38,7 @@ type OauthApps struct {
 	OauthApps OauthAppsOauthApps `json:"oauth_apps"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough OauthAppsPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -46,7 +46,7 @@ type OauthApps struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type OauthAppsPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

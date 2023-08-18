@@ -8,7 +8,7 @@ import "encoding/json"
 // Used for revoking access of particular app.
 type RevokeOauthApp struct {
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough RevokeOauthAppPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -19,7 +19,7 @@ type RevokeOauthApp struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type RevokeOauthAppPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

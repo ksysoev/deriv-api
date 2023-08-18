@@ -44,7 +44,7 @@ type AppMarkupStatistics struct {
 	DateTo string `json:"date_to"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough AppMarkupStatisticsPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -52,7 +52,7 @@ type AppMarkupStatistics struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type AppMarkupStatisticsPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

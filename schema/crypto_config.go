@@ -42,7 +42,7 @@ type CryptoConfig struct {
 	CurrencyCode *string `json:"currency_code,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough CryptoConfigPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -50,7 +50,7 @@ type CryptoConfig struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type CryptoConfigPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

@@ -33,7 +33,7 @@ type P2PAdvertUpdateDelete int
 type P2PAdvertUpdateIsActive int
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type P2PAdvertUpdatePassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -135,7 +135,7 @@ type P2PAdvertUpdate struct {
 	P2PAdvertUpdate P2PAdvertUpdateP2PAdvertUpdate `json:"p2p_advert_update"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough P2PAdvertUpdatePassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Payment instructions.

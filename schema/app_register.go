@@ -49,7 +49,7 @@ func (j *AppRegisterAppRegister) UnmarshalJSON(b []byte) error {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type AppRegisterPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -101,7 +101,7 @@ type AppRegister struct {
 	Name string `json:"name"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough AppRegisterPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] The URL to redirect to after a successful login. Required if

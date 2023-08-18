@@ -38,7 +38,7 @@ type Mt5LoginList struct {
 	Mt5LoginList Mt5LoginListMt5LoginList `json:"mt5_login_list"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough Mt5LoginListPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -46,7 +46,7 @@ type Mt5LoginList struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type Mt5LoginListPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

@@ -7,7 +7,7 @@ import "reflect"
 import "encoding/json"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type PaymentagentDetailsPassthrough map[string]interface{}
 
 type PaymentagentDetailsPaymentagentDetails int
@@ -39,7 +39,7 @@ func (j *PaymentagentDetailsPaymentagentDetails) UnmarshalJSON(b []byte) error {
 // Gets client's payment agent details.
 type PaymentagentDetails struct {
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough PaymentagentDetailsPassthrough `json:"passthrough,omitempty"`
 
 	// Must be 1

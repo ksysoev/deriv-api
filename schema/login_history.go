@@ -41,7 +41,7 @@ type LoginHistory struct {
 	LoginHistory LoginHistoryLoginHistory `json:"login_history"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough LoginHistoryPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -49,7 +49,7 @@ type LoginHistory struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type LoginHistoryPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

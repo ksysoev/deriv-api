@@ -41,7 +41,7 @@ type P2PChatCreate struct {
 	P2PChatCreate P2PChatCreateP2PChatCreate `json:"p2p_chat_create"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough P2PChatCreatePassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -49,7 +49,7 @@ type P2PChatCreate struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type P2PChatCreatePassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

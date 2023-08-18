@@ -27,7 +27,7 @@ type Statement struct {
 	Offset *int `json:"offset,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough StatementPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -96,7 +96,7 @@ func (j *StatementDescription) UnmarshalJSON(b []byte) error {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type StatementPassthrough map[string]interface{}
 
 type StatementStatement int

@@ -7,7 +7,7 @@ import "reflect"
 import "encoding/json"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type TopupVirtualPassthrough map[string]interface{}
 
 type TopupVirtualTopupVirtual int
@@ -40,7 +40,7 @@ func (j *TopupVirtualTopupVirtual) UnmarshalJSON(b []byte) error {
 // this call.
 type TopupVirtual struct {
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough TopupVirtualPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.

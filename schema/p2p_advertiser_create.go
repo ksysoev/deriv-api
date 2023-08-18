@@ -33,7 +33,7 @@ func (j *P2PAdvertiserCreateP2PAdvertiserCreate) UnmarshalJSON(b []byte) error {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type P2PAdvertiserCreatePassthrough map[string]interface{}
 
 type P2PAdvertiserCreateSubscribe int
@@ -79,7 +79,7 @@ type P2PAdvertiserCreate struct {
 	P2PAdvertiserCreate P2PAdvertiserCreateP2PAdvertiserCreate `json:"p2p_advertiser_create"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough P2PAdvertiserCreatePassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Advertiser's payment information, to be used as a default for new

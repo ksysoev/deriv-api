@@ -19,7 +19,7 @@ type LandingCompanyDetails struct {
 	LandingCompanyDetails LandingCompanyDetailsLandingCompanyDetails `json:"landing_company_details"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough LandingCompanyDetailsPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -63,7 +63,7 @@ func (j *LandingCompanyDetailsLandingCompanyDetails) UnmarshalJSON(b []byte) err
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type LandingCompanyDetailsPassthrough map[string]interface{}
 
 var enumValues_LandingCompanyDetailsLandingCompanyDetails = []interface{}{

@@ -11,7 +11,7 @@ type AppGet struct {
 	AppGet int `json:"app_get"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough AppGetPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -19,7 +19,7 @@ type AppGet struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type AppGetPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

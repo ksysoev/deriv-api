@@ -7,7 +7,7 @@ import "reflect"
 import "encoding/json"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type TransactionPassthrough map[string]interface{}
 
 type TransactionSubscribe int
@@ -65,7 +65,7 @@ func (j *TransactionTransaction) UnmarshalJSON(b []byte) error {
 // Subscribe to transaction notifications
 type Transaction struct {
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough TransactionPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.

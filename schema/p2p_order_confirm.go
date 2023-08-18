@@ -71,7 +71,7 @@ type P2POrderConfirm struct {
 	P2POrderConfirm P2POrderConfirmP2POrderConfirm `json:"p2p_order_confirm"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough P2POrderConfirmPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -82,7 +82,7 @@ type P2POrderConfirm struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type P2POrderConfirmPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

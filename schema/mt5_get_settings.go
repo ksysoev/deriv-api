@@ -41,7 +41,7 @@ type Mt5GetSettings struct {
 	Mt5GetSettings Mt5GetSettingsMt5GetSettings `json:"mt5_get_settings"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough Mt5GetSettingsPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -49,7 +49,7 @@ type Mt5GetSettings struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type Mt5GetSettingsPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

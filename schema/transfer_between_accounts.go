@@ -37,7 +37,7 @@ const TransferBetweenAccountsAccountsAll TransferBetweenAccountsAccounts = "all"
 const TransferBetweenAccountsAccountsBrief TransferBetweenAccountsAccounts = "brief"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type TransferBetweenAccountsPassthrough map[string]interface{}
 
 type TransferBetweenAccountsTransferBetweenAccounts int
@@ -89,7 +89,7 @@ type TransferBetweenAccounts struct {
 	Currency *string `json:"currency,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough TransferBetweenAccountsPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.

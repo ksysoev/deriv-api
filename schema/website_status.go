@@ -7,7 +7,7 @@ import "reflect"
 import "encoding/json"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type WebsiteStatusPassthrough map[string]interface{}
 
 type WebsiteStatusSubscribe int
@@ -66,7 +66,7 @@ func (j *WebsiteStatusWebsiteStatus) UnmarshalJSON(b []byte) error {
 // Request server status.
 type WebsiteStatus struct {
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough WebsiteStatusPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.

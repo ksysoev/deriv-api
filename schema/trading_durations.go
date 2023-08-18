@@ -18,7 +18,7 @@ type TradingDurations struct {
 	LandingCompanyShort *TradingDurationsLandingCompanyShort `json:"landing_company_short,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough TradingDurationsPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -103,7 +103,7 @@ const TradingDurationsLandingCompanySvg TradingDurationsLandingCompany = "svg"
 const TradingDurationsLandingCompanyVirtual TradingDurationsLandingCompany = "virtual"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type TradingDurationsPassthrough map[string]interface{}
 
 type TradingDurationsTradingDurations int

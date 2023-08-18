@@ -7,7 +7,7 @@ import "reflect"
 import "encoding/json"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type ResidenceListPassthrough map[string]interface{}
 
 type ResidenceListResidenceList int
@@ -40,7 +40,7 @@ func (j *ResidenceListResidenceList) UnmarshalJSON(b []byte) error {
 // populating the account opening form.
 type ResidenceList struct {
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough ResidenceListPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.

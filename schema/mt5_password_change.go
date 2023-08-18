@@ -33,7 +33,7 @@ func (j *Mt5PasswordChangeMt5PasswordChange) UnmarshalJSON(b []byte) error {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type Mt5PasswordChangePassthrough map[string]interface{}
 
 type Mt5PasswordChangePasswordType string
@@ -81,7 +81,7 @@ type Mt5PasswordChange struct {
 	OldPassword string `json:"old_password"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough Mt5PasswordChangePassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Type of the password to change.

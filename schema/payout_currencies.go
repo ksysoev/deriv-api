@@ -7,7 +7,7 @@ import "reflect"
 import "encoding/json"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type PayoutCurrenciesPassthrough map[string]interface{}
 
 type PayoutCurrenciesPayoutCurrencies int
@@ -40,7 +40,7 @@ func (j *PayoutCurrenciesPayoutCurrencies) UnmarshalJSON(b []byte) error {
 // only the currencies available for the account will be returned.
 type PayoutCurrencies struct {
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough PayoutCurrenciesPassthrough `json:"passthrough,omitempty"`
 
 	// Must be `1`

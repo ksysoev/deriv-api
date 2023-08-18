@@ -44,7 +44,7 @@ type P2PAdvertiserRelations struct {
 	P2PAdvertiserRelations P2PAdvertiserRelationsP2PAdvertiserRelations `json:"p2p_advertiser_relations"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough P2PAdvertiserRelationsPassthrough `json:"passthrough,omitempty"`
 
 	// IDs of advertisers to remove from blocked.
@@ -58,7 +58,7 @@ type P2PAdvertiserRelations struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type P2PAdvertiserRelationsPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

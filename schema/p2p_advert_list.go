@@ -41,7 +41,7 @@ type P2PAdvertList struct {
 	P2PAdvertList P2PAdvertListP2PAdvertList `json:"p2p_advert_list"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough P2PAdvertListPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Search by supported payment methods.
@@ -70,7 +70,7 @@ type P2PAdvertListFavouritesOnly int
 type P2PAdvertListP2PAdvertList int
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type P2PAdvertListPassthrough map[string]interface{}
 
 type P2PAdvertListSortBy string

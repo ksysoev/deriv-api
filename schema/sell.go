@@ -8,7 +8,7 @@ import "encoding/json"
 // Sell a Contract as identified from a previous `portfolio` call.
 type Sell struct {
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough SellPassthrough `json:"passthrough,omitempty"`
 
 	// Minimum price at which to sell the contract, or `0` for 'sell at market'.
@@ -22,7 +22,7 @@ type Sell struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type SellPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

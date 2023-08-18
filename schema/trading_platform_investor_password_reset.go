@@ -7,7 +7,7 @@ import "reflect"
 import "encoding/json"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type TradingPlatformInvestorPasswordResetPassthrough map[string]interface{}
 
 type TradingPlatformInvestorPasswordResetPlatform string
@@ -75,7 +75,7 @@ type TradingPlatformInvestorPasswordReset struct {
 	NewPassword string `json:"new_password"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough TradingPlatformInvestorPasswordResetPassthrough `json:"passthrough,omitempty"`
 
 	// Name of trading platform.

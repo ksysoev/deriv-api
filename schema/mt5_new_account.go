@@ -67,7 +67,7 @@ type Mt5NewAccount struct {
 	Name string `json:"name"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough Mt5NewAccountPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] User's phone number.
@@ -115,7 +115,7 @@ const Mt5NewAccountMt5AccountTypeFinancialStp Mt5NewAccountMt5AccountType = "fin
 type Mt5NewAccountMt5NewAccount int
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type Mt5NewAccountPassthrough map[string]interface{}
 
 type Mt5NewAccountServer string

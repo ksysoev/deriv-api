@@ -11,7 +11,7 @@ type AppDelete struct {
 	AppDelete int `json:"app_delete"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough AppDeletePassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -19,7 +19,7 @@ type AppDelete struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type AppDeletePassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

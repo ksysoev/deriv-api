@@ -135,7 +135,7 @@ type NewAccountReal struct {
 	NonPepDeclaration *int `json:"non_pep_declaration,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough NewAccountRealPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Starting with `+` followed by 9-35 digits, hyphens or space.
@@ -258,7 +258,7 @@ func (j *NewAccountRealClientType) UnmarshalJSON(b []byte) error {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type NewAccountRealPassthrough map[string]interface{}
 
 type NewAccountRealNewAccountReal int

@@ -18,7 +18,7 @@ type P2POrderDispute struct {
 	P2POrderDispute P2POrderDisputeP2POrderDispute `json:"p2p_order_dispute"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough P2POrderDisputePassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -80,7 +80,7 @@ func (j *P2POrderDisputeP2POrderDispute) UnmarshalJSON(b []byte) error {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type P2POrderDisputePassthrough map[string]interface{}
 
 var enumValues_P2POrderDisputeDisputeReason = []interface{}{

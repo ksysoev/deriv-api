@@ -10,7 +10,7 @@ import "encoding/json"
 // once, and then can never be changed.
 type SetAccountCurrency struct {
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough SetAccountCurrencyPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -22,7 +22,7 @@ type SetAccountCurrency struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type SetAccountCurrencyPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.
