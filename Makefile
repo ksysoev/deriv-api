@@ -24,7 +24,7 @@ clean:
 	rm -rf deriv-developers-portal
 
 test:
-	go test -v  .
+	go test -v --race .
 
 coverage:
 	go test -covermode=count -coverprofile=coverage.out .
