@@ -112,6 +112,8 @@ type GetAccountStatusRespGetAccountStatus struct {
 	// IDV.
 	// - `idv_revoked`: the client used to be fully authenticated by IDV but it was
 	// taken away due to compliance criteria.
+	// - `mt5_additional_kyc_required`: client tax information, place of birth and
+	// account opening reason is missing
 	Status []string `json:"status"`
 }
 

@@ -284,6 +284,14 @@ func (a *DerivAPI) IdentityVerificationDocumentAdd(r schema.IdentityVerification
 	return
 }
 
+// KycAuthStatus Get KYC Authentication Status
+func (a *DerivAPI) KycAuthStatus(r schema.KycAuthStatus) (resp schema.KycAuthStatusResp, err error) {
+	id := a.getNextRequestID()
+	r.ReqId = &id
+	err = a.SendRequest(id, r, &resp)
+	return
+}
+
 // LandingCompany The company has a number of licensed subsidiaries in various jurisdictions, which are called Landing Companies. This call will return the appropriate Landing Company for clients of a given country. The landing company may differ for Gaming contracts (Synthetic Indices) and Financial contracts (Forex, Stock Indices, Commodities).
 func (a *DerivAPI) LandingCompany(r schema.LandingCompany) (resp schema.LandingCompanyResp, err error) {
 	id := a.getNextRequestID()
