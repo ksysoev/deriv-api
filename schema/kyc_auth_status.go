@@ -38,7 +38,7 @@ type KycAuthStatus struct {
 	KycAuthStatus KycAuthStatusKycAuthStatus `json:"kyc_auth_status"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
+	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough KycAuthStatusPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -46,7 +46,7 @@ type KycAuthStatus struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
+// the `echo_req` output field. Maximum size is 3500 bytes.
 type KycAuthStatusPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.
