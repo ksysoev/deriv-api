@@ -6,6 +6,265 @@ import "fmt"
 import "reflect"
 import "encoding/json"
 
+// Echo of the request made.
+type Mt5GetSettingsRespEchoReq map[string]interface{}
+
+type Mt5GetSettingsRespMsgType string
+
+var enumValues_Mt5GetSettingsRespMsgType = []interface{}{
+	"mt5_get_settings",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5GetSettingsRespMsgType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5GetSettingsRespMsgType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5GetSettingsRespMsgType, v)
+	}
+	*j = Mt5GetSettingsRespMsgType(v)
+	return nil
+}
+
+const Mt5GetSettingsRespMsgTypeMt5GetSettings Mt5GetSettingsRespMsgType = "mt5_get_settings"
+
+type Mt5GetSettingsRespMt5GetSettingsAccountType string
+
+var enumValues_Mt5GetSettingsRespMt5GetSettingsAccountType = []interface{}{
+	"demo",
+	"real",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5GetSettingsRespMt5GetSettingsAccountType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5GetSettingsRespMt5GetSettingsAccountType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5GetSettingsRespMt5GetSettingsAccountType, v)
+	}
+	*j = Mt5GetSettingsRespMt5GetSettingsAccountType(v)
+	return nil
+}
+
+const Mt5GetSettingsRespMt5GetSettingsAccountTypeDemo Mt5GetSettingsRespMt5GetSettingsAccountType = "demo"
+const Mt5GetSettingsRespMt5GetSettingsAccountTypeReal Mt5GetSettingsRespMt5GetSettingsAccountType = "real"
+
+type Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort string
+
+var enumValues_Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort = []interface{}{
+	"bvi",
+	"labuan",
+	"malta",
+	"maltainvest",
+	"seychelles",
+	"svg",
+	"vanuatu",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort, v)
+	}
+	*j = Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort(v)
+	return nil
+}
+
+const Mt5GetSettingsRespMt5GetSettingsLandingCompanyShortBvi Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort = "bvi"
+const Mt5GetSettingsRespMt5GetSettingsLandingCompanyShortLabuan Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort = "labuan"
+const Mt5GetSettingsRespMt5GetSettingsLandingCompanyShortMalta Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort = "malta"
+const Mt5GetSettingsRespMt5GetSettingsLandingCompanyShortMaltainvest Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort = "maltainvest"
+const Mt5GetSettingsRespMt5GetSettingsLandingCompanyShortSeychelles Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort = "seychelles"
+const Mt5GetSettingsRespMt5GetSettingsLandingCompanyShortSvg Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort = "svg"
+const Mt5GetSettingsRespMt5GetSettingsLandingCompanyShortVanuatu Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort = "vanuatu"
+
+type Mt5GetSettingsRespMt5GetSettingsMarketType string
+
+var enumValues_Mt5GetSettingsRespMt5GetSettingsMarketType = []interface{}{
+	"all",
+	"financial",
+	"synthetic",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5GetSettingsRespMt5GetSettingsMarketType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5GetSettingsRespMt5GetSettingsMarketType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5GetSettingsRespMt5GetSettingsMarketType, v)
+	}
+	*j = Mt5GetSettingsRespMt5GetSettingsMarketType(v)
+	return nil
+}
+
+const Mt5GetSettingsRespMt5GetSettingsMarketTypeAll Mt5GetSettingsRespMt5GetSettingsMarketType = "all"
+const Mt5GetSettingsRespMt5GetSettingsMarketTypeFinancial Mt5GetSettingsRespMt5GetSettingsMarketType = "financial"
+const Mt5GetSettingsRespMt5GetSettingsMarketTypeSynthetic Mt5GetSettingsRespMt5GetSettingsMarketType = "synthetic"
+
+type Mt5GetSettingsRespMt5GetSettingsServerInfoEnvironment string
+
+var enumValues_Mt5GetSettingsRespMt5GetSettingsServerInfoEnvironment = []interface{}{
+	"Deriv-Demo",
+	"Deriv-Server",
+	"Deriv-Server-02",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5GetSettingsRespMt5GetSettingsServerInfoEnvironment) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5GetSettingsRespMt5GetSettingsServerInfoEnvironment {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5GetSettingsRespMt5GetSettingsServerInfoEnvironment, v)
+	}
+	*j = Mt5GetSettingsRespMt5GetSettingsServerInfoEnvironment(v)
+	return nil
+}
+
+// Trade server information.
+type Mt5GetSettingsRespMt5GetSettingsServerInfo struct {
+	// The environment. E.g. Deriv-Server.
+	Environment *Mt5GetSettingsRespMt5GetSettingsServerInfoEnvironment `json:"environment,omitempty"`
+
+	// Geographical location of the server.
+	Geolocation *Mt5GetSettingsRespMt5GetSettingsServerInfoGeolocation `json:"geolocation,omitempty"`
+
+	// Server id.
+	Id *string `json:"id,omitempty"`
+}
+
+const Mt5GetSettingsRespMt5GetSettingsServerInfoEnvironmentDerivDemo Mt5GetSettingsRespMt5GetSettingsServerInfoEnvironment = "Deriv-Demo"
+const Mt5GetSettingsRespMt5GetSettingsServerInfoEnvironmentDerivServer Mt5GetSettingsRespMt5GetSettingsServerInfoEnvironment = "Deriv-Server"
+const Mt5GetSettingsRespMt5GetSettingsServerInfoEnvironmentDerivServer02 Mt5GetSettingsRespMt5GetSettingsServerInfoEnvironment = "Deriv-Server-02"
+
+// Geographical location of the server.
+type Mt5GetSettingsRespMt5GetSettingsServerInfoGeolocation struct {
+	// Internal server grouping.
+	Group *string `json:"group,omitempty"`
+
+	// Server location.
+	Location *string `json:"location,omitempty"`
+
+	// Server region.
+	Region *string `json:"region,omitempty"`
+
+	// Server sequence.
+	Sequence *int `json:"sequence,omitempty"`
+}
+
+type Mt5GetSettingsRespMt5GetSettingsSubAccountCategory string
+
+var enumValues_Mt5GetSettingsRespMt5GetSettingsSubAccountCategory = []interface{}{
+	"",
+	"ibt",
+	"lim",
+	"stp",
+	"swap_free",
+	"swap_free_high_risk",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5GetSettingsRespMt5GetSettingsSubAccountCategory) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5GetSettingsRespMt5GetSettingsSubAccountCategory {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5GetSettingsRespMt5GetSettingsSubAccountCategory, v)
+	}
+	*j = Mt5GetSettingsRespMt5GetSettingsSubAccountCategory(v)
+	return nil
+}
+
+const Mt5GetSettingsRespMt5GetSettingsSubAccountCategoryBlank Mt5GetSettingsRespMt5GetSettingsSubAccountCategory = ""
+const Mt5GetSettingsRespMt5GetSettingsSubAccountCategoryIbt Mt5GetSettingsRespMt5GetSettingsSubAccountCategory = "ibt"
+const Mt5GetSettingsRespMt5GetSettingsSubAccountCategoryLim Mt5GetSettingsRespMt5GetSettingsSubAccountCategory = "lim"
+const Mt5GetSettingsRespMt5GetSettingsSubAccountCategoryStp Mt5GetSettingsRespMt5GetSettingsSubAccountCategory = "stp"
+const Mt5GetSettingsRespMt5GetSettingsSubAccountCategorySwapFree Mt5GetSettingsRespMt5GetSettingsSubAccountCategory = "swap_free"
+const Mt5GetSettingsRespMt5GetSettingsSubAccountCategorySwapFreeHighRisk Mt5GetSettingsRespMt5GetSettingsSubAccountCategory = "swap_free_high_risk"
+
+type Mt5GetSettingsRespMt5GetSettingsSubAccountType string
+
+var enumValues_Mt5GetSettingsRespMt5GetSettingsSubAccountType = []interface{}{
+	"derivez",
+	"financial",
+	"financial_stp",
+	"standard",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5GetSettingsRespMt5GetSettingsSubAccountType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5GetSettingsRespMt5GetSettingsSubAccountType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5GetSettingsRespMt5GetSettingsSubAccountType, v)
+	}
+	*j = Mt5GetSettingsRespMt5GetSettingsSubAccountType(v)
+	return nil
+}
+
 // Get MT5 user settings
 type Mt5GetSettingsResp struct {
 	// Echo of the request made.
@@ -22,13 +281,6 @@ type Mt5GetSettingsResp struct {
 	ReqId *int `json:"req_id,omitempty"`
 }
 
-// Echo of the request made.
-type Mt5GetSettingsRespEchoReq map[string]interface{}
-
-type Mt5GetSettingsRespMsgType string
-
-const Mt5GetSettingsRespMsgTypeMt5GetSettings Mt5GetSettingsRespMsgType = "mt5_get_settings"
-
 // MT5 user account details
 type Mt5GetSettingsRespMt5GetSettings struct {
 	// Account type.
@@ -37,8 +289,8 @@ type Mt5GetSettingsRespMt5GetSettings struct {
 	// The address of the user. The maximum length of the address is 128 characters.
 	Address *string `json:"address,omitempty"`
 
-	// Account balance.
-	Balance *string `json:"balance,omitempty"`
+	// Balance of the Trading account.
+	Balance *float64 `json:"balance,omitempty"`
 
 	// User's city of residence.
 	City *string `json:"city,omitempty"`
@@ -53,6 +305,9 @@ type Mt5GetSettingsRespMt5GetSettings struct {
 	// MT5 account currency (`USD` or `EUR`) that depends on the MT5 company
 	// (`vanuatu`, `svg`, `malta`).
 	Currency *string `json:"currency,omitempty"`
+
+	// Account balance, formatted to appropriate decimal places.
+	DisplayBalance *string `json:"display_balance,omitempty"`
 
 	// Email address.
 	Email *string `json:"email,omitempty"`
@@ -81,8 +336,17 @@ type Mt5GetSettingsRespMt5GetSettings struct {
 	// The user's phone password.
 	PhonePassword *string `json:"phonePassword,omitempty"`
 
+	// Trade server name of the MT5 account.
+	Server *string `json:"server,omitempty"`
+
+	// Trade server information.
+	ServerInfo *Mt5GetSettingsRespMt5GetSettingsServerInfo `json:"server_info,omitempty"`
+
 	// User's state (region) of residence.
 	State *string `json:"state,omitempty"`
+
+	// Sub account category.
+	SubAccountCategory *Mt5GetSettingsRespMt5GetSettingsSubAccountCategory `json:"sub_account_category,omitempty"`
 
 	// Sub account type
 	SubAccountType *Mt5GetSettingsRespMt5GetSettingsSubAccountType `json:"sub_account_type,omitempty"`
@@ -91,158 +355,10 @@ type Mt5GetSettingsRespMt5GetSettings struct {
 	ZipCode *string `json:"zipCode,omitempty"`
 }
 
-type Mt5GetSettingsRespMt5GetSettingsAccountType string
-
-const Mt5GetSettingsRespMt5GetSettingsAccountTypeDemo Mt5GetSettingsRespMt5GetSettingsAccountType = "demo"
-const Mt5GetSettingsRespMt5GetSettingsAccountTypeReal Mt5GetSettingsRespMt5GetSettingsAccountType = "real"
-
-type Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort string
-
-const Mt5GetSettingsRespMt5GetSettingsLandingCompanyShortBvi Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort = "bvi"
-const Mt5GetSettingsRespMt5GetSettingsLandingCompanyShortLabuan Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort = "labuan"
-const Mt5GetSettingsRespMt5GetSettingsLandingCompanyShortMalta Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort = "malta"
-const Mt5GetSettingsRespMt5GetSettingsLandingCompanyShortMaltainvest Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort = "maltainvest"
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *Mt5GetSettingsRespMt5GetSettingsMarketType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_Mt5GetSettingsRespMt5GetSettingsMarketType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5GetSettingsRespMt5GetSettingsMarketType, v)
-	}
-	*j = Mt5GetSettingsRespMt5GetSettingsMarketType(v)
-	return nil
-}
-
-var enumValues_Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort = []interface{}{
-	"bvi",
-	"labuan",
-	"malta",
-	"maltainvest",
-	"svg",
-	"vanuatu",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *Mt5GetSettingsRespMt5GetSettingsAccountType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_Mt5GetSettingsRespMt5GetSettingsAccountType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5GetSettingsRespMt5GetSettingsAccountType, v)
-	}
-	*j = Mt5GetSettingsRespMt5GetSettingsAccountType(v)
-	return nil
-}
-
-var enumValues_Mt5GetSettingsRespMt5GetSettingsAccountType = []interface{}{
-	"demo",
-	"real",
-}
-
-const Mt5GetSettingsRespMt5GetSettingsLandingCompanyShortSvg Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort = "svg"
-const Mt5GetSettingsRespMt5GetSettingsLandingCompanyShortVanuatu Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort = "vanuatu"
-
-type Mt5GetSettingsRespMt5GetSettingsMarketType string
-
-var enumValues_Mt5GetSettingsRespMt5GetSettingsMarketType = []interface{}{
-	"financial",
-	"synthetic",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort, v)
-	}
-	*j = Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort(v)
-	return nil
-}
-
-const Mt5GetSettingsRespMt5GetSettingsMarketTypeFinancial Mt5GetSettingsRespMt5GetSettingsMarketType = "financial"
-const Mt5GetSettingsRespMt5GetSettingsMarketTypeSynthetic Mt5GetSettingsRespMt5GetSettingsMarketType = "synthetic"
-
-type Mt5GetSettingsRespMt5GetSettingsSubAccountType string
-
-var enumValues_Mt5GetSettingsRespMt5GetSettingsSubAccountType = []interface{}{
-	"financial",
-	"financial_stp",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *Mt5GetSettingsRespMt5GetSettingsSubAccountType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_Mt5GetSettingsRespMt5GetSettingsSubAccountType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5GetSettingsRespMt5GetSettingsSubAccountType, v)
-	}
-	*j = Mt5GetSettingsRespMt5GetSettingsSubAccountType(v)
-	return nil
-}
-
+const Mt5GetSettingsRespMt5GetSettingsSubAccountTypeDerivez Mt5GetSettingsRespMt5GetSettingsSubAccountType = "derivez"
 const Mt5GetSettingsRespMt5GetSettingsSubAccountTypeFinancial Mt5GetSettingsRespMt5GetSettingsSubAccountType = "financial"
 const Mt5GetSettingsRespMt5GetSettingsSubAccountTypeFinancialStp Mt5GetSettingsRespMt5GetSettingsSubAccountType = "financial_stp"
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *Mt5GetSettingsRespMsgType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_Mt5GetSettingsRespMsgType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5GetSettingsRespMsgType, v)
-	}
-	*j = Mt5GetSettingsRespMsgType(v)
-	return nil
-}
-
-var enumValues_Mt5GetSettingsRespMsgType = []interface{}{
-	"mt5_get_settings",
-}
+const Mt5GetSettingsRespMt5GetSettingsSubAccountTypeStandard Mt5GetSettingsRespMt5GetSettingsSubAccountType = "standard"
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *Mt5GetSettingsResp) UnmarshalJSON(b []byte) error {
