@@ -83,6 +83,9 @@ type Mt5LoginListRespMt5LoginListElem struct {
 
 	// Sub account type refer to classic MT5 account
 	SubAccountType *Mt5LoginListRespMt5LoginListElemSubAccountType `json:"sub_account_type,omitempty"`
+
+	// MT5 webtrader url for each mt5 platform
+	WebtraderUrl *string `json:"webtrader_url,omitempty"`
 }
 
 type Mt5LoginListRespMt5LoginListElemAccountType string
