@@ -136,28 +136,6 @@ func (a *DerivAPI) SubscribeTicks(r schema.Ticks) (rsp schema.TicksResp, s *Subs
 	return
 }
 
-// SubscribeTicksHistory Get historic tick data for a given symbol.
-func (a *DerivAPI) SubscribeTicksHistory(r schema.TicksHistory) (rsp schema.TicksHistoryResp, s *Subsciption[schema.TicksHistoryResp, schema.TicksResp], err error) {
-	id := a.getNextRequestID()
-	var f schema.TicksHistorySubscribe = 1
-	r.ReqId = &id
-	r.Subscribe = &f
-	s = NewSubcription[schema.TicksHistoryResp, schema.TicksResp](a)
-	rsp, err = s.Start(id, r)
-	return
-}
-
-// SubscribeTransaction Subscribe to transaction notifications
-func (a *DerivAPI) SubscribeTransaction(r schema.Transaction) (rsp schema.TransactionResp, s *Subsciption[schema.TransactionResp, schema.TransactionResp], err error) {
-	id := a.getNextRequestID()
-	var f schema.TransactionSubscribe = 1
-	r.ReqId = &id
-	r.Subscribe = f
-	s = NewSubcription[schema.TransactionResp, schema.TransactionResp](a)
-	rsp, err = s.Start(id, r)
-	return
-}
-
 // SubscribeWebsiteStatus Request server status.
 func (a *DerivAPI) SubscribeWebsiteStatus(r schema.WebsiteStatus) (rsp schema.WebsiteStatusResp, s *Subsciption[schema.WebsiteStatusResp, schema.WebsiteStatusResp], err error) {
 	id := a.getNextRequestID()
