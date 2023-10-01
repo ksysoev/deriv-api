@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *SetSettingsNonPepDeclaration) UnmarshalJSON(b []byte) error {
@@ -393,7 +393,7 @@ type SetSettings struct {
 
 	// [Optional] Note: not applicable for virtual account. Optional field for real
 	// money account.
-	AddressLine2 interface{} `json:"address_line_2,omitempty"`
+	AddressLine2 *string `json:"address_line_2,omitempty"`
 
 	// [Optional] Note: not applicable for virtual account. Optional field for real
 	// money account.
@@ -409,7 +409,7 @@ type SetSettings struct {
 	AllowCopiers *SetSettingsAllowCopiers `json:"allow_copiers,omitempty"`
 
 	// [Optional] Country of legal citizenship, 2-letter country code.
-	Citizen interface{} `json:"citizen,omitempty"`
+	Citizen *string `json:"citizen,omitempty"`
 
 	// [Optional] Date of birth format: yyyy-mm-dd (can only be changed on
 	// unauthenticated svg accounts).
@@ -450,13 +450,13 @@ type SetSettings struct {
 
 	// [Optional] Note: not applicable for virtual account. Starting with `+` followed
 	// by 9-35 digits, hyphens or space.
-	Phone interface{} `json:"phone,omitempty"`
+	Phone *string `json:"phone,omitempty"`
 
 	// [Optional] Place of birth, 2-letter country code.
 	PlaceOfBirth *string `json:"place_of_birth,omitempty"`
 
 	// [Optional] User's preferred language, ISO standard language code
-	PreferredLanguage interface{} `json:"preferred_language,omitempty"`
+	PreferredLanguage *string `json:"preferred_language,omitempty"`
 
 	// [Optional] Used to map request to response.
 	ReqId *int `json:"req_id,omitempty"`
@@ -467,7 +467,7 @@ type SetSettings struct {
 
 	// [Optional] 2-letter country code. Note: not applicable for real money account.
 	// Only allow for Virtual account without residence set.
-	Residence interface{} `json:"residence,omitempty"`
+	Residence *string `json:"residence,omitempty"`
 
 	// [Optional] Accept any value in enum list (can only be changed on
 	// unauthenticated svg accounts).
@@ -505,12 +505,18 @@ func (j *SetSettings) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["set_settings"]; !ok || v == nil {
-		return fmt.Errorf("field set_settings: required")
+		return fmt.Errorf("field set_settings in SetSettings: required")
 	}
 	type Plain SetSettings
 	var plain Plain
 	if err := json.Unmarshal(b, &plain); err != nil {
 		return err
+	}
+	if plain.SecretAnswer != nil && len(*plain.SecretAnswer) < 4 {
+		return fmt.Errorf("field %s length: must be >= %d", "secret_answer", 4)
+	}
+	if plain.SecretAnswer != nil && len(*plain.SecretAnswer) >= 50 {
+		return fmt.Errorf("field %s length: must be <= %d", "secret_answer", 50)
 	}
 	*j = SetSettings(plain)
 	return nil

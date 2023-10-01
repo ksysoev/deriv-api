@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Retrieve a list of all currently active symbols (underlying markets upon which
 // contracts are available for trading).
@@ -146,7 +146,7 @@ func (j *ActiveSymbols) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["active_symbols"]; !ok || v == nil {
-		return fmt.Errorf("field active_symbols: required")
+		return fmt.Errorf("field active_symbols in ActiveSymbols: required")
 	}
 	type Plain ActiveSymbols
 	var plain Plain

@@ -2,8 +2,8 @@
 
 package schema
 
-import "fmt"
 import "encoding/json"
+import "fmt"
 
 // Immediately cancel the real-time stream of messages with a specific ID.
 type Forget struct {
@@ -29,7 +29,7 @@ func (j *Forget) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["forget"]; !ok || v == nil {
-		return fmt.Errorf("field forget: required")
+		return fmt.Errorf("field forget in Forget: required")
 	}
 	type Plain Forget
 	var plain Plain

@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Create MT5 account Receive
 type Mt5NewAccountResp struct {
@@ -35,7 +35,7 @@ type Mt5NewAccountRespMt5NewAccount struct {
 	AccountType *Mt5NewAccountRespMt5NewAccountAccountType `json:"account_type,omitempty"`
 
 	// Agent Details.
-	Agent interface{} `json:"agent,omitempty"`
+	Agent *string `json:"agent,omitempty"`
 
 	// Account balance.
 	Balance *float64 `json:"balance,omitempty"`
@@ -185,10 +185,10 @@ func (j *Mt5NewAccountResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in Mt5NewAccountResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in Mt5NewAccountResp: required")
 	}
 	type Plain Mt5NewAccountResp
 	var plain Plain

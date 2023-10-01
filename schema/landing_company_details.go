@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // The company has a number of licensed subsidiaries in various jurisdictions,
 // which are called Landing Companies (and which are wholly owned subsidiaries of
@@ -89,7 +89,7 @@ func (j *LandingCompanyDetails) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["landing_company_details"]; !ok || v == nil {
-		return fmt.Errorf("field landing_company_details: required")
+		return fmt.Errorf("field landing_company_details in LandingCompanyDetails: required")
 	}
 	type Plain LandingCompanyDetails
 	var plain Plain

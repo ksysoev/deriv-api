@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Echo of the request made.
 type IdentityVerificationDocumentAddRespEchoReq map[string]interface{}
@@ -87,10 +87,10 @@ func (j *IdentityVerificationDocumentAddResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in IdentityVerificationDocumentAddResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in IdentityVerificationDocumentAddResp: required")
 	}
 	type Plain IdentityVerificationDocumentAddResp
 	var plain Plain

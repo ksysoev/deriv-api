@@ -2,8 +2,8 @@
 
 package schema
 
-import "fmt"
 import "encoding/json"
+import "fmt"
 
 // To get the information of the OAuth application specified by 'app_id'
 type AppGet struct {
@@ -29,7 +29,7 @@ func (j *AppGet) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["app_get"]; !ok || v == nil {
-		return fmt.Errorf("field app_get: required")
+		return fmt.Errorf("field app_get in AppGet: required")
 	}
 	type Plain AppGet
 	var plain Plain

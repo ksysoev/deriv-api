@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // This call creates new MT5 user, either demo or real money user.
 type Mt5NewAccount struct {
@@ -71,7 +71,7 @@ type Mt5NewAccount struct {
 	Passthrough Mt5NewAccountPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] User's phone number.
-	Phone interface{} `json:"phone,omitempty"`
+	Phone *string `json:"phone,omitempty"`
 
 	// [Optional] The user's phone password.
 	PhonePassword *string `json:"phonePassword,omitempty"`
@@ -316,22 +316,22 @@ func (j *Mt5NewAccount) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["account_type"]; !ok || v == nil {
-		return fmt.Errorf("field account_type: required")
+		return fmt.Errorf("field account_type in Mt5NewAccount: required")
 	}
 	if v, ok := raw["email"]; !ok || v == nil {
-		return fmt.Errorf("field email: required")
+		return fmt.Errorf("field email in Mt5NewAccount: required")
 	}
 	if v, ok := raw["leverage"]; !ok || v == nil {
-		return fmt.Errorf("field leverage: required")
+		return fmt.Errorf("field leverage in Mt5NewAccount: required")
 	}
 	if v, ok := raw["mainPassword"]; !ok || v == nil {
-		return fmt.Errorf("field mainPassword: required")
+		return fmt.Errorf("field mainPassword in Mt5NewAccount: required")
 	}
 	if v, ok := raw["mt5_new_account"]; !ok || v == nil {
-		return fmt.Errorf("field mt5_new_account: required")
+		return fmt.Errorf("field mt5_new_account in Mt5NewAccount: required")
 	}
 	if v, ok := raw["name"]; !ok || v == nil {
-		return fmt.Errorf("field name: required")
+		return fmt.Errorf("field name in Mt5NewAccount: required")
 	}
 	type Plain Mt5NewAccount
 	var plain Plain
@@ -339,7 +339,19 @@ func (j *Mt5NewAccount) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["dry_run"]; !ok || v == nil {
-		plain.DryRun = 0
+		plain.DryRun = 0.0
+	}
+	if len(plain.Name) < 1 {
+		return fmt.Errorf("field %s length: must be >= %d", "name", 1)
+	}
+	if len(plain.Name) >= 101 {
+		return fmt.Errorf("field %s length: must be <= %d", "name", 101)
+	}
+	if plain.PhonePassword != nil && len(*plain.PhonePassword) >= 50 {
+		return fmt.Errorf("field %s length: must be <= %d", "phonePassword", 50)
+	}
+	if plain.ZipCode != nil && len(*plain.ZipCode) >= 50 {
+		return fmt.Errorf("field %s length: must be <= %d", "zipCode", 50)
 	}
 	*j = Mt5NewAccount(plain)
 	return nil

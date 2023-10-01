@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Retrieve a list of all available underlyings and the corresponding contract
 // types and trading duration boundaries. If the user is logged in, only the assets
@@ -150,7 +150,7 @@ func (j *TradingDurations) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["trading_durations"]; !ok || v == nil {
-		return fmt.Errorf("field trading_durations: required")
+		return fmt.Errorf("field trading_durations in TradingDurations: required")
 	}
 	type Plain TradingDurations
 	var plain Plain

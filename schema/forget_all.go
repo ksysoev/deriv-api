@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Immediately cancel the real-time streams of messages of given type.
 type ForgetAll struct {
@@ -81,7 +81,7 @@ func (j *ForgetAll) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["forget_all"]; !ok || v == nil {
-		return fmt.Errorf("field forget_all: required")
+		return fmt.Errorf("field forget_all in ForgetAll: required")
 	}
 	type Plain ForgetAll
 	var plain Plain

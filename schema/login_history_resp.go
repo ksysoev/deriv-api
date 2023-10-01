@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Echo of the request made.
 type LoginHistoryRespEchoReq map[string]interface{}
@@ -58,16 +58,16 @@ func (j *LoginHistoryRespLoginHistoryElem) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["action"]; !ok || v == nil {
-		return fmt.Errorf("field action: required")
+		return fmt.Errorf("field action in LoginHistoryRespLoginHistoryElem: required")
 	}
 	if v, ok := raw["environment"]; !ok || v == nil {
-		return fmt.Errorf("field environment: required")
+		return fmt.Errorf("field environment in LoginHistoryRespLoginHistoryElem: required")
 	}
 	if v, ok := raw["status"]; !ok || v == nil {
-		return fmt.Errorf("field status: required")
+		return fmt.Errorf("field status in LoginHistoryRespLoginHistoryElem: required")
 	}
 	if v, ok := raw["time"]; !ok || v == nil {
-		return fmt.Errorf("field time: required")
+		return fmt.Errorf("field time in LoginHistoryRespLoginHistoryElem: required")
 	}
 	type Plain LoginHistoryRespLoginHistoryElem
 	var plain Plain
@@ -129,10 +129,10 @@ func (j *LoginHistoryResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in LoginHistoryResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in LoginHistoryResp: required")
 	}
 	type Plain LoginHistoryResp
 	var plain Plain

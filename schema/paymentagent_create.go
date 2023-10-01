@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type PaymentagentCreateCodeOfConductApproval int
 
@@ -74,7 +74,7 @@ func (j *PaymentagentCreatePhoneNumbersElem) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["phone_number"]; !ok || v == nil {
-		return fmt.Errorf("field phone_number: required")
+		return fmt.Errorf("field phone_number in PaymentagentCreatePhoneNumbersElem: required")
 	}
 	type Plain PaymentagentCreatePhoneNumbersElem
 	var plain Plain
@@ -97,7 +97,7 @@ func (j *PaymentagentCreateSupportedPaymentMethodsElem) UnmarshalJSON(b []byte) 
 		return err
 	}
 	if v, ok := raw["payment_method"]; !ok || v == nil {
-		return fmt.Errorf("field payment_method: required")
+		return fmt.Errorf("field payment_method in PaymentagentCreateSupportedPaymentMethodsElem: required")
 	}
 	type Plain PaymentagentCreateSupportedPaymentMethodsElem
 	var plain Plain
@@ -120,7 +120,7 @@ func (j *PaymentagentCreateUrlsElem) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["url"]; !ok || v == nil {
-		return fmt.Errorf("field url: required")
+		return fmt.Errorf("field url in PaymentagentCreateUrlsElem: required")
 	}
 	type Plain PaymentagentCreateUrlsElem
 	var plain Plain
@@ -181,31 +181,31 @@ func (j *PaymentagentCreate) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["code_of_conduct_approval"]; !ok || v == nil {
-		return fmt.Errorf("field code_of_conduct_approval: required")
+		return fmt.Errorf("field code_of_conduct_approval in PaymentagentCreate: required")
 	}
 	if v, ok := raw["commission_deposit"]; !ok || v == nil {
-		return fmt.Errorf("field commission_deposit: required")
+		return fmt.Errorf("field commission_deposit in PaymentagentCreate: required")
 	}
 	if v, ok := raw["commission_withdrawal"]; !ok || v == nil {
-		return fmt.Errorf("field commission_withdrawal: required")
+		return fmt.Errorf("field commission_withdrawal in PaymentagentCreate: required")
 	}
 	if v, ok := raw["email"]; !ok || v == nil {
-		return fmt.Errorf("field email: required")
+		return fmt.Errorf("field email in PaymentagentCreate: required")
 	}
 	if v, ok := raw["information"]; !ok || v == nil {
-		return fmt.Errorf("field information: required")
+		return fmt.Errorf("field information in PaymentagentCreate: required")
 	}
 	if v, ok := raw["payment_agent_name"]; !ok || v == nil {
-		return fmt.Errorf("field payment_agent_name: required")
+		return fmt.Errorf("field payment_agent_name in PaymentagentCreate: required")
 	}
 	if v, ok := raw["paymentagent_create"]; !ok || v == nil {
-		return fmt.Errorf("field paymentagent_create: required")
+		return fmt.Errorf("field paymentagent_create in PaymentagentCreate: required")
 	}
 	if v, ok := raw["supported_payment_methods"]; !ok || v == nil {
-		return fmt.Errorf("field supported_payment_methods: required")
+		return fmt.Errorf("field supported_payment_methods in PaymentagentCreate: required")
 	}
 	if v, ok := raw["urls"]; !ok || v == nil {
-		return fmt.Errorf("field urls: required")
+		return fmt.Errorf("field urls in PaymentagentCreate: required")
 	}
 	type Plain PaymentagentCreate
 	var plain Plain

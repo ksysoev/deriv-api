@@ -2,8 +2,8 @@
 
 package schema
 
-import "fmt"
 import "encoding/json"
+import "fmt"
 
 // For a given country, returns a list of States of that country. This is useful to
 // populate the account opening form.
@@ -30,7 +30,7 @@ func (j *StatesList) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["states_list"]; !ok || v == nil {
-		return fmt.Errorf("field states_list: required")
+		return fmt.Errorf("field states_list in StatesList: required")
 	}
 	type Plain StatesList
 	var plain Plain

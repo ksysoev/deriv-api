@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type AppMarkupStatisticsAppMarkupStatistics int
 
@@ -62,13 +62,13 @@ func (j *AppMarkupStatistics) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["app_markup_statistics"]; !ok || v == nil {
-		return fmt.Errorf("field app_markup_statistics: required")
+		return fmt.Errorf("field app_markup_statistics in AppMarkupStatistics: required")
 	}
 	if v, ok := raw["date_from"]; !ok || v == nil {
-		return fmt.Errorf("field date_from: required")
+		return fmt.Errorf("field date_from in AppMarkupStatistics: required")
 	}
 	if v, ok := raw["date_to"]; !ok || v == nil {
-		return fmt.Errorf("field date_to: required")
+		return fmt.Errorf("field date_to in AppMarkupStatistics: required")
 	}
 	type Plain AppMarkupStatistics
 	var plain Plain

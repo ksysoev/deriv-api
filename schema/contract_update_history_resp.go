@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Contains the changed parameter.
 type ContractUpdateHistoryRespContractUpdateHistoryElem struct {
@@ -21,7 +21,7 @@ type ContractUpdateHistoryRespContractUpdateHistoryElem struct {
 	OrderType *string `json:"order_type,omitempty"`
 
 	// The pip-sized barrier value.
-	Value interface{} `json:"value,omitempty"`
+	Value *string `json:"value,omitempty"`
 }
 
 // Echo of the request made.
@@ -78,10 +78,10 @@ func (j *ContractUpdateHistoryResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in ContractUpdateHistoryResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in ContractUpdateHistoryResp: required")
 	}
 	type Plain ContractUpdateHistoryResp
 	var plain Plain

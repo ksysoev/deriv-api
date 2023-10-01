@@ -2,8 +2,8 @@
 
 package schema
 
-import "fmt"
 import "encoding/json"
+import "fmt"
 
 // Set account currency, this will be default currency for your account i.e
 // currency for trading, deposit. Please note that account currency can only be set
@@ -32,7 +32,7 @@ func (j *SetAccountCurrency) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["set_account_currency"]; !ok || v == nil {
-		return fmt.Errorf("field set_account_currency: required")
+		return fmt.Errorf("field set_account_currency in SetAccountCurrency: required")
 	}
 	type Plain SetAccountCurrency
 	var plain Plain

@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // A message with Residence List
 type ResidenceListResp struct {
@@ -37,7 +37,7 @@ type ResidenceListRespResidenceListElem struct {
 	Identity *ResidenceListRespResidenceListElemIdentity `json:"identity,omitempty"`
 
 	// IDD code of country
-	PhoneIdd interface{} `json:"phone_idd,omitempty"`
+	PhoneIdd *string `json:"phone_idd,omitempty"`
 
 	// Selected.
 	Selected *string `json:"selected,omitempty"`
@@ -204,10 +204,10 @@ func (j *ResidenceListResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in ResidenceListResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in ResidenceListResp: required")
 	}
 	type Plain ResidenceListResp
 	var plain Plain

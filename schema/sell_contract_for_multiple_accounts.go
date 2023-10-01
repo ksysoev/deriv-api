@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field. Maximum size is 3500 bytes.
@@ -72,16 +72,16 @@ func (j *SellContractForMultipleAccounts) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["price"]; !ok || v == nil {
-		return fmt.Errorf("field price: required")
+		return fmt.Errorf("field price in SellContractForMultipleAccounts: required")
 	}
 	if v, ok := raw["sell_contract_for_multiple_accounts"]; !ok || v == nil {
-		return fmt.Errorf("field sell_contract_for_multiple_accounts: required")
+		return fmt.Errorf("field sell_contract_for_multiple_accounts in SellContractForMultipleAccounts: required")
 	}
 	if v, ok := raw["shortcode"]; !ok || v == nil {
-		return fmt.Errorf("field shortcode: required")
+		return fmt.Errorf("field shortcode in SellContractForMultipleAccounts: required")
 	}
 	if v, ok := raw["tokens"]; !ok || v == nil {
-		return fmt.Errorf("field tokens: required")
+		return fmt.Errorf("field tokens in SellContractForMultipleAccounts: required")
 	}
 	type Plain SellContractForMultipleAccounts
 	var plain Plain

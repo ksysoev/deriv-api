@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Gets latest price for a specific contract.
 type Proposal struct {
@@ -399,16 +399,16 @@ func (j *Proposal) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["contract_type"]; !ok || v == nil {
-		return fmt.Errorf("field contract_type: required")
+		return fmt.Errorf("field contract_type in Proposal: required")
 	}
 	if v, ok := raw["currency"]; !ok || v == nil {
-		return fmt.Errorf("field currency: required")
+		return fmt.Errorf("field currency in Proposal: required")
 	}
 	if v, ok := raw["proposal"]; !ok || v == nil {
-		return fmt.Errorf("field proposal: required")
+		return fmt.Errorf("field proposal in Proposal: required")
 	}
 	if v, ok := raw["symbol"]; !ok || v == nil {
-		return fmt.Errorf("field symbol: required")
+		return fmt.Errorf("field symbol in Proposal: required")
 	}
 	type Plain Proposal
 	var plain Plain

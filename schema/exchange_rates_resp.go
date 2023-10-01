@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Echo of the request made.
 type ExchangeRatesRespEchoReq map[string]interface{}
@@ -66,7 +66,7 @@ func (j *ExchangeRatesRespSubscription) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in ExchangeRatesRespSubscription: required")
 	}
 	type Plain ExchangeRatesRespSubscription
 	var plain Plain
@@ -104,10 +104,10 @@ func (j *ExchangeRatesResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in ExchangeRatesResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in ExchangeRatesResp: required")
 	}
 	type Plain ExchangeRatesResp
 	var plain Plain

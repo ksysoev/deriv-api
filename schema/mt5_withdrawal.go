@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type Mt5WithdrawalMt5Withdrawal int
 
@@ -66,16 +66,16 @@ func (j *Mt5Withdrawal) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["amount"]; !ok || v == nil {
-		return fmt.Errorf("field amount: required")
+		return fmt.Errorf("field amount in Mt5Withdrawal: required")
 	}
 	if v, ok := raw["from_mt5"]; !ok || v == nil {
-		return fmt.Errorf("field from_mt5: required")
+		return fmt.Errorf("field from_mt5 in Mt5Withdrawal: required")
 	}
 	if v, ok := raw["mt5_withdrawal"]; !ok || v == nil {
-		return fmt.Errorf("field mt5_withdrawal: required")
+		return fmt.Errorf("field mt5_withdrawal in Mt5Withdrawal: required")
 	}
 	if v, ok := raw["to_binary"]; !ok || v == nil {
-		return fmt.Errorf("field to_binary: required")
+		return fmt.Errorf("field to_binary in Mt5Withdrawal: required")
 	}
 	type Plain Mt5Withdrawal
 	var plain Plain

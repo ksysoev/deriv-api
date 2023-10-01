@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type Mt5PasswordChangeMt5PasswordChange int
 
@@ -101,16 +101,16 @@ func (j *Mt5PasswordChange) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["login"]; !ok || v == nil {
-		return fmt.Errorf("field login: required")
+		return fmt.Errorf("field login in Mt5PasswordChange: required")
 	}
 	if v, ok := raw["mt5_password_change"]; !ok || v == nil {
-		return fmt.Errorf("field mt5_password_change: required")
+		return fmt.Errorf("field mt5_password_change in Mt5PasswordChange: required")
 	}
 	if v, ok := raw["new_password"]; !ok || v == nil {
-		return fmt.Errorf("field new_password: required")
+		return fmt.Errorf("field new_password in Mt5PasswordChange: required")
 	}
 	if v, ok := raw["old_password"]; !ok || v == nil {
-		return fmt.Errorf("field old_password: required")
+		return fmt.Errorf("field old_password in Mt5PasswordChange: required")
 	}
 	type Plain Mt5PasswordChange
 	var plain Plain

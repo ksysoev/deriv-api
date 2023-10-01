@@ -2,8 +2,8 @@
 
 package schema
 
-import "fmt"
 import "encoding/json"
+import "fmt"
 
 // Will return a list of Payment Agents for a given country for a given currency.
 // Payment agents allow users to deposit and withdraw funds using local payment
@@ -35,7 +35,7 @@ func (j *PaymentagentList) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["paymentagent_list"]; !ok || v == nil {
-		return fmt.Errorf("field paymentagent_list: required")
+		return fmt.Errorf("field paymentagent_list in PaymentagentList: required")
 	}
 	type Plain PaymentagentList
 	var plain Plain

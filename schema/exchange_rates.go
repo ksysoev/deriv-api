@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type ExchangeRatesExchangeRates int
 
@@ -93,10 +93,10 @@ func (j *ExchangeRates) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["base_currency"]; !ok || v == nil {
-		return fmt.Errorf("field base_currency: required")
+		return fmt.Errorf("field base_currency in ExchangeRates: required")
 	}
 	if v, ok := raw["exchange_rates"]; !ok || v == nil {
-		return fmt.Errorf("field exchange_rates: required")
+		return fmt.Errorf("field exchange_rates in ExchangeRates: required")
 	}
 	type Plain ExchangeRates
 	var plain Plain

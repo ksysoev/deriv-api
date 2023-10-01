@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PAdvertUpdateP2PAdvertUpdate) UnmarshalJSON(b []byte) error {
@@ -87,15 +87,21 @@ func (j *P2PAdvertUpdate) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in P2PAdvertUpdate: required")
 	}
 	if v, ok := raw["p2p_advert_update"]; !ok || v == nil {
-		return fmt.Errorf("field p2p_advert_update: required")
+		return fmt.Errorf("field p2p_advert_update in P2PAdvertUpdate: required")
 	}
 	type Plain P2PAdvertUpdate
 	var plain Plain
 	if err := json.Unmarshal(b, &plain); err != nil {
 		return err
+	}
+	if len(plain.PaymentMethodIds) > 3 {
+		return fmt.Errorf("field %s length: must be <= %d", "payment_method_ids", 3)
+	}
+	if len(plain.PaymentMethodNames) > 3 {
+		return fmt.Errorf("field %s length: must be <= %d", "payment_method_names", 3)
 	}
 	*j = P2PAdvertUpdate(plain)
 	return nil

@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Returns information about the given advertiser ID.
 type P2PAdvertiserInfoResp struct {
@@ -42,7 +42,7 @@ type P2PAdvertiserInfoRespP2PAdvertiserInfo struct {
 
 	// Average difference of advert rate compared to the market rate over the past 30
 	// days.
-	AdvertRates interface{} `json:"advert_rates"`
+	AdvertRates *float64 `json:"advert_rates"`
 
 	// Amount of funds available to sell on P2P. May be less than account balance
 	// according to deposit methods used.
@@ -63,7 +63,7 @@ type P2PAdvertiserInfoRespP2PAdvertiserInfo struct {
 
 	// The percentage of completed orders out of total orders as a buyer within the
 	// past 30 days.
-	BuyCompletionRate interface{} `json:"buy_completion_rate"`
+	BuyCompletionRate *float64 `json:"buy_completion_rate"`
 
 	// Buy order volume in the past 30 days.
 	BuyOrdersAmount string `json:"buy_orders_amount"`
@@ -73,21 +73,21 @@ type P2PAdvertiserInfoRespP2PAdvertiserInfo struct {
 
 	// The average time in seconds taken to make payment as a buyer within the past 30
 	// days.
-	BuyTimeAvg interface{} `json:"buy_time_avg"`
+	BuyTimeAvg *int `json:"buy_time_avg"`
 
 	// The average time in seconds taken to cancel orders as a buyer within the past
 	// 30 days.
-	CancelTimeAvg interface{} `json:"cancel_time_avg"`
+	CancelTimeAvg *int `json:"cancel_time_avg"`
 
 	// The number of times the user may cancel orders before being temporarily
 	// blocked.
 	CancelsRemaining *int `json:"cancels_remaining,omitempty"`
 
 	// The token to be used for authenticating the client for chat.
-	ChatToken interface{} `json:"chat_token,omitempty"`
+	ChatToken *string `json:"chat_token,omitempty"`
 
 	// The unique identifier for the chat user.
-	ChatUserId interface{} `json:"chat_user_id,omitempty"`
+	ChatUserId *string `json:"chat_user_id,omitempty"`
 
 	// Advertiser's contact information.
 	ContactInfo *string `json:"contact_info,omitempty"`
@@ -144,7 +144,7 @@ type P2PAdvertiserInfoRespP2PAdvertiserInfo struct {
 	LastName *string `json:"last_name,omitempty"`
 
 	// Epoch of the latest time the advertiser was online, up to 6 months.
-	LastOnlineTime interface{} `json:"last_online_time"`
+	LastOnlineTime *int `json:"last_online_time"`
 
 	// Maximum order amount for adverts.
 	MaxOrderAmount *string `json:"max_order_amount,omitempty"`
@@ -166,24 +166,24 @@ type P2PAdvertiserInfoRespP2PAdvertiserInfo struct {
 	PaymentInfo *string `json:"payment_info,omitempty"`
 
 	// Average rating of the advertiser, range is 1-5.
-	RatingAverage interface{} `json:"rating_average"`
+	RatingAverage *float64 `json:"rating_average"`
 
 	// Number of ratings given to the advertiser.
 	RatingCount int `json:"rating_count"`
 
 	// Percentage of users who have recommended the advertiser.
-	RecommendedAverage interface{} `json:"recommended_average"`
+	RecommendedAverage *float64 `json:"recommended_average"`
 
 	// Number of times the advertiser has been recommended.
-	RecommendedCount interface{} `json:"recommended_count"`
+	RecommendedCount *int `json:"recommended_count"`
 
 	// The average time in seconds taken to release funds as a seller within the past
 	// 30 days.
-	ReleaseTimeAvg interface{} `json:"release_time_avg"`
+	ReleaseTimeAvg *int `json:"release_time_avg"`
 
 	// The percentage of completed orders out of total orders as a seller within the
 	// past 30 days.
-	SellCompletionRate interface{} `json:"sell_completion_rate"`
+	SellCompletionRate *float64 `json:"sell_completion_rate"`
 
 	// Sell order volume in the past 30 days.
 	SellOrdersAmount string `json:"sell_orders_amount"`
@@ -196,7 +196,7 @@ type P2PAdvertiserInfoRespP2PAdvertiserInfo struct {
 	ShowName *P2PAdvertiserInfoRespP2PAdvertiserInfoShowName `json:"show_name,omitempty"`
 
 	// The percentage of completed orders out of all orders within the past 30 days.
-	TotalCompletionRate interface{} `json:"total_completion_rate"`
+	TotalCompletionRate *float64 `json:"total_completion_rate"`
 
 	// The total number of orders completed since advertiser registration.
 	TotalOrdersCount int `json:"total_orders_count"`
@@ -208,7 +208,7 @@ type P2PAdvertiserInfoRespP2PAdvertiserInfo struct {
 	UpgradableDailyLimits *P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimits `json:"upgradable_daily_limits,omitempty"`
 
 	// Remaining withdrawal_limit of a non-fully authenticated advertiser.
-	WithdrawalLimit interface{} `json:"withdrawal_limit,omitempty"`
+	WithdrawalLimit *string `json:"withdrawal_limit,omitempty"`
 }
 
 type P2PAdvertiserInfoRespP2PAdvertiserInfoBasicVerification int
@@ -294,8 +294,8 @@ var enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsOnline = []interface{}{
 }
 var enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsRecommended = []interface{}{
 	nil,
-	0,
-	1,
+	0.0,
+	1.0,
 }
 var enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoShowName = []interface{}{
 	0,
@@ -438,10 +438,10 @@ func (j *P2PAdvertiserInfoResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in P2PAdvertiserInfoResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in P2PAdvertiserInfoResp: required")
 	}
 	type Plain P2PAdvertiserInfoResp
 	var plain Plain
@@ -501,10 +501,10 @@ func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimits) UnmarshalJ
 		return err
 	}
 	if v, ok := raw["max_daily_buy"]; !ok || v == nil {
-		return fmt.Errorf("field max_daily_buy: required")
+		return fmt.Errorf("field max_daily_buy in P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimits: required")
 	}
 	if v, ok := raw["max_daily_sell"]; !ok || v == nil {
-		return fmt.Errorf("field max_daily_sell: required")
+		return fmt.Errorf("field max_daily_sell in P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimits: required")
 	}
 	type Plain P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimits
 	var plain Plain
@@ -522,10 +522,10 @@ func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoBlockTrade) UnmarshalJSON(b []byt
 		return err
 	}
 	if v, ok := raw["max_order_amount"]; !ok || v == nil {
-		return fmt.Errorf("field max_order_amount: required")
+		return fmt.Errorf("field max_order_amount in P2PAdvertiserInfoRespP2PAdvertiserInfoBlockTrade: required")
 	}
 	if v, ok := raw["min_order_amount"]; !ok || v == nil {
-		return fmt.Errorf("field min_order_amount: required")
+		return fmt.Errorf("field min_order_amount in P2PAdvertiserInfoRespP2PAdvertiserInfoBlockTrade: required")
 	}
 	type Plain P2PAdvertiserInfoRespP2PAdvertiserInfoBlockTrade
 	var plain Plain
@@ -543,88 +543,88 @@ func (j *P2PAdvertiserInfoRespP2PAdvertiserInfo) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["advert_rates"]; !ok || v == nil {
-		return fmt.Errorf("field advert_rates: required")
+		return fmt.Errorf("field advert_rates in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["basic_verification"]; !ok || v == nil {
-		return fmt.Errorf("field basic_verification: required")
+		return fmt.Errorf("field basic_verification in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["buy_completion_rate"]; !ok || v == nil {
-		return fmt.Errorf("field buy_completion_rate: required")
+		return fmt.Errorf("field buy_completion_rate in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["buy_orders_amount"]; !ok || v == nil {
-		return fmt.Errorf("field buy_orders_amount: required")
+		return fmt.Errorf("field buy_orders_amount in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["buy_orders_count"]; !ok || v == nil {
-		return fmt.Errorf("field buy_orders_count: required")
+		return fmt.Errorf("field buy_orders_count in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["buy_time_avg"]; !ok || v == nil {
-		return fmt.Errorf("field buy_time_avg: required")
+		return fmt.Errorf("field buy_time_avg in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["cancel_time_avg"]; !ok || v == nil {
-		return fmt.Errorf("field cancel_time_avg: required")
+		return fmt.Errorf("field cancel_time_avg in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["created_time"]; !ok || v == nil {
-		return fmt.Errorf("field created_time: required")
+		return fmt.Errorf("field created_time in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["default_advert_description"]; !ok || v == nil {
-		return fmt.Errorf("field default_advert_description: required")
+		return fmt.Errorf("field default_advert_description in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["full_verification"]; !ok || v == nil {
-		return fmt.Errorf("field full_verification: required")
+		return fmt.Errorf("field full_verification in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["is_approved"]; !ok || v == nil {
-		return fmt.Errorf("field is_approved: required")
+		return fmt.Errorf("field is_approved in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["is_listed"]; !ok || v == nil {
-		return fmt.Errorf("field is_listed: required")
+		return fmt.Errorf("field is_listed in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["is_online"]; !ok || v == nil {
-		return fmt.Errorf("field is_online: required")
+		return fmt.Errorf("field is_online in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["last_online_time"]; !ok || v == nil {
-		return fmt.Errorf("field last_online_time: required")
+		return fmt.Errorf("field last_online_time in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["name"]; !ok || v == nil {
-		return fmt.Errorf("field name: required")
+		return fmt.Errorf("field name in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["partner_count"]; !ok || v == nil {
-		return fmt.Errorf("field partner_count: required")
+		return fmt.Errorf("field partner_count in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["rating_average"]; !ok || v == nil {
-		return fmt.Errorf("field rating_average: required")
+		return fmt.Errorf("field rating_average in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["rating_count"]; !ok || v == nil {
-		return fmt.Errorf("field rating_count: required")
+		return fmt.Errorf("field rating_count in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["recommended_average"]; !ok || v == nil {
-		return fmt.Errorf("field recommended_average: required")
+		return fmt.Errorf("field recommended_average in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["recommended_count"]; !ok || v == nil {
-		return fmt.Errorf("field recommended_count: required")
+		return fmt.Errorf("field recommended_count in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["release_time_avg"]; !ok || v == nil {
-		return fmt.Errorf("field release_time_avg: required")
+		return fmt.Errorf("field release_time_avg in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["sell_completion_rate"]; !ok || v == nil {
-		return fmt.Errorf("field sell_completion_rate: required")
+		return fmt.Errorf("field sell_completion_rate in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["sell_orders_amount"]; !ok || v == nil {
-		return fmt.Errorf("field sell_orders_amount: required")
+		return fmt.Errorf("field sell_orders_amount in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["sell_orders_count"]; !ok || v == nil {
-		return fmt.Errorf("field sell_orders_count: required")
+		return fmt.Errorf("field sell_orders_count in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["total_completion_rate"]; !ok || v == nil {
-		return fmt.Errorf("field total_completion_rate: required")
+		return fmt.Errorf("field total_completion_rate in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["total_orders_count"]; !ok || v == nil {
-		return fmt.Errorf("field total_orders_count: required")
+		return fmt.Errorf("field total_orders_count in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	if v, ok := raw["total_turnover"]; !ok || v == nil {
-		return fmt.Errorf("field total_turnover: required")
+		return fmt.Errorf("field total_turnover in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	type Plain P2PAdvertiserInfoRespP2PAdvertiserInfo
 	var plain Plain
@@ -662,7 +662,7 @@ func (j *P2PAdvertiserInfoRespSubscription) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in P2PAdvertiserInfoRespSubscription: required")
 	}
 	type Plain P2PAdvertiserInfoRespSubscription
 	var plain Plain

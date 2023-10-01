@@ -2,8 +2,8 @@
 
 package schema
 
-import "fmt"
 import "encoding/json"
+import "fmt"
 import "reflect"
 
 type AppListRespAppListElem struct {
@@ -17,16 +17,16 @@ type AppListRespAppListElem struct {
 	AppMarkupPercentage float64 `json:"app_markup_percentage"`
 
 	// Application's App Store URL.
-	Appstore interface{} `json:"appstore"`
+	Appstore *string `json:"appstore"`
 
 	// Application's GitHub page. (for open-source projects)
-	Github interface{} `json:"github"`
+	Github *string `json:"github"`
 
 	// Application's Google Play URL.
-	Googleplay interface{} `json:"googleplay"`
+	Googleplay *string `json:"googleplay"`
 
 	// Application's homepage URL.
-	Homepage interface{} `json:"homepage"`
+	Homepage *string `json:"homepage"`
 
 	// Application name.
 	Name string `json:"name"`
@@ -40,7 +40,7 @@ type AppListRespAppListElem struct {
 	// Used when `verify_email` called. If available, a URL containing the
 	// verification token will send to the client's email, otherwise only the token
 	// will be sent.
-	VerificationUri interface{} `json:"verification_uri"`
+	VerificationUri *string `json:"verification_uri"`
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -50,31 +50,31 @@ func (j *AppListRespAppListElem) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["app_id"]; !ok || v == nil {
-		return fmt.Errorf("field app_id: required")
+		return fmt.Errorf("field app_id in AppListRespAppListElem: required")
 	}
 	if v, ok := raw["app_markup_percentage"]; !ok || v == nil {
-		return fmt.Errorf("field app_markup_percentage: required")
+		return fmt.Errorf("field app_markup_percentage in AppListRespAppListElem: required")
 	}
 	if v, ok := raw["appstore"]; !ok || v == nil {
-		return fmt.Errorf("field appstore: required")
+		return fmt.Errorf("field appstore in AppListRespAppListElem: required")
 	}
 	if v, ok := raw["github"]; !ok || v == nil {
-		return fmt.Errorf("field github: required")
+		return fmt.Errorf("field github in AppListRespAppListElem: required")
 	}
 	if v, ok := raw["googleplay"]; !ok || v == nil {
-		return fmt.Errorf("field googleplay: required")
+		return fmt.Errorf("field googleplay in AppListRespAppListElem: required")
 	}
 	if v, ok := raw["homepage"]; !ok || v == nil {
-		return fmt.Errorf("field homepage: required")
+		return fmt.Errorf("field homepage in AppListRespAppListElem: required")
 	}
 	if v, ok := raw["name"]; !ok || v == nil {
-		return fmt.Errorf("field name: required")
+		return fmt.Errorf("field name in AppListRespAppListElem: required")
 	}
 	if v, ok := raw["redirect_uri"]; !ok || v == nil {
-		return fmt.Errorf("field redirect_uri: required")
+		return fmt.Errorf("field redirect_uri in AppListRespAppListElem: required")
 	}
 	if v, ok := raw["verification_uri"]; !ok || v == nil {
-		return fmt.Errorf("field verification_uri: required")
+		return fmt.Errorf("field verification_uri in AppListRespAppListElem: required")
 	}
 	type Plain AppListRespAppListElem
 	var plain Plain
@@ -139,10 +139,10 @@ func (j *AppListResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in AppListResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in AppListResp: required")
 	}
 	type Plain AppListResp
 	var plain Plain

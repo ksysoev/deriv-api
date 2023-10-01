@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // This call opens a new real-money account with the `maltainvest` Landing Company.
 // This call can be made from a virtual-money account or real-money account at
@@ -111,7 +111,7 @@ type NewAccountMaltainvest struct {
 	Passthrough NewAccountMaltainvestPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Starting with `+` followed by 9-35 digits, hyphens or space.
-	Phone interface{} `json:"phone,omitempty"`
+	Phone *string `json:"phone,omitempty"`
 
 	// [Optional] Place of birth, 2-letter country code.
 	PlaceOfBirth *string `json:"place_of_birth,omitempty"`
@@ -1048,37 +1048,37 @@ func (j *NewAccountMaltainvest) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["address_city"]; !ok || v == nil {
-		return fmt.Errorf("field address_city: required")
+		return fmt.Errorf("field address_city in NewAccountMaltainvest: required")
 	}
 	if v, ok := raw["address_line_1"]; !ok || v == nil {
-		return fmt.Errorf("field address_line_1: required")
+		return fmt.Errorf("field address_line_1 in NewAccountMaltainvest: required")
 	}
 	if v, ok := raw["date_of_birth"]; !ok || v == nil {
-		return fmt.Errorf("field date_of_birth: required")
+		return fmt.Errorf("field date_of_birth in NewAccountMaltainvest: required")
 	}
 	if v, ok := raw["employment_status"]; !ok || v == nil {
-		return fmt.Errorf("field employment_status: required")
+		return fmt.Errorf("field employment_status in NewAccountMaltainvest: required")
 	}
 	if v, ok := raw["first_name"]; !ok || v == nil {
-		return fmt.Errorf("field first_name: required")
+		return fmt.Errorf("field first_name in NewAccountMaltainvest: required")
 	}
 	if v, ok := raw["last_name"]; !ok || v == nil {
-		return fmt.Errorf("field last_name: required")
+		return fmt.Errorf("field last_name in NewAccountMaltainvest: required")
 	}
 	if v, ok := raw["new_account_maltainvest"]; !ok || v == nil {
-		return fmt.Errorf("field new_account_maltainvest: required")
+		return fmt.Errorf("field new_account_maltainvest in NewAccountMaltainvest: required")
 	}
 	if v, ok := raw["residence"]; !ok || v == nil {
-		return fmt.Errorf("field residence: required")
+		return fmt.Errorf("field residence in NewAccountMaltainvest: required")
 	}
 	if v, ok := raw["salutation"]; !ok || v == nil {
-		return fmt.Errorf("field salutation: required")
+		return fmt.Errorf("field salutation in NewAccountMaltainvest: required")
 	}
 	if v, ok := raw["tax_identification_number"]; !ok || v == nil {
-		return fmt.Errorf("field tax_identification_number: required")
+		return fmt.Errorf("field tax_identification_number in NewAccountMaltainvest: required")
 	}
 	if v, ok := raw["tax_residence"]; !ok || v == nil {
-		return fmt.Errorf("field tax_residence: required")
+		return fmt.Errorf("field tax_residence in NewAccountMaltainvest: required")
 	}
 	type Plain NewAccountMaltainvest
 	var plain Plain
@@ -1087,6 +1087,12 @@ func (j *NewAccountMaltainvest) UnmarshalJSON(b []byte) error {
 	}
 	if v, ok := raw["client_type"]; !ok || v == nil {
 		plain.ClientType = "retail"
+	}
+	if plain.SecretAnswer != nil && len(*plain.SecretAnswer) < 4 {
+		return fmt.Errorf("field %s length: must be >= %d", "secret_answer", 4)
+	}
+	if plain.SecretAnswer != nil && len(*plain.SecretAnswer) >= 50 {
+		return fmt.Errorf("field %s length: must be <= %d", "secret_answer", 50)
 	}
 	*j = NewAccountMaltainvest(plain)
 	return nil

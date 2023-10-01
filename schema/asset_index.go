@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Retrieve a list of all available underlyings and the corresponding contract
 // types and duration boundaries. If the user is logged in, only the assets
@@ -151,7 +151,7 @@ func (j *AssetIndex) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["asset_index"]; !ok || v == nil {
-		return fmt.Errorf("field asset_index: required")
+		return fmt.Errorf("field asset_index in AssetIndex: required")
 	}
 	type Plain AssetIndex
 	var plain Plain

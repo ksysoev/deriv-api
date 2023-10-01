@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type P2PChatCreateP2PChatCreate int
 
@@ -59,10 +59,10 @@ func (j *P2PChatCreate) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["order_id"]; !ok || v == nil {
-		return fmt.Errorf("field order_id: required")
+		return fmt.Errorf("field order_id in P2PChatCreate: required")
 	}
 	if v, ok := raw["p2p_chat_create"]; !ok || v == nil {
-		return fmt.Errorf("field p2p_chat_create: required")
+		return fmt.Errorf("field p2p_chat_create in P2PChatCreate: required")
 	}
 	type Plain P2PChatCreate
 	var plain Plain

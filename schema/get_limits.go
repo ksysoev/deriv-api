@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type GetLimitsGetLimits int
 
@@ -56,7 +56,7 @@ func (j *GetLimits) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["get_limits"]; !ok || v == nil {
-		return fmt.Errorf("field get_limits: required")
+		return fmt.Errorf("field get_limits in GetLimits: required")
 	}
 	type Plain GetLimits
 	var plain Plain

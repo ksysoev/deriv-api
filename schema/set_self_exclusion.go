@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field. Maximum size is 3500 bytes.
@@ -42,40 +42,40 @@ type SetSelfExclusion struct {
 	// [Optional] Exclude me from the website (for a minimum of 6 months, up to a
 	// maximum of 5 years). Note: uplifting this self-exclusion may require contacting
 	// the company.
-	ExcludeUntil interface{} `json:"exclude_until,omitempty"`
+	ExcludeUntil *string `json:"exclude_until,omitempty"`
 
 	// [Optional] 7-day limit on deposits.
-	Max30DayDeposit interface{} `json:"max_30day_deposit,omitempty"`
+	Max30DayDeposit *float64 `json:"max_30day_deposit,omitempty"`
 
 	// [Optional] 30-day limit on losses.
-	Max30DayLosses interface{} `json:"max_30day_losses,omitempty"`
+	Max30DayLosses *float64 `json:"max_30day_losses,omitempty"`
 
 	// [Optional] 30-day turnover limit.
-	Max30DayTurnover interface{} `json:"max_30day_turnover,omitempty"`
+	Max30DayTurnover *float64 `json:"max_30day_turnover,omitempty"`
 
 	// [Optional] 7-day limit on deposits.
-	Max7DayDeposit interface{} `json:"max_7day_deposit,omitempty"`
+	Max7DayDeposit *float64 `json:"max_7day_deposit,omitempty"`
 
 	// [Optional] 7-day limit on losses.
-	Max7DayLosses interface{} `json:"max_7day_losses,omitempty"`
+	Max7DayLosses *float64 `json:"max_7day_losses,omitempty"`
 
 	// [Optional] 7-day turnover limit.
-	Max7DayTurnover interface{} `json:"max_7day_turnover,omitempty"`
+	Max7DayTurnover *float64 `json:"max_7day_turnover,omitempty"`
 
 	// [Optional] Maximum account cash balance.
-	MaxBalance interface{} `json:"max_balance,omitempty"`
+	MaxBalance *float64 `json:"max_balance,omitempty"`
 
 	// [Optional] Daily deposit limit.
-	MaxDeposit interface{} `json:"max_deposit,omitempty"`
+	MaxDeposit *float64 `json:"max_deposit,omitempty"`
 
 	// [Optional] Daily limit on losses.
-	MaxLosses interface{} `json:"max_losses,omitempty"`
+	MaxLosses *float64 `json:"max_losses,omitempty"`
 
 	// [Optional] Maximum number of open positions.
-	MaxOpenBets interface{} `json:"max_open_bets,omitempty"`
+	MaxOpenBets *int `json:"max_open_bets,omitempty"`
 
 	// [Optional] Daily turnover limit.
-	MaxTurnover interface{} `json:"max_turnover,omitempty"`
+	MaxTurnover *float64 `json:"max_turnover,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
 	// the `echo_req` output field. Maximum size is 3500 bytes.
@@ -85,7 +85,7 @@ type SetSelfExclusion struct {
 	ReqId *int `json:"req_id,omitempty"`
 
 	// [Optional] Session duration limit, in minutes.
-	SessionDurationLimit interface{} `json:"session_duration_limit,omitempty"`
+	SessionDurationLimit *int `json:"session_duration_limit,omitempty"`
 
 	// Must be `1`
 	SetSelfExclusion SetSelfExclusionSetSelfExclusion `json:"set_self_exclusion"`
@@ -93,7 +93,7 @@ type SetSelfExclusion struct {
 	// [Optional] Exclude me from the website (for up to 6 weeks). Requires time in
 	// epoch format. Note: unlike `exclude_until`, this self-exclusion will be lifted
 	// automatically at the expiry of the timeout period.
-	TimeoutUntil interface{} `json:"timeout_until,omitempty"`
+	TimeoutUntil *int `json:"timeout_until,omitempty"`
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -103,7 +103,7 @@ func (j *SetSelfExclusion) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["set_self_exclusion"]; !ok || v == nil {
-		return fmt.Errorf("field set_self_exclusion: required")
+		return fmt.Errorf("field set_self_exclusion in SetSelfExclusion: required")
 	}
 	type Plain SetSelfExclusion
 	var plain Plain

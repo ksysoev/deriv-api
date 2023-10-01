@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // A summary of account statement is received
 type StatementResp struct {
@@ -46,13 +46,13 @@ type StatementRespStatementTransactionsElem struct {
 	Amount *float64 `json:"amount,omitempty"`
 
 	// ID of the application where this contract was purchased.
-	AppId interface{} `json:"app_id,omitempty"`
+	AppId *int `json:"app_id,omitempty"`
 
 	// It is the remaining balance.
 	BalanceAfter *float64 `json:"balance_after,omitempty"`
 
 	// It is the contract ID.
-	ContractId interface{} `json:"contract_id,omitempty"`
+	ContractId *int `json:"contract_id,omitempty"`
 
 	// Contains details about fees used for transfer. It is present only when action
 	// type is transfer.
@@ -66,17 +66,17 @@ type StatementRespStatementTransactionsElem struct {
 	Longcode *string `json:"longcode,omitempty"`
 
 	// Payout price
-	Payout interface{} `json:"payout,omitempty"`
+	Payout *float64 `json:"payout,omitempty"`
 
 	// Time at which contract was purchased, present only for sell transaction
 	PurchaseTime *int `json:"purchase_time,omitempty"`
 
 	// Internal transaction identifier for the corresponding buy transaction ( set
 	// only for contract selling )
-	ReferenceId interface{} `json:"reference_id,omitempty"`
+	ReferenceId *int `json:"reference_id,omitempty"`
 
 	// Compact description of the contract purchased if description is set to `1`.
-	Shortcode interface{} `json:"shortcode,omitempty"`
+	Shortcode *string `json:"shortcode,omitempty"`
 
 	// Contains details of account to which amount was transferred. It is present only
 	// when action type is transfer.
@@ -199,10 +199,10 @@ func (j *StatementResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in StatementResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in StatementResp: required")
 	}
 	type Plain StatementResp
 	var plain Plain

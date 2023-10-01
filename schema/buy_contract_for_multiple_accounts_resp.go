@@ -2,8 +2,8 @@
 
 package schema
 
-import "fmt"
 import "encoding/json"
+import "fmt"
 import "reflect"
 
 // Receipt confirmation for the purchase
@@ -19,7 +19,7 @@ func (j *BuyContractForMultipleAccountsRespBuyContractForMultipleAccounts) Unmar
 		return err
 	}
 	if v, ok := raw["result"]; !ok || v == nil {
-		return fmt.Errorf("field result: required")
+		return fmt.Errorf("field result in BuyContractForMultipleAccountsRespBuyContractForMultipleAccounts: required")
 	}
 	type Plain BuyContractForMultipleAccountsRespBuyContractForMultipleAccounts
 	var plain Plain
@@ -84,10 +84,10 @@ func (j *BuyContractForMultipleAccountsResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in BuyContractForMultipleAccountsResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in BuyContractForMultipleAccountsResp: required")
 	}
 	type Plain BuyContractForMultipleAccountsResp
 	var plain Plain

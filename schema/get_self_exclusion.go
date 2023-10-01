@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type GetSelfExclusionGetSelfExclusion int
 
@@ -58,7 +58,7 @@ func (j *GetSelfExclusion) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["get_self_exclusion"]; !ok || v == nil {
-		return fmt.Errorf("field get_self_exclusion: required")
+		return fmt.Errorf("field get_self_exclusion in GetSelfExclusion: required")
 	}
 	type Plain GetSelfExclusion
 	var plain Plain

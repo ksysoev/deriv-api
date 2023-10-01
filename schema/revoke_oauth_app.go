@@ -2,8 +2,8 @@
 
 package schema
 
-import "fmt"
 import "encoding/json"
+import "fmt"
 
 // Used for revoking access of particular app.
 type RevokeOauthApp struct {
@@ -29,7 +29,7 @@ func (j *RevokeOauthApp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["revoke_oauth_app"]; !ok || v == nil {
-		return fmt.Errorf("field revoke_oauth_app: required")
+		return fmt.Errorf("field revoke_oauth_app in RevokeOauthApp: required")
 	}
 	type Plain RevokeOauthApp
 	var plain Plain

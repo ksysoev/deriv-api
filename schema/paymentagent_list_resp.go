@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // A message with Payment Agent List
 type PaymentagentListResp struct {
@@ -32,7 +32,7 @@ const PaymentagentListRespMsgTypePaymentagentList PaymentagentListRespMsgType = 
 // Payment Agent List
 type PaymentagentListRespPaymentagentList struct {
 	// The list of countries in which payment agent is available.
-	AvailableCountries [][]interface{} `json:"available_countries,omitempty"`
+	AvailableCountries [][]*string `json:"available_countries,omitempty"`
 
 	// List of payment agents available in the requested country.
 	List []PaymentagentListRespPaymentagentListListElem `json:"list"`
@@ -52,10 +52,10 @@ type PaymentagentListRespPaymentagentListListElem struct {
 	FurtherInformation string `json:"further_information"`
 
 	// Maximum withdrawal allowed for transactions through this payment agent.
-	MaxWithdrawal interface{} `json:"max_withdrawal"`
+	MaxWithdrawal *string `json:"max_withdrawal"`
 
 	// Minimum withdrawal allowed for transactions through this payment agent.
-	MinWithdrawal interface{} `json:"min_withdrawal"`
+	MinWithdrawal *string `json:"min_withdrawal"`
 
 	// Payment agent's name.
 	Name string `json:"name"`
@@ -101,43 +101,43 @@ func (j *PaymentagentListRespPaymentagentListListElem) UnmarshalJSON(b []byte) e
 		return err
 	}
 	if v, ok := raw["currencies"]; !ok || v == nil {
-		return fmt.Errorf("field currencies: required")
+		return fmt.Errorf("field currencies in PaymentagentListRespPaymentagentListListElem: required")
 	}
 	if v, ok := raw["deposit_commission"]; !ok || v == nil {
-		return fmt.Errorf("field deposit_commission: required")
+		return fmt.Errorf("field deposit_commission in PaymentagentListRespPaymentagentListListElem: required")
 	}
 	if v, ok := raw["email"]; !ok || v == nil {
-		return fmt.Errorf("field email: required")
+		return fmt.Errorf("field email in PaymentagentListRespPaymentagentListListElem: required")
 	}
 	if v, ok := raw["further_information"]; !ok || v == nil {
-		return fmt.Errorf("field further_information: required")
+		return fmt.Errorf("field further_information in PaymentagentListRespPaymentagentListListElem: required")
 	}
 	if v, ok := raw["max_withdrawal"]; !ok || v == nil {
-		return fmt.Errorf("field max_withdrawal: required")
+		return fmt.Errorf("field max_withdrawal in PaymentagentListRespPaymentagentListListElem: required")
 	}
 	if v, ok := raw["min_withdrawal"]; !ok || v == nil {
-		return fmt.Errorf("field min_withdrawal: required")
+		return fmt.Errorf("field min_withdrawal in PaymentagentListRespPaymentagentListListElem: required")
 	}
 	if v, ok := raw["name"]; !ok || v == nil {
-		return fmt.Errorf("field name: required")
+		return fmt.Errorf("field name in PaymentagentListRespPaymentagentListListElem: required")
 	}
 	if v, ok := raw["paymentagent_loginid"]; !ok || v == nil {
-		return fmt.Errorf("field paymentagent_loginid: required")
+		return fmt.Errorf("field paymentagent_loginid in PaymentagentListRespPaymentagentListListElem: required")
 	}
 	if v, ok := raw["phone_numbers"]; !ok || v == nil {
-		return fmt.Errorf("field phone_numbers: required")
+		return fmt.Errorf("field phone_numbers in PaymentagentListRespPaymentagentListListElem: required")
 	}
 	if v, ok := raw["summary"]; !ok || v == nil {
-		return fmt.Errorf("field summary: required")
+		return fmt.Errorf("field summary in PaymentagentListRespPaymentagentListListElem: required")
 	}
 	if v, ok := raw["supported_payment_methods"]; !ok || v == nil {
-		return fmt.Errorf("field supported_payment_methods: required")
+		return fmt.Errorf("field supported_payment_methods in PaymentagentListRespPaymentagentListListElem: required")
 	}
 	if v, ok := raw["urls"]; !ok || v == nil {
-		return fmt.Errorf("field urls: required")
+		return fmt.Errorf("field urls in PaymentagentListRespPaymentagentListListElem: required")
 	}
 	if v, ok := raw["withdrawal_commission"]; !ok || v == nil {
-		return fmt.Errorf("field withdrawal_commission: required")
+		return fmt.Errorf("field withdrawal_commission in PaymentagentListRespPaymentagentListListElem: required")
 	}
 	type Plain PaymentagentListRespPaymentagentListListElem
 	var plain Plain
@@ -175,7 +175,7 @@ func (j *PaymentagentListRespPaymentagentList) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["list"]; !ok || v == nil {
-		return fmt.Errorf("field list: required")
+		return fmt.Errorf("field list in PaymentagentListRespPaymentagentList: required")
 	}
 	type Plain PaymentagentListRespPaymentagentList
 	var plain Plain
@@ -197,10 +197,10 @@ func (j *PaymentagentListResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in PaymentagentListResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in PaymentagentListResp: required")
 	}
 	type Plain PaymentagentListResp
 	var plain Plain

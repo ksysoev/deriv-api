@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // A message with Trading Times
 type TradingTimesResp struct {
@@ -109,10 +109,10 @@ func (j *TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElem) Unmar
 		return err
 	}
 	if v, ok := raw["name"]; !ok || v == nil {
-		return fmt.Errorf("field name: required")
+		return fmt.Errorf("field name in TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElem: required")
 	}
 	if v, ok := raw["symbol"]; !ok || v == nil {
-		return fmt.Errorf("field symbol: required")
+		return fmt.Errorf("field symbol in TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElem: required")
 	}
 	type Plain TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElem
 	var plain Plain
@@ -132,7 +132,7 @@ func (j *TradingTimesRespTradingTimesMarketsElemSubmarketsElem) UnmarshalJSON(b 
 		return err
 	}
 	if v, ok := raw["name"]; !ok || v == nil {
-		return fmt.Errorf("field name: required")
+		return fmt.Errorf("field name in TradingTimesRespTradingTimesMarketsElemSubmarketsElem: required")
 	}
 	type Plain TradingTimesRespTradingTimesMarketsElemSubmarketsElem
 	var plain Plain
@@ -160,7 +160,7 @@ func (j *TradingTimesRespTradingTimesMarketsElem) UnmarshalJSON(b []byte) error 
 		return err
 	}
 	if v, ok := raw["name"]; !ok || v == nil {
-		return fmt.Errorf("field name: required")
+		return fmt.Errorf("field name in TradingTimesRespTradingTimesMarketsElem: required")
 	}
 	type Plain TradingTimesRespTradingTimesMarketsElem
 	var plain Plain
@@ -198,7 +198,7 @@ func (j *TradingTimesRespTradingTimes) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["markets"]; !ok || v == nil {
-		return fmt.Errorf("field markets: required")
+		return fmt.Errorf("field markets in TradingTimesRespTradingTimes: required")
 	}
 	type Plain TradingTimesRespTradingTimes
 	var plain Plain
@@ -220,10 +220,10 @@ func (j *TradingTimesResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in TradingTimesResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in TradingTimesResp: required")
 	}
 	type Plain TradingTimesResp
 	var plain Plain

@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // A message with KYC Authentication Status.
 type KycAuthStatusResp struct {
@@ -68,7 +68,7 @@ type KycAuthStatusRespKycAuthStatusIdentity struct {
 // Details on the rejected POI attempt.
 type KycAuthStatusRespKycAuthStatusIdentityLastRejected struct {
 	// Document type of the rejected POI attempt (IDV only).
-	DocumentType interface{} `json:"document_type,omitempty"`
+	DocumentType *string `json:"document_type,omitempty"`
 
 	// Reason(s) for the rejected POI attempt.
 	RejectedReasons []string `json:"rejected_reasons,omitempty"`
@@ -175,10 +175,10 @@ func (j *KycAuthStatusRespKycAuthStatus) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["address"]; !ok || v == nil {
-		return fmt.Errorf("field address: required")
+		return fmt.Errorf("field address in KycAuthStatusRespKycAuthStatus: required")
 	}
 	if v, ok := raw["identity"]; !ok || v == nil {
-		return fmt.Errorf("field identity: required")
+		return fmt.Errorf("field identity in KycAuthStatusRespKycAuthStatus: required")
 	}
 	type Plain KycAuthStatusRespKycAuthStatus
 	var plain Plain
@@ -232,10 +232,10 @@ func (j *KycAuthStatusResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in KycAuthStatusResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in KycAuthStatusResp: required")
 	}
 	type Plain KycAuthStatusResp
 	var plain Plain

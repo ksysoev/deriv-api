@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type KycAuthStatusKycAuthStatus int
 
@@ -56,7 +56,7 @@ func (j *KycAuthStatus) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["kyc_auth_status"]; !ok || v == nil {
-		return fmt.Errorf("field kyc_auth_status: required")
+		return fmt.Errorf("field kyc_auth_status in KycAuthStatus: required")
 	}
 	type Plain KycAuthStatus
 	var plain Plain

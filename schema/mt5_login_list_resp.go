@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Get list of MT5 accounts for client.
 type Mt5LoginListResp struct {
@@ -76,7 +76,7 @@ type Mt5LoginListRespMt5LoginListElem struct {
 	ServerInfo *Mt5LoginListRespMt5LoginListElemServerInfo `json:"server_info,omitempty"`
 
 	// MT5 account status.
-	Status interface{} `json:"status,omitempty"`
+	Status *string `json:"status,omitempty"`
 
 	// Sub account category
 	SubAccountCategory *Mt5LoginListRespMt5LoginListElemSubAccountCategory `json:"sub_account_category,omitempty"`
@@ -432,10 +432,10 @@ func (j *Mt5LoginListResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in Mt5LoginListResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in Mt5LoginListResp: required")
 	}
 	type Plain Mt5LoginListResp
 	var plain Plain

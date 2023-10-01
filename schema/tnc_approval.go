@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type TncApprovalAffiliateCocAgreement int
 
@@ -39,7 +39,7 @@ type TncApprovalPassthrough map[string]interface{}
 type TncApprovalTncApproval float64
 
 var enumValues_TncApprovalTncApproval = []interface{}{
-	1,
+	1.0,
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -114,7 +114,7 @@ func (j *TncApproval) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["tnc_approval"]; !ok || v == nil {
-		return fmt.Errorf("field tnc_approval: required")
+		return fmt.Errorf("field tnc_approval in TncApproval: required")
 	}
 	type Plain TncApproval
 	var plain Plain

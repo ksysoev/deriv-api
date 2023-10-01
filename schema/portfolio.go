@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Receive information about my current portfolio of outstanding options
 type Portfolio struct {
@@ -160,7 +160,7 @@ func (j *Portfolio) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["portfolio"]; !ok || v == nil {
-		return fmt.Errorf("field portfolio: required")
+		return fmt.Errorf("field portfolio in Portfolio: required")
 	}
 	type Plain Portfolio
 	var plain Plain

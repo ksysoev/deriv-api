@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Retrieve details of `app_markup` according to criteria specified.
 type AppMarkupDetails struct {
@@ -174,13 +174,13 @@ func (j *AppMarkupDetails) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["app_markup_details"]; !ok || v == nil {
-		return fmt.Errorf("field app_markup_details: required")
+		return fmt.Errorf("field app_markup_details in AppMarkupDetails: required")
 	}
 	if v, ok := raw["date_from"]; !ok || v == nil {
-		return fmt.Errorf("field date_from: required")
+		return fmt.Errorf("field date_from in AppMarkupDetails: required")
 	}
 	if v, ok := raw["date_to"]; !ok || v == nil {
-		return fmt.Errorf("field date_to: required")
+		return fmt.Errorf("field date_to in AppMarkupDetails: required")
 	}
 	type Plain AppMarkupDetails
 	var plain Plain
@@ -188,10 +188,13 @@ func (j *AppMarkupDetails) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["limit"]; !ok || v == nil {
-		plain.Limit = 1000
+		plain.Limit = 1000.0
 	}
 	if v, ok := raw["sort"]; !ok || v == nil {
 		plain.Sort = "DESC"
+	}
+	if len(plain.SortFields) > 3 {
+		return fmt.Errorf("field %s length: must be <= %d", "sort_fields", 3)
 	}
 	*j = AppMarkupDetails(plain)
 	return nil

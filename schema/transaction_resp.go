@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Return transaction updates
 type TransactionResp struct {
@@ -55,7 +55,7 @@ type TransactionRespTransaction struct {
 	Barrier interface{} `json:"barrier,omitempty"`
 
 	// It is the contract ID.
-	ContractId interface{} `json:"contract_id,omitempty"`
+	ContractId *int `json:"contract_id,omitempty"`
 
 	// Transaction currency
 	Currency *string `json:"currency,omitempty"`
@@ -68,7 +68,7 @@ type TransactionRespTransaction struct {
 	DisplayName *string `json:"display_name,omitempty"`
 
 	// The high barrier of a contract. Only applicable to double barrier contracts.
-	HighBarrier interface{} `json:"high_barrier,omitempty"`
+	HighBarrier *string `json:"high_barrier,omitempty"`
 
 	// A per-connection unique identifier. Can be passed to the `forget` API call to
 	// unsubscribe.
@@ -85,18 +85,18 @@ type TransactionRespTransaction struct {
 
 	// The pip-sized target spot price where the contract will be closed automatically
 	// at the loss specified by the user.
-	StopLoss interface{} `json:"stop_loss,omitempty"`
+	StopLoss *string `json:"stop_loss,omitempty"`
 
 	// The pip-sized target spot price where the contract will be closed automatically
 	// when the value of the contract is close to zero. This is set by the us.
-	StopOut interface{} `json:"stop_out,omitempty"`
+	StopOut *string `json:"stop_out,omitempty"`
 
 	// Symbol code
 	Symbol *string `json:"symbol,omitempty"`
 
 	// The pip-sized target spot price where the contract will be closed automatically
 	// at the profit specified by the user.
-	TakeProfit interface{} `json:"take_profit,omitempty"`
+	TakeProfit *string `json:"take_profit,omitempty"`
 
 	// It is the transaction ID. Every contract (buy or sell) or payment has a unique
 	// ID.
@@ -154,7 +154,7 @@ func (j *TransactionRespSubscription) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in TransactionRespSubscription: required")
 	}
 	type Plain TransactionRespSubscription
 	var plain Plain
@@ -199,10 +199,10 @@ func (j *TransactionResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in TransactionResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in TransactionResp: required")
 	}
 	type Plain TransactionResp
 	var plain Plain

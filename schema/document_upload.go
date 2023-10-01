@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Request KYC information from client
 type DocumentUpload struct {
@@ -293,10 +293,10 @@ func (j *DocumentUploadProofOfOwnership) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["details"]; !ok || v == nil {
-		return fmt.Errorf("field details: required")
+		return fmt.Errorf("field details in DocumentUploadProofOfOwnership: required")
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in DocumentUploadProofOfOwnership: required")
 	}
 	type Plain DocumentUploadProofOfOwnership
 	var plain Plain
@@ -322,19 +322,19 @@ func (j *DocumentUpload) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["document_format"]; !ok || v == nil {
-		return fmt.Errorf("field document_format: required")
+		return fmt.Errorf("field document_format in DocumentUpload: required")
 	}
 	if v, ok := raw["document_type"]; !ok || v == nil {
-		return fmt.Errorf("field document_type: required")
+		return fmt.Errorf("field document_type in DocumentUpload: required")
 	}
 	if v, ok := raw["document_upload"]; !ok || v == nil {
-		return fmt.Errorf("field document_upload: required")
+		return fmt.Errorf("field document_upload in DocumentUpload: required")
 	}
 	if v, ok := raw["expected_checksum"]; !ok || v == nil {
-		return fmt.Errorf("field expected_checksum: required")
+		return fmt.Errorf("field expected_checksum in DocumentUpload: required")
 	}
 	if v, ok := raw["file_size"]; !ok || v == nil {
-		return fmt.Errorf("field file_size: required")
+		return fmt.Errorf("field file_size in DocumentUpload: required")
 	}
 	type Plain DocumentUpload
 	var plain Plain

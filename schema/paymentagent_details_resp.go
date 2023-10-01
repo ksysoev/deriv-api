@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Gets client's payment agent details.
 type PaymentagentDetailsResp struct {
@@ -40,7 +40,7 @@ type PaymentagentDetailsRespPassthrough map[string]interface{}
 // The payment agent details.
 type PaymentagentDetailsRespPaymentagentDetails struct {
 	// Client's My Affiliate id, if exists.
-	AffiliateId interface{} `json:"affiliate_id,omitempty"`
+	AffiliateId *string `json:"affiliate_id,omitempty"`
 
 	// If 1, the client may apply using paymentagent_create.
 	CanApply PaymentagentDetailsRespPaymentagentDetailsCanApply `json:"can_apply"`
@@ -219,7 +219,7 @@ func (j *PaymentagentDetailsRespPaymentagentDetails) UnmarshalJSON(b []byte) err
 		return err
 	}
 	if v, ok := raw["can_apply"]; !ok || v == nil {
-		return fmt.Errorf("field can_apply: required")
+		return fmt.Errorf("field can_apply in PaymentagentDetailsRespPaymentagentDetails: required")
 	}
 	type Plain PaymentagentDetailsRespPaymentagentDetails
 	var plain Plain
@@ -241,10 +241,10 @@ func (j *PaymentagentDetailsResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in PaymentagentDetailsResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in PaymentagentDetailsResp: required")
 	}
 	type Plain PaymentagentDetailsResp
 	var plain Plain

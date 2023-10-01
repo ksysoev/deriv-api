@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Create virtual-money account
 type NewAccountVirtualResp struct {
@@ -111,19 +111,19 @@ func (j *NewAccountVirtualRespNewAccountVirtual) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["balance"]; !ok || v == nil {
-		return fmt.Errorf("field balance: required")
+		return fmt.Errorf("field balance in NewAccountVirtualRespNewAccountVirtual: required")
 	}
 	if v, ok := raw["client_id"]; !ok || v == nil {
-		return fmt.Errorf("field client_id: required")
+		return fmt.Errorf("field client_id in NewAccountVirtualRespNewAccountVirtual: required")
 	}
 	if v, ok := raw["currency"]; !ok || v == nil {
-		return fmt.Errorf("field currency: required")
+		return fmt.Errorf("field currency in NewAccountVirtualRespNewAccountVirtual: required")
 	}
 	if v, ok := raw["email"]; !ok || v == nil {
-		return fmt.Errorf("field email: required")
+		return fmt.Errorf("field email in NewAccountVirtualRespNewAccountVirtual: required")
 	}
 	if v, ok := raw["oauth_token"]; !ok || v == nil {
-		return fmt.Errorf("field oauth_token: required")
+		return fmt.Errorf("field oauth_token in NewAccountVirtualRespNewAccountVirtual: required")
 	}
 	type Plain NewAccountVirtualRespNewAccountVirtual
 	var plain Plain
@@ -145,10 +145,10 @@ func (j *NewAccountVirtualResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in NewAccountVirtualResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in NewAccountVirtualResp: required")
 	}
 	type Plain NewAccountVirtualResp
 	var plain Plain

@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // A message containing account information for the holder of that token.
 type AuthorizeResp struct {
@@ -62,7 +62,7 @@ type AuthorizeRespAuthorize struct {
 	Loginid *string `json:"loginid,omitempty"`
 
 	// User's preferred language, ISO standard code of language
-	PreferredLanguage interface{} `json:"preferred_language,omitempty"`
+	PreferredLanguage *string `json:"preferred_language,omitempty"`
 
 	// Scopes available to the token.
 	Scopes []string `json:"scopes,omitempty"`
@@ -348,10 +348,10 @@ func (j *AuthorizeResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in AuthorizeResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in AuthorizeResp: required")
 	}
 	type Plain AuthorizeResp
 	var plain Plain

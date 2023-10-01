@@ -2,8 +2,8 @@
 
 package schema
 
-import "fmt"
 import "encoding/json"
+import "fmt"
 import "reflect"
 
 // Provides cryptocurrencies configuration.
@@ -22,7 +22,7 @@ func (j *CryptoConfigRespCryptoConfig) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["currencies_config"]; !ok || v == nil {
-		return fmt.Errorf("field currencies_config: required")
+		return fmt.Errorf("field currencies_config in CryptoConfigRespCryptoConfig: required")
 	}
 	type Plain CryptoConfigRespCryptoConfig
 	var plain Plain
@@ -87,10 +87,10 @@ func (j *CryptoConfigResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in CryptoConfigResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in CryptoConfigResp: required")
 	}
 	type Plain CryptoConfigResp
 	var plain Plain

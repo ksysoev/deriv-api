@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Retrieve advertisers has/had trade with the current advertiser.
 type P2PAdvertiserList struct {
@@ -159,7 +159,7 @@ func (j *P2PAdvertiserList) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["p2p_advertiser_list"]; !ok || v == nil {
-		return fmt.Errorf("field p2p_advertiser_list: required")
+		return fmt.Errorf("field p2p_advertiser_list in P2PAdvertiserList: required")
 	}
 	type Plain P2PAdvertiserList
 	var plain Plain
@@ -167,10 +167,10 @@ func (j *P2PAdvertiserList) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["limit"]; !ok || v == nil {
-		plain.Limit = 50
+		plain.Limit = 50.0
 	}
 	if v, ok := raw["offset"]; !ok || v == nil {
-		plain.Offset = 0
+		plain.Offset = 0.0
 	}
 	if v, ok := raw["sort_by"]; !ok || v == nil {
 		plain.SortBy = "last_interaction_time"

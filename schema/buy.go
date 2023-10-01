@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Buy a Contract
 type Buy struct {
@@ -346,13 +346,13 @@ func (j *BuyParameters) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["contract_type"]; !ok || v == nil {
-		return fmt.Errorf("field contract_type: required")
+		return fmt.Errorf("field contract_type in BuyParameters: required")
 	}
 	if v, ok := raw["currency"]; !ok || v == nil {
-		return fmt.Errorf("field currency: required")
+		return fmt.Errorf("field currency in BuyParameters: required")
 	}
 	if v, ok := raw["symbol"]; !ok || v == nil {
-		return fmt.Errorf("field symbol: required")
+		return fmt.Errorf("field symbol in BuyParameters: required")
 	}
 	type Plain BuyParameters
 	var plain Plain
@@ -409,10 +409,10 @@ func (j *Buy) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["buy"]; !ok || v == nil {
-		return fmt.Errorf("field buy: required")
+		return fmt.Errorf("field buy in Buy: required")
 	}
 	if v, ok := raw["price"]; !ok || v == nil {
-		return fmt.Errorf("field price: required")
+		return fmt.Errorf("field price in Buy: required")
 	}
 	type Plain Buy
 	var plain Plain

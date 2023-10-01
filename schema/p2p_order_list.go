@@ -2,15 +2,15 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type P2POrderListActive float64
 
 var enumValues_P2POrderListActive = []interface{}{
-	0,
-	1,
+	0.0,
+	1.0,
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -125,7 +125,7 @@ func (j *P2POrderList) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["p2p_order_list"]; !ok || v == nil {
-		return fmt.Errorf("field p2p_order_list: required")
+		return fmt.Errorf("field p2p_order_list in P2POrderList: required")
 	}
 	type Plain P2POrderList
 	var plain Plain
@@ -133,10 +133,10 @@ func (j *P2POrderList) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["limit"]; !ok || v == nil {
-		plain.Limit = 50
+		plain.Limit = 50.0
 	}
 	if v, ok := raw["offset"]; !ok || v == nil {
-		plain.Offset = 0
+		plain.Offset = 0.0
 	}
 	*j = P2POrderList(plain)
 	return nil

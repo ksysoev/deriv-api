@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Echo of the request made.
 type P2PAdvertiserRelationsRespEchoReq map[string]interface{}
@@ -77,10 +77,10 @@ func (j *P2PAdvertiserRelationsRespP2PAdvertiserRelations) UnmarshalJSON(b []byt
 		return err
 	}
 	if v, ok := raw["blocked_advertisers"]; !ok || v == nil {
-		return fmt.Errorf("field blocked_advertisers: required")
+		return fmt.Errorf("field blocked_advertisers in P2PAdvertiserRelationsRespP2PAdvertiserRelations: required")
 	}
 	if v, ok := raw["favourite_advertisers"]; !ok || v == nil {
-		return fmt.Errorf("field favourite_advertisers: required")
+		return fmt.Errorf("field favourite_advertisers in P2PAdvertiserRelationsRespP2PAdvertiserRelations: required")
 	}
 	type Plain P2PAdvertiserRelationsRespP2PAdvertiserRelations
 	var plain Plain
@@ -114,10 +114,10 @@ func (j *P2PAdvertiserRelationsResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in P2PAdvertiserRelationsResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in P2PAdvertiserRelationsResp: required")
 	}
 	type Plain P2PAdvertiserRelationsResp
 	var plain Plain

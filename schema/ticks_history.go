@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Get historic tick data for a given symbol.
 type TicksHistory struct {
@@ -176,10 +176,10 @@ func (j *TicksHistory) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["end"]; !ok || v == nil {
-		return fmt.Errorf("field end: required")
+		return fmt.Errorf("field end in TicksHistory: required")
 	}
 	if v, ok := raw["ticks_history"]; !ok || v == nil {
-		return fmt.Errorf("field ticks_history: required")
+		return fmt.Errorf("field ticks_history in TicksHistory: required")
 	}
 	type Plain TicksHistory
 	var plain Plain
@@ -187,7 +187,7 @@ func (j *TicksHistory) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["count"]; !ok || v == nil {
-		plain.Count = 5000
+		plain.Count = 5000.0
 	}
 	if v, ok := raw["style"]; !ok || v == nil {
 		plain.Style = "ticks"

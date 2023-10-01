@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type AppListAppList int
 
@@ -56,7 +56,7 @@ func (j *AppList) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["app_list"]; !ok || v == nil {
-		return fmt.Errorf("field app_list: required")
+		return fmt.Errorf("field app_list in AppList: required")
 	}
 	type Plain AppList
 	var plain Plain

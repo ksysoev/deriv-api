@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type ContractUpdateContractUpdate int
 
@@ -54,10 +54,10 @@ type ContractUpdate struct {
 // Specify limit order to update.
 type ContractUpdateLimitOrder struct {
 	// New stop loss value for a contract. To cancel, pass `null`.
-	StopLoss interface{} `json:"stop_loss,omitempty"`
+	StopLoss *float64 `json:"stop_loss,omitempty"`
 
 	// New take profit value for a contract. To cancel, pass `null`.
-	TakeProfit interface{} `json:"take_profit,omitempty"`
+	TakeProfit *float64 `json:"take_profit,omitempty"`
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
@@ -71,13 +71,13 @@ func (j *ContractUpdate) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["contract_id"]; !ok || v == nil {
-		return fmt.Errorf("field contract_id: required")
+		return fmt.Errorf("field contract_id in ContractUpdate: required")
 	}
 	if v, ok := raw["contract_update"]; !ok || v == nil {
-		return fmt.Errorf("field contract_update: required")
+		return fmt.Errorf("field contract_update in ContractUpdate: required")
 	}
 	if v, ok := raw["limit_order"]; !ok || v == nil {
-		return fmt.Errorf("field limit_order: required")
+		return fmt.Errorf("field limit_order in ContractUpdate: required")
 	}
 	type Plain ContractUpdate
 	var plain Plain

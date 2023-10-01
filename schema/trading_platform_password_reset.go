@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field. Maximum size is 3500 bytes.
@@ -98,16 +98,16 @@ func (j *TradingPlatformPasswordReset) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["new_password"]; !ok || v == nil {
-		return fmt.Errorf("field new_password: required")
+		return fmt.Errorf("field new_password in TradingPlatformPasswordReset: required")
 	}
 	if v, ok := raw["platform"]; !ok || v == nil {
-		return fmt.Errorf("field platform: required")
+		return fmt.Errorf("field platform in TradingPlatformPasswordReset: required")
 	}
 	if v, ok := raw["trading_platform_password_reset"]; !ok || v == nil {
-		return fmt.Errorf("field trading_platform_password_reset: required")
+		return fmt.Errorf("field trading_platform_password_reset in TradingPlatformPasswordReset: required")
 	}
 	if v, ok := raw["verification_code"]; !ok || v == nil {
-		return fmt.Errorf("field verification_code: required")
+		return fmt.Errorf("field verification_code in TradingPlatformPasswordReset: required")
 	}
 	type Plain TradingPlatformPasswordReset
 	var plain Plain

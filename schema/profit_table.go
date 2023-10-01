@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Retrieve a summary of account Profit Table, according to given search criteria
 type ProfitTable struct {
@@ -236,7 +236,7 @@ func (j *ProfitTable) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["profit_table"]; !ok || v == nil {
-		return fmt.Errorf("field profit_table: required")
+		return fmt.Errorf("field profit_table in ProfitTable: required")
 	}
 	type Plain ProfitTable
 	var plain Plain
@@ -244,7 +244,7 @@ func (j *ProfitTable) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["limit"]; !ok || v == nil {
-		plain.Limit = 50
+		plain.Limit = 50.0
 	}
 	if v, ok := raw["sort"]; !ok || v == nil {
 		plain.Sort = "DESC"

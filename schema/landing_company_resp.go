@@ -2,9 +2,74 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyGamingCompanyTinNotMandatory) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyGamingCompanyTinNotMandatory {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyGamingCompanyTinNotMandatory, v)
+	}
+	*j = LandingCompanyRespLandingCompanyGamingCompanyTinNotMandatory(v)
+	return nil
+}
+
+type LandingCompanyRespLandingCompanyIsIdvSupported int
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyResp) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if v, ok := raw["echo_req"]; !ok || v == nil {
+		return fmt.Errorf("field echo_req in LandingCompanyResp: required")
+	}
+	if v, ok := raw["msg_type"]; !ok || v == nil {
+		return fmt.Errorf("field msg_type in LandingCompanyResp: required")
+	}
+	type Plain LandingCompanyResp
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = LandingCompanyResp(plain)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyAddressParseable) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyAddressParseable {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyAddressParseable, v)
+	}
+	*j = LandingCompanyRespLandingCompanyAddressParseable(v)
+	return nil
+}
+
+type LandingCompanyRespLandingCompanyAllCompany string
 
 // Returns the Landing Company for clients of a given country.
 type LandingCompanyResp struct {
@@ -24,6 +89,71 @@ type LandingCompanyResp struct {
 
 // Echo of the request made.
 type LandingCompanyRespEchoReq map[string]interface{}
+
+const LandingCompanyRespLandingCompanyAllCompanyNone LandingCompanyRespLandingCompanyAllCompany = "none"
+const LandingCompanyRespLandingCompanyAllCompanySvg LandingCompanyRespLandingCompanyAllCompany = "svg"
+
+// Config structure with document types ,taxRequired ,tin format details.
+type LandingCompanyRespLandingCompanyConfig map[string]interface{}
+
+type LandingCompanyRespLandingCompanyCtraderAllStandard string
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespMsgType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespMsgType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespMsgType, v)
+	}
+	*j = LandingCompanyRespMsgType(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyCtraderAllStandard) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyCtraderAllStandard {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyCtraderAllStandard, v)
+	}
+	*j = LandingCompanyRespLandingCompanyCtraderAllStandard(v)
+	return nil
+}
+
+// Available CTrader accounts.
+type LandingCompanyRespLandingCompanyCtrader struct {
+	// CTrader all account types (Synthetic Indices and Financials).
+	All *LandingCompanyRespLandingCompanyCtraderAll `json:"all,omitempty"`
+}
+
+// CTrader all account types (Synthetic Indices and Financials).
+type LandingCompanyRespLandingCompanyCtraderAll struct {
+	// For standard client
+	Standard *LandingCompanyRespLandingCompanyCtraderAllStandard `json:"standard,omitempty"`
+}
+
+const LandingCompanyRespLandingCompanyCtraderAllStandardNone LandingCompanyRespLandingCompanyCtraderAllStandard = "none"
+const LandingCompanyRespLandingCompanyCtraderAllStandardSvg LandingCompanyRespLandingCompanyCtraderAllStandard = "svg"
+
+type LandingCompanyRespLandingCompanyDerivezAllStandard string
 
 // Landing Company
 type LandingCompanyRespLandingCompany struct {
@@ -52,13 +182,13 @@ type LandingCompanyRespLandingCompany struct {
 	DxtradeGamingCompany *LandingCompanyRespLandingCompanyDxtradeGamingCompany `json:"dxtrade_gaming_company,omitempty"`
 
 	// Landing Company for financial contracts (all except Synthetic Indices)
-	FinancialCompany interface{} `json:"financial_company,omitempty"`
+	FinancialCompany *LandingCompanyRespLandingCompanyFinancialCompany `json:"financial_company,omitempty"`
 
 	// Forbidden postcode pattern
 	ForbiddenPostcodePattern *string `json:"forbidden_postcode_pattern,omitempty"`
 
 	// Landing Company for gaming contracts (Synthetic Indices)
-	GamingCompany interface{} `json:"gaming_company,omitempty"`
+	GamingCompany *LandingCompanyRespLandingCompanyGamingCompany `json:"gaming_company,omitempty"`
 
 	// Country code
 	Id *string `json:"id,omitempty"`
@@ -77,15 +207,15 @@ type LandingCompanyRespLandingCompany struct {
 
 	// Landing Company for MT5 standard combined all Synthetic and financial,
 	// currently has Financial as subtype.
-	MtAllCompany interface{} `json:"mt_all_company,omitempty"`
+	MtAllCompany *LandingCompanyRespLandingCompanyMtAllCompany `json:"mt_all_company,omitempty"`
 
 	// Landing Company for MT5 financial contracts (all except Synthetic Indices),
 	// currently divided into Financial STP, Financial (standard) as subtypes.
-	MtFinancialCompany interface{} `json:"mt_financial_company,omitempty"`
+	MtFinancialCompany *LandingCompanyRespLandingCompanyMtFinancialCompany `json:"mt_financial_company,omitempty"`
 
 	// Landing Company for MT5 standard gaming contracts (Synthetic Indices),
 	// currently has Financial as subtype.
-	MtGamingCompany interface{} `json:"mt_gaming_company,omitempty"`
+	MtGamingCompany *LandingCompanyRespLandingCompanyMtGamingCompany `json:"mt_gaming_company,omitempty"`
 
 	// Country name
 	Name *string `json:"name,omitempty"`
@@ -118,32 +248,78 @@ type LandingCompanyRespLandingCompany struct {
 	VirtualCompany *string `json:"virtual_company,omitempty"`
 }
 
-type LandingCompanyRespLandingCompanyAddressParseable int
-
-type LandingCompanyRespLandingCompanyAllCompany string
-
-const LandingCompanyRespLandingCompanyAllCompanyNone LandingCompanyRespLandingCompanyAllCompany = "none"
-const LandingCompanyRespLandingCompanyAllCompanySvg LandingCompanyRespLandingCompanyAllCompany = "svg"
-
-// Config structure with document types ,taxRequired ,tin format details.
-type LandingCompanyRespLandingCompanyConfig map[string]interface{}
-
-// Available CTrader accounts.
-type LandingCompanyRespLandingCompanyCtrader struct {
-	// CTrader all account types (Synthetic Indices and Financials).
-	All *LandingCompanyRespLandingCompanyCtraderAll `json:"all,omitempty"`
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyDerivezAllStandard) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyDerivezAllStandard {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyDerivezAllStandard, v)
+	}
+	*j = LandingCompanyRespLandingCompanyDerivezAllStandard(v)
+	return nil
 }
 
-// CTrader all account types (Synthetic Indices and Financials).
-type LandingCompanyRespLandingCompanyCtraderAll struct {
-	// For standard client
-	Standard *LandingCompanyRespLandingCompanyCtraderAllStandard `json:"standard,omitempty"`
+const LandingCompanyRespLandingCompanyDerivezAllStandardNone LandingCompanyRespLandingCompanyDerivezAllStandard = "none"
+
+// Landing Company for gaming contracts (Synthetic Indices)
+type LandingCompanyRespLandingCompanyGamingCompany struct {
+	// Landing Company address
+	Address []string `json:"address,omitempty"`
+
+	// Special conditions for changing sensitive fields
+	ChangeableFields LandingCompanyRespLandingCompanyGamingCompanyChangeableFields `json:"changeable_fields,omitempty"`
+
+	// Landing Company country of incorporation
+	Country *string `json:"country,omitempty"`
+
+	// The configuration of each currency.
+	CurrencyConfig LandingCompanyRespLandingCompanyGamingCompanyCurrencyConfig `json:"currency_config,omitempty"`
+
+	// Flag to indicate whether reality check is applicable for this Landing Company.
+	// `1`: applicable, `0`: not applicable. The Reality Check is a feature that gives
+	// a summary of the client's trades and account balances on a regular basis
+	// throughout his session, and is a regulatory requirement for certain Landing
+	// Companies.
+	HasRealityCheck *LandingCompanyRespLandingCompanyGamingCompanyHasRealityCheck `json:"has_reality_check,omitempty"`
+
+	// Allowed contract types
+	LegalAllowedContractCategories []string `json:"legal_allowed_contract_categories,omitempty"`
+
+	// Allowable currencies
+	LegalAllowedCurrencies []string `json:"legal_allowed_currencies,omitempty"`
+
+	// Allowable markets
+	LegalAllowedMarkets []string `json:"legal_allowed_markets,omitempty"`
+
+	// Default account currency
+	LegalDefaultCurrency *string `json:"legal_default_currency,omitempty"`
+
+	// Landing Company legal name
+	Name *string `json:"name,omitempty"`
+
+	// Legal requirements for the Landing Company
+	Requirements *LandingCompanyRespLandingCompanyGamingCompanyRequirements `json:"requirements,omitempty"`
+
+	// Landing Company short code
+	Shortcode *string `json:"shortcode,omitempty"`
+
+	// Flag that indicates whether the landing company supports professional accounts
+	// or not
+	SupportProfessionalClient *LandingCompanyRespLandingCompanyGamingCompanySupportProfessionalClient `json:"support_professional_client,omitempty"`
+
+	// Flag that indicates whether tax identifier number is not mandatory for the
+	// current country and landing company.
+	TinNotMandatory *LandingCompanyRespLandingCompanyGamingCompanyTinNotMandatory `json:"tin_not_mandatory,omitempty"`
 }
-
-type LandingCompanyRespLandingCompanyCtraderAllStandard string
-
-const LandingCompanyRespLandingCompanyCtraderAllStandardNone LandingCompanyRespLandingCompanyCtraderAllStandard = "none"
-const LandingCompanyRespLandingCompanyCtraderAllStandardSvg LandingCompanyRespLandingCompanyCtraderAllStandard = "svg"
 
 // Available DerivEZ accounts.
 type LandingCompanyRespLandingCompanyDerivez struct {
@@ -151,27 +327,174 @@ type LandingCompanyRespLandingCompanyDerivez struct {
 	All *LandingCompanyRespLandingCompanyDerivezAll `json:"all,omitempty"`
 }
 
-// DerivEZ all account types (Synthetic Indices and Financials).
-type LandingCompanyRespLandingCompanyDerivezAll struct {
-	// For standard client
-	Standard *LandingCompanyRespLandingCompanyDerivezAllStandard `json:"standard,omitempty"`
-}
-
-type LandingCompanyRespLandingCompanyDerivezAllStandard string
-
-const LandingCompanyRespLandingCompanyDerivezAllStandardNone LandingCompanyRespLandingCompanyDerivezAllStandard = "none"
 const LandingCompanyRespLandingCompanyDerivezAllStandardSvg LandingCompanyRespLandingCompanyDerivezAllStandard = "svg"
 
-// Available Deriv X all account types (Synthetic Indices and Financials).
-type LandingCompanyRespLandingCompanyDxtradeAllCompany struct {
-	// Landing Company details.
-	Standard *LandingCompanyRespLandingCompanyDxtradeAllCompanyStandard `json:"standard,omitempty"`
+// Special conditions for changing sensitive fields
+type LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardChangeableFields map[string]interface{}
+
+// The configuration of each currency.
+type LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardCurrencyConfig map[string]interface{}
+
+type LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardHasRealityCheck int
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyUkgcFundsProtection) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyUkgcFundsProtection {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyUkgcFundsProtection, v)
+	}
+	*j = LandingCompanyRespLandingCompanyUkgcFundsProtection(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardHasRealityCheck) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardHasRealityCheck {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardHasRealityCheck, v)
+	}
+	*j = LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardHasRealityCheck(v)
+	return nil
+}
+
+// After first deposit requirements
+type LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardRequirementsAfterFirstDeposit struct {
+	// Financial assessment requirements
+	FinancialAssessment []string `json:"financial_assessment,omitempty"`
+}
+
+// Compliance requirements
+type LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardRequirementsCompliance struct {
+	// Compliance MT5 requirements
+	Mt5 []string `json:"mt5,omitempty"`
+
+	// Compliance tax information requirements
+	TaxInformation []string `json:"tax_information,omitempty"`
+}
+
+// Legal requirements for the Landing Company
+type LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardRequirements struct {
+	// After first deposit requirements
+	AfterFirstDeposit *LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardRequirementsAfterFirstDeposit `json:"after_first_deposit,omitempty"`
+
+	// Compliance requirements
+	Compliance *LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardRequirementsCompliance `json:"compliance,omitempty"`
+
+	// Sign up requirements
+	Signup []string `json:"signup,omitempty"`
+
+	// Withdrawal requirements
+	Withdrawal []string `json:"withdrawal,omitempty"`
+}
+
+type LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardSupportProfessionalClient int
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanySkipDepositVerification) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanySkipDepositVerification {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanySkipDepositVerification, v)
+	}
+	*j = LandingCompanyRespLandingCompanySkipDepositVerification(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardSupportProfessionalClient) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardSupportProfessionalClient {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardSupportProfessionalClient, v)
+	}
+	*j = LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardSupportProfessionalClient(v)
+	return nil
+}
+
+type LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardTinNotMandatory int
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyRequireVerificationWhenNotAgeVerified) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyRequireVerificationWhenNotAgeVerified {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyRequireVerificationWhenNotAgeVerified, v)
+	}
+	*j = LandingCompanyRespLandingCompanyRequireVerificationWhenNotAgeVerified(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardTinNotMandatory) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardTinNotMandatory {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardTinNotMandatory, v)
+	}
+	*j = LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardTinNotMandatory(v)
+	return nil
 }
 
 // Landing Company details.
 type LandingCompanyRespLandingCompanyDxtradeAllCompanyStandard struct {
 	// Landing Company address
-	Address interface{} `json:"address,omitempty"`
+	Address []string `json:"address,omitempty"`
 
 	// Special conditions for changing sensitive fields
 	ChangeableFields LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardChangeableFields `json:"changeable_fields,omitempty"`
@@ -219,21 +542,82 @@ type LandingCompanyRespLandingCompanyDxtradeAllCompanyStandard struct {
 	TinNotMandatory *LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardTinNotMandatory `json:"tin_not_mandatory,omitempty"`
 }
 
+// Available Deriv X all account types (Synthetic Indices and Financials).
+type LandingCompanyRespLandingCompanyDxtradeAllCompany struct {
+	// Landing Company details.
+	Standard *LandingCompanyRespLandingCompanyDxtradeAllCompanyStandard `json:"standard,omitempty"`
+}
+
 // Special conditions for changing sensitive fields
-type LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardChangeableFields map[string]interface{}
+type LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardChangeableFields map[string]interface{}
 
 // The configuration of each currency.
-type LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardCurrencyConfig map[string]interface{}
+type LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardCurrencyConfig map[string]interface{}
 
-type LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardHasRealityCheck int
+type LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardHasRealityCheck int
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyRequirePoi) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyRequirePoi {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyRequirePoi, v)
+	}
+	*j = LandingCompanyRespLandingCompanyRequirePoi(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardHasRealityCheck) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardHasRealityCheck {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardHasRealityCheck, v)
+	}
+	*j = LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardHasRealityCheck(v)
+	return nil
+}
+
+// After first deposit requirements
+type LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardRequirementsAfterFirstDeposit struct {
+	// Financial assessment requirements
+	FinancialAssessment []string `json:"financial_assessment,omitempty"`
+}
+
+// Compliance requirements
+type LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardRequirementsCompliance struct {
+	// Compliance MT5 requirements
+	Mt5 []string `json:"mt5,omitempty"`
+
+	// Compliance tax information requirements
+	TaxInformation []string `json:"tax_information,omitempty"`
+}
 
 // Legal requirements for the Landing Company
-type LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardRequirements struct {
+type LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardRequirements struct {
 	// After first deposit requirements
-	AfterFirstDeposit *LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardRequirementsAfterFirstDeposit `json:"after_first_deposit,omitempty"`
+	AfterFirstDeposit *LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardRequirementsAfterFirstDeposit `json:"after_first_deposit,omitempty"`
 
 	// Compliance requirements
-	Compliance *LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardRequirementsCompliance `json:"compliance,omitempty"`
+	Compliance *LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardRequirementsCompliance `json:"compliance,omitempty"`
 
 	// Sign up requirements
 	Signup []string `json:"signup,omitempty"`
@@ -242,35 +626,94 @@ type LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardRequirements struc
 	Withdrawal []string `json:"withdrawal,omitempty"`
 }
 
-// After first deposit requirements
-type LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardRequirementsAfterFirstDeposit struct {
-	// Financial assessment requirements
-	FinancialAssessment []string `json:"financial_assessment,omitempty"`
+type LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardSupportProfessionalClient int
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyRequireAgeVerifiedForSynthetic) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyRequireAgeVerifiedForSynthetic {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyRequireAgeVerifiedForSynthetic, v)
+	}
+	*j = LandingCompanyRespLandingCompanyRequireAgeVerifiedForSynthetic(v)
+	return nil
 }
 
-// Compliance requirements
-type LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardRequirementsCompliance struct {
-	// Compliance MT5 requirements
-	Mt5 []string `json:"mt5,omitempty"`
-
-	// Compliance tax information requirements
-	TaxInformation []string `json:"tax_information,omitempty"`
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardSupportProfessionalClient) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardSupportProfessionalClient {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardSupportProfessionalClient, v)
+	}
+	*j = LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardSupportProfessionalClient(v)
+	return nil
 }
 
-type LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardSupportProfessionalClient int
+type LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardTinNotMandatory int
 
-type LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardTinNotMandatory int
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyRequireAddressPostcode) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyRequireAddressPostcode {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyRequireAddressPostcode, v)
+	}
+	*j = LandingCompanyRespLandingCompanyRequireAddressPostcode(v)
+	return nil
+}
 
-// Available Deriv X financial account types (all except Synthetic Indices).
-type LandingCompanyRespLandingCompanyDxtradeFinancialCompany struct {
-	// Landing Company details.
-	Standard *LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandard `json:"standard,omitempty"`
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardTinNotMandatory) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardTinNotMandatory {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardTinNotMandatory, v)
+	}
+	*j = LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardTinNotMandatory(v)
+	return nil
 }
 
 // Landing Company details.
 type LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandard struct {
 	// Landing Company address
-	Address interface{} `json:"address,omitempty"`
+	Address []string `json:"address,omitempty"`
 
 	// Special conditions for changing sensitive fields
 	ChangeableFields LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardChangeableFields `json:"changeable_fields,omitempty"`
@@ -318,21 +761,82 @@ type LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandard struct {
 	TinNotMandatory *LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardTinNotMandatory `json:"tin_not_mandatory,omitempty"`
 }
 
+// Available Deriv X financial account types (all except Synthetic Indices).
+type LandingCompanyRespLandingCompanyDxtradeFinancialCompany struct {
+	// Landing Company details.
+	Standard *LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandard `json:"standard,omitempty"`
+}
+
 // Special conditions for changing sensitive fields
-type LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardChangeableFields map[string]interface{}
+type LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardChangeableFields map[string]interface{}
 
 // The configuration of each currency.
-type LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardCurrencyConfig map[string]interface{}
+type LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardCurrencyConfig map[string]interface{}
 
-type LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardHasRealityCheck int
+type LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardHasRealityCheck int
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyNoProvince) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyNoProvince {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyNoProvince, v)
+	}
+	*j = LandingCompanyRespLandingCompanyNoProvince(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardHasRealityCheck) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardHasRealityCheck {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardHasRealityCheck, v)
+	}
+	*j = LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardHasRealityCheck(v)
+	return nil
+}
+
+// After first deposit requirements
+type LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardRequirementsAfterFirstDeposit struct {
+	// Financial assessment requirements
+	FinancialAssessment []string `json:"financial_assessment,omitempty"`
+}
+
+// Compliance requirements
+type LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardRequirementsCompliance struct {
+	// Compliance MT5 requirements
+	Mt5 []string `json:"mt5,omitempty"`
+
+	// Compliance tax information requirements
+	TaxInformation []string `json:"tax_information,omitempty"`
+}
 
 // Legal requirements for the Landing Company
-type LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardRequirements struct {
+type LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardRequirements struct {
 	// After first deposit requirements
-	AfterFirstDeposit *LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardRequirementsAfterFirstDeposit `json:"after_first_deposit,omitempty"`
+	AfterFirstDeposit *LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardRequirementsAfterFirstDeposit `json:"after_first_deposit,omitempty"`
 
 	// Compliance requirements
-	Compliance *LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardRequirementsCompliance `json:"compliance,omitempty"`
+	Compliance *LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardRequirementsCompliance `json:"compliance,omitempty"`
 
 	// Sign up requirements
 	Signup []string `json:"signup,omitempty"`
@@ -341,35 +845,94 @@ type LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardRequirements
 	Withdrawal []string `json:"withdrawal,omitempty"`
 }
 
-// After first deposit requirements
-type LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardRequirementsAfterFirstDeposit struct {
-	// Financial assessment requirements
-	FinancialAssessment []string `json:"financial_assessment,omitempty"`
+type LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardSupportProfessionalClient int
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyNeedSetMaxTurnoverLimit) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyNeedSetMaxTurnoverLimit {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyNeedSetMaxTurnoverLimit, v)
+	}
+	*j = LandingCompanyRespLandingCompanyNeedSetMaxTurnoverLimit(v)
+	return nil
 }
 
-// Compliance requirements
-type LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardRequirementsCompliance struct {
-	// Compliance MT5 requirements
-	Mt5 []string `json:"mt5,omitempty"`
-
-	// Compliance tax information requirements
-	TaxInformation []string `json:"tax_information,omitempty"`
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardSupportProfessionalClient) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardSupportProfessionalClient {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardSupportProfessionalClient, v)
+	}
+	*j = LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardSupportProfessionalClient(v)
+	return nil
 }
 
-type LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardSupportProfessionalClient int
+type LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardTinNotMandatory int
 
-type LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardTinNotMandatory int
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyMtGamingCompanyFinancialTinNotMandatory) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyMtGamingCompanyFinancialTinNotMandatory {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyMtGamingCompanyFinancialTinNotMandatory, v)
+	}
+	*j = LandingCompanyRespLandingCompanyMtGamingCompanyFinancialTinNotMandatory(v)
+	return nil
+}
 
-// Available Deriv X gaming account types (Synthetic Indices).
-type LandingCompanyRespLandingCompanyDxtradeGamingCompany struct {
-	// Landing Company details.
-	Standard *LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandard `json:"standard,omitempty"`
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardTinNotMandatory) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardTinNotMandatory {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardTinNotMandatory, v)
+	}
+	*j = LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardTinNotMandatory(v)
+	return nil
 }
 
 // Landing Company details.
 type LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandard struct {
 	// Landing Company address
-	Address interface{} `json:"address,omitempty"`
+	Address []string `json:"address,omitempty"`
 
 	// Special conditions for changing sensitive fields
 	ChangeableFields LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardChangeableFields `json:"changeable_fields,omitempty"`
@@ -417,21 +980,82 @@ type LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandard struct {
 	TinNotMandatory *LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardTinNotMandatory `json:"tin_not_mandatory,omitempty"`
 }
 
+// Available Deriv X gaming account types (Synthetic Indices).
+type LandingCompanyRespLandingCompanyDxtradeGamingCompany struct {
+	// Landing Company details.
+	Standard *LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandard `json:"standard,omitempty"`
+}
+
 // Special conditions for changing sensitive fields
-type LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardChangeableFields map[string]interface{}
+type LandingCompanyRespLandingCompanyFinancialCompanyChangeableFields map[string]interface{}
 
 // The configuration of each currency.
-type LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardCurrencyConfig map[string]interface{}
+type LandingCompanyRespLandingCompanyFinancialCompanyCurrencyConfig map[string]interface{}
 
-type LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardHasRealityCheck int
+type LandingCompanyRespLandingCompanyFinancialCompanyHasRealityCheck int
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyMtGamingCompanyFinancialSupportProfessionalClient) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyMtGamingCompanyFinancialSupportProfessionalClient {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyMtGamingCompanyFinancialSupportProfessionalClient, v)
+	}
+	*j = LandingCompanyRespLandingCompanyMtGamingCompanyFinancialSupportProfessionalClient(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyFinancialCompanyHasRealityCheck) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyFinancialCompanyHasRealityCheck {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyFinancialCompanyHasRealityCheck, v)
+	}
+	*j = LandingCompanyRespLandingCompanyFinancialCompanyHasRealityCheck(v)
+	return nil
+}
+
+// After first deposit requirements
+type LandingCompanyRespLandingCompanyFinancialCompanyRequirementsAfterFirstDeposit struct {
+	// Financial assessment requirements
+	FinancialAssessment []string `json:"financial_assessment,omitempty"`
+}
+
+// Compliance requirements
+type LandingCompanyRespLandingCompanyFinancialCompanyRequirementsCompliance struct {
+	// Compliance MT5 requirements
+	Mt5 []string `json:"mt5,omitempty"`
+
+	// Compliance tax information requirements
+	TaxInformation []string `json:"tax_information,omitempty"`
+}
 
 // Legal requirements for the Landing Company
-type LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardRequirements struct {
+type LandingCompanyRespLandingCompanyFinancialCompanyRequirements struct {
 	// After first deposit requirements
-	AfterFirstDeposit *LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardRequirementsAfterFirstDeposit `json:"after_first_deposit,omitempty"`
+	AfterFirstDeposit *LandingCompanyRespLandingCompanyFinancialCompanyRequirementsAfterFirstDeposit `json:"after_first_deposit,omitempty"`
 
 	// Compliance requirements
-	Compliance *LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardRequirementsCompliance `json:"compliance,omitempty"`
+	Compliance *LandingCompanyRespLandingCompanyFinancialCompanyRequirementsCompliance `json:"compliance,omitempty"`
 
 	// Sign up requirements
 	Signup []string `json:"signup,omitempty"`
@@ -440,14 +1064,197 @@ type LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardRequirements st
 	Withdrawal []string `json:"withdrawal,omitempty"`
 }
 
+type LandingCompanyRespLandingCompanyFinancialCompanySupportProfessionalClient int
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyMtGamingCompanyFinancialHasRealityCheck) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyMtGamingCompanyFinancialHasRealityCheck {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyMtGamingCompanyFinancialHasRealityCheck, v)
+	}
+	*j = LandingCompanyRespLandingCompanyMtGamingCompanyFinancialHasRealityCheck(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyFinancialCompanySupportProfessionalClient) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyFinancialCompanySupportProfessionalClient {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyFinancialCompanySupportProfessionalClient, v)
+	}
+	*j = LandingCompanyRespLandingCompanyFinancialCompanySupportProfessionalClient(v)
+	return nil
+}
+
+type LandingCompanyRespLandingCompanyFinancialCompanyTinNotMandatory int
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpTinNotMandatory) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpTinNotMandatory {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpTinNotMandatory, v)
+	}
+	*j = LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpTinNotMandatory(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyFinancialCompanyTinNotMandatory) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyFinancialCompanyTinNotMandatory {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyFinancialCompanyTinNotMandatory, v)
+	}
+	*j = LandingCompanyRespLandingCompanyFinancialCompanyTinNotMandatory(v)
+	return nil
+}
+
+// Landing Company for financial contracts (all except Synthetic Indices)
+type LandingCompanyRespLandingCompanyFinancialCompany struct {
+	// Landing Company address
+	Address []string `json:"address,omitempty"`
+
+	// Special conditions for changing sensitive fields
+	ChangeableFields LandingCompanyRespLandingCompanyFinancialCompanyChangeableFields `json:"changeable_fields,omitempty"`
+
+	// Landing Company country of incorporation
+	Country *string `json:"country,omitempty"`
+
+	// The configuration of each currency.
+	CurrencyConfig LandingCompanyRespLandingCompanyFinancialCompanyCurrencyConfig `json:"currency_config,omitempty"`
+
+	// Flag to indicate whether reality check is applicable for this Landing Company.
+	// `1`: applicable, `0`: not applicable. The Reality Check is a feature that gives
+	// a summary of the client's trades and account balances on a regular basis
+	// throughout his session, and is a regulatory requirement for certain Landing
+	// Companies.
+	HasRealityCheck *LandingCompanyRespLandingCompanyFinancialCompanyHasRealityCheck `json:"has_reality_check,omitempty"`
+
+	// Allowed contract types for this Landing Company
+	LegalAllowedContractCategories []string `json:"legal_allowed_contract_categories,omitempty"`
+
+	// Allowed account currencies for this Landing Company
+	LegalAllowedCurrencies []string `json:"legal_allowed_currencies,omitempty"`
+
+	// Allowed markets for this Landing Company
+	LegalAllowedMarkets []string `json:"legal_allowed_markets,omitempty"`
+
+	// Default account currency
+	LegalDefaultCurrency *string `json:"legal_default_currency,omitempty"`
+
+	// Landing Company legal name
+	Name *string `json:"name,omitempty"`
+
+	// Legal requirements for the Landing Company
+	Requirements *LandingCompanyRespLandingCompanyFinancialCompanyRequirements `json:"requirements,omitempty"`
+
+	// Landing Company short code
+	Shortcode *string `json:"shortcode,omitempty"`
+
+	// Flag that indicates whether the landing company supports professional accounts
+	// or not
+	SupportProfessionalClient *LandingCompanyRespLandingCompanyFinancialCompanySupportProfessionalClient `json:"support_professional_client,omitempty"`
+
+	// Flag that indicates whether tax identifier number is not mandatory for the
+	// current country and landing company.
+	TinNotMandatory *LandingCompanyRespLandingCompanyFinancialCompanyTinNotMandatory `json:"tin_not_mandatory,omitempty"`
+}
+
+// Special conditions for changing sensitive fields
+type LandingCompanyRespLandingCompanyGamingCompanyChangeableFields map[string]interface{}
+
+// The configuration of each currency.
+type LandingCompanyRespLandingCompanyGamingCompanyCurrencyConfig map[string]interface{}
+
+type LandingCompanyRespLandingCompanyGamingCompanyHasRealityCheck int
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpSupportProfessionalClient) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpSupportProfessionalClient {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpSupportProfessionalClient, v)
+	}
+	*j = LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpSupportProfessionalClient(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyGamingCompanyHasRealityCheck) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyGamingCompanyHasRealityCheck {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyGamingCompanyHasRealityCheck, v)
+	}
+	*j = LandingCompanyRespLandingCompanyGamingCompanyHasRealityCheck(v)
+	return nil
+}
+
 // After first deposit requirements
-type LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardRequirementsAfterFirstDeposit struct {
+type LandingCompanyRespLandingCompanyGamingCompanyRequirementsAfterFirstDeposit struct {
 	// Financial assessment requirements
 	FinancialAssessment []string `json:"financial_assessment,omitempty"`
 }
 
 // Compliance requirements
-type LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardRequirementsCompliance struct {
+type LandingCompanyRespLandingCompanyGamingCompanyRequirementsCompliance struct {
 	// Compliance MT5 requirements
 	Mt5 []string `json:"mt5,omitempty"`
 
@@ -455,305 +1262,131 @@ type LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardRequirementsCom
 	TaxInformation []string `json:"tax_information,omitempty"`
 }
 
-type LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardSupportProfessionalClient int
+// Legal requirements for the Landing Company
+type LandingCompanyRespLandingCompanyGamingCompanyRequirements struct {
+	// After first deposit requirements
+	AfterFirstDeposit *LandingCompanyRespLandingCompanyGamingCompanyRequirementsAfterFirstDeposit `json:"after_first_deposit,omitempty"`
 
-type LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardTinNotMandatory int
+	// Compliance requirements
+	Compliance *LandingCompanyRespLandingCompanyGamingCompanyRequirementsCompliance `json:"compliance,omitempty"`
 
-type LandingCompanyRespLandingCompanyIsIdvSupported int
+	// Sign up requirements
+	Signup []string `json:"signup,omitempty"`
 
-type LandingCompanyRespLandingCompanyMt5AgeVerification int
+	// Withdrawal requirements
+	Withdrawal []string `json:"withdrawal,omitempty"`
+}
 
-type LandingCompanyRespLandingCompanyNeedSetMaxTurnoverLimit int
-
-type LandingCompanyRespLandingCompanyNoProvince int
+type LandingCompanyRespLandingCompanyGamingCompanySupportProfessionalClient int
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespLandingCompanyNeedSetMaxTurnoverLimit) UnmarshalJSON(b []byte) error {
+func (j *LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpHasRealityCheck) UnmarshalJSON(b []byte) error {
 	var v int
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespLandingCompanyNeedSetMaxTurnoverLimit {
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpHasRealityCheck {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyNeedSetMaxTurnoverLimit, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpHasRealityCheck, v)
 	}
-	*j = LandingCompanyRespLandingCompanyNeedSetMaxTurnoverLimit(v)
+	*j = LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpHasRealityCheck(v)
 	return nil
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardTinNotMandatory) UnmarshalJSON(b []byte) error {
+func (j *LandingCompanyRespLandingCompanyGamingCompanySupportProfessionalClient) UnmarshalJSON(b []byte) error {
 	var v int
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardTinNotMandatory {
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyGamingCompanySupportProfessionalClient {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardTinNotMandatory, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyGamingCompanySupportProfessionalClient, v)
 	}
-	*j = LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardTinNotMandatory(v)
+	*j = LandingCompanyRespLandingCompanyGamingCompanySupportProfessionalClient(v)
 	return nil
 }
 
+type LandingCompanyRespLandingCompanyGamingCompanyTinNotMandatory int
+
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardSupportProfessionalClient) UnmarshalJSON(b []byte) error {
+func (j *LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialTinNotMandatory) UnmarshalJSON(b []byte) error {
 	var v int
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardSupportProfessionalClient {
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialTinNotMandatory {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardSupportProfessionalClient, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialTinNotMandatory, v)
 	}
-	*j = LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardSupportProfessionalClient(v)
+	*j = LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialTinNotMandatory(v)
 	return nil
 }
 
-var enumValues_LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardSupportProfessionalClient = []interface{}{
-	0,
-	1,
+type LandingCompanyRespLandingCompanyAddressParseable int
+
+// DerivEZ all account types (Synthetic Indices and Financials).
+type LandingCompanyRespLandingCompanyDerivezAll struct {
+	// For standard client
+	Standard *LandingCompanyRespLandingCompanyDerivezAllStandard `json:"standard,omitempty"`
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardHasRealityCheck) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardHasRealityCheck {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardHasRealityCheck, v)
-	}
-	*j = LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardHasRealityCheck(v)
-	return nil
-}
-
-var enumValues_LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardHasRealityCheck = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardTinNotMandatory) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardTinNotMandatory {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardTinNotMandatory, v)
-	}
-	*j = LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardTinNotMandatory(v)
-	return nil
-}
-
-var enumValues_LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardHasRealityCheck = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardHasRealityCheck) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardHasRealityCheck {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardHasRealityCheck, v)
-	}
-	*j = LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardHasRealityCheck(v)
-	return nil
-}
-
-var enumValues_LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardTinNotMandatory = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardSupportProfessionalClient) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardSupportProfessionalClient {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardSupportProfessionalClient, v)
-	}
-	*j = LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardSupportProfessionalClient(v)
-	return nil
-}
-
-var enumValues_LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardSupportProfessionalClient = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardHasRealityCheck) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardHasRealityCheck {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardHasRealityCheck, v)
-	}
-	*j = LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardHasRealityCheck(v)
-	return nil
-}
-
-var enumValues_LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardSupportProfessionalClient = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardSupportProfessionalClient) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardSupportProfessionalClient {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardSupportProfessionalClient, v)
-	}
-	*j = LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardSupportProfessionalClient(v)
-	return nil
-}
-
-var enumValues_LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardHasRealityCheck = []interface{}{
-	0,
-	1,
-}
-var enumValues_LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardTinNotMandatory = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardTinNotMandatory) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardTinNotMandatory {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardTinNotMandatory, v)
-	}
-	*j = LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardTinNotMandatory(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespLandingCompanyDerivezAllStandard) UnmarshalJSON(b []byte) error {
+func (j *LandingCompanyRespLandingCompanyAllCompany) UnmarshalJSON(b []byte) error {
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespLandingCompanyDerivezAllStandard {
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyAllCompany {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyDerivezAllStandard, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyAllCompany, v)
 	}
-	*j = LandingCompanyRespLandingCompanyDerivezAllStandard(v)
+	*j = LandingCompanyRespLandingCompanyAllCompany(v)
 	return nil
 }
 
-var enumValues_LandingCompanyRespLandingCompanyDerivezAllStandard = []interface{}{
-	"svg",
-	"none",
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespLandingCompanyCtraderAllStandard) UnmarshalJSON(b []byte) error {
-	var v string
+func (j *LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialSupportProfessionalClient) UnmarshalJSON(b []byte) error {
+	var v int
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespLandingCompanyCtraderAllStandard {
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialSupportProfessionalClient {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyCtraderAllStandard, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialSupportProfessionalClient, v)
 	}
-	*j = LandingCompanyRespLandingCompanyCtraderAllStandard(v)
+	*j = LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialSupportProfessionalClient(v)
 	return nil
-}
-
-var enumValues_LandingCompanyRespLandingCompanyIsIdvSupported = []interface{}{
-	1,
-	0,
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -776,13 +1409,44 @@ func (j *LandingCompanyRespLandingCompanyIsIdvSupported) UnmarshalJSON(b []byte)
 	return nil
 }
 
-var enumValues_LandingCompanyRespLandingCompanyCtraderAllStandard = []interface{}{
-	"svg",
-	"none",
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialHasRealityCheck) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialHasRealityCheck {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialHasRealityCheck, v)
+	}
+	*j = LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialHasRealityCheck(v)
+	return nil
 }
-var enumValues_LandingCompanyRespLandingCompanyMt5AgeVerification = []interface{}{
-	1,
-	0,
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyMtAllCompanySwapFreeTinNotMandatory) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyMtAllCompanySwapFreeTinNotMandatory {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyMtAllCompanySwapFreeTinNotMandatory, v)
+	}
+	*j = LandingCompanyRespLandingCompanyMtAllCompanySwapFreeTinNotMandatory(v)
+	return nil
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -806,294 +1470,647 @@ func (j *LandingCompanyRespLandingCompanyMt5AgeVerification) UnmarshalJSON(b []b
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespLandingCompanyAllCompany) UnmarshalJSON(b []byte) error {
-	var v string
+func (j *LandingCompanyRespLandingCompanyMtAllCompanySwapFreeSupportProfessionalClient) UnmarshalJSON(b []byte) error {
+	var v int
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespLandingCompanyAllCompany {
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyMtAllCompanySwapFreeSupportProfessionalClient {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyAllCompany, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyMtAllCompanySwapFreeSupportProfessionalClient, v)
 	}
-	*j = LandingCompanyRespLandingCompanyAllCompany(v)
+	*j = LandingCompanyRespLandingCompanyMtAllCompanySwapFreeSupportProfessionalClient(v)
 	return nil
 }
 
-var enumValues_LandingCompanyRespLandingCompanyNeedSetMaxTurnoverLimit = []interface{}{
-	0,
-	1,
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyRespLandingCompanyMtAllCompanySwapFreeHasRealityCheck) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyRespLandingCompanyMtAllCompanySwapFreeHasRealityCheck {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyMtAllCompanySwapFreeHasRealityCheck, v)
+	}
+	*j = LandingCompanyRespLandingCompanyMtAllCompanySwapFreeHasRealityCheck(v)
+	return nil
 }
+
 var enumValues_LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardTinNotMandatory = []interface{}{
 	0,
 	1,
 }
-var enumValues_LandingCompanyRespLandingCompanyAllCompany = []interface{}{
-	"svg",
-	"none",
-}
-var enumValues_LandingCompanyRespLandingCompanyNoProvince = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespLandingCompanyNoProvince) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespLandingCompanyNoProvince {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyNoProvince, v)
-	}
-	*j = LandingCompanyRespLandingCompanyNoProvince(v)
-	return nil
-}
-
-type LandingCompanyRespLandingCompanyRequireAddressPostcode int
-
-var enumValues_LandingCompanyRespLandingCompanyRequireAddressPostcode = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespLandingCompanyRequireAddressPostcode) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespLandingCompanyRequireAddressPostcode {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyRequireAddressPostcode, v)
-	}
-	*j = LandingCompanyRespLandingCompanyRequireAddressPostcode(v)
-	return nil
-}
-
-type LandingCompanyRespLandingCompanyRequireAgeVerifiedForSynthetic int
-
-var enumValues_LandingCompanyRespLandingCompanyRequireAgeVerifiedForSynthetic = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespLandingCompanyRequireAgeVerifiedForSynthetic) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespLandingCompanyRequireAgeVerifiedForSynthetic {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyRequireAgeVerifiedForSynthetic, v)
-	}
-	*j = LandingCompanyRespLandingCompanyRequireAgeVerifiedForSynthetic(v)
-	return nil
-}
-
-type LandingCompanyRespLandingCompanyRequirePoi int
-
-var enumValues_LandingCompanyRespLandingCompanyRequirePoi = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespLandingCompanyRequirePoi) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespLandingCompanyRequirePoi {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyRequirePoi, v)
-	}
-	*j = LandingCompanyRespLandingCompanyRequirePoi(v)
-	return nil
-}
-
-type LandingCompanyRespLandingCompanyRequireVerificationWhenNotAgeVerified int
-
-var enumValues_LandingCompanyRespLandingCompanyRequireVerificationWhenNotAgeVerified = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespLandingCompanyRequireVerificationWhenNotAgeVerified) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespLandingCompanyRequireVerificationWhenNotAgeVerified {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyRequireVerificationWhenNotAgeVerified, v)
-	}
-	*j = LandingCompanyRespLandingCompanyRequireVerificationWhenNotAgeVerified(v)
-	return nil
-}
-
-type LandingCompanyRespLandingCompanySkipDepositVerification int
-
-var enumValues_LandingCompanyRespLandingCompanySkipDepositVerification = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespLandingCompanySkipDepositVerification) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespLandingCompanySkipDepositVerification {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanySkipDepositVerification, v)
-	}
-	*j = LandingCompanyRespLandingCompanySkipDepositVerification(v)
-	return nil
-}
-
-type LandingCompanyRespLandingCompanyUkgcFundsProtection int
-
-var enumValues_LandingCompanyRespLandingCompanyUkgcFundsProtection = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespLandingCompanyUkgcFundsProtection) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespLandingCompanyUkgcFundsProtection {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyUkgcFundsProtection, v)
-	}
-	*j = LandingCompanyRespLandingCompanyUkgcFundsProtection(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespLandingCompanyAddressParseable) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespLandingCompanyAddressParseable {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyAddressParseable, v)
-	}
-	*j = LandingCompanyRespLandingCompanyAddressParseable(v)
-	return nil
-}
-
-type LandingCompanyRespMsgType string
-
-var enumValues_LandingCompanyRespMsgType = []interface{}{
-	"landing_company",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespMsgType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespMsgType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespMsgType, v)
-	}
-	*j = LandingCompanyRespMsgType(v)
-	return nil
-}
-
-const LandingCompanyRespMsgTypeLandingCompany LandingCompanyRespMsgType = "landing_company"
-
 var enumValues_LandingCompanyRespLandingCompanyAddressParseable = []interface{}{
 	1,
 	0,
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyResp) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
-	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
-	}
-	type Plain LandingCompanyResp
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = LandingCompanyResp(plain)
-	return nil
+// The configuration of each currency.
+type LandingCompanyRespLandingCompanyMtAllCompanySwapFreeCurrencyConfig map[string]interface{}
+
+// After first deposit requirements
+type LandingCompanyRespLandingCompanyMtAllCompanySwapFreeRequirementsAfterFirstDeposit struct {
+	// Financial assessment requirements
+	FinancialAssessment []string `json:"financial_assessment,omitempty"`
+}
+
+// Compliance requirements
+type LandingCompanyRespLandingCompanyMtAllCompanySwapFreeRequirementsCompliance struct {
+	// Compliance MT5 requirements
+	Mt5 []string `json:"mt5,omitempty"`
+
+	// Compliance tax information requirements
+	TaxInformation []string `json:"tax_information,omitempty"`
+}
+
+// Legal requirements for the Landing Company
+type LandingCompanyRespLandingCompanyMtAllCompanySwapFreeRequirements struct {
+	// After first deposit requirements
+	AfterFirstDeposit *LandingCompanyRespLandingCompanyMtAllCompanySwapFreeRequirementsAfterFirstDeposit `json:"after_first_deposit,omitempty"`
+
+	// Compliance requirements
+	Compliance *LandingCompanyRespLandingCompanyMtAllCompanySwapFreeRequirementsCompliance `json:"compliance,omitempty"`
+
+	// Sign up requirements
+	Signup []string `json:"signup,omitempty"`
+
+	// Withdrawal requirements
+	Withdrawal []string `json:"withdrawal,omitempty"`
+}
+
+type LandingCompanyRespLandingCompanyMtAllCompanySwapFreeSupportProfessionalClient int
+
+var enumValues_LandingCompanyRespLandingCompanyAllCompany = []interface{}{
+	"svg",
+	"none",
+}
+
+// Special conditions for changing sensitive fields
+type LandingCompanyRespLandingCompanyMtAllCompanySwapFreeChangeableFields map[string]interface{}
+
+type LandingCompanyRespLandingCompanyMtAllCompanySwapFreeTinNotMandatory int
+
+const LandingCompanyRespMsgTypeLandingCompany LandingCompanyRespMsgType = "landing_company"
+
+var enumValues_LandingCompanyRespLandingCompanyCtraderAllStandard = []interface{}{
+	"svg",
+	"none",
+}
+
+// Landing Company for MT5 combined all Synthetic and financial
+type LandingCompanyRespLandingCompanyMtAllCompanySwapFree struct {
+	// Landing Company address
+	Address []string `json:"address,omitempty"`
+
+	// Special conditions for changing sensitive fields
+	ChangeableFields LandingCompanyRespLandingCompanyMtAllCompanySwapFreeChangeableFields `json:"changeable_fields,omitempty"`
+
+	// Landing Company country of incorporation
+	Country *string `json:"country,omitempty"`
+
+	// The configuration of each currency.
+	CurrencyConfig LandingCompanyRespLandingCompanyMtAllCompanySwapFreeCurrencyConfig `json:"currency_config,omitempty"`
+
+	// Flag to indicate whether reality check is applicable for this Landing Company.
+	// `1`: applicable, `0`: not applicable. The Reality Check is a feature that gives
+	// a summary of the client's trades and account balances on a regular basis
+	// throughout his session, and is a regulatory requirement for certain Landing
+	// Companies.
+	HasRealityCheck *LandingCompanyRespLandingCompanyMtAllCompanySwapFreeHasRealityCheck `json:"has_reality_check,omitempty"`
+
+	// Allowed contract types
+	LegalAllowedContractCategories []string `json:"legal_allowed_contract_categories,omitempty"`
+
+	// Allowable currencies
+	LegalAllowedCurrencies []string `json:"legal_allowed_currencies,omitempty"`
+
+	// Allowable markets
+	LegalAllowedMarkets []string `json:"legal_allowed_markets,omitempty"`
+
+	// Default account currency
+	LegalDefaultCurrency *string `json:"legal_default_currency,omitempty"`
+
+	// Landing Company legal name
+	Name *string `json:"name,omitempty"`
+
+	// Legal requirements for the Landing Company
+	Requirements *LandingCompanyRespLandingCompanyMtAllCompanySwapFreeRequirements `json:"requirements,omitempty"`
+
+	// Landing Company short code
+	Shortcode *string `json:"shortcode,omitempty"`
+
+	// Flag that indicates whether the landing company supports professional accounts
+	// or not
+	SupportProfessionalClient *LandingCompanyRespLandingCompanyMtAllCompanySwapFreeSupportProfessionalClient `json:"support_professional_client,omitempty"`
+
+	// Flag that indicates whether tax identifier number is not mandatory for the
+	// current country and landing company.
+	TinNotMandatory *LandingCompanyRespLandingCompanyMtAllCompanySwapFreeTinNotMandatory `json:"tin_not_mandatory,omitempty"`
+}
+
+// Landing Company for MT5 standard combined all Synthetic and financial, currently
+// has Financial as subtype.
+type LandingCompanyRespLandingCompanyMtAllCompany struct {
+	// Landing Company for MT5 combined all Synthetic and financial
+	SwapFree *LandingCompanyRespLandingCompanyMtAllCompanySwapFree `json:"swap_free,omitempty"`
+}
+
+// Special conditions for changing sensitive fields
+type LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialChangeableFields map[string]interface{}
+
+// The configuration of each currency.
+type LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialCurrencyConfig map[string]interface{}
+
+type LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialHasRealityCheck int
+
+type LandingCompanyRespMsgType string
+
+type LandingCompanyRespLandingCompanyMt5AgeVerification int
+
+// The configuration of each currency.
+type LandingCompanyRespLandingCompanyMtGamingCompanyFinancialCurrencyConfig map[string]interface{}
+
+// Compliance requirements
+type LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialRequirementsCompliance struct {
+	// Compliance MT5 requirements
+	Mt5 []string `json:"mt5,omitempty"`
+
+	// Compliance tax information requirements
+	TaxInformation []string `json:"tax_information,omitempty"`
+}
+
+// Legal requirements for the Landing Company
+type LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialRequirements struct {
+	// After first deposit requirements
+	AfterFirstDeposit *LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialRequirementsAfterFirstDeposit `json:"after_first_deposit,omitempty"`
+
+	// Compliance requirements
+	Compliance *LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialRequirementsCompliance `json:"compliance,omitempty"`
+
+	// Sign up requirements
+	Signup []string `json:"signup,omitempty"`
+
+	// Withdrawal requirements
+	Withdrawal []string `json:"withdrawal,omitempty"`
+}
+
+type LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialSupportProfessionalClient int
+
+var enumValues_LandingCompanyRespLandingCompanyDerivezAllStandard = []interface{}{
+	"svg",
+	"none",
+}
+var enumValues_LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardHasRealityCheck = []interface{}{
+	0,
+	1,
+}
+
+type LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialTinNotMandatory int
+
+type LandingCompanyRespLandingCompanyUkgcFundsProtection int
+
+var enumValues_LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardSupportProfessionalClient = []interface{}{
+	0,
+	1,
+}
+
+// Contain details for landing company for financial subtype. The Financial account
+// is suitable for a wide range of traders, both new and experienced. It gives you
+// mid-range leverage and variable spreads that give you a great deal of
+// flexibility for whatever position you wish to take in the market.
+type LandingCompanyRespLandingCompanyMtFinancialCompanyFinancial struct {
+	// Landing Company address
+	Address []string `json:"address,omitempty"`
+
+	// Special conditions for changing sensitive fields
+	ChangeableFields LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialChangeableFields `json:"changeable_fields,omitempty"`
+
+	// Landing Company country of incorporation
+	Country *string `json:"country,omitempty"`
+
+	// The configuration of each currency.
+	CurrencyConfig LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialCurrencyConfig `json:"currency_config,omitempty"`
+
+	// Flag to indicate whether reality check is applicable for this Landing Company.
+	// `1`: applicable, `0`: not applicable. The Reality Check is a feature that gives
+	// a summary of the client's trades and account balances on a regular basis
+	// throughout his session, and is a regulatory requirement for certain Landing
+	// Companies.
+	HasRealityCheck *LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialHasRealityCheck `json:"has_reality_check,omitempty"`
+
+	// Allowed contract types for this Landing Company
+	LegalAllowedContractCategories []string `json:"legal_allowed_contract_categories,omitempty"`
+
+	// Allowed account currencies for this Landing Company
+	LegalAllowedCurrencies []string `json:"legal_allowed_currencies,omitempty"`
+
+	// Allowed markets for this Landing Company
+	LegalAllowedMarkets []string `json:"legal_allowed_markets,omitempty"`
+
+	// Default account currency
+	LegalDefaultCurrency *string `json:"legal_default_currency,omitempty"`
+
+	// Landing Company legal name
+	Name *string `json:"name,omitempty"`
+
+	// Legal requirements for the Landing Company
+	Requirements *LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialRequirements `json:"requirements,omitempty"`
+
+	// Landing Company short code
+	Shortcode *string `json:"shortcode,omitempty"`
+
+	// Flag that indicates whether the landing company supports professional accounts
+	// or not
+	SupportProfessionalClient *LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialSupportProfessionalClient `json:"support_professional_client,omitempty"`
+
+	// Flag that indicates whether tax identifier number is not mandatory for the
+	// current country and landing company.
+	TinNotMandatory *LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialTinNotMandatory `json:"tin_not_mandatory,omitempty"`
+}
+
+// Special conditions for changing sensitive fields
+type LandingCompanyRespLandingCompanyMtGamingCompanyFinancialChangeableFields map[string]interface{}
+
+// The configuration of each currency.
+type LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpCurrencyConfig map[string]interface{}
+
+type LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpHasRealityCheck int
+
+type LandingCompanyRespLandingCompanySkipDepositVerification int
+
+var enumValues_LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardTinNotMandatory = []interface{}{
+	0,
+	1,
+}
+
+// After first deposit requirements
+type LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpRequirementsAfterFirstDeposit struct {
+	// Financial assessment requirements
+	FinancialAssessment []string `json:"financial_assessment,omitempty"`
+}
+
+// Compliance requirements
+type LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpRequirementsCompliance struct {
+	// Compliance MT5 requirements
+	Mt5 []string `json:"mt5,omitempty"`
+
+	// Compliance tax information requirements
+	TaxInformation []string `json:"tax_information,omitempty"`
+}
+
+// Legal requirements for the Landing Company
+type LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpRequirements struct {
+	// After first deposit requirements
+	AfterFirstDeposit *LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpRequirementsAfterFirstDeposit `json:"after_first_deposit,omitempty"`
+
+	// Compliance requirements
+	Compliance *LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpRequirementsCompliance `json:"compliance,omitempty"`
+
+	// Sign up requirements
+	Signup []string `json:"signup,omitempty"`
+
+	// Withdrawal requirements
+	Withdrawal []string `json:"withdrawal,omitempty"`
+}
+
+type LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpSupportProfessionalClient int
+
+type LandingCompanyRespLandingCompanyRequireVerificationWhenNotAgeVerified int
+
+var enumValues_LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardHasRealityCheck = []interface{}{
+	0,
+	1,
+}
+
+type LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpTinNotMandatory int
+
+type LandingCompanyRespLandingCompanyRequirePoi int
+
+var enumValues_LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardSupportProfessionalClient = []interface{}{
+	0,
+	1,
+}
+
+// Contain details for landing company for Financial STP subtype. The Financial STP
+// account provides you with tight spreads, higher ticket size and offers a variety
+// of FX pairs from majors to exotics. It is a straight through processing (STP)
+// account with direct access to FX liquidity from various providers.
+type LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStp struct {
+	// Landing Company address
+	Address []string `json:"address,omitempty"`
+
+	// Special conditions for changing sensitive fields
+	ChangeableFields LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpChangeableFields `json:"changeable_fields,omitempty"`
+
+	// Landing Company country of incorporation
+	Country *string `json:"country,omitempty"`
+
+	// The configuration of each currency.
+	CurrencyConfig LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpCurrencyConfig `json:"currency_config,omitempty"`
+
+	// Flag to indicate whether reality check is applicable for this Landing Company.
+	// `1`: applicable, `0`: not applicable. The Reality Check is a feature that gives
+	// a summary of the client's trades and account balances on a regular basis
+	// throughout his session, and is a regulatory requirement for certain Landing
+	// Companies.
+	HasRealityCheck *LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpHasRealityCheck `json:"has_reality_check,omitempty"`
+
+	// Allowed contract types for this Landing Company
+	LegalAllowedContractCategories []string `json:"legal_allowed_contract_categories,omitempty"`
+
+	// Allowed account currencies for this Landing Company
+	LegalAllowedCurrencies []string `json:"legal_allowed_currencies,omitempty"`
+
+	// Allowed markets for this Landing Company
+	LegalAllowedMarkets []string `json:"legal_allowed_markets,omitempty"`
+
+	// Default account currency
+	LegalDefaultCurrency *string `json:"legal_default_currency,omitempty"`
+
+	// Landing Company legal name
+	Name *string `json:"name,omitempty"`
+
+	// Legal requirements for the Landing Company
+	Requirements *LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpRequirements `json:"requirements,omitempty"`
+
+	// Landing Company short code
+	Shortcode *string `json:"shortcode,omitempty"`
+
+	// Flag that indicates whether the landing company supports professional accounts
+	// or not
+	SupportProfessionalClient *LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpSupportProfessionalClient `json:"support_professional_client,omitempty"`
+
+	// Flag that indicates whether tax identifier number is not mandatory for the
+	// current country and landing company.
+	TinNotMandatory *LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpTinNotMandatory `json:"tin_not_mandatory,omitempty"`
+}
+
+// Landing Company for MT5 financial contracts (all except Synthetic Indices),
+// currently divided into Financial STP, Financial (standard) as subtypes.
+type LandingCompanyRespLandingCompanyMtFinancialCompany struct {
+	// Contain details for landing company for financial subtype. The Financial
+	// account is suitable for a wide range of traders, both new and experienced. It
+	// gives you mid-range leverage and variable spreads that give you a great deal of
+	// flexibility for whatever position you wish to take in the market.
+	Financial *LandingCompanyRespLandingCompanyMtFinancialCompanyFinancial `json:"financial,omitempty"`
+
+	// Contain details for landing company for Financial STP subtype. The Financial
+	// STP account provides you with tight spreads, higher ticket size and offers a
+	// variety of FX pairs from majors to exotics. It is a straight through processing
+	// (STP) account with direct access to FX liquidity from various providers.
+	FinancialStp *LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStp `json:"financial_stp,omitempty"`
+}
+
+// Special conditions for changing sensitive fields
+type LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpChangeableFields map[string]interface{}
+
+// After first deposit requirements
+type LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialRequirementsAfterFirstDeposit struct {
+	// Financial assessment requirements
+	FinancialAssessment []string `json:"financial_assessment,omitempty"`
+}
+
+// After first deposit requirements
+type LandingCompanyRespLandingCompanyMtGamingCompanyFinancialRequirementsAfterFirstDeposit struct {
+	// Financial assessment requirements
+	FinancialAssessment []string `json:"financial_assessment,omitempty"`
+}
+
+type LandingCompanyRespLandingCompanyRequireAgeVerifiedForSynthetic int
+
+type LandingCompanyRespLandingCompanyMtAllCompanySwapFreeHasRealityCheck int
+
+type LandingCompanyRespLandingCompanyMtGamingCompanyFinancialHasRealityCheck int
+
+// Compliance requirements
+type LandingCompanyRespLandingCompanyMtGamingCompanyFinancialRequirementsCompliance struct {
+	// Compliance MT5 requirements
+	Mt5 []string `json:"mt5,omitempty"`
+
+	// Compliance tax information requirements
+	TaxInformation []string `json:"tax_information,omitempty"`
+}
+
+// Legal requirements for the Landing Company
+type LandingCompanyRespLandingCompanyMtGamingCompanyFinancialRequirements struct {
+	// After first deposit requirements
+	AfterFirstDeposit *LandingCompanyRespLandingCompanyMtGamingCompanyFinancialRequirementsAfterFirstDeposit `json:"after_first_deposit,omitempty"`
+
+	// Compliance requirements
+	Compliance *LandingCompanyRespLandingCompanyMtGamingCompanyFinancialRequirementsCompliance `json:"compliance,omitempty"`
+
+	// Sign up requirements
+	Signup []string `json:"signup,omitempty"`
+
+	// Withdrawal requirements
+	Withdrawal []string `json:"withdrawal,omitempty"`
+}
+
+type LandingCompanyRespLandingCompanyMtGamingCompanyFinancialSupportProfessionalClient int
+
+type LandingCompanyRespLandingCompanyRequireAddressPostcode int
+
+type LandingCompanyRespLandingCompanyNoProvince int
+
+type LandingCompanyRespLandingCompanyMtGamingCompanyFinancialTinNotMandatory int
+
+type LandingCompanyRespLandingCompanyNeedSetMaxTurnoverLimit int
+
+// Landing Company for MT5 standard gaming contracts (Synthetic Indices), currently
+// has Financial as subtype.
+type LandingCompanyRespLandingCompanyMtGamingCompany struct {
+	// Landing Company for MT5 gaming contracts (Synthetic Indices)
+	Financial *LandingCompanyRespLandingCompanyMtGamingCompanyFinancial `json:"financial,omitempty"`
+}
+
+// Landing Company for MT5 gaming contracts (Synthetic Indices)
+type LandingCompanyRespLandingCompanyMtGamingCompanyFinancial struct {
+	// Landing Company address
+	Address []string `json:"address,omitempty"`
+
+	// Special conditions for changing sensitive fields
+	ChangeableFields LandingCompanyRespLandingCompanyMtGamingCompanyFinancialChangeableFields `json:"changeable_fields,omitempty"`
+
+	// Landing Company country of incorporation
+	Country *string `json:"country,omitempty"`
+
+	// The configuration of each currency.
+	CurrencyConfig LandingCompanyRespLandingCompanyMtGamingCompanyFinancialCurrencyConfig `json:"currency_config,omitempty"`
+
+	// Flag to indicate whether reality check is applicable for this Landing Company.
+	// `1`: applicable, `0`: not applicable. The Reality Check is a feature that gives
+	// a summary of the client's trades and account balances on a regular basis
+	// throughout his session, and is a regulatory requirement for certain Landing
+	// Companies.
+	HasRealityCheck *LandingCompanyRespLandingCompanyMtGamingCompanyFinancialHasRealityCheck `json:"has_reality_check,omitempty"`
+
+	// Allowed contract types
+	LegalAllowedContractCategories []string `json:"legal_allowed_contract_categories,omitempty"`
+
+	// Allowable currencies
+	LegalAllowedCurrencies []string `json:"legal_allowed_currencies,omitempty"`
+
+	// Allowable markets
+	LegalAllowedMarkets []string `json:"legal_allowed_markets,omitempty"`
+
+	// Default account currency
+	LegalDefaultCurrency *string `json:"legal_default_currency,omitempty"`
+
+	// Landing Company legal name
+	Name *string `json:"name,omitempty"`
+
+	// Legal requirements for the Landing Company
+	Requirements *LandingCompanyRespLandingCompanyMtGamingCompanyFinancialRequirements `json:"requirements,omitempty"`
+
+	// Landing Company short code
+	Shortcode *string `json:"shortcode,omitempty"`
+
+	// Flag that indicates whether the landing company supports professional accounts
+	// or not
+	SupportProfessionalClient *LandingCompanyRespLandingCompanyMtGamingCompanyFinancialSupportProfessionalClient `json:"support_professional_client,omitempty"`
+
+	// Flag that indicates whether tax identifier number is not mandatory for the
+	// current country and landing company.
+	TinNotMandatory *LandingCompanyRespLandingCompanyMtGamingCompanyFinancialTinNotMandatory `json:"tin_not_mandatory,omitempty"`
+}
+
+var enumValues_LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardHasRealityCheck = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardSupportProfessionalClient = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardTinNotMandatory = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyFinancialCompanyHasRealityCheck = []interface{}{
+	1,
+	0,
+}
+var enumValues_LandingCompanyRespLandingCompanyFinancialCompanySupportProfessionalClient = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyFinancialCompanyTinNotMandatory = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyGamingCompanyHasRealityCheck = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyGamingCompanySupportProfessionalClient = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyGamingCompanyTinNotMandatory = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyIsIdvSupported = []interface{}{
+	1,
+	0,
+}
+var enumValues_LandingCompanyRespLandingCompanyMt5AgeVerification = []interface{}{
+	1,
+	0,
+}
+var enumValues_LandingCompanyRespLandingCompanyMtAllCompanySwapFreeHasRealityCheck = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyMtAllCompanySwapFreeSupportProfessionalClient = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyMtAllCompanySwapFreeTinNotMandatory = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialHasRealityCheck = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpHasRealityCheck = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpSupportProfessionalClient = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialStpTinNotMandatory = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialSupportProfessionalClient = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyMtFinancialCompanyFinancialTinNotMandatory = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyMtGamingCompanyFinancialHasRealityCheck = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyMtGamingCompanyFinancialSupportProfessionalClient = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyMtGamingCompanyFinancialTinNotMandatory = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyNeedSetMaxTurnoverLimit = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyNoProvince = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyRequireAddressPostcode = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyRequireAgeVerifiedForSynthetic = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyRequirePoi = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyRequireVerificationWhenNotAgeVerified = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanySkipDepositVerification = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespLandingCompanyUkgcFundsProtection = []interface{}{
+	0,
+	1,
+}
+var enumValues_LandingCompanyRespMsgType = []interface{}{
+	"landing_company",
 }

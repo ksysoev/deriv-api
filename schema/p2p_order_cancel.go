@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type P2POrderCancelP2POrderCancel int
 
@@ -59,10 +59,10 @@ func (j *P2POrderCancel) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in P2POrderCancel: required")
 	}
 	if v, ok := raw["p2p_order_cancel"]; !ok || v == nil {
-		return fmt.Errorf("field p2p_order_cancel: required")
+		return fmt.Errorf("field p2p_order_cancel in P2POrderCancel: required")
 	}
 	type Plain P2POrderCancel
 	var plain Plain

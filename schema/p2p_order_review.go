@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type P2POrderReviewP2POrderReview int
 
@@ -42,8 +42,8 @@ type P2POrderReviewRecommended struct {
 
 var enumValues_P2POrderReviewRecommended = []interface{}{
 	nil,
-	0,
-	1,
+	0.0,
+	1.0,
 }
 
 // MarshalJSON implements json.Marshaler.
@@ -102,13 +102,13 @@ func (j *P2POrderReview) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["order_id"]; !ok || v == nil {
-		return fmt.Errorf("field order_id: required")
+		return fmt.Errorf("field order_id in P2POrderReview: required")
 	}
 	if v, ok := raw["p2p_order_review"]; !ok || v == nil {
-		return fmt.Errorf("field p2p_order_review: required")
+		return fmt.Errorf("field p2p_order_review in P2POrderReview: required")
 	}
 	if v, ok := raw["rating"]; !ok || v == nil {
-		return fmt.Errorf("field rating: required")
+		return fmt.Errorf("field rating in P2POrderReview: required")
 	}
 	type Plain P2POrderReview
 	var plain Plain

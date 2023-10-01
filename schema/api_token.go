@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // This call manages API tokens
 type ApiToken struct {
@@ -132,7 +132,7 @@ func (j *ApiToken) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["api_token"]; !ok || v == nil {
-		return fmt.Errorf("field api_token: required")
+		return fmt.Errorf("field api_token in ApiToken: required")
 	}
 	type Plain ApiToken
 	var plain Plain

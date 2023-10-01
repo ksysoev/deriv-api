@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type IdentityVerificationDocumentAddIdentityVerificationDocumentAdd int
 
@@ -70,16 +70,16 @@ func (j *IdentityVerificationDocumentAdd) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["document_number"]; !ok || v == nil {
-		return fmt.Errorf("field document_number: required")
+		return fmt.Errorf("field document_number in IdentityVerificationDocumentAdd: required")
 	}
 	if v, ok := raw["document_type"]; !ok || v == nil {
-		return fmt.Errorf("field document_type: required")
+		return fmt.Errorf("field document_type in IdentityVerificationDocumentAdd: required")
 	}
 	if v, ok := raw["identity_verification_document_add"]; !ok || v == nil {
-		return fmt.Errorf("field identity_verification_document_add: required")
+		return fmt.Errorf("field identity_verification_document_add in IdentityVerificationDocumentAdd: required")
 	}
 	if v, ok := raw["issuing_country"]; !ok || v == nil {
-		return fmt.Errorf("field issuing_country: required")
+		return fmt.Errorf("field issuing_country in IdentityVerificationDocumentAdd: required")
 	}
 	type Plain IdentityVerificationDocumentAdd
 	var plain Plain

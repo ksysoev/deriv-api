@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // A message with Landing Company.
 type LandingCompanyDetailsResp struct {
@@ -28,7 +28,7 @@ type LandingCompanyDetailsRespEchoReq map[string]interface{}
 // The detailed information of the requested landing company.
 type LandingCompanyDetailsRespLandingCompanyDetails struct {
 	// Landing Company address.
-	Address interface{} `json:"address,omitempty"`
+	Address []string `json:"address,omitempty"`
 
 	// Special conditions for changing sensitive fields
 	ChangeableFields LandingCompanyDetailsRespLandingCompanyDetailsChangeableFields `json:"changeable_fields,omitempty"`
@@ -276,10 +276,10 @@ func (j *LandingCompanyDetailsResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in LandingCompanyDetailsResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in LandingCompanyDetailsResp: required")
 	}
 	type Plain LandingCompanyDetailsResp
 	var plain Plain

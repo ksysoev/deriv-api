@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type Mt5GetSettingsMt5GetSettings int
 
@@ -59,10 +59,10 @@ func (j *Mt5GetSettings) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["login"]; !ok || v == nil {
-		return fmt.Errorf("field login: required")
+		return fmt.Errorf("field login in Mt5GetSettings: required")
 	}
 	if v, ok := raw["mt5_get_settings"]; !ok || v == nil {
-		return fmt.Errorf("field mt5_get_settings: required")
+		return fmt.Errorf("field mt5_get_settings in Mt5GetSettings: required")
 	}
 	type Plain Mt5GetSettings
 	var plain Plain

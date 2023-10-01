@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type P2POrderCreateP2POrderCreate int
 
@@ -105,18 +105,21 @@ func (j *P2POrderCreate) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["advert_id"]; !ok || v == nil {
-		return fmt.Errorf("field advert_id: required")
+		return fmt.Errorf("field advert_id in P2POrderCreate: required")
 	}
 	if v, ok := raw["amount"]; !ok || v == nil {
-		return fmt.Errorf("field amount: required")
+		return fmt.Errorf("field amount in P2POrderCreate: required")
 	}
 	if v, ok := raw["p2p_order_create"]; !ok || v == nil {
-		return fmt.Errorf("field p2p_order_create: required")
+		return fmt.Errorf("field p2p_order_create in P2POrderCreate: required")
 	}
 	type Plain P2POrderCreate
 	var plain Plain
 	if err := json.Unmarshal(b, &plain); err != nil {
 		return err
+	}
+	if len(plain.PaymentMethodIds) > 3 {
+		return fmt.Errorf("field %s length: must be <= %d", "payment_method_ids", 3)
 	}
 	*j = P2POrderCreate(plain)
 	return nil
