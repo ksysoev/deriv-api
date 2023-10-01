@@ -2,8 +2,8 @@
 
 package schema
 
-import "fmt"
 import "encoding/json"
+import "fmt"
 import "reflect"
 
 // Statistics of the trader
@@ -61,37 +61,37 @@ func (j *CopytradingStatisticsRespCopytradingStatistics) UnmarshalJSON(b []byte)
 		return err
 	}
 	if v, ok := raw["active_since"]; !ok || v == nil {
-		return fmt.Errorf("field active_since: required")
+		return fmt.Errorf("field active_since in CopytradingStatisticsRespCopytradingStatistics: required")
 	}
 	if v, ok := raw["avg_duration"]; !ok || v == nil {
-		return fmt.Errorf("field avg_duration: required")
+		return fmt.Errorf("field avg_duration in CopytradingStatisticsRespCopytradingStatistics: required")
 	}
 	if v, ok := raw["avg_loss"]; !ok || v == nil {
-		return fmt.Errorf("field avg_loss: required")
+		return fmt.Errorf("field avg_loss in CopytradingStatisticsRespCopytradingStatistics: required")
 	}
 	if v, ok := raw["avg_profit"]; !ok || v == nil {
-		return fmt.Errorf("field avg_profit: required")
+		return fmt.Errorf("field avg_profit in CopytradingStatisticsRespCopytradingStatistics: required")
 	}
 	if v, ok := raw["copiers"]; !ok || v == nil {
-		return fmt.Errorf("field copiers: required")
+		return fmt.Errorf("field copiers in CopytradingStatisticsRespCopytradingStatistics: required")
 	}
 	if v, ok := raw["last_12months_profitable_trades"]; !ok || v == nil {
-		return fmt.Errorf("field last_12months_profitable_trades: required")
+		return fmt.Errorf("field last_12months_profitable_trades in CopytradingStatisticsRespCopytradingStatistics: required")
 	}
 	if v, ok := raw["monthly_profitable_trades"]; !ok || v == nil {
-		return fmt.Errorf("field monthly_profitable_trades: required")
+		return fmt.Errorf("field monthly_profitable_trades in CopytradingStatisticsRespCopytradingStatistics: required")
 	}
 	if v, ok := raw["performance_probability"]; !ok || v == nil {
-		return fmt.Errorf("field performance_probability: required")
+		return fmt.Errorf("field performance_probability in CopytradingStatisticsRespCopytradingStatistics: required")
 	}
 	if v, ok := raw["total_trades"]; !ok || v == nil {
-		return fmt.Errorf("field total_trades: required")
+		return fmt.Errorf("field total_trades in CopytradingStatisticsRespCopytradingStatistics: required")
 	}
 	if v, ok := raw["trades_breakdown"]; !ok || v == nil {
-		return fmt.Errorf("field trades_breakdown: required")
+		return fmt.Errorf("field trades_breakdown in CopytradingStatisticsRespCopytradingStatistics: required")
 	}
 	if v, ok := raw["trades_profitable"]; !ok || v == nil {
-		return fmt.Errorf("field trades_profitable: required")
+		return fmt.Errorf("field trades_profitable in CopytradingStatisticsRespCopytradingStatistics: required")
 	}
 	type Plain CopytradingStatisticsRespCopytradingStatistics
 	var plain Plain
@@ -156,10 +156,10 @@ func (j *CopytradingStatisticsResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in CopytradingStatisticsResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in CopytradingStatisticsResp: required")
 	}
 	type Plain CopytradingStatisticsResp
 	var plain Plain

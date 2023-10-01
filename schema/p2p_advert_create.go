@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Creates a P2P (Peer to Peer) advert. Can only be used by an approved P2P
 // advertiser.
@@ -193,22 +193,22 @@ func (j *P2PAdvertCreate) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["amount"]; !ok || v == nil {
-		return fmt.Errorf("field amount: required")
+		return fmt.Errorf("field amount in P2PAdvertCreate: required")
 	}
 	if v, ok := raw["max_order_amount"]; !ok || v == nil {
-		return fmt.Errorf("field max_order_amount: required")
+		return fmt.Errorf("field max_order_amount in P2PAdvertCreate: required")
 	}
 	if v, ok := raw["min_order_amount"]; !ok || v == nil {
-		return fmt.Errorf("field min_order_amount: required")
+		return fmt.Errorf("field min_order_amount in P2PAdvertCreate: required")
 	}
 	if v, ok := raw["p2p_advert_create"]; !ok || v == nil {
-		return fmt.Errorf("field p2p_advert_create: required")
+		return fmt.Errorf("field p2p_advert_create in P2PAdvertCreate: required")
 	}
 	if v, ok := raw["rate"]; !ok || v == nil {
-		return fmt.Errorf("field rate: required")
+		return fmt.Errorf("field rate in P2PAdvertCreate: required")
 	}
 	if v, ok := raw["type"]; !ok || v == nil {
-		return fmt.Errorf("field type: required")
+		return fmt.Errorf("field type in P2PAdvertCreate: required")
 	}
 	type Plain P2PAdvertCreate
 	var plain Plain
@@ -216,7 +216,13 @@ func (j *P2PAdvertCreate) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["block_trade"]; !ok || v == nil {
-		plain.BlockTrade = 0
+		plain.BlockTrade = 0.0
+	}
+	if len(plain.PaymentMethodIds) > 3 {
+		return fmt.Errorf("field %s length: must be <= %d", "payment_method_ids", 3)
+	}
+	if len(plain.PaymentMethodNames) > 3 {
+		return fmt.Errorf("field %s length: must be <= %d", "payment_method_names", 3)
 	}
 	if v, ok := raw["rate_type"]; !ok || v == nil {
 		plain.RateType = "fixed"

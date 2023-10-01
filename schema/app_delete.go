@@ -2,8 +2,8 @@
 
 package schema
 
-import "fmt"
 import "encoding/json"
+import "fmt"
 
 // The request for deleting an application.
 type AppDelete struct {
@@ -29,7 +29,7 @@ func (j *AppDelete) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["app_delete"]; !ok || v == nil {
-		return fmt.Errorf("field app_delete: required")
+		return fmt.Errorf("field app_delete in AppDelete: required")
 	}
 	type Plain AppDelete
 	var plain Plain

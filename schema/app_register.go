@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *AppRegisterScopesElem) UnmarshalJSON(b []byte) error {
@@ -59,13 +59,13 @@ func (j *AppRegister) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["app_register"]; !ok || v == nil {
-		return fmt.Errorf("field app_register: required")
+		return fmt.Errorf("field app_register in AppRegister: required")
 	}
 	if v, ok := raw["name"]; !ok || v == nil {
-		return fmt.Errorf("field name: required")
+		return fmt.Errorf("field name in AppRegister: required")
 	}
 	if v, ok := raw["scopes"]; !ok || v == nil {
-		return fmt.Errorf("field scopes: required")
+		return fmt.Errorf("field scopes in AppRegister: required")
 	}
 	type Plain AppRegister
 	var plain Plain

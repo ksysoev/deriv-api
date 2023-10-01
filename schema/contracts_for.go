@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // For a given symbol, get the list of currently available contracts, and the
 // latest barrier and duration limits for each contract.
@@ -161,7 +161,7 @@ func (j *ContractsFor) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["contracts_for"]; !ok || v == nil {
-		return fmt.Errorf("field contracts_for: required")
+		return fmt.Errorf("field contracts_for in ContractsFor: required")
 	}
 	type Plain ContractsFor
 	var plain Plain

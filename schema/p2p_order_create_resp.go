@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2POrderCreateRespP2POrderCreateDisputeDetails) UnmarshalJSON(b []byte) error {
@@ -13,10 +13,10 @@ func (j *P2POrderCreateRespP2POrderCreateDisputeDetails) UnmarshalJSON(b []byte)
 		return err
 	}
 	if v, ok := raw["dispute_reason"]; !ok || v == nil {
-		return fmt.Errorf("field dispute_reason: required")
+		return fmt.Errorf("field dispute_reason in P2POrderCreateRespP2POrderCreateDisputeDetails: required")
 	}
 	if v, ok := raw["disputer_loginid"]; !ok || v == nil {
-		return fmt.Errorf("field disputer_loginid: required")
+		return fmt.Errorf("field disputer_loginid in P2POrderCreateRespP2POrderCreateDisputeDetails: required")
 	}
 	type Plain P2POrderCreateRespP2POrderCreateDisputeDetails
 	var plain Plain
@@ -36,10 +36,10 @@ func (j *P2POrderCreateResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in P2POrderCreateResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in P2POrderCreateResp: required")
 	}
 	type Plain P2POrderCreateResp
 	var plain Plain
@@ -81,19 +81,19 @@ func (j *P2POrderCreateRespP2POrderCreateClientDetails) UnmarshalJSON(b []byte) 
 		return err
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in P2POrderCreateRespP2POrderCreateClientDetails: required")
 	}
 	if v, ok := raw["is_online"]; !ok || v == nil {
-		return fmt.Errorf("field is_online: required")
+		return fmt.Errorf("field is_online in P2POrderCreateRespP2POrderCreateClientDetails: required")
 	}
 	if v, ok := raw["last_online_time"]; !ok || v == nil {
-		return fmt.Errorf("field last_online_time: required")
+		return fmt.Errorf("field last_online_time in P2POrderCreateRespP2POrderCreateClientDetails: required")
 	}
 	if v, ok := raw["loginid"]; !ok || v == nil {
-		return fmt.Errorf("field loginid: required")
+		return fmt.Errorf("field loginid in P2POrderCreateRespP2POrderCreateClientDetails: required")
 	}
 	if v, ok := raw["name"]; !ok || v == nil {
-		return fmt.Errorf("field name: required")
+		return fmt.Errorf("field name in P2POrderCreateRespP2POrderCreateClientDetails: required")
 	}
 	type Plain P2POrderCreateRespP2POrderCreateClientDetails
 	var plain Plain
@@ -133,73 +133,73 @@ func (j *P2POrderCreateRespP2POrderCreate) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["account_currency"]; !ok || v == nil {
-		return fmt.Errorf("field account_currency: required")
+		return fmt.Errorf("field account_currency in P2POrderCreateRespP2POrderCreate: required")
 	}
 	if v, ok := raw["advert_details"]; !ok || v == nil {
-		return fmt.Errorf("field advert_details: required")
+		return fmt.Errorf("field advert_details in P2POrderCreateRespP2POrderCreate: required")
 	}
 	if v, ok := raw["advertiser_details"]; !ok || v == nil {
-		return fmt.Errorf("field advertiser_details: required")
+		return fmt.Errorf("field advertiser_details in P2POrderCreateRespP2POrderCreate: required")
 	}
 	if v, ok := raw["amount"]; !ok || v == nil {
-		return fmt.Errorf("field amount: required")
+		return fmt.Errorf("field amount in P2POrderCreateRespP2POrderCreate: required")
 	}
 	if v, ok := raw["amount_display"]; !ok || v == nil {
-		return fmt.Errorf("field amount_display: required")
+		return fmt.Errorf("field amount_display in P2POrderCreateRespP2POrderCreate: required")
 	}
 	if v, ok := raw["chat_channel_url"]; !ok || v == nil {
-		return fmt.Errorf("field chat_channel_url: required")
+		return fmt.Errorf("field chat_channel_url in P2POrderCreateRespP2POrderCreate: required")
 	}
 	if v, ok := raw["client_details"]; !ok || v == nil {
-		return fmt.Errorf("field client_details: required")
+		return fmt.Errorf("field client_details in P2POrderCreateRespP2POrderCreate: required")
 	}
 	if v, ok := raw["contact_info"]; !ok || v == nil {
-		return fmt.Errorf("field contact_info: required")
+		return fmt.Errorf("field contact_info in P2POrderCreateRespP2POrderCreate: required")
 	}
 	if v, ok := raw["created_time"]; !ok || v == nil {
-		return fmt.Errorf("field created_time: required")
+		return fmt.Errorf("field created_time in P2POrderCreateRespP2POrderCreate: required")
 	}
 	if v, ok := raw["dispute_details"]; !ok || v == nil {
-		return fmt.Errorf("field dispute_details: required")
+		return fmt.Errorf("field dispute_details in P2POrderCreateRespP2POrderCreate: required")
 	}
 	if v, ok := raw["expiry_time"]; !ok || v == nil {
-		return fmt.Errorf("field expiry_time: required")
+		return fmt.Errorf("field expiry_time in P2POrderCreateRespP2POrderCreate: required")
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in P2POrderCreateRespP2POrderCreate: required")
 	}
 	if v, ok := raw["is_incoming"]; !ok || v == nil {
-		return fmt.Errorf("field is_incoming: required")
+		return fmt.Errorf("field is_incoming in P2POrderCreateRespP2POrderCreate: required")
 	}
 	if v, ok := raw["is_reviewable"]; !ok || v == nil {
-		return fmt.Errorf("field is_reviewable: required")
+		return fmt.Errorf("field is_reviewable in P2POrderCreateRespP2POrderCreate: required")
 	}
 	if v, ok := raw["is_seen"]; !ok || v == nil {
-		return fmt.Errorf("field is_seen: required")
+		return fmt.Errorf("field is_seen in P2POrderCreateRespP2POrderCreate: required")
 	}
 	if v, ok := raw["local_currency"]; !ok || v == nil {
-		return fmt.Errorf("field local_currency: required")
+		return fmt.Errorf("field local_currency in P2POrderCreateRespP2POrderCreate: required")
 	}
 	if v, ok := raw["payment_info"]; !ok || v == nil {
-		return fmt.Errorf("field payment_info: required")
+		return fmt.Errorf("field payment_info in P2POrderCreateRespP2POrderCreate: required")
 	}
 	if v, ok := raw["price"]; !ok || v == nil {
-		return fmt.Errorf("field price: required")
+		return fmt.Errorf("field price in P2POrderCreateRespP2POrderCreate: required")
 	}
 	if v, ok := raw["price_display"]; !ok || v == nil {
-		return fmt.Errorf("field price_display: required")
+		return fmt.Errorf("field price_display in P2POrderCreateRespP2POrderCreate: required")
 	}
 	if v, ok := raw["rate"]; !ok || v == nil {
-		return fmt.Errorf("field rate: required")
+		return fmt.Errorf("field rate in P2POrderCreateRespP2POrderCreate: required")
 	}
 	if v, ok := raw["rate_display"]; !ok || v == nil {
-		return fmt.Errorf("field rate_display: required")
+		return fmt.Errorf("field rate_display in P2POrderCreateRespP2POrderCreate: required")
 	}
 	if v, ok := raw["status"]; !ok || v == nil {
-		return fmt.Errorf("field status: required")
+		return fmt.Errorf("field status in P2POrderCreateRespP2POrderCreate: required")
 	}
 	if v, ok := raw["type"]; !ok || v == nil {
-		return fmt.Errorf("field type: required")
+		return fmt.Errorf("field type in P2POrderCreateRespP2POrderCreate: required")
 	}
 	type Plain P2POrderCreateRespP2POrderCreate
 	var plain Plain
@@ -246,7 +246,7 @@ type P2POrderCreateRespP2POrderCreateAdvertDetails struct {
 	Id string `json:"id"`
 
 	// The payment method.
-	PaymentMethod interface{} `json:"payment_method"`
+	PaymentMethod *string `json:"payment_method"`
 
 	// Type of the advert.
 	Type P2POrderCreateRespP2POrderCreateAdvertDetailsType `json:"type"`
@@ -259,19 +259,19 @@ func (j *P2POrderCreateRespP2POrderCreateAdvertDetails) UnmarshalJSON(b []byte) 
 		return err
 	}
 	if v, ok := raw["block_trade"]; !ok || v == nil {
-		return fmt.Errorf("field block_trade: required")
+		return fmt.Errorf("field block_trade in P2POrderCreateRespP2POrderCreateAdvertDetails: required")
 	}
 	if v, ok := raw["description"]; !ok || v == nil {
-		return fmt.Errorf("field description: required")
+		return fmt.Errorf("field description in P2POrderCreateRespP2POrderCreateAdvertDetails: required")
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in P2POrderCreateRespP2POrderCreateAdvertDetails: required")
 	}
 	if v, ok := raw["payment_method"]; !ok || v == nil {
-		return fmt.Errorf("field payment_method: required")
+		return fmt.Errorf("field payment_method in P2POrderCreateRespP2POrderCreateAdvertDetails: required")
 	}
 	if v, ok := raw["type"]; !ok || v == nil {
-		return fmt.Errorf("field type: required")
+		return fmt.Errorf("field type in P2POrderCreateRespP2POrderCreateAdvertDetails: required")
 	}
 	type Plain P2POrderCreateRespP2POrderCreateAdvertDetails
 	var plain Plain
@@ -338,7 +338,7 @@ type P2POrderCreateRespP2POrderCreate struct {
 	PaymentInfo string `json:"payment_info"`
 
 	// Supported payment methods. Comma separated list.
-	PaymentMethod interface{} `json:"payment_method,omitempty"`
+	PaymentMethod *string `json:"payment_method,omitempty"`
 
 	// Details of available payment methods.
 	PaymentMethodDetails P2POrderCreateRespP2POrderCreatePaymentMethodDetails `json:"payment_method_details,omitempty"`
@@ -429,19 +429,19 @@ func (j *P2POrderCreateRespP2POrderCreateAdvertiserDetails) UnmarshalJSON(b []by
 		return err
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in P2POrderCreateRespP2POrderCreateAdvertiserDetails: required")
 	}
 	if v, ok := raw["is_online"]; !ok || v == nil {
-		return fmt.Errorf("field is_online: required")
+		return fmt.Errorf("field is_online in P2POrderCreateRespP2POrderCreateAdvertiserDetails: required")
 	}
 	if v, ok := raw["last_online_time"]; !ok || v == nil {
-		return fmt.Errorf("field last_online_time: required")
+		return fmt.Errorf("field last_online_time in P2POrderCreateRespP2POrderCreateAdvertiserDetails: required")
 	}
 	if v, ok := raw["loginid"]; !ok || v == nil {
-		return fmt.Errorf("field loginid: required")
+		return fmt.Errorf("field loginid in P2POrderCreateRespP2POrderCreateAdvertiserDetails: required")
 	}
 	if v, ok := raw["name"]; !ok || v == nil {
-		return fmt.Errorf("field name: required")
+		return fmt.Errorf("field name in P2POrderCreateRespP2POrderCreateAdvertiserDetails: required")
 	}
 	type Plain P2POrderCreateRespP2POrderCreateAdvertiserDetails
 	var plain Plain
@@ -539,7 +539,7 @@ func (j *P2POrderCreateRespSubscription) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in P2POrderCreateRespSubscription: required")
 	}
 	type Plain P2POrderCreateRespSubscription
 	var plain Plain
@@ -589,7 +589,7 @@ type P2POrderCreateRespP2POrderCreateAdvertiserDetails struct {
 	LastName *string `json:"last_name,omitempty"`
 
 	// Epoch of the latest time the advertiser was online, up to 6 months.
-	LastOnlineTime interface{} `json:"last_online_time"`
+	LastOnlineTime *int `json:"last_online_time"`
 
 	// The advertiser's account identifier.
 	Loginid string `json:"loginid"`
@@ -605,10 +605,10 @@ type P2POrderCreateRespP2POrderCreateIsReviewable int
 // Details of the order dispute.
 type P2POrderCreateRespP2POrderCreateDisputeDetails struct {
 	// The dispute reason
-	DisputeReason interface{} `json:"dispute_reason"`
+	DisputeReason *string `json:"dispute_reason"`
 
 	// The loginid of the client who's raising the dispute
-	DisputerLoginid interface{} `json:"disputer_loginid"`
+	DisputerLoginid *string `json:"disputer_loginid"`
 }
 
 type P2POrderCreateRespP2POrderCreateAdvertiserDetailsIsOnline int
@@ -643,7 +643,7 @@ type P2POrderCreateRespP2POrderCreateClientDetails struct {
 	LastName *string `json:"last_name,omitempty"`
 
 	// Epoch of the latest time the advertiser was online, up to 6 months.
-	LastOnlineTime interface{} `json:"last_online_time"`
+	LastOnlineTime *int `json:"last_online_time"`
 
 	// The client's account identifier.
 	Loginid string `json:"loginid"`

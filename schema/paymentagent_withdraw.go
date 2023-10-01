@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type PaymentagentWithdrawDryRun int
 
@@ -103,19 +103,19 @@ func (j *PaymentagentWithdraw) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["amount"]; !ok || v == nil {
-		return fmt.Errorf("field amount: required")
+		return fmt.Errorf("field amount in PaymentagentWithdraw: required")
 	}
 	if v, ok := raw["currency"]; !ok || v == nil {
-		return fmt.Errorf("field currency: required")
+		return fmt.Errorf("field currency in PaymentagentWithdraw: required")
 	}
 	if v, ok := raw["paymentagent_loginid"]; !ok || v == nil {
-		return fmt.Errorf("field paymentagent_loginid: required")
+		return fmt.Errorf("field paymentagent_loginid in PaymentagentWithdraw: required")
 	}
 	if v, ok := raw["paymentagent_withdraw"]; !ok || v == nil {
-		return fmt.Errorf("field paymentagent_withdraw: required")
+		return fmt.Errorf("field paymentagent_withdraw in PaymentagentWithdraw: required")
 	}
 	if v, ok := raw["verification_code"]; !ok || v == nil {
-		return fmt.Errorf("field verification_code: required")
+		return fmt.Errorf("field verification_code in PaymentagentWithdraw: required")
 	}
 	type Plain PaymentagentWithdraw
 	var plain Plain

@@ -2,9 +2,25 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
+
+// Trading and Withdrawal Limits
+type GetLimitsResp struct {
+	// Echo of the request made.
+	EchoReq GetLimitsRespEchoReq `json:"echo_req"`
+
+	// Trading limits of real account user
+	GetLimits *GetLimitsRespGetLimits `json:"get_limits,omitempty"`
+
+	// Action name of the request made.
+	MsgType GetLimitsRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
 
 // Echo of the request made.
 type GetLimitsRespEchoReq map[string]interface{}
@@ -12,7 +28,7 @@ type GetLimitsRespEchoReq map[string]interface{}
 // Trading limits of real account user
 type GetLimitsRespGetLimits struct {
 	// Maximum account cash balance
-	AccountBalance interface{} `json:"account_balance,omitempty"`
+	AccountBalance *float64 `json:"account_balance,omitempty"`
 
 	// Cumulative daily transfer limits
 	DailyCumulativeAmountTransfers GetLimitsRespGetLimitsDailyCumulativeAmountTransfers `json:"daily_cumulative_amount_transfers,omitempty"`
@@ -42,7 +58,7 @@ type GetLimitsRespGetLimits struct {
 	Payout *float64 `json:"payout,omitempty"`
 
 	// Maximum payout for each symbol based on different barrier types.
-	PayoutPerSymbol interface{} `json:"payout_per_symbol,omitempty"`
+	PayoutPerSymbol *GetLimitsRespGetLimitsPayoutPerSymbol `json:"payout_per_symbol,omitempty"`
 
 	// Maximum aggregate payouts on open positions per symbol and contract type. This
 	// limit can be exceeded up to the overall payout limit if there is no prior open
@@ -67,6 +83,17 @@ type GetLimitsRespGetLimitsDailyTransfers map[string]interface{}
 
 // Contains limitation information for each market.
 type GetLimitsRespGetLimitsMarketSpecific map[string]interface{}
+
+// Maximum payout for each symbol based on different barrier types.
+type GetLimitsRespGetLimitsPayoutPerSymbol struct {
+	// Maximum aggregate payouts on open positions per symbol for contracts where
+	// barrier is same as entry spot.
+	Atm *float64 `json:"atm,omitempty"`
+
+	// Maximum aggregate payouts on open positions per symbol for contract where
+	// barrier is different from entry spot.
+	NonAtm *GetLimitsRespGetLimitsPayoutPerSymbolNonAtm `json:"non_atm,omitempty"`
+}
 
 type GetLimitsRespMsgType string
 
@@ -94,20 +121,17 @@ func (j *GetLimitsRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Trading and Withdrawal Limits
-type GetLimitsResp struct {
-	// Echo of the request made.
-	EchoReq GetLimitsRespEchoReq `json:"echo_req"`
+// Maximum aggregate payouts on open positions per symbol for contract where
+// barrier is different from entry spot.
+type GetLimitsRespGetLimitsPayoutPerSymbolNonAtm struct {
+	// Maximum aggregate payouts on open positions per symbol for contract where
+	// barrier is different from entry spot and duration is less than and equal to
+	// seven days
+	LessThanSevenDays *float64 `json:"less_than_seven_days,omitempty"`
 
-	// Trading limits of real account user
-	GetLimits *GetLimitsRespGetLimits `json:"get_limits,omitempty"`
-
-	// Action name of the request made.
-	MsgType GetLimitsRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
+	// Maximum aggregate payouts on open positions per symbol for contract where
+	// barrier is different from entry spot and duration is more to seven days
+	MoreThanSevenDays *float64 `json:"more_than_seven_days,omitempty"`
 }
 
 const GetLimitsRespMsgTypeGetLimits GetLimitsRespMsgType = "get_limits"
@@ -119,10 +143,10 @@ func (j *GetLimitsResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in GetLimitsResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in GetLimitsResp: required")
 	}
 	type Plain GetLimitsResp
 	var plain Plain

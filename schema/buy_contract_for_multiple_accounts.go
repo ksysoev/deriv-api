@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Buy a Contract for multiple Accounts specified by the `tokens` parameter. Note,
 // although this is an authorized call, the contract is not bought for the
@@ -259,13 +259,13 @@ func (j *BuyContractForMultipleAccountsParameters) UnmarshalJSON(b []byte) error
 		return err
 	}
 	if v, ok := raw["contract_type"]; !ok || v == nil {
-		return fmt.Errorf("field contract_type: required")
+		return fmt.Errorf("field contract_type in BuyContractForMultipleAccountsParameters: required")
 	}
 	if v, ok := raw["currency"]; !ok || v == nil {
-		return fmt.Errorf("field currency: required")
+		return fmt.Errorf("field currency in BuyContractForMultipleAccountsParameters: required")
 	}
 	if v, ok := raw["symbol"]; !ok || v == nil {
-		return fmt.Errorf("field symbol: required")
+		return fmt.Errorf("field symbol in BuyContractForMultipleAccountsParameters: required")
 	}
 	type Plain BuyContractForMultipleAccountsParameters
 	var plain Plain
@@ -292,13 +292,13 @@ func (j *BuyContractForMultipleAccounts) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["buy_contract_for_multiple_accounts"]; !ok || v == nil {
-		return fmt.Errorf("field buy_contract_for_multiple_accounts: required")
+		return fmt.Errorf("field buy_contract_for_multiple_accounts in BuyContractForMultipleAccounts: required")
 	}
 	if v, ok := raw["price"]; !ok || v == nil {
-		return fmt.Errorf("field price: required")
+		return fmt.Errorf("field price in BuyContractForMultipleAccounts: required")
 	}
 	if v, ok := raw["tokens"]; !ok || v == nil {
-		return fmt.Errorf("field tokens: required")
+		return fmt.Errorf("field tokens in BuyContractForMultipleAccounts: required")
 	}
 	type Plain BuyContractForMultipleAccounts
 	var plain Plain

@@ -2,8 +2,8 @@
 
 package schema
 
-import "fmt"
 import "encoding/json"
+import "fmt"
 import "reflect"
 
 // Get the list of currently available contracts
@@ -30,7 +30,7 @@ type ContractsForRespContractsFor struct {
 	Available []ContractsForRespContractsForAvailableElem `json:"available"`
 
 	// Symbol's next market-close time as an epoch value
-	Close interface{} `json:"close,omitempty"`
+	Close *int `json:"close,omitempty"`
 
 	// Indicates the feed license for symbol, for example whether its realtime or
 	// delayed
@@ -43,10 +43,10 @@ type ContractsForRespContractsFor struct {
 	NonAvailable []interface{} `json:"non_available,omitempty"`
 
 	// Symbol's next market-open time as an epoch value
-	Open interface{} `json:"open,omitempty"`
+	Open *int `json:"open,omitempty"`
 
 	// Current spot price for this underlying
-	Spot interface{} `json:"spot,omitempty"`
+	Spot *float64 `json:"spot,omitempty"`
 }
 
 type ContractsForRespContractsForAvailableElem struct {
@@ -54,7 +54,7 @@ type ContractsForRespContractsForAvailableElem struct {
 	AvailableBarriers []interface{} `json:"available_barriers,omitempty"`
 
 	// Barrier Details.
-	Barrier interface{} `json:"barrier,omitempty"`
+	Barrier *string `json:"barrier,omitempty"`
 
 	// Category of barrier.
 	BarrierCategory string `json:"barrier_category"`
@@ -96,13 +96,13 @@ type ContractsForRespContractsForAvailableElem struct {
 	GrowthRateRange []interface{} `json:"growth_rate_range,omitempty"`
 
 	// High barrier Details.
-	HighBarrier interface{} `json:"high_barrier,omitempty"`
+	HighBarrier *string `json:"high_barrier,omitempty"`
 
 	// Last digit range
 	LastDigitRange []interface{} `json:"last_digit_range,omitempty"`
 
 	// Low barrier Details.
-	LowBarrier interface{} `json:"low_barrier,omitempty"`
+	LowBarrier *string `json:"low_barrier,omitempty"`
 
 	// Type of market.
 	Market string `json:"market"`
@@ -111,13 +111,13 @@ type ContractsForRespContractsForAvailableElem struct {
 	MaxContractDuration string `json:"max_contract_duration"`
 
 	// [Only for turbos options] Maximum contract stake
-	MaxStake interface{} `json:"max_stake,omitempty"`
+	MaxStake *float64 `json:"max_stake,omitempty"`
 
 	// Minimum contract duration.
 	MinContractDuration string `json:"min_contract_duration"`
 
 	// [Only for turbos options] Minimum contract stake
-	MinStake interface{} `json:"min_stake,omitempty"`
+	MinStake *float64 `json:"min_stake,omitempty"`
 
 	// Multiplier range.
 	MultiplierRange []interface{} `json:"multiplier_range,omitempty"`
@@ -168,12 +168,15 @@ func (j *ContractsForRespContractsFor) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["available"]; !ok || v == nil {
-		return fmt.Errorf("field available: required")
+		return fmt.Errorf("field available in ContractsForRespContractsFor: required")
 	}
 	type Plain ContractsForRespContractsFor
 	var plain Plain
 	if err := json.Unmarshal(b, &plain); err != nil {
 		return err
+	}
+	if plain.Available != nil && len(plain.Available) < 1 {
+		return fmt.Errorf("field %s length: must be >= %d", "available", 1)
 	}
 	*j = ContractsForRespContractsFor(plain)
 	return nil
@@ -214,51 +217,57 @@ func (j *ContractsForRespContractsForAvailableElem) UnmarshalJSON(b []byte) erro
 		return err
 	}
 	if v, ok := raw["barrier_category"]; !ok || v == nil {
-		return fmt.Errorf("field barrier_category: required")
+		return fmt.Errorf("field barrier_category in ContractsForRespContractsForAvailableElem: required")
 	}
 	if v, ok := raw["barriers"]; !ok || v == nil {
-		return fmt.Errorf("field barriers: required")
+		return fmt.Errorf("field barriers in ContractsForRespContractsForAvailableElem: required")
 	}
 	if v, ok := raw["contract_category"]; !ok || v == nil {
-		return fmt.Errorf("field contract_category: required")
+		return fmt.Errorf("field contract_category in ContractsForRespContractsForAvailableElem: required")
 	}
 	if v, ok := raw["contract_category_display"]; !ok || v == nil {
-		return fmt.Errorf("field contract_category_display: required")
+		return fmt.Errorf("field contract_category_display in ContractsForRespContractsForAvailableElem: required")
 	}
 	if v, ok := raw["contract_type"]; !ok || v == nil {
-		return fmt.Errorf("field contract_type: required")
+		return fmt.Errorf("field contract_type in ContractsForRespContractsForAvailableElem: required")
 	}
 	if v, ok := raw["exchange_name"]; !ok || v == nil {
-		return fmt.Errorf("field exchange_name: required")
+		return fmt.Errorf("field exchange_name in ContractsForRespContractsForAvailableElem: required")
 	}
 	if v, ok := raw["expiry_type"]; !ok || v == nil {
-		return fmt.Errorf("field expiry_type: required")
+		return fmt.Errorf("field expiry_type in ContractsForRespContractsForAvailableElem: required")
 	}
 	if v, ok := raw["market"]; !ok || v == nil {
-		return fmt.Errorf("field market: required")
+		return fmt.Errorf("field market in ContractsForRespContractsForAvailableElem: required")
 	}
 	if v, ok := raw["max_contract_duration"]; !ok || v == nil {
-		return fmt.Errorf("field max_contract_duration: required")
+		return fmt.Errorf("field max_contract_duration in ContractsForRespContractsForAvailableElem: required")
 	}
 	if v, ok := raw["min_contract_duration"]; !ok || v == nil {
-		return fmt.Errorf("field min_contract_duration: required")
+		return fmt.Errorf("field min_contract_duration in ContractsForRespContractsForAvailableElem: required")
 	}
 	if v, ok := raw["sentiment"]; !ok || v == nil {
-		return fmt.Errorf("field sentiment: required")
+		return fmt.Errorf("field sentiment in ContractsForRespContractsForAvailableElem: required")
 	}
 	if v, ok := raw["start_type"]; !ok || v == nil {
-		return fmt.Errorf("field start_type: required")
+		return fmt.Errorf("field start_type in ContractsForRespContractsForAvailableElem: required")
 	}
 	if v, ok := raw["submarket"]; !ok || v == nil {
-		return fmt.Errorf("field submarket: required")
+		return fmt.Errorf("field submarket in ContractsForRespContractsForAvailableElem: required")
 	}
 	if v, ok := raw["underlying_symbol"]; !ok || v == nil {
-		return fmt.Errorf("field underlying_symbol: required")
+		return fmt.Errorf("field underlying_symbol in ContractsForRespContractsForAvailableElem: required")
 	}
 	type Plain ContractsForRespContractsForAvailableElem
 	var plain Plain
 	if err := json.Unmarshal(b, &plain); err != nil {
 		return err
+	}
+	if plain.AvailableBarriers != nil && len(plain.AvailableBarriers) < 1 {
+		return fmt.Errorf("field %s length: must be >= %d", "available_barriers", 1)
+	}
+	if plain.ForwardStartingOptions != nil && len(plain.ForwardStartingOptions) < 1 {
+		return fmt.Errorf("field %s length: must be >= %d", "forward_starting_options", 1)
 	}
 	*j = ContractsForRespContractsForAvailableElem(plain)
 	return nil
@@ -271,10 +280,10 @@ func (j *ContractsForResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in ContractsForResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in ContractsForResp: required")
 	}
 	type Plain ContractsForResp
 	var plain Plain

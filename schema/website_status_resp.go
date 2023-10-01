@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Echo of the request made.
 type WebsiteStatusRespEchoReq map[string]interface{}
@@ -51,7 +51,7 @@ func (j *WebsiteStatusRespSubscription) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in WebsiteStatusRespSubscription: required")
 	}
 	type Plain WebsiteStatusRespSubscription
 	var plain Plain
@@ -78,10 +78,10 @@ func (j *WebsiteStatusRespWebsiteStatusApiCallLimitsMaxProposalSubscription) Unm
 		return err
 	}
 	if v, ok := raw["applies_to"]; !ok || v == nil {
-		return fmt.Errorf("field applies_to: required")
+		return fmt.Errorf("field applies_to in WebsiteStatusRespWebsiteStatusApiCallLimitsMaxProposalSubscription: required")
 	}
 	if v, ok := raw["max"]; !ok || v == nil {
-		return fmt.Errorf("field max: required")
+		return fmt.Errorf("field max in WebsiteStatusRespWebsiteStatusApiCallLimitsMaxProposalSubscription: required")
 	}
 	type Plain WebsiteStatusRespWebsiteStatusApiCallLimitsMaxProposalSubscription
 	var plain Plain
@@ -111,13 +111,13 @@ func (j *WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestesGeneral) Unmarsh
 		return err
 	}
 	if v, ok := raw["applies_to"]; !ok || v == nil {
-		return fmt.Errorf("field applies_to: required")
+		return fmt.Errorf("field applies_to in WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestesGeneral: required")
 	}
 	if v, ok := raw["hourly"]; !ok || v == nil {
-		return fmt.Errorf("field hourly: required")
+		return fmt.Errorf("field hourly in WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestesGeneral: required")
 	}
 	if v, ok := raw["minutely"]; !ok || v == nil {
-		return fmt.Errorf("field minutely: required")
+		return fmt.Errorf("field minutely in WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestesGeneral: required")
 	}
 	type Plain WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestesGeneral
 	var plain Plain
@@ -147,13 +147,13 @@ func (j *WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsOutcome) Unmarsha
 		return err
 	}
 	if v, ok := raw["applies_to"]; !ok || v == nil {
-		return fmt.Errorf("field applies_to: required")
+		return fmt.Errorf("field applies_to in WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsOutcome: required")
 	}
 	if v, ok := raw["hourly"]; !ok || v == nil {
-		return fmt.Errorf("field hourly: required")
+		return fmt.Errorf("field hourly in WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsOutcome: required")
 	}
 	if v, ok := raw["minutely"]; !ok || v == nil {
-		return fmt.Errorf("field minutely: required")
+		return fmt.Errorf("field minutely in WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsOutcome: required")
 	}
 	type Plain WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsOutcome
 	var plain Plain
@@ -183,13 +183,13 @@ func (j *WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsPricing) Unmarsha
 		return err
 	}
 	if v, ok := raw["applies_to"]; !ok || v == nil {
-		return fmt.Errorf("field applies_to: required")
+		return fmt.Errorf("field applies_to in WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsPricing: required")
 	}
 	if v, ok := raw["hourly"]; !ok || v == nil {
-		return fmt.Errorf("field hourly: required")
+		return fmt.Errorf("field hourly in WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsPricing: required")
 	}
 	if v, ok := raw["minutely"]; !ok || v == nil {
-		return fmt.Errorf("field minutely: required")
+		return fmt.Errorf("field minutely in WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsPricing: required")
 	}
 	type Plain WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsPricing
 	var plain Plain
@@ -222,16 +222,16 @@ func (j *WebsiteStatusRespWebsiteStatusApiCallLimits) UnmarshalJSON(b []byte) er
 		return err
 	}
 	if v, ok := raw["max_proposal_subscription"]; !ok || v == nil {
-		return fmt.Errorf("field max_proposal_subscription: required")
+		return fmt.Errorf("field max_proposal_subscription in WebsiteStatusRespWebsiteStatusApiCallLimits: required")
 	}
 	if v, ok := raw["max_requestes_general"]; !ok || v == nil {
-		return fmt.Errorf("field max_requestes_general: required")
+		return fmt.Errorf("field max_requestes_general in WebsiteStatusRespWebsiteStatusApiCallLimits: required")
 	}
 	if v, ok := raw["max_requests_outcome"]; !ok || v == nil {
-		return fmt.Errorf("field max_requests_outcome: required")
+		return fmt.Errorf("field max_requests_outcome in WebsiteStatusRespWebsiteStatusApiCallLimits: required")
 	}
 	if v, ok := raw["max_requests_pricing"]; !ok || v == nil {
-		return fmt.Errorf("field max_requests_pricing: required")
+		return fmt.Errorf("field max_requests_pricing in WebsiteStatusRespWebsiteStatusApiCallLimits: required")
 	}
 	type Plain WebsiteStatusRespWebsiteStatusApiCallLimits
 	var plain Plain
@@ -495,13 +495,13 @@ func (j *WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElem) UnmarshalJS
 		return err
 	}
 	if v, ok := raw["display_name"]; !ok || v == nil {
-		return fmt.Errorf("field display_name: required")
+		return fmt.Errorf("field display_name in WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElem: required")
 	}
 	if v, ok := raw["has_adverts"]; !ok || v == nil {
-		return fmt.Errorf("field has_adverts: required")
+		return fmt.Errorf("field has_adverts in WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElem: required")
 	}
 	if v, ok := raw["symbol"]; !ok || v == nil {
-		return fmt.Errorf("field symbol: required")
+		return fmt.Errorf("field symbol in WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElem: required")
 	}
 	type Plain WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElem
 	var plain Plain
@@ -624,64 +624,64 @@ func (j *WebsiteStatusRespWebsiteStatusP2PConfig) UnmarshalJSON(b []byte) error 
 		return err
 	}
 	if v, ok := raw["adverts_active_limit"]; !ok || v == nil {
-		return fmt.Errorf("field adverts_active_limit: required")
+		return fmt.Errorf("field adverts_active_limit in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
 	if v, ok := raw["block_trade"]; !ok || v == nil {
-		return fmt.Errorf("field block_trade: required")
+		return fmt.Errorf("field block_trade in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
 	if v, ok := raw["cancellation_block_duration"]; !ok || v == nil {
-		return fmt.Errorf("field cancellation_block_duration: required")
+		return fmt.Errorf("field cancellation_block_duration in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
 	if v, ok := raw["cancellation_count_period"]; !ok || v == nil {
-		return fmt.Errorf("field cancellation_count_period: required")
+		return fmt.Errorf("field cancellation_count_period in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
 	if v, ok := raw["cancellation_grace_period"]; !ok || v == nil {
-		return fmt.Errorf("field cancellation_grace_period: required")
+		return fmt.Errorf("field cancellation_grace_period in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
 	if v, ok := raw["cancellation_limit"]; !ok || v == nil {
-		return fmt.Errorf("field cancellation_limit: required")
+		return fmt.Errorf("field cancellation_limit in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
 	if v, ok := raw["cross_border_ads_enabled"]; !ok || v == nil {
-		return fmt.Errorf("field cross_border_ads_enabled: required")
+		return fmt.Errorf("field cross_border_ads_enabled in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
 	if v, ok := raw["disabled"]; !ok || v == nil {
-		return fmt.Errorf("field disabled: required")
+		return fmt.Errorf("field disabled in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
 	if v, ok := raw["feature_level"]; !ok || v == nil {
-		return fmt.Errorf("field feature_level: required")
+		return fmt.Errorf("field feature_level in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
 	if v, ok := raw["fixed_rate_adverts"]; !ok || v == nil {
-		return fmt.Errorf("field fixed_rate_adverts: required")
+		return fmt.Errorf("field fixed_rate_adverts in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
 	if v, ok := raw["float_rate_adverts"]; !ok || v == nil {
-		return fmt.Errorf("field float_rate_adverts: required")
+		return fmt.Errorf("field float_rate_adverts in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
 	if v, ok := raw["float_rate_offset_limit"]; !ok || v == nil {
-		return fmt.Errorf("field float_rate_offset_limit: required")
+		return fmt.Errorf("field float_rate_offset_limit in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
 	if v, ok := raw["local_currencies"]; !ok || v == nil {
-		return fmt.Errorf("field local_currencies: required")
+		return fmt.Errorf("field local_currencies in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
 	if v, ok := raw["maximum_advert_amount"]; !ok || v == nil {
-		return fmt.Errorf("field maximum_advert_amount: required")
+		return fmt.Errorf("field maximum_advert_amount in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
 	if v, ok := raw["maximum_order_amount"]; !ok || v == nil {
-		return fmt.Errorf("field maximum_order_amount: required")
+		return fmt.Errorf("field maximum_order_amount in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
 	if v, ok := raw["order_daily_limit"]; !ok || v == nil {
-		return fmt.Errorf("field order_daily_limit: required")
+		return fmt.Errorf("field order_daily_limit in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
 	if v, ok := raw["order_payment_period"]; !ok || v == nil {
-		return fmt.Errorf("field order_payment_period: required")
+		return fmt.Errorf("field order_payment_period in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
 	if v, ok := raw["payment_methods_enabled"]; !ok || v == nil {
-		return fmt.Errorf("field payment_methods_enabled: required")
+		return fmt.Errorf("field payment_methods_enabled in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
 	if v, ok := raw["review_period"]; !ok || v == nil {
-		return fmt.Errorf("field review_period: required")
+		return fmt.Errorf("field review_period in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
 	if v, ok := raw["supported_currencies"]; !ok || v == nil {
-		return fmt.Errorf("field supported_currencies: required")
+		return fmt.Errorf("field supported_currencies in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
 	type Plain WebsiteStatusRespWebsiteStatusP2PConfig
 	var plain Plain
@@ -708,7 +708,7 @@ func (j *WebsiteStatusRespWebsiteStatusPaymentAgents) UnmarshalJSON(b []byte) er
 		return err
 	}
 	if v, ok := raw["initial_deposit_per_country"]; !ok || v == nil {
-		return fmt.Errorf("field initial_deposit_per_country: required")
+		return fmt.Errorf("field initial_deposit_per_country in WebsiteStatusRespWebsiteStatusPaymentAgents: required")
 	}
 	type Plain WebsiteStatusRespWebsiteStatusPaymentAgents
 	var plain Plain
@@ -798,10 +798,10 @@ func (j *WebsiteStatusRespWebsiteStatus) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["api_call_limits"]; !ok || v == nil {
-		return fmt.Errorf("field api_call_limits: required")
+		return fmt.Errorf("field api_call_limits in WebsiteStatusRespWebsiteStatus: required")
 	}
 	if v, ok := raw["currencies_config"]; !ok || v == nil {
-		return fmt.Errorf("field currencies_config: required")
+		return fmt.Errorf("field currencies_config in WebsiteStatusRespWebsiteStatus: required")
 	}
 	type Plain WebsiteStatusRespWebsiteStatus
 	var plain Plain
@@ -839,10 +839,10 @@ func (j *WebsiteStatusResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in WebsiteStatusResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in WebsiteStatusResp: required")
 	}
 	type Plain WebsiteStatusResp
 	var plain Plain

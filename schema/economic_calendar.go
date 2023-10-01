@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type EconomicCalendarEconomicCalendar int
 
@@ -67,7 +67,7 @@ func (j *EconomicCalendar) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["economic_calendar"]; !ok || v == nil {
-		return fmt.Errorf("field economic_calendar: required")
+		return fmt.Errorf("field economic_calendar in EconomicCalendar: required")
 	}
 	type Plain EconomicCalendar
 	var plain Plain

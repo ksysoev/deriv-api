@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type BalanceBalance int
 
@@ -91,7 +91,7 @@ func (j *Balance) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["balance"]; !ok || v == nil {
-		return fmt.Errorf("field balance: required")
+		return fmt.Errorf("field balance in Balance: required")
 	}
 	type Plain Balance
 	var plain Plain

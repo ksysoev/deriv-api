@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type OauthAppsOauthApps int
 
@@ -56,7 +56,7 @@ func (j *OauthApps) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["oauth_apps"]; !ok || v == nil {
-		return fmt.Errorf("field oauth_apps: required")
+		return fmt.Errorf("field oauth_apps in OauthApps: required")
 	}
 	type Plain OauthApps
 	var plain Plain

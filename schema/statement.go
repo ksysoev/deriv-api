@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Retrieve a summary of account transactions, according to given search criteria
 type Statement struct {
@@ -143,7 +143,7 @@ func (j *Statement) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["statement"]; !ok || v == nil {
-		return fmt.Errorf("field statement: required")
+		return fmt.Errorf("field statement in Statement: required")
 	}
 	type Plain Statement
 	var plain Plain
@@ -151,7 +151,7 @@ func (j *Statement) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["limit"]; !ok || v == nil {
-		plain.Limit = 100
+		plain.Limit = 100.0
 	}
 	*j = Statement(plain)
 	return nil

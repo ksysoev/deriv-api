@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Contains the update status of the request
 type ContractUpdateRespContractUpdate struct {
@@ -24,13 +24,13 @@ type ContractUpdateRespContractUpdateStopLoss struct {
 	DisplayName *string `json:"display_name,omitempty"`
 
 	// Stop loss amount
-	OrderAmount interface{} `json:"order_amount,omitempty"`
+	OrderAmount *float64 `json:"order_amount,omitempty"`
 
 	// Stop loss order epoch
 	OrderDate *int `json:"order_date,omitempty"`
 
 	// Stop loss pip-sized barrier value
-	Value interface{} `json:"value,omitempty"`
+	Value *string `json:"value,omitempty"`
 }
 
 // The target spot price where the contract will be closed automatically at the
@@ -40,13 +40,13 @@ type ContractUpdateRespContractUpdateTakeProfit struct {
 	DisplayName *string `json:"display_name,omitempty"`
 
 	// Take profit amount
-	OrderAmount interface{} `json:"order_amount,omitempty"`
+	OrderAmount *float64 `json:"order_amount,omitempty"`
 
 	// Take profit order epoch
 	OrderDate *int `json:"order_date,omitempty"`
 
 	// Take profit pip-sized barrier value
-	Value interface{} `json:"value,omitempty"`
+	Value *string `json:"value,omitempty"`
 }
 
 // Echo of the request made.
@@ -103,10 +103,10 @@ func (j *ContractUpdateResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in ContractUpdateResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in ContractUpdateResp: required")
 	}
 	type Plain ContractUpdateResp
 	var plain Plain

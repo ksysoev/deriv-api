@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type P2PAdvertiserInfoP2PAdvertiserInfo int
 
@@ -90,7 +90,7 @@ func (j *P2PAdvertiserInfo) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["p2p_advertiser_info"]; !ok || v == nil {
-		return fmt.Errorf("field p2p_advertiser_info: required")
+		return fmt.Errorf("field p2p_advertiser_info in P2PAdvertiserInfo: required")
 	}
 	type Plain P2PAdvertiserInfo
 	var plain Plain

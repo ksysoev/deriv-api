@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type Mt5LoginListMt5LoginList int
 
@@ -56,7 +56,7 @@ func (j *Mt5LoginList) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["mt5_login_list"]; !ok || v == nil {
-		return fmt.Errorf("field mt5_login_list: required")
+		return fmt.Errorf("field mt5_login_list in Mt5LoginList: required")
 	}
 	type Plain Mt5LoginList
 	var plain Plain

@@ -2,8 +2,8 @@
 
 package schema
 
-import "fmt"
 import "encoding/json"
+import "fmt"
 
 // Cancel contract with contract id
 type Cancel struct {
@@ -29,7 +29,7 @@ func (j *Cancel) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["cancel"]; !ok || v == nil {
-		return fmt.Errorf("field cancel: required")
+		return fmt.Errorf("field cancel in Cancel: required")
 	}
 	type Plain Cancel
 	var plain Plain

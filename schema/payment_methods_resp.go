@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Echo of the request made.
 type PaymentMethodsRespEchoReq map[string]interface{}
@@ -92,43 +92,43 @@ func (j *PaymentMethodsRespPaymentMethodsElem) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["deposit_limits"]; !ok || v == nil {
-		return fmt.Errorf("field deposit_limits: required")
+		return fmt.Errorf("field deposit_limits in PaymentMethodsRespPaymentMethodsElem: required")
 	}
 	if v, ok := raw["deposit_time"]; !ok || v == nil {
-		return fmt.Errorf("field deposit_time: required")
+		return fmt.Errorf("field deposit_time in PaymentMethodsRespPaymentMethodsElem: required")
 	}
 	if v, ok := raw["description"]; !ok || v == nil {
-		return fmt.Errorf("field description: required")
+		return fmt.Errorf("field description in PaymentMethodsRespPaymentMethodsElem: required")
 	}
 	if v, ok := raw["display_name"]; !ok || v == nil {
-		return fmt.Errorf("field display_name: required")
+		return fmt.Errorf("field display_name in PaymentMethodsRespPaymentMethodsElem: required")
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in PaymentMethodsRespPaymentMethodsElem: required")
 	}
 	if v, ok := raw["payment_processor"]; !ok || v == nil {
-		return fmt.Errorf("field payment_processor: required")
+		return fmt.Errorf("field payment_processor in PaymentMethodsRespPaymentMethodsElem: required")
 	}
 	if v, ok := raw["predefined_amounts"]; !ok || v == nil {
-		return fmt.Errorf("field predefined_amounts: required")
+		return fmt.Errorf("field predefined_amounts in PaymentMethodsRespPaymentMethodsElem: required")
 	}
 	if v, ok := raw["signup_link"]; !ok || v == nil {
-		return fmt.Errorf("field signup_link: required")
+		return fmt.Errorf("field signup_link in PaymentMethodsRespPaymentMethodsElem: required")
 	}
 	if v, ok := raw["supported_currencies"]; !ok || v == nil {
-		return fmt.Errorf("field supported_currencies: required")
+		return fmt.Errorf("field supported_currencies in PaymentMethodsRespPaymentMethodsElem: required")
 	}
 	if v, ok := raw["type"]; !ok || v == nil {
-		return fmt.Errorf("field type: required")
+		return fmt.Errorf("field type in PaymentMethodsRespPaymentMethodsElem: required")
 	}
 	if v, ok := raw["type_display_name"]; !ok || v == nil {
-		return fmt.Errorf("field type_display_name: required")
+		return fmt.Errorf("field type_display_name in PaymentMethodsRespPaymentMethodsElem: required")
 	}
 	if v, ok := raw["withdraw_limits"]; !ok || v == nil {
-		return fmt.Errorf("field withdraw_limits: required")
+		return fmt.Errorf("field withdraw_limits in PaymentMethodsRespPaymentMethodsElem: required")
 	}
 	if v, ok := raw["withdrawal_time"]; !ok || v == nil {
-		return fmt.Errorf("field withdrawal_time: required")
+		return fmt.Errorf("field withdrawal_time in PaymentMethodsRespPaymentMethodsElem: required")
 	}
 	type Plain PaymentMethodsRespPaymentMethodsElem
 	var plain Plain
@@ -163,10 +163,10 @@ func (j *PaymentMethodsResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in PaymentMethodsResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in PaymentMethodsResp: required")
 	}
 	type Plain PaymentMethodsResp
 	var plain Plain

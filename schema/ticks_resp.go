@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Echo of the request made.
 type TicksRespEchoReq map[string]interface{}
@@ -51,7 +51,7 @@ func (j *TicksRespSubscription) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in TicksRespSubscription: required")
 	}
 	type Plain TicksRespSubscription
 	var plain Plain
@@ -95,7 +95,7 @@ func (j *TicksRespTick) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["pip_size"]; !ok || v == nil {
-		return fmt.Errorf("field pip_size: required")
+		return fmt.Errorf("field pip_size in TicksRespTick: required")
 	}
 	type Plain TicksRespTick
 	var plain Plain
@@ -133,10 +133,10 @@ func (j *TicksResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in TicksResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in TicksResp: required")
 	}
 	type Plain TicksResp
 	var plain Plain

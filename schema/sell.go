@@ -2,8 +2,8 @@
 
 package schema
 
-import "fmt"
 import "encoding/json"
+import "fmt"
 
 // Sell a Contract as identified from a previous `portfolio` call.
 type Sell struct {
@@ -32,10 +32,10 @@ func (j *Sell) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["price"]; !ok || v == nil {
-		return fmt.Errorf("field price: required")
+		return fmt.Errorf("field price in Sell: required")
 	}
 	if v, ok := raw["sell"]; !ok || v == nil {
-		return fmt.Errorf("field sell: required")
+		return fmt.Errorf("field sell in Sell: required")
 	}
 	type Plain Sell
 	var plain Plain

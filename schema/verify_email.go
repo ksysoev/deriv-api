@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Verify an email address for various purposes. The system will send an email to
 // the address containing a security code for verification.
@@ -194,10 +194,10 @@ func (j *VerifyEmail) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["type"]; !ok || v == nil {
-		return fmt.Errorf("field type: required")
+		return fmt.Errorf("field type in VerifyEmail: required")
 	}
 	if v, ok := raw["verify_email"]; !ok || v == nil {
-		return fmt.Errorf("field verify_email: required")
+		return fmt.Errorf("field verify_email in VerifyEmail: required")
 	}
 	type Plain VerifyEmail
 	var plain Plain

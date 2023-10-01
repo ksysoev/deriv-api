@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Echo of the request made.
 type RealityCheckRespEchoReq map[string]interface{}
@@ -90,10 +90,10 @@ func (j *RealityCheckResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in RealityCheckResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in RealityCheckResp: required")
 	}
 	type Plain RealityCheckResp
 	var plain Plain

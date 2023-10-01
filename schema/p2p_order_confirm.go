@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type P2POrderConfirmDryRun int
 
@@ -92,10 +92,10 @@ func (j *P2POrderConfirm) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in P2POrderConfirm: required")
 	}
 	if v, ok := raw["p2p_order_confirm"]; !ok || v == nil {
-		return fmt.Errorf("field p2p_order_confirm: required")
+		return fmt.Errorf("field p2p_order_confirm in P2POrderConfirm: required")
 	}
 	type Plain P2POrderConfirm
 	var plain Plain
@@ -103,7 +103,7 @@ func (j *P2POrderConfirm) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["dry_run"]; !ok || v == nil {
-		plain.DryRun = 0
+		plain.DryRun = 0.0
 	}
 	*j = P2POrderConfirm(plain)
 	return nil

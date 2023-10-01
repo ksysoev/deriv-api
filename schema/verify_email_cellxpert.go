@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Verify an email address for Cellxpert. The system will send an email to the
 // address containing a security code for verification.
@@ -180,10 +180,10 @@ func (j *VerifyEmailCellxpert) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["type"]; !ok || v == nil {
-		return fmt.Errorf("field type: required")
+		return fmt.Errorf("field type in VerifyEmailCellxpert: required")
 	}
 	if v, ok := raw["verify_email_cellxpert"]; !ok || v == nil {
-		return fmt.Errorf("field verify_email_cellxpert: required")
+		return fmt.Errorf("field verify_email_cellxpert in VerifyEmailCellxpert: required")
 	}
 	type Plain VerifyEmailCellxpert
 	var plain Plain

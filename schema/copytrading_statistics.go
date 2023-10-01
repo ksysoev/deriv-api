@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type CopytradingStatisticsCopytradingStatistics int
 
@@ -59,10 +59,10 @@ func (j *CopytradingStatistics) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["copytrading_statistics"]; !ok || v == nil {
-		return fmt.Errorf("field copytrading_statistics: required")
+		return fmt.Errorf("field copytrading_statistics in CopytradingStatistics: required")
 	}
 	if v, ok := raw["trader_id"]; !ok || v == nil {
-		return fmt.Errorf("field trader_id: required")
+		return fmt.Errorf("field trader_id in CopytradingStatistics: required")
 	}
 	type Plain CopytradingStatistics
 	var plain Plain

@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Echo of the request made.
 type PaymentagentWithdrawRespEchoReq map[string]interface{}
@@ -93,10 +93,10 @@ func (j *PaymentagentWithdrawResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in PaymentagentWithdrawResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in PaymentagentWithdrawResp: required")
 	}
 	type Plain PaymentagentWithdrawResp
 	var plain Plain

@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Echo of the request made.
 type Mt5PasswordCheckRespEchoReq map[string]interface{}
@@ -60,10 +60,10 @@ func (j *Mt5PasswordCheckResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in Mt5PasswordCheckResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in Mt5PasswordCheckResp: required")
 	}
 	type Plain Mt5PasswordCheckResp
 	var plain Plain

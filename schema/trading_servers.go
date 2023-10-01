@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TradingServersMarketType) UnmarshalJSON(b []byte) error {
@@ -39,7 +39,7 @@ func (j *TradingServers) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["trading_servers"]; !ok || v == nil {
-		return fmt.Errorf("field trading_servers: required")
+		return fmt.Errorf("field trading_servers in TradingServers: required")
 	}
 	type Plain TradingServers
 	var plain Plain

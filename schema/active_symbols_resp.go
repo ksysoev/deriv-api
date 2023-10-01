@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ActiveSymbolsRespActiveSymbolsElemIsTradingSuspended) UnmarshalJSON(b []byte) error {
@@ -89,7 +89,7 @@ type ActiveSymbolsRespActiveSymbolsElem struct {
 
 	// Latest spot price of the underlying. Only returned on `full` active symbols
 	// call.
-	Spot interface{} `json:"spot,omitempty"`
+	Spot *float64 `json:"spot,omitempty"`
 
 	// Number of seconds elapsed since the last spot price. Only returned on `full`
 	// active symbols call.
@@ -127,43 +127,43 @@ func (j *ActiveSymbolsRespActiveSymbolsElem) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["display_name"]; !ok || v == nil {
-		return fmt.Errorf("field display_name: required")
+		return fmt.Errorf("field display_name in ActiveSymbolsRespActiveSymbolsElem: required")
 	}
 	if v, ok := raw["display_order"]; !ok || v == nil {
-		return fmt.Errorf("field display_order: required")
+		return fmt.Errorf("field display_order in ActiveSymbolsRespActiveSymbolsElem: required")
 	}
 	if v, ok := raw["exchange_is_open"]; !ok || v == nil {
-		return fmt.Errorf("field exchange_is_open: required")
+		return fmt.Errorf("field exchange_is_open in ActiveSymbolsRespActiveSymbolsElem: required")
 	}
 	if v, ok := raw["is_trading_suspended"]; !ok || v == nil {
-		return fmt.Errorf("field is_trading_suspended: required")
+		return fmt.Errorf("field is_trading_suspended in ActiveSymbolsRespActiveSymbolsElem: required")
 	}
 	if v, ok := raw["market"]; !ok || v == nil {
-		return fmt.Errorf("field market: required")
+		return fmt.Errorf("field market in ActiveSymbolsRespActiveSymbolsElem: required")
 	}
 	if v, ok := raw["market_display_name"]; !ok || v == nil {
-		return fmt.Errorf("field market_display_name: required")
+		return fmt.Errorf("field market_display_name in ActiveSymbolsRespActiveSymbolsElem: required")
 	}
 	if v, ok := raw["pip"]; !ok || v == nil {
-		return fmt.Errorf("field pip: required")
+		return fmt.Errorf("field pip in ActiveSymbolsRespActiveSymbolsElem: required")
 	}
 	if v, ok := raw["subgroup"]; !ok || v == nil {
-		return fmt.Errorf("field subgroup: required")
+		return fmt.Errorf("field subgroup in ActiveSymbolsRespActiveSymbolsElem: required")
 	}
 	if v, ok := raw["subgroup_display_name"]; !ok || v == nil {
-		return fmt.Errorf("field subgroup_display_name: required")
+		return fmt.Errorf("field subgroup_display_name in ActiveSymbolsRespActiveSymbolsElem: required")
 	}
 	if v, ok := raw["submarket"]; !ok || v == nil {
-		return fmt.Errorf("field submarket: required")
+		return fmt.Errorf("field submarket in ActiveSymbolsRespActiveSymbolsElem: required")
 	}
 	if v, ok := raw["submarket_display_name"]; !ok || v == nil {
-		return fmt.Errorf("field submarket_display_name: required")
+		return fmt.Errorf("field submarket_display_name in ActiveSymbolsRespActiveSymbolsElem: required")
 	}
 	if v, ok := raw["symbol"]; !ok || v == nil {
-		return fmt.Errorf("field symbol: required")
+		return fmt.Errorf("field symbol in ActiveSymbolsRespActiveSymbolsElem: required")
 	}
 	if v, ok := raw["symbol_type"]; !ok || v == nil {
-		return fmt.Errorf("field symbol_type: required")
+		return fmt.Errorf("field symbol_type in ActiveSymbolsRespActiveSymbolsElem: required")
 	}
 	type Plain ActiveSymbolsRespActiveSymbolsElem
 	var plain Plain
@@ -213,10 +213,10 @@ func (j *ActiveSymbolsResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in ActiveSymbolsResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in ActiveSymbolsResp: required")
 	}
 	type Plain ActiveSymbolsResp
 	var plain Plain

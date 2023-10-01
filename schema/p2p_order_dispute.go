@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Dispute a P2P order.
 type P2POrderDispute struct {
@@ -98,13 +98,13 @@ func (j *P2POrderDispute) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["dispute_reason"]; !ok || v == nil {
-		return fmt.Errorf("field dispute_reason: required")
+		return fmt.Errorf("field dispute_reason in P2POrderDispute: required")
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in P2POrderDispute: required")
 	}
 	if v, ok := raw["p2p_order_dispute"]; !ok || v == nil {
-		return fmt.Errorf("field p2p_order_dispute: required")
+		return fmt.Errorf("field p2p_order_dispute in P2POrderDispute: required")
 	}
 	type Plain P2POrderDispute
 	var plain Plain

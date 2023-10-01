@@ -2,8 +2,8 @@
 
 package schema
 
-import "fmt"
 import "encoding/json"
+import "fmt"
 import "reflect"
 
 // Return details of user account balance
@@ -113,10 +113,10 @@ func (j *BalanceRespBalanceTotalDerivDemo) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["amount"]; !ok || v == nil {
-		return fmt.Errorf("field amount: required")
+		return fmt.Errorf("field amount in BalanceRespBalanceTotalDerivDemo: required")
 	}
 	if v, ok := raw["currency"]; !ok || v == nil {
-		return fmt.Errorf("field currency: required")
+		return fmt.Errorf("field currency in BalanceRespBalanceTotalDerivDemo: required")
 	}
 	type Plain BalanceRespBalanceTotalDerivDemo
 	var plain Plain
@@ -134,13 +134,13 @@ func (j *BalanceRespBalance) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["balance"]; !ok || v == nil {
-		return fmt.Errorf("field balance: required")
+		return fmt.Errorf("field balance in BalanceRespBalance: required")
 	}
 	if v, ok := raw["currency"]; !ok || v == nil {
-		return fmt.Errorf("field currency: required")
+		return fmt.Errorf("field currency in BalanceRespBalance: required")
 	}
 	if v, ok := raw["loginid"]; !ok || v == nil {
-		return fmt.Errorf("field loginid: required")
+		return fmt.Errorf("field loginid in BalanceRespBalance: required")
 	}
 	type Plain BalanceRespBalance
 	var plain Plain
@@ -158,10 +158,10 @@ func (j *BalanceRespBalanceTotalMt5) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["amount"]; !ok || v == nil {
-		return fmt.Errorf("field amount: required")
+		return fmt.Errorf("field amount in BalanceRespBalanceTotalMt5: required")
 	}
 	if v, ok := raw["currency"]; !ok || v == nil {
-		return fmt.Errorf("field currency: required")
+		return fmt.Errorf("field currency in BalanceRespBalanceTotalMt5: required")
 	}
 	type Plain BalanceRespBalanceTotalMt5
 	var plain Plain
@@ -179,10 +179,10 @@ func (j *BalanceRespBalanceTotalMt5Demo) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["amount"]; !ok || v == nil {
-		return fmt.Errorf("field amount: required")
+		return fmt.Errorf("field amount in BalanceRespBalanceTotalMt5Demo: required")
 	}
 	if v, ok := raw["currency"]; !ok || v == nil {
-		return fmt.Errorf("field currency: required")
+		return fmt.Errorf("field currency in BalanceRespBalanceTotalMt5Demo: required")
 	}
 	type Plain BalanceRespBalanceTotalMt5Demo
 	var plain Plain
@@ -233,7 +233,7 @@ func (j *BalanceRespSubscription) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in BalanceRespSubscription: required")
 	}
 	type Plain BalanceRespSubscription
 	var plain Plain
@@ -251,10 +251,10 @@ func (j *BalanceRespBalanceTotalDeriv) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["amount"]; !ok || v == nil {
-		return fmt.Errorf("field amount: required")
+		return fmt.Errorf("field amount in BalanceRespBalanceTotalDeriv: required")
 	}
 	if v, ok := raw["currency"]; !ok || v == nil {
-		return fmt.Errorf("field currency: required")
+		return fmt.Errorf("field currency in BalanceRespBalanceTotalDeriv: required")
 	}
 	type Plain BalanceRespBalanceTotalDeriv
 	var plain Plain
@@ -272,10 +272,10 @@ func (j *BalanceResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in BalanceResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in BalanceResp: required")
 	}
 	type Plain BalanceResp
 	var plain Plain

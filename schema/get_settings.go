@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type GetSettingsGetSettings int
 
@@ -56,7 +56,7 @@ func (j *GetSettings) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["get_settings"]; !ok || v == nil {
-		return fmt.Errorf("field get_settings: required")
+		return fmt.Errorf("field get_settings in GetSettings: required")
 	}
 	type Plain GetSettings
 	var plain Plain

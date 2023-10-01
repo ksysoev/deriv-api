@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type P2PPingP2PPing int
 
@@ -57,7 +57,7 @@ func (j *P2PPing) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["p2p_ping"]; !ok || v == nil {
-		return fmt.Errorf("field p2p_ping: required")
+		return fmt.Errorf("field p2p_ping in P2PPing: required")
 	}
 	type Plain P2PPing
 	var plain Plain

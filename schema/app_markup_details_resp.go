@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // App Markup transaction details
 type AppMarkupDetailsRespAppMarkupDetails struct {
@@ -99,10 +99,10 @@ func (j *AppMarkupDetailsResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in AppMarkupDetailsResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in AppMarkupDetailsResp: required")
 	}
 	type Plain AppMarkupDetailsResp
 	var plain Plain

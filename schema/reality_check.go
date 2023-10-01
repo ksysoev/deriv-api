@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field. Maximum size is 3500 bytes.
@@ -59,7 +59,7 @@ func (j *RealityCheck) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["reality_check"]; !ok || v == nil {
-		return fmt.Errorf("field reality_check: required")
+		return fmt.Errorf("field reality_check in RealityCheck: required")
 	}
 	type Plain RealityCheck
 	var plain Plain

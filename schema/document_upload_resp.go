@@ -2,8 +2,8 @@
 
 package schema
 
-import "fmt"
 import "encoding/json"
+import "fmt"
 import "reflect"
 
 // Details of the uploaded documents.
@@ -34,10 +34,10 @@ func (j *DocumentUploadRespDocumentUpload) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["call_type"]; !ok || v == nil {
-		return fmt.Errorf("field call_type: required")
+		return fmt.Errorf("field call_type in DocumentUploadRespDocumentUpload: required")
 	}
 	if v, ok := raw["upload_id"]; !ok || v == nil {
-		return fmt.Errorf("field upload_id: required")
+		return fmt.Errorf("field upload_id in DocumentUploadRespDocumentUpload: required")
 	}
 	type Plain DocumentUploadRespDocumentUpload
 	var plain Plain
@@ -102,10 +102,10 @@ func (j *DocumentUploadResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in DocumentUploadResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in DocumentUploadResp: required")
 	}
 	type Plain DocumentUploadResp
 	var plain Plain

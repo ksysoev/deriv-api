@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Echo of the request made.
 type ProfitTableRespEchoReq map[string]interface{}
@@ -64,16 +64,16 @@ type ProfitTableRespProfitTable struct {
 
 type ProfitTableRespProfitTableTransactionsElem struct {
 	// ID of the application where this contract was purchased.
-	AppId interface{} `json:"app_id,omitempty"`
+	AppId *int `json:"app_id,omitempty"`
 
 	// The buy price
 	BuyPrice *float64 `json:"buy_price,omitempty"`
 
 	// The unique contract identifier.
-	ContractId interface{} `json:"contract_id,omitempty"`
+	ContractId *int `json:"contract_id,omitempty"`
 
 	// The duration type of the contract.
-	DurationType interface{} `json:"duration_type,omitempty"`
+	DurationType *string `json:"duration_type,omitempty"`
 
 	// The description of contract purchased if description is set to 1
 	Longcode *string `json:"longcode,omitempty"`
@@ -88,7 +88,7 @@ type ProfitTableRespProfitTableTransactionsElem struct {
 	SellPrice *float64 `json:"sell_price,omitempty"`
 
 	// Epoch sell time of the transaction
-	SellTime interface{} `json:"sell_time,omitempty"`
+	SellTime *int `json:"sell_time,omitempty"`
 
 	// Compact description of the contract purchased if description is set to 1
 	Shortcode *string `json:"shortcode,omitempty"`
@@ -105,10 +105,10 @@ func (j *ProfitTableResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in ProfitTableResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in ProfitTableResp: required")
 	}
 	type Plain ProfitTableResp
 	var plain Plain

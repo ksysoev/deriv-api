@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type AuthorizeAddToLoginHistory int
 
@@ -64,7 +64,7 @@ func (j *Authorize) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["authorize"]; !ok || v == nil {
-		return fmt.Errorf("field authorize: required")
+		return fmt.Errorf("field authorize in Authorize: required")
 	}
 	type Plain Authorize
 	var plain Plain
@@ -72,7 +72,7 @@ func (j *Authorize) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["add_to_login_history"]; !ok || v == nil {
-		plain.AddToLoginHistory = 0
+		plain.AddToLoginHistory = 0.0
 	}
 	*j = Authorize(plain)
 	return nil

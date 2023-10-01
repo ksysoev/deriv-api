@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Echo of the request made.
 type P2PChatCreateRespEchoReq map[string]interface{}
@@ -53,10 +53,10 @@ func (j *P2PChatCreateRespP2PChatCreate) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["channel_url"]; !ok || v == nil {
-		return fmt.Errorf("field channel_url: required")
+		return fmt.Errorf("field channel_url in P2PChatCreateRespP2PChatCreate: required")
 	}
 	if v, ok := raw["order_id"]; !ok || v == nil {
-		return fmt.Errorf("field order_id: required")
+		return fmt.Errorf("field order_id in P2PChatCreateRespP2PChatCreate: required")
 	}
 	type Plain P2PChatCreateRespP2PChatCreate
 	var plain Plain
@@ -90,10 +90,10 @@ func (j *P2PChatCreateResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in P2PChatCreateResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in P2PChatCreateResp: required")
 	}
 	type Plain P2PChatCreateResp
 	var plain Plain

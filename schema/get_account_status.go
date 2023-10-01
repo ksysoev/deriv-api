@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type GetAccountStatusGetAccountStatus int
 
@@ -56,7 +56,7 @@ func (j *GetAccountStatus) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["get_account_status"]; !ok || v == nil {
-		return fmt.Errorf("field get_account_status: required")
+		return fmt.Errorf("field get_account_status in GetAccountStatus: required")
 	}
 	type Plain GetAccountStatus
 	var plain Plain

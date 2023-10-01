@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *GetSettingsRespGetSettingsFeatureFlagWallet) UnmarshalJSON(b []byte) error {
@@ -35,10 +35,10 @@ func (j *GetSettingsResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in GetSettingsResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in GetSettingsResp: required")
 	}
 	type Plain GetSettingsResp
 	var plain Plain
@@ -172,7 +172,7 @@ type GetSettingsRespGetSettingsFeatureFlagWallet int
 type GetSettingsRespGetSettings struct {
 	// Purpose and reason for requesting the account opening. Only applicable for real
 	// money account.
-	AccountOpeningReason interface{} `json:"account_opening_reason,omitempty"`
+	AccountOpeningReason *string `json:"account_opening_reason,omitempty"`
 
 	// City (note: Only available for users who have at least one real account)
 	AddressCity *string `json:"address_city,omitempty"`
@@ -200,20 +200,20 @@ type GetSettingsRespGetSettings struct {
 	Citizen *string `json:"citizen,omitempty"`
 
 	// Latest terms and conditions version accepted by client
-	ClientTncStatus interface{} `json:"client_tnc_status,omitempty"`
+	ClientTncStatus *string `json:"client_tnc_status,omitempty"`
 
 	// Cooldown expiration epoch date when a client fails appropriateness tests
-	CoolingOffExpirationDate interface{} `json:"cooling_off_expiration_date,omitempty"`
+	CoolingOffExpirationDate *int `json:"cooling_off_expiration_date,omitempty"`
 
 	// User Country (same as residence field) - deprecated
-	Country interface{} `json:"country,omitempty"`
+	Country *string `json:"country,omitempty"`
 
 	// 2-letter country code ISO standard
-	CountryCode interface{} `json:"country_code,omitempty"`
+	CountryCode *string `json:"country_code,omitempty"`
 
 	// Epoch of user's birthday (note: Only available for users who have at least one
 	// real account)
-	DateOfBirth interface{} `json:"date_of_birth,omitempty"`
+	DateOfBirth *int `json:"date_of_birth,omitempty"`
 
 	// Boolean value 1 or 0, indicating if user email belong to dxtrade exception
 	// list.
@@ -254,29 +254,29 @@ type GetSettingsRespGetSettings struct {
 	NonPepDeclaration *GetSettingsRespGetSettingsNonPepDeclaration `json:"non_pep_declaration,omitempty"`
 
 	// Telephone (note: Only available for users who have at least one real account)
-	Phone interface{} `json:"phone,omitempty"`
+	Phone *string `json:"phone,omitempty"`
 
 	// Place of birth, 2-letter country code.
-	PlaceOfBirth interface{} `json:"place_of_birth,omitempty"`
+	PlaceOfBirth *string `json:"place_of_birth,omitempty"`
 
 	// User's preferred language, ISO standard code of language
-	PreferredLanguage interface{} `json:"preferred_language,omitempty"`
+	PreferredLanguage *string `json:"preferred_language,omitempty"`
 
 	// Boolean value 1 or 0, indicating if client has requested professional status.
 	RequestProfessionalStatus *GetSettingsRespGetSettingsRequestProfessionalStatus `json:"request_professional_status,omitempty"`
 
 	// User Country
-	Residence interface{} `json:"residence,omitempty"`
+	Residence *string `json:"residence,omitempty"`
 
 	// Salutation (note: Only available for users who have at least one real account)
 	Salutation *string `json:"salutation,omitempty"`
 
 	// Tax identification number. Only applicable for real money account.
-	TaxIdentificationNumber interface{} `json:"tax_identification_number,omitempty"`
+	TaxIdentificationNumber *string `json:"tax_identification_number,omitempty"`
 
 	// Residence for tax purpose. Comma separated iso country code if multiple
 	// jurisdictions. Only applicable for real money account.
-	TaxResidence interface{} `json:"tax_residence,omitempty"`
+	TaxResidence *string `json:"tax_residence,omitempty"`
 
 	// Boolean value 1 or 0, indicating if client has enabled the Trading Hub
 	// dashboard
@@ -284,7 +284,7 @@ type GetSettingsRespGetSettings struct {
 
 	// Hash generated using user details to verify whether the user is legitimate for
 	// our customer support system.
-	UserHash interface{} `json:"user_hash,omitempty"`
+	UserHash *string `json:"user_hash,omitempty"`
 }
 
 // UnmarshalJSON implements json.Unmarshaler.

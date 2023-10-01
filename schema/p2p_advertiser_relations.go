@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type P2PAdvertiserRelationsP2PAdvertiserRelations int
 
@@ -68,12 +68,24 @@ func (j *P2PAdvertiserRelations) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["p2p_advertiser_relations"]; !ok || v == nil {
-		return fmt.Errorf("field p2p_advertiser_relations: required")
+		return fmt.Errorf("field p2p_advertiser_relations in P2PAdvertiserRelations: required")
 	}
 	type Plain P2PAdvertiserRelations
 	var plain Plain
 	if err := json.Unmarshal(b, &plain); err != nil {
 		return err
+	}
+	if len(plain.AddBlocked) > 100 {
+		return fmt.Errorf("field %s length: must be <= %d", "add_blocked", 100)
+	}
+	if len(plain.AddFavourites) > 100 {
+		return fmt.Errorf("field %s length: must be <= %d", "add_favourites", 100)
+	}
+	if len(plain.RemoveBlocked) > 100 {
+		return fmt.Errorf("field %s length: must be <= %d", "remove_blocked", 100)
+	}
+	if len(plain.RemoveFavourites) > 100 {
+		return fmt.Errorf("field %s length: must be <= %d", "remove_favourites", 100)
 	}
 	*j = P2PAdvertiserRelations(plain)
 	return nil

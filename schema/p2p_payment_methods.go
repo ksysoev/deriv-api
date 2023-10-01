@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type P2PPaymentMethodsP2PPaymentMethods int
 
@@ -56,7 +56,7 @@ func (j *P2PPaymentMethods) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["p2p_payment_methods"]; !ok || v == nil {
-		return fmt.Errorf("field p2p_payment_methods: required")
+		return fmt.Errorf("field p2p_payment_methods in P2PPaymentMethods: required")
 	}
 	type Plain P2PPaymentMethods
 	var plain Plain

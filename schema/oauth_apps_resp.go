@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Echo of the request made.
 type OauthAppsRespEchoReq map[string]interface{}
@@ -72,7 +72,7 @@ type OauthAppsRespOauthAppsElem struct {
 	AppMarkupPercentage float64 `json:"app_markup_percentage"`
 
 	// The last date which the application has been used.
-	LastUsed interface{} `json:"last_used"`
+	LastUsed *string `json:"last_used"`
 
 	// Application name
 	Name string `json:"name"`
@@ -92,22 +92,22 @@ func (j *OauthAppsRespOauthAppsElem) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["app_id"]; !ok || v == nil {
-		return fmt.Errorf("field app_id: required")
+		return fmt.Errorf("field app_id in OauthAppsRespOauthAppsElem: required")
 	}
 	if v, ok := raw["app_markup_percentage"]; !ok || v == nil {
-		return fmt.Errorf("field app_markup_percentage: required")
+		return fmt.Errorf("field app_markup_percentage in OauthAppsRespOauthAppsElem: required")
 	}
 	if v, ok := raw["last_used"]; !ok || v == nil {
-		return fmt.Errorf("field last_used: required")
+		return fmt.Errorf("field last_used in OauthAppsRespOauthAppsElem: required")
 	}
 	if v, ok := raw["name"]; !ok || v == nil {
-		return fmt.Errorf("field name: required")
+		return fmt.Errorf("field name in OauthAppsRespOauthAppsElem: required")
 	}
 	if v, ok := raw["official"]; !ok || v == nil {
-		return fmt.Errorf("field official: required")
+		return fmt.Errorf("field official in OauthAppsRespOauthAppsElem: required")
 	}
 	if v, ok := raw["scopes"]; !ok || v == nil {
-		return fmt.Errorf("field scopes: required")
+		return fmt.Errorf("field scopes in OauthAppsRespOauthAppsElem: required")
 	}
 	type Plain OauthAppsRespOauthAppsElem
 	var plain Plain
@@ -141,10 +141,10 @@ func (j *OauthAppsResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in OauthAppsResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in OauthAppsResp: required")
 	}
 	type Plain OauthAppsResp
 	var plain Plain

@@ -2,8 +2,8 @@
 
 package schema
 
-import "fmt"
 import "encoding/json"
+import "fmt"
 
 // Receive a list of market opening times for a given date.
 type TradingTimes struct {
@@ -30,7 +30,7 @@ func (j *TradingTimes) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["trading_times"]; !ok || v == nil {
-		return fmt.Errorf("field trading_times: required")
+		return fmt.Errorf("field trading_times in TradingTimes: required")
 	}
 	type Plain TradingTimes
 	var plain Plain

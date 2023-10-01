@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type ContractUpdateHistoryContractUpdateHistory int
 
@@ -62,10 +62,10 @@ func (j *ContractUpdateHistory) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["contract_id"]; !ok || v == nil {
-		return fmt.Errorf("field contract_id: required")
+		return fmt.Errorf("field contract_id in ContractUpdateHistory: required")
 	}
 	if v, ok := raw["contract_update_history"]; !ok || v == nil {
-		return fmt.Errorf("field contract_update_history: required")
+		return fmt.Errorf("field contract_update_history in ContractUpdateHistory: required")
 	}
 	type Plain ContractUpdateHistory
 	var plain Plain
@@ -73,7 +73,7 @@ func (j *ContractUpdateHistory) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["limit"]; !ok || v == nil {
-		plain.Limit = 500
+		plain.Limit = 500.0
 	}
 	*j = ContractUpdateHistory(plain)
 	return nil

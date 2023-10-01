@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Returns information about the given advert ID.
 type P2PAdvertInfoResp struct {
@@ -78,11 +78,11 @@ type P2PAdvertInfoRespP2PAdvertInfo struct {
 
 	// Conversion rate from account currency to local currency, using current market
 	// rate if applicable.
-	EffectiveRate interface{} `json:"effective_rate,omitempty"`
+	EffectiveRate *float64 `json:"effective_rate,omitempty"`
 
 	// Conversion rate from account currency to local currency, using current market
 	// rate if applicable, formatted to appropriate decimal places.
-	EffectiveRateDisplay interface{} `json:"effective_rate_display,omitempty"`
+	EffectiveRateDisplay *string `json:"effective_rate_display,omitempty"`
 
 	// The unique identifier for this advert.
 	Id *string `json:"id,omitempty"`
@@ -132,7 +132,7 @@ type P2PAdvertInfoRespP2PAdvertInfo struct {
 	PaymentInfo *string `json:"payment_info,omitempty"`
 
 	// Payment method name (deprecated).
-	PaymentMethod interface{} `json:"payment_method,omitempty"`
+	PaymentMethod *string `json:"payment_method,omitempty"`
 
 	// Details of available payment methods (sell adverts only).
 	PaymentMethodDetails P2PAdvertInfoRespP2PAdvertInfoPaymentMethodDetails `json:"payment_method_details,omitempty"`
@@ -141,10 +141,10 @@ type P2PAdvertInfoRespP2PAdvertInfo struct {
 	PaymentMethodNames []string `json:"payment_method_names,omitempty"`
 
 	// Cost of the advert in local currency.
-	Price interface{} `json:"price,omitempty"`
+	Price *float64 `json:"price,omitempty"`
 
 	// Cost of the advert in local currency, formatted to appropriate decimal places.
-	PriceDisplay interface{} `json:"price_display,omitempty"`
+	PriceDisplay *string `json:"price_display,omitempty"`
 
 	// Conversion rate from advertiser's account currency to `local_currency`. An
 	// absolute rate value (fixed), or percentage offset from current market rate
@@ -217,26 +217,26 @@ type P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetails struct {
 	LastName *string `json:"last_name,omitempty"`
 
 	// Epoch of the latest time the advertiser was online, up to 6 months.
-	LastOnlineTime interface{} `json:"last_online_time"`
+	LastOnlineTime *int `json:"last_online_time"`
 
 	// The advertiser's displayed name.
 	Name string `json:"name"`
 
 	// Average rating of the advertiser, range is 1-5.
-	RatingAverage interface{} `json:"rating_average"`
+	RatingAverage *float64 `json:"rating_average"`
 
 	// Number of ratings given to the advertiser.
 	RatingCount int `json:"rating_count"`
 
 	// Percentage of users who have recommended the advertiser.
-	RecommendedAverage interface{} `json:"recommended_average"`
+	RecommendedAverage *float64 `json:"recommended_average"`
 
 	// Number of times the advertiser has been recommended.
-	RecommendedCount interface{} `json:"recommended_count"`
+	RecommendedCount *int `json:"recommended_count"`
 
 	// The percentage of successfully completed orders made by or placed against the
 	// advertiser within the past 30 days.
-	TotalCompletionRate interface{} `json:"total_completion_rate"`
+	TotalCompletionRate *float64 `json:"total_completion_rate"`
 }
 
 type P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetailsIsBlocked int
@@ -357,34 +357,34 @@ func (j *P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetails) UnmarshalJSON(b []byte
 		return err
 	}
 	if v, ok := raw["completed_orders_count"]; !ok || v == nil {
-		return fmt.Errorf("field completed_orders_count: required")
+		return fmt.Errorf("field completed_orders_count in P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetails: required")
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetails: required")
 	}
 	if v, ok := raw["is_online"]; !ok || v == nil {
-		return fmt.Errorf("field is_online: required")
+		return fmt.Errorf("field is_online in P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetails: required")
 	}
 	if v, ok := raw["last_online_time"]; !ok || v == nil {
-		return fmt.Errorf("field last_online_time: required")
+		return fmt.Errorf("field last_online_time in P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetails: required")
 	}
 	if v, ok := raw["name"]; !ok || v == nil {
-		return fmt.Errorf("field name: required")
+		return fmt.Errorf("field name in P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetails: required")
 	}
 	if v, ok := raw["rating_average"]; !ok || v == nil {
-		return fmt.Errorf("field rating_average: required")
+		return fmt.Errorf("field rating_average in P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetails: required")
 	}
 	if v, ok := raw["rating_count"]; !ok || v == nil {
-		return fmt.Errorf("field rating_count: required")
+		return fmt.Errorf("field rating_count in P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetails: required")
 	}
 	if v, ok := raw["recommended_average"]; !ok || v == nil {
-		return fmt.Errorf("field recommended_average: required")
+		return fmt.Errorf("field recommended_average in P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetails: required")
 	}
 	if v, ok := raw["recommended_count"]; !ok || v == nil {
-		return fmt.Errorf("field recommended_count: required")
+		return fmt.Errorf("field recommended_count in P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetails: required")
 	}
 	if v, ok := raw["total_completion_rate"]; !ok || v == nil {
-		return fmt.Errorf("field total_completion_rate: required")
+		return fmt.Errorf("field total_completion_rate in P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetails: required")
 	}
 	type Plain P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetails
 	var plain Plain
@@ -474,8 +474,8 @@ func (j *P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetailsIsRecommended) MarshalJS
 
 var enumValues_P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetailsIsRecommended = []interface{}{
 	nil,
-	0,
-	1,
+	0.0,
+	1.0,
 }
 var enumValues_P2PAdvertInfoRespP2PAdvertInfoRateType = []interface{}{
 	"fixed",
@@ -677,7 +677,7 @@ func (j *P2PAdvertInfoRespP2PAdvertInfo) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["is_visible"]; !ok || v == nil {
-		plain.IsVisible = 0
+		plain.IsVisible = 0.0
 	}
 	*j = P2PAdvertInfoRespP2PAdvertInfo(plain)
 	return nil
@@ -697,7 +697,7 @@ func (j *P2PAdvertInfoRespSubscription) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in P2PAdvertInfoRespSubscription: required")
 	}
 	type Plain P2PAdvertInfoRespSubscription
 	var plain Plain
@@ -719,10 +719,10 @@ func (j *P2PAdvertInfoResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in P2PAdvertInfoResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in P2PAdvertInfoResp: required")
 	}
 	type Plain P2PAdvertInfoResp
 	var plain Plain

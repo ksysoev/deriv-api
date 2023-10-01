@@ -2,8 +2,8 @@
 
 package schema
 
-import "fmt"
 import "encoding/json"
+import "fmt"
 import "reflect"
 
 type P2PAdvertiserPaymentMethodsCreateElem struct {
@@ -18,7 +18,7 @@ func (j *P2PAdvertiserPaymentMethodsCreateElem) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["method"]; !ok || v == nil {
-		return fmt.Errorf("field method: required")
+		return fmt.Errorf("field method in P2PAdvertiserPaymentMethodsCreateElem: required")
 	}
 	type Plain P2PAdvertiserPaymentMethodsCreateElem
 	var plain Plain
@@ -91,12 +91,24 @@ func (j *P2PAdvertiserPaymentMethods) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["p2p_advertiser_payment_methods"]; !ok || v == nil {
-		return fmt.Errorf("field p2p_advertiser_payment_methods: required")
+		return fmt.Errorf("field p2p_advertiser_payment_methods in P2PAdvertiserPaymentMethods: required")
 	}
 	type Plain P2PAdvertiserPaymentMethods
 	var plain Plain
 	if err := json.Unmarshal(b, &plain); err != nil {
 		return err
+	}
+	if plain.Create != nil && len(plain.Create) < 1 {
+		return fmt.Errorf("field %s length: must be >= %d", "create", 1)
+	}
+	if len(plain.Create) > 100 {
+		return fmt.Errorf("field %s length: must be <= %d", "create", 100)
+	}
+	if plain.Delete != nil && len(plain.Delete) < 1 {
+		return fmt.Errorf("field %s length: must be >= %d", "delete", 1)
+	}
+	if len(plain.Delete) > 100 {
+		return fmt.Errorf("field %s length: must be <= %d", "delete", 100)
 	}
 	*j = P2PAdvertiserPaymentMethods(plain)
 	return nil

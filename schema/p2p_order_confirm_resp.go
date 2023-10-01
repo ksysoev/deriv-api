@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Result of the P2P order confirmation.
 type P2POrderConfirmResp struct {
@@ -123,7 +123,7 @@ func (j *P2POrderConfirmRespP2POrderConfirm) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in P2POrderConfirmRespP2POrderConfirm: required")
 	}
 	type Plain P2POrderConfirmRespP2POrderConfirm
 	var plain Plain
@@ -145,10 +145,10 @@ func (j *P2POrderConfirmResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in P2POrderConfirmResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in P2POrderConfirmResp: required")
 	}
 	type Plain P2POrderConfirmResp
 	var plain Plain

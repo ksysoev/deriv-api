@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *NewAccountRealNewAccountReal) UnmarshalJSON(b []byte) error {
@@ -55,7 +55,7 @@ func (j *NewAccountReal) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["new_account_real"]; !ok || v == nil {
-		return fmt.Errorf("field new_account_real: required")
+		return fmt.Errorf("field new_account_real in NewAccountReal: required")
 	}
 	type Plain NewAccountReal
 	var plain Plain
@@ -64,6 +64,12 @@ func (j *NewAccountReal) UnmarshalJSON(b []byte) error {
 	}
 	if v, ok := raw["client_type"]; !ok || v == nil {
 		plain.ClientType = "retail"
+	}
+	if plain.SecretAnswer != nil && len(*plain.SecretAnswer) < 4 {
+		return fmt.Errorf("field %s length: must be >= %d", "secret_answer", 4)
+	}
+	if plain.SecretAnswer != nil && len(*plain.SecretAnswer) >= 50 {
+		return fmt.Errorf("field %s length: must be <= %d", "secret_answer", 50)
 	}
 	*j = NewAccountReal(plain)
 	return nil
@@ -106,7 +112,7 @@ type NewAccountReal struct {
 	AffiliateToken *string `json:"affiliate_token,omitempty"`
 
 	// [Optional] Country of legal citizenship, 2-letter country code.
-	Citizen interface{} `json:"citizen,omitempty"`
+	Citizen *string `json:"citizen,omitempty"`
 
 	// [Optional] Indicates whether this is for a client requesting an account with
 	// professional status.
@@ -139,7 +145,7 @@ type NewAccountReal struct {
 	Passthrough NewAccountRealPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Starting with `+` followed by 9-35 digits, hyphens or space.
-	Phone interface{} `json:"phone,omitempty"`
+	Phone *string `json:"phone,omitempty"`
 
 	// [Optional] Place of birth, 2-letter country code.
 	PlaceOfBirth *string `json:"place_of_birth,omitempty"`

@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // A message with Account Status
 type GetAccountStatusResp struct {
@@ -148,7 +148,7 @@ type GetAccountStatusRespGetAccountStatusAuthenticationAttempts struct {
 	History []GetAccountStatusRespGetAccountStatusAuthenticationAttemptsHistoryElem `json:"history,omitempty"`
 
 	// The latest POI attempt made by the client
-	Latest interface{} `json:"latest,omitempty"`
+	Latest GetAccountStatusRespGetAccountStatusAuthenticationAttemptsLatest `json:"latest,omitempty"`
 }
 
 type GetAccountStatusRespGetAccountStatusAuthenticationAttemptsHistoryElem struct {
@@ -178,6 +178,9 @@ const GetAccountStatusRespGetAccountStatusAuthenticationAttemptsHistoryElemStatu
 const GetAccountStatusRespGetAccountStatusAuthenticationAttemptsHistoryElemStatusPending GetAccountStatusRespGetAccountStatusAuthenticationAttemptsHistoryElemStatus = "pending"
 const GetAccountStatusRespGetAccountStatusAuthenticationAttemptsHistoryElemStatusRejected GetAccountStatusRespGetAccountStatusAuthenticationAttemptsHistoryElemStatus = "rejected"
 const GetAccountStatusRespGetAccountStatusAuthenticationAttemptsHistoryElemStatusVerified GetAccountStatusRespGetAccountStatusAuthenticationAttemptsHistoryElemStatus = "verified"
+
+// The latest POI attempt made by the client
+type GetAccountStatusRespGetAccountStatusAuthenticationAttemptsLatest map[string]interface{}
 
 // The authentication status for document.
 type GetAccountStatusRespGetAccountStatusAuthenticationDocument struct {
@@ -429,7 +432,7 @@ func (j *GetAccountStatusRespGetAccountStatusAuthentication) UnmarshalJSON(b []b
 		return err
 	}
 	if v, ok := raw["needs_verification"]; !ok || v == nil {
-		return fmt.Errorf("field needs_verification: required")
+		return fmt.Errorf("field needs_verification in GetAccountStatusRespGetAccountStatusAuthentication: required")
 	}
 	type Plain GetAccountStatusRespGetAccountStatusAuthentication
 	var plain Plain
@@ -703,19 +706,19 @@ func (j *GetAccountStatusRespGetAccountStatus) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["currency_config"]; !ok || v == nil {
-		return fmt.Errorf("field currency_config: required")
+		return fmt.Errorf("field currency_config in GetAccountStatusRespGetAccountStatus: required")
 	}
 	if v, ok := raw["p2p_status"]; !ok || v == nil {
-		return fmt.Errorf("field p2p_status: required")
+		return fmt.Errorf("field p2p_status in GetAccountStatusRespGetAccountStatus: required")
 	}
 	if v, ok := raw["prompt_client_to_authenticate"]; !ok || v == nil {
-		return fmt.Errorf("field prompt_client_to_authenticate: required")
+		return fmt.Errorf("field prompt_client_to_authenticate in GetAccountStatusRespGetAccountStatus: required")
 	}
 	if v, ok := raw["risk_classification"]; !ok || v == nil {
-		return fmt.Errorf("field risk_classification: required")
+		return fmt.Errorf("field risk_classification in GetAccountStatusRespGetAccountStatus: required")
 	}
 	if v, ok := raw["status"]; !ok || v == nil {
-		return fmt.Errorf("field status: required")
+		return fmt.Errorf("field status in GetAccountStatusRespGetAccountStatus: required")
 	}
 	type Plain GetAccountStatusRespGetAccountStatus
 	var plain Plain
@@ -791,10 +794,10 @@ func (j *GetAccountStatusResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in GetAccountStatusResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in GetAccountStatusResp: required")
 	}
 	type Plain GetAccountStatusResp
 	var plain Plain

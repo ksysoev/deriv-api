@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type TransferBetweenAccountsAccounts string
 
@@ -107,7 +107,7 @@ func (j *TransferBetweenAccounts) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["transfer_between_accounts"]; !ok || v == nil {
-		return fmt.Errorf("field transfer_between_accounts: required")
+		return fmt.Errorf("field transfer_between_accounts in TransferBetweenAccounts: required")
 	}
 	type Plain TransferBetweenAccounts
 	var plain Plain

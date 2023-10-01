@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // This call sets the financial assessment details based on the client's answers to
 // analyze whether they possess the experience and knowledge to understand the
@@ -1526,22 +1526,22 @@ func (j *SetFinancialAssessmentFinancialInformation) UnmarshalJSON(b []byte) err
 		return err
 	}
 	if v, ok := raw["education_level"]; !ok || v == nil {
-		return fmt.Errorf("field education_level: required")
+		return fmt.Errorf("field education_level in SetFinancialAssessmentFinancialInformation: required")
 	}
 	if v, ok := raw["employment_industry"]; !ok || v == nil {
-		return fmt.Errorf("field employment_industry: required")
+		return fmt.Errorf("field employment_industry in SetFinancialAssessmentFinancialInformation: required")
 	}
 	if v, ok := raw["estimated_worth"]; !ok || v == nil {
-		return fmt.Errorf("field estimated_worth: required")
+		return fmt.Errorf("field estimated_worth in SetFinancialAssessmentFinancialInformation: required")
 	}
 	if v, ok := raw["income_source"]; !ok || v == nil {
-		return fmt.Errorf("field income_source: required")
+		return fmt.Errorf("field income_source in SetFinancialAssessmentFinancialInformation: required")
 	}
 	if v, ok := raw["net_income"]; !ok || v == nil {
-		return fmt.Errorf("field net_income: required")
+		return fmt.Errorf("field net_income in SetFinancialAssessmentFinancialInformation: required")
 	}
 	if v, ok := raw["occupation"]; !ok || v == nil {
-		return fmt.Errorf("field occupation: required")
+		return fmt.Errorf("field occupation in SetFinancialAssessmentFinancialInformation: required")
 	}
 	type Plain SetFinancialAssessmentFinancialInformation
 	var plain Plain
@@ -1787,34 +1787,34 @@ func (j *SetFinancialAssessmentTradingExperienceRegulated) UnmarshalJSON(b []byt
 		return err
 	}
 	if v, ok := raw["cfd_experience"]; !ok || v == nil {
-		return fmt.Errorf("field cfd_experience: required")
+		return fmt.Errorf("field cfd_experience in SetFinancialAssessmentTradingExperienceRegulated: required")
 	}
 	if v, ok := raw["cfd_frequency"]; !ok || v == nil {
-		return fmt.Errorf("field cfd_frequency: required")
+		return fmt.Errorf("field cfd_frequency in SetFinancialAssessmentTradingExperienceRegulated: required")
 	}
 	if v, ok := raw["cfd_trading_definition"]; !ok || v == nil {
-		return fmt.Errorf("field cfd_trading_definition: required")
+		return fmt.Errorf("field cfd_trading_definition in SetFinancialAssessmentTradingExperienceRegulated: required")
 	}
 	if v, ok := raw["leverage_impact_trading"]; !ok || v == nil {
-		return fmt.Errorf("field leverage_impact_trading: required")
+		return fmt.Errorf("field leverage_impact_trading in SetFinancialAssessmentTradingExperienceRegulated: required")
 	}
 	if v, ok := raw["leverage_trading_high_risk_stop_loss"]; !ok || v == nil {
-		return fmt.Errorf("field leverage_trading_high_risk_stop_loss: required")
+		return fmt.Errorf("field leverage_trading_high_risk_stop_loss in SetFinancialAssessmentTradingExperienceRegulated: required")
 	}
 	if v, ok := raw["required_initial_margin"]; !ok || v == nil {
-		return fmt.Errorf("field required_initial_margin: required")
+		return fmt.Errorf("field required_initial_margin in SetFinancialAssessmentTradingExperienceRegulated: required")
 	}
 	if v, ok := raw["risk_tolerance"]; !ok || v == nil {
-		return fmt.Errorf("field risk_tolerance: required")
+		return fmt.Errorf("field risk_tolerance in SetFinancialAssessmentTradingExperienceRegulated: required")
 	}
 	if v, ok := raw["source_of_experience"]; !ok || v == nil {
-		return fmt.Errorf("field source_of_experience: required")
+		return fmt.Errorf("field source_of_experience in SetFinancialAssessmentTradingExperienceRegulated: required")
 	}
 	if v, ok := raw["trading_experience_financial_instruments"]; !ok || v == nil {
-		return fmt.Errorf("field trading_experience_financial_instruments: required")
+		return fmt.Errorf("field trading_experience_financial_instruments in SetFinancialAssessmentTradingExperienceRegulated: required")
 	}
 	if v, ok := raw["trading_frequency_financial_instruments"]; !ok || v == nil {
-		return fmt.Errorf("field trading_frequency_financial_instruments: required")
+		return fmt.Errorf("field trading_frequency_financial_instruments in SetFinancialAssessmentTradingExperienceRegulated: required")
 	}
 	type Plain SetFinancialAssessmentTradingExperienceRegulated
 	var plain Plain
@@ -1852,7 +1852,7 @@ func (j *SetFinancialAssessment) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["set_financial_assessment"]; !ok || v == nil {
-		return fmt.Errorf("field set_financial_assessment: required")
+		return fmt.Errorf("field set_financial_assessment in SetFinancialAssessment: required")
 	}
 	type Plain SetFinancialAssessment
 	var plain Plain

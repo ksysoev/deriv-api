@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type GetFinancialAssessmentGetFinancialAssessment int
 
@@ -58,7 +58,7 @@ func (j *GetFinancialAssessment) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["get_financial_assessment"]; !ok || v == nil {
-		return fmt.Errorf("field get_financial_assessment: required")
+		return fmt.Errorf("field get_financial_assessment in GetFinancialAssessment: required")
 	}
 	type Plain GetFinancialAssessment
 	var plain Plain

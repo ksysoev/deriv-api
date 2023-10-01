@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Create a new virtual-money account.
 type NewAccountVirtual struct {
@@ -222,7 +222,7 @@ func (j *NewAccountVirtual) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["new_account_virtual"]; !ok || v == nil {
-		return fmt.Errorf("field new_account_virtual: required")
+		return fmt.Errorf("field new_account_virtual in NewAccountVirtual: required")
 	}
 	type Plain NewAccountVirtual
 	var plain Plain

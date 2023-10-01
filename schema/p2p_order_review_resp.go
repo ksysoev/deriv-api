@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Response for creating a P2P order review.
 type P2POrderReviewResp struct {
@@ -53,8 +53,8 @@ type P2POrderReviewRespP2POrderReviewRecommended struct {
 
 var enumValues_P2POrderReviewRespP2POrderReviewRecommended = []interface{}{
 	nil,
-	0,
-	1,
+	0.0,
+	1.0,
 }
 
 // MarshalJSON implements json.Marshaler.
@@ -111,19 +111,19 @@ func (j *P2POrderReviewRespP2POrderReview) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["advertiser_id"]; !ok || v == nil {
-		return fmt.Errorf("field advertiser_id: required")
+		return fmt.Errorf("field advertiser_id in P2POrderReviewRespP2POrderReview: required")
 	}
 	if v, ok := raw["created_time"]; !ok || v == nil {
-		return fmt.Errorf("field created_time: required")
+		return fmt.Errorf("field created_time in P2POrderReviewRespP2POrderReview: required")
 	}
 	if v, ok := raw["order_id"]; !ok || v == nil {
-		return fmt.Errorf("field order_id: required")
+		return fmt.Errorf("field order_id in P2POrderReviewRespP2POrderReview: required")
 	}
 	if v, ok := raw["rating"]; !ok || v == nil {
-		return fmt.Errorf("field rating: required")
+		return fmt.Errorf("field rating in P2POrderReviewRespP2POrderReview: required")
 	}
 	if v, ok := raw["recommended"]; !ok || v == nil {
-		return fmt.Errorf("field recommended: required")
+		return fmt.Errorf("field recommended in P2POrderReviewRespP2POrderReview: required")
 	}
 	type Plain P2POrderReviewRespP2POrderReview
 	var plain Plain
@@ -145,10 +145,10 @@ func (j *P2POrderReviewResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in P2POrderReviewResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in P2POrderReviewResp: required")
 	}
 	type Plain P2POrderReviewResp
 	var plain Plain

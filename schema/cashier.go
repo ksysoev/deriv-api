@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Request the cashier info for the specified type.
 type Cashier struct {
@@ -174,7 +174,7 @@ func (j *Cashier) UnmarshalJSON(b []byte) error {
 		plain.Cashier = "deposit"
 	}
 	if v, ok := raw["dry_run"]; !ok || v == nil {
-		plain.DryRun = 0
+		plain.DryRun = 0.0
 	}
 	if v, ok := raw["provider"]; !ok || v == nil {
 		plain.Provider = "doughflow"

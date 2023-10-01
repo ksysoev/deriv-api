@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Returns available adverts for use with `p2p_order_create` .
 type P2PAdvertList struct {
@@ -239,7 +239,7 @@ func (j *P2PAdvertList) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["p2p_advert_list"]; !ok || v == nil {
-		return fmt.Errorf("field p2p_advert_list: required")
+		return fmt.Errorf("field p2p_advert_list in P2PAdvertList: required")
 	}
 	type Plain P2PAdvertList
 	var plain Plain
@@ -247,19 +247,19 @@ func (j *P2PAdvertList) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["block_trade"]; !ok || v == nil {
-		plain.BlockTrade = 0
+		plain.BlockTrade = 0.0
 	}
 	if v, ok := raw["limit"]; !ok || v == nil {
-		plain.Limit = 50
+		plain.Limit = 50.0
 	}
 	if v, ok := raw["offset"]; !ok || v == nil {
-		plain.Offset = 0
+		plain.Offset = 0.0
 	}
 	if v, ok := raw["sort_by"]; !ok || v == nil {
 		plain.SortBy = "rate"
 	}
 	if v, ok := raw["use_client_limits"]; !ok || v == nil {
-		plain.UseClientLimits = 0
+		plain.UseClientLimits = 0.0
 	}
 	*j = P2PAdvertList(plain)
 	return nil

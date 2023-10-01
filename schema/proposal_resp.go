@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Latest price and other details for a given contract
 type ProposalResp struct {
@@ -45,7 +45,7 @@ type ProposalRespProposal struct {
 	Cancellation *ProposalRespProposalCancellation `json:"cancellation,omitempty"`
 
 	// Commission changed in percentage (%).
-	Commission interface{} `json:"commission,omitempty"`
+	Commission *float64 `json:"commission,omitempty"`
 
 	// Contains contract information.
 	ContractDetails *ProposalRespProposalContractDetails `json:"contract_details,omitempty"`
@@ -164,13 +164,13 @@ type ProposalRespProposalLimitOrderStopLoss struct {
 	DisplayName *string `json:"display_name,omitempty"`
 
 	// Stop loss amount
-	OrderAmount interface{} `json:"order_amount,omitempty"`
+	OrderAmount *float64 `json:"order_amount,omitempty"`
 
 	// Stop loss order epoch
 	OrderDate *int `json:"order_date,omitempty"`
 
 	// Pip-sized barrier value
-	Value interface{} `json:"value,omitempty"`
+	Value *string `json:"value,omitempty"`
 }
 
 // Contains information where the contract will be closed automatically when the
@@ -196,13 +196,13 @@ type ProposalRespProposalLimitOrderTakeProfit struct {
 	DisplayName *string `json:"display_name,omitempty"`
 
 	// Take profit amount
-	OrderAmount interface{} `json:"order_amount,omitempty"`
+	OrderAmount *float64 `json:"order_amount,omitempty"`
 
 	// Take profit order epoch
 	OrderDate *int `json:"order_date,omitempty"`
 
 	// Pip-sized barrier value
-	Value interface{} `json:"value,omitempty"`
+	Value *string `json:"value,omitempty"`
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -232,28 +232,28 @@ func (j *ProposalRespProposal) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["ask_price"]; !ok || v == nil {
-		return fmt.Errorf("field ask_price: required")
+		return fmt.Errorf("field ask_price in ProposalRespProposal: required")
 	}
 	if v, ok := raw["date_start"]; !ok || v == nil {
-		return fmt.Errorf("field date_start: required")
+		return fmt.Errorf("field date_start in ProposalRespProposal: required")
 	}
 	if v, ok := raw["display_value"]; !ok || v == nil {
-		return fmt.Errorf("field display_value: required")
+		return fmt.Errorf("field display_value in ProposalRespProposal: required")
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in ProposalRespProposal: required")
 	}
 	if v, ok := raw["longcode"]; !ok || v == nil {
-		return fmt.Errorf("field longcode: required")
+		return fmt.Errorf("field longcode in ProposalRespProposal: required")
 	}
 	if v, ok := raw["payout"]; !ok || v == nil {
-		return fmt.Errorf("field payout: required")
+		return fmt.Errorf("field payout in ProposalRespProposal: required")
 	}
 	if v, ok := raw["spot"]; !ok || v == nil {
-		return fmt.Errorf("field spot: required")
+		return fmt.Errorf("field spot in ProposalRespProposal: required")
 	}
 	if v, ok := raw["spot_time"]; !ok || v == nil {
-		return fmt.Errorf("field spot_time: required")
+		return fmt.Errorf("field spot_time in ProposalRespProposal: required")
 	}
 	type Plain ProposalRespProposal
 	var plain Plain
@@ -278,7 +278,7 @@ func (j *ProposalRespSubscription) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in ProposalRespSubscription: required")
 	}
 	type Plain ProposalRespSubscription
 	var plain Plain
@@ -300,10 +300,10 @@ func (j *ProposalResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in ProposalResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in ProposalResp: required")
 	}
 	type Plain ProposalResp
 	var plain Plain

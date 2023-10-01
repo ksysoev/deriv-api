@@ -2,8 +2,8 @@
 
 package schema
 
-import "fmt"
 import "encoding/json"
+import "fmt"
 import "reflect"
 
 // The information of the created application.
@@ -51,31 +51,31 @@ func (j *AppRegisterRespAppRegister) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["app_id"]; !ok || v == nil {
-		return fmt.Errorf("field app_id: required")
+		return fmt.Errorf("field app_id in AppRegisterRespAppRegister: required")
 	}
 	if v, ok := raw["app_markup_percentage"]; !ok || v == nil {
-		return fmt.Errorf("field app_markup_percentage: required")
+		return fmt.Errorf("field app_markup_percentage in AppRegisterRespAppRegister: required")
 	}
 	if v, ok := raw["appstore"]; !ok || v == nil {
-		return fmt.Errorf("field appstore: required")
+		return fmt.Errorf("field appstore in AppRegisterRespAppRegister: required")
 	}
 	if v, ok := raw["github"]; !ok || v == nil {
-		return fmt.Errorf("field github: required")
+		return fmt.Errorf("field github in AppRegisterRespAppRegister: required")
 	}
 	if v, ok := raw["googleplay"]; !ok || v == nil {
-		return fmt.Errorf("field googleplay: required")
+		return fmt.Errorf("field googleplay in AppRegisterRespAppRegister: required")
 	}
 	if v, ok := raw["homepage"]; !ok || v == nil {
-		return fmt.Errorf("field homepage: required")
+		return fmt.Errorf("field homepage in AppRegisterRespAppRegister: required")
 	}
 	if v, ok := raw["name"]; !ok || v == nil {
-		return fmt.Errorf("field name: required")
+		return fmt.Errorf("field name in AppRegisterRespAppRegister: required")
 	}
 	if v, ok := raw["redirect_uri"]; !ok || v == nil {
-		return fmt.Errorf("field redirect_uri: required")
+		return fmt.Errorf("field redirect_uri in AppRegisterRespAppRegister: required")
 	}
 	if v, ok := raw["verification_uri"]; !ok || v == nil {
-		return fmt.Errorf("field verification_uri: required")
+		return fmt.Errorf("field verification_uri in AppRegisterRespAppRegister: required")
 	}
 	type Plain AppRegisterRespAppRegister
 	var plain Plain
@@ -140,10 +140,10 @@ func (j *AppRegisterResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in AppRegisterResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in AppRegisterResp: required")
 	}
 	type Plain AppRegisterResp
 	var plain Plain

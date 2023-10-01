@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Echo of the request made.
 type NewAccountMaltainvestRespEchoReq map[string]interface{}
@@ -62,13 +62,13 @@ func (j *NewAccountMaltainvestRespNewAccountMaltainvest) UnmarshalJSON(b []byte)
 		return err
 	}
 	if v, ok := raw["client_id"]; !ok || v == nil {
-		return fmt.Errorf("field client_id: required")
+		return fmt.Errorf("field client_id in NewAccountMaltainvestRespNewAccountMaltainvest: required")
 	}
 	if v, ok := raw["landing_company"]; !ok || v == nil {
-		return fmt.Errorf("field landing_company: required")
+		return fmt.Errorf("field landing_company in NewAccountMaltainvestRespNewAccountMaltainvest: required")
 	}
 	if v, ok := raw["oauth_token"]; !ok || v == nil {
-		return fmt.Errorf("field oauth_token: required")
+		return fmt.Errorf("field oauth_token in NewAccountMaltainvestRespNewAccountMaltainvest: required")
 	}
 	type Plain NewAccountMaltainvestRespNewAccountMaltainvest
 	var plain Plain
@@ -102,10 +102,10 @@ func (j *NewAccountMaltainvestResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in NewAccountMaltainvestResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in NewAccountMaltainvestResp: required")
 	}
 	type Plain NewAccountMaltainvestResp
 	var plain Plain

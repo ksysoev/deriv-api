@@ -2,8 +2,8 @@
 
 package schema
 
-import "fmt"
 import "encoding/json"
+import "fmt"
 
 // Stop copy trader bets
 type CopyStop struct {
@@ -29,7 +29,7 @@ func (j *CopyStop) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["copy_stop"]; !ok || v == nil {
-		return fmt.Errorf("field copy_stop: required")
+		return fmt.Errorf("field copy_stop in CopyStop: required")
 	}
 	type Plain CopyStop
 	var plain Plain

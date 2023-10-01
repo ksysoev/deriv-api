@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type LoginHistoryLoginHistory int
 
@@ -59,7 +59,7 @@ func (j *LoginHistory) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["login_history"]; !ok || v == nil {
-		return fmt.Errorf("field login_history: required")
+		return fmt.Errorf("field login_history in LoginHistory: required")
 	}
 	type Plain LoginHistory
 	var plain Plain
@@ -67,7 +67,7 @@ func (j *LoginHistory) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["limit"]; !ok || v == nil {
-		plain.Limit = 10
+		plain.Limit = 10.0
 	}
 	*j = LoginHistory(plain)
 	return nil

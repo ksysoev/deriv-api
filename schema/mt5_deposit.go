@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type Mt5DepositMt5Deposit int
 
@@ -66,10 +66,10 @@ func (j *Mt5Deposit) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["mt5_deposit"]; !ok || v == nil {
-		return fmt.Errorf("field mt5_deposit: required")
+		return fmt.Errorf("field mt5_deposit in Mt5Deposit: required")
 	}
 	if v, ok := raw["to_mt5"]; !ok || v == nil {
-		return fmt.Errorf("field to_mt5: required")
+		return fmt.Errorf("field to_mt5 in Mt5Deposit: required")
 	}
 	type Plain Mt5Deposit
 	var plain Plain

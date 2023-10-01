@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 // Echo of the request made.
 type PortfolioRespEchoReq map[string]interface{}
@@ -46,7 +46,7 @@ type PortfolioRespPortfolio struct {
 // The details of each open position.
 type PortfolioRespPortfolioContractsElem struct {
 	// ID of the application where this contract was purchased.
-	AppId interface{} `json:"app_id,omitempty"`
+	AppId *int `json:"app_id,omitempty"`
 
 	// Buy price
 	BuyPrice *float64 `json:"buy_price,omitempty"`
@@ -94,7 +94,7 @@ func (j *PortfolioRespPortfolio) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["contracts"]; !ok || v == nil {
-		return fmt.Errorf("field contracts: required")
+		return fmt.Errorf("field contracts in PortfolioRespPortfolio: required")
 	}
 	type Plain PortfolioRespPortfolio
 	var plain Plain
@@ -128,10 +128,10 @@ func (j *PortfolioResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in PortfolioResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in PortfolioResp: required")
 	}
 	type Plain PortfolioResp
 	var plain Plain

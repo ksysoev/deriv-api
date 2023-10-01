@@ -2,8 +2,8 @@
 
 package schema
 
-import "fmt"
 import "encoding/json"
+import "fmt"
 import "reflect"
 
 type CopytradingListRespCopytradingListCopiersElem struct {
@@ -18,7 +18,7 @@ func (j *CopytradingListRespCopytradingListCopiersElem) UnmarshalJSON(b []byte) 
 		return err
 	}
 	if v, ok := raw["loginid"]; !ok || v == nil {
-		return fmt.Errorf("field loginid: required")
+		return fmt.Errorf("field loginid in CopytradingListRespCopytradingListCopiersElem: required")
 	}
 	type Plain CopytradingListRespCopytradingListCopiersElem
 	var plain Plain
@@ -46,10 +46,10 @@ type CopytradingListRespCopytradingListTradersElem struct {
 	Loginid *string `json:"loginid,omitempty"`
 
 	// Maximum trading stake set for the trader.
-	MaxTradeStake interface{} `json:"max_trade_stake,omitempty"`
+	MaxTradeStake *float64 `json:"max_trade_stake,omitempty"`
 
 	// Minimum trading stake set for the trader.
-	MinTradeStake interface{} `json:"min_trade_stake,omitempty"`
+	MinTradeStake *float64 `json:"min_trade_stake,omitempty"`
 
 	// The token provided for the trader.
 	Token *string `json:"token,omitempty"`
@@ -65,10 +65,10 @@ func (j *CopytradingListRespCopytradingList) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["copiers"]; !ok || v == nil {
-		return fmt.Errorf("field copiers: required")
+		return fmt.Errorf("field copiers in CopytradingListRespCopytradingList: required")
 	}
 	if v, ok := raw["traders"]; !ok || v == nil {
-		return fmt.Errorf("field traders: required")
+		return fmt.Errorf("field traders in CopytradingListRespCopytradingList: required")
 	}
 	type Plain CopytradingListRespCopytradingList
 	var plain Plain
@@ -133,10 +133,10 @@ func (j *CopytradingListResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in CopytradingListResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in CopytradingListResp: required")
 	}
 	type Plain CopytradingListResp
 	var plain Plain

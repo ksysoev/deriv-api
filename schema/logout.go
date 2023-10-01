@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type LogoutLogout int
 
@@ -56,7 +56,7 @@ func (j *Logout) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["logout"]; !ok || v == nil {
-		return fmt.Errorf("field logout: required")
+		return fmt.Errorf("field logout in Logout: required")
 	}
 	type Plain Logout
 	var plain Plain

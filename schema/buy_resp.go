@@ -2,8 +2,8 @@
 
 package schema
 
-import "fmt"
 import "encoding/json"
+import "fmt"
 import "reflect"
 
 // Receipt confirmation for the purchase
@@ -43,31 +43,31 @@ func (j *BuyRespBuy) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["balance_after"]; !ok || v == nil {
-		return fmt.Errorf("field balance_after: required")
+		return fmt.Errorf("field balance_after in BuyRespBuy: required")
 	}
 	if v, ok := raw["buy_price"]; !ok || v == nil {
-		return fmt.Errorf("field buy_price: required")
+		return fmt.Errorf("field buy_price in BuyRespBuy: required")
 	}
 	if v, ok := raw["contract_id"]; !ok || v == nil {
-		return fmt.Errorf("field contract_id: required")
+		return fmt.Errorf("field contract_id in BuyRespBuy: required")
 	}
 	if v, ok := raw["longcode"]; !ok || v == nil {
-		return fmt.Errorf("field longcode: required")
+		return fmt.Errorf("field longcode in BuyRespBuy: required")
 	}
 	if v, ok := raw["payout"]; !ok || v == nil {
-		return fmt.Errorf("field payout: required")
+		return fmt.Errorf("field payout in BuyRespBuy: required")
 	}
 	if v, ok := raw["purchase_time"]; !ok || v == nil {
-		return fmt.Errorf("field purchase_time: required")
+		return fmt.Errorf("field purchase_time in BuyRespBuy: required")
 	}
 	if v, ok := raw["shortcode"]; !ok || v == nil {
-		return fmt.Errorf("field shortcode: required")
+		return fmt.Errorf("field shortcode in BuyRespBuy: required")
 	}
 	if v, ok := raw["start_time"]; !ok || v == nil {
-		return fmt.Errorf("field start_time: required")
+		return fmt.Errorf("field start_time in BuyRespBuy: required")
 	}
 	if v, ok := raw["transaction_id"]; !ok || v == nil {
-		return fmt.Errorf("field transaction_id: required")
+		return fmt.Errorf("field transaction_id in BuyRespBuy: required")
 	}
 	type Plain BuyRespBuy
 	var plain Plain
@@ -123,7 +123,7 @@ func (j *BuyRespSubscription) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id: required")
+		return fmt.Errorf("field id in BuyRespSubscription: required")
 	}
 	type Plain BuyRespSubscription
 	var plain Plain
@@ -160,10 +160,10 @@ func (j *BuyResp) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req: required")
+		return fmt.Errorf("field echo_req in BuyResp: required")
 	}
 	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type: required")
+		return fmt.Errorf("field msg_type in BuyResp: required")
 	}
 	type Plain BuyResp
 	var plain Plain

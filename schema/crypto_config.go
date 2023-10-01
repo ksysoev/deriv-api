@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type CryptoConfigCryptoConfig int
 
@@ -60,7 +60,7 @@ func (j *CryptoConfig) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["crypto_config"]; !ok || v == nil {
-		return fmt.Errorf("field crypto_config: required")
+		return fmt.Errorf("field crypto_config in CryptoConfig: required")
 	}
 	type Plain CryptoConfig
 	var plain Plain

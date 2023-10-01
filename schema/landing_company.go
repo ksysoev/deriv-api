@@ -2,8 +2,8 @@
 
 package schema
 
-import "fmt"
 import "encoding/json"
+import "fmt"
 
 // The company has a number of licensed subsidiaries in various jurisdictions,
 // which are called Landing Companies. This call will return the appropriate
@@ -33,7 +33,7 @@ func (j *LandingCompany) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["landing_company"]; !ok || v == nil {
-		return fmt.Errorf("field landing_company: required")
+		return fmt.Errorf("field landing_company in LandingCompany: required")
 	}
 	type Plain LandingCompany
 	var plain Plain

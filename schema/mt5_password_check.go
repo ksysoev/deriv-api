@@ -2,9 +2,9 @@
 
 package schema
 
+import "encoding/json"
 import "fmt"
 import "reflect"
-import "encoding/json"
 
 type Mt5PasswordCheckMt5PasswordCheck int
 
@@ -95,13 +95,13 @@ func (j *Mt5PasswordCheck) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["login"]; !ok || v == nil {
-		return fmt.Errorf("field login: required")
+		return fmt.Errorf("field login in Mt5PasswordCheck: required")
 	}
 	if v, ok := raw["mt5_password_check"]; !ok || v == nil {
-		return fmt.Errorf("field mt5_password_check: required")
+		return fmt.Errorf("field mt5_password_check in Mt5PasswordCheck: required")
 	}
 	if v, ok := raw["password"]; !ok || v == nil {
-		return fmt.Errorf("field password: required")
+		return fmt.Errorf("field password in Mt5PasswordCheck: required")
 	}
 	type Plain Mt5PasswordCheck
 	var plain Plain
