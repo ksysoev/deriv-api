@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
 	"strings"
 )
 
@@ -30,7 +31,7 @@ func main() {
 
 	for _, file := range files {
 		name := file.Name()
-		request, err := ioutil.ReadFile("deriv-developers-portal/config/v3/" + name + "/send.json")
+		request, err := os.ReadFile("deriv-developers-portal/config/v3/" + name + "/send.json")
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -53,8 +54,8 @@ func main() {
 		}
 	}
 
-	ioutil.WriteFile(API_CALLS, []byte(apiCalls), 0644)
-	ioutil.WriteFile(SUBSCRIPTION_CALLS, []byte(subcriptionCalls), 0644)
+	os.WriteFile(API_CALLS, []byte(apiCalls), 0644)
+	os.WriteFile(SUBSCRIPTION_CALLS, []byte(subcriptionCalls), 0644)
 }
 
 func HasSubscribe(r map[string]any) bool {
@@ -103,8 +104,10 @@ func CreateSubscriptionCallFunction(title string, description string) string {
 	switch title {
 	case "Buy":
 		Resp = "ProposalOpenContractResp"
-	case "TicksHistory":
-		Resp = "TicksResp"
+	case "TicksHistory", "Transaction":
+		// this is a special case, because the response is different depending on the style
+		// logic for this api call is maintained in custom_subscription_calls.go
+		return ""
 	case "P2POrderCreate", "P2POrderList":
 		Resp = "P2POrderInfoResp"
 	case "P2PAdvertiserCreate":
@@ -115,26 +118,14 @@ func CreateSubscriptionCallFunction(title string, description string) string {
 
 	signature := fmt.Sprintf("// Subscribe%s %s\nfunc (a *DerivAPI) Subscribe%s(r schema.%s) (rsp schema.%s, s *Subsciption[schema.%s, schema.%s], err error)", title, description, title, title, initResp, initResp, Resp)
 
-	var body string
-	if title == "Transaction" {
-		body = fmt.Sprintf(
-			`id := a.getNextRequestID()
-	var f schema.%sSubscribe = 1
-	r.ReqId = &id
-	r.Subscribe = f
-	s = NewSubcription[schema.%s, schema.%s](a)
-	rsp, err = s.Start(id, r)
-	return`, title, initResp, Resp)
-	} else {
-		body = fmt.Sprintf(
-			`id := a.getNextRequestID()
+	body := fmt.Sprintf(
+		`id := a.getNextRequestID()
 	var f schema.%sSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
 	s = NewSubcription[schema.%s, schema.%s](a)
 	rsp, err = s.Start(id, r)
 	return`, title, initResp, Resp)
-	}
 
 	return fmt.Sprintf("%s {\n\t%s\n}\n\n", signature, body)
 }
