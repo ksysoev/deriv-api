@@ -97,6 +97,14 @@ type P2POrderList struct {
 	// [Optional] If present, lists orders applying to a specific advert.
 	AdvertId *string `json:"advert_id,omitempty"`
 
+	// [Optional] Filter the orders created after this date(included) format(epoch or
+	// YYYY-MM-DD)
+	DateFrom *string `json:"date_from,omitempty"`
+
+	// [Optional] Filter the orders created before this date(included) format(epoch or
+	// YYYY-MM-DD)
+	DateTo *string `json:"date_to,omitempty"`
+
 	// [Optional] Used for paging.
 	Limit int `json:"limit,omitempty"`
 
