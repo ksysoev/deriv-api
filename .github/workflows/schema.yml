@@ -18,7 +18,7 @@ jobs:
       - name: Display Go version
         run: go version
       - name: Install schema generator
-        run: go install github.com/atombender/go-jsonschema/cmd/gojsonschema@v0.13.0
+        run: go install github.com/atombender/go-jsonschema/cmd/gojsonschema@v0.13.1
       - name: generate schema
         run: make generate_all
 
