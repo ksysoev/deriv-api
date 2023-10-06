@@ -367,7 +367,12 @@ type ProposalOpenContractRespProposalOpenContract struct {
 	// forward starting contracts.
 	PurchaseTime *int `json:"purchase_time,omitempty"`
 
-	// [Only for reset trades] The epoch time of a barrier reset.
+	// [Only for reset trades i.e. RESETCALL and RESETPUT] Reset barrier of the
+	// contract.
+	ResetBarrier *string `json:"reset_barrier,omitempty"`
+
+	// [Only for reset trades i.e. RESETCALL and RESETPUT] The epoch time of a barrier
+	// reset.
 	ResetTime *int `json:"reset_time,omitempty"`
 
 	// Price at which contract was sold, only available when contract has been sold.

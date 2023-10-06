@@ -6,188 +6,12 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// A message with KYC Authentication Status.
-type KycAuthStatusResp struct {
-	// Echo of the request made.
-	EchoReq KycAuthStatusRespEchoReq `json:"echo_req"`
-
-	// Proof of Identity (POI) and Proof of Address (POA) authentication status
-	// details.
-	KycAuthStatus *KycAuthStatusRespKycAuthStatus `json:"kyc_auth_status,omitempty"`
-
-	// Action name of the request made.
-	MsgType KycAuthStatusRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Echo of the request made.
 type KycAuthStatusRespEchoReq map[string]interface{}
 
 // Proof of Identity (POI) and Proof of Address (POA) authentication status
 // details.
-type KycAuthStatusRespKycAuthStatus struct {
-	// POA authentication status details.
-	Address KycAuthStatusRespKycAuthStatusAddress `json:"address"`
-
-	// POI authentication status details.
-	Identity KycAuthStatusRespKycAuthStatusIdentity `json:"identity"`
-}
-
-// POA authentication status details.
-type KycAuthStatusRespKycAuthStatusAddress struct {
-	// Current POA status.
-	Status *KycAuthStatusRespKycAuthStatusAddressStatus `json:"status,omitempty"`
-}
-
-type KycAuthStatusRespKycAuthStatusAddressStatus string
-
-const KycAuthStatusRespKycAuthStatusAddressStatusExpired KycAuthStatusRespKycAuthStatusAddressStatus = "expired"
-const KycAuthStatusRespKycAuthStatusAddressStatusNone KycAuthStatusRespKycAuthStatusAddressStatus = "none"
-const KycAuthStatusRespKycAuthStatusAddressStatusPending KycAuthStatusRespKycAuthStatusAddressStatus = "pending"
-const KycAuthStatusRespKycAuthStatusAddressStatusRejected KycAuthStatusRespKycAuthStatusAddressStatus = "rejected"
-const KycAuthStatusRespKycAuthStatusAddressStatusVerified KycAuthStatusRespKycAuthStatusAddressStatus = "verified"
-
-// POI authentication status details.
-type KycAuthStatusRespKycAuthStatusIdentity struct {
-	// Available services for the next POI attempt.
-	AvailableServices []string `json:"available_services,omitempty"`
-
-	// Details on the rejected POI attempt.
-	LastRejected *KycAuthStatusRespKycAuthStatusIdentityLastRejected `json:"last_rejected,omitempty"`
-
-	// Service used for the current POI status.
-	Service *KycAuthStatusRespKycAuthStatusIdentityService `json:"service,omitempty"`
-
-	// Current POI status.
-	Status *KycAuthStatusRespKycAuthStatusIdentityStatus `json:"status,omitempty"`
-}
-
-// Details on the rejected POI attempt.
-type KycAuthStatusRespKycAuthStatusIdentityLastRejected struct {
-	// Document type of the rejected POI attempt (IDV only).
-	DocumentType *string `json:"document_type,omitempty"`
-
-	// Reason(s) for the rejected POI attempt.
-	RejectedReasons []string `json:"rejected_reasons,omitempty"`
-}
-
-type KycAuthStatusRespKycAuthStatusIdentityService string
-
-const KycAuthStatusRespKycAuthStatusIdentityServiceIdv KycAuthStatusRespKycAuthStatusIdentityService = "idv"
-const KycAuthStatusRespKycAuthStatusIdentityServiceManual KycAuthStatusRespKycAuthStatusIdentityService = "manual"
-const KycAuthStatusRespKycAuthStatusIdentityServiceNone KycAuthStatusRespKycAuthStatusIdentityService = "none"
-const KycAuthStatusRespKycAuthStatusIdentityServiceOnfido KycAuthStatusRespKycAuthStatusIdentityService = "onfido"
-
-type KycAuthStatusRespKycAuthStatusIdentityStatus string
-
-const KycAuthStatusRespKycAuthStatusIdentityStatusExpired KycAuthStatusRespKycAuthStatusIdentityStatus = "expired"
-const KycAuthStatusRespKycAuthStatusIdentityStatusNone KycAuthStatusRespKycAuthStatusIdentityStatus = "none"
-const KycAuthStatusRespKycAuthStatusIdentityStatusPending KycAuthStatusRespKycAuthStatusIdentityStatus = "pending"
-const KycAuthStatusRespKycAuthStatusIdentityStatusRejected KycAuthStatusRespKycAuthStatusIdentityStatus = "rejected"
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *KycAuthStatusRespKycAuthStatusAddressStatus) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_KycAuthStatusRespKycAuthStatusAddressStatus {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_KycAuthStatusRespKycAuthStatusAddressStatus, v)
-	}
-	*j = KycAuthStatusRespKycAuthStatusAddressStatus(v)
-	return nil
-}
-
-var enumValues_KycAuthStatusRespKycAuthStatusIdentityStatus = []interface{}{
-	"none",
-	"pending",
-	"rejected",
-	"verified",
-	"expired",
-	"suspected",
-}
-
-const KycAuthStatusRespKycAuthStatusIdentityStatusVerified KycAuthStatusRespKycAuthStatusIdentityStatus = "verified"
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *KycAuthStatusRespKycAuthStatusIdentityService) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_KycAuthStatusRespKycAuthStatusIdentityService {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_KycAuthStatusRespKycAuthStatusIdentityService, v)
-	}
-	*j = KycAuthStatusRespKycAuthStatusIdentityService(v)
-	return nil
-}
-
-const KycAuthStatusRespKycAuthStatusIdentityStatusSuspected KycAuthStatusRespKycAuthStatusIdentityStatus = "suspected"
-
-var enumValues_KycAuthStatusRespKycAuthStatusIdentityService = []interface{}{
-	"none",
-	"idv",
-	"onfido",
-	"manual",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *KycAuthStatusRespKycAuthStatusIdentityStatus) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_KycAuthStatusRespKycAuthStatusIdentityStatus {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_KycAuthStatusRespKycAuthStatusIdentityStatus, v)
-	}
-	*j = KycAuthStatusRespKycAuthStatusIdentityStatus(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *KycAuthStatusRespKycAuthStatus) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if v, ok := raw["address"]; !ok || v == nil {
-		return fmt.Errorf("field address in KycAuthStatusRespKycAuthStatus: required")
-	}
-	if v, ok := raw["identity"]; !ok || v == nil {
-		return fmt.Errorf("field identity in KycAuthStatusRespKycAuthStatus: required")
-	}
-	type Plain KycAuthStatusRespKycAuthStatus
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = KycAuthStatusRespKycAuthStatus(plain)
-	return nil
-}
+type KycAuthStatusRespKycAuthStatus map[string]interface{}
 
 type KycAuthStatusRespMsgType string
 
@@ -215,15 +39,24 @@ func (j *KycAuthStatusRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-const KycAuthStatusRespMsgTypeKycAuthStatus KycAuthStatusRespMsgType = "kyc_auth_status"
+// A message with KYC Authentication Status.
+type KycAuthStatusResp struct {
+	// Echo of the request made.
+	EchoReq KycAuthStatusRespEchoReq `json:"echo_req"`
 
-var enumValues_KycAuthStatusRespKycAuthStatusAddressStatus = []interface{}{
-	"none",
-	"pending",
-	"rejected",
-	"verified",
-	"expired",
+	// Proof of Identity (POI) and Proof of Address (POA) authentication status
+	// details.
+	KycAuthStatus KycAuthStatusRespKycAuthStatus `json:"kyc_auth_status,omitempty"`
+
+	// Action name of the request made.
+	MsgType KycAuthStatusRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
 }
+
+const KycAuthStatusRespMsgTypeKycAuthStatus KycAuthStatusRespMsgType = "kyc_auth_status"
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *KycAuthStatusResp) UnmarshalJSON(b []byte) error {

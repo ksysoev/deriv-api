@@ -6,10 +6,75 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Get KYC Authentication Status
+type KycAuthStatus struct {
+	// Must be `1`
+	KycAuthStatus KycAuthStatusKycAuthStatus `json:"kyc_auth_status"`
+
+	// Indicates which landing companies to get the KYC authentication status for.
+	LandingCompanies []KycAuthStatusLandingCompaniesElem `json:"landing_companies,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field. Maximum size is 3500 bytes.
+	Passthrough KycAuthStatusPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 type KycAuthStatusKycAuthStatus int
 
-var enumValues_KycAuthStatusKycAuthStatus = []interface{}{
-	1,
+type KycAuthStatusLandingCompaniesElem string
+
+const KycAuthStatusLandingCompaniesElemBvi KycAuthStatusLandingCompaniesElem = "bvi"
+const KycAuthStatusLandingCompaniesElemChampion KycAuthStatusLandingCompaniesElem = "champion"
+const KycAuthStatusLandingCompaniesElemChampionVirtual KycAuthStatusLandingCompaniesElem = "champion-virtual"
+const KycAuthStatusLandingCompaniesElemDsl KycAuthStatusLandingCompaniesElem = "dsl"
+const KycAuthStatusLandingCompaniesElemIom KycAuthStatusLandingCompaniesElem = "iom"
+const KycAuthStatusLandingCompaniesElemLabuan KycAuthStatusLandingCompaniesElem = "labuan"
+const KycAuthStatusLandingCompaniesElemMalta KycAuthStatusLandingCompaniesElem = "malta"
+const KycAuthStatusLandingCompaniesElemMaltainvest KycAuthStatusLandingCompaniesElem = "maltainvest"
+const KycAuthStatusLandingCompaniesElemSamoa KycAuthStatusLandingCompaniesElem = "samoa"
+const KycAuthStatusLandingCompaniesElemSvg KycAuthStatusLandingCompaniesElem = "svg"
+const KycAuthStatusLandingCompaniesElemVanuatu KycAuthStatusLandingCompaniesElem = "vanuatu"
+const KycAuthStatusLandingCompaniesElemVirtual KycAuthStatusLandingCompaniesElem = "virtual"
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *KycAuthStatusLandingCompaniesElem) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_KycAuthStatusLandingCompaniesElem {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_KycAuthStatusLandingCompaniesElem, v)
+	}
+	*j = KycAuthStatusLandingCompaniesElem(v)
+	return nil
+}
+
+const KycAuthStatusLandingCompaniesElemSamoaVirtual KycAuthStatusLandingCompaniesElem = "samoa-virtual"
+
+var enumValues_KycAuthStatusLandingCompaniesElem = []interface{}{
+	"iom",
+	"malta",
+	"maltainvest",
+	"svg",
+	"virtual",
+	"vanuatu",
+	"labuan",
+	"champion",
+	"champion-virtual",
+	"samoa",
+	"samoa-virtual",
+	"bvi",
+	"dsl",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -32,22 +97,13 @@ func (j *KycAuthStatusKycAuthStatus) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Get KYC Authentication Status
-type KycAuthStatus struct {
-	// Must be `1`
-	KycAuthStatus KycAuthStatusKycAuthStatus `json:"kyc_auth_status"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
-	Passthrough KycAuthStatusPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field. Maximum size is 3500 bytes.
 type KycAuthStatusPassthrough map[string]interface{}
+
+var enumValues_KycAuthStatusKycAuthStatus = []interface{}{
+	1,
+}
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *KycAuthStatus) UnmarshalJSON(b []byte) error {
