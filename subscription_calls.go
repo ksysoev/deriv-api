@@ -103,6 +103,17 @@ func (a *DerivAPI) SubscribeP2POrderList(r schema.P2POrderList) (rsp schema.P2PO
 	return
 }
 
+// SubscribeP2PSettings Request P2P Settings information.
+func (a *DerivAPI) SubscribeP2PSettings(r schema.P2PSettings) (rsp schema.P2PSettingsResp, s *Subsciption[schema.P2PSettingsResp, schema.P2PSettingsResp], err error) {
+	id := a.getNextRequestID()
+	var f schema.P2PSettingsSubscribe = 1
+	r.ReqId = &id
+	r.Subscribe = &f
+	s = NewSubcription[schema.P2PSettingsResp, schema.P2PSettingsResp](a)
+	rsp, err = s.Start(id, r)
+	return
+}
+
 // SubscribeProposal Gets latest price for a specific contract.
 func (a *DerivAPI) SubscribeProposal(r schema.Proposal) (rsp schema.ProposalResp, s *Subsciption[schema.ProposalResp, schema.ProposalResp], err error) {
 	id := a.getNextRequestID()

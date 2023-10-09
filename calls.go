@@ -588,6 +588,14 @@ func (a *DerivAPI) P2PPing(r schema.P2PPing) (resp schema.P2PPingResp, err error
 	return
 }
 
+// P2PSettings Request P2P Settings information.
+func (a *DerivAPI) P2PSettings(r schema.P2PSettings) (resp schema.P2PSettingsResp, err error) {
+	id := a.getNextRequestID()
+	r.ReqId = &id
+	err = a.SendRequest(id, r, &resp)
+	return
+}
+
 // PaymentMethods Will return a list payment methods available for the given country. If the request is authenticated the client's residence country will be used.
 func (a *DerivAPI) PaymentMethods(r schema.PaymentMethods) (resp schema.PaymentMethodsResp, err error) {
 	id := a.getNextRequestID()
