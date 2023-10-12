@@ -196,6 +196,14 @@ func (a *DerivAPI) CryptoConfig(r schema.CryptoConfig) (resp schema.CryptoConfig
 	return
 }
 
+// CryptoEstimations Get the current estimations for cryptocurrencies. E.g. Withdrawal fee.
+func (a *DerivAPI) CryptoEstimations(r schema.CryptoEstimations) (resp schema.CryptoEstimationsResp, err error) {
+	id := a.getNextRequestID()
+	r.ReqId = &id
+	err = a.SendRequest(id, r, &resp)
+	return
+}
+
 // DocumentUpload Request KYC information from client
 func (a *DerivAPI) DocumentUpload(r schema.DocumentUpload) (resp schema.DocumentUploadResp, err error) {
 	id := a.getNextRequestID()

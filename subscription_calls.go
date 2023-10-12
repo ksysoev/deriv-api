@@ -26,6 +26,17 @@ func (a *DerivAPI) SubscribeBuy(r schema.Buy) (rsp schema.BuyResp, s *Subsciptio
 	return
 }
 
+// SubscribeCryptoEstimations Get the current estimations for cryptocurrencies. E.g. Withdrawal fee.
+func (a *DerivAPI) SubscribeCryptoEstimations(r schema.CryptoEstimations) (rsp schema.CryptoEstimationsResp, s *Subsciption[schema.CryptoEstimationsResp, schema.CryptoEstimationsResp], err error) {
+	id := a.getNextRequestID()
+	var f schema.CryptoEstimationsSubscribe = 1
+	r.ReqId = &id
+	r.Subscribe = &f
+	s = NewSubcription[schema.CryptoEstimationsResp, schema.CryptoEstimationsResp](a)
+	rsp, err = s.Start(id, r)
+	return
+}
+
 // SubscribeExchangeRates Retrieves the exchange rates from a base currency to all currencies supported by the system.
 func (a *DerivAPI) SubscribeExchangeRates(r schema.ExchangeRates) (rsp schema.ExchangeRatesResp, s *Subsciption[schema.ExchangeRatesResp, schema.ExchangeRatesResp], err error) {
 	id := a.getNextRequestID()

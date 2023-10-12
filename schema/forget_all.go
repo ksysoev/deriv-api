@@ -29,6 +29,7 @@ type StreamTypes string
 const StreamTypesBalance StreamTypes = "balance"
 const StreamTypesCandles StreamTypes = "candles"
 const StreamTypesCashierPayments StreamTypes = "cashier_payments"
+const StreamTypesCryptoEstimations StreamTypes = "crypto_estimations"
 const StreamTypesP2PAdvert StreamTypes = "p2p_advert"
 const StreamTypesP2PAdvertiser StreamTypes = "p2p_advertiser"
 const StreamTypesP2POrder StreamTypes = "p2p_order"
@@ -74,6 +75,7 @@ var enumValues_StreamTypes = []interface{}{
 	"trading_platform_asset_listing",
 	"website_status",
 	"p2p_settings",
+	"crypto_estimations",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
