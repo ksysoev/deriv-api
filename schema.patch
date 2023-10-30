@@ -1,5 +1,5 @@
 diff --git a/config/v3/p2p_advert_create/send.json b/config/v3/p2p_advert_create/send.json
-index 6b19825..f2ee199 100644
+index 03c14e5..c405d5d 100644
 --- a/config/v3/p2p_advert_create/send.json
 +++ b/config/v3/p2p_advert_create/send.json
 @@ -27,8 +27,7 @@
@@ -27,9 +27,9 @@ index 6b19825..f2ee199 100644
 -            "minimum": 0
 +            "exclusiveMinimum": 0
          },
-         "payment_info": {
-             "description": "[Optional] Payment instructions.",
-@@ -129,4 +126,4 @@
+         "order_expiry_period": {
+             "description": "[Optional] Expiry period (seconds) for order created against this ad.",
+@@ -141,4 +138,4 @@
              "type": "integer"
          }
      }
@@ -37,7 +37,7 @@ index 6b19825..f2ee199 100644
 +}
 \ No newline at end of file
 diff --git a/config/v3/p2p_advert_update/send.json b/config/v3/p2p_advert_update/send.json
-index dc8ef03..0402c5f 100644
+index 7db6925..7845dd6 100644
 --- a/config/v3/p2p_advert_update/send.json
 +++ b/config/v3/p2p_advert_update/send.json
 @@ -64,14 +64,12 @@
@@ -55,9 +55,9 @@ index dc8ef03..0402c5f 100644
 -            "minimum": 0
 +            "exclusiveMinimum": 0
          },
-         "payment_info": {
-             "description": "[Optional] Payment instructions.",
-@@ -123,4 +121,4 @@
+         "order_expiry_period": {
+             "description": "[Optional] Expiry period (seconds) for order created against this ad.",
+@@ -135,4 +133,4 @@
              "type": "integer"
          }
      }

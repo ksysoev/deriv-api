@@ -360,6 +360,37 @@ func (j *P2PAdvertListRespP2PAdvertListListElemIsVisible) UnmarshalJSON(b []byte
 	return nil
 }
 
+type P2PAdvertListRespP2PAdvertListListElemOrderExpiryPeriod int
+
+var enumValues_P2PAdvertListRespP2PAdvertListListElemOrderExpiryPeriod = []interface{}{
+	900,
+	1800,
+	2700,
+	3600,
+	5400,
+	7200,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListRespP2PAdvertListListElemOrderExpiryPeriod) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemOrderExpiryPeriod {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemOrderExpiryPeriod, v)
+	}
+	*j = P2PAdvertListRespP2PAdvertListListElemOrderExpiryPeriod(v)
+	return nil
+}
+
 type P2PAdvertListRespP2PAdvertListListElemRateType string
 
 var enumValues_P2PAdvertListRespP2PAdvertListListElemRateType = []interface{}{
@@ -546,6 +577,9 @@ type P2PAdvertListRespP2PAdvertListListElem struct {
 	// appropriate decimal places.
 	MinOrderAmountLimitDisplay string `json:"min_order_amount_limit_display"`
 
+	// Expiry period (seconds) for order created against this ad.
+	OrderExpiryPeriod P2PAdvertListRespP2PAdvertListListElemOrderExpiryPeriod `json:"order_expiry_period"`
+
 	// Payment instructions. Only applicable for 'sell adverts'.
 	PaymentInfo *string `json:"payment_info,omitempty"`
 
@@ -668,6 +702,9 @@ func (j *P2PAdvertListRespP2PAdvertListListElem) UnmarshalJSON(b []byte) error {
 	}
 	if v, ok := raw["min_order_amount_limit_display"]; !ok || v == nil {
 		return fmt.Errorf("field min_order_amount_limit_display in P2PAdvertListRespP2PAdvertListListElem: required")
+	}
+	if v, ok := raw["order_expiry_period"]; !ok || v == nil {
+		return fmt.Errorf("field order_expiry_period in P2PAdvertListRespP2PAdvertListListElem: required")
 	}
 	if v, ok := raw["payment_method"]; !ok || v == nil {
 		return fmt.Errorf("field payment_method in P2PAdvertListRespP2PAdvertListListElem: required")

@@ -33,6 +33,9 @@ type P2PAdvertCreate struct {
 	// `account_currency`. Should be less than or equal to `max_order_amount`.
 	MinOrderAmount float64 `json:"min_order_amount"`
 
+	// [Optional] Expiry period (seconds) for order created against this ad.
+	OrderExpiryPeriod *P2PAdvertCreateOrderExpiryPeriod `json:"order_expiry_period,omitempty"`
+
 	// Must be 1
 	P2PAdvertCreate P2PAdvertCreateP2PAdvertCreate `json:"p2p_advert_create"`
 
@@ -72,6 +75,8 @@ type P2PAdvertCreate struct {
 
 type P2PAdvertCreateBlockTrade int
 
+type P2PAdvertCreateOrderExpiryPeriod int
+
 type P2PAdvertCreateP2PAdvertCreate int
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
@@ -92,27 +97,39 @@ var enumValues_P2PAdvertCreateBlockTrade = []interface{}{
 	0,
 	1,
 }
+var enumValues_P2PAdvertCreateOrderExpiryPeriod = []interface{}{
+	900,
+	1800,
+	2700,
+	3600,
+	5400,
+	7200,
+}
 var enumValues_P2PAdvertCreateP2PAdvertCreate = []interface{}{
 	1,
 }
+var enumValues_P2PAdvertCreateRateType = []interface{}{
+	"fixed",
+	"float",
+}
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertCreateRateType) UnmarshalJSON(b []byte) error {
-	var v string
+func (j *P2PAdvertCreateP2PAdvertCreate) UnmarshalJSON(b []byte) error {
+	var v int
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_P2PAdvertCreateRateType {
+	for _, expected := range enumValues_P2PAdvertCreateP2PAdvertCreate {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertCreateRateType, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertCreateP2PAdvertCreate, v)
 	}
-	*j = P2PAdvertCreateRateType(v)
+	*j = P2PAdvertCreateP2PAdvertCreate(v)
 	return nil
 }
 
@@ -141,28 +158,43 @@ func (j *P2PAdvertCreateType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-var enumValues_P2PAdvertCreateRateType = []interface{}{
-	"fixed",
-	"float",
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertCreateP2PAdvertCreate) UnmarshalJSON(b []byte) error {
-	var v int
+func (j *P2PAdvertCreateRateType) UnmarshalJSON(b []byte) error {
+	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_P2PAdvertCreateP2PAdvertCreate {
+	for _, expected := range enumValues_P2PAdvertCreateRateType {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertCreateP2PAdvertCreate, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertCreateRateType, v)
 	}
-	*j = P2PAdvertCreateP2PAdvertCreate(v)
+	*j = P2PAdvertCreateRateType(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertCreateOrderExpiryPeriod) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertCreateOrderExpiryPeriod {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertCreateOrderExpiryPeriod, v)
+	}
+	*j = P2PAdvertCreateOrderExpiryPeriod(v)
 	return nil
 }
 

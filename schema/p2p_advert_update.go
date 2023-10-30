@@ -6,6 +6,111 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Updates a P2P advert. Can only be used by the advertiser.
+type P2PAdvertUpdate struct {
+	// [Optional] Advertiser contact information.
+	ContactInfo *string `json:"contact_info,omitempty"`
+
+	// [Optional] If set to 1, permanently deletes the advert.
+	Delete *P2PAdvertUpdateDelete `json:"delete,omitempty"`
+
+	// [Optional] General information about the advert.
+	Description *string `json:"description,omitempty"`
+
+	// The unique identifier for this advert.
+	Id string `json:"id"`
+
+	// [Optional] Activate or deactivate the advert.
+	IsActive *P2PAdvertUpdateIsActive `json:"is_active,omitempty"`
+
+	// [Optional] Local currency for this advert.
+	LocalCurrency *string `json:"local_currency,omitempty"`
+
+	// [Optional] Maximum allowed amount for the orders of this advert, in
+	// advertiser's `account_currency`. Should be more than or equal to
+	// `min_order_amount`.
+	MaxOrderAmount *float64 `json:"max_order_amount,omitempty"`
+
+	// [Optional] Minimum allowed amount for the orders of this advert, in
+	// advertiser's `account_currency`. Should be less than or equal to
+	// `max_order_amount`.
+	MinOrderAmount *float64 `json:"min_order_amount,omitempty"`
+
+	// [Optional] Expiry period (seconds) for order created against this ad.
+	OrderExpiryPeriod *P2PAdvertUpdateOrderExpiryPeriod `json:"order_expiry_period,omitempty"`
+
+	// Must be 1
+	P2PAdvertUpdate P2PAdvertUpdateP2PAdvertUpdate `json:"p2p_advert_update"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field. Maximum size is 3500 bytes.
+	Passthrough P2PAdvertUpdatePassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Payment instructions.
+	PaymentInfo *string `json:"payment_info,omitempty"`
+
+	// [Optional] IDs of previously saved payment methods as returned from
+	// p2p_advertiser_payment_methods, only applicable for sell ads. Exisiting methods
+	// will be replaced.
+	PaymentMethodIds []int `json:"payment_method_ids,omitempty"`
+
+	// [Optional] Payment method identifiers as returned from p2p_payment_methods,
+	// only applicable for buy ads. Exisiting methods will be replaced.
+	PaymentMethodNames []string `json:"payment_method_names,omitempty"`
+
+	// [Optional] Conversion rate from advertiser's account currency to
+	// `local_currency`. An absolute rate value (fixed), or percentage offset from
+	// current market rate (floating).
+	Rate *float64 `json:"rate,omitempty"`
+
+	// [Optional] Type of rate, fixed or floating.
+	RateType *P2PAdvertUpdateRateType `json:"rate_type,omitempty"`
+
+	// [Optional] The total available amount of the advert, in advertiser's account
+	// currency.
+	RemainingAmount *float64 `json:"remaining_amount,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+type P2PAdvertUpdateDelete int
+
+type P2PAdvertUpdateIsActive int
+
+type P2PAdvertUpdateOrderExpiryPeriod int
+
+type P2PAdvertUpdateP2PAdvertUpdate int
+
+// [Optional] Used to pass data through the websocket, which may be retrieved via
+// the `echo_req` output field. Maximum size is 3500 bytes.
+type P2PAdvertUpdatePassthrough map[string]interface{}
+
+type P2PAdvertUpdateRateType string
+
+const P2PAdvertUpdateRateTypeFixed P2PAdvertUpdateRateType = "fixed"
+const P2PAdvertUpdateRateTypeFloat P2PAdvertUpdateRateType = "float"
+
+var enumValues_P2PAdvertUpdateDelete = []interface{}{
+	0,
+	1,
+}
+var enumValues_P2PAdvertUpdateIsActive = []interface{}{
+	0,
+	1,
+}
+var enumValues_P2PAdvertUpdateOrderExpiryPeriod = []interface{}{
+	900,
+	1800,
+	2700,
+	3600,
+	5400,
+	7200,
+}
+var enumValues_P2PAdvertUpdateP2PAdvertUpdate = []interface{}{
+	1,
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PAdvertUpdateP2PAdvertUpdate) UnmarshalJSON(b []byte) error {
 	var v int
@@ -26,15 +131,50 @@ func (j *P2PAdvertUpdateP2PAdvertUpdate) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-const P2PAdvertUpdateRateTypeFixed P2PAdvertUpdateRateType = "fixed"
+var enumValues_P2PAdvertUpdateRateType = []interface{}{
+	"fixed",
+	"float",
+}
 
-type P2PAdvertUpdateDelete int
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertUpdateRateType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertUpdateRateType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertUpdateRateType, v)
+	}
+	*j = P2PAdvertUpdateRateType(v)
+	return nil
+}
 
-type P2PAdvertUpdateIsActive int
-
-// [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
-type P2PAdvertUpdatePassthrough map[string]interface{}
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertUpdateOrderExpiryPeriod) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertUpdateOrderExpiryPeriod {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertUpdateOrderExpiryPeriod, v)
+	}
+	*j = P2PAdvertUpdateOrderExpiryPeriod(v)
+	return nil
+}
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PAdvertUpdateIsActive) UnmarshalJSON(b []byte) error {
@@ -55,10 +195,6 @@ func (j *P2PAdvertUpdateIsActive) UnmarshalJSON(b []byte) error {
 	*j = P2PAdvertUpdateIsActive(v)
 	return nil
 }
-
-type P2PAdvertUpdateP2PAdvertUpdate int
-
-type P2PAdvertUpdateRateType string
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PAdvertUpdateDelete) UnmarshalJSON(b []byte) error {
@@ -105,107 +241,4 @@ func (j *P2PAdvertUpdate) UnmarshalJSON(b []byte) error {
 	}
 	*j = P2PAdvertUpdate(plain)
 	return nil
-}
-
-// Updates a P2P advert. Can only be used by the advertiser.
-type P2PAdvertUpdate struct {
-	// [Optional] Advertiser contact information.
-	ContactInfo *string `json:"contact_info,omitempty"`
-
-	// [Optional] If set to 1, permanently deletes the advert.
-	Delete *P2PAdvertUpdateDelete `json:"delete,omitempty"`
-
-	// [Optional] General information about the advert.
-	Description *string `json:"description,omitempty"`
-
-	// The unique identifier for this advert.
-	Id string `json:"id"`
-
-	// [Optional] Activate or deactivate the advert.
-	IsActive *P2PAdvertUpdateIsActive `json:"is_active,omitempty"`
-
-	// [Optional] Local currency for this advert.
-	LocalCurrency *string `json:"local_currency,omitempty"`
-
-	// [Optional] Maximum allowed amount for the orders of this advert, in
-	// advertiser's `account_currency`. Should be more than or equal to
-	// `min_order_amount`.
-	MaxOrderAmount *float64 `json:"max_order_amount,omitempty"`
-
-	// [Optional] Minimum allowed amount for the orders of this advert, in
-	// advertiser's `account_currency`. Should be less than or equal to
-	// `max_order_amount`.
-	MinOrderAmount *float64 `json:"min_order_amount,omitempty"`
-
-	// Must be 1
-	P2PAdvertUpdate P2PAdvertUpdateP2PAdvertUpdate `json:"p2p_advert_update"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
-	Passthrough P2PAdvertUpdatePassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Payment instructions.
-	PaymentInfo *string `json:"payment_info,omitempty"`
-
-	// [Optional] IDs of previously saved payment methods as returned from
-	// p2p_advertiser_payment_methods, only applicable for sell ads. Exisiting methods
-	// will be replaced.
-	PaymentMethodIds []int `json:"payment_method_ids,omitempty"`
-
-	// [Optional] Payment method identifiers as returned from p2p_payment_methods,
-	// only applicable for buy ads. Exisiting methods will be replaced.
-	PaymentMethodNames []string `json:"payment_method_names,omitempty"`
-
-	// [Optional] Conversion rate from advertiser's account currency to
-	// `local_currency`. An absolute rate value (fixed), or percentage offset from
-	// current market rate (floating).
-	Rate *float64 `json:"rate,omitempty"`
-
-	// [Optional] Type of rate, fixed or floating.
-	RateType *P2PAdvertUpdateRateType `json:"rate_type,omitempty"`
-
-	// [Optional] The total available amount of the advert, in advertiser's account
-	// currency.
-	RemainingAmount *float64 `json:"remaining_amount,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertUpdateRateType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertUpdateRateType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertUpdateRateType, v)
-	}
-	*j = P2PAdvertUpdateRateType(v)
-	return nil
-}
-
-const P2PAdvertUpdateRateTypeFloat P2PAdvertUpdateRateType = "float"
-
-var enumValues_P2PAdvertUpdateDelete = []interface{}{
-	0,
-	1,
-}
-var enumValues_P2PAdvertUpdateIsActive = []interface{}{
-	0,
-	1,
-}
-var enumValues_P2PAdvertUpdateP2PAdvertUpdate = []interface{}{
-	1,
-}
-var enumValues_P2PAdvertUpdateRateType = []interface{}{
-	"fixed",
-	"float",
 }

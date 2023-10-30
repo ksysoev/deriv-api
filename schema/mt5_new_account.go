@@ -51,6 +51,10 @@ type Mt5NewAccount struct {
 	// field is required.
 	MainPassword string `json:"mainPassword"`
 
+	// [Optional] Indicates whether the user would like to migrate his account to
+	// other jurisdiction.
+	Migrate *bool `json:"migrate,omitempty"`
+
 	// [Optional] To choose whether account is conventional or swap_free. Unavailable
 	// for financial_stp MT5_account_type
 	Mt5AccountCategory *Mt5NewAccountMt5AccountCategory `json:"mt5_account_category,omitempty"`

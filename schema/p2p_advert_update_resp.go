@@ -286,6 +286,37 @@ func (j *P2PAdvertUpdateRespP2PAdvertUpdateIsVisible) UnmarshalJSON(b []byte) er
 	return nil
 }
 
+type P2PAdvertUpdateRespP2PAdvertUpdateOrderExpiryPeriod int
+
+var enumValues_P2PAdvertUpdateRespP2PAdvertUpdateOrderExpiryPeriod = []interface{}{
+	900,
+	1800,
+	2700,
+	3600,
+	5400,
+	7200,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertUpdateRespP2PAdvertUpdateOrderExpiryPeriod) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertUpdateRespP2PAdvertUpdateOrderExpiryPeriod {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertUpdateRespP2PAdvertUpdateOrderExpiryPeriod, v)
+	}
+	*j = P2PAdvertUpdateRespP2PAdvertUpdateOrderExpiryPeriod(v)
+	return nil
+}
+
 // Details of available payment methods (sell adverts only).
 type P2PAdvertUpdateRespP2PAdvertUpdatePaymentMethodDetails map[string]interface{}
 
@@ -476,6 +507,9 @@ type P2PAdvertUpdateRespP2PAdvertUpdate struct {
 	// Minimum order amount at this time, in `account_currency`, formatted to
 	// appropriate decimal places.
 	MinOrderAmountLimitDisplay *string `json:"min_order_amount_limit_display,omitempty"`
+
+	// Expiry period (seconds) for order created against this ad.
+	OrderExpiryPeriod *P2PAdvertUpdateRespP2PAdvertUpdateOrderExpiryPeriod `json:"order_expiry_period,omitempty"`
 
 	// Payment instructions. Only applicable for 'sell adverts'.
 	PaymentInfo *string `json:"payment_info,omitempty"`
