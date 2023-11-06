@@ -34,6 +34,10 @@ func (j *LogoutLogout) UnmarshalJSON(b []byte) error {
 
 // Logout the session
 type Logout struct {
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// Must be `1`
 	Logout LogoutLogout `json:"logout"`
 

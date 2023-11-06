@@ -133,6 +133,10 @@ type NewAccountReal struct {
 	// apostrophes.
 	LastName *string `json:"last_name,omitempty"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// Must be `1`
 	NewAccountReal NewAccountRealNewAccountReal `json:"new_account_real"`
 

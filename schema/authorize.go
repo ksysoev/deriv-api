@@ -51,6 +51,10 @@ type Authorize struct {
 
 	// [Optional] Used to map request to response.
 	ReqId *int `json:"req_id,omitempty"`
+
+	// Additional Authentication tokens of authorized user that may be used in this
+	// session. Upto 10 tokens.
+	Tokens []string `json:"tokens,omitempty"`
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
@@ -73,6 +77,9 @@ func (j *Authorize) UnmarshalJSON(b []byte) error {
 	}
 	if v, ok := raw["add_to_login_history"]; !ok || v == nil {
 		plain.AddToLoginHistory = 0.0
+	}
+	if len(plain.Tokens) > 10 {
+		return fmt.Errorf("field %s length: must be <= %d", "tokens", 10)
 	}
 	*j = Authorize(plain)
 	return nil

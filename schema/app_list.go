@@ -37,6 +37,10 @@ type AppList struct {
 	// Must be `1`
 	AppList AppListAppList `json:"app_list"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
 	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough AppListPassthrough `json:"passthrough,omitempty"`

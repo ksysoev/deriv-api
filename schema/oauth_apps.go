@@ -34,6 +34,10 @@ func (j *OauthAppsOauthApps) UnmarshalJSON(b []byte) error {
 
 // List all my used OAuth applications.
 type OauthApps struct {
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// Must be `1`
 	OauthApps OauthAppsOauthApps `json:"oauth_apps"`
 

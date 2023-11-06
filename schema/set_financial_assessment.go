@@ -49,6 +49,10 @@ type SetFinancialAssessment struct {
 	// [Optional] Income Source.
 	IncomeSource *SetFinancialAssessmentIncomeSource `json:"income_source,omitempty"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// [Optional] Net Annual Income.
 	NetIncome *SetFinancialAssessmentNetIncome `json:"net_income,omitempty"`
 

@@ -10,6 +10,10 @@ type Cancel struct {
 	// Value should be the `contract_id` which received from the `portfolio` call.
 	Cancel int `json:"cancel"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
 	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough CancelPassthrough `json:"passthrough,omitempty"`

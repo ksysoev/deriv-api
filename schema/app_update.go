@@ -61,6 +61,10 @@ type AppUpdate struct {
 	// [Optional] Application's homepage URL.
 	Homepage *string `json:"homepage,omitempty"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// Application name.
 	Name string `json:"name"`
 

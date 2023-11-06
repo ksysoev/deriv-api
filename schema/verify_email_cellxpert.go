@@ -9,6 +9,10 @@ import "reflect"
 // Verify an email address for Cellxpert. The system will send an email to the
 // address containing a security code for verification.
 type VerifyEmailCellxpert struct {
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
 	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough VerifyEmailCellxpertPassthrough `json:"passthrough,omitempty"`

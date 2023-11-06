@@ -29,6 +29,10 @@ type AppMarkupDetails struct {
 	// [Optional] Apply upper limit to count of transactions received.
 	Limit float64 `json:"limit,omitempty"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// [Optional] Number of transactions to skip.
 	Offset *int `json:"offset,omitempty"`
 

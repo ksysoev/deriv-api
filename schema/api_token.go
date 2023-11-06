@@ -14,6 +14,10 @@ type ApiToken struct {
 	// [Optional] The token to remove.
 	DeleteToken *string `json:"delete_token,omitempty"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// [Optional] The name of the created token.
 	NewToken *string `json:"new_token,omitempty"`
 

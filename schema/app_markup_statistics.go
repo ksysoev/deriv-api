@@ -43,6 +43,10 @@ type AppMarkupStatistics struct {
 	// End date (epoch or YYYY-MM-DD HH::MM::SS). Results are inclusive of this time.
 	DateTo string `json:"date_to"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
 	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough AppMarkupStatisticsPassthrough `json:"passthrough,omitempty"`

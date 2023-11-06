@@ -64,6 +64,10 @@ type Proposal struct {
 	// `stop_loss`.
 	LimitOrder *ProposalLimitOrder `json:"limit_order,omitempty"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// [Optional] The multiplier for non-binary options. E.g. lookbacks.
 	Multiplier *float64 `json:"multiplier,omitempty"`
 

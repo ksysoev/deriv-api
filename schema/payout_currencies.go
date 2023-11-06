@@ -39,6 +39,10 @@ func (j *PayoutCurrenciesPayoutCurrencies) UnmarshalJSON(b []byte) error {
 // Retrieve a list of available option payout currencies. If a user is logged in,
 // only the currencies available for the account will be returned.
 type PayoutCurrencies struct {
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
 	// the `echo_req` output field. Maximum size is 3500 bytes.
 	Passthrough PayoutCurrenciesPassthrough `json:"passthrough,omitempty"`
