@@ -178,7 +178,7 @@ type LandingCompanyRespLandingCompany struct {
 	// Available Deriv X financial account types (all except Synthetic Indices).
 	DxtradeFinancialCompany *LandingCompanyRespLandingCompanyDxtradeFinancialCompany `json:"dxtrade_financial_company,omitempty"`
 
-	// Available Deriv X gaming account types (Synthetic Indices).
+	// Available Deriv X derived account types (Synthetic Indices).
 	DxtradeGamingCompany *LandingCompanyRespLandingCompanyDxtradeGamingCompany `json:"dxtrade_gaming_company,omitempty"`
 
 	// Landing Company for financial contracts (all except Synthetic Indices)
@@ -187,7 +187,7 @@ type LandingCompanyRespLandingCompany struct {
 	// Forbidden postcode pattern
 	ForbiddenPostcodePattern *string `json:"forbidden_postcode_pattern,omitempty"`
 
-	// Landing Company for gaming contracts (Synthetic Indices)
+	// Landing Company for derived contracts (Synthetic Indices)
 	GamingCompany *LandingCompanyRespLandingCompanyGamingCompany `json:"gaming_company,omitempty"`
 
 	// Country code
@@ -213,7 +213,7 @@ type LandingCompanyRespLandingCompany struct {
 	// currently divided into Financial STP, Financial (standard) as subtypes.
 	MtFinancialCompany *LandingCompanyRespLandingCompanyMtFinancialCompany `json:"mt_financial_company,omitempty"`
 
-	// Landing Company for MT5 standard gaming contracts (Synthetic Indices),
+	// Landing Company for MT5 standard derived contracts (Synthetic Indices),
 	// currently has Financial as subtype.
 	MtGamingCompany *LandingCompanyRespLandingCompanyMtGamingCompany `json:"mt_gaming_company,omitempty"`
 
@@ -270,7 +270,7 @@ func (j *LandingCompanyRespLandingCompanyDerivezAllStandard) UnmarshalJSON(b []b
 
 const LandingCompanyRespLandingCompanyDerivezAllStandardNone LandingCompanyRespLandingCompanyDerivezAllStandard = "none"
 
-// Landing Company for gaming contracts (Synthetic Indices)
+// Landing Company for derived contracts (Synthetic Indices)
 type LandingCompanyRespLandingCompanyGamingCompany struct {
 	// Landing Company address
 	Address []string `json:"address,omitempty"`
@@ -980,7 +980,7 @@ type LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandard struct {
 	TinNotMandatory *LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandardTinNotMandatory `json:"tin_not_mandatory,omitempty"`
 }
 
-// Available Deriv X gaming account types (Synthetic Indices).
+// Available Deriv X derived account types (Synthetic Indices).
 type LandingCompanyRespLandingCompanyDxtradeGamingCompany struct {
 	// Landing Company details.
 	Standard *LandingCompanyRespLandingCompanyDxtradeGamingCompanyStandard `json:"standard,omitempty"`
@@ -1929,14 +1929,14 @@ type LandingCompanyRespLandingCompanyMtGamingCompanyFinancialTinNotMandatory int
 
 type LandingCompanyRespLandingCompanyNeedSetMaxTurnoverLimit int
 
-// Landing Company for MT5 standard gaming contracts (Synthetic Indices), currently
-// has Financial as subtype.
+// Landing Company for MT5 standard derived contracts (Synthetic Indices),
+// currently has Financial as subtype.
 type LandingCompanyRespLandingCompanyMtGamingCompany struct {
-	// Landing Company for MT5 gaming contracts (Synthetic Indices)
+	// Landing Company for MT5 derived contracts (Synthetic Indices)
 	Financial *LandingCompanyRespLandingCompanyMtGamingCompanyFinancial `json:"financial,omitempty"`
 }
 
-// Landing Company for MT5 gaming contracts (Synthetic Indices)
+// Landing Company for MT5 derived contracts (Synthetic Indices)
 type LandingCompanyRespLandingCompanyMtGamingCompanyFinancial struct {
 	// Landing Company address
 	Address []string `json:"address,omitempty"`

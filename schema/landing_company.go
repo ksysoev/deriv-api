@@ -8,7 +8,7 @@ import "fmt"
 // The company has a number of licensed subsidiaries in various jurisdictions,
 // which are called Landing Companies. This call will return the appropriate
 // Landing Company for clients of a given country. The landing company may differ
-// for Gaming contracts (Synthetic Indices) and Financial contracts (Forex, Stock
+// for derived contracts (Synthetic Indices) and Financial contracts (Forex, Stock
 // Indices, Commodities).
 type LandingCompany struct {
 	// Client's 2-letter country code (obtained from `residence_list` call).
