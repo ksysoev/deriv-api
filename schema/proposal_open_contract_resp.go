@@ -375,13 +375,6 @@ type ProposalOpenContractRespProposalOpenContract struct {
 	// reset.
 	ResetTime *int `json:"reset_time,omitempty"`
 
-	// Spot value at the selected tick for the contract.
-	SelectedSpot *float64 `json:"selected_spot,omitempty"`
-
-	// [Only for highlowticks trades i.e. TICKHIGH and TICKLOW] Selected tick for the
-	// contract.
-	SelectedTick *int `json:"selected_tick,omitempty"`
-
 	// Price at which contract was sold, only available when contract has been sold.
 	SellPrice *float64 `json:"sell_price,omitempty"`
 
