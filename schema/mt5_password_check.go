@@ -33,7 +33,7 @@ func (j *Mt5PasswordCheckMt5PasswordCheck) UnmarshalJSON(b []byte) error {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type Mt5PasswordCheckPassthrough map[string]interface{}
 
 type Mt5PasswordCheckPasswordType string
@@ -68,11 +68,15 @@ type Mt5PasswordCheck struct {
 	// MT5 user login
 	Login string `json:"login"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// Must be `1`
 	Mt5PasswordCheck Mt5PasswordCheckMt5PasswordCheck `json:"mt5_password_check"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough Mt5PasswordCheckPassthrough `json:"passthrough,omitempty"`
 
 	// The password of the account.

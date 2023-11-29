@@ -34,6 +34,10 @@ type P2PAdvertList struct {
 	// ads from country of residence will be returned.
 	LocalCurrency *string `json:"local_currency,omitempty"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// [Optional] Used for paging.
 	Offset int `json:"offset,omitempty"`
 
@@ -41,7 +45,7 @@ type P2PAdvertList struct {
 	P2PAdvertList P2PAdvertListP2PAdvertList `json:"p2p_advert_list"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough P2PAdvertListPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Search by supported payment methods.
@@ -70,7 +74,7 @@ type P2PAdvertListFavouritesOnly int
 type P2PAdvertListP2PAdvertList int
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type P2PAdvertListPassthrough map[string]interface{}
 
 type P2PAdvertListSortBy string

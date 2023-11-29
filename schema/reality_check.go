@@ -7,7 +7,7 @@ import "fmt"
 import "reflect"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type RealityCheckPassthrough map[string]interface{}
 
 type RealityCheckRealityCheck int
@@ -46,7 +46,7 @@ type RealityCheck struct {
 	Loginid *string `json:"loginid,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough RealityCheckPassthrough `json:"passthrough,omitempty"`
 
 	// Must be `1`

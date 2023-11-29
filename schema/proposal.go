@@ -72,7 +72,7 @@ type Proposal struct {
 	Multiplier *float64 `json:"multiplier,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough ProposalPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] The product type.
@@ -177,7 +177,7 @@ type ProposalLimitOrder struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type ProposalPassthrough map[string]interface{}
 
 type ProposalProductType string

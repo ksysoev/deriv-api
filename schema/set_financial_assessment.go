@@ -66,7 +66,7 @@ type SetFinancialAssessment struct {
 	OtherInstrumentsTradingFrequency *SetFinancialAssessmentOtherInstrumentsTradingFrequency `json:"other_instruments_trading_frequency,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough SetFinancialAssessmentPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -340,7 +340,7 @@ const SetFinancialAssessmentOtherInstrumentsTradingFrequencyA40TransactionsOrMor
 const SetFinancialAssessmentOtherInstrumentsTradingFrequencyA610TransactionsInThePast12Months SetFinancialAssessmentOtherInstrumentsTradingFrequency = "6-10 transactions in the past 12 months"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type SetFinancialAssessmentPassthrough map[string]interface{}
 
 type SetFinancialAssessmentSetFinancialAssessment int

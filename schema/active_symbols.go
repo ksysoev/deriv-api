@@ -26,7 +26,7 @@ type ActiveSymbols struct {
 	Loginid *string `json:"loginid,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough ActiveSymbolsPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] If you specify this field, only symbols that can be traded through
@@ -167,7 +167,7 @@ const ActiveSymbolsLandingCompanyVirtual ActiveSymbolsLandingCompany = "virtual"
 const ActiveSymbolsLandingCompanySvg ActiveSymbolsLandingCompany = "svg"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type ActiveSymbolsPassthrough map[string]interface{}
 
 type ActiveSymbolsProductType string

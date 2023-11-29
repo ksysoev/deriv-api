@@ -33,7 +33,7 @@ func (j *P2PSettingsP2PSettings) UnmarshalJSON(b []byte) error {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type P2PSettingsPassthrough map[string]interface{}
 
 type P2PSettingsSubscribe int
@@ -64,11 +64,15 @@ func (j *P2PSettingsSubscribe) UnmarshalJSON(b []byte) error {
 
 // Request P2P Settings information.
 type P2PSettings struct {
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// Must be `1`
 	P2PSettings P2PSettingsP2PSettings `json:"p2p_settings"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough P2PSettingsPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.

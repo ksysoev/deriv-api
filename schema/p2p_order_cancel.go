@@ -37,11 +37,15 @@ type P2POrderCancel struct {
 	// The unique identifier for this order.
 	Id string `json:"id"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// Must be 1
 	P2POrderCancel P2POrderCancelP2POrderCancel `json:"p2p_order_cancel"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough P2POrderCancelPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -49,7 +53,7 @@ type P2POrderCancel struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type P2POrderCancelPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

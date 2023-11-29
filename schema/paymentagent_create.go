@@ -33,7 +33,7 @@ func (j *PaymentagentCreateCodeOfConductApproval) UnmarshalJSON(b []byte) error 
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type PaymentagentCreatePassthrough map[string]interface{}
 
 type PaymentagentCreatePaymentagentCreate int
@@ -151,8 +151,12 @@ type PaymentagentCreate struct {
 	// [Optional] Information about payment agent and their proposed service.
 	Information string `json:"information"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough PaymentagentCreatePassthrough `json:"passthrough,omitempty"`
 
 	// The name with which the payment agent is going to be identified.

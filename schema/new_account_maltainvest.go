@@ -111,7 +111,7 @@ type NewAccountMaltainvest struct {
 	Occupation *NewAccountMaltainvestOccupation `json:"occupation,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough NewAccountMaltainvestPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Starting with `+` followed by 9-35 digits, hyphens or space.
@@ -298,7 +298,7 @@ const NewAccountMaltainvestOccupationStudents NewAccountMaltainvestOccupation = 
 const NewAccountMaltainvestOccupationUnemployed NewAccountMaltainvestOccupation = "Unemployed"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type NewAccountMaltainvestPassthrough map[string]interface{}
 
 type NewAccountMaltainvestRequiredInitialMargin string

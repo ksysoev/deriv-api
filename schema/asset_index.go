@@ -25,7 +25,7 @@ type AssetIndex struct {
 	Loginid *string `json:"loginid,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough AssetIndexPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -141,7 +141,7 @@ const AssetIndexLandingCompanyVanuatu AssetIndexLandingCompany = "vanuatu"
 const AssetIndexLandingCompanyVirtual AssetIndexLandingCompany = "virtual"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type AssetIndexPassthrough map[string]interface{}
 
 var enumValues_AssetIndexAssetIndex = []interface{}{

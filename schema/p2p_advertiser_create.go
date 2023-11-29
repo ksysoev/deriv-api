@@ -33,7 +33,7 @@ func (j *P2PAdvertiserCreateP2PAdvertiserCreate) UnmarshalJSON(b []byte) error {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type P2PAdvertiserCreatePassthrough map[string]interface{}
 
 type P2PAdvertiserCreateSubscribe int
@@ -72,6 +72,10 @@ type P2PAdvertiserCreate struct {
 	// created.
 	DefaultAdvertDescription *string `json:"default_advert_description,omitempty"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// The advertiser's displayed name.
 	Name string `json:"name"`
 
@@ -79,7 +83,7 @@ type P2PAdvertiserCreate struct {
 	P2PAdvertiserCreate P2PAdvertiserCreateP2PAdvertiserCreate `json:"p2p_advertiser_create"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough P2PAdvertiserCreatePassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Advertiser's payment information, to be used as a default for new

@@ -7,7 +7,7 @@ import "fmt"
 import "reflect"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type TradingPlatformInvestorPasswordResetPassthrough map[string]interface{}
 
 type TradingPlatformInvestorPasswordResetPlatform string
@@ -69,13 +69,17 @@ type TradingPlatformInvestorPasswordReset struct {
 	// Trading account ID.
 	AccountId string `json:"account_id"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// New password of the account. For validation (Accepts any printable ASCII
 	// character. Must be within 8-25 characters, and include numbers, lowercase and
 	// uppercase letters. Must not be the same as the user's email address).
 	NewPassword string `json:"new_password"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough TradingPlatformInvestorPasswordResetPassthrough `json:"passthrough,omitempty"`
 
 	// Name of trading platform.

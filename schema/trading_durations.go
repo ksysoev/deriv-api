@@ -22,7 +22,7 @@ type TradingDurations struct {
 	Loginid *string `json:"loginid,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough TradingDurationsPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -107,7 +107,7 @@ const TradingDurationsLandingCompanySvg TradingDurationsLandingCompany = "svg"
 const TradingDurationsLandingCompanyVirtual TradingDurationsLandingCompany = "virtual"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type TradingDurationsPassthrough map[string]interface{}
 
 type TradingDurationsTradingDurations int

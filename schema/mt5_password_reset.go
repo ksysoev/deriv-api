@@ -33,7 +33,7 @@ func (j *Mt5PasswordResetMt5PasswordReset) UnmarshalJSON(b []byte) error {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type Mt5PasswordResetPassthrough map[string]interface{}
 
 type Mt5PasswordResetPasswordType string
@@ -68,6 +68,10 @@ type Mt5PasswordReset struct {
 	// MT5 user login
 	Login string `json:"login"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// Must be `1`
 	Mt5PasswordReset Mt5PasswordResetMt5PasswordReset `json:"mt5_password_reset"`
 
@@ -77,7 +81,7 @@ type Mt5PasswordReset struct {
 	NewPassword string `json:"new_password"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough Mt5PasswordResetPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Type of the password to reset.

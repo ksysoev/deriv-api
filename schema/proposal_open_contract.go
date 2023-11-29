@@ -7,7 +7,7 @@ import "fmt"
 import "reflect"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type ProposalOpenContractPassthrough map[string]interface{}
 
 type ProposalOpenContractProposalOpenContract int
@@ -73,7 +73,7 @@ type ProposalOpenContract struct {
 	Loginid *string `json:"loginid,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough ProposalOpenContractPassthrough `json:"passthrough,omitempty"`
 
 	// Must be `1`

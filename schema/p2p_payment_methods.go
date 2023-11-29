@@ -34,11 +34,15 @@ func (j *P2PPaymentMethodsP2PPaymentMethods) UnmarshalJSON(b []byte) error {
 
 // List all P2P payment methods.
 type P2PPaymentMethods struct {
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// Must be 1
 	P2PPaymentMethods P2PPaymentMethodsP2PPaymentMethods `json:"p2p_payment_methods"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough P2PPaymentMethodsPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -46,7 +50,7 @@ type P2PPaymentMethods struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type P2PPaymentMethodsPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

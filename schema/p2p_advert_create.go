@@ -25,6 +25,10 @@ type P2PAdvertCreate struct {
 	// currency of client's residence by default.
 	LocalCurrency *string `json:"local_currency,omitempty"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// Maximum allowed amount for the orders of this advert, in advertiser's
 	// `account_currency`. Should be more than or equal to `min_order_amount`
 	MaxOrderAmount float64 `json:"max_order_amount"`
@@ -40,7 +44,7 @@ type P2PAdvertCreate struct {
 	P2PAdvertCreate P2PAdvertCreateP2PAdvertCreate `json:"p2p_advert_create"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough P2PAdvertCreatePassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Payment instructions.
@@ -80,7 +84,7 @@ type P2PAdvertCreateOrderExpiryPeriod int
 type P2PAdvertCreateP2PAdvertCreate int
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type P2PAdvertCreatePassthrough map[string]interface{}
 
 type P2PAdvertCreateRateType string

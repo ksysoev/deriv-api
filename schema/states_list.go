@@ -9,7 +9,7 @@ import "fmt"
 // populate the account opening form.
 type StatesList struct {
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough StatesListPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -20,7 +20,7 @@ type StatesList struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type StatesListPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

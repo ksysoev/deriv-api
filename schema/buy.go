@@ -20,7 +20,7 @@ type Buy struct {
 	Parameters *BuyParameters `json:"parameters,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough BuyPassthrough `json:"passthrough,omitempty"`
 
 	// Maximum price at which to purchase the contract.
@@ -371,7 +371,7 @@ func (j *BuyParameters) UnmarshalJSON(b []byte) error {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type BuyPassthrough map[string]interface{}
 
 type BuySubscribe int

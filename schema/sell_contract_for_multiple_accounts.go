@@ -7,7 +7,7 @@ import "fmt"
 import "reflect"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type SellContractForMultipleAccountsPassthrough map[string]interface{}
 
 type SellContractForMultipleAccountsSellContractForMultipleAccounts int
@@ -48,7 +48,7 @@ type SellContractForMultipleAccounts struct {
 	Loginid *string `json:"loginid,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough SellContractForMultipleAccountsPassthrough `json:"passthrough,omitempty"`
 
 	// Minimum price at which to sell the contract, or `0` for 'sell at market'.

@@ -39,6 +39,10 @@ type P2PAdvertiserAdverts struct {
 	// responses.
 	Limit int `json:"limit,omitempty"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// [Optional] Used for paging. This value will also apply to subsription
 	// responses.
 	Offset int `json:"offset,omitempty"`
@@ -47,7 +51,7 @@ type P2PAdvertiserAdverts struct {
 	P2PAdvertiserAdverts P2PAdvertiserAdvertsP2PAdvertiserAdverts `json:"p2p_advertiser_adverts"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough P2PAdvertiserAdvertsPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -55,7 +59,7 @@ type P2PAdvertiserAdverts struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type P2PAdvertiserAdvertsPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

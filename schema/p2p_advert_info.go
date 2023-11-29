@@ -33,7 +33,7 @@ func (j *P2PAdvertInfoP2PAdvertInfo) UnmarshalJSON(b []byte) error {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type P2PAdvertInfoPassthrough map[string]interface{}
 
 type P2PAdvertInfoSubscribe int
@@ -95,11 +95,15 @@ type P2PAdvertInfo struct {
 	// If not provided, all advertiser adverts will be subscribed.
 	Id *string `json:"id,omitempty"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// Must be 1
 	P2PAdvertInfo P2PAdvertInfoP2PAdvertInfo `json:"p2p_advert_info"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough P2PAdvertInfoPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.

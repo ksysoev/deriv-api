@@ -41,11 +41,15 @@ type Mt5Withdrawal struct {
 	// MT5 account login to withdraw money from
 	FromMt5 string `json:"from_mt5"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// Must be `1`
 	Mt5Withdrawal Mt5WithdrawalMt5Withdrawal `json:"mt5_withdrawal"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough Mt5WithdrawalPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -56,7 +60,7 @@ type Mt5Withdrawal struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type Mt5WithdrawalPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

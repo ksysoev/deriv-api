@@ -7,7 +7,7 @@ import "fmt"
 import "reflect"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type PingPassthrough map[string]interface{}
 
 type PingPing int
@@ -40,7 +40,7 @@ func (j *PingPing) UnmarshalJSON(b []byte) error {
 // keep it alive.
 type Ping struct {
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough PingPassthrough `json:"passthrough,omitempty"`
 
 	// Must be `1`

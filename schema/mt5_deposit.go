@@ -41,11 +41,15 @@ type Mt5Deposit struct {
 	// Binary account loginid to transfer money from
 	FromBinary *string `json:"from_binary,omitempty"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// Must be `1`
 	Mt5Deposit Mt5DepositMt5Deposit `json:"mt5_deposit"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough Mt5DepositPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -56,7 +60,7 @@ type Mt5Deposit struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type Mt5DepositPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

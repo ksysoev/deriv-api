@@ -40,11 +40,15 @@ type P2PAdvertiserRelations struct {
 	// IDs of advertisers to add as favourites.
 	AddFavourites []float64 `json:"add_favourites,omitempty"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// Must be 1
 	P2PAdvertiserRelations P2PAdvertiserRelationsP2PAdvertiserRelations `json:"p2p_advertiser_relations"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough P2PAdvertiserRelationsPassthrough `json:"passthrough,omitempty"`
 
 	// IDs of advertisers to remove from blocked.
@@ -58,7 +62,7 @@ type P2PAdvertiserRelations struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type P2PAdvertiserRelationsPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

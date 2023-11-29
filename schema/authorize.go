@@ -46,7 +46,7 @@ type Authorize struct {
 	Authorize string `json:"authorize"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough AuthorizePassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -58,7 +58,7 @@ type Authorize struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type AuthorizePassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

@@ -38,7 +38,7 @@ type CopytradingStatistics struct {
 	CopytradingStatistics CopytradingStatisticsCopytradingStatistics `json:"copytrading_statistics"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough CopytradingStatisticsPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -49,7 +49,7 @@ type CopytradingStatistics struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type CopytradingStatisticsPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

@@ -78,7 +78,7 @@ type TradingServers struct {
 	MarketType TradingServersMarketType `json:"market_type,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough TradingServersPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Pass the trading platform name, default to mt5
@@ -183,7 +183,7 @@ const TradingServersEnvironmentDerivServer02 TradingServersEnvironment = "Deriv-
 const TradingServersMarketTypeSynthetic TradingServersMarketType = "synthetic"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type TradingServersPassthrough map[string]interface{}
 
 const TradingServersMarketTypeAll TradingServersMarketType = "all"

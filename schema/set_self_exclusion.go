@@ -7,7 +7,7 @@ import "fmt"
 import "reflect"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type SetSelfExclusionPassthrough map[string]interface{}
 
 type SetSelfExclusionSetSelfExclusion int
@@ -82,7 +82,7 @@ type SetSelfExclusion struct {
 	MaxTurnover *float64 `json:"max_turnover,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough SetSelfExclusionPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.

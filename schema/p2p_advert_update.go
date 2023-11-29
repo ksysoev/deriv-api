@@ -26,6 +26,10 @@ type P2PAdvertUpdate struct {
 	// [Optional] Local currency for this advert.
 	LocalCurrency *string `json:"local_currency,omitempty"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// [Optional] Maximum allowed amount for the orders of this advert, in
 	// advertiser's `account_currency`. Should be more than or equal to
 	// `min_order_amount`.
@@ -43,7 +47,7 @@ type P2PAdvertUpdate struct {
 	P2PAdvertUpdate P2PAdvertUpdateP2PAdvertUpdate `json:"p2p_advert_update"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough P2PAdvertUpdatePassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Payment instructions.
@@ -83,7 +87,7 @@ type P2PAdvertUpdateOrderExpiryPeriod int
 type P2PAdvertUpdateP2PAdvertUpdate int
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type P2PAdvertUpdatePassthrough map[string]interface{}
 
 type P2PAdvertUpdateRateType string

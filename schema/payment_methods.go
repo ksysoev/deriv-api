@@ -7,7 +7,7 @@ import "fmt"
 import "reflect"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type PaymentMethodsPassthrough map[string]interface{}
 
 type PaymentMethodsPaymentMethods int
@@ -47,7 +47,7 @@ type PaymentMethods struct {
 	Loginid *string `json:"loginid,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough PaymentMethodsPassthrough `json:"passthrough,omitempty"`
 
 	// Must be `1`

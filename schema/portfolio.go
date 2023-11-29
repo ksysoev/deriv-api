@@ -16,7 +16,7 @@ type Portfolio struct {
 	Loginid *string `json:"loginid,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough PortfolioPassthrough `json:"passthrough,omitempty"`
 
 	// Must be `1`
@@ -88,7 +88,7 @@ const PortfolioContractTypeElemVANILLALONGCALL PortfolioContractTypeElem = "VANI
 const PortfolioContractTypeElemVANILLALONGPUT PortfolioContractTypeElem = "VANILLALONGPUT"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type PortfolioPassthrough map[string]interface{}
 
 type PortfolioPortfolio int

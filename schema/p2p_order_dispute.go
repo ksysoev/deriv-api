@@ -14,11 +14,15 @@ type P2POrderDispute struct {
 	// The unique identifier for this order.
 	Id string `json:"id"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// Must be 1
 	P2POrderDispute P2POrderDisputeP2POrderDispute `json:"p2p_order_dispute"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough P2POrderDisputePassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -80,7 +84,7 @@ func (j *P2POrderDisputeP2POrderDispute) UnmarshalJSON(b []byte) error {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type P2POrderDisputePassthrough map[string]interface{}
 
 var enumValues_P2POrderDisputeDisputeReason = []interface{}{

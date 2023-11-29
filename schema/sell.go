@@ -12,7 +12,7 @@ type Sell struct {
 	Loginid *string `json:"loginid,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough SellPassthrough `json:"passthrough,omitempty"`
 
 	// Minimum price at which to sell the contract, or `0` for 'sell at market'.
@@ -26,7 +26,7 @@ type Sell struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type SellPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

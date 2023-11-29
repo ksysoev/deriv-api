@@ -31,7 +31,7 @@ type ProfitTable struct {
 	Offset *int `json:"offset,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough ProfitTablePassthrough `json:"passthrough,omitempty"`
 
 	// Must be `1`
@@ -88,7 +88,7 @@ const ProfitTableContractTypeElemVANILLALONGPUT ProfitTableContractTypeElem = "V
 type ProfitTableDescription int
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type ProfitTablePassthrough map[string]interface{}
 
 type ProfitTableProfitTable int

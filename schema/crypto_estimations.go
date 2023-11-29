@@ -33,7 +33,7 @@ func (j *CryptoEstimationsCryptoEstimations) UnmarshalJSON(b []byte) error {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type CryptoEstimationsPassthrough map[string]interface{}
 
 type CryptoEstimationsSubscribe int
@@ -75,7 +75,7 @@ type CryptoEstimations struct {
 	Loginid *string `json:"loginid,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough CryptoEstimationsPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.

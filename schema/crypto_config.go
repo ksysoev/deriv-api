@@ -46,7 +46,7 @@ type CryptoConfig struct {
 	Loginid *string `json:"loginid,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough CryptoConfigPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -54,7 +54,7 @@ type CryptoConfig struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type CryptoConfigPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

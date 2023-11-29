@@ -67,11 +67,15 @@ type P2POrderConfirm struct {
 	// The unique identifier for this order.
 	Id string `json:"id"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// Must be 1
 	P2POrderConfirm P2POrderConfirmP2POrderConfirm `json:"p2p_order_confirm"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough P2POrderConfirmPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -82,7 +86,7 @@ type P2POrderConfirm struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type P2POrderConfirmPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

@@ -34,11 +34,15 @@ func (j *Mt5LoginListMt5LoginList) UnmarshalJSON(b []byte) error {
 
 // Get list of MT5 accounts for client
 type Mt5LoginList struct {
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// Must be `1`
 	Mt5LoginList Mt5LoginListMt5LoginList `json:"mt5_login_list"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough Mt5LoginListPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -46,7 +50,7 @@ type Mt5LoginList struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type Mt5LoginListPassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.

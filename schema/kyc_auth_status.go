@@ -19,7 +19,7 @@ type KycAuthStatus struct {
 	Loginid *string `json:"loginid,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough KycAuthStatusPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -102,7 +102,7 @@ func (j *KycAuthStatusKycAuthStatus) UnmarshalJSON(b []byte) error {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type KycAuthStatusPassthrough map[string]interface{}
 
 var enumValues_KycAuthStatusKycAuthStatus = []interface{}{

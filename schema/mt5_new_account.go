@@ -45,6 +45,10 @@ type Mt5NewAccount struct {
 	// Client leverage (from 1 to 1000).
 	Leverage float64 `json:"leverage"`
 
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// The master password of the account. For validation (Accepts any printable ASCII
 	// character. Must be within 8-25 characters, and include numbers, lowercase and
 	// uppercase letters. Must not be the same as the user's email address). This
@@ -71,7 +75,7 @@ type Mt5NewAccount struct {
 	Name string `json:"name"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough Mt5NewAccountPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] User's phone number.
@@ -119,7 +123,7 @@ const Mt5NewAccountMt5AccountTypeFinancialStp Mt5NewAccountMt5AccountType = "fin
 type Mt5NewAccountMt5NewAccount int
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type Mt5NewAccountPassthrough map[string]interface{}
 
 type Mt5NewAccountServer string

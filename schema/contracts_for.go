@@ -30,7 +30,7 @@ type ContractsFor struct {
 	Loginid *string `json:"loginid,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough ContractsForPassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] If you specify this field, only contracts tradable through that
@@ -116,7 +116,7 @@ const ContractsForLandingCompanySvg ContractsForLandingCompany = "svg"
 const ContractsForLandingCompanyVirtual ContractsForLandingCompany = "virtual"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type ContractsForPassthrough map[string]interface{}
 
 type ContractsForProductType string

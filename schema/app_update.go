@@ -7,7 +7,7 @@ import "fmt"
 import "reflect"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type AppUpdatePassthrough map[string]interface{}
 
 type AppUpdateScopesElem string
@@ -69,7 +69,7 @@ type AppUpdate struct {
 	Name string `json:"name"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough AppUpdatePassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] The URL to redirect to after a successful login. Required if

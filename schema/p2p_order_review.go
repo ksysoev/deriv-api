@@ -33,7 +33,7 @@ func (j *P2POrderReviewP2POrderReview) UnmarshalJSON(b []byte) error {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type P2POrderReviewPassthrough map[string]interface{}
 
 type P2POrderReviewRecommended struct {
@@ -75,6 +75,10 @@ func (j *P2POrderReviewRecommended) UnmarshalJSON(b []byte) error {
 
 // Creates a review for the specified order.
 type P2POrderReview struct {
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// The order identification number.
 	OrderId string `json:"order_id"`
 
@@ -82,7 +86,7 @@ type P2POrderReview struct {
 	P2POrderReview P2POrderReviewP2POrderReview `json:"p2p_order_review"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough P2POrderReviewPassthrough `json:"passthrough,omitempty"`
 
 	// Rating for the transaction, 1 to 5.

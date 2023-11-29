@@ -34,6 +34,10 @@ func (j *P2PChatCreateP2PChatCreate) UnmarshalJSON(b []byte) error {
 
 // Creates a P2P chat for the specified order.
 type P2PChatCreate struct {
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
 	// The unique identifier for the order to create the chat for.
 	OrderId string `json:"order_id"`
 
@@ -41,7 +45,7 @@ type P2PChatCreate struct {
 	P2PChatCreate P2PChatCreateP2PChatCreate `json:"p2p_chat_create"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field. Maximum size is 3500 bytes.
+	// the `echo_req` output field.
 	Passthrough P2PChatCreatePassthrough `json:"passthrough,omitempty"`
 
 	// [Optional] Used to map request to response.
@@ -49,7 +53,7 @@ type P2PChatCreate struct {
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field. Maximum size is 3500 bytes.
+// the `echo_req` output field.
 type P2PChatCreatePassthrough map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.
