@@ -21,6 +21,11 @@ type Cashier struct {
 	// `withdraw` using `crypto` provider and `api` type.
 	DryRun CashierDryRun `json:"dry_run,omitempty"`
 
+	// [Optional] The `unique_id` of the estimated fee received from
+	// `crypto_estimations` call in case the client is willing to pay the returned fee
+	// in order to prioritise their withdrawal request.
+	EstimatedFeeUniqueId *string `json:"estimated_fee_unique_id,omitempty"`
+
 	// [Optional] The login id of the user. If left unspecified, it defaults to the
 	// initial authorized token's login id.
 	Loginid *string `json:"loginid,omitempty"`
