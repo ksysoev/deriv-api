@@ -9,7 +9,7 @@ import "reflect"
 // Echo of the request made.
 type ExchangeRatesRespEchoReq map[string]interface{}
 
-// Exchange rate values from base to all other currencies
+// Exchange rate values from base to target currency
 type ExchangeRatesRespExchangeRates struct {
 	// Base currency
 	BaseCurrency *string `json:"base_currency,omitempty"`
@@ -17,11 +17,11 @@ type ExchangeRatesRespExchangeRates struct {
 	// Date retrieval epoch time represented as an integer number
 	Date *int `json:"date,omitempty"`
 
-	// Rates of exchanging a unit of base currency into the target currencies
+	// Rate of exchanging a unit of base currency into a target currency
 	Rates ExchangeRatesRespExchangeRatesRates `json:"rates,omitempty"`
 }
 
-// Rates of exchanging a unit of base currency into the target currencies
+// Rate of exchanging a unit of base currency into a target currency
 type ExchangeRatesRespExchangeRatesRates map[string]interface{}
 
 type ExchangeRatesRespMsgType string
@@ -77,13 +77,13 @@ func (j *ExchangeRatesRespSubscription) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// The exchange rate values from the specified base currency to all currencies
-// supported by the system.
+// The exchange rate values from the specified base currency to the specified
+// target currency supported by the system.
 type ExchangeRatesResp struct {
 	// Echo of the request made.
 	EchoReq ExchangeRatesRespEchoReq `json:"echo_req"`
 
-	// Exchange rate values from base to all other currencies
+	// Exchange rate values from base to target currency
 	ExchangeRates *ExchangeRatesRespExchangeRates `json:"exchange_rates,omitempty"`
 
 	// Action name of the request made.

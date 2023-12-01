@@ -62,8 +62,8 @@ func (j *ExchangeRatesSubscribe) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Retrieves the exchange rates from a base currency to all currencies supported by
-// the system.
+// Retrieves the exchange rate from a base currency to a target currency supported
+// by the system.
 type ExchangeRates struct {
 	// Base currency (can be obtained from `payout_currencies` call)
 	BaseCurrency string `json:"base_currency"`
@@ -86,7 +86,8 @@ type ExchangeRates struct {
 	// currency.
 	Subscribe *ExchangeRatesSubscribe `json:"subscribe,omitempty"`
 
-	// [Optional] Local currency
+	// [Optional] Target currency for the exchange rate. If subscribe is set,
+	// target_currency must be specified as well.
 	TargetCurrency *string `json:"target_currency,omitempty"`
 }
 

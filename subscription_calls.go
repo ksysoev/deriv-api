@@ -37,7 +37,7 @@ func (a *DerivAPI) SubscribeCryptoEstimations(r schema.CryptoEstimations) (rsp s
 	return
 }
 
-// SubscribeExchangeRates Retrieves the exchange rates from a base currency to all currencies supported by the system.
+// SubscribeExchangeRates Retrieves the exchange rate from a base currency to a target currency supported by the system.
 func (a *DerivAPI) SubscribeExchangeRates(r schema.ExchangeRates) (rsp schema.ExchangeRatesResp, s *Subsciption[schema.ExchangeRatesResp, schema.ExchangeRatesResp], err error) {
 	id := a.getNextRequestID()
 	var f schema.ExchangeRatesSubscribe = 1

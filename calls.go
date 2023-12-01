@@ -220,7 +220,7 @@ func (a *DerivAPI) EconomicCalendar(r schema.EconomicCalendar) (resp schema.Econ
 	return
 }
 
-// ExchangeRates Retrieves the exchange rates from a base currency to all currencies supported by the system.
+// ExchangeRates Retrieves the exchange rate from a base currency to a target currency supported by the system.
 func (a *DerivAPI) ExchangeRates(r schema.ExchangeRates) (resp schema.ExchangeRatesResp, err error) {
 	id := a.getNextRequestID()
 	r.ReqId = &id
