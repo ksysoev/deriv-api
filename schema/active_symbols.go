@@ -12,6 +12,9 @@ type ActiveSymbols struct {
 	// If you use `brief`, only a subset of fields will be returned.
 	ActiveSymbols ActiveSymbolsActiveSymbols `json:"active_symbols"`
 
+	// [Optional] The proposed contract type
+	ContractType []ActiveSymbolsContractTypeElem `json:"contract_type,omitempty"`
+
 	// Deprecated - replaced by landing_company_short.
 	LandingCompany *ActiveSymbolsLandingCompany `json:"landing_company,omitempty"`
 
@@ -42,6 +45,47 @@ type ActiveSymbolsActiveSymbols string
 const ActiveSymbolsActiveSymbolsBrief ActiveSymbolsActiveSymbols = "brief"
 const ActiveSymbolsActiveSymbolsFull ActiveSymbolsActiveSymbols = "full"
 
+type ActiveSymbolsContractTypeElem string
+
+const ActiveSymbolsContractTypeElemACCU ActiveSymbolsContractTypeElem = "ACCU"
+const ActiveSymbolsContractTypeElemASIAND ActiveSymbolsContractTypeElem = "ASIAND"
+const ActiveSymbolsContractTypeElemASIANU ActiveSymbolsContractTypeElem = "ASIANU"
+const ActiveSymbolsContractTypeElemCALL ActiveSymbolsContractTypeElem = "CALL"
+const ActiveSymbolsContractTypeElemCALLE ActiveSymbolsContractTypeElem = "CALLE"
+const ActiveSymbolsContractTypeElemCALLSPREAD ActiveSymbolsContractTypeElem = "CALLSPREAD"
+const ActiveSymbolsContractTypeElemDIGITDIFF ActiveSymbolsContractTypeElem = "DIGITDIFF"
+const ActiveSymbolsContractTypeElemDIGITEVEN ActiveSymbolsContractTypeElem = "DIGITEVEN"
+const ActiveSymbolsContractTypeElemDIGITMATCH ActiveSymbolsContractTypeElem = "DIGITMATCH"
+const ActiveSymbolsContractTypeElemDIGITODD ActiveSymbolsContractTypeElem = "DIGITODD"
+const ActiveSymbolsContractTypeElemDIGITOVER ActiveSymbolsContractTypeElem = "DIGITOVER"
+const ActiveSymbolsContractTypeElemDIGITUNDER ActiveSymbolsContractTypeElem = "DIGITUNDER"
+const ActiveSymbolsContractTypeElemEXPIRYMISS ActiveSymbolsContractTypeElem = "EXPIRYMISS"
+const ActiveSymbolsContractTypeElemEXPIRYMISSE ActiveSymbolsContractTypeElem = "EXPIRYMISSE"
+const ActiveSymbolsContractTypeElemEXPIRYRANGE ActiveSymbolsContractTypeElem = "EXPIRYRANGE"
+const ActiveSymbolsContractTypeElemEXPIRYRANGEE ActiveSymbolsContractTypeElem = "EXPIRYRANGEE"
+const ActiveSymbolsContractTypeElemLBFLOATCALL ActiveSymbolsContractTypeElem = "LBFLOATCALL"
+const ActiveSymbolsContractTypeElemLBFLOATPUT ActiveSymbolsContractTypeElem = "LBFLOATPUT"
+const ActiveSymbolsContractTypeElemLBHIGHLOW ActiveSymbolsContractTypeElem = "LBHIGHLOW"
+const ActiveSymbolsContractTypeElemMULTDOWN ActiveSymbolsContractTypeElem = "MULTDOWN"
+const ActiveSymbolsContractTypeElemMULTUP ActiveSymbolsContractTypeElem = "MULTUP"
+const ActiveSymbolsContractTypeElemNOTOUCH ActiveSymbolsContractTypeElem = "NOTOUCH"
+const ActiveSymbolsContractTypeElemONETOUCH ActiveSymbolsContractTypeElem = "ONETOUCH"
+const ActiveSymbolsContractTypeElemPUT ActiveSymbolsContractTypeElem = "PUT"
+const ActiveSymbolsContractTypeElemPUTE ActiveSymbolsContractTypeElem = "PUTE"
+const ActiveSymbolsContractTypeElemPUTSPREAD ActiveSymbolsContractTypeElem = "PUTSPREAD"
+const ActiveSymbolsContractTypeElemRANGE ActiveSymbolsContractTypeElem = "RANGE"
+const ActiveSymbolsContractTypeElemRESETCALL ActiveSymbolsContractTypeElem = "RESETCALL"
+const ActiveSymbolsContractTypeElemRESETPUT ActiveSymbolsContractTypeElem = "RESETPUT"
+const ActiveSymbolsContractTypeElemRUNHIGH ActiveSymbolsContractTypeElem = "RUNHIGH"
+const ActiveSymbolsContractTypeElemRUNLOW ActiveSymbolsContractTypeElem = "RUNLOW"
+const ActiveSymbolsContractTypeElemTICKHIGH ActiveSymbolsContractTypeElem = "TICKHIGH"
+const ActiveSymbolsContractTypeElemTICKLOW ActiveSymbolsContractTypeElem = "TICKLOW"
+const ActiveSymbolsContractTypeElemTURBOSLONG ActiveSymbolsContractTypeElem = "TURBOSLONG"
+const ActiveSymbolsContractTypeElemTURBOSSHORT ActiveSymbolsContractTypeElem = "TURBOSSHORT"
+const ActiveSymbolsContractTypeElemUPORDOWN ActiveSymbolsContractTypeElem = "UPORDOWN"
+const ActiveSymbolsContractTypeElemVANILLALONGCALL ActiveSymbolsContractTypeElem = "VANILLALONGCALL"
+const ActiveSymbolsContractTypeElemVANILLALONGPUT ActiveSymbolsContractTypeElem = "VANILLALONGPUT"
+
 type ActiveSymbolsLandingCompany string
 
 const ActiveSymbolsLandingCompanyChampion ActiveSymbolsLandingCompany = "champion"
@@ -54,6 +98,35 @@ type ActiveSymbolsLandingCompanyShort string
 
 const ActiveSymbolsLandingCompanyShortChampion ActiveSymbolsLandingCompanyShort = "champion"
 const ActiveSymbolsLandingCompanyShortChampionVirtual ActiveSymbolsLandingCompanyShort = "champion-virtual"
+const ActiveSymbolsLandingCompanyShortIom ActiveSymbolsLandingCompanyShort = "iom"
+const ActiveSymbolsLandingCompanyShortMalta ActiveSymbolsLandingCompanyShort = "malta"
+const ActiveSymbolsLandingCompanyShortMaltainvest ActiveSymbolsLandingCompanyShort = "maltainvest"
+const ActiveSymbolsLandingCompanyShortSvg ActiveSymbolsLandingCompanyShort = "svg"
+const ActiveSymbolsLandingCompanyShortVanuatu ActiveSymbolsLandingCompanyShort = "vanuatu"
+const ActiveSymbolsLandingCompanyShortVirtual ActiveSymbolsLandingCompanyShort = "virtual"
+const ActiveSymbolsLandingCompanySvg ActiveSymbolsLandingCompany = "svg"
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ActiveSymbolsContractTypeElem) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ActiveSymbolsContractTypeElem {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ActiveSymbolsContractTypeElem, v)
+	}
+	*j = ActiveSymbolsContractTypeElem(v)
+	return nil
+}
+
+const ActiveSymbolsLandingCompanyVanuatu ActiveSymbolsLandingCompany = "vanuatu"
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ActiveSymbolsLandingCompany) UnmarshalJSON(b []byte) error {
@@ -74,8 +147,6 @@ func (j *ActiveSymbolsLandingCompany) UnmarshalJSON(b []byte) error {
 	*j = ActiveSymbolsLandingCompany(v)
 	return nil
 }
-
-const ActiveSymbolsLandingCompanyShortVirtual ActiveSymbolsLandingCompanyShort = "virtual"
 
 var enumValues_ActiveSymbolsLandingCompany = []interface{}{
 	"iom",
@@ -119,6 +190,49 @@ var enumValues_ActiveSymbolsLandingCompanyShort = []interface{}{
 	"champion-virtual",
 }
 
+const ActiveSymbolsLandingCompanyVirtual ActiveSymbolsLandingCompany = "virtual"
+
+var enumValues_ActiveSymbolsContractTypeElem = []interface{}{
+	"MULTUP",
+	"MULTDOWN",
+	"UPORDOWN",
+	"EXPIRYRANGE",
+	"ONETOUCH",
+	"CALLE",
+	"LBHIGHLOW",
+	"ASIAND",
+	"EXPIRYRANGEE",
+	"DIGITDIFF",
+	"DIGITMATCH",
+	"DIGITOVER",
+	"PUTE",
+	"DIGITUNDER",
+	"NOTOUCH",
+	"CALL",
+	"RANGE",
+	"LBFLOATPUT",
+	"DIGITODD",
+	"PUT",
+	"ASIANU",
+	"LBFLOATCALL",
+	"EXPIRYMISSE",
+	"EXPIRYMISS",
+	"DIGITEVEN",
+	"TICKHIGH",
+	"TICKLOW",
+	"RESETCALL",
+	"RESETPUT",
+	"CALLSPREAD",
+	"PUTSPREAD",
+	"RUNHIGH",
+	"RUNLOW",
+	"ACCU",
+	"VANILLALONGCALL",
+	"VANILLALONGPUT",
+	"TURBOSLONG",
+	"TURBOSSHORT",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ActiveSymbolsLandingCompanyShort) UnmarshalJSON(b []byte) error {
 	var v string
@@ -138,33 +252,6 @@ func (j *ActiveSymbolsLandingCompanyShort) UnmarshalJSON(b []byte) error {
 	*j = ActiveSymbolsLandingCompanyShort(v)
 	return nil
 }
-
-const ActiveSymbolsLandingCompanyShortIom ActiveSymbolsLandingCompanyShort = "iom"
-const ActiveSymbolsLandingCompanyShortVanuatu ActiveSymbolsLandingCompanyShort = "vanuatu"
-const ActiveSymbolsLandingCompanyShortMaltainvest ActiveSymbolsLandingCompanyShort = "maltainvest"
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ActiveSymbols) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if v, ok := raw["active_symbols"]; !ok || v == nil {
-		return fmt.Errorf("field active_symbols in ActiveSymbols: required")
-	}
-	type Plain ActiveSymbols
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = ActiveSymbols(plain)
-	return nil
-}
-
-const ActiveSymbolsLandingCompanyVanuatu ActiveSymbolsLandingCompany = "vanuatu"
-const ActiveSymbolsLandingCompanyShortMalta ActiveSymbolsLandingCompanyShort = "malta"
-const ActiveSymbolsLandingCompanyVirtual ActiveSymbolsLandingCompany = "virtual"
-const ActiveSymbolsLandingCompanySvg ActiveSymbolsLandingCompany = "svg"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
@@ -203,4 +290,20 @@ var enumValues_ActiveSymbolsActiveSymbols = []interface{}{
 	"full",
 }
 
-const ActiveSymbolsLandingCompanyShortSvg ActiveSymbolsLandingCompanyShort = "svg"
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ActiveSymbols) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if v, ok := raw["active_symbols"]; !ok || v == nil {
+		return fmt.Errorf("field active_symbols in ActiveSymbols: required")
+	}
+	type Plain ActiveSymbols
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = ActiveSymbols(plain)
+	return nil
+}
