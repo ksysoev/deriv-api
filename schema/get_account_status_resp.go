@@ -113,7 +113,11 @@ type GetAccountStatusRespGetAccountStatus struct {
 	// - `idv_revoked`: the client used to be fully authenticated by IDV but it was
 	// taken away due to compliance criteria.
 	// - `mt5_additional_kyc_required`: client tax information, place of birth and
-	// account opening reason is missing
+	// account opening reason is missing.
+	// - `poi_expiring_soon`: the POI documents of the client will get expired soon,
+	// allow them to reupload POI documents.
+	// - `poa_expiring_soon`: the POA documents of the client will get outdated soon,
+	// allow them to reupload POA documents.
 	Status []string `json:"status"`
 }
 
