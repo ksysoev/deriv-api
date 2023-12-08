@@ -41,8 +41,8 @@ type Cashier struct {
 	// [Optional] Used to map request to response.
 	ReqId *int `json:"req_id,omitempty"`
 
-	// [Optional] Data need to be returned from cashier. `api` is supported only for
-	// `crypto` provider.
+	// [Optional] Data is returned from the cashier. The `crypto` provider only
+	// supports `api` (not `url`) for crypto accounts.
 	Type CashierType `json:"type,omitempty"`
 
 	// [Optional] Email verification code (received from a `verify_email` call, which
