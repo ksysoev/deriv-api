@@ -42,6 +42,9 @@ type GetLimitsRespGetLimits struct {
 	// Lifetime withdrawal limit
 	LifetimeLimit *float64 `json:"lifetime_limit,omitempty"`
 
+	// Lifetime transfer limits. Only present when applicable to the current accout.
+	LifetimeTransfers *GetLimitsRespGetLimitsLifetimeTransfers `json:"lifetime_transfers,omitempty"`
+
 	// Contains limitation information for each market.
 	MarketSpecific GetLimitsRespGetLimitsMarketSpecific `json:"market_specific,omitempty"`
 
@@ -81,6 +84,45 @@ type GetLimitsRespGetLimitsDailyCumulativeAmountTransfers map[string]interface{}
 // Daily transfers
 type GetLimitsRespGetLimitsDailyTransfers map[string]interface{}
 
+// Lifetime transfer limits. Only present when applicable to the current accout.
+type GetLimitsRespGetLimitsLifetimeTransfers struct {
+	// Lifetime transfer limit for crypto to crypto currencies.
+	CryptoToCrypto *GetLimitsRespGetLimitsLifetimeTransfersCryptoToCrypto `json:"crypto_to_crypto,omitempty"`
+
+	// Lifetime transfer limit for crypto to fiat currencies.
+	CryptoToFiat *GetLimitsRespGetLimitsLifetimeTransfersCryptoToFiat `json:"crypto_to_fiat,omitempty"`
+
+	// Lifetime transfer limit for fiat to crypto currencies.
+	FiatToCrypto *GetLimitsRespGetLimitsLifetimeTransfersFiatToCrypto `json:"fiat_to_crypto,omitempty"`
+}
+
+// Lifetime transfer limit for crypto to crypto currencies.
+type GetLimitsRespGetLimitsLifetimeTransfersCryptoToCrypto struct {
+	// Total limit in client's currency.
+	Allowed *float64 `json:"allowed,omitempty"`
+
+	// Remaining limit in client's currency.
+	Available *float64 `json:"available,omitempty"`
+}
+
+// Lifetime transfer limit for crypto to fiat currencies.
+type GetLimitsRespGetLimitsLifetimeTransfersCryptoToFiat struct {
+	// Total limit in client's currency.
+	Allowed *float64 `json:"allowed,omitempty"`
+
+	// Remaining limit in client's currency.
+	Available *float64 `json:"available,omitempty"`
+}
+
+// Lifetime transfer limit for fiat to crypto currencies.
+type GetLimitsRespGetLimitsLifetimeTransfersFiatToCrypto struct {
+	// Total limit in client's currency.
+	Allowed *float64 `json:"allowed,omitempty"`
+
+	// Remaining limit in client's currency.
+	Available *float64 `json:"available,omitempty"`
+}
+
 // Contains limitation information for each market.
 type GetLimitsRespGetLimitsMarketSpecific map[string]interface{}
 
@@ -95,7 +137,18 @@ type GetLimitsRespGetLimitsPayoutPerSymbol struct {
 	NonAtm *GetLimitsRespGetLimitsPayoutPerSymbolNonAtm `json:"non_atm,omitempty"`
 }
 
-type GetLimitsRespMsgType string
+// Maximum aggregate payouts on open positions per symbol for contract where
+// barrier is different from entry spot.
+type GetLimitsRespGetLimitsPayoutPerSymbolNonAtm struct {
+	// Maximum aggregate payouts on open positions per symbol for contract where
+	// barrier is different from entry spot and duration is less than and equal to
+	// seven days
+	LessThanSevenDays *float64 `json:"less_than_seven_days,omitempty"`
+
+	// Maximum aggregate payouts on open positions per symbol for contract where
+	// barrier is different from entry spot and duration is more to seven days
+	MoreThanSevenDays *float64 `json:"more_than_seven_days,omitempty"`
+}
 
 var enumValues_GetLimitsRespMsgType = []interface{}{
 	"get_limits",
@@ -121,18 +174,7 @@ func (j *GetLimitsRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Maximum aggregate payouts on open positions per symbol for contract where
-// barrier is different from entry spot.
-type GetLimitsRespGetLimitsPayoutPerSymbolNonAtm struct {
-	// Maximum aggregate payouts on open positions per symbol for contract where
-	// barrier is different from entry spot and duration is less than and equal to
-	// seven days
-	LessThanSevenDays *float64 `json:"less_than_seven_days,omitempty"`
-
-	// Maximum aggregate payouts on open positions per symbol for contract where
-	// barrier is different from entry spot and duration is more to seven days
-	MoreThanSevenDays *float64 `json:"more_than_seven_days,omitempty"`
-}
+type GetLimitsRespMsgType string
 
 const GetLimitsRespMsgTypeGetLimits GetLimitsRespMsgType = "get_limits"
 

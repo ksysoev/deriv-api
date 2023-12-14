@@ -4,6 +4,14 @@ package deriv
 
 import "github.com/ksysoev/deriv-api/schema"
 
+// AccountList Returns all accounts belonging to the authorized user.
+func (a *DerivAPI) AccountList(r schema.AccountList) (resp schema.AccountListResp, err error) {
+	id := a.getNextRequestID()
+	r.ReqId = &id
+	err = a.SendRequest(id, r, &resp)
+	return
+}
+
 // ActiveSymbols Retrieve a list of all currently active symbols (underlying markets upon which contracts are available for trading).
 func (a *DerivAPI) ActiveSymbols(r schema.ActiveSymbols) (resp schema.ActiveSymbolsResp, err error) {
 	id := a.getNextRequestID()

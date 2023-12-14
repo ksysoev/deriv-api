@@ -24,7 +24,8 @@ type AuthorizeResp struct {
 
 // Account information for the holder of the token.
 type AuthorizeRespAuthorize struct {
-	// List of accounts for current user.
+	// List of accounts for current user. This is also available from the
+	// `account_list` call.
 	AccountList []AuthorizeRespAuthorizeAccountListElem `json:"account_list,omitempty"`
 
 	// Cash balance of the account.
@@ -80,6 +81,9 @@ type AuthorizeRespAuthorizeAccountListElem struct {
 
 	// Account type.
 	AccountType *string `json:"account_type,omitempty"`
+
+	// 2 letter broker code.
+	Broker *string `json:"broker,omitempty"`
 
 	// Creation time of the account as epoch.
 	CreatedAt *int `json:"created_at,omitempty"`

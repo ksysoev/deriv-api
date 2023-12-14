@@ -28,6 +28,7 @@ type Portfolio struct {
 
 type PortfolioContractTypeElem string
 
+const PortfolioContractTypeElemACCU PortfolioContractTypeElem = "ACCU"
 const PortfolioContractTypeElemASIAND PortfolioContractTypeElem = "ASIAND"
 const PortfolioContractTypeElemASIANU PortfolioContractTypeElem = "ASIANU"
 const PortfolioContractTypeElemCALL PortfolioContractTypeElem = "CALL"
@@ -60,6 +61,11 @@ const PortfolioContractTypeElemRUNHIGH PortfolioContractTypeElem = "RUNHIGH"
 const PortfolioContractTypeElemRUNLOW PortfolioContractTypeElem = "RUNLOW"
 const PortfolioContractTypeElemTICKHIGH PortfolioContractTypeElem = "TICKHIGH"
 const PortfolioContractTypeElemTICKLOW PortfolioContractTypeElem = "TICKLOW"
+const PortfolioContractTypeElemTURBOSLONG PortfolioContractTypeElem = "TURBOSLONG"
+const PortfolioContractTypeElemTURBOSSHORT PortfolioContractTypeElem = "TURBOSSHORT"
+const PortfolioContractTypeElemUPORDOWN PortfolioContractTypeElem = "UPORDOWN"
+const PortfolioContractTypeElemVANILLALONGCALL PortfolioContractTypeElem = "VANILLALONGCALL"
+const PortfolioContractTypeElemVANILLALONGPUT PortfolioContractTypeElem = "VANILLALONGPUT"
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *PortfolioContractTypeElem) UnmarshalJSON(b []byte) error {
@@ -80,12 +86,6 @@ func (j *PortfolioContractTypeElem) UnmarshalJSON(b []byte) error {
 	*j = PortfolioContractTypeElem(v)
 	return nil
 }
-
-const PortfolioContractTypeElemTURBOSLONG PortfolioContractTypeElem = "TURBOSLONG"
-const PortfolioContractTypeElemTURBOSSHORT PortfolioContractTypeElem = "TURBOSSHORT"
-const PortfolioContractTypeElemUPORDOWN PortfolioContractTypeElem = "UPORDOWN"
-const PortfolioContractTypeElemVANILLALONGCALL PortfolioContractTypeElem = "VANILLALONGCALL"
-const PortfolioContractTypeElemVANILLALONGPUT PortfolioContractTypeElem = "VANILLALONGPUT"
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
@@ -118,6 +118,7 @@ func (j *PortfolioPortfolio) UnmarshalJSON(b []byte) error {
 }
 
 var enumValues_PortfolioContractTypeElem = []interface{}{
+	"ACCU",
 	"ASIAND",
 	"ASIANU",
 	"CALL",
