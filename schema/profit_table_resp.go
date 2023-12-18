@@ -72,11 +72,25 @@ type ProfitTableRespProfitTableTransactionsElem struct {
 	// The unique contract identifier.
 	ContractId *int `json:"contract_id,omitempty"`
 
-	// The duration type of the contract.
+	// [Optional] The contract type for the transaction if description is set to 1.
+	ContractType *string `json:"contract_type,omitempty"`
+
+	// [Optional] Duration set for deal cancellation for Multiplier contracts in
+	// synthetic indices if description is set to 1.
+	DealCancellationDuration *string `json:"deal_cancellation_duration,omitempty"`
+
+	// [Optional] The duration type of the contract if description is set to 1.
 	DurationType *string `json:"duration_type,omitempty"`
 
-	// The description of contract purchased if description is set to 1
+	// [Optional] The growth rate for Accumulators contract if description is set to
+	// 1.
+	GrowthRate *string `json:"growth_rate,omitempty"`
+
+	// [Optional] The description of contract purchased if description is set to 1
 	Longcode *string `json:"longcode,omitempty"`
+
+	// [Optional] The multiplier for Multiplier contracts if description is set to 1.
+	Multiplier *string `json:"multiplier,omitempty"`
 
 	// Payout price
 	Payout *float64 `json:"payout,omitempty"`
@@ -90,12 +104,16 @@ type ProfitTableRespProfitTableTransactionsElem struct {
 	// Epoch sell time of the transaction
 	SellTime *int `json:"sell_time,omitempty"`
 
-	// Compact description of the contract purchased if description is set to 1
+	// [Optional] Compact description of the contract purchased if description is set
+	// to 1
 	Shortcode *string `json:"shortcode,omitempty"`
 
 	// The transaction Identifier. Every contract (buy or sell) and every payment has
 	// a unique transaction identifier.
 	TransactionId *int `json:"transaction_id,omitempty"`
+
+	// [Optional] Symbol code if description is set to 1
+	UnderlyingSymbol *string `json:"underlying_symbol,omitempty"`
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
