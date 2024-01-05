@@ -145,6 +145,7 @@ type Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment string
 const Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironmentDerivDemo Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment = "Deriv-Demo"
 const Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironmentDerivServer Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment = "Deriv-Server"
 const Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironmentDerivServer02 Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment = "Deriv-Server-02"
+const Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironmentDerivServer03 Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment = "Deriv-Server-03"
 
 // Geographical location of the server.
 type Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoGeolocation struct {
@@ -194,6 +195,7 @@ type Mt5LoginListRespMt5LoginListElemServerInfoEnvironment string
 const Mt5LoginListRespMt5LoginListElemServerInfoEnvironmentDerivDemo Mt5LoginListRespMt5LoginListElemServerInfoEnvironment = "Deriv-Demo"
 const Mt5LoginListRespMt5LoginListElemServerInfoEnvironmentDerivServer Mt5LoginListRespMt5LoginListElemServerInfoEnvironment = "Deriv-Server"
 const Mt5LoginListRespMt5LoginListElemServerInfoEnvironmentDerivServer02 Mt5LoginListRespMt5LoginListElemServerInfoEnvironment = "Deriv-Server-02"
+const Mt5LoginListRespMt5LoginListElemServerInfoEnvironmentDerivServer03 Mt5LoginListRespMt5LoginListElemServerInfoEnvironment = "Deriv-Server-03"
 
 // Geographical location of the server.
 type Mt5LoginListRespMt5LoginListElemServerInfoGeolocation struct {
@@ -217,54 +219,6 @@ const Mt5LoginListRespMt5LoginListElemSubAccountCategoryIbt Mt5LoginListRespMt5L
 const Mt5LoginListRespMt5LoginListElemSubAccountCategoryLim Mt5LoginListRespMt5LoginListElemSubAccountCategory = "lim"
 const Mt5LoginListRespMt5LoginListElemSubAccountCategoryStp Mt5LoginListRespMt5LoginListElemSubAccountCategory = "stp"
 const Mt5LoginListRespMt5LoginListElemSubAccountCategorySwapFree Mt5LoginListRespMt5LoginListElemSubAccountCategory = "swap_free"
-const Mt5LoginListRespMt5LoginListElemSubAccountCategorySwapFreeHighRisk Mt5LoginListRespMt5LoginListElemSubAccountCategory = "swap_free_high_risk"
-
-type Mt5LoginListRespMt5LoginListElemSubAccountType string
-
-const Mt5LoginListRespMt5LoginListElemSubAccountTypeFinancial Mt5LoginListRespMt5LoginListElemSubAccountType = "financial"
-const Mt5LoginListRespMt5LoginListElemSubAccountTypeFinancialStp Mt5LoginListRespMt5LoginListElemSubAccountType = "financial_stp"
-const Mt5LoginListRespMt5LoginListElemSubAccountTypeStandard Mt5LoginListRespMt5LoginListElemSubAccountType = "standard"
-const Mt5LoginListRespMt5LoginListElemSubAccountTypeSwapFree Mt5LoginListRespMt5LoginListElemSubAccountType = "swap_free"
-
-var enumValues_Mt5LoginListRespMsgType = []interface{}{
-	"mt5_login_list",
-}
-var enumValues_Mt5LoginListRespMt5LoginListElemAccountType = []interface{}{
-	"demo",
-	"real",
-}
-var enumValues_Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment = []interface{}{
-	"Deriv-Demo",
-	"Deriv-Server",
-	"Deriv-Server-02",
-}
-var enumValues_Mt5LoginListRespMt5LoginListElemLandingCompanyShort = []interface{}{
-	"bvi",
-	"labuan",
-	"malta",
-	"maltainvest",
-	"svg",
-	"vanuatu",
-	"seychelles",
-}
-var enumValues_Mt5LoginListRespMt5LoginListElemMarketType = []interface{}{
-	"financial",
-	"synthetic",
-	"all",
-}
-var enumValues_Mt5LoginListRespMt5LoginListElemServerInfoEnvironment = []interface{}{
-	"Deriv-Demo",
-	"Deriv-Server",
-	"Deriv-Server-02",
-}
-var enumValues_Mt5LoginListRespMt5LoginListElemSubAccountCategory = []interface{}{
-	"",
-	"swap_free",
-	"swap_free_high_risk",
-	"ibt",
-	"stp",
-	"lim",
-}
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *Mt5LoginListRespMt5LoginListElemServerInfoEnvironment) UnmarshalJSON(b []byte) error {
@@ -285,6 +239,152 @@ func (j *Mt5LoginListRespMt5LoginListElemServerInfoEnvironment) UnmarshalJSON(b 
 	*j = Mt5LoginListRespMt5LoginListElemServerInfoEnvironment(v)
 	return nil
 }
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment, v)
+	}
+	*j = Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5LoginListRespMt5LoginListElemLandingCompanyShort) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5LoginListRespMt5LoginListElemLandingCompanyShort {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5LoginListRespMt5LoginListElemLandingCompanyShort, v)
+	}
+	*j = Mt5LoginListRespMt5LoginListElemLandingCompanyShort(v)
+	return nil
+}
+
+var enumValues_Mt5LoginListRespMt5LoginListElemLandingCompanyShort = []interface{}{
+	"bvi",
+	"labuan",
+	"malta",
+	"maltainvest",
+	"svg",
+	"vanuatu",
+	"seychelles",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5LoginListRespMt5LoginListElemAccountType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5LoginListRespMt5LoginListElemAccountType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5LoginListRespMt5LoginListElemAccountType, v)
+	}
+	*j = Mt5LoginListRespMt5LoginListElemAccountType(v)
+	return nil
+}
+
+var enumValues_Mt5LoginListRespMt5LoginListElemSubAccountCategory = []interface{}{
+	"",
+	"swap_free",
+	"swap_free_high_risk",
+	"ibt",
+	"stp",
+	"lim",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5LoginListRespMt5LoginListElemSubAccountCategory) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5LoginListRespMt5LoginListElemSubAccountCategory {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5LoginListRespMt5LoginListElemSubAccountCategory, v)
+	}
+	*j = Mt5LoginListRespMt5LoginListElemSubAccountCategory(v)
+	return nil
+}
+
+var enumValues_Mt5LoginListRespMt5LoginListElemAccountType = []interface{}{
+	"demo",
+	"real",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5LoginListRespMt5LoginListElemMarketType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5LoginListRespMt5LoginListElemMarketType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5LoginListRespMt5LoginListElemMarketType, v)
+	}
+	*j = Mt5LoginListRespMt5LoginListElemMarketType(v)
+	return nil
+}
+
+const Mt5LoginListRespMt5LoginListElemSubAccountCategorySwapFreeHighRisk Mt5LoginListRespMt5LoginListElemSubAccountCategory = "swap_free_high_risk"
+
+var enumValues_Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment = []interface{}{
+	"Deriv-Demo",
+	"Deriv-Server",
+	"Deriv-Server-02",
+	"Deriv-Server-03",
+}
+var enumValues_Mt5LoginListRespMt5LoginListElemServerInfoEnvironment = []interface{}{
+	"Deriv-Demo",
+	"Deriv-Server",
+	"Deriv-Server-02",
+	"Deriv-Server-03",
+}
+var enumValues_Mt5LoginListRespMt5LoginListElemMarketType = []interface{}{
+	"financial",
+	"synthetic",
+	"all",
+}
+
+type Mt5LoginListRespMt5LoginListElemSubAccountType string
 
 var enumValues_Mt5LoginListRespMt5LoginListElemSubAccountType = []interface{}{
 	"standard",
@@ -313,85 +413,10 @@ func (j *Mt5LoginListRespMt5LoginListElemSubAccountType) UnmarshalJSON(b []byte)
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *Mt5LoginListRespMt5LoginListElemMarketType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_Mt5LoginListRespMt5LoginListElemMarketType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5LoginListRespMt5LoginListElemMarketType, v)
-	}
-	*j = Mt5LoginListRespMt5LoginListElemMarketType(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *Mt5LoginListRespMt5LoginListElemSubAccountCategory) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_Mt5LoginListRespMt5LoginListElemSubAccountCategory {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5LoginListRespMt5LoginListElemSubAccountCategory, v)
-	}
-	*j = Mt5LoginListRespMt5LoginListElemSubAccountCategory(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *Mt5LoginListRespMt5LoginListElemLandingCompanyShort) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_Mt5LoginListRespMt5LoginListElemLandingCompanyShort {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5LoginListRespMt5LoginListElemLandingCompanyShort, v)
-	}
-	*j = Mt5LoginListRespMt5LoginListElemLandingCompanyShort(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *Mt5LoginListRespMt5LoginListElemAccountType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_Mt5LoginListRespMt5LoginListElemAccountType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5LoginListRespMt5LoginListElemAccountType, v)
-	}
-	*j = Mt5LoginListRespMt5LoginListElemAccountType(v)
-	return nil
-}
+const Mt5LoginListRespMt5LoginListElemSubAccountTypeStandard Mt5LoginListRespMt5LoginListElemSubAccountType = "standard"
+const Mt5LoginListRespMt5LoginListElemSubAccountTypeFinancial Mt5LoginListRespMt5LoginListElemSubAccountType = "financial"
+const Mt5LoginListRespMt5LoginListElemSubAccountTypeFinancialStp Mt5LoginListRespMt5LoginListElemSubAccountType = "financial_stp"
+const Mt5LoginListRespMt5LoginListElemSubAccountTypeSwapFree Mt5LoginListRespMt5LoginListElemSubAccountType = "swap_free"
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *Mt5LoginListRespMsgType) UnmarshalJSON(b []byte) error {
@@ -413,24 +438,8 @@ func (j *Mt5LoginListRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment, v)
-	}
-	*j = Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment(v)
-	return nil
+var enumValues_Mt5LoginListRespMsgType = []interface{}{
+	"mt5_login_list",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.

@@ -31,39 +31,16 @@ type KycAuthStatusKycAuthStatus int
 type KycAuthStatusLandingCompaniesElem string
 
 const KycAuthStatusLandingCompaniesElemBvi KycAuthStatusLandingCompaniesElem = "bvi"
-const KycAuthStatusLandingCompaniesElemChampion KycAuthStatusLandingCompaniesElem = "champion"
-const KycAuthStatusLandingCompaniesElemChampionVirtual KycAuthStatusLandingCompaniesElem = "champion-virtual"
 const KycAuthStatusLandingCompaniesElemDsl KycAuthStatusLandingCompaniesElem = "dsl"
 const KycAuthStatusLandingCompaniesElemIom KycAuthStatusLandingCompaniesElem = "iom"
 const KycAuthStatusLandingCompaniesElemLabuan KycAuthStatusLandingCompaniesElem = "labuan"
 const KycAuthStatusLandingCompaniesElemMalta KycAuthStatusLandingCompaniesElem = "malta"
 const KycAuthStatusLandingCompaniesElemMaltainvest KycAuthStatusLandingCompaniesElem = "maltainvest"
 const KycAuthStatusLandingCompaniesElemSamoa KycAuthStatusLandingCompaniesElem = "samoa"
+const KycAuthStatusLandingCompaniesElemSamoaVirtual KycAuthStatusLandingCompaniesElem = "samoa-virtual"
 const KycAuthStatusLandingCompaniesElemSvg KycAuthStatusLandingCompaniesElem = "svg"
 const KycAuthStatusLandingCompaniesElemVanuatu KycAuthStatusLandingCompaniesElem = "vanuatu"
 const KycAuthStatusLandingCompaniesElemVirtual KycAuthStatusLandingCompaniesElem = "virtual"
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *KycAuthStatusLandingCompaniesElem) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_KycAuthStatusLandingCompaniesElem {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_KycAuthStatusLandingCompaniesElem, v)
-	}
-	*j = KycAuthStatusLandingCompaniesElem(v)
-	return nil
-}
-
-const KycAuthStatusLandingCompaniesElemSamoaVirtual KycAuthStatusLandingCompaniesElem = "samoa-virtual"
 
 var enumValues_KycAuthStatusLandingCompaniesElem = []interface{}{
 	"iom",
@@ -73,8 +50,6 @@ var enumValues_KycAuthStatusLandingCompaniesElem = []interface{}{
 	"virtual",
 	"vanuatu",
 	"labuan",
-	"champion",
-	"champion-virtual",
 	"samoa",
 	"samoa-virtual",
 	"bvi",
@@ -98,6 +73,26 @@ func (j *KycAuthStatusKycAuthStatus) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_KycAuthStatusKycAuthStatus, v)
 	}
 	*j = KycAuthStatusKycAuthStatus(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *KycAuthStatusLandingCompaniesElem) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_KycAuthStatusLandingCompaniesElem {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_KycAuthStatusLandingCompaniesElem, v)
+	}
+	*j = KycAuthStatusLandingCompaniesElem(v)
 	return nil
 }
 

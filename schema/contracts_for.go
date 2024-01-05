@@ -43,41 +43,19 @@ type ContractsFor struct {
 
 type ContractsForLandingCompany string
 
-const ContractsForLandingCompanyChampion ContractsForLandingCompany = "champion"
-const ContractsForLandingCompanyChampionVirtual ContractsForLandingCompany = "champion-virtual"
 const ContractsForLandingCompanyIom ContractsForLandingCompany = "iom"
 const ContractsForLandingCompanyMalta ContractsForLandingCompany = "malta"
 const ContractsForLandingCompanyMaltainvest ContractsForLandingCompany = "maltainvest"
 
 type ContractsForLandingCompanyShort string
 
-const ContractsForLandingCompanyShortChampion ContractsForLandingCompanyShort = "champion"
-const ContractsForLandingCompanyShortChampionVirtual ContractsForLandingCompanyShort = "champion-virtual"
 const ContractsForLandingCompanyShortIom ContractsForLandingCompanyShort = "iom"
 const ContractsForLandingCompanyShortMalta ContractsForLandingCompanyShort = "malta"
 const ContractsForLandingCompanyShortMaltainvest ContractsForLandingCompanyShort = "maltainvest"
 const ContractsForLandingCompanyShortSvg ContractsForLandingCompanyShort = "svg"
 const ContractsForLandingCompanyShortVanuatu ContractsForLandingCompanyShort = "vanuatu"
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ContractsForLandingCompany) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ContractsForLandingCompany {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ContractsForLandingCompany, v)
-	}
-	*j = ContractsForLandingCompany(v)
-	return nil
-}
+const ContractsForLandingCompanyShortVirtual ContractsForLandingCompanyShort = "virtual"
+const ContractsForLandingCompanySvg ContractsForLandingCompany = "svg"
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ContractsForLandingCompanyShort) UnmarshalJSON(b []byte) error {
@@ -99,6 +77,9 @@ func (j *ContractsForLandingCompanyShort) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+const ContractsForLandingCompanyVanuatu ContractsForLandingCompany = "vanuatu"
+const ContractsForLandingCompanyVirtual ContractsForLandingCompany = "virtual"
+
 var enumValues_ContractsForLandingCompanyShort = []interface{}{
 	"iom",
 	"malta",
@@ -106,14 +87,27 @@ var enumValues_ContractsForLandingCompanyShort = []interface{}{
 	"svg",
 	"virtual",
 	"vanuatu",
-	"champion",
-	"champion-virtual",
 }
 
-const ContractsForLandingCompanyShortVirtual ContractsForLandingCompanyShort = "virtual"
-const ContractsForLandingCompanyVanuatu ContractsForLandingCompany = "vanuatu"
-const ContractsForLandingCompanySvg ContractsForLandingCompany = "svg"
-const ContractsForLandingCompanyVirtual ContractsForLandingCompany = "virtual"
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ContractsForLandingCompany) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ContractsForLandingCompany {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ContractsForLandingCompany, v)
+	}
+	*j = ContractsForLandingCompany(v)
+	return nil
+}
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
@@ -154,8 +148,6 @@ var enumValues_ContractsForLandingCompany = []interface{}{
 	"svg",
 	"virtual",
 	"vanuatu",
-	"champion",
-	"champion-virtual",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.

@@ -73,39 +73,6 @@ const TradingServersRespTradingServersElemEnvironmentDerivDemo TradingServersRes
 const TradingServersRespTradingServersElemEnvironmentDerivServer TradingServersRespTradingServersElemEnvironment = "Deriv-Server"
 const TradingServersRespTradingServersElemEnvironmentDerivServer02 TradingServersRespTradingServersElemEnvironment = "Deriv-Server-02"
 
-// Object containing geolocation information of the server.
-type TradingServersRespTradingServersElemGeolocation struct {
-	// Internal server grouping.
-	Group *string `json:"group,omitempty"`
-
-	// Geolocation country or place where server is located.
-	Location *string `json:"location,omitempty"`
-
-	// Geolocation region where server is located.
-	Region *string `json:"region,omitempty"`
-
-	// Sequence number of the server in that region.
-	Sequence *int `json:"sequence,omitempty"`
-}
-
-type TradingServersRespTradingServersElemId string
-
-const TradingServersRespTradingServersElemIdP01Ts01 TradingServersRespTradingServersElemId = "p01_ts01"
-const TradingServersRespTradingServersElemIdP01Ts02 TradingServersRespTradingServersElemId = "p01_ts02"
-const TradingServersRespTradingServersElemIdP01Ts03 TradingServersRespTradingServersElemId = "p01_ts03"
-const TradingServersRespTradingServersElemIdP01Ts04 TradingServersRespTradingServersElemId = "p01_ts04"
-const TradingServersRespTradingServersElemIdP02Ts02 TradingServersRespTradingServersElemId = "p02_ts02"
-
-type TradingServersRespTradingServersElemRecommended int
-
-var enumValues_TradingServersRespMsgType = []interface{}{
-	"trading_servers",
-}
-var enumValues_TradingServersRespTradingServersElemAccountType = []interface{}{
-	"demo",
-	"real",
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TradingServersRespTradingServersElemId) UnmarshalJSON(b []byte) error {
 	var v string
@@ -126,16 +93,11 @@ func (j *TradingServersRespTradingServersElemId) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-var enumValues_TradingServersRespTradingServersElemDisabled = []interface{}{
-	0,
-	1,
-}
-var enumValues_TradingServersRespTradingServersElemId = []interface{}{
-	"p01_ts01",
-	"p01_ts02",
-	"p01_ts03",
-	"p01_ts04",
-	"p02_ts02",
+var enumValues_TradingServersRespTradingServersElemEnvironment = []interface{}{
+	"Deriv-Demo",
+	"Deriv-Server",
+	"Deriv-Server-02",
+	"Deriv-Server-03",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -158,10 +120,9 @@ func (j *TradingServersRespTradingServersElemEnvironment) UnmarshalJSON(b []byte
 	return nil
 }
 
-var enumValues_TradingServersRespTradingServersElemEnvironment = []interface{}{
-	"Deriv-Demo",
-	"Deriv-Server",
-	"Deriv-Server-02",
+var enumValues_TradingServersRespTradingServersElemDisabled = []interface{}{
+	0,
+	1,
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -183,6 +144,68 @@ func (j *TradingServersRespTradingServersElemAccountType) UnmarshalJSON(b []byte
 	*j = TradingServersRespTradingServersElemAccountType(v)
 	return nil
 }
+
+var enumValues_TradingServersRespTradingServersElemAccountType = []interface{}{
+	"demo",
+	"real",
+}
+
+const TradingServersRespTradingServersElemEnvironmentDerivServer03 TradingServersRespTradingServersElemEnvironment = "Deriv-Server-03"
+
+// Object containing geolocation information of the server.
+type TradingServersRespTradingServersElemGeolocation struct {
+	// Internal server grouping.
+	Group *string `json:"group,omitempty"`
+
+	// Geolocation country or place where server is located.
+	Location *string `json:"location,omitempty"`
+
+	// Geolocation region where server is located.
+	Region *string `json:"region,omitempty"`
+
+	// Sequence number of the server in that region.
+	Sequence *int `json:"sequence,omitempty"`
+}
+
+type TradingServersRespTradingServersElemId string
+
+var enumValues_TradingServersRespTradingServersElemId = []interface{}{
+	"p01_ts01",
+	"p01_ts02",
+	"p01_ts03",
+	"p01_ts04",
+	"p02_ts02",
+	"p03_ts01",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *TradingServersRespTradingServersElemDisabled) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_TradingServersRespTradingServersElemDisabled {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingServersRespTradingServersElemDisabled, v)
+	}
+	*j = TradingServersRespTradingServersElemDisabled(v)
+	return nil
+}
+
+const TradingServersRespTradingServersElemIdP01Ts01 TradingServersRespTradingServersElemId = "p01_ts01"
+const TradingServersRespTradingServersElemIdP01Ts02 TradingServersRespTradingServersElemId = "p01_ts02"
+const TradingServersRespTradingServersElemIdP01Ts03 TradingServersRespTradingServersElemId = "p01_ts03"
+const TradingServersRespTradingServersElemIdP01Ts04 TradingServersRespTradingServersElemId = "p01_ts04"
+const TradingServersRespTradingServersElemIdP02Ts02 TradingServersRespTradingServersElemId = "p02_ts02"
+const TradingServersRespTradingServersElemIdP03Ts01 TradingServersRespTradingServersElemId = "p03_ts01"
+
+type TradingServersRespTradingServersElemRecommended int
 
 var enumValues_TradingServersRespTradingServersElemRecommended = []interface{}{
 	0,
@@ -229,24 +252,8 @@ func (j *TradingServersRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *TradingServersRespTradingServersElemDisabled) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_TradingServersRespTradingServersElemDisabled {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingServersRespTradingServersElemDisabled, v)
-	}
-	*j = TradingServersRespTradingServersElemDisabled(v)
-	return nil
+var enumValues_TradingServersRespMsgType = []interface{}{
+	"trading_servers",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.

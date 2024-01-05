@@ -145,6 +145,7 @@ var enumValues_Mt5GetSettingsRespMt5GetSettingsServerInfoEnvironment = []interfa
 	"Deriv-Demo",
 	"Deriv-Server",
 	"Deriv-Server-02",
+	"Deriv-Server-03",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -182,6 +183,7 @@ type Mt5GetSettingsRespMt5GetSettingsServerInfo struct {
 const Mt5GetSettingsRespMt5GetSettingsServerInfoEnvironmentDerivDemo Mt5GetSettingsRespMt5GetSettingsServerInfoEnvironment = "Deriv-Demo"
 const Mt5GetSettingsRespMt5GetSettingsServerInfoEnvironmentDerivServer Mt5GetSettingsRespMt5GetSettingsServerInfoEnvironment = "Deriv-Server"
 const Mt5GetSettingsRespMt5GetSettingsServerInfoEnvironmentDerivServer02 Mt5GetSettingsRespMt5GetSettingsServerInfoEnvironment = "Deriv-Server-02"
+const Mt5GetSettingsRespMt5GetSettingsServerInfoEnvironmentDerivServer03 Mt5GetSettingsRespMt5GetSettingsServerInfoEnvironment = "Deriv-Server-03"
 
 // Geographical location of the server.
 type Mt5GetSettingsRespMt5GetSettingsServerInfoGeolocation struct {

@@ -36,22 +36,27 @@ type AssetIndexAssetIndex int
 
 type AssetIndexLandingCompany string
 
-const AssetIndexLandingCompanyChampion AssetIndexLandingCompany = "champion"
-const AssetIndexLandingCompanyChampionVirtual AssetIndexLandingCompany = "champion-virtual"
 const AssetIndexLandingCompanyIom AssetIndexLandingCompany = "iom"
 const AssetIndexLandingCompanyMalta AssetIndexLandingCompany = "malta"
 const AssetIndexLandingCompanyMaltainvest AssetIndexLandingCompany = "maltainvest"
 
 type AssetIndexLandingCompanyShort string
 
-const AssetIndexLandingCompanyShortChampion AssetIndexLandingCompanyShort = "champion"
-const AssetIndexLandingCompanyShortChampionVirtual AssetIndexLandingCompanyShort = "champion-virtual"
 const AssetIndexLandingCompanyShortIom AssetIndexLandingCompanyShort = "iom"
 const AssetIndexLandingCompanyShortMalta AssetIndexLandingCompanyShort = "malta"
 const AssetIndexLandingCompanyShortMaltainvest AssetIndexLandingCompanyShort = "maltainvest"
 const AssetIndexLandingCompanyShortSvg AssetIndexLandingCompanyShort = "svg"
 const AssetIndexLandingCompanyShortVanuatu AssetIndexLandingCompanyShort = "vanuatu"
 const AssetIndexLandingCompanyShortVirtual AssetIndexLandingCompanyShort = "virtual"
+
+var enumValues_AssetIndexLandingCompanyShort = []interface{}{
+	"iom",
+	"malta",
+	"maltainvest",
+	"svg",
+	"virtual",
+	"vanuatu",
+}
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *AssetIndexLandingCompanyShort) UnmarshalJSON(b []byte) error {
@@ -71,17 +76,6 @@ func (j *AssetIndexLandingCompanyShort) UnmarshalJSON(b []byte) error {
 	}
 	*j = AssetIndexLandingCompanyShort(v)
 	return nil
-}
-
-var enumValues_AssetIndexLandingCompanyShort = []interface{}{
-	"iom",
-	"malta",
-	"maltainvest",
-	"svg",
-	"virtual",
-	"vanuatu",
-	"champion",
-	"champion-virtual",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -105,17 +99,8 @@ func (j *AssetIndexAssetIndex) UnmarshalJSON(b []byte) error {
 }
 
 const AssetIndexLandingCompanySvg AssetIndexLandingCompany = "svg"
-
-var enumValues_AssetIndexLandingCompany = []interface{}{
-	"iom",
-	"malta",
-	"maltainvest",
-	"svg",
-	"virtual",
-	"vanuatu",
-	"champion",
-	"champion-virtual",
-}
+const AssetIndexLandingCompanyVanuatu AssetIndexLandingCompany = "vanuatu"
+const AssetIndexLandingCompanyVirtual AssetIndexLandingCompany = "virtual"
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *AssetIndexLandingCompany) UnmarshalJSON(b []byte) error {
@@ -137,15 +122,20 @@ func (j *AssetIndexLandingCompany) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-const AssetIndexLandingCompanyVanuatu AssetIndexLandingCompany = "vanuatu"
-const AssetIndexLandingCompanyVirtual AssetIndexLandingCompany = "virtual"
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type AssetIndexPassthrough map[string]interface{}
 
 var enumValues_AssetIndexAssetIndex = []interface{}{
 	1,
+}
+var enumValues_AssetIndexLandingCompany = []interface{}{
+	"iom",
+	"malta",
+	"maltainvest",
+	"svg",
+	"virtual",
+	"vanuatu",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.

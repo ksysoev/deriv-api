@@ -122,12 +122,6 @@ const Mt5NewAccountMt5AccountTypeFinancialStp Mt5NewAccountMt5AccountType = "fin
 
 type Mt5NewAccountMt5NewAccount int
 
-// [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
-type Mt5NewAccountPassthrough map[string]interface{}
-
-type Mt5NewAccountServer string
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *Mt5NewAccountServer) UnmarshalJSON(b []byte) error {
 	var v string
@@ -146,6 +140,15 @@ func (j *Mt5NewAccountServer) UnmarshalJSON(b []byte) error {
 	}
 	*j = Mt5NewAccountServer(v)
 	return nil
+}
+
+var enumValues_Mt5NewAccountMt5AccountCategory = []interface{}{
+	"conventional",
+	"swap_free",
+}
+var enumValues_Mt5NewAccountMt5AccountType = []interface{}{
+	"financial",
+	"financial_stp",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -169,31 +172,6 @@ func (j *Mt5NewAccountMt5AccountType) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *Mt5NewAccountAccountType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_Mt5NewAccountAccountType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5NewAccountAccountType, v)
-	}
-	*j = Mt5NewAccountAccountType(v)
-	return nil
-}
-
-var enumValues_Mt5NewAccountDryRun = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
 func (j *Mt5NewAccountDryRun) UnmarshalJSON(b []byte) error {
 	var v int
 	if err := json.Unmarshal(b, &v); err != nil {
@@ -210,6 +188,31 @@ func (j *Mt5NewAccountDryRun) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5NewAccountDryRun, v)
 	}
 	*j = Mt5NewAccountDryRun(v)
+	return nil
+}
+
+var enumValues_Mt5NewAccountDryRun = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5NewAccountAccountType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5NewAccountAccountType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5NewAccountAccountType, v)
+	}
+	*j = Mt5NewAccountAccountType(v)
 	return nil
 }
 
@@ -237,9 +240,19 @@ func (j *Mt5NewAccountMt5NewAccount) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-var enumValues_Mt5NewAccountMt5AccountCategory = []interface{}{
-	"conventional",
-	"swap_free",
+// [Optional] Used to pass data through the websocket, which may be retrieved via
+// the `echo_req` output field.
+type Mt5NewAccountPassthrough map[string]interface{}
+
+type Mt5NewAccountServer string
+
+var enumValues_Mt5NewAccountServer = []interface{}{
+	"p01_ts01",
+	"p01_ts02",
+	"p01_ts03",
+	"p01_ts04",
+	"p02_ts02",
+	"p03_ts01",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -262,23 +275,12 @@ func (j *Mt5NewAccountMt5AccountCategory) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-var enumValues_Mt5NewAccountServer = []interface{}{
-	"p01_ts01",
-	"p01_ts02",
-	"p01_ts03",
-	"p01_ts04",
-	"p02_ts02",
-}
-var enumValues_Mt5NewAccountMt5AccountType = []interface{}{
-	"financial",
-	"financial_stp",
-}
-
 const Mt5NewAccountServerP01Ts01 Mt5NewAccountServer = "p01_ts01"
 const Mt5NewAccountServerP01Ts02 Mt5NewAccountServer = "p01_ts02"
 const Mt5NewAccountServerP01Ts03 Mt5NewAccountServer = "p01_ts03"
 const Mt5NewAccountServerP01Ts04 Mt5NewAccountServer = "p01_ts04"
 const Mt5NewAccountServerP02Ts02 Mt5NewAccountServer = "p02_ts02"
+const Mt5NewAccountServerP03Ts01 Mt5NewAccountServer = "p03_ts01"
 
 type Mt5NewAccountSubAccountCategory string
 

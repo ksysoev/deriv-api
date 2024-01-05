@@ -29,8 +29,6 @@ type LandingCompanyDetails struct {
 type LandingCompanyDetailsLandingCompanyDetails string
 
 const LandingCompanyDetailsLandingCompanyDetailsBvi LandingCompanyDetailsLandingCompanyDetails = "bvi"
-const LandingCompanyDetailsLandingCompanyDetailsChampion LandingCompanyDetailsLandingCompanyDetails = "champion"
-const LandingCompanyDetailsLandingCompanyDetailsChampionVirtual LandingCompanyDetailsLandingCompanyDetails = "champion-virtual"
 const LandingCompanyDetailsLandingCompanyDetailsDsl LandingCompanyDetailsLandingCompanyDetails = "dsl"
 const LandingCompanyDetailsLandingCompanyDetailsIom LandingCompanyDetailsLandingCompanyDetails = "iom"
 const LandingCompanyDetailsLandingCompanyDetailsLabuan LandingCompanyDetailsLandingCompanyDetails = "labuan"
@@ -73,8 +71,6 @@ var enumValues_LandingCompanyDetailsLandingCompanyDetails = []interface{}{
 	"svg",
 	"virtual",
 	"vanuatu",
-	"champion",
-	"champion-virtual",
 	"samoa",
 	"samoa-virtual",
 	"dsl",
