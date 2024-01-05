@@ -17,7 +17,7 @@ const (
 	SUBSCRIPTION_CALLS = "./subscription_calls.go"
 
 	// SCHEMA_PATH is the path to the schema files
-	SCHEMA_PATH = "./deriv-developers-portal/config/v3/"
+	SCHEMA_PATH = "./deriv-api-docs/config/v3/"
 )
 
 func main() {
@@ -31,7 +31,7 @@ func main() {
 
 	for _, file := range files {
 		name := file.Name()
-		request, err := os.ReadFile("deriv-developers-portal/config/v3/" + name + "/send.json")
+		request, err := os.ReadFile("deriv-api-docs/config/v3/" + name + "/send.json")
 		if err != nil {
 			log.Fatal(err)
 		}

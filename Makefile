@@ -4,24 +4,24 @@
 generate_all: clone generate-calls prepare-schema generate-schema clean
 
 clone:
-	git clone https://github.com/binary-com/deriv-developers-portal.git
+	git clone https://github.com/binary-com/deriv-api-docs.git
 
 generate-calls: 
 	go run bin/generate_calls.go
 
 prepare-schema:
-	cd deriv-developers-portal/ && \
+	cd deriv-api-docs/ && \
 	git apply ../schema.patch && \
 	cd config/v3/ && \
 	mkdir schema && \
 	find . -type f | grep -v example | grep -v schema | sed 'p; s/^\./.\/schema/; s/\/send//; s/\/receive/_resp/; s/\.json//;' | xargs -n2 cp -f
 
 generate-schema:
-	cd deriv-developers-portal/config/v3/schema && \
+	cd deriv-api-docs/config/v3/schema && \
 	for file in *; do gojsonschema --tags json -p schema "$$file" > "../../../../schema/$${file%.*}.go"; done
 
 clean:
-	rm -rf deriv-developers-portal
+	rm -rf deriv-api-docs
 
 test:
 	go test -v --race .
