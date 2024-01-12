@@ -932,6 +932,14 @@ func (a *DerivAPI) VerifyEmailCellxpert(r schema.VerifyEmailCellxpert) (resp sch
 	return
 }
 
+// WebsiteConfig Request server config.
+func (a *DerivAPI) WebsiteConfig(r schema.WebsiteConfig) (resp schema.WebsiteConfigResp, err error) {
+	id := a.getNextRequestID()
+	r.ReqId = &id
+	err = a.SendRequest(id, r, &resp)
+	return
+}
+
 // WebsiteStatus Request server status.
 func (a *DerivAPI) WebsiteStatus(r schema.WebsiteStatus) (resp schema.WebsiteStatusResp, err error) {
 	id := a.getNextRequestID()

@@ -19,6 +19,9 @@ type NewAccountVirtual struct {
 	// [Optional] Date of first contact, format: `yyyy-mm-dd` in GMT timezone.
 	DateFirstContact *string `json:"date_first_contact,omitempty"`
 
+	// [Optional] Email address for signup.
+	Email *string `json:"email,omitempty"`
+
 	// [Optional] Boolean value: 1 or 0, indicating whether the client has given
 	// consent for marketing emails.
 	EmailConsent *NewAccountVirtualEmailConsent `json:"email_consent,omitempty"`
