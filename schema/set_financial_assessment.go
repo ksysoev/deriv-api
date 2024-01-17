@@ -182,7 +182,7 @@ type SetFinancialAssessmentFinancialInformation struct {
 	NetIncome SetFinancialAssessmentFinancialInformationNetIncome `json:"net_income"`
 
 	// Occupation.
-	Occupation SetFinancialAssessmentFinancialInformationOccupation `json:"occupation"`
+	Occupation *SetFinancialAssessmentFinancialInformationOccupation `json:"occupation,omitempty"`
 
 	// [Optional] Source of wealth.
 	SourceOfWealth *SetFinancialAssessmentFinancialInformationSourceOfWealth `json:"source_of_wealth,omitempty"`
@@ -1543,9 +1543,6 @@ func (j *SetFinancialAssessmentFinancialInformation) UnmarshalJSON(b []byte) err
 	}
 	if v, ok := raw["net_income"]; !ok || v == nil {
 		return fmt.Errorf("field net_income in SetFinancialAssessmentFinancialInformation: required")
-	}
-	if v, ok := raw["occupation"]; !ok || v == nil {
-		return fmt.Errorf("field occupation in SetFinancialAssessmentFinancialInformation: required")
 	}
 	type Plain SetFinancialAssessmentFinancialInformation
 	var plain Plain
