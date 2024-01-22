@@ -18,7 +18,7 @@ prepare-schema:
 
 generate-schema:
 	cd deriv-api-docs/config/v3/schema && \
-	for file in *; do gojsonschema --tags json -p schema "$$file" > "../../../../schema/$${file%.*}.go"; done
+	for file in *; do go-jsonschema --tags json -p schema "$$file" > "../../../../schema/$${file%.*}.go"; done
 
 clean:
 	rm -rf deriv-api-docs
