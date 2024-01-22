@@ -1095,7 +1095,7 @@ func (j *NewAccountMaltainvest) UnmarshalJSON(b []byte) error {
 	if plain.SecretAnswer != nil && len(*plain.SecretAnswer) < 4 {
 		return fmt.Errorf("field %s length: must be >= %d", "secret_answer", 4)
 	}
-	if plain.SecretAnswer != nil && len(*plain.SecretAnswer) >= 50 {
+	if plain.SecretAnswer != nil && len(*plain.SecretAnswer) > 50 {
 		return fmt.Errorf("field %s length: must be <= %d", "secret_answer", 50)
 	}
 	*j = NewAccountMaltainvest(plain)

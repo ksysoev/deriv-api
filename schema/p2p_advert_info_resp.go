@@ -333,6 +333,40 @@ func (j *P2PAdvertInfoRespP2PAdvertInfoDeleted) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type P2PAdvertInfoRespP2PAdvertInfoEligibilityStatusElem string
+
+var enumValues_P2PAdvertInfoRespP2PAdvertInfoEligibilityStatusElem = []interface{}{
+	"completion_rate",
+	"country",
+	"join_date",
+	"rating_average",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertInfoRespP2PAdvertInfoEligibilityStatusElem) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertInfoRespP2PAdvertInfoEligibilityStatusElem {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertInfoRespP2PAdvertInfoEligibilityStatusElem, v)
+	}
+	*j = P2PAdvertInfoRespP2PAdvertInfoEligibilityStatusElem(v)
+	return nil
+}
+
+const P2PAdvertInfoRespP2PAdvertInfoEligibilityStatusElemCompletionRate P2PAdvertInfoRespP2PAdvertInfoEligibilityStatusElem = "completion_rate"
+const P2PAdvertInfoRespP2PAdvertInfoEligibilityStatusElemCountry P2PAdvertInfoRespP2PAdvertInfoEligibilityStatusElem = "country"
+const P2PAdvertInfoRespP2PAdvertInfoEligibilityStatusElemJoinDate P2PAdvertInfoRespP2PAdvertInfoEligibilityStatusElem = "join_date"
+const P2PAdvertInfoRespP2PAdvertInfoEligibilityStatusElemRatingAverage P2PAdvertInfoRespP2PAdvertInfoEligibilityStatusElem = "rating_average"
+
 type P2PAdvertInfoRespP2PAdvertInfoIsActive int
 
 var enumValues_P2PAdvertInfoRespP2PAdvertInfoIsActive = []interface{}{
@@ -357,6 +391,33 @@ func (j *P2PAdvertInfoRespP2PAdvertInfoIsActive) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertInfoRespP2PAdvertInfoIsActive, v)
 	}
 	*j = P2PAdvertInfoRespP2PAdvertInfoIsActive(v)
+	return nil
+}
+
+type P2PAdvertInfoRespP2PAdvertInfoIsEligible int
+
+var enumValues_P2PAdvertInfoRespP2PAdvertInfoIsEligible = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertInfoRespP2PAdvertInfoIsEligible) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertInfoRespP2PAdvertInfoIsEligible {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertInfoRespP2PAdvertInfoIsEligible, v)
+	}
+	*j = P2PAdvertInfoRespP2PAdvertInfoIsEligible(v)
 	return nil
 }
 
@@ -568,11 +629,29 @@ type P2PAdvertInfoRespP2PAdvertInfo struct {
 	// rate if applicable, formatted to appropriate decimal places.
 	EffectiveRateDisplay *string `json:"effective_rate_display,omitempty"`
 
+	// Reasons why the counterparty terms do not allow the current user to place
+	// orders against this advert. Possible values:
+	// - `completion_rate`: current user's 30 day completion rate is less than
+	// `min_completion_rate`.
+	// - `country`: current user's residence is not in `eligible_countries`.
+	// - `join_date`: current user registered on P2P less than `min_join_days` in the
+	// past.
+	// - `rating`: current user's average review rating is less than `min_rating`.
+	EligibilityStatus []P2PAdvertInfoRespP2PAdvertInfoEligibilityStatusElem `json:"eligibility_status,omitempty"`
+
+	// 2 letter country codes. Counterparties who do not live in these countries are
+	// not allowed to place orders against this advert.
+	EligibleCountries []string `json:"eligible_countries,omitempty"`
+
 	// The unique identifier for this advert.
 	Id *string `json:"id,omitempty"`
 
 	// The activation status of the advert.
 	IsActive *P2PAdvertInfoRespP2PAdvertInfoIsActive `json:"is_active,omitempty"`
+
+	// Indicates that the current user meets the counterparty terms for placing orders
+	// against this advert.
+	IsEligible P2PAdvertInfoRespP2PAdvertInfoIsEligible `json:"is_eligible,omitempty"`
 
 	// Indicates that this advert will appear on the main advert list. It is only
 	// visible to the advert owner.
@@ -597,6 +676,14 @@ type P2PAdvertInfoRespP2PAdvertInfo struct {
 	// appropriate decimal places.
 	MaxOrderAmountLimitDisplay *string `json:"max_order_amount_limit_display,omitempty"`
 
+	// Counterparties who have a 30 day completion rate less than this value are not
+	// allowed to place orders against this advert.
+	MinCompletionRate *float64 `json:"min_completion_rate,omitempty"`
+
+	// Counterparties who joined less than this number of days ago are not allowed to
+	// place orders against this advert.
+	MinJoinDays *int `json:"min_join_days,omitempty"`
+
 	// Minimum order amount specified in advert, in `account_currency`. It is only
 	// visible for advertisers.
 	MinOrderAmount *float64 `json:"min_order_amount,omitempty"`
@@ -611,6 +698,10 @@ type P2PAdvertInfoRespP2PAdvertInfo struct {
 	// Minimum order amount at this time, in `account_currency`, formatted to
 	// appropriate decimal places.
 	MinOrderAmountLimitDisplay *string `json:"min_order_amount_limit_display,omitempty"`
+
+	// Counterparties who have an average rating less than this value are not allowed
+	// to place orders against this advert.
+	MinRating *float64 `json:"min_rating,omitempty"`
 
 	// Expiry period (seconds) for order created against this ad.
 	OrderExpiryPeriod *P2PAdvertInfoRespP2PAdvertInfoOrderExpiryPeriod `json:"order_expiry_period,omitempty"`
@@ -697,6 +788,9 @@ func (j *P2PAdvertInfoRespP2PAdvertInfo) UnmarshalJSON(b []byte) error {
 	var plain Plain
 	if err := json.Unmarshal(b, &plain); err != nil {
 		return err
+	}
+	if v, ok := raw["is_eligible"]; !ok || v == nil {
+		plain.IsEligible = 0.0
 	}
 	if v, ok := raw["is_visible"]; !ok || v == nil {
 		plain.IsVisible = 0.0

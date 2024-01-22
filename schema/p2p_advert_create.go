@@ -21,6 +21,10 @@ type P2PAdvertCreate struct {
 	// [Optional] General information about the advert.
 	Description *string `json:"description,omitempty"`
 
+	// [Optional] 2 letter country codes. Counterparties who do not live in these
+	// countries will not be allowed to place orders against the advert.
+	EligibleCountries []string `json:"eligible_countries,omitempty"`
+
 	// [Optional] Local currency for this advert. If not provided, will use the
 	// currency of client's residence by default.
 	LocalCurrency *string `json:"local_currency,omitempty"`
@@ -33,9 +37,21 @@ type P2PAdvertCreate struct {
 	// `account_currency`. Should be more than or equal to `min_order_amount`
 	MaxOrderAmount float64 `json:"max_order_amount"`
 
+	// [Optional] Counterparties who have a 30 day completion rate less than this
+	// value will not be allowed to place orders against the advert.
+	MinCompletionRate *float64 `json:"min_completion_rate,omitempty"`
+
+	// [Optional] Counterparties who joined less than this number of days ago will not
+	// be allowed to place orders against the advert.
+	MinJoinDays *int `json:"min_join_days,omitempty"`
+
 	// Minimum allowed amount for the orders of this advert, in advertiser's
 	// `account_currency`. Should be less than or equal to `max_order_amount`.
 	MinOrderAmount float64 `json:"min_order_amount"`
+
+	// [Optional] Counterparties who have an average rating less than this value will
+	// not be allowed to place orders against the advert.
+	MinRating *float64 `json:"min_rating,omitempty"`
 
 	// [Optional] Expiry period (seconds) for order created against this ad.
 	OrderExpiryPeriod *P2PAdvertCreateOrderExpiryPeriod `json:"order_expiry_period,omitempty"`
@@ -253,6 +269,9 @@ func (j *P2PAdvertCreate) UnmarshalJSON(b []byte) error {
 	}
 	if v, ok := raw["block_trade"]; !ok || v == nil {
 		plain.BlockTrade = 0.0
+	}
+	if len(plain.EligibleCountries) > 250 {
+		return fmt.Errorf("field %s length: must be <= %d", "eligible_countries", 250)
 	}
 	if len(plain.PaymentMethodIds) > 3 {
 		return fmt.Errorf("field %s length: must be <= %d", "payment_method_ids", 3)

@@ -306,6 +306,40 @@ func (j *P2PAdvertListRespP2PAdvertListListElemCounterpartyType) UnmarshalJSON(b
 const P2PAdvertListRespP2PAdvertListListElemCounterpartyTypeBuy P2PAdvertListRespP2PAdvertListListElemCounterpartyType = "buy"
 const P2PAdvertListRespP2PAdvertListListElemCounterpartyTypeSell P2PAdvertListRespP2PAdvertListListElemCounterpartyType = "sell"
 
+type P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem string
+
+var enumValues_P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem = []interface{}{
+	"completion_rate",
+	"country",
+	"join_date",
+	"rating_average",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem, v)
+	}
+	*j = P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem(v)
+	return nil
+}
+
+const P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElemCompletionRate P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem = "completion_rate"
+const P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElemCountry P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem = "country"
+const P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElemJoinDate P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem = "join_date"
+const P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElemRatingAverage P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem = "rating_average"
+
 type P2PAdvertListRespP2PAdvertListListElemIsActive int
 
 var enumValues_P2PAdvertListRespP2PAdvertListListElemIsActive = []interface{}{
@@ -330,6 +364,33 @@ func (j *P2PAdvertListRespP2PAdvertListListElemIsActive) UnmarshalJSON(b []byte)
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemIsActive, v)
 	}
 	*j = P2PAdvertListRespP2PAdvertListListElemIsActive(v)
+	return nil
+}
+
+type P2PAdvertListRespP2PAdvertListListElemIsEligible int
+
+var enumValues_P2PAdvertListRespP2PAdvertListListElemIsEligible = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListRespP2PAdvertListListElemIsEligible) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemIsEligible {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemIsEligible, v)
+	}
+	*j = P2PAdvertListRespP2PAdvertListListElemIsEligible(v)
 	return nil
 }
 
@@ -534,11 +595,29 @@ type P2PAdvertListRespP2PAdvertListListElem struct {
 	// rate if applicable, formatted to appropriate decimal places.
 	EffectiveRateDisplay *string `json:"effective_rate_display"`
 
+	// Reasons why the counterparty terms do not allow the current user to place
+	// orders against this advert. Possible values:
+	// - `completion_rate`: current user's 30 day completion rate is less than
+	// `min_completion_rate`.
+	// - `country`: current user's residence is not in `eligible_countries`.
+	// - `join_date`: current user registered on P2P less than `min_join_days` in the
+	// past.
+	// - `rating`: current user's average review rating is less than `min_rating`.
+	EligibilityStatus []P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem `json:"eligibility_status,omitempty"`
+
+	// 2 letter country codes. Counterparties who do not live in these countries are
+	// not allowed to place orders against this advert.
+	EligibleCountries []string `json:"eligible_countries,omitempty"`
+
 	// The unique identifier for this advert.
 	Id string `json:"id"`
 
 	// The activation status of the advert.
 	IsActive P2PAdvertListRespP2PAdvertListListElemIsActive `json:"is_active"`
+
+	// Indicates that the current user meets the counterparty terms for placing an
+	// order.
+	IsEligible P2PAdvertListRespP2PAdvertListListElemIsEligible `json:"is_eligible,omitempty"`
 
 	// Indicates that this advert will appear on the main advert list.
 	IsVisible P2PAdvertListRespP2PAdvertListListElemIsVisible `json:"is_visible"`
@@ -562,6 +641,14 @@ type P2PAdvertListRespP2PAdvertListListElem struct {
 	// appropriate decimal places.
 	MaxOrderAmountLimitDisplay string `json:"max_order_amount_limit_display"`
 
+	// Counterparties who have a 30 day completion rate less than this value are not
+	// allowed to place orders against this advert.
+	MinCompletionRate *float64 `json:"min_completion_rate,omitempty"`
+
+	// Counterparties who joined less than this number of days ago are not allowed to
+	// place orders against this advert.
+	MinJoinDays *int `json:"min_join_days,omitempty"`
+
 	// Minimum order amount specified in advert, in `account_currency`. It is only
 	// visible for advertisers.
 	MinOrderAmount *float64 `json:"min_order_amount,omitempty"`
@@ -576,6 +663,10 @@ type P2PAdvertListRespP2PAdvertListListElem struct {
 	// Minimum order amount at this time, in `account_currency`, formatted to
 	// appropriate decimal places.
 	MinOrderAmountLimitDisplay string `json:"min_order_amount_limit_display"`
+
+	// Counterparties who have an average rating less than this value are not allowed
+	// to place orders against this advert.
+	MinRating *float64 `json:"min_rating,omitempty"`
 
 	// Expiry period (seconds) for order created against this ad.
 	OrderExpiryPeriod P2PAdvertListRespP2PAdvertListListElemOrderExpiryPeriod `json:"order_expiry_period"`
@@ -731,6 +822,9 @@ func (j *P2PAdvertListRespP2PAdvertListListElem) UnmarshalJSON(b []byte) error {
 	var plain Plain
 	if err := json.Unmarshal(b, &plain); err != nil {
 		return err
+	}
+	if v, ok := raw["is_eligible"]; !ok || v == nil {
+		plain.IsEligible = 0.0
 	}
 	if v, ok := raw["is_visible"]; !ok || v == nil {
 		plain.IsVisible = 0.0

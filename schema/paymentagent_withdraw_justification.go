@@ -73,7 +73,7 @@ func (j *PaymentagentWithdrawJustification) UnmarshalJSON(b []byte) error {
 	if plain.Message != nil && len(*plain.Message) < 1 {
 		return fmt.Errorf("field %s length: must be >= %d", "message", 1)
 	}
-	if plain.Message != nil && len(*plain.Message) >= 500 {
+	if plain.Message != nil && len(*plain.Message) > 500 {
 		return fmt.Errorf("field %s length: must be <= %d", "message", 500)
 	}
 	*j = PaymentagentWithdrawJustification(plain)

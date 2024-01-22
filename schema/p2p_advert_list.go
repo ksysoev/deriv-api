@@ -6,6 +6,208 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+type P2PAdvertListBlockTrade int
+
+var enumValues_P2PAdvertListBlockTrade = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListBlockTrade) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListBlockTrade {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListBlockTrade, v)
+	}
+	*j = P2PAdvertListBlockTrade(v)
+	return nil
+}
+
+type P2PAdvertListCounterpartyType string
+
+var enumValues_P2PAdvertListCounterpartyType = []interface{}{
+	"buy",
+	"sell",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListCounterpartyType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListCounterpartyType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListCounterpartyType, v)
+	}
+	*j = P2PAdvertListCounterpartyType(v)
+	return nil
+}
+
+const P2PAdvertListCounterpartyTypeBuy P2PAdvertListCounterpartyType = "buy"
+const P2PAdvertListCounterpartyTypeSell P2PAdvertListCounterpartyType = "sell"
+
+type P2PAdvertListFavouritesOnly int
+
+var enumValues_P2PAdvertListFavouritesOnly = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListFavouritesOnly) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListFavouritesOnly {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListFavouritesOnly, v)
+	}
+	*j = P2PAdvertListFavouritesOnly(v)
+	return nil
+}
+
+type P2PAdvertListHideIneligible int
+
+var enumValues_P2PAdvertListHideIneligible = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListHideIneligible) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListHideIneligible {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListHideIneligible, v)
+	}
+	*j = P2PAdvertListHideIneligible(v)
+	return nil
+}
+
+type P2PAdvertListP2PAdvertList int
+
+var enumValues_P2PAdvertListP2PAdvertList = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListP2PAdvertList) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListP2PAdvertList {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListP2PAdvertList, v)
+	}
+	*j = P2PAdvertListP2PAdvertList(v)
+	return nil
+}
+
+// [Optional] Used to pass data through the websocket, which may be retrieved via
+// the `echo_req` output field.
+type P2PAdvertListPassthrough map[string]interface{}
+
+type P2PAdvertListSortBy string
+
+var enumValues_P2PAdvertListSortBy = []interface{}{
+	"completion",
+	"rate",
+	"rating",
+	"recommended",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListSortBy) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListSortBy {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListSortBy, v)
+	}
+	*j = P2PAdvertListSortBy(v)
+	return nil
+}
+
+const P2PAdvertListSortByCompletion P2PAdvertListSortBy = "completion"
+const P2PAdvertListSortByRate P2PAdvertListSortBy = "rate"
+const P2PAdvertListSortByRating P2PAdvertListSortBy = "rating"
+const P2PAdvertListSortByRecommended P2PAdvertListSortBy = "recommended"
+
+type P2PAdvertListUseClientLimits int
+
+var enumValues_P2PAdvertListUseClientLimits = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListUseClientLimits) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListUseClientLimits {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListUseClientLimits, v)
+	}
+	*j = P2PAdvertListUseClientLimits(v)
+	return nil
+}
+
 // Returns available adverts for use with `p2p_order_create` .
 type P2PAdvertList struct {
 	// [Optional] ID of the advertiser to list adverts for.
@@ -26,6 +228,10 @@ type P2PAdvertList struct {
 
 	// [Optional] Only show adverts from favourite advertisers. Default is 0.
 	FavouritesOnly *P2PAdvertListFavouritesOnly `json:"favourites_only,omitempty"`
+
+	// [Optional] If set to 1, adverts for which the current user does not meet
+	// counteryparty terms are not returned.
+	HideIneligible P2PAdvertListHideIneligible `json:"hide_ineligible,omitempty"`
 
 	// [Optional] Used for paging.
 	Limit int `json:"limit,omitempty"`
@@ -62,180 +268,6 @@ type P2PAdvertList struct {
 	UseClientLimits P2PAdvertListUseClientLimits `json:"use_client_limits,omitempty"`
 }
 
-type P2PAdvertListBlockTrade int
-
-type P2PAdvertListCounterpartyType string
-
-const P2PAdvertListCounterpartyTypeBuy P2PAdvertListCounterpartyType = "buy"
-const P2PAdvertListCounterpartyTypeSell P2PAdvertListCounterpartyType = "sell"
-
-type P2PAdvertListFavouritesOnly int
-
-type P2PAdvertListP2PAdvertList int
-
-// [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
-type P2PAdvertListPassthrough map[string]interface{}
-
-type P2PAdvertListSortBy string
-
-const P2PAdvertListSortByCompletion P2PAdvertListSortBy = "completion"
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertListBlockTrade) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertListBlockTrade {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListBlockTrade, v)
-	}
-	*j = P2PAdvertListBlockTrade(v)
-	return nil
-}
-
-var enumValues_P2PAdvertListFavouritesOnly = []interface{}{
-	0,
-	1,
-}
-var enumValues_P2PAdvertListP2PAdvertList = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertListP2PAdvertList) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertListP2PAdvertList {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListP2PAdvertList, v)
-	}
-	*j = P2PAdvertListP2PAdvertList(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertListCounterpartyType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertListCounterpartyType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListCounterpartyType, v)
-	}
-	*j = P2PAdvertListCounterpartyType(v)
-	return nil
-}
-
-var enumValues_P2PAdvertListCounterpartyType = []interface{}{
-	"buy",
-	"sell",
-}
-var enumValues_P2PAdvertListSortBy = []interface{}{
-	"completion",
-	"rate",
-	"rating",
-	"recommended",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertListSortBy) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertListSortBy {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListSortBy, v)
-	}
-	*j = P2PAdvertListSortBy(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertListFavouritesOnly) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertListFavouritesOnly {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListFavouritesOnly, v)
-	}
-	*j = P2PAdvertListFavouritesOnly(v)
-	return nil
-}
-
-const P2PAdvertListSortByRate P2PAdvertListSortBy = "rate"
-const P2PAdvertListSortByRating P2PAdvertListSortBy = "rating"
-const P2PAdvertListSortByRecommended P2PAdvertListSortBy = "recommended"
-
-type P2PAdvertListUseClientLimits int
-
-var enumValues_P2PAdvertListUseClientLimits = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertListUseClientLimits) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertListUseClientLimits {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListUseClientLimits, v)
-	}
-	*j = P2PAdvertListUseClientLimits(v)
-	return nil
-}
-
-var enumValues_P2PAdvertListBlockTrade = []interface{}{
-	0,
-	1,
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PAdvertList) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
@@ -252,6 +284,9 @@ func (j *P2PAdvertList) UnmarshalJSON(b []byte) error {
 	}
 	if v, ok := raw["block_trade"]; !ok || v == nil {
 		plain.BlockTrade = 0.0
+	}
+	if v, ok := raw["hide_ineligible"]; !ok || v == nil {
+		plain.HideIneligible = 0.0
 	}
 	if v, ok := raw["limit"]; !ok || v == nil {
 		plain.Limit = 50.0

@@ -82,6 +82,10 @@ type P2PAdvertiserAdvertsRespP2PAdvertiserAdvertsListElem struct {
 	// rate if applicable, formatted to appropriate decimal places.
 	EffectiveRateDisplay *string `json:"effective_rate_display"`
 
+	// 2 letter country codes. Counterparties who do not live in these countries are
+	// not allowed to place orders.
+	EligibleCountries []string `json:"eligible_countries,omitempty"`
+
 	// The unique identifier for this advert.
 	Id string `json:"id"`
 
@@ -109,6 +113,14 @@ type P2PAdvertiserAdvertsRespP2PAdvertiserAdvertsListElem struct {
 	// appropriate decimal places.
 	MaxOrderAmountLimitDisplay string `json:"max_order_amount_limit_display"`
 
+	// Counterparties who have a 30 day completion rate less than this value are not
+	// allowed to place orders.
+	MinCompletionRate *float64 `json:"min_completion_rate,omitempty"`
+
+	// Counterparties who joined less than this number of days ago are not allowed to
+	// place orders.
+	MinJoinDays *int `json:"min_join_days,omitempty"`
+
 	// Minimum order amount, in `account_currency`.
 	MinOrderAmount float64 `json:"min_order_amount"`
 
@@ -122,6 +134,10 @@ type P2PAdvertiserAdvertsRespP2PAdvertiserAdvertsListElem struct {
 	// Minimum order amount at this time, in `account_currency`, formatted to
 	// appropriate decimal places.
 	MinOrderAmountLimitDisplay string `json:"min_order_amount_limit_display"`
+
+	// Counterparties who have an average rating less than this value are not allowed
+	// to place orders.
+	MinRating *float64 `json:"min_rating,omitempty"`
 
 	// Expiry period (seconds) for order created against this ad.
 	OrderExpiryPeriod P2PAdvertiserAdvertsRespP2PAdvertiserAdvertsListElemOrderExpiryPeriod `json:"order_expiry_period"`

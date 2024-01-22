@@ -8,6 +8,10 @@ import "reflect"
 
 // Get KYC Authentication Status
 type KycAuthStatus struct {
+	// The country for which service availability is being verified, 2-letter country
+	// code
+	Country *string `json:"country,omitempty"`
+
 	// Must be `1`
 	KycAuthStatus KycAuthStatusKycAuthStatus `json:"kyc_auth_status"`
 

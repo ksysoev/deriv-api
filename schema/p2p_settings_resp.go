@@ -6,108 +6,62 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Information of the P2P settings.
-type P2PSettingsResp struct {
-	// Echo of the request made.
-	EchoReq P2PSettingsRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType P2PSettingsRespMsgType `json:"msg_type"`
-
-	// Peer-to-peer payment system settings.
-	P2PSettings *P2PSettingsRespP2PSettings `json:"p2p_settings,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// For subscription requests only.
-	Subscription *P2PSettingsRespSubscription `json:"subscription,omitempty"`
-}
-
 // Echo of the request made.
 type P2PSettingsRespEchoReq map[string]interface{}
 
 type P2PSettingsRespMsgType string
 
+var enumValues_P2PSettingsRespMsgType = []interface{}{
+	"p2p_settings",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PSettingsRespMsgType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PSettingsRespMsgType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespMsgType, v)
+	}
+	*j = P2PSettingsRespMsgType(v)
+	return nil
+}
+
 const P2PSettingsRespMsgTypeP2PSettings P2PSettingsRespMsgType = "p2p_settings"
 
-// Peer-to-peer payment system settings.
-type P2PSettingsRespP2PSettings struct {
-	// Maximum number of active ads allowed by an advertiser per currency pair and
-	// advert type (buy or sell).
-	AdvertsActiveLimit int `json:"adverts_active_limit"`
+type P2PSettingsRespP2PSettingsBlockTradeDisabled int
 
-	// Adverts will be deactivated if no activity occurs within this period, in days.
-	AdvertsArchivePeriod *int `json:"adverts_archive_period,omitempty"`
+var enumValues_P2PSettingsRespP2PSettingsBlockTradeDisabled = []interface{}{
+	0,
+	1,
+}
 
-	// Block trading settings
-	BlockTrade P2PSettingsRespP2PSettingsBlockTrade `json:"block_trade"`
-
-	// A buyer will be blocked for this duration after exceeding the cancellation
-	// limit, in hours.
-	CancellationBlockDuration int `json:"cancellation_block_duration"`
-
-	// The period within which to count buyer cancellations, in hours.
-	CancellationCountPeriod int `json:"cancellation_count_period"`
-
-	// A buyer may cancel an order within this period without negative consequences,
-	// in minutes after order creation.
-	CancellationGracePeriod int `json:"cancellation_grace_period"`
-
-	// A buyer will be temporarily barred after marking this number of cancellations
-	// within cancellation_period.
-	CancellationLimit int `json:"cancellation_limit"`
-
-	// When 0, only exchanges in local currency are allowed for P2P advertiser.
-	CrossBorderAdsEnabled P2PSettingsRespP2PSettingsCrossBorderAdsEnabled `json:"cross_border_ads_enabled"`
-
-	// When 1, the P2P service is unavailable.
-	Disabled P2PSettingsRespP2PSettingsDisabled `json:"disabled"`
-
-	// Indicates the availbility of certain backend features.
-	FeatureLevel int `json:"feature_level"`
-
-	// Availability of fixed rate adverts.
-	FixedRateAdverts P2PSettingsRespP2PSettingsFixedRateAdverts `json:"fixed_rate_adverts"`
-
-	// Date on which fixed rate adverts will be deactivated.
-	FixedRateAdvertsEndDate *string `json:"fixed_rate_adverts_end_date,omitempty"`
-
-	// Availability of floating rate adverts.
-	FloatRateAdverts P2PSettingsRespP2PSettingsFloatRateAdverts `json:"float_rate_adverts"`
-
-	// Maximum rate offset for floating rate adverts.
-	FloatRateOffsetLimit float64 `json:"float_rate_offset_limit"`
-
-	// Available local currencies for p2p_advert_list request.
-	LocalCurrencies []P2PSettingsRespP2PSettingsLocalCurrenciesElem `json:"local_currencies"`
-
-	// Maximum amount of an advert, in USD.
-	MaximumAdvertAmount float64 `json:"maximum_advert_amount"`
-
-	// Maximum amount of an order, in USD.
-	MaximumOrderAmount float64 `json:"maximum_order_amount"`
-
-	// Maximum number of orders a user may create per day.
-	OrderDailyLimit int `json:"order_daily_limit"`
-
-	// Time allowed for order payment, in minutes after order creation.
-	OrderPaymentPeriod int `json:"order_payment_period"`
-
-	// Local P2P exchange rate which should be used instead of those obtained from the
-	// `exchange_rates` call.
-	OverrideExchangeRate *string `json:"override_exchange_rate,omitempty"`
-
-	// Indicates if the payment methods feature is enabled.
-	PaymentMethodsEnabled P2PSettingsRespP2PSettingsPaymentMethodsEnabled `json:"payment_methods_enabled"`
-
-	// Time after successful order completion during which reviews can be created, in
-	// hours.
-	ReviewPeriod float64 `json:"review_period"`
-
-	// List of currencies for which P2P is available
-	SupportedCurrencies []string `json:"supported_currencies"`
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PSettingsRespP2PSettingsBlockTradeDisabled) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PSettingsRespP2PSettingsBlockTradeDisabled {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsBlockTradeDisabled, v)
+	}
+	*j = P2PSettingsRespP2PSettingsBlockTradeDisabled(v)
+	return nil
 }
 
 // Block trading settings
@@ -119,90 +73,47 @@ type P2PSettingsRespP2PSettingsBlockTrade struct {
 	MaximumAdvertAmount *float64 `json:"maximum_advert_amount,omitempty"`
 }
 
-type P2PSettingsRespP2PSettingsBlockTradeDisabled int
+// Recommended step values for choosing advert counterparty terms.
+type P2PSettingsRespP2PSettingsCounterpartyTermSteps struct {
+	// Values for minimum 30 day completion rate.
+	CompletionRate []float64 `json:"completion_rate"`
+
+	// Values for minimum joined days.
+	JoinDays []int `json:"join_days"`
+
+	// Values for minimum average rating.
+	Rating []float64 `json:"rating"`
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PSettingsRespP2PSettingsCounterpartyTermSteps) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if v, ok := raw["completion_rate"]; !ok || v == nil {
+		return fmt.Errorf("field completion_rate in P2PSettingsRespP2PSettingsCounterpartyTermSteps: required")
+	}
+	if v, ok := raw["join_days"]; !ok || v == nil {
+		return fmt.Errorf("field join_days in P2PSettingsRespP2PSettingsCounterpartyTermSteps: required")
+	}
+	if v, ok := raw["rating"]; !ok || v == nil {
+		return fmt.Errorf("field rating in P2PSettingsRespP2PSettingsCounterpartyTermSteps: required")
+	}
+	type Plain P2PSettingsRespP2PSettingsCounterpartyTermSteps
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = P2PSettingsRespP2PSettingsCounterpartyTermSteps(plain)
+	return nil
+}
 
 type P2PSettingsRespP2PSettingsCrossBorderAdsEnabled int
 
-type P2PSettingsRespP2PSettingsDisabled int
-
-type P2PSettingsRespP2PSettingsFixedRateAdverts string
-
-const P2PSettingsRespP2PSettingsFixedRateAdvertsDisabled P2PSettingsRespP2PSettingsFixedRateAdverts = "disabled"
-const P2PSettingsRespP2PSettingsFixedRateAdvertsEnabled P2PSettingsRespP2PSettingsFixedRateAdverts = "enabled"
-const P2PSettingsRespP2PSettingsFixedRateAdvertsListOnly P2PSettingsRespP2PSettingsFixedRateAdverts = "list_only"
-
-type P2PSettingsRespP2PSettingsFloatRateAdverts string
-
-const P2PSettingsRespP2PSettingsFloatRateAdvertsDisabled P2PSettingsRespP2PSettingsFloatRateAdverts = "disabled"
-const P2PSettingsRespP2PSettingsFloatRateAdvertsEnabled P2PSettingsRespP2PSettingsFloatRateAdverts = "enabled"
-const P2PSettingsRespP2PSettingsFloatRateAdvertsListOnly P2PSettingsRespP2PSettingsFloatRateAdverts = "list_only"
-
-// Local currency details.
-type P2PSettingsRespP2PSettingsLocalCurrenciesElem struct {
-	// Local currency name
-	DisplayName string `json:"display_name"`
-
-	// Indicates that there are adverts available for this currency.
-	HasAdverts P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts `json:"has_adverts"`
-
-	// Indicates that this is local currency for the current country.
-	IsDefault *P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault `json:"is_default,omitempty"`
-
-	// Local currency symbol
-	Symbol string `json:"symbol"`
-}
-
-type P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts int
-
-type P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault int
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PSettingsRespP2PSettingsFloatRateAdverts) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PSettingsRespP2PSettingsFloatRateAdverts {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsFloatRateAdverts, v)
-	}
-	*j = P2PSettingsRespP2PSettingsFloatRateAdverts(v)
-	return nil
-}
-
-var enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault = []interface{}{
+var enumValues_P2PSettingsRespP2PSettingsCrossBorderAdsEnabled = []interface{}{
+	0,
 	1,
-}
-var enumValues_P2PSettingsRespP2PSettingsFloatRateAdverts = []interface{}{
-	"disabled",
-	"enabled",
-	"list_only",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault, v)
-	}
-	*j = P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault(v)
-	return nil
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -225,63 +136,7 @@ func (j *P2PSettingsRespP2PSettingsCrossBorderAdsEnabled) UnmarshalJSON(b []byte
 	return nil
 }
 
-var enumValues_P2PSettingsRespP2PSettingsCrossBorderAdsEnabled = []interface{}{
-	0,
-	1,
-}
-var enumValues_P2PSettingsRespP2PSettingsBlockTradeDisabled = []interface{}{
-	0,
-	1,
-}
-var enumValues_P2PSettingsRespP2PSettingsFixedRateAdverts = []interface{}{
-	"disabled",
-	"enabled",
-	"list_only",
-}
-var enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts, v)
-	}
-	*j = P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PSettingsRespP2PSettingsFixedRateAdverts) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PSettingsRespP2PSettingsFixedRateAdverts {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsFixedRateAdverts, v)
-	}
-	*j = P2PSettingsRespP2PSettingsFixedRateAdverts(v)
-	return nil
-}
+type P2PSettingsRespP2PSettingsDisabled int
 
 var enumValues_P2PSettingsRespP2PSettingsDisabled = []interface{}{
 	0,
@@ -308,24 +163,136 @@ func (j *P2PSettingsRespP2PSettingsDisabled) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type P2PSettingsRespP2PSettingsFixedRateAdverts string
+
+var enumValues_P2PSettingsRespP2PSettingsFixedRateAdverts = []interface{}{
+	"disabled",
+	"enabled",
+	"list_only",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PSettingsRespP2PSettingsBlockTradeDisabled) UnmarshalJSON(b []byte) error {
-	var v int
+func (j *P2PSettingsRespP2PSettingsFixedRateAdverts) UnmarshalJSON(b []byte) error {
+	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_P2PSettingsRespP2PSettingsBlockTradeDisabled {
+	for _, expected := range enumValues_P2PSettingsRespP2PSettingsFixedRateAdverts {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsBlockTradeDisabled, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsFixedRateAdverts, v)
 	}
-	*j = P2PSettingsRespP2PSettingsBlockTradeDisabled(v)
+	*j = P2PSettingsRespP2PSettingsFixedRateAdverts(v)
 	return nil
+}
+
+const P2PSettingsRespP2PSettingsFixedRateAdvertsDisabled P2PSettingsRespP2PSettingsFixedRateAdverts = "disabled"
+const P2PSettingsRespP2PSettingsFixedRateAdvertsEnabled P2PSettingsRespP2PSettingsFixedRateAdverts = "enabled"
+const P2PSettingsRespP2PSettingsFixedRateAdvertsListOnly P2PSettingsRespP2PSettingsFixedRateAdverts = "list_only"
+
+type P2PSettingsRespP2PSettingsFloatRateAdverts string
+
+var enumValues_P2PSettingsRespP2PSettingsFloatRateAdverts = []interface{}{
+	"disabled",
+	"enabled",
+	"list_only",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PSettingsRespP2PSettingsFloatRateAdverts) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PSettingsRespP2PSettingsFloatRateAdverts {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsFloatRateAdverts, v)
+	}
+	*j = P2PSettingsRespP2PSettingsFloatRateAdverts(v)
+	return nil
+}
+
+const P2PSettingsRespP2PSettingsFloatRateAdvertsDisabled P2PSettingsRespP2PSettingsFloatRateAdverts = "disabled"
+const P2PSettingsRespP2PSettingsFloatRateAdvertsEnabled P2PSettingsRespP2PSettingsFloatRateAdverts = "enabled"
+const P2PSettingsRespP2PSettingsFloatRateAdvertsListOnly P2PSettingsRespP2PSettingsFloatRateAdverts = "list_only"
+
+type P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts int
+
+var enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts, v)
+	}
+	*j = P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts(v)
+	return nil
+}
+
+type P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault int
+
+var enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault, v)
+	}
+	*j = P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault(v)
+	return nil
+}
+
+// Local currency details.
+type P2PSettingsRespP2PSettingsLocalCurrenciesElem struct {
+	// Local currency name
+	DisplayName string `json:"display_name"`
+
+	// Indicates that there are adverts available for this currency.
+	HasAdverts P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts `json:"has_adverts"`
+
+	// Indicates that this is local currency for the current country.
+	IsDefault *P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault `json:"is_default,omitempty"`
+
+	// Local currency symbol
+	Symbol string `json:"symbol"`
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -379,24 +346,85 @@ func (j *P2PSettingsRespP2PSettingsPaymentMethodsEnabled) UnmarshalJSON(b []byte
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PSettingsRespMsgType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PSettingsRespMsgType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespMsgType, v)
-	}
-	*j = P2PSettingsRespMsgType(v)
-	return nil
+// Peer-to-peer payment system settings.
+type P2PSettingsRespP2PSettings struct {
+	// Maximum number of active ads allowed by an advertiser per currency pair and
+	// advert type (buy or sell).
+	AdvertsActiveLimit int `json:"adverts_active_limit"`
+
+	// Adverts will be deactivated if no activity occurs within this period, in days.
+	AdvertsArchivePeriod *int `json:"adverts_archive_period,omitempty"`
+
+	// Block trading settings
+	BlockTrade P2PSettingsRespP2PSettingsBlockTrade `json:"block_trade"`
+
+	// A buyer will be blocked for this duration after exceeding the cancellation
+	// limit, in hours.
+	CancellationBlockDuration int `json:"cancellation_block_duration"`
+
+	// The period within which to count buyer cancellations, in hours.
+	CancellationCountPeriod int `json:"cancellation_count_period"`
+
+	// A buyer may cancel an order within this period without negative consequences,
+	// in minutes after order creation.
+	CancellationGracePeriod int `json:"cancellation_grace_period"`
+
+	// A buyer will be temporarily barred after marking this number of cancellations
+	// within cancellation_period.
+	CancellationLimit int `json:"cancellation_limit"`
+
+	// Recommended step values for choosing advert counterparty terms.
+	CounterpartyTermSteps *P2PSettingsRespP2PSettingsCounterpartyTermSteps `json:"counterparty_term_steps,omitempty"`
+
+	// When 0, only exchanges in local currency are allowed for P2P advertiser.
+	CrossBorderAdsEnabled P2PSettingsRespP2PSettingsCrossBorderAdsEnabled `json:"cross_border_ads_enabled"`
+
+	// When 1, the P2P service is unavailable.
+	Disabled P2PSettingsRespP2PSettingsDisabled `json:"disabled"`
+
+	// Indicates the availbility of certain backend features.
+	FeatureLevel int `json:"feature_level"`
+
+	// Availability of fixed rate adverts.
+	FixedRateAdverts P2PSettingsRespP2PSettingsFixedRateAdverts `json:"fixed_rate_adverts"`
+
+	// Date on which fixed rate adverts will be deactivated.
+	FixedRateAdvertsEndDate *string `json:"fixed_rate_adverts_end_date,omitempty"`
+
+	// Availability of floating rate adverts.
+	FloatRateAdverts P2PSettingsRespP2PSettingsFloatRateAdverts `json:"float_rate_adverts"`
+
+	// Maximum rate offset for floating rate adverts.
+	FloatRateOffsetLimit float64 `json:"float_rate_offset_limit"`
+
+	// Available local currencies for p2p_advert_list request.
+	LocalCurrencies []P2PSettingsRespP2PSettingsLocalCurrenciesElem `json:"local_currencies"`
+
+	// Maximum amount of an advert, in USD.
+	MaximumAdvertAmount float64 `json:"maximum_advert_amount"`
+
+	// Maximum amount of an order, in USD.
+	MaximumOrderAmount float64 `json:"maximum_order_amount"`
+
+	// Maximum number of orders a user may create per day.
+	OrderDailyLimit int `json:"order_daily_limit"`
+
+	// Time allowed for order payment, in minutes after order creation.
+	OrderPaymentPeriod int `json:"order_payment_period"`
+
+	// Local P2P exchange rate which should be used instead of those obtained from the
+	// `exchange_rates` call.
+	OverrideExchangeRate *string `json:"override_exchange_rate,omitempty"`
+
+	// Indicates if the payment methods feature is enabled.
+	PaymentMethodsEnabled P2PSettingsRespP2PSettingsPaymentMethodsEnabled `json:"payment_methods_enabled"`
+
+	// Time after successful order completion during which reviews can be created, in
+	// hours.
+	ReviewPeriod float64 `json:"review_period"`
+
+	// List of currencies for which P2P is available
+	SupportedCurrencies []string `json:"supported_currencies"`
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -499,8 +527,23 @@ func (j *P2PSettingsRespSubscription) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-var enumValues_P2PSettingsRespMsgType = []interface{}{
-	"p2p_settings",
+// Information of the P2P settings.
+type P2PSettingsResp struct {
+	// Echo of the request made.
+	EchoReq P2PSettingsRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType P2PSettingsRespMsgType `json:"msg_type"`
+
+	// Peer-to-peer payment system settings.
+	P2PSettings *P2PSettingsRespP2PSettings `json:"p2p_settings,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// For subscription requests only.
+	Subscription *P2PSettingsRespSubscription `json:"subscription,omitempty"`
 }
 
 // UnmarshalJSON implements json.Unmarshaler.

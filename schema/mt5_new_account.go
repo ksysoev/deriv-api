@@ -354,13 +354,13 @@ func (j *Mt5NewAccount) UnmarshalJSON(b []byte) error {
 	if len(plain.Name) < 1 {
 		return fmt.Errorf("field %s length: must be >= %d", "name", 1)
 	}
-	if len(plain.Name) >= 101 {
+	if len(plain.Name) > 101 {
 		return fmt.Errorf("field %s length: must be <= %d", "name", 101)
 	}
-	if plain.PhonePassword != nil && len(*plain.PhonePassword) >= 50 {
+	if plain.PhonePassword != nil && len(*plain.PhonePassword) > 50 {
 		return fmt.Errorf("field %s length: must be <= %d", "phonePassword", 50)
 	}
-	if plain.ZipCode != nil && len(*plain.ZipCode) >= 50 {
+	if plain.ZipCode != nil && len(*plain.ZipCode) > 50 {
 		return fmt.Errorf("field %s length: must be <= %d", "zipCode", 50)
 	}
 	*j = Mt5NewAccount(plain)
