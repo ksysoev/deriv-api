@@ -58,6 +58,9 @@ type Mt5LoginListRespMt5LoginListElem struct {
 	// Group type of the MT5 account, e.g. `demo\svg_financial`
 	Group *string `json:"group,omitempty"`
 
+	// Broker name
+	LandingCompany *string `json:"landing_company,omitempty"`
+
 	// Landing company shortcode of the MT5 account.
 	LandingCompanyShort *Mt5LoginListRespMt5LoginListElemLandingCompanyShort `json:"landing_company_short,omitempty"`
 
