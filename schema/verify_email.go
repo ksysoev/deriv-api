@@ -38,6 +38,7 @@ type VerifyEmailPassthrough map[string]interface{}
 type VerifyEmailType string
 
 const VerifyEmailTypeAccountOpening VerifyEmailType = "account_opening"
+const VerifyEmailTypeAccountVerification VerifyEmailType = "account_verification"
 const VerifyEmailTypePartnerAccountOpening VerifyEmailType = "partner_account_opening"
 const VerifyEmailTypePaymentWithdraw VerifyEmailType = "payment_withdraw"
 const VerifyEmailTypePaymentagentWithdraw VerifyEmailType = "paymentagent_withdraw"
@@ -182,6 +183,7 @@ const VerifyEmailUrlParametersSignupDeviceMobile VerifyEmailUrlParametersSignupD
 var enumValues_VerifyEmailType = []interface{}{
 	"partner_account_opening",
 	"account_opening",
+	"account_verification",
 	"reset_password",
 	"paymentagent_withdraw",
 	"payment_withdraw",
