@@ -140,6 +140,14 @@ func (a *DerivAPI) Cashier(r schema.Cashier) (resp schema.CashierResp, err error
 	return
 }
 
+// ConfirmEmail Verifies the email for the user using verification code passed in the request object
+func (a *DerivAPI) ConfirmEmail(r schema.ConfirmEmail) (resp schema.ConfirmEmailResp, err error) {
+	id := a.getNextRequestID()
+	r.ReqId = &id
+	err = a.SendRequest(id, r, &resp)
+	return
+}
+
 // ContractUpdate Update a contract condition.
 func (a *DerivAPI) ContractUpdate(r schema.ContractUpdate) (resp schema.ContractUpdateResp, err error) {
 	id := a.getNextRequestID()
