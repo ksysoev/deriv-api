@@ -83,6 +83,7 @@ const DocumentUploadDocumentTypeDriverslicense DocumentUploadDocumentType = "dri
 const DocumentUploadDocumentTypeDrivingLicence DocumentUploadDocumentType = "driving_licence"
 const DocumentUploadDocumentTypeEddOthers DocumentUploadDocumentType = "edd_others"
 const DocumentUploadDocumentTypeEmploymentContract DocumentUploadDocumentType = "employment_contract"
+const DocumentUploadDocumentTypeIdentificationNumberDocument DocumentUploadDocumentType = "identification_number_document"
 const DocumentUploadDocumentTypeInsuranceBill DocumentUploadDocumentType = "insurance_bill"
 const DocumentUploadDocumentTypeMemorandum DocumentUploadDocumentType = "memorandum"
 const DocumentUploadDocumentTypeNationalIdentityCard DocumentUploadDocumentType = "national_identity_card"
@@ -94,83 +95,6 @@ const DocumentUploadDocumentTypePayslip DocumentUploadDocumentType = "payslip"
 const DocumentUploadDocumentTypePhoneBill DocumentUploadDocumentType = "phone_bill"
 const DocumentUploadDocumentTypePoaOthers DocumentUploadDocumentType = "poa_others"
 const DocumentUploadDocumentTypePoiOthers DocumentUploadDocumentType = "poi_others"
-const DocumentUploadDocumentTypePowerOfAttorney DocumentUploadDocumentType = "power_of_attorney"
-const DocumentUploadDocumentTypeProofOfOwnership DocumentUploadDocumentType = "proof_of_ownership"
-const DocumentUploadDocumentTypeProofaddress DocumentUploadDocumentType = "proofaddress"
-const DocumentUploadDocumentTypeProofid DocumentUploadDocumentType = "proofid"
-const DocumentUploadDocumentTypeSelfieWithId DocumentUploadDocumentType = "selfie_with_id"
-const DocumentUploadDocumentTypeStudentCard DocumentUploadDocumentType = "student_card"
-const DocumentUploadDocumentTypeTaxPhotoId DocumentUploadDocumentType = "tax_photo_id"
-const DocumentUploadDocumentTypeTaxReceipt DocumentUploadDocumentType = "tax_receipt"
-const DocumentUploadDocumentTypeTaxReturn DocumentUploadDocumentType = "tax_return"
-const DocumentUploadDocumentTypeUtilityBill DocumentUploadDocumentType = "utility_bill"
-const DocumentUploadDocumentTypeVoterCard DocumentUploadDocumentType = "voter_card"
-
-type DocumentUploadDocumentUpload int
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *DocumentUploadPageType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_DocumentUploadPageType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_DocumentUploadPageType, v)
-	}
-	*j = DocumentUploadPageType(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *DocumentUploadDocumentFormat) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_DocumentUploadDocumentFormat {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_DocumentUploadDocumentFormat, v)
-	}
-	*j = DocumentUploadDocumentFormat(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *DocumentUploadDocumentType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_DocumentUploadDocumentType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_DocumentUploadDocumentType, v)
-	}
-	*j = DocumentUploadDocumentType(v)
-	return nil
-}
-
-var enumValues_DocumentUploadDocumentUpload = []interface{}{
-	1,
-}
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *DocumentUploadDocumentUpload) UnmarshalJSON(b []byte) error {
@@ -192,43 +116,41 @@ func (j *DocumentUploadDocumentUpload) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type DocumentUploadLifetimeValid int
-
-var enumValues_DocumentUploadLifetimeValid = []interface{}{
-	0,
-	1,
-}
+const DocumentUploadDocumentTypeProofOfOwnership DocumentUploadDocumentType = "proof_of_ownership"
+const DocumentUploadDocumentTypeTaxReturn DocumentUploadDocumentType = "tax_return"
+const DocumentUploadDocumentTypeSelfieWithId DocumentUploadDocumentType = "selfie_with_id"
+const DocumentUploadDocumentTypeTaxPhotoId DocumentUploadDocumentType = "tax_photo_id"
+const DocumentUploadDocumentTypeStudentCard DocumentUploadDocumentType = "student_card"
+const DocumentUploadDocumentTypeVoterCard DocumentUploadDocumentType = "voter_card"
+const DocumentUploadDocumentTypeProofaddress DocumentUploadDocumentType = "proofaddress"
+const DocumentUploadDocumentTypeProofid DocumentUploadDocumentType = "proofid"
+const DocumentUploadDocumentTypePowerOfAttorney DocumentUploadDocumentType = "power_of_attorney"
+const DocumentUploadDocumentTypeUtilityBill DocumentUploadDocumentType = "utility_bill"
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *DocumentUploadLifetimeValid) UnmarshalJSON(b []byte) error {
-	var v int
+func (j *DocumentUploadDocumentType) UnmarshalJSON(b []byte) error {
+	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_DocumentUploadLifetimeValid {
+	for _, expected := range enumValues_DocumentUploadDocumentType {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_DocumentUploadLifetimeValid, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_DocumentUploadDocumentType, v)
 	}
-	*j = DocumentUploadLifetimeValid(v)
+	*j = DocumentUploadDocumentType(v)
 	return nil
 }
 
-type DocumentUploadPageType string
-
-var enumValues_DocumentUploadPageType = []interface{}{
-	"front",
-	"back",
-	"photo",
-}
 var enumValues_DocumentUploadDocumentType = []interface{}{
 	"passport",
 	"national_identity_card",
+	"identification_number_document",
 	"driving_licence",
 	"utility_bill",
 	"bankstatement",
@@ -264,6 +186,89 @@ var enumValues_DocumentUploadDocumentType = []interface{}{
 	"authorisation_letter",
 	"declarations",
 	"business_documents_others",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *DocumentUploadDocumentFormat) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_DocumentUploadDocumentFormat {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_DocumentUploadDocumentFormat, v)
+	}
+	*j = DocumentUploadDocumentFormat(v)
+	return nil
+}
+
+type DocumentUploadDocumentUpload int
+
+var enumValues_DocumentUploadDocumentUpload = []interface{}{
+	1,
+}
+
+const DocumentUploadDocumentTypeTaxReceipt DocumentUploadDocumentType = "tax_receipt"
+
+type DocumentUploadLifetimeValid int
+
+var enumValues_DocumentUploadLifetimeValid = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *DocumentUploadLifetimeValid) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_DocumentUploadLifetimeValid {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_DocumentUploadLifetimeValid, v)
+	}
+	*j = DocumentUploadLifetimeValid(v)
+	return nil
+}
+
+type DocumentUploadPageType string
+
+var enumValues_DocumentUploadPageType = []interface{}{
+	"front",
+	"back",
+	"photo",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *DocumentUploadPageType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_DocumentUploadPageType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_DocumentUploadPageType, v)
+	}
+	*j = DocumentUploadPageType(v)
+	return nil
 }
 
 const DocumentUploadPageTypeFront DocumentUploadPageType = "front"
