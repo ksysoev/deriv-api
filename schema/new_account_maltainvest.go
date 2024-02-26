@@ -76,6 +76,9 @@ type NewAccountMaltainvest struct {
 	// Estimated Net Worth.
 	EstimatedWorth *NewAccountMaltainvestEstimatedWorth `json:"estimated_worth,omitempty"`
 
+	// [Optional] Indicates client's self-declaration of FATCA.
+	FatcaDeclaration *NewAccountMaltainvestFatcaDeclaration `json:"fatca_declaration,omitempty"`
+
 	// Within 2-50 characters, use only letters, spaces, hyphens, full-stops or
 	// apostrophes.
 	FirstName string `json:"first_name"`
@@ -247,6 +250,8 @@ const NewAccountMaltainvestEstimatedWorthA5000011000000 NewAccountMaltainvestEst
 const NewAccountMaltainvestEstimatedWorthLessThan100000 NewAccountMaltainvestEstimatedWorth = "Less than $100,000"
 const NewAccountMaltainvestEstimatedWorthOver1000000 NewAccountMaltainvestEstimatedWorth = "Over $1,000,000"
 
+type NewAccountMaltainvestFatcaDeclaration int
+
 type NewAccountMaltainvestIncomeSource string
 
 const NewAccountMaltainvestIncomeSourceInvestmentsDividends NewAccountMaltainvestIncomeSource = "Investments & Dividends"
@@ -303,75 +308,132 @@ type NewAccountMaltainvestPassthrough map[string]interface{}
 
 type NewAccountMaltainvestRequiredInitialMargin string
 
-const NewAccountMaltainvestRequiredInitialMarginAllOfTheAbove NewAccountMaltainvestRequiredInitialMargin = "All of the above."
-const NewAccountMaltainvestRequiredInitialMarginWhenBuyingSharesOfACompany NewAccountMaltainvestRequiredInitialMargin = "When buying shares of a company."
-const NewAccountMaltainvestRequiredInitialMarginWhenOpeningALeveragedCFDTrade NewAccountMaltainvestRequiredInitialMargin = "When opening a Leveraged CFD trade."
-const NewAccountMaltainvestRequiredInitialMarginWhenTradingMultipliers NewAccountMaltainvestRequiredInitialMargin = "When trading Multipliers."
-
-type NewAccountMaltainvestRiskTolerance string
-
-const NewAccountMaltainvestRiskToleranceNo NewAccountMaltainvestRiskTolerance = "No"
-const NewAccountMaltainvestRiskToleranceYes NewAccountMaltainvestRiskTolerance = "Yes"
-
-type NewAccountMaltainvestSalutation string
-
-const NewAccountMaltainvestSalutationMiss NewAccountMaltainvestSalutation = "Miss"
-const NewAccountMaltainvestSalutationMr NewAccountMaltainvestSalutation = "Mr"
-const NewAccountMaltainvestSalutationMrs NewAccountMaltainvestSalutation = "Mrs"
-const NewAccountMaltainvestSalutationMs NewAccountMaltainvestSalutation = "Ms"
-
-type NewAccountMaltainvestSecretQuestion string
-
-const NewAccountMaltainvestSecretQuestionBrandOfFirstCar NewAccountMaltainvestSecretQuestion = "Brand of first car"
-const NewAccountMaltainvestSecretQuestionFavouriteArtist NewAccountMaltainvestSecretQuestion = "Favourite artist"
-const NewAccountMaltainvestSecretQuestionFavouriteDish NewAccountMaltainvestSecretQuestion = "Favourite dish"
-const NewAccountMaltainvestSecretQuestionMemorableDate NewAccountMaltainvestSecretQuestion = "Memorable date"
-const NewAccountMaltainvestSecretQuestionMemorableTownCity NewAccountMaltainvestSecretQuestion = "Memorable town/city"
-const NewAccountMaltainvestSecretQuestionMotherSMaidenName NewAccountMaltainvestSecretQuestion = "Mother's maiden name"
-const NewAccountMaltainvestSecretQuestionNameOfFirstLove NewAccountMaltainvestSecretQuestion = "Name of first love"
-const NewAccountMaltainvestSecretQuestionNameOfYourPet NewAccountMaltainvestSecretQuestion = "Name of your pet"
-
-type NewAccountMaltainvestSourceOfExperience string
-
-const NewAccountMaltainvestSourceOfExperienceIHaveAnAcademicDegreeProfessionalCertificationAndOrWorkExperience NewAccountMaltainvestSourceOfExperience = "I have an academic degree, professional certification, and/or work experience."
-const NewAccountMaltainvestSourceOfExperienceIHaveAttendedSeminarsTrainingAndOrWorkshops NewAccountMaltainvestSourceOfExperience = "I have attended seminars, training, and/or workshops."
-const NewAccountMaltainvestSourceOfExperienceIHaveLittleExperience NewAccountMaltainvestSourceOfExperience = "I have little experience."
-const NewAccountMaltainvestSourceOfExperienceIHaveNoKnowledge NewAccountMaltainvestSourceOfExperience = "I have no knowledge."
-const NewAccountMaltainvestSourceOfExperienceITradeForexCFDsAndOtherComplexFinancialInstruments NewAccountMaltainvestSourceOfExperience = "I trade forex CFDs and other complex financial instruments."
-
-type NewAccountMaltainvestSourceOfWealth string
-
-const NewAccountMaltainvestSourceOfWealthAccumulationOfIncomeSavings NewAccountMaltainvestSourceOfWealth = "Accumulation of Income/Savings"
-const NewAccountMaltainvestSourceOfWealthCashBusiness NewAccountMaltainvestSourceOfWealth = "Cash Business"
-const NewAccountMaltainvestSourceOfWealthCompanyOwnership NewAccountMaltainvestSourceOfWealth = "Company Ownership"
-const NewAccountMaltainvestSourceOfWealthDivorceSettlement NewAccountMaltainvestSourceOfWealth = "Divorce Settlement"
-const NewAccountMaltainvestSourceOfWealthInheritance NewAccountMaltainvestSourceOfWealth = "Inheritance"
-const NewAccountMaltainvestSourceOfWealthInvestmentIncome NewAccountMaltainvestSourceOfWealth = "Investment Income"
-const NewAccountMaltainvestSourceOfWealthSaleOfProperty NewAccountMaltainvestSourceOfWealth = "Sale of Property"
-
-type NewAccountMaltainvestTradingExperienceFinancialInstruments string
-
-const NewAccountMaltainvestTradingExperienceFinancialInstrumentsA12Years NewAccountMaltainvestTradingExperienceFinancialInstruments = "1 - 2 years"
-const NewAccountMaltainvestTradingExperienceFinancialInstrumentsLessThanAYear NewAccountMaltainvestTradingExperienceFinancialInstruments = "Less than a year"
-const NewAccountMaltainvestTradingExperienceFinancialInstrumentsNoExperience NewAccountMaltainvestTradingExperienceFinancialInstruments = "No experience"
-const NewAccountMaltainvestTradingExperienceFinancialInstrumentsOver3Years NewAccountMaltainvestTradingExperienceFinancialInstruments = "Over 3 years"
-
-type NewAccountMaltainvestTradingFrequencyFinancialInstruments string
-
-const NewAccountMaltainvestTradingFrequencyFinancialInstrumentsA1139TransactionsInThePast12Months NewAccountMaltainvestTradingFrequencyFinancialInstruments = "11 - 39 transactions in the past 12 months"
-const NewAccountMaltainvestTradingFrequencyFinancialInstrumentsA15TransactionsInThePast12Months NewAccountMaltainvestTradingFrequencyFinancialInstruments = "1 - 5 transactions in the past 12 months"
-const NewAccountMaltainvestTradingFrequencyFinancialInstrumentsA40TransactionsOrMoreInThePast12Months NewAccountMaltainvestTradingFrequencyFinancialInstruments = "40 transactions or more in the past 12 months"
-const NewAccountMaltainvestTradingFrequencyFinancialInstrumentsA610TransactionsInThePast12Months NewAccountMaltainvestTradingFrequencyFinancialInstruments = "6 - 10 transactions in the past 12 months"
-const NewAccountMaltainvestTradingFrequencyFinancialInstrumentsNoTransactionsInThePast12Months NewAccountMaltainvestTradingFrequencyFinancialInstruments = "No transactions in the past 12 months"
-
-var enumValues_NewAccountMaltainvestAcceptRisk = []interface{}{
-	0,
-	1,
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountMaltainvestSalutation) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountMaltainvestSalutation {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestSalutation, v)
+	}
+	*j = NewAccountMaltainvestSalutation(v)
+	return nil
 }
+
+var enumValues_NewAccountMaltainvestLeverageTradingHighRiskStopLoss = []interface{}{
+	"Cancel your trade at any time within a chosen timeframe.",
+	"Close your trade automatically when the loss is more than or equal to a specific amount.",
+	"Close your trade automatically when the profit is more than or equal to a specific amount.",
+	"Make a guaranteed profit on your trade.",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountMaltainvestAcceptRisk) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountMaltainvestAcceptRisk {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestAcceptRisk, v)
+	}
+	*j = NewAccountMaltainvestAcceptRisk(v)
+	return nil
+}
+
 var enumValues_NewAccountMaltainvestAccountOpeningReason = []interface{}{
 	"Speculative",
 	"Income Earning",
 	"Hedging",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountMaltainvestAccountOpeningReason) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountMaltainvestAccountOpeningReason {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestAccountOpeningReason, v)
+	}
+	*j = NewAccountMaltainvestAccountOpeningReason(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountMaltainvestLeverageImpactTrading) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountMaltainvestLeverageImpactTrading {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestLeverageImpactTrading, v)
+	}
+	*j = NewAccountMaltainvestLeverageImpactTrading(v)
+	return nil
+}
+
+var enumValues_NewAccountMaltainvestNetIncome = []interface{}{
+	"Less than $25,000",
+	"$25,000 - $50,000",
+	"$50,001 - $100,000",
+	"$100,001 - $500,000",
+	"Over $500,000",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountMaltainvestNetIncome) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountMaltainvestNetIncome {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestNetIncome, v)
+	}
+	*j = NewAccountMaltainvestNetIncome(v)
+	return nil
+}
+
+var enumValues_NewAccountMaltainvestLeverageImpactTrading = []interface{}{
+	"Leverage is a risk mitigation technique.",
+	"Leverage prevents you from opening large positions.",
+	"Leverage guarantees profits.",
+	"Leverage lets you open larger positions for a fraction of the trade's value.",
 }
 var enumValues_NewAccountMaltainvestAccountTurnover = []interface{}{
 	"Less than $25,000",
@@ -380,12 +442,54 @@ var enumValues_NewAccountMaltainvestAccountTurnover = []interface{}{
 	"$100,001 - $500,000",
 	"Over $500,000",
 }
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountMaltainvestAccountTurnover) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountMaltainvestAccountTurnover {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestAccountTurnover, v)
+	}
+	*j = NewAccountMaltainvestAccountTurnover(v)
+	return nil
+}
+
 var enumValues_NewAccountMaltainvestCfdExperience = []interface{}{
 	"No experience",
 	"Less than a year",
 	"1 - 2 years",
 	"Over 3 years",
 }
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountMaltainvestCfdExperience) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountMaltainvestCfdExperience {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestCfdExperience, v)
+	}
+	*j = NewAccountMaltainvestCfdExperience(v)
+	return nil
+}
+
 var enumValues_NewAccountMaltainvestCfdFrequency = []interface{}{
 	"No transactions in the past 12 months",
 	"1 - 5 transactions in the past 12 months",
@@ -393,96 +497,28 @@ var enumValues_NewAccountMaltainvestCfdFrequency = []interface{}{
 	"11 - 39 transactions in the past 12 months",
 	"40 transactions or more in the past 12 months",
 }
-var enumValues_NewAccountMaltainvestCfdTradingDefinition = []interface{}{
-	"Purchase shares of a company or physical commodities.",
-	"Place a bet on the price movement.",
-	"Speculate on the price movement.",
-	"Make a long-term investment.",
-}
-var enumValues_NewAccountMaltainvestClientType = []interface{}{
-	"professional",
-	"retail",
-}
-var enumValues_NewAccountMaltainvestEducationLevel = []interface{}{
-	"Primary",
-	"Secondary",
-	"Tertiary",
-}
-var enumValues_NewAccountMaltainvestEmploymentIndustry = []interface{}{
-	"Construction",
-	"Education",
-	"Finance",
-	"Health",
-	"Tourism",
-	"Information & Communications Technology",
-	"Science & Engineering",
-	"Legal",
-	"Social & Cultural",
-	"Agriculture",
-	"Real Estate",
-	"Food Services",
-	"Manufacturing",
-	"Unemployed",
-}
-var enumValues_NewAccountMaltainvestEmploymentStatus = []interface{}{
-	"Employed",
-	"Pensioner",
-	"Self-Employed",
-	"Student",
-	"Unemployed",
-}
-var enumValues_NewAccountMaltainvestEstimatedWorth = []interface{}{
-	"Less than $100,000",
-	"$100,000 - $250,000",
-	"$250,001 - $500,000",
-	"$500,001 - $1,000,000",
-	"Over $1,000,000",
-}
-var enumValues_NewAccountMaltainvestIncomeSource = []interface{}{
-	"Salaried Employee",
-	"Self-Employed",
-	"Investments & Dividends",
-	"Pension",
-	"State Benefits",
-	"Savings & Inheritance",
-}
-var enumValues_NewAccountMaltainvestLeverageImpactTrading = []interface{}{
-	"Leverage is a risk mitigation technique.",
-	"Leverage prevents you from opening large positions.",
-	"Leverage guarantees profits.",
-	"Leverage lets you open larger positions for a fraction of the trade's value.",
-}
-var enumValues_NewAccountMaltainvestLeverageTradingHighRiskStopLoss = []interface{}{
-	"Cancel your trade at any time within a chosen timeframe.",
-	"Close your trade automatically when the loss is more than or equal to a specific amount.",
-	"Close your trade automatically when the profit is more than or equal to a specific amount.",
-	"Make a guaranteed profit on your trade.",
-}
-var enumValues_NewAccountMaltainvestNetIncome = []interface{}{
-	"Less than $25,000",
-	"$25,000 - $50,000",
-	"$50,001 - $100,000",
-	"$100,001 - $500,000",
-	"Over $500,000",
-}
 var enumValues_NewAccountMaltainvestNewAccountMaltainvest = []interface{}{
 	1,
 }
-var enumValues_NewAccountMaltainvestOccupation = []interface{}{
-	"Chief Executives, Senior Officials and Legislators",
-	"Managers",
-	"Professionals",
-	"Clerks",
-	"Personal Care, Sales and Service Workers",
-	"Agricultural, Forestry and Fishery Workers",
-	"Craft, Metal, Electrical and Electronics Workers",
-	"Plant and Machine Operators and Assemblers",
-	"Cleaners and Helpers",
-	"Mining, Construction, Manufacturing and Transport Workers",
-	"Armed Forces",
-	"Government Officers",
-	"Students",
-	"Unemployed",
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountMaltainvestNewAccountMaltainvest) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountMaltainvestNewAccountMaltainvest {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestNewAccountMaltainvest, v)
+	}
+	*j = NewAccountMaltainvestNewAccountMaltainvest(v)
+	return nil
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -505,84 +541,77 @@ func (j *NewAccountMaltainvestCfdFrequency) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountMaltainvestSourceOfExperience) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_NewAccountMaltainvestSourceOfExperience {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestSourceOfExperience, v)
-	}
-	*j = NewAccountMaltainvestSourceOfExperience(v)
-	return nil
+var enumValues_NewAccountMaltainvestOccupation = []interface{}{
+	"Chief Executives, Senior Officials and Legislators",
+	"Managers",
+	"Professionals",
+	"Clerks",
+	"Personal Care, Sales and Service Workers",
+	"Agricultural, Forestry and Fishery Workers",
+	"Craft, Metal, Electrical and Electronics Workers",
+	"Plant and Machine Operators and Assemblers",
+	"Cleaners and Helpers",
+	"Mining, Construction, Manufacturing and Transport Workers",
+	"Armed Forces",
+	"Government Officers",
+	"Students",
+	"Unemployed",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountMaltainvestSecretQuestion) UnmarshalJSON(b []byte) error {
+func (j *NewAccountMaltainvestOccupation) UnmarshalJSON(b []byte) error {
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_NewAccountMaltainvestSecretQuestion {
+	for _, expected := range enumValues_NewAccountMaltainvestOccupation {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestSecretQuestion, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestOccupation, v)
 	}
-	*j = NewAccountMaltainvestSecretQuestion(v)
+	*j = NewAccountMaltainvestOccupation(v)
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountMaltainvestRequiredInitialMargin) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_NewAccountMaltainvestRequiredInitialMargin {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestRequiredInitialMargin, v)
-	}
-	*j = NewAccountMaltainvestRequiredInitialMargin(v)
-	return nil
+var enumValues_NewAccountMaltainvestCfdTradingDefinition = []interface{}{
+	"Purchase shares of a company or physical commodities.",
+	"Place a bet on the price movement.",
+	"Speculate on the price movement.",
+	"Make a long-term investment.",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountMaltainvestEstimatedWorth) UnmarshalJSON(b []byte) error {
+func (j *NewAccountMaltainvestIncomeSource) UnmarshalJSON(b []byte) error {
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_NewAccountMaltainvestEstimatedWorth {
+	for _, expected := range enumValues_NewAccountMaltainvestIncomeSource {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestEstimatedWorth, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestIncomeSource, v)
 	}
-	*j = NewAccountMaltainvestEstimatedWorth(v)
+	*j = NewAccountMaltainvestIncomeSource(v)
 	return nil
+}
+
+var enumValues_NewAccountMaltainvestIncomeSource = []interface{}{
+	"Salaried Employee",
+	"Self-Employed",
+	"Investments & Dividends",
+	"Pension",
+	"State Benefits",
+	"Savings & Inheritance",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -606,23 +635,32 @@ func (j *NewAccountMaltainvestCfdTradingDefinition) UnmarshalJSON(b []byte) erro
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountMaltainvestEmploymentIndustry) UnmarshalJSON(b []byte) error {
-	var v string
+func (j *NewAccountMaltainvestFatcaDeclaration) UnmarshalJSON(b []byte) error {
+	var v int
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_NewAccountMaltainvestEmploymentIndustry {
+	for _, expected := range enumValues_NewAccountMaltainvestFatcaDeclaration {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestEmploymentIndustry, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestFatcaDeclaration, v)
 	}
-	*j = NewAccountMaltainvestEmploymentIndustry(v)
+	*j = NewAccountMaltainvestFatcaDeclaration(v)
 	return nil
+}
+
+var enumValues_NewAccountMaltainvestFatcaDeclaration = []interface{}{
+	0,
+	1,
+}
+var enumValues_NewAccountMaltainvestClientType = []interface{}{
+	"professional",
+	"retail",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -645,82 +683,10 @@ func (j *NewAccountMaltainvestClientType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountMaltainvestEmploymentStatus) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_NewAccountMaltainvestEmploymentStatus {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestEmploymentStatus, v)
-	}
-	*j = NewAccountMaltainvestEmploymentStatus(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountMaltainvestSourceOfWealth) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_NewAccountMaltainvestSourceOfWealth {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestSourceOfWealth, v)
-	}
-	*j = NewAccountMaltainvestSourceOfWealth(v)
-	return nil
-}
-
-var enumValues_NewAccountMaltainvestSecretQuestion = []interface{}{
-	"Mother's maiden name",
-	"Name of your pet",
-	"Name of first love",
-	"Memorable town/city",
-	"Memorable date",
-	"Favourite dish",
-	"Brand of first car",
-	"Favourite artist",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountMaltainvestCfdExperience) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_NewAccountMaltainvestCfdExperience {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestCfdExperience, v)
-	}
-	*j = NewAccountMaltainvestCfdExperience(v)
-	return nil
-}
-
-var enumValues_NewAccountMaltainvestSalutation = []interface{}{
-	"Mr",
-	"Ms",
-	"Miss",
-	"Mrs",
+var enumValues_NewAccountMaltainvestEducationLevel = []interface{}{
+	"Primary",
+	"Secondary",
+	"Tertiary",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -743,45 +709,237 @@ func (j *NewAccountMaltainvestEducationLevel) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+var enumValues_NewAccountMaltainvestEmploymentIndustry = []interface{}{
+	"Construction",
+	"Education",
+	"Finance",
+	"Health",
+	"Tourism",
+	"Information & Communications Technology",
+	"Science & Engineering",
+	"Legal",
+	"Social & Cultural",
+	"Agriculture",
+	"Real Estate",
+	"Food Services",
+	"Manufacturing",
+	"Unemployed",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountMaltainvestAccountTurnover) UnmarshalJSON(b []byte) error {
+func (j *NewAccountMaltainvestEmploymentIndustry) UnmarshalJSON(b []byte) error {
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_NewAccountMaltainvestAccountTurnover {
+	for _, expected := range enumValues_NewAccountMaltainvestEmploymentIndustry {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestAccountTurnover, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestEmploymentIndustry, v)
 	}
-	*j = NewAccountMaltainvestAccountTurnover(v)
+	*j = NewAccountMaltainvestEmploymentIndustry(v)
 	return nil
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountMaltainvestNetIncome) UnmarshalJSON(b []byte) error {
+func (j *NewAccountMaltainvestEstimatedWorth) UnmarshalJSON(b []byte) error {
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_NewAccountMaltainvestNetIncome {
+	for _, expected := range enumValues_NewAccountMaltainvestEstimatedWorth {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestNetIncome, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestEstimatedWorth, v)
 	}
-	*j = NewAccountMaltainvestNetIncome(v)
+	*j = NewAccountMaltainvestEstimatedWorth(v)
 	return nil
 }
+
+var enumValues_NewAccountMaltainvestEstimatedWorth = []interface{}{
+	"Less than $100,000",
+	"$100,000 - $250,000",
+	"$250,001 - $500,000",
+	"$500,001 - $1,000,000",
+	"Over $1,000,000",
+}
+var enumValues_NewAccountMaltainvestEmploymentStatus = []interface{}{
+	"Employed",
+	"Pensioner",
+	"Self-Employed",
+	"Student",
+	"Unemployed",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountMaltainvestEmploymentStatus) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountMaltainvestEmploymentStatus {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestEmploymentStatus, v)
+	}
+	*j = NewAccountMaltainvestEmploymentStatus(v)
+	return nil
+}
+
+var enumValues_NewAccountMaltainvestRequiredInitialMargin = []interface{}{
+	"When opening a Leveraged CFD trade.",
+	"When trading Multipliers.",
+	"When buying shares of a company.",
+	"All of the above.",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountMaltainvestRequiredInitialMargin) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountMaltainvestRequiredInitialMargin {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestRequiredInitialMargin, v)
+	}
+	*j = NewAccountMaltainvestRequiredInitialMargin(v)
+	return nil
+}
+
+const NewAccountMaltainvestRequiredInitialMarginWhenOpeningALeveragedCFDTrade NewAccountMaltainvestRequiredInitialMargin = "When opening a Leveraged CFD trade."
+const NewAccountMaltainvestRequiredInitialMarginWhenTradingMultipliers NewAccountMaltainvestRequiredInitialMargin = "When trading Multipliers."
+const NewAccountMaltainvestRequiredInitialMarginWhenBuyingSharesOfACompany NewAccountMaltainvestRequiredInitialMargin = "When buying shares of a company."
+const NewAccountMaltainvestRequiredInitialMarginAllOfTheAbove NewAccountMaltainvestRequiredInitialMargin = "All of the above."
+
+type NewAccountMaltainvestRiskTolerance string
+
+var enumValues_NewAccountMaltainvestRiskTolerance = []interface{}{
+	"Yes",
+	"No",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountMaltainvestRiskTolerance) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountMaltainvestRiskTolerance {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestRiskTolerance, v)
+	}
+	*j = NewAccountMaltainvestRiskTolerance(v)
+	return nil
+}
+
+const NewAccountMaltainvestRiskToleranceYes NewAccountMaltainvestRiskTolerance = "Yes"
+const NewAccountMaltainvestRiskToleranceNo NewAccountMaltainvestRiskTolerance = "No"
+
+type NewAccountMaltainvestSalutation string
+
+var enumValues_NewAccountMaltainvestSalutation = []interface{}{
+	"Mr",
+	"Ms",
+	"Miss",
+	"Mrs",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountMaltainvestLeverageTradingHighRiskStopLoss) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountMaltainvestLeverageTradingHighRiskStopLoss {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestLeverageTradingHighRiskStopLoss, v)
+	}
+	*j = NewAccountMaltainvestLeverageTradingHighRiskStopLoss(v)
+	return nil
+}
+
+const NewAccountMaltainvestSalutationMr NewAccountMaltainvestSalutation = "Mr"
+const NewAccountMaltainvestSalutationMs NewAccountMaltainvestSalutation = "Ms"
+const NewAccountMaltainvestSalutationMiss NewAccountMaltainvestSalutation = "Miss"
+const NewAccountMaltainvestSalutationMrs NewAccountMaltainvestSalutation = "Mrs"
+
+type NewAccountMaltainvestSecretQuestion string
+
+var enumValues_NewAccountMaltainvestSecretQuestion = []interface{}{
+	"Mother's maiden name",
+	"Name of your pet",
+	"Name of first love",
+	"Memorable town/city",
+	"Memorable date",
+	"Favourite dish",
+	"Brand of first car",
+	"Favourite artist",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountMaltainvestSecretQuestion) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountMaltainvestSecretQuestion {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestSecretQuestion, v)
+	}
+	*j = NewAccountMaltainvestSecretQuestion(v)
+	return nil
+}
+
+const NewAccountMaltainvestSecretQuestionMotherSMaidenName NewAccountMaltainvestSecretQuestion = "Mother's maiden name"
+const NewAccountMaltainvestSecretQuestionNameOfYourPet NewAccountMaltainvestSecretQuestion = "Name of your pet"
+const NewAccountMaltainvestSecretQuestionNameOfFirstLove NewAccountMaltainvestSecretQuestion = "Name of first love"
+const NewAccountMaltainvestSecretQuestionMemorableTownCity NewAccountMaltainvestSecretQuestion = "Memorable town/city"
+const NewAccountMaltainvestSecretQuestionMemorableDate NewAccountMaltainvestSecretQuestion = "Memorable date"
+const NewAccountMaltainvestSecretQuestionFavouriteDish NewAccountMaltainvestSecretQuestion = "Favourite dish"
+const NewAccountMaltainvestSecretQuestionBrandOfFirstCar NewAccountMaltainvestSecretQuestion = "Brand of first car"
+const NewAccountMaltainvestSecretQuestionFavouriteArtist NewAccountMaltainvestSecretQuestion = "Favourite artist"
+
+type NewAccountMaltainvestSourceOfExperience string
 
 var enumValues_NewAccountMaltainvestSourceOfExperience = []interface{}{
 	"I have an academic degree, professional certification, and/or work experience.",
@@ -790,12 +948,75 @@ var enumValues_NewAccountMaltainvestSourceOfExperience = []interface{}{
 	"I have little experience.",
 	"I have no knowledge.",
 }
-var enumValues_NewAccountMaltainvestRequiredInitialMargin = []interface{}{
-	"When opening a Leveraged CFD trade.",
-	"When trading Multipliers.",
-	"When buying shares of a company.",
-	"All of the above.",
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountMaltainvestSourceOfExperience) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountMaltainvestSourceOfExperience {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestSourceOfExperience, v)
+	}
+	*j = NewAccountMaltainvestSourceOfExperience(v)
+	return nil
 }
+
+const NewAccountMaltainvestSourceOfExperienceIHaveAnAcademicDegreeProfessionalCertificationAndOrWorkExperience NewAccountMaltainvestSourceOfExperience = "I have an academic degree, professional certification, and/or work experience."
+const NewAccountMaltainvestSourceOfExperienceITradeForexCFDsAndOtherComplexFinancialInstruments NewAccountMaltainvestSourceOfExperience = "I trade forex CFDs and other complex financial instruments."
+const NewAccountMaltainvestSourceOfExperienceIHaveAttendedSeminarsTrainingAndOrWorkshops NewAccountMaltainvestSourceOfExperience = "I have attended seminars, training, and/or workshops."
+const NewAccountMaltainvestSourceOfExperienceIHaveLittleExperience NewAccountMaltainvestSourceOfExperience = "I have little experience."
+const NewAccountMaltainvestSourceOfExperienceIHaveNoKnowledge NewAccountMaltainvestSourceOfExperience = "I have no knowledge."
+
+type NewAccountMaltainvestSourceOfWealth string
+
+var enumValues_NewAccountMaltainvestSourceOfWealth = []interface{}{
+	"Accumulation of Income/Savings",
+	"Cash Business",
+	"Company Ownership",
+	"Divorce Settlement",
+	"Inheritance",
+	"Investment Income",
+	"Sale of Property",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountMaltainvestSourceOfWealth) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountMaltainvestSourceOfWealth {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestSourceOfWealth, v)
+	}
+	*j = NewAccountMaltainvestSourceOfWealth(v)
+	return nil
+}
+
+const NewAccountMaltainvestSourceOfWealthAccumulationOfIncomeSavings NewAccountMaltainvestSourceOfWealth = "Accumulation of Income/Savings"
+const NewAccountMaltainvestSourceOfWealthCashBusiness NewAccountMaltainvestSourceOfWealth = "Cash Business"
+const NewAccountMaltainvestSourceOfWealthCompanyOwnership NewAccountMaltainvestSourceOfWealth = "Company Ownership"
+const NewAccountMaltainvestSourceOfWealthDivorceSettlement NewAccountMaltainvestSourceOfWealth = "Divorce Settlement"
+const NewAccountMaltainvestSourceOfWealthInheritance NewAccountMaltainvestSourceOfWealth = "Inheritance"
+const NewAccountMaltainvestSourceOfWealthInvestmentIncome NewAccountMaltainvestSourceOfWealth = "Investment Income"
+const NewAccountMaltainvestSourceOfWealthSaleOfProperty NewAccountMaltainvestSourceOfWealth = "Sale of Property"
+
+type NewAccountMaltainvestTradingExperienceFinancialInstruments string
+
 var enumValues_NewAccountMaltainvestTradingExperienceFinancialInstruments = []interface{}{
 	"No experience",
 	"Less than a year",
@@ -823,90 +1044,13 @@ func (j *NewAccountMaltainvestTradingExperienceFinancialInstruments) UnmarshalJS
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountMaltainvestSalutation) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_NewAccountMaltainvestSalutation {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestSalutation, v)
-	}
-	*j = NewAccountMaltainvestSalutation(v)
-	return nil
-}
+const NewAccountMaltainvestTradingExperienceFinancialInstrumentsNoExperience NewAccountMaltainvestTradingExperienceFinancialInstruments = "No experience"
+const NewAccountMaltainvestTradingExperienceFinancialInstrumentsLessThanAYear NewAccountMaltainvestTradingExperienceFinancialInstruments = "Less than a year"
+const NewAccountMaltainvestTradingExperienceFinancialInstrumentsA12Years NewAccountMaltainvestTradingExperienceFinancialInstruments = "1 - 2 years"
+const NewAccountMaltainvestTradingExperienceFinancialInstrumentsOver3Years NewAccountMaltainvestTradingExperienceFinancialInstruments = "Over 3 years"
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountMaltainvestIncomeSource) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_NewAccountMaltainvestIncomeSource {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestIncomeSource, v)
-	}
-	*j = NewAccountMaltainvestIncomeSource(v)
-	return nil
-}
+type NewAccountMaltainvestTradingFrequencyFinancialInstruments string
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountMaltainvestAcceptRisk) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_NewAccountMaltainvestAcceptRisk {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestAcceptRisk, v)
-	}
-	*j = NewAccountMaltainvestAcceptRisk(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountMaltainvestLeverageImpactTrading) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_NewAccountMaltainvestLeverageImpactTrading {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestLeverageImpactTrading, v)
-	}
-	*j = NewAccountMaltainvestLeverageImpactTrading(v)
-	return nil
-}
-
-var enumValues_NewAccountMaltainvestRiskTolerance = []interface{}{
-	"Yes",
-	"No",
-}
 var enumValues_NewAccountMaltainvestTradingFrequencyFinancialInstruments = []interface{}{
 	"No transactions in the past 12 months",
 	"1 - 5 transactions in the past 12 months",
@@ -935,114 +1079,15 @@ func (j *NewAccountMaltainvestTradingFrequencyFinancialInstruments) UnmarshalJSO
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountMaltainvestOccupation) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_NewAccountMaltainvestOccupation {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestOccupation, v)
-	}
-	*j = NewAccountMaltainvestOccupation(v)
-	return nil
-}
+const NewAccountMaltainvestTradingFrequencyFinancialInstrumentsNoTransactionsInThePast12Months NewAccountMaltainvestTradingFrequencyFinancialInstruments = "No transactions in the past 12 months"
+const NewAccountMaltainvestTradingFrequencyFinancialInstrumentsA15TransactionsInThePast12Months NewAccountMaltainvestTradingFrequencyFinancialInstruments = "1 - 5 transactions in the past 12 months"
+const NewAccountMaltainvestTradingFrequencyFinancialInstrumentsA610TransactionsInThePast12Months NewAccountMaltainvestTradingFrequencyFinancialInstruments = "6 - 10 transactions in the past 12 months"
+const NewAccountMaltainvestTradingFrequencyFinancialInstrumentsA1139TransactionsInThePast12Months NewAccountMaltainvestTradingFrequencyFinancialInstruments = "11 - 39 transactions in the past 12 months"
+const NewAccountMaltainvestTradingFrequencyFinancialInstrumentsA40TransactionsOrMoreInThePast12Months NewAccountMaltainvestTradingFrequencyFinancialInstruments = "40 transactions or more in the past 12 months"
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountMaltainvestAccountOpeningReason) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_NewAccountMaltainvestAccountOpeningReason {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestAccountOpeningReason, v)
-	}
-	*j = NewAccountMaltainvestAccountOpeningReason(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountMaltainvestLeverageTradingHighRiskStopLoss) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_NewAccountMaltainvestLeverageTradingHighRiskStopLoss {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestLeverageTradingHighRiskStopLoss, v)
-	}
-	*j = NewAccountMaltainvestLeverageTradingHighRiskStopLoss(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountMaltainvestNewAccountMaltainvest) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_NewAccountMaltainvestNewAccountMaltainvest {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestNewAccountMaltainvest, v)
-	}
-	*j = NewAccountMaltainvestNewAccountMaltainvest(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountMaltainvestRiskTolerance) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_NewAccountMaltainvestRiskTolerance {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestRiskTolerance, v)
-	}
-	*j = NewAccountMaltainvestRiskTolerance(v)
-	return nil
-}
-
-var enumValues_NewAccountMaltainvestSourceOfWealth = []interface{}{
-	"Accumulation of Income/Savings",
-	"Cash Business",
-	"Company Ownership",
-	"Divorce Settlement",
-	"Inheritance",
-	"Investment Income",
-	"Sale of Property",
+var enumValues_NewAccountMaltainvestAcceptRisk = []interface{}{
+	0,
+	1,
 }
 
 // UnmarshalJSON implements json.Unmarshaler.

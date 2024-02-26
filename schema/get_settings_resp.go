@@ -229,6 +229,9 @@ type GetSettingsRespGetSettings struct {
 	// Employment Status.
 	EmploymentStatus *GetSettingsRespGetSettingsEmploymentStatus `json:"employment_status,omitempty"`
 
+	// Indicates client's self-declaration for FATCA.
+	FatcaDeclaration *int `json:"fatca_declaration,omitempty"`
+
 	// Contains features that are enabled or disabled for this user
 	FeatureFlag *GetSettingsRespGetSettingsFeatureFlag `json:"feature_flag,omitempty"`
 
