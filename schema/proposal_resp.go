@@ -129,12 +129,21 @@ type ProposalRespProposalContractDetails struct {
 	// automatically if payout reaches this number
 	MaximumPayout *float64 `json:"maximum_payout,omitempty"`
 
+	// Maximum stake that user can set to buy a contract
+	MaximumStake *string `json:"maximum_stake,omitempty"`
+
 	// Maximum duration that a contract can last, contract will close automatically
 	// after this number of ticks
 	MaximumTicks *int `json:"maximum_ticks,omitempty"`
 
+	// Minimum stake that user can set to buy a contract
+	MinimumStake *string `json:"minimum_stake,omitempty"`
+
 	// Tick size barrier for Accumulator contracts
 	TickSizeBarrier *float64 `json:"tick_size_barrier,omitempty"`
+
+	// [Accumulator] Tick size barrier in percentage, rounded off to 5 decimal places
+	TickSizeBarrierPercentage *string `json:"tick_size_barrier_percentage,omitempty"`
 
 	// An array of numbers  to build a stat chart - each number represents the
 	// duration that spot stayed between barries
