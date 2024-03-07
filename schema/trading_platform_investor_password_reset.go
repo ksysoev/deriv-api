@@ -74,8 +74,9 @@ type TradingPlatformInvestorPasswordReset struct {
 	Loginid *string `json:"loginid,omitempty"`
 
 	// New password of the account. For validation (Accepts any printable ASCII
-	// character. Must be within 8-25 characters, and include numbers, lowercase and
-	// uppercase letters. Must not be the same as the user's email address).
+	// character. Must be within 8-16 characters, include numbers, lowercase,
+	// uppercase letters and special characters. Must not be the same as the user's
+	// email address).
 	NewPassword string `json:"new_password"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
