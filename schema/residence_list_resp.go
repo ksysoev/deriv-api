@@ -30,6 +30,9 @@ type ResidenceListRespMsgType string
 const ResidenceListRespMsgTypeResidenceList ResidenceListRespMsgType = "residence_list"
 
 type ResidenceListRespResidenceListElem struct {
+	// Flag which indicates whether self declaration is required for account opening
+	AccountOpeningSelfDeclarationRequired *ResidenceListRespResidenceListElemAccountOpeningSelfDeclarationRequired `json:"account_opening_self_declaration_required,omitempty"`
+
 	// Disabled.
 	Disabled *string `json:"disabled,omitempty"`
 
@@ -51,6 +54,8 @@ type ResidenceListRespResidenceListElem struct {
 	// 2-letter country code
 	Value *string `json:"value,omitempty"`
 }
+
+type ResidenceListRespResidenceListElemAccountOpeningSelfDeclarationRequired int
 
 // Information about identity options available
 type ResidenceListRespResidenceListElemIdentity struct {
@@ -103,36 +108,7 @@ type ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported 
 var enumValues_ResidenceListRespMsgType = []interface{}{
 	"residence_list",
 }
-var enumValues_ResidenceListRespResidenceListElemIdentityServicesIdvHasVisualSample = []interface{}{
-	0,
-	1,
-}
-var enumValues_ResidenceListRespResidenceListElemIdentityServicesIdvIsCountrySupported = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported, v)
-	}
-	*j = ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported(v)
-	return nil
-}
-
-var enumValues_ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported = []interface{}{
+var enumValues_ResidenceListRespResidenceListElemAccountOpeningSelfDeclarationRequired = []interface{}{
 	0,
 	1,
 }
@@ -157,6 +133,36 @@ func (j *ResidenceListRespResidenceListElemIdentityServicesIdvIsCountrySupported
 	return nil
 }
 
+var enumValues_ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported, v)
+	}
+	*j = ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported(v)
+	return nil
+}
+
+var enumValues_ResidenceListRespResidenceListElemIdentityServicesIdvIsCountrySupported = []interface{}{
+	0,
+	1,
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ResidenceListRespResidenceListElemIdentityServicesIdvHasVisualSample) UnmarshalJSON(b []byte) error {
 	var v int
@@ -174,6 +180,31 @@ func (j *ResidenceListRespResidenceListElemIdentityServicesIdvHasVisualSample) U
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ResidenceListRespResidenceListElemIdentityServicesIdvHasVisualSample, v)
 	}
 	*j = ResidenceListRespResidenceListElemIdentityServicesIdvHasVisualSample(v)
+	return nil
+}
+
+var enumValues_ResidenceListRespResidenceListElemIdentityServicesIdvHasVisualSample = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ResidenceListRespResidenceListElemAccountOpeningSelfDeclarationRequired) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ResidenceListRespResidenceListElemAccountOpeningSelfDeclarationRequired {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ResidenceListRespResidenceListElemAccountOpeningSelfDeclarationRequired, v)
+	}
+	*j = ResidenceListRespResidenceListElemAccountOpeningSelfDeclarationRequired(v)
 	return nil
 }
 
