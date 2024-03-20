@@ -540,6 +540,14 @@ func (a *DerivAPI) P2PChatCreate(r schema.P2PChatCreate) (resp schema.P2PChatCre
 	return
 }
 
+// P2PCountryList List all or specific country and its payment methods.
+func (a *DerivAPI) P2PCountryList(r schema.P2PCountryList) (resp schema.P2PCountryListResp, err error) {
+	id := a.getNextRequestID()
+	r.ReqId = &id
+	err = a.SendRequest(id, r, &resp)
+	return
+}
+
 // P2POrderCancel Cancel a P2P order.
 func (a *DerivAPI) P2POrderCancel(r schema.P2POrderCancel) (resp schema.P2POrderCancelResp, err error) {
 	id := a.getNextRequestID()

@@ -91,6 +91,9 @@ type AuthorizeRespAuthorizeAccountListElem struct {
 	// Currency of specified account.
 	Currency *string `json:"currency,omitempty"`
 
+	// Currency type for the corresponding currency.
+	CurrencyType *string `json:"currency_type,omitempty"`
+
 	// Epoch of date till client has excluded him/herself from the website, only
 	// present if client is self excluded.
 	ExcludedUntil *int `json:"excluded_until,omitempty"`
