@@ -121,6 +121,8 @@ type GetAccountStatusRespGetAccountStatus struct {
 	// allow them to reupload POI documents.
 	// - `poa_expiring_soon`: the POA documents of the client will get outdated soon,
 	// allow them to reupload POA documents.
+	// - `tin_manually_approved`: the client's tax_identification_number has been
+	// manually approved as client is not applicable for tax_identification_number
 	Status []string `json:"status"`
 }
 

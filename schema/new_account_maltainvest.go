@@ -157,7 +157,7 @@ type NewAccountMaltainvest struct {
 
 	// Tax identification number. Only applicable for real money account. Required for
 	// `maltainvest` landing company.
-	TaxIdentificationNumber string `json:"tax_identification_number"`
+	TaxIdentificationNumber *string `json:"tax_identification_number,omitempty"`
 
 	// Residence for tax purpose. Comma separated iso country code if multiple
 	// jurisdictions. Only applicable for real money account. Required for
@@ -1140,9 +1140,6 @@ func (j *NewAccountMaltainvest) UnmarshalJSON(b []byte) error {
 	}
 	if v, ok := raw["salutation"]; !ok || v == nil {
 		return fmt.Errorf("field salutation in NewAccountMaltainvest: required")
-	}
-	if v, ok := raw["tax_identification_number"]; !ok || v == nil {
-		return fmt.Errorf("field tax_identification_number in NewAccountMaltainvest: required")
 	}
 	if v, ok := raw["tax_residence"]; !ok || v == nil {
 		return fmt.Errorf("field tax_residence in NewAccountMaltainvest: required")
