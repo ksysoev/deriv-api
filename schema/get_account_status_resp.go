@@ -317,6 +317,9 @@ type GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesIdv struc
 	// Show the last IDV reported reasons for the rejected cases
 	LastRejected []string `json:"last_rejected,omitempty"`
 
+	// Indicate if the verification report was returned by the provider
+	ReportAvailable *GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesIdvReportAvailable `json:"report_available,omitempty"`
+
 	// Shows the latest document properties detected and reported by IDVS
 	ReportedProperties GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesIdvReportedProperties `json:"reported_properties,omitempty"`
 
@@ -326,6 +329,8 @@ type GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesIdv struc
 	// This shows the number of IDV submissions left for the client
 	SubmissionsLeft *int `json:"submissions_left,omitempty"`
 }
+
+type GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesIdvReportAvailable int
 
 // Shows the latest document properties detected and reported by IDVS
 type GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesIdvReportedProperties map[string]interface{}
@@ -533,83 +538,9 @@ var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentStatus 
 	"expired",
 	"suspected",
 }
-var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesIdvStatus = []interface{}{
-	"none",
-	"pending",
-	"rejected",
-	"verified",
-	"expired",
-}
-var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesManualStatus = []interface{}{
-	"none",
-	"pending",
-	"rejected",
-	"verified",
-	"expired",
-	"suspected",
-}
-var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesOnfidoIsCountrySupported = []interface{}{
-	1,
-	0,
-}
-var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesOnfidoStatus = []interface{}{
-	"none",
-	"pending",
-	"rejected",
-	"verified",
-	"expired",
-	"suspected",
-}
-var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityStatus = []interface{}{
-	"none",
-	"pending",
-	"rejected",
-	"verified",
-	"expired",
-	"suspected",
-}
-var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIncomeStatus = []interface{}{
-	"none",
-	"pending",
-	"rejected",
-	"verified",
-	"locked",
-}
-var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationOwnershipStatus = []interface{}{
-	"none",
-	"pending",
-	"rejected",
-	"verified",
-}
-var enumValues_GetAccountStatusRespGetAccountStatusP2PPoaRequired = []interface{}{
+var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesIdvReportAvailable = []interface{}{
 	0,
 	1,
-}
-var enumValues_GetAccountStatusRespGetAccountStatusP2PStatus = []interface{}{
-	"none",
-	"active",
-	"temp_ban",
-	"perm_ban",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentStatus) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentStatus {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentStatus, v)
-	}
-	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentStatus(v)
-	return nil
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -629,44 +560,6 @@ func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticated
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvSvg, v)
 	}
 	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvSvg(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *GetAccountStatusRespGetAccountStatusAuthentication) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if v, ok := raw["needs_verification"]; !ok || v == nil {
-		return fmt.Errorf("field needs_verification in GetAccountStatusRespGetAccountStatusAuthentication: required")
-	}
-	type Plain GetAccountStatusRespGetAccountStatusAuthentication
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = GetAccountStatusRespGetAccountStatusAuthentication(plain)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *GetAccountStatusRespGetAccountStatusAuthenticationIdentityStatus) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityStatus {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityStatus, v)
-	}
-	*j = GetAccountStatusRespGetAccountStatusAuthenticationIdentityStatus(v)
 	return nil
 }
 
@@ -691,42 +584,22 @@ func (j *GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesOnfid
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvSamoaVirtual) UnmarshalJSON(b []byte) error {
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvDsl) UnmarshalJSON(b []byte) error {
 	var v int
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvSamoaVirtual {
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvDsl {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvSamoaVirtual, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvDsl, v)
 	}
-	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvSamoaVirtual(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *GetAccountStatusRespGetAccountStatusP2PPoaRequired) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusP2PPoaRequired {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusP2PPoaRequired, v)
-	}
-	*j = GetAccountStatusRespGetAccountStatusP2PPoaRequired(v)
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvDsl(v)
 	return nil
 }
 
@@ -750,104 +623,11 @@ func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticated
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvLabuan) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvLabuan {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvLabuan, v)
-	}
-	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvLabuan(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *GetAccountStatusRespGetAccountStatusP2PStatus) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusP2PStatus {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusP2PStatus, v)
-	}
-	*j = GetAccountStatusRespGetAccountStatusP2PStatus(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvVanuatu) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvVanuatu {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvVanuatu, v)
-	}
-	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvVanuatu(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvMaltainvest) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvMaltainvest {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvMaltainvest, v)
-	}
-	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvMaltainvest(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvVirtual) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvVirtual {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvVirtual, v)
-	}
-	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvVirtual(v)
-	return nil
+var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationOwnershipStatus = []interface{}{
+	"none",
+	"pending",
+	"rejected",
+	"verified",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -871,22 +651,273 @@ func (j *GetAccountStatusRespGetAccountStatusAuthenticationOwnershipStatus) Unma
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvBvi) UnmarshalJSON(b []byte) error {
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvIom) UnmarshalJSON(b []byte) error {
 	var v int
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvBvi {
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvIom {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvBvi, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvIom, v)
 	}
-	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvBvi(v)
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvIom(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvMaltainvest) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvMaltainvest {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvMaltainvest, v)
+	}
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvMaltainvest(v)
+	return nil
+}
+
+var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesOnfidoStatus = []interface{}{
+	"none",
+	"pending",
+	"rejected",
+	"verified",
+	"expired",
+	"suspected",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesIdvReportAvailable) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesIdvReportAvailable {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesIdvReportAvailable, v)
+	}
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesIdvReportAvailable(v)
+	return nil
+}
+
+var enumValues_GetAccountStatusRespMsgType = []interface{}{
+	"get_account_status",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationIncomeStatus) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIncomeStatus {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIncomeStatus, v)
+	}
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationIncomeStatus(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusAuthentication) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if v, ok := raw["needs_verification"]; !ok || v == nil {
+		return fmt.Errorf("field needs_verification in GetAccountStatusRespGetAccountStatusAuthentication: required")
+	}
+	type Plain GetAccountStatusRespGetAccountStatusAuthentication
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = GetAccountStatusRespGetAccountStatusAuthentication(plain)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesManualStatus) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesManualStatus {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesManualStatus, v)
+	}
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesManualStatus(v)
+	return nil
+}
+
+var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesManualStatus = []interface{}{
+	"none",
+	"pending",
+	"rejected",
+	"verified",
+	"expired",
+	"suspected",
+}
+var enumValues_GetAccountStatusRespGetAccountStatusP2PPoaRequired = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusP2PPoaRequired) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusP2PPoaRequired {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusP2PPoaRequired, v)
+	}
+	*j = GetAccountStatusRespGetAccountStatusP2PPoaRequired(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvMalta) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvMalta {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvMalta, v)
+	}
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvMalta(v)
+	return nil
+}
+
+var enumValues_GetAccountStatusRespGetAccountStatusP2PStatus = []interface{}{
+	"none",
+	"active",
+	"temp_ban",
+	"perm_ban",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusP2PStatus) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusP2PStatus {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusP2PStatus, v)
+	}
+	*j = GetAccountStatusRespGetAccountStatusP2PStatus(v)
+	return nil
+}
+
+var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesOnfidoIsCountrySupported = []interface{}{
+	1,
+	0,
+}
+var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIncomeStatus = []interface{}{
+	"none",
+	"pending",
+	"rejected",
+	"verified",
+	"locked",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesOnfidoStatus) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesOnfidoStatus {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesOnfidoStatus, v)
+	}
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesOnfidoStatus(v)
+	return nil
+}
+
+var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesIdvStatus = []interface{}{
+	"none",
+	"pending",
+	"rejected",
+	"verified",
+	"expired",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesIdvStatus) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesIdvStatus {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesIdvStatus, v)
+	}
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesIdvStatus(v)
 	return nil
 }
 
@@ -916,22 +947,22 @@ func (j *GetAccountStatusRespGetAccountStatusPromptClientToAuthenticate) Unmarsh
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvDsl) UnmarshalJSON(b []byte) error {
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvBvi) UnmarshalJSON(b []byte) error {
 	var v int
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvDsl {
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvBvi {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvDsl, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvBvi, v)
 	}
-	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvDsl(v)
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvBvi(v)
 	return nil
 }
 
@@ -962,62 +993,62 @@ func (j *GetAccountStatusRespGetAccountStatusSocialIdentityProvider) UnmarshalJS
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesIdvStatus) UnmarshalJSON(b []byte) error {
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentStatus) UnmarshalJSON(b []byte) error {
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesIdvStatus {
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentStatus {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesIdvStatus, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentStatus, v)
 	}
-	*j = GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesIdvStatus(v)
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentStatus(v)
 	return nil
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *GetAccountStatusRespGetAccountStatusAuthenticationIncomeStatus) UnmarshalJSON(b []byte) error {
-	var v string
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvSamoaVirtual) UnmarshalJSON(b []byte) error {
+	var v int
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIncomeStatus {
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvSamoaVirtual {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIncomeStatus, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvSamoaVirtual, v)
 	}
-	*j = GetAccountStatusRespGetAccountStatusAuthenticationIncomeStatus(v)
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvSamoaVirtual(v)
 	return nil
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesOnfidoStatus) UnmarshalJSON(b []byte) error {
-	var v string
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvVirtual) UnmarshalJSON(b []byte) error {
+	var v int
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesOnfidoStatus {
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvVirtual {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesOnfidoStatus, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvVirtual, v)
 	}
-	*j = GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesOnfidoStatus(v)
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvVirtual(v)
 	return nil
 }
 
@@ -1075,27 +1106,43 @@ func (j *GetAccountStatusRespGetAccountStatus) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvIom) UnmarshalJSON(b []byte) error {
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvVanuatu) UnmarshalJSON(b []byte) error {
 	var v int
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvIom {
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvVanuatu {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvIom, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvVanuatu, v)
 	}
-	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvIom(v)
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvVanuatu(v)
 	return nil
 }
 
-var enumValues_GetAccountStatusRespMsgType = []interface{}{
-	"get_account_status",
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationIdentityStatus) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityStatus {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityStatus, v)
+	}
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationIdentityStatus(v)
+	return nil
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -1118,43 +1165,32 @@ func (j *GetAccountStatusRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesManualStatus) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesManualStatus {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesManualStatus, v)
-	}
-	*j = GetAccountStatusRespGetAccountStatusAuthenticationIdentityServicesManualStatus(v)
-	return nil
+var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationIdentityStatus = []interface{}{
+	"none",
+	"pending",
+	"rejected",
+	"verified",
+	"expired",
+	"suspected",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvMalta) UnmarshalJSON(b []byte) error {
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvLabuan) UnmarshalJSON(b []byte) error {
 	var v int
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvMalta {
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvLabuan {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvMalta, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvLabuan, v)
 	}
-	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvMalta(v)
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentAuthenticatedWithIdvLabuan(v)
 	return nil
 }
 
