@@ -50,7 +50,7 @@ type TradingTimesRespTradingTimesMarketsElemSubmarketsElem struct {
 	Name string `json:"name"`
 
 	// Symbols array
-	Symbols []TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElem `json:"symbols,omitempty"`
+	Symbols []TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElem `json:"symbols"`
 }
 
 type TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElem struct {
@@ -133,6 +133,9 @@ func (j *TradingTimesRespTradingTimesMarketsElemSubmarketsElem) UnmarshalJSON(b 
 	}
 	if v, ok := raw["name"]; !ok || v == nil {
 		return fmt.Errorf("field name in TradingTimesRespTradingTimesMarketsElemSubmarketsElem: required")
+	}
+	if v, ok := raw["symbols"]; !ok || v == nil {
+		return fmt.Errorf("field symbols in TradingTimesRespTradingTimesMarketsElemSubmarketsElem: required")
 	}
 	type Plain TradingTimesRespTradingTimesMarketsElemSubmarketsElem
 	var plain Plain
