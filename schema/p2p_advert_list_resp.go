@@ -6,545 +6,33 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Available adverts matching the requested criteria.
+type P2PAdvertListResp struct {
+	// Echo of the request made.
+	EchoReq P2PAdvertListRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType P2PAdvertListRespMsgType `json:"msg_type"`
+
+	// P2P adverts list.
+	P2PAdvertList *P2PAdvertListRespP2PAdvertList `json:"p2p_advert_list,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // Echo of the request made.
 type P2PAdvertListRespEchoReq map[string]interface{}
 
 type P2PAdvertListRespMsgType string
 
-var enumValues_P2PAdvertListRespMsgType = []interface{}{
-	"p2p_advert_list",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertListRespMsgType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertListRespMsgType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespMsgType, v)
-	}
-	*j = P2PAdvertListRespMsgType(v)
-	return nil
-}
-
 const P2PAdvertListRespMsgTypeP2PAdvertList P2PAdvertListRespMsgType = "p2p_advert_list"
 
-type P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsBlocked int
-
-var enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsBlocked = []interface{}{
-	0,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsBlocked) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsBlocked {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsBlocked, v)
-	}
-	*j = P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsBlocked(v)
-	return nil
-}
-
-type P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsFavourite int
-
-var enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsFavourite = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsFavourite) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsFavourite {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsFavourite, v)
-	}
-	*j = P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsFavourite(v)
-	return nil
-}
-
-type P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsOnline int
-
-var enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsOnline = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsOnline) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsOnline {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsOnline, v)
-	}
-	*j = P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsOnline(v)
-	return nil
-}
-
-type P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsRecommended struct {
-	Value interface{}
-}
-
-var enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsRecommended = []interface{}{
-	nil,
-	0.0,
-	1.0,
-}
-
-// MarshalJSON implements json.Marshaler.
-func (j *P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsRecommended) MarshalJSON() ([]byte, error) {
-	return json.Marshal(j.Value)
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsRecommended) UnmarshalJSON(b []byte) error {
-	var v struct {
-		Value interface{}
-	}
-	if err := json.Unmarshal(b, &v.Value); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsRecommended {
-		if reflect.DeepEqual(v.Value, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsRecommended, v.Value)
-	}
-	*j = P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsRecommended(v)
-	return nil
-}
-
-// Details of the advertiser for this advert.
-type P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails struct {
-	// The total number of orders completed in the past 30 days.
-	CompletedOrdersCount int `json:"completed_orders_count"`
-
-	// The advertiser's first name.
-	FirstName *string `json:"first_name,omitempty"`
-
-	// The advertiser's unique identifier.
-	Id string `json:"id"`
-
-	// Indicates that the advertiser is blocked by the current user.
-	IsBlocked *P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsBlocked `json:"is_blocked,omitempty"`
-
-	// Indicates that the advertiser is a favourite.
-	IsFavourite *P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsFavourite `json:"is_favourite,omitempty"`
-
-	// Indicates if the advertiser is currently online.
-	IsOnline P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsOnline `json:"is_online"`
-
-	// Indicates that the advertiser was recommended in the most recent review by the
-	// current user.
-	IsRecommended *P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsRecommended `json:"is_recommended,omitempty"`
-
-	// The advertiser's last name.
-	LastName *string `json:"last_name,omitempty"`
-
-	// Epoch of the latest time the advertiser was online, up to 6 months.
-	LastOnlineTime *int `json:"last_online_time"`
-
-	// The advertiser's displayed name.
-	Name string `json:"name"`
-
-	// Average rating of the advertiser, range is 1-5.
-	RatingAverage *float64 `json:"rating_average"`
-
-	// Number of ratings given to the advertiser.
-	RatingCount int `json:"rating_count"`
-
-	// Percentage of users who have recommended the advertiser.
-	RecommendedAverage *float64 `json:"recommended_average"`
-
-	// Number of times the advertiser has been recommended.
-	RecommendedCount *float64 `json:"recommended_count"`
-
-	// The percentage of successfully completed orders made by or placed against the
-	// advertiser within the past 30 days.
-	TotalCompletionRate *float64 `json:"total_completion_rate"`
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if v, ok := raw["completed_orders_count"]; !ok || v == nil {
-		return fmt.Errorf("field completed_orders_count in P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails: required")
-	}
-	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id in P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails: required")
-	}
-	if v, ok := raw["is_online"]; !ok || v == nil {
-		return fmt.Errorf("field is_online in P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails: required")
-	}
-	if v, ok := raw["last_online_time"]; !ok || v == nil {
-		return fmt.Errorf("field last_online_time in P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails: required")
-	}
-	if v, ok := raw["name"]; !ok || v == nil {
-		return fmt.Errorf("field name in P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails: required")
-	}
-	if v, ok := raw["rating_average"]; !ok || v == nil {
-		return fmt.Errorf("field rating_average in P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails: required")
-	}
-	if v, ok := raw["rating_count"]; !ok || v == nil {
-		return fmt.Errorf("field rating_count in P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails: required")
-	}
-	if v, ok := raw["recommended_average"]; !ok || v == nil {
-		return fmt.Errorf("field recommended_average in P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails: required")
-	}
-	if v, ok := raw["recommended_count"]; !ok || v == nil {
-		return fmt.Errorf("field recommended_count in P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails: required")
-	}
-	if v, ok := raw["total_completion_rate"]; !ok || v == nil {
-		return fmt.Errorf("field total_completion_rate in P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails: required")
-	}
-	type Plain P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails(plain)
-	return nil
-}
-
-type P2PAdvertListRespP2PAdvertListListElemBlockTrade int
-
-var enumValues_P2PAdvertListRespP2PAdvertListListElemBlockTrade = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertListRespP2PAdvertListListElemBlockTrade) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemBlockTrade {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemBlockTrade, v)
-	}
-	*j = P2PAdvertListRespP2PAdvertListListElemBlockTrade(v)
-	return nil
-}
-
-type P2PAdvertListRespP2PAdvertListListElemCounterpartyType string
-
-var enumValues_P2PAdvertListRespP2PAdvertListListElemCounterpartyType = []interface{}{
-	"buy",
-	"sell",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertListRespP2PAdvertListListElemCounterpartyType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemCounterpartyType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemCounterpartyType, v)
-	}
-	*j = P2PAdvertListRespP2PAdvertListListElemCounterpartyType(v)
-	return nil
-}
-
-const P2PAdvertListRespP2PAdvertListListElemCounterpartyTypeBuy P2PAdvertListRespP2PAdvertListListElemCounterpartyType = "buy"
-const P2PAdvertListRespP2PAdvertListListElemCounterpartyTypeSell P2PAdvertListRespP2PAdvertListListElemCounterpartyType = "sell"
-
-type P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem string
-
-var enumValues_P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem = []interface{}{
-	"completion_rate",
-	"country",
-	"join_date",
-	"rating_average",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem, v)
-	}
-	*j = P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem(v)
-	return nil
-}
-
-const P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElemCompletionRate P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem = "completion_rate"
-const P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElemCountry P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem = "country"
-const P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElemJoinDate P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem = "join_date"
-const P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElemRatingAverage P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem = "rating_average"
-
-type P2PAdvertListRespP2PAdvertListListElemIsActive int
-
-var enumValues_P2PAdvertListRespP2PAdvertListListElemIsActive = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertListRespP2PAdvertListListElemIsActive) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemIsActive {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemIsActive, v)
-	}
-	*j = P2PAdvertListRespP2PAdvertListListElemIsActive(v)
-	return nil
-}
-
-type P2PAdvertListRespP2PAdvertListListElemIsEligible int
-
-var enumValues_P2PAdvertListRespP2PAdvertListListElemIsEligible = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertListRespP2PAdvertListListElemIsEligible) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemIsEligible {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemIsEligible, v)
-	}
-	*j = P2PAdvertListRespP2PAdvertListListElemIsEligible(v)
-	return nil
-}
-
-type P2PAdvertListRespP2PAdvertListListElemIsVisible int
-
-var enumValues_P2PAdvertListRespP2PAdvertListListElemIsVisible = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertListRespP2PAdvertListListElemIsVisible) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemIsVisible {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemIsVisible, v)
-	}
-	*j = P2PAdvertListRespP2PAdvertListListElemIsVisible(v)
-	return nil
-}
-
-type P2PAdvertListRespP2PAdvertListListElemOrderExpiryPeriod int
-
-var enumValues_P2PAdvertListRespP2PAdvertListListElemOrderExpiryPeriod = []interface{}{
-	900,
-	1800,
-	2700,
-	3600,
-	5400,
-	7200,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertListRespP2PAdvertListListElemOrderExpiryPeriod) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemOrderExpiryPeriod {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemOrderExpiryPeriod, v)
-	}
-	*j = P2PAdvertListRespP2PAdvertListListElemOrderExpiryPeriod(v)
-	return nil
-}
-
-type P2PAdvertListRespP2PAdvertListListElemRateType string
-
-var enumValues_P2PAdvertListRespP2PAdvertListListElemRateType = []interface{}{
-	"fixed",
-	"float",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertListRespP2PAdvertListListElemRateType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemRateType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemRateType, v)
-	}
-	*j = P2PAdvertListRespP2PAdvertListListElemRateType(v)
-	return nil
-}
-
-const P2PAdvertListRespP2PAdvertListListElemRateTypeFixed P2PAdvertListRespP2PAdvertListListElemRateType = "fixed"
-const P2PAdvertListRespP2PAdvertListListElemRateTypeFloat P2PAdvertListRespP2PAdvertListListElemRateType = "float"
-
-type P2PAdvertListRespP2PAdvertListListElemType string
-
-var enumValues_P2PAdvertListRespP2PAdvertListListElemType = []interface{}{
-	"buy",
-	"sell",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertListRespP2PAdvertListListElemType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemType, v)
-	}
-	*j = P2PAdvertListRespP2PAdvertListListElemType(v)
-	return nil
-}
-
-const P2PAdvertListRespP2PAdvertListListElemTypeBuy P2PAdvertListRespP2PAdvertListListElemType = "buy"
-const P2PAdvertListRespP2PAdvertListListElemTypeSell P2PAdvertListRespP2PAdvertListListElemType = "sell"
-
-type P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem string
-
-var enumValues_P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = []interface{}{
-	"advert_inactive",
-	"advert_max_limit",
-	"advert_min_limit",
-	"advert_remaining",
-	"advertiser_ads_paused",
-	"advertiser_approval",
-	"advertiser_balance",
-	"advertiser_block_trade_ineligible",
-	"advertiser_daily_limit",
-	"advertiser_temp_ban",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem, v)
-	}
-	*j = P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem(v)
-	return nil
+// P2P adverts list.
+type P2PAdvertListRespP2PAdvertList struct {
+	// List of adverts.
+	List []P2PAdvertListRespP2PAdvertListListElem `json:"list"`
 }
 
 type P2PAdvertListRespP2PAdvertListListElem struct {
@@ -669,7 +157,7 @@ type P2PAdvertListRespP2PAdvertListListElem struct {
 	MinRating *float64 `json:"min_rating,omitempty"`
 
 	// Expiry period (seconds) for order created against this ad.
-	OrderExpiryPeriod P2PAdvertListRespP2PAdvertListListElemOrderExpiryPeriod `json:"order_expiry_period"`
+	OrderExpiryPeriod int `json:"order_expiry_period"`
 
 	// Payment instructions. Only applicable for 'sell adverts'.
 	PaymentInfo *string `json:"payment_info,omitempty"`
@@ -729,16 +217,490 @@ type P2PAdvertListRespP2PAdvertListListElem struct {
 	VisibilityStatus []P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem `json:"visibility_status,omitempty"`
 }
 
+// Details of the advertiser for this advert.
+type P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails struct {
+	// The total number of orders completed in the past 30 days.
+	CompletedOrdersCount int `json:"completed_orders_count"`
+
+	// The advertiser's first name.
+	FirstName *string `json:"first_name,omitempty"`
+
+	// The advertiser's unique identifier.
+	Id string `json:"id"`
+
+	// Indicates that the advertiser is blocked by the current user.
+	IsBlocked *P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsBlocked `json:"is_blocked,omitempty"`
+
+	// Indicates that the advertiser is a favourite.
+	IsFavourite *P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsFavourite `json:"is_favourite,omitempty"`
+
+	// Indicates if the advertiser is currently online.
+	IsOnline P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsOnline `json:"is_online"`
+
+	// Indicates that the advertiser was recommended in the most recent review by the
+	// current user.
+	IsRecommended *P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsRecommended `json:"is_recommended,omitempty"`
+
+	// The advertiser's last name.
+	LastName *string `json:"last_name,omitempty"`
+
+	// Epoch of the latest time the advertiser was online, up to 6 months.
+	LastOnlineTime *int `json:"last_online_time"`
+
+	// The advertiser's displayed name.
+	Name string `json:"name"`
+
+	// Average rating of the advertiser, range is 1-5.
+	RatingAverage *float64 `json:"rating_average"`
+
+	// Number of ratings given to the advertiser.
+	RatingCount int `json:"rating_count"`
+
+	// Percentage of users who have recommended the advertiser.
+	RecommendedAverage *float64 `json:"recommended_average"`
+
+	// Number of times the advertiser has been recommended.
+	RecommendedCount *float64 `json:"recommended_count"`
+
+	// The percentage of successfully completed orders made by or placed against the
+	// advertiser within the past 30 days.
+	TotalCompletionRate *float64 `json:"total_completion_rate"`
+}
+
+type P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsBlocked int
+
+type P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsFavourite int
+
+type P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsOnline int
+
+type P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsRecommended struct {
+	Value interface{}
+}
+
+type P2PAdvertListRespP2PAdvertListListElemBlockTrade int
+
+type P2PAdvertListRespP2PAdvertListListElemCounterpartyType string
+
+const P2PAdvertListRespP2PAdvertListListElemCounterpartyTypeBuy P2PAdvertListRespP2PAdvertListListElemCounterpartyType = "buy"
+const P2PAdvertListRespP2PAdvertListListElemCounterpartyTypeSell P2PAdvertListRespP2PAdvertListListElemCounterpartyType = "sell"
+
+type P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem string
+
+const P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElemCompletionRate P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem = "completion_rate"
+const P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElemCountry P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem = "country"
+const P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElemJoinDate P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem = "join_date"
+const P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElemRatingAverage P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem = "rating_average"
+
+type P2PAdvertListRespP2PAdvertListListElemIsActive int
+
+type P2PAdvertListRespP2PAdvertListListElemIsEligible int
+
+type P2PAdvertListRespP2PAdvertListListElemIsVisible int
+
+type P2PAdvertListRespP2PAdvertListListElemRateType string
+
+const P2PAdvertListRespP2PAdvertListListElemRateTypeFixed P2PAdvertListRespP2PAdvertListListElemRateType = "fixed"
+const P2PAdvertListRespP2PAdvertListListElemRateTypeFloat P2PAdvertListRespP2PAdvertListListElemRateType = "float"
+
+type P2PAdvertListRespP2PAdvertListListElemType string
+
+const P2PAdvertListRespP2PAdvertListListElemTypeBuy P2PAdvertListRespP2PAdvertListListElemType = "buy"
+const P2PAdvertListRespP2PAdvertListListElemTypeSell P2PAdvertListRespP2PAdvertListListElemType = "sell"
+
+type P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem string
+
 const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertInactive P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advert_inactive"
 const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertMaxLimit P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advert_max_limit"
 const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertMinLimit P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advert_min_limit"
 const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertRemaining P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advert_remaining"
 const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertiserAdsPaused P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advertiser_ads_paused"
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsFavourite) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsFavourite {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsFavourite, v)
+	}
+	*j = P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsFavourite(v)
+	return nil
+}
+
+var enumValues_P2PAdvertListRespP2PAdvertListListElemIsActive = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListRespP2PAdvertListListElemIsActive) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemIsActive {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemIsActive, v)
+	}
+	*j = P2PAdvertListRespP2PAdvertListListElemIsActive(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if v, ok := raw["completed_orders_count"]; !ok || v == nil {
+		return fmt.Errorf("field completed_orders_count in P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails: required")
+	}
+	if v, ok := raw["id"]; !ok || v == nil {
+		return fmt.Errorf("field id in P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails: required")
+	}
+	if v, ok := raw["is_online"]; !ok || v == nil {
+		return fmt.Errorf("field is_online in P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails: required")
+	}
+	if v, ok := raw["last_online_time"]; !ok || v == nil {
+		return fmt.Errorf("field last_online_time in P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails: required")
+	}
+	if v, ok := raw["name"]; !ok || v == nil {
+		return fmt.Errorf("field name in P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails: required")
+	}
+	if v, ok := raw["rating_average"]; !ok || v == nil {
+		return fmt.Errorf("field rating_average in P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails: required")
+	}
+	if v, ok := raw["rating_count"]; !ok || v == nil {
+		return fmt.Errorf("field rating_count in P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails: required")
+	}
+	if v, ok := raw["recommended_average"]; !ok || v == nil {
+		return fmt.Errorf("field recommended_average in P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails: required")
+	}
+	if v, ok := raw["recommended_count"]; !ok || v == nil {
+		return fmt.Errorf("field recommended_count in P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails: required")
+	}
+	if v, ok := raw["total_completion_rate"]; !ok || v == nil {
+		return fmt.Errorf("field total_completion_rate in P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails: required")
+	}
+	type Plain P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails(plain)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListRespP2PAdvertListListElemType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemType, v)
+	}
+	*j = P2PAdvertListRespP2PAdvertListListElemType(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListRespP2PAdvertListListElemIsEligible) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemIsEligible {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemIsEligible, v)
+	}
+	*j = P2PAdvertListRespP2PAdvertListListElemIsEligible(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsRecommended) UnmarshalJSON(b []byte) error {
+	var v struct {
+		Value interface{}
+	}
+	if err := json.Unmarshal(b, &v.Value); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsRecommended {
+		if reflect.DeepEqual(v.Value, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsRecommended, v.Value)
+	}
+	*j = P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsRecommended(v)
+	return nil
+}
+
+var enumValues_P2PAdvertListRespP2PAdvertListListElemIsVisible = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListRespP2PAdvertListListElemIsVisible) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemIsVisible {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemIsVisible, v)
+	}
+	*j = P2PAdvertListRespP2PAdvertListListElemIsVisible(v)
+	return nil
+}
+
+// MarshalJSON implements json.Marshaler.
+func (j *P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsRecommended) MarshalJSON() ([]byte, error) {
+	return json.Marshal(j.Value)
+}
+
+var enumValues_P2PAdvertListRespP2PAdvertListListElemRateType = []interface{}{
+	"fixed",
+	"float",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListRespP2PAdvertListListElemRateType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemRateType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemRateType, v)
+	}
+	*j = P2PAdvertListRespP2PAdvertListListElemRateType(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsBlocked) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsBlocked {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsBlocked, v)
+	}
+	*j = P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsBlocked(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsOnline) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsOnline {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsOnline, v)
+	}
+	*j = P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsOnline(v)
+	return nil
+}
+
+var enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsOnline = []interface{}{
+	0,
+	1,
+}
+var enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsFavourite = []interface{}{
+	0,
+	1,
+}
+var enumValues_P2PAdvertListRespP2PAdvertListListElemIsEligible = []interface{}{
+	0,
+	1,
+}
+var enumValues_P2PAdvertListRespMsgType = []interface{}{
+	"p2p_advert_list",
+}
+var enumValues_P2PAdvertListRespP2PAdvertListListElemBlockTrade = []interface{}{
+	0,
+	1,
+}
+var enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsRecommended = []interface{}{
+	nil,
+	0.0,
+	1.0,
+}
+var enumValues_P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = []interface{}{
+	"advert_inactive",
+	"advert_max_limit",
+	"advert_min_limit",
+	"advert_remaining",
+	"advertiser_ads_paused",
+	"advertiser_approval",
+	"advertiser_balance",
+	"advertiser_block_trade_ineligible",
+	"advertiser_daily_limit",
+	"advertiser_temp_ban",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem, v)
+	}
+	*j = P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem(v)
+	return nil
+}
+
+var enumValues_P2PAdvertListRespP2PAdvertListListElemCounterpartyType = []interface{}{
+	"buy",
+	"sell",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListRespP2PAdvertListListElemCounterpartyType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemCounterpartyType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemCounterpartyType, v)
+	}
+	*j = P2PAdvertListRespP2PAdvertListListElemCounterpartyType(v)
+	return nil
+}
+
+var enumValues_P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem = []interface{}{
+	"completion_rate",
+	"country",
+	"join_date",
+	"rating_average",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem, v)
+	}
+	*j = P2PAdvertListRespP2PAdvertListListElemEligibilityStatusElem(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListRespP2PAdvertListListElemBlockTrade) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemBlockTrade {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemBlockTrade, v)
+	}
+	*j = P2PAdvertListRespP2PAdvertListListElemBlockTrade(v)
+	return nil
+}
+
 const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertiserApproval P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advertiser_approval"
 const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertiserBalance P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advertiser_balance"
 const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertiserBlockTradeIneligible P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advertiser_block_trade_ineligible"
 const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertiserDailyLimit P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advertiser_daily_limit"
 const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertiserTempBan P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advertiser_temp_ban"
+
+var enumValues_P2PAdvertListRespP2PAdvertListListElemType = []interface{}{
+	"buy",
+	"sell",
+}
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PAdvertListRespP2PAdvertListListElem) UnmarshalJSON(b []byte) error {
@@ -833,10 +795,24 @@ func (j *P2PAdvertListRespP2PAdvertListListElem) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// P2P adverts list.
-type P2PAdvertListRespP2PAdvertList struct {
-	// List of adverts.
-	List []P2PAdvertListRespP2PAdvertListListElem `json:"list"`
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListRespMsgType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListRespMsgType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespMsgType, v)
+	}
+	*j = P2PAdvertListRespMsgType(v)
+	return nil
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -857,20 +833,8 @@ func (j *P2PAdvertListRespP2PAdvertList) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Available adverts matching the requested criteria.
-type P2PAdvertListResp struct {
-	// Echo of the request made.
-	EchoReq P2PAdvertListRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType P2PAdvertListRespMsgType `json:"msg_type"`
-
-	// P2P adverts list.
-	P2PAdvertList *P2PAdvertListRespP2PAdvertList `json:"p2p_advert_list,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
+var enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsBlocked = []interface{}{
+	0,
 }
 
 // UnmarshalJSON implements json.Unmarshaler.

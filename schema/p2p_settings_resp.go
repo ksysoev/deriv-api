@@ -409,6 +409,9 @@ type P2PSettingsRespP2PSettings struct {
 	// Maximum number of orders a user may create per day.
 	OrderDailyLimit int `json:"order_daily_limit"`
 
+	// List of order expiry values available for adverts, in seconds.
+	OrderExpiryOptions []int `json:"order_expiry_options"`
+
 	// Time allowed for order payment, in minutes after order creation.
 	OrderPaymentPeriod int `json:"order_payment_period"`
 
@@ -480,6 +483,9 @@ func (j *P2PSettingsRespP2PSettings) UnmarshalJSON(b []byte) error {
 	}
 	if v, ok := raw["order_daily_limit"]; !ok || v == nil {
 		return fmt.Errorf("field order_daily_limit in P2PSettingsRespP2PSettings: required")
+	}
+	if v, ok := raw["order_expiry_options"]; !ok || v == nil {
+		return fmt.Errorf("field order_expiry_options in P2PSettingsRespP2PSettings: required")
 	}
 	if v, ok := raw["order_payment_period"]; !ok || v == nil {
 		return fmt.Errorf("field order_payment_period in P2PSettingsRespP2PSettings: required")
