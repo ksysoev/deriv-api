@@ -351,9 +351,6 @@ type ProposalOpenContractRespProposalOpenContract struct {
 	// multiplier = Payout
 	Multiplier *float64 `json:"multiplier,omitempty"`
 
-	// [Only for vanilla or turbos options] The implied number of contracts
-	NumberOfContracts *float64 `json:"number_of_contracts,omitempty"`
-
 	// Payout value of the contract.
 	Payout *float64 `json:"payout,omitempty"`
 
