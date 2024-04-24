@@ -1,17 +1,16 @@
-name: Deriv API 
+name: Deriv API
 
 on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        go-version: ['1.19.x', '1.20.x', '1.21.x' ]
+        go-version: ["1.20.x", "1.21.x", "1.22.x"]
 
     steps:
-      - uses: actions/checkout@v3   
+      - uses: actions/checkout@v3
       - name: Setup Go ${{ matrix.go-version }}
         uses: actions/setup-go@v3
         with:
