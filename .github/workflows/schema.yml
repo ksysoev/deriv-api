@@ -1,4 +1,4 @@
-name: Schema Updater 
+name: Schema Updater
 on:
   workflow_dispatch:
   schedule:
@@ -6,19 +6,18 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
       - uses: actions/setup-go@v4
         with:
-          go-version: 'stable'
+          go-version: "stable"
 
       - name: Display Go version
         run: go version
       - name: Install schema generator
-        run: go install github.com/atombender/go-jsonschema@v0.15.0
+        run: go install github.com/atombender/go-jsonschema@v0.16.0
       - name: generate schema
         run: make generate_all
 
@@ -29,5 +28,5 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with:
           default_author: user_info
-          message: 'Updates API schema'
-          add: '*.go'
+          message: "Updates API schema"
+          add: "*.go"
