@@ -6,10 +6,31 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// The result of MT5 deposit request.
+type Mt5DepositResp struct {
+	// Withdrawal reference ID of Binary account
+	BinaryTransactionId *int `json:"binary_transaction_id,omitempty"`
+
+	// Echo of the request made.
+	EchoReq Mt5DepositRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType Mt5DepositRespMsgType `json:"msg_type"`
+
+	// 1 on success
+	Mt5Deposit *int `json:"mt5_deposit,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // Echo of the request made.
 type Mt5DepositRespEchoReq map[string]interface{}
 
 type Mt5DepositRespMsgType string
+
+const Mt5DepositRespMsgTypeMt5Deposit Mt5DepositRespMsgType = "mt5_deposit"
 
 var enumValues_Mt5DepositRespMsgType = []interface{}{
 	"mt5_deposit",
@@ -35,37 +56,16 @@ func (j *Mt5DepositRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// The result of MT5 deposit request.
-type Mt5DepositResp struct {
-	// Withdrawal reference ID of Binary account
-	BinaryTransactionId *int `json:"binary_transaction_id,omitempty"`
-
-	// Echo of the request made.
-	EchoReq Mt5DepositRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType Mt5DepositRespMsgType `json:"msg_type"`
-
-	// 1 on success
-	Mt5Deposit *int `json:"mt5_deposit,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
-const Mt5DepositRespMsgTypeMt5Deposit Mt5DepositRespMsgType = "mt5_deposit"
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *Mt5DepositResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in Mt5DepositResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in Mt5DepositResp: required")
 	}
 	type Plain Mt5DepositResp

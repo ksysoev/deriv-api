@@ -6,6 +6,35 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Retrieve information about a P2P advert.
+type P2PAdvertInfo struct {
+	// [Optional] The unique identifier for this advert. Optional when subscribe is 1.
+	// If not provided, all advertiser adverts will be subscribed.
+	Id *string `json:"id,omitempty"`
+
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// Must be 1
+	P2PAdvertInfo P2PAdvertInfoP2PAdvertInfo `json:"p2p_advert_info"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough P2PAdvertInfoPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// [Optional] If set to 1, will send updates when changes occur. Optional when id
+	// is provided.
+	Subscribe *P2PAdvertInfoSubscribe `json:"subscribe,omitempty"`
+
+	// [Optional] If set to 1, the maximum order amount will be adjusted to the
+	// current balance and turnover limits of the account.
+	UseClientLimits P2PAdvertInfoUseClientLimits `json:"use_client_limits,omitempty"`
+}
+
 type P2PAdvertInfoP2PAdvertInfo int
 
 var enumValues_P2PAdvertInfoP2PAdvertInfo = []interface{}{
@@ -89,42 +118,13 @@ func (j *P2PAdvertInfoUseClientLimits) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Retrieve information about a P2P advert.
-type P2PAdvertInfo struct {
-	// [Optional] The unique identifier for this advert. Optional when subscribe is 1.
-	// If not provided, all advertiser adverts will be subscribed.
-	Id *string `json:"id,omitempty"`
-
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// Must be 1
-	P2PAdvertInfo P2PAdvertInfoP2PAdvertInfo `json:"p2p_advert_info"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough P2PAdvertInfoPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// [Optional] If set to 1, will send updates when changes occur. Optional when id
-	// is provided.
-	Subscribe *P2PAdvertInfoSubscribe `json:"subscribe,omitempty"`
-
-	// [Optional] If set to 1, the maximum order amount will be adjusted to the
-	// current balance and turnover limits of the account.
-	UseClientLimits P2PAdvertInfoUseClientLimits `json:"use_client_limits,omitempty"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PAdvertInfo) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["p2p_advert_info"]; !ok || v == nil {
+	if _, ok := raw["p2p_advert_info"]; raw != nil && !ok {
 		return fmt.Errorf("field p2p_advert_info in P2PAdvertInfo: required")
 	}
 	type Plain P2PAdvertInfo

@@ -6,6 +6,22 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// A message with requested application details
+type AppGetResp struct {
+	// The information of the requested application.
+	AppGet *AppGetRespAppGet `json:"app_get,omitempty"`
+
+	// Echo of the request made.
+	EchoReq AppGetRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType AppGetRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // The information of the requested application.
 type AppGetRespAppGet struct {
 	// Active.
@@ -50,31 +66,31 @@ func (j *AppGetRespAppGet) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["app_id"]; !ok || v == nil {
+	if _, ok := raw["app_id"]; raw != nil && !ok {
 		return fmt.Errorf("field app_id in AppGetRespAppGet: required")
 	}
-	if v, ok := raw["app_markup_percentage"]; !ok || v == nil {
+	if _, ok := raw["app_markup_percentage"]; raw != nil && !ok {
 		return fmt.Errorf("field app_markup_percentage in AppGetRespAppGet: required")
 	}
-	if v, ok := raw["appstore"]; !ok || v == nil {
+	if _, ok := raw["appstore"]; raw != nil && !ok {
 		return fmt.Errorf("field appstore in AppGetRespAppGet: required")
 	}
-	if v, ok := raw["github"]; !ok || v == nil {
+	if _, ok := raw["github"]; raw != nil && !ok {
 		return fmt.Errorf("field github in AppGetRespAppGet: required")
 	}
-	if v, ok := raw["googleplay"]; !ok || v == nil {
+	if _, ok := raw["googleplay"]; raw != nil && !ok {
 		return fmt.Errorf("field googleplay in AppGetRespAppGet: required")
 	}
-	if v, ok := raw["homepage"]; !ok || v == nil {
+	if _, ok := raw["homepage"]; raw != nil && !ok {
 		return fmt.Errorf("field homepage in AppGetRespAppGet: required")
 	}
-	if v, ok := raw["name"]; !ok || v == nil {
+	if _, ok := raw["name"]; raw != nil && !ok {
 		return fmt.Errorf("field name in AppGetRespAppGet: required")
 	}
-	if v, ok := raw["redirect_uri"]; !ok || v == nil {
+	if _, ok := raw["redirect_uri"]; raw != nil && !ok {
 		return fmt.Errorf("field redirect_uri in AppGetRespAppGet: required")
 	}
-	if v, ok := raw["verification_uri"]; !ok || v == nil {
+	if _, ok := raw["verification_uri"]; raw != nil && !ok {
 		return fmt.Errorf("field verification_uri in AppGetRespAppGet: required")
 	}
 	type Plain AppGetRespAppGet
@@ -90,6 +106,8 @@ func (j *AppGetRespAppGet) UnmarshalJSON(b []byte) error {
 type AppGetRespEchoReq map[string]interface{}
 
 type AppGetRespMsgType string
+
+const AppGetRespMsgTypeAppGet AppGetRespMsgType = "app_get"
 
 var enumValues_AppGetRespMsgType = []interface{}{
 	"app_get",
@@ -115,34 +133,16 @@ func (j *AppGetRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// A message with requested application details
-type AppGetResp struct {
-	// The information of the requested application.
-	AppGet *AppGetRespAppGet `json:"app_get,omitempty"`
-
-	// Echo of the request made.
-	EchoReq AppGetRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType AppGetRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
-const AppGetRespMsgTypeAppGet AppGetRespMsgType = "app_get"
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *AppGetResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in AppGetResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in AppGetResp: required")
 	}
 	type Plain AppGetResp

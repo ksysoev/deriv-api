@@ -43,7 +43,56 @@ type P2PAdvertiserList struct {
 
 type P2PAdvertiserListIsBlocked int
 
+var enumValues_P2PAdvertiserListIsBlocked = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertiserListIsBlocked) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertiserListIsBlocked {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserListIsBlocked, v)
+	}
+	*j = P2PAdvertiserListIsBlocked(v)
+	return nil
+}
+
 type P2PAdvertiserListP2PAdvertiserList int
+
+var enumValues_P2PAdvertiserListP2PAdvertiserList = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertiserListP2PAdvertiserList) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertiserListP2PAdvertiserList {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserListP2PAdvertiserList, v)
+	}
+	*j = P2PAdvertiserListP2PAdvertiserList(v)
+	return nil
+}
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
@@ -55,14 +104,10 @@ const P2PAdvertiserListSortByCreatedTime P2PAdvertiserListSortBy = "created_time
 const P2PAdvertiserListSortByLastInteractionTime P2PAdvertiserListSortBy = "last_interaction_time"
 const P2PAdvertiserListSortByName P2PAdvertiserListSortBy = "name"
 
-type P2PAdvertiserListTradePartners int
-
-var enumValues_P2PAdvertiserListIsBlocked = []interface{}{
-	0,
-	1,
-}
-var enumValues_P2PAdvertiserListP2PAdvertiserList = []interface{}{
-	1,
+var enumValues_P2PAdvertiserListSortBy = []interface{}{
+	"name",
+	"created_time",
+	"last_interaction_time",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -85,31 +130,7 @@ func (j *P2PAdvertiserListSortBy) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-var enumValues_P2PAdvertiserListSortBy = []interface{}{
-	"name",
-	"created_time",
-	"last_interaction_time",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertiserListP2PAdvertiserList) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertiserListP2PAdvertiserList {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserListP2PAdvertiserList, v)
-	}
-	*j = P2PAdvertiserListP2PAdvertiserList(v)
-	return nil
-}
+type P2PAdvertiserListTradePartners int
 
 var enumValues_P2PAdvertiserListTradePartners = []interface{}{
 	0,
@@ -137,32 +158,12 @@ func (j *P2PAdvertiserListTradePartners) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertiserListIsBlocked) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertiserListIsBlocked {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserListIsBlocked, v)
-	}
-	*j = P2PAdvertiserListIsBlocked(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PAdvertiserList) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["p2p_advertiser_list"]; !ok || v == nil {
+	if _, ok := raw["p2p_advertiser_list"]; raw != nil && !ok {
 		return fmt.Errorf("field p2p_advertiser_list in P2PAdvertiserList: required")
 	}
 	type Plain P2PAdvertiserList

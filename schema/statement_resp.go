@@ -29,6 +29,30 @@ type StatementRespMsgType string
 
 const StatementRespMsgTypeStatement StatementRespMsgType = "statement"
 
+var enumValues_StatementRespMsgType = []interface{}{
+	"statement",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *StatementRespMsgType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_StatementRespMsgType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_StatementRespMsgType, v)
+	}
+	*j = StatementRespMsgType(v)
+	return nil
+}
+
 // Account statement.
 type StatementRespStatement struct {
 	// Number of transactions returned in this call
@@ -106,6 +130,38 @@ const StatementRespStatementTransactionsElemActionTypeTransfer StatementRespStat
 const StatementRespStatementTransactionsElemActionTypeVirtualCredit StatementRespStatementTransactionsElemActionType = "virtual_credit"
 const StatementRespStatementTransactionsElemActionTypeWithdrawal StatementRespStatementTransactionsElemActionType = "withdrawal"
 
+var enumValues_StatementRespStatementTransactionsElemActionType = []interface{}{
+	"buy",
+	"sell",
+	"deposit",
+	"withdrawal",
+	"hold",
+	"release",
+	"adjustment",
+	"virtual_credit",
+	"transfer",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *StatementRespStatementTransactionsElemActionType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_StatementRespStatementTransactionsElemActionType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_StatementRespStatementTransactionsElemActionType, v)
+	}
+	*j = StatementRespStatementTransactionsElemActionType(v)
+	return nil
+}
+
 // Contains details about fees used for transfer. It is present only when action
 // type is transfer.
 type StatementRespStatementTransactionsElemFees struct {
@@ -129,67 +185,11 @@ type StatementRespStatementTransactionsElemFrom struct {
 	Loginid *string `json:"loginid,omitempty"`
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *StatementRespStatementTransactionsElemActionType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_StatementRespStatementTransactionsElemActionType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_StatementRespStatementTransactionsElemActionType, v)
-	}
-	*j = StatementRespStatementTransactionsElemActionType(v)
-	return nil
-}
-
 // Contains details of account to which amount was transferred. It is present only
 // when action type is transfer.
 type StatementRespStatementTransactionsElemTo struct {
 	// Login id of the account to which money was transferred.
 	Loginid *string `json:"loginid,omitempty"`
-}
-
-var enumValues_StatementRespStatementTransactionsElemActionType = []interface{}{
-	"buy",
-	"sell",
-	"deposit",
-	"withdrawal",
-	"hold",
-	"release",
-	"adjustment",
-	"virtual_credit",
-	"transfer",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *StatementRespMsgType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_StatementRespMsgType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_StatementRespMsgType, v)
-	}
-	*j = StatementRespMsgType(v)
-	return nil
-}
-
-var enumValues_StatementRespMsgType = []interface{}{
-	"statement",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -198,10 +198,10 @@ func (j *StatementResp) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in StatementResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in StatementResp: required")
 	}
 	type Plain StatementResp

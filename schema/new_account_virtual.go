@@ -108,7 +108,56 @@ type NewAccountVirtual struct {
 
 type NewAccountVirtualEmailConsent int
 
+var enumValues_NewAccountVirtualEmailConsent = []interface{}{
+	1,
+	0,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountVirtualEmailConsent) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountVirtualEmailConsent {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountVirtualEmailConsent, v)
+	}
+	*j = NewAccountVirtualEmailConsent(v)
+	return nil
+}
+
 type NewAccountVirtualNewAccountVirtual int
+
+var enumValues_NewAccountVirtualNewAccountVirtual = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountVirtualNewAccountVirtual) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountVirtualNewAccountVirtual {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountVirtualNewAccountVirtual, v)
+	}
+	*j = NewAccountVirtualNewAccountVirtual(v)
+	return nil
+}
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
@@ -119,17 +168,9 @@ type NewAccountVirtualSignupDevice string
 const NewAccountVirtualSignupDeviceDesktop NewAccountVirtualSignupDevice = "desktop"
 const NewAccountVirtualSignupDeviceMobile NewAccountVirtualSignupDevice = "mobile"
 
-type NewAccountVirtualType string
-
-const NewAccountVirtualTypeTrading NewAccountVirtualType = "trading"
-const NewAccountVirtualTypeWallet NewAccountVirtualType = "wallet"
-
-var enumValues_NewAccountVirtualEmailConsent = []interface{}{
-	1,
-	0,
-}
-var enumValues_NewAccountVirtualNewAccountVirtual = []interface{}{
-	1,
+var enumValues_NewAccountVirtualSignupDevice = []interface{}{
+	"desktop",
+	"mobile",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -151,6 +192,11 @@ func (j *NewAccountVirtualSignupDevice) UnmarshalJSON(b []byte) error {
 	*j = NewAccountVirtualSignupDevice(v)
 	return nil
 }
+
+type NewAccountVirtualType string
+
+const NewAccountVirtualTypeTrading NewAccountVirtualType = "trading"
+const NewAccountVirtualTypeWallet NewAccountVirtualType = "wallet"
 
 var enumValues_NewAccountVirtualType = []interface{}{
 	"trading",
@@ -177,58 +223,13 @@ func (j *NewAccountVirtualType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-var enumValues_NewAccountVirtualSignupDevice = []interface{}{
-	"desktop",
-	"mobile",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountVirtualNewAccountVirtual) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_NewAccountVirtualNewAccountVirtual {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountVirtualNewAccountVirtual, v)
-	}
-	*j = NewAccountVirtualNewAccountVirtual(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountVirtualEmailConsent) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_NewAccountVirtualEmailConsent {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountVirtualEmailConsent, v)
-	}
-	*j = NewAccountVirtualEmailConsent(v)
-	return nil
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *NewAccountVirtual) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["new_account_virtual"]; !ok || v == nil {
+	if _, ok := raw["new_account_virtual"]; raw != nil && !ok {
 		return fmt.Errorf("field new_account_virtual in NewAccountVirtual: required")
 	}
 	type Plain NewAccountVirtual

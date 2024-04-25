@@ -45,6 +45,31 @@ type ActiveSymbolsActiveSymbols string
 const ActiveSymbolsActiveSymbolsBrief ActiveSymbolsActiveSymbols = "brief"
 const ActiveSymbolsActiveSymbolsFull ActiveSymbolsActiveSymbols = "full"
 
+var enumValues_ActiveSymbolsActiveSymbols = []interface{}{
+	"brief",
+	"full",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ActiveSymbolsActiveSymbols) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ActiveSymbolsActiveSymbols {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ActiveSymbolsActiveSymbols, v)
+	}
+	*j = ActiveSymbolsActiveSymbols(v)
+	return nil
+}
+
 type ActiveSymbolsContractTypeElem string
 
 const ActiveSymbolsContractTypeElemACCU ActiveSymbolsContractTypeElem = "ACCU"
@@ -86,36 +111,6 @@ const ActiveSymbolsContractTypeElemUPORDOWN ActiveSymbolsContractTypeElem = "UPO
 const ActiveSymbolsContractTypeElemVANILLALONGCALL ActiveSymbolsContractTypeElem = "VANILLALONGCALL"
 const ActiveSymbolsContractTypeElemVANILLALONGPUT ActiveSymbolsContractTypeElem = "VANILLALONGPUT"
 
-type ActiveSymbolsLandingCompany string
-
-const ActiveSymbolsLandingCompanyIom ActiveSymbolsLandingCompany = "iom"
-const ActiveSymbolsLandingCompanyMalta ActiveSymbolsLandingCompany = "malta"
-const ActiveSymbolsLandingCompanyMaltainvest ActiveSymbolsLandingCompany = "maltainvest"
-
-type ActiveSymbolsLandingCompanyShort string
-
-const ActiveSymbolsLandingCompanyShortIom ActiveSymbolsLandingCompanyShort = "iom"
-const ActiveSymbolsLandingCompanyShortMalta ActiveSymbolsLandingCompanyShort = "malta"
-const ActiveSymbolsLandingCompanyShortMaltainvest ActiveSymbolsLandingCompanyShort = "maltainvest"
-const ActiveSymbolsLandingCompanyShortSvg ActiveSymbolsLandingCompanyShort = "svg"
-const ActiveSymbolsLandingCompanyShortVanuatu ActiveSymbolsLandingCompanyShort = "vanuatu"
-const ActiveSymbolsLandingCompanyShortVirtual ActiveSymbolsLandingCompanyShort = "virtual"
-const ActiveSymbolsLandingCompanySvg ActiveSymbolsLandingCompany = "svg"
-const ActiveSymbolsLandingCompanyVanuatu ActiveSymbolsLandingCompany = "vanuatu"
-const ActiveSymbolsLandingCompanyVirtual ActiveSymbolsLandingCompany = "virtual"
-
-// [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
-type ActiveSymbolsPassthrough map[string]interface{}
-
-type ActiveSymbolsProductType string
-
-const ActiveSymbolsProductTypeBasic ActiveSymbolsProductType = "basic"
-
-var enumValues_ActiveSymbolsActiveSymbols = []interface{}{
-	"brief",
-	"full",
-}
 var enumValues_ActiveSymbolsContractTypeElem = []interface{}{
 	"MULTUP",
 	"MULTDOWN",
@@ -177,27 +172,22 @@ func (j *ActiveSymbolsContractTypeElem) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ActiveSymbolsActiveSymbols) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ActiveSymbolsActiveSymbols {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ActiveSymbolsActiveSymbols, v)
-	}
-	*j = ActiveSymbolsActiveSymbols(v)
-	return nil
-}
+type ActiveSymbolsLandingCompany string
 
-var enumValues_ActiveSymbolsLandingCompany = []interface{}{
+const ActiveSymbolsLandingCompanyIom ActiveSymbolsLandingCompany = "iom"
+const ActiveSymbolsLandingCompanyMalta ActiveSymbolsLandingCompany = "malta"
+const ActiveSymbolsLandingCompanyMaltainvest ActiveSymbolsLandingCompany = "maltainvest"
+
+type ActiveSymbolsLandingCompanyShort string
+
+const ActiveSymbolsLandingCompanyShortIom ActiveSymbolsLandingCompanyShort = "iom"
+const ActiveSymbolsLandingCompanyShortMalta ActiveSymbolsLandingCompanyShort = "malta"
+const ActiveSymbolsLandingCompanyShortMaltainvest ActiveSymbolsLandingCompanyShort = "maltainvest"
+const ActiveSymbolsLandingCompanyShortSvg ActiveSymbolsLandingCompanyShort = "svg"
+const ActiveSymbolsLandingCompanyShortVanuatu ActiveSymbolsLandingCompanyShort = "vanuatu"
+const ActiveSymbolsLandingCompanyShortVirtual ActiveSymbolsLandingCompanyShort = "virtual"
+
+var enumValues_ActiveSymbolsLandingCompanyShort = []interface{}{
 	"iom",
 	"malta",
 	"maltainvest",
@@ -226,31 +216,11 @@ func (j *ActiveSymbolsLandingCompanyShort) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-var enumValues_ActiveSymbolsProductType = []interface{}{
-	"basic",
-}
+const ActiveSymbolsLandingCompanySvg ActiveSymbolsLandingCompany = "svg"
+const ActiveSymbolsLandingCompanyVanuatu ActiveSymbolsLandingCompany = "vanuatu"
+const ActiveSymbolsLandingCompanyVirtual ActiveSymbolsLandingCompany = "virtual"
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ActiveSymbolsProductType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ActiveSymbolsProductType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ActiveSymbolsProductType, v)
-	}
-	*j = ActiveSymbolsProductType(v)
-	return nil
-}
-
-var enumValues_ActiveSymbolsLandingCompanyShort = []interface{}{
+var enumValues_ActiveSymbolsLandingCompany = []interface{}{
 	"iom",
 	"malta",
 	"maltainvest",
@@ -279,13 +249,45 @@ func (j *ActiveSymbolsLandingCompany) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// [Optional] Used to pass data through the websocket, which may be retrieved via
+// the `echo_req` output field.
+type ActiveSymbolsPassthrough map[string]interface{}
+
+type ActiveSymbolsProductType string
+
+const ActiveSymbolsProductTypeBasic ActiveSymbolsProductType = "basic"
+
+var enumValues_ActiveSymbolsProductType = []interface{}{
+	"basic",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ActiveSymbolsProductType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ActiveSymbolsProductType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ActiveSymbolsProductType, v)
+	}
+	*j = ActiveSymbolsProductType(v)
+	return nil
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ActiveSymbols) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["active_symbols"]; !ok || v == nil {
+	if _, ok := raw["active_symbols"]; raw != nil && !ok {
 		return fmt.Errorf("field active_symbols in ActiveSymbols: required")
 	}
 	type Plain ActiveSymbols

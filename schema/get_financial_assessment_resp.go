@@ -6,6 +6,22 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// This call gets the financial assessment details of client's account.
+type GetFinancialAssessmentResp struct {
+	// Echo of the request made.
+	EchoReq GetFinancialAssessmentRespEchoReq `json:"echo_req"`
+
+	// Client's financial assessment details
+	GetFinancialAssessment *GetFinancialAssessmentRespGetFinancialAssessment `json:"get_financial_assessment,omitempty"`
+
+	// Action name of the request made.
+	MsgType GetFinancialAssessmentRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // Echo of the request made.
 type GetFinancialAssessmentRespEchoReq map[string]interface{}
 
@@ -134,6 +150,8 @@ type GetFinancialAssessmentRespGetFinancialAssessment struct {
 
 type GetFinancialAssessmentRespMsgType string
 
+const GetFinancialAssessmentRespMsgTypeGetFinancialAssessment GetFinancialAssessmentRespMsgType = "get_financial_assessment"
+
 var enumValues_GetFinancialAssessmentRespMsgType = []interface{}{
 	"get_financial_assessment",
 }
@@ -158,34 +176,16 @@ func (j *GetFinancialAssessmentRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// This call gets the financial assessment details of client's account.
-type GetFinancialAssessmentResp struct {
-	// Echo of the request made.
-	EchoReq GetFinancialAssessmentRespEchoReq `json:"echo_req"`
-
-	// Client's financial assessment details
-	GetFinancialAssessment *GetFinancialAssessmentRespGetFinancialAssessment `json:"get_financial_assessment,omitempty"`
-
-	// Action name of the request made.
-	MsgType GetFinancialAssessmentRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
-const GetFinancialAssessmentRespMsgTypeGetFinancialAssessment GetFinancialAssessmentRespMsgType = "get_financial_assessment"
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *GetFinancialAssessmentResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in GetFinancialAssessmentResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in GetFinancialAssessmentResp: required")
 	}
 	type Plain GetFinancialAssessmentResp

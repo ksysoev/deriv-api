@@ -6,10 +6,28 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// The result of delete application request made.
+type AppDeleteResp struct {
+	// 1 on success
+	AppDelete *int `json:"app_delete,omitempty"`
+
+	// Echo of the request made.
+	EchoReq AppDeleteRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType AppDeleteRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // Echo of the request made.
 type AppDeleteRespEchoReq map[string]interface{}
 
 type AppDeleteRespMsgType string
+
+const AppDeleteRespMsgTypeAppDelete AppDeleteRespMsgType = "app_delete"
 
 var enumValues_AppDeleteRespMsgType = []interface{}{
 	"app_delete",
@@ -35,34 +53,16 @@ func (j *AppDeleteRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// The result of delete application request made.
-type AppDeleteResp struct {
-	// 1 on success
-	AppDelete *int `json:"app_delete,omitempty"`
-
-	// Echo of the request made.
-	EchoReq AppDeleteRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType AppDeleteRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
-const AppDeleteRespMsgTypeAppDelete AppDeleteRespMsgType = "app_delete"
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *AppDeleteResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in AppDeleteResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in AppDeleteResp: required")
 	}
 	type Plain AppDeleteResp

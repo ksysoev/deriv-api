@@ -32,6 +32,30 @@ type P2PAdvertiserInfoRespMsgType string
 
 const P2PAdvertiserInfoRespMsgTypeP2PAdvertiserInfo P2PAdvertiserInfoRespMsgType = "p2p_advertiser_info"
 
+var enumValues_P2PAdvertiserInfoRespMsgType = []interface{}{
+	"p2p_advertiser_info",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertiserInfoRespMsgType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertiserInfoRespMsgType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserInfoRespMsgType, v)
+	}
+	*j = P2PAdvertiserInfoRespMsgType(v)
+	return nil
+}
+
 // P2P advertiser information.
 type P2PAdvertiserInfoRespP2PAdvertiserInfo struct {
 	// Number of active fixed rate adverts belonging to the advertiser.
@@ -213,6 +237,31 @@ type P2PAdvertiserInfoRespP2PAdvertiserInfo struct {
 
 type P2PAdvertiserInfoRespP2PAdvertiserInfoBasicVerification int
 
+var enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoBasicVerification = []interface{}{
+	1,
+	0,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoBasicVerification) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoBasicVerification {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoBasicVerification, v)
+	}
+	*j = P2PAdvertiserInfoRespP2PAdvertiserInfoBasicVerification(v)
+	return nil
+}
+
 // Block trading limits, if block trading is allowed.
 type P2PAdvertiserInfoRespP2PAdvertiserInfoBlockTrade struct {
 	// Maximum order amount for block trade adverts.
@@ -222,113 +271,32 @@ type P2PAdvertiserInfoRespP2PAdvertiserInfoBlockTrade struct {
 	MinOrderAmount string `json:"min_order_amount"`
 }
 
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoBlockTrade) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if _, ok := raw["max_order_amount"]; raw != nil && !ok {
+		return fmt.Errorf("field max_order_amount in P2PAdvertiserInfoRespP2PAdvertiserInfoBlockTrade: required")
+	}
+	if _, ok := raw["min_order_amount"]; raw != nil && !ok {
+		return fmt.Errorf("field min_order_amount in P2PAdvertiserInfoRespP2PAdvertiserInfoBlockTrade: required")
+	}
+	type Plain P2PAdvertiserInfoRespP2PAdvertiserInfoBlockTrade
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = P2PAdvertiserInfoRespP2PAdvertiserInfoBlockTrade(plain)
+	return nil
+}
+
 type P2PAdvertiserInfoRespP2PAdvertiserInfoFullVerification int
 
-type P2PAdvertiserInfoRespP2PAdvertiserInfoIsApproved int
-
-type P2PAdvertiserInfoRespP2PAdvertiserInfoIsBlocked int
-
-type P2PAdvertiserInfoRespP2PAdvertiserInfoIsFavourite int
-
-type P2PAdvertiserInfoRespP2PAdvertiserInfoIsListed int
-
-type P2PAdvertiserInfoRespP2PAdvertiserInfoIsOnline int
-
-type P2PAdvertiserInfoRespP2PAdvertiserInfoIsRecommended struct {
-	Value interface{}
-}
-
-type P2PAdvertiserInfoRespP2PAdvertiserInfoShowName int
-
-// New daily limits available.
-type P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimits struct {
-	// When `1`, upgrade will provide block trading.
-	BlockTrade *P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimitsBlockTrade `json:"block_trade,omitempty"`
-
-	// Upgradable daily buy limit.
-	MaxDailyBuy string `json:"max_daily_buy"`
-
-	// Upgradable daily sell limit.
-	MaxDailySell string `json:"max_daily_sell"`
-}
-
-type P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimitsBlockTrade int
-
-// For subscription requests only.
-type P2PAdvertiserInfoRespSubscription struct {
-	// A per-connection unique identifier. Can be passed to the `forget` API call to
-	// unsubscribe.
-	Id string `json:"id"`
-}
-
-var enumValues_P2PAdvertiserInfoRespMsgType = []interface{}{
-	"p2p_advertiser_info",
-}
-var enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoBasicVerification = []interface{}{
-	1,
-	0,
-}
 var enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoFullVerification = []interface{}{
 	1,
 	0,
-}
-var enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsApproved = []interface{}{
-	0,
-	1,
-}
-var enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsBlocked = []interface{}{
-	0,
-	1,
-}
-var enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsFavourite = []interface{}{
-	0,
-	1,
-}
-var enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsListed = []interface{}{
-	0,
-	1,
-}
-var enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsOnline = []interface{}{
-	0,
-	1,
-}
-var enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsRecommended = []interface{}{
-	nil,
-	0.0,
-	1.0,
-}
-var enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoShowName = []interface{}{
-	0,
-	1,
-}
-var enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimitsBlockTrade = []interface{}{
-	0,
-	1,
-}
-
-// MarshalJSON implements json.Marshaler.
-func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoIsRecommended) MarshalJSON() ([]byte, error) {
-	return json.Marshal(j.Value)
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimitsBlockTrade) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimitsBlockTrade {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimitsBlockTrade, v)
-	}
-	*j = P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimitsBlockTrade(v)
-	return nil
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -351,6 +319,13 @@ func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoFullVerification) UnmarshalJSON(b
 	return nil
 }
 
+type P2PAdvertiserInfoRespP2PAdvertiserInfoIsApproved int
+
+var enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsApproved = []interface{}{
+	0,
+	1,
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoIsApproved) UnmarshalJSON(b []byte) error {
 	var v int
@@ -369,6 +344,40 @@ func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoIsApproved) UnmarshalJSON(b []byt
 	}
 	*j = P2PAdvertiserInfoRespP2PAdvertiserInfoIsApproved(v)
 	return nil
+}
+
+type P2PAdvertiserInfoRespP2PAdvertiserInfoIsBlocked int
+
+var enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsBlocked = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoIsBlocked) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsBlocked {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsBlocked, v)
+	}
+	*j = P2PAdvertiserInfoRespP2PAdvertiserInfoIsBlocked(v)
+	return nil
+}
+
+type P2PAdvertiserInfoRespP2PAdvertiserInfoIsFavourite int
+
+var enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsFavourite = []interface{}{
+	0,
+	1,
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -391,24 +400,11 @@ func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoIsFavourite) UnmarshalJSON(b []by
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoShowName) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoShowName {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoShowName, v)
-	}
-	*j = P2PAdvertiserInfoRespP2PAdvertiserInfoShowName(v)
-	return nil
+type P2PAdvertiserInfoRespP2PAdvertiserInfoIsListed int
+
+var enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsListed = []interface{}{
+	0,
+	1,
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -431,45 +427,46 @@ func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoIsListed) UnmarshalJSON(b []byte)
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertiserInfoResp) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req in P2PAdvertiserInfoResp: required")
-	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type in P2PAdvertiserInfoResp: required")
-	}
-	type Plain P2PAdvertiserInfoResp
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = P2PAdvertiserInfoResp(plain)
-	return nil
+type P2PAdvertiserInfoRespP2PAdvertiserInfoIsOnline int
+
+var enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsOnline = []interface{}{
+	0,
+	1,
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoIsBlocked) UnmarshalJSON(b []byte) error {
+func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoIsOnline) UnmarshalJSON(b []byte) error {
 	var v int
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsBlocked {
+	for _, expected := range enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsOnline {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsBlocked, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsOnline, v)
 	}
-	*j = P2PAdvertiserInfoRespP2PAdvertiserInfoIsBlocked(v)
+	*j = P2PAdvertiserInfoRespP2PAdvertiserInfoIsOnline(v)
 	return nil
+}
+
+type P2PAdvertiserInfoRespP2PAdvertiserInfoIsRecommended struct {
+	Value interface{}
+}
+
+// MarshalJSON implements json.Marshaler.
+func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoIsRecommended) MarshalJSON() ([]byte, error) {
+	return json.Marshal(j.Value)
+}
+
+var enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsRecommended = []interface{}{
+	nil,
+	0.0,
+	1.0,
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -494,16 +491,82 @@ func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoIsRecommended) UnmarshalJSON(b []
 	return nil
 }
 
+type P2PAdvertiserInfoRespP2PAdvertiserInfoShowName int
+
+var enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoShowName = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoShowName) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoShowName {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoShowName, v)
+	}
+	*j = P2PAdvertiserInfoRespP2PAdvertiserInfoShowName(v)
+	return nil
+}
+
+// New daily limits available.
+type P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimits struct {
+	// When `1`, upgrade will provide block trading.
+	BlockTrade *P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimitsBlockTrade `json:"block_trade,omitempty"`
+
+	// Upgradable daily buy limit.
+	MaxDailyBuy string `json:"max_daily_buy"`
+
+	// Upgradable daily sell limit.
+	MaxDailySell string `json:"max_daily_sell"`
+}
+
+type P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimitsBlockTrade int
+
+var enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimitsBlockTrade = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimitsBlockTrade) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimitsBlockTrade {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimitsBlockTrade, v)
+	}
+	*j = P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimitsBlockTrade(v)
+	return nil
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimits) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["max_daily_buy"]; !ok || v == nil {
+	if _, ok := raw["max_daily_buy"]; raw != nil && !ok {
 		return fmt.Errorf("field max_daily_buy in P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimits: required")
 	}
-	if v, ok := raw["max_daily_sell"]; !ok || v == nil {
+	if _, ok := raw["max_daily_sell"]; raw != nil && !ok {
 		return fmt.Errorf("field max_daily_sell in P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimits: required")
 	}
 	type Plain P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimits
@@ -516,114 +579,93 @@ func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoUpgradableDailyLimits) UnmarshalJ
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoBlockTrade) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if v, ok := raw["max_order_amount"]; !ok || v == nil {
-		return fmt.Errorf("field max_order_amount in P2PAdvertiserInfoRespP2PAdvertiserInfoBlockTrade: required")
-	}
-	if v, ok := raw["min_order_amount"]; !ok || v == nil {
-		return fmt.Errorf("field min_order_amount in P2PAdvertiserInfoRespP2PAdvertiserInfoBlockTrade: required")
-	}
-	type Plain P2PAdvertiserInfoRespP2PAdvertiserInfoBlockTrade
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = P2PAdvertiserInfoRespP2PAdvertiserInfoBlockTrade(plain)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PAdvertiserInfoRespP2PAdvertiserInfo) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["advert_rates"]; !ok || v == nil {
+	if _, ok := raw["advert_rates"]; raw != nil && !ok {
 		return fmt.Errorf("field advert_rates in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["basic_verification"]; !ok || v == nil {
+	if _, ok := raw["basic_verification"]; raw != nil && !ok {
 		return fmt.Errorf("field basic_verification in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["buy_completion_rate"]; !ok || v == nil {
+	if _, ok := raw["buy_completion_rate"]; raw != nil && !ok {
 		return fmt.Errorf("field buy_completion_rate in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["buy_orders_amount"]; !ok || v == nil {
+	if _, ok := raw["buy_orders_amount"]; raw != nil && !ok {
 		return fmt.Errorf("field buy_orders_amount in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["buy_orders_count"]; !ok || v == nil {
+	if _, ok := raw["buy_orders_count"]; raw != nil && !ok {
 		return fmt.Errorf("field buy_orders_count in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["buy_time_avg"]; !ok || v == nil {
+	if _, ok := raw["buy_time_avg"]; raw != nil && !ok {
 		return fmt.Errorf("field buy_time_avg in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["cancel_time_avg"]; !ok || v == nil {
+	if _, ok := raw["cancel_time_avg"]; raw != nil && !ok {
 		return fmt.Errorf("field cancel_time_avg in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["created_time"]; !ok || v == nil {
+	if _, ok := raw["created_time"]; raw != nil && !ok {
 		return fmt.Errorf("field created_time in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["default_advert_description"]; !ok || v == nil {
+	if _, ok := raw["default_advert_description"]; raw != nil && !ok {
 		return fmt.Errorf("field default_advert_description in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["full_verification"]; !ok || v == nil {
+	if _, ok := raw["full_verification"]; raw != nil && !ok {
 		return fmt.Errorf("field full_verification in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["id"]; !ok || v == nil {
+	if _, ok := raw["id"]; raw != nil && !ok {
 		return fmt.Errorf("field id in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["is_approved"]; !ok || v == nil {
+	if _, ok := raw["is_approved"]; raw != nil && !ok {
 		return fmt.Errorf("field is_approved in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["is_listed"]; !ok || v == nil {
+	if _, ok := raw["is_listed"]; raw != nil && !ok {
 		return fmt.Errorf("field is_listed in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["is_online"]; !ok || v == nil {
+	if _, ok := raw["is_online"]; raw != nil && !ok {
 		return fmt.Errorf("field is_online in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["last_online_time"]; !ok || v == nil {
+	if _, ok := raw["last_online_time"]; raw != nil && !ok {
 		return fmt.Errorf("field last_online_time in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["name"]; !ok || v == nil {
+	if _, ok := raw["name"]; raw != nil && !ok {
 		return fmt.Errorf("field name in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["partner_count"]; !ok || v == nil {
+	if _, ok := raw["partner_count"]; raw != nil && !ok {
 		return fmt.Errorf("field partner_count in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["rating_average"]; !ok || v == nil {
+	if _, ok := raw["rating_average"]; raw != nil && !ok {
 		return fmt.Errorf("field rating_average in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["rating_count"]; !ok || v == nil {
+	if _, ok := raw["rating_count"]; raw != nil && !ok {
 		return fmt.Errorf("field rating_count in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["recommended_average"]; !ok || v == nil {
+	if _, ok := raw["recommended_average"]; raw != nil && !ok {
 		return fmt.Errorf("field recommended_average in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["recommended_count"]; !ok || v == nil {
+	if _, ok := raw["recommended_count"]; raw != nil && !ok {
 		return fmt.Errorf("field recommended_count in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["release_time_avg"]; !ok || v == nil {
+	if _, ok := raw["release_time_avg"]; raw != nil && !ok {
 		return fmt.Errorf("field release_time_avg in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["sell_completion_rate"]; !ok || v == nil {
+	if _, ok := raw["sell_completion_rate"]; raw != nil && !ok {
 		return fmt.Errorf("field sell_completion_rate in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["sell_orders_amount"]; !ok || v == nil {
+	if _, ok := raw["sell_orders_amount"]; raw != nil && !ok {
 		return fmt.Errorf("field sell_orders_amount in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["sell_orders_count"]; !ok || v == nil {
+	if _, ok := raw["sell_orders_count"]; raw != nil && !ok {
 		return fmt.Errorf("field sell_orders_count in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["total_completion_rate"]; !ok || v == nil {
+	if _, ok := raw["total_completion_rate"]; raw != nil && !ok {
 		return fmt.Errorf("field total_completion_rate in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["total_orders_count"]; !ok || v == nil {
+	if _, ok := raw["total_orders_count"]; raw != nil && !ok {
 		return fmt.Errorf("field total_orders_count in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
-	if v, ok := raw["total_turnover"]; !ok || v == nil {
+	if _, ok := raw["total_turnover"]; raw != nil && !ok {
 		return fmt.Errorf("field total_turnover in P2PAdvertiserInfoRespP2PAdvertiserInfo: required")
 	}
 	type Plain P2PAdvertiserInfoRespP2PAdvertiserInfo
@@ -635,24 +677,11 @@ func (j *P2PAdvertiserInfoRespP2PAdvertiserInfo) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoBasicVerification) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoBasicVerification {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoBasicVerification, v)
-	}
-	*j = P2PAdvertiserInfoRespP2PAdvertiserInfoBasicVerification(v)
-	return nil
+// For subscription requests only.
+type P2PAdvertiserInfoRespSubscription struct {
+	// A per-connection unique identifier. Can be passed to the `forget` API call to
+	// unsubscribe.
+	Id string `json:"id"`
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -661,7 +690,7 @@ func (j *P2PAdvertiserInfoRespSubscription) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["id"]; !ok || v == nil {
+	if _, ok := raw["id"]; raw != nil && !ok {
 		return fmt.Errorf("field id in P2PAdvertiserInfoRespSubscription: required")
 	}
 	type Plain P2PAdvertiserInfoRespSubscription
@@ -674,41 +703,22 @@ func (j *P2PAdvertiserInfoRespSubscription) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertiserInfoRespMsgType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
+func (j *P2PAdvertiserInfoResp) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertiserInfoRespMsgType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
+		return fmt.Errorf("field echo_req in P2PAdvertiserInfoResp: required")
 	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserInfoRespMsgType, v)
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
+		return fmt.Errorf("field msg_type in P2PAdvertiserInfoResp: required")
 	}
-	*j = P2PAdvertiserInfoRespMsgType(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoIsOnline) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
+	type Plain P2PAdvertiserInfoResp
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
 		return err
 	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsOnline {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsOnline, v)
-	}
-	*j = P2PAdvertiserInfoRespP2PAdvertiserInfoIsOnline(v)
+	*j = P2PAdvertiserInfoResp(plain)
 	return nil
 }

@@ -28,7 +28,7 @@ func (j *Forget) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["forget"]; !ok || v == nil {
+	if _, ok := raw["forget"]; raw != nil && !ok {
 		return fmt.Errorf("field forget in Forget: required")
 	}
 	type Plain Forget

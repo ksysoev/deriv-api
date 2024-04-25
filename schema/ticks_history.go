@@ -49,22 +49,32 @@ type TicksHistory struct {
 
 type TicksHistoryAdjustStartTime int
 
-type TicksHistoryGranularity int
-
-// [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
-type TicksHistoryPassthrough map[string]interface{}
-
-type TicksHistoryStyle string
-
-const TicksHistoryStyleCandles TicksHistoryStyle = "candles"
-const TicksHistoryStyleTicks TicksHistoryStyle = "ticks"
-
-type TicksHistorySubscribe int
-
 var enumValues_TicksHistoryAdjustStartTime = []interface{}{
 	1,
 }
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *TicksHistoryAdjustStartTime) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_TicksHistoryAdjustStartTime {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TicksHistoryAdjustStartTime, v)
+	}
+	*j = TicksHistoryAdjustStartTime(v)
+	return nil
+}
+
+type TicksHistoryGranularity int
+
 var enumValues_TicksHistoryGranularity = []interface{}{
 	60,
 	120,
@@ -78,6 +88,40 @@ var enumValues_TicksHistoryGranularity = []interface{}{
 	14400,
 	28800,
 	86400,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *TicksHistoryGranularity) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_TicksHistoryGranularity {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TicksHistoryGranularity, v)
+	}
+	*j = TicksHistoryGranularity(v)
+	return nil
+}
+
+// [Optional] Used to pass data through the websocket, which may be retrieved via
+// the `echo_req` output field.
+type TicksHistoryPassthrough map[string]interface{}
+
+type TicksHistoryStyle string
+
+const TicksHistoryStyleCandles TicksHistoryStyle = "candles"
+const TicksHistoryStyleTicks TicksHistoryStyle = "ticks"
+
+var enumValues_TicksHistoryStyle = []interface{}{
+	"candles",
+	"ticks",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -100,30 +144,7 @@ func (j *TicksHistoryStyle) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-var enumValues_TicksHistoryStyle = []interface{}{
-	"candles",
-	"ticks",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *TicksHistoryGranularity) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_TicksHistoryGranularity {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TicksHistoryGranularity, v)
-	}
-	*j = TicksHistoryGranularity(v)
-	return nil
-}
+type TicksHistorySubscribe int
 
 var enumValues_TicksHistorySubscribe = []interface{}{
 	1,
@@ -150,35 +171,15 @@ func (j *TicksHistorySubscribe) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *TicksHistoryAdjustStartTime) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_TicksHistoryAdjustStartTime {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TicksHistoryAdjustStartTime, v)
-	}
-	*j = TicksHistoryAdjustStartTime(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
 func (j *TicksHistory) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["end"]; !ok || v == nil {
+	if _, ok := raw["end"]; raw != nil && !ok {
 		return fmt.Errorf("field end in TicksHistory: required")
 	}
-	if v, ok := raw["ticks_history"]; !ok || v == nil {
+	if _, ok := raw["ticks_history"]; raw != nil && !ok {
 		return fmt.Errorf("field ticks_history in TicksHistory: required")
 	}
 	type Plain TicksHistory

@@ -32,7 +32,7 @@ func (j *RevokeOauthApp) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["revoke_oauth_app"]; !ok || v == nil {
+	if _, ok := raw["revoke_oauth_app"]; raw != nil && !ok {
 		return fmt.Errorf("field revoke_oauth_app in RevokeOauthApp: required")
 	}
 	type Plain RevokeOauthApp

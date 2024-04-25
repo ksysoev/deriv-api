@@ -6,6 +6,42 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Registers the client as a P2P advertiser.
+type P2PAdvertiserCreate struct {
+	// [Optional] Advertiser's contact information, to be used as a default for new
+	// sell adverts.
+	ContactInfo *string `json:"contact_info,omitempty"`
+
+	// [Optional] Default description that can be used every time an advert is
+	// created.
+	DefaultAdvertDescription *string `json:"default_advert_description,omitempty"`
+
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// The advertiser's displayed name.
+	Name string `json:"name"`
+
+	// Must be 1
+	P2PAdvertiserCreate P2PAdvertiserCreateP2PAdvertiserCreate `json:"p2p_advertiser_create"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough P2PAdvertiserCreatePassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Advertiser's payment information, to be used as a default for new
+	// sell adverts.
+	PaymentInfo *string `json:"payment_info,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// [Optional] If set to 1, will send updates whenever there is an update to
+	// advertiser
+	Subscribe *P2PAdvertiserCreateSubscribe `json:"subscribe,omitempty"`
+}
+
 type P2PAdvertiserCreateP2PAdvertiserCreate int
 
 var enumValues_P2PAdvertiserCreateP2PAdvertiserCreate = []interface{}{
@@ -62,52 +98,16 @@ func (j *P2PAdvertiserCreateSubscribe) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Registers the client as a P2P advertiser.
-type P2PAdvertiserCreate struct {
-	// [Optional] Advertiser's contact information, to be used as a default for new
-	// sell adverts.
-	ContactInfo *string `json:"contact_info,omitempty"`
-
-	// [Optional] Default description that can be used every time an advert is
-	// created.
-	DefaultAdvertDescription *string `json:"default_advert_description,omitempty"`
-
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// The advertiser's displayed name.
-	Name string `json:"name"`
-
-	// Must be 1
-	P2PAdvertiserCreate P2PAdvertiserCreateP2PAdvertiserCreate `json:"p2p_advertiser_create"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough P2PAdvertiserCreatePassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Advertiser's payment information, to be used as a default for new
-	// sell adverts.
-	PaymentInfo *string `json:"payment_info,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// [Optional] If set to 1, will send updates whenever there is an update to
-	// advertiser
-	Subscribe *P2PAdvertiserCreateSubscribe `json:"subscribe,omitempty"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PAdvertiserCreate) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["name"]; !ok || v == nil {
+	if _, ok := raw["name"]; raw != nil && !ok {
 		return fmt.Errorf("field name in P2PAdvertiserCreate: required")
 	}
-	if v, ok := raw["p2p_advertiser_create"]; !ok || v == nil {
+	if _, ok := raw["p2p_advertiser_create"]; raw != nil && !ok {
 		return fmt.Errorf("field p2p_advertiser_create in P2PAdvertiserCreate: required")
 	}
 	type Plain P2PAdvertiserCreate

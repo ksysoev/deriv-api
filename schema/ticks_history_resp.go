@@ -76,7 +76,15 @@ type TicksHistoryRespMsgType string
 
 const TicksHistoryRespMsgTypeCandles TicksHistoryRespMsgType = "candles"
 const TicksHistoryRespMsgTypeHistory TicksHistoryRespMsgType = "history"
+const TicksHistoryRespMsgTypeOhlc TicksHistoryRespMsgType = "ohlc"
 const TicksHistoryRespMsgTypeTick TicksHistoryRespMsgType = "tick"
+
+var enumValues_TicksHistoryRespMsgType = []interface{}{
+	"history",
+	"tick",
+	"candles",
+	"ohlc",
+}
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TicksHistoryRespMsgType) UnmarshalJSON(b []byte) error {
@@ -97,8 +105,6 @@ func (j *TicksHistoryRespMsgType) UnmarshalJSON(b []byte) error {
 	*j = TicksHistoryRespMsgType(v)
 	return nil
 }
-
-const TicksHistoryRespMsgTypeOhlc TicksHistoryRespMsgType = "ohlc"
 
 // Historic tick data for a given symbol. Note: this will always return the latest
 // possible set of ticks with accordance to the parameters specified.
@@ -148,7 +154,7 @@ func (j *TicksHistoryRespSubscription) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["id"]; !ok || v == nil {
+	if _, ok := raw["id"]; raw != nil && !ok {
 		return fmt.Errorf("field id in TicksHistoryRespSubscription: required")
 	}
 	type Plain TicksHistoryRespSubscription
@@ -160,23 +166,16 @@ func (j *TicksHistoryRespSubscription) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-var enumValues_TicksHistoryRespMsgType = []interface{}{
-	"history",
-	"tick",
-	"candles",
-	"ohlc",
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TicksHistoryResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in TicksHistoryResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in TicksHistoryResp: required")
 	}
 	type Plain TicksHistoryResp

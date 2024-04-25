@@ -6,6 +6,22 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// A message with transaction results is received
+type CancelResp struct {
+	// Receipt for the transaction
+	Cancel *CancelRespCancel `json:"cancel,omitempty"`
+
+	// Echo of the request made.
+	EchoReq CancelRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType CancelRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // Receipt for the transaction
 type CancelRespCancel struct {
 	// New account balance after completion of the sale
@@ -28,6 +44,8 @@ type CancelRespCancel struct {
 type CancelRespEchoReq map[string]interface{}
 
 type CancelRespMsgType string
+
+const CancelRespMsgTypeCancel CancelRespMsgType = "cancel"
 
 var enumValues_CancelRespMsgType = []interface{}{
 	"cancel",
@@ -53,34 +71,16 @@ func (j *CancelRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// A message with transaction results is received
-type CancelResp struct {
-	// Receipt for the transaction
-	Cancel *CancelRespCancel `json:"cancel,omitempty"`
-
-	// Echo of the request made.
-	EchoReq CancelRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType CancelRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
-const CancelRespMsgTypeCancel CancelRespMsgType = "cancel"
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *CancelResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in CancelResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in CancelResp: required")
 	}
 	type Plain CancelResp

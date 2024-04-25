@@ -6,44 +6,34 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ProposalOpenContractRespProposalOpenContractIsSettleable) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ProposalOpenContractRespProposalOpenContractIsSettleable {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalOpenContractRespProposalOpenContractIsSettleable, v)
-	}
-	*j = ProposalOpenContractRespProposalOpenContractIsSettleable(v)
-	return nil
+// Latest price and other details for an open contract in the user's portfolio
+type ProposalOpenContractResp struct {
+	// Echo of the request made.
+	EchoReq ProposalOpenContractRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType *ProposalOpenContractRespMsgType `json:"msg_type,omitempty"`
+
+	// Latest price and other details for an open contract
+	ProposalOpenContract *ProposalOpenContractRespProposalOpenContract `json:"proposal_open_contract,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// For subscription requests only.
+	Subscription *ProposalOpenContractRespSubscription `json:"subscription,omitempty"`
 }
 
-type ProposalOpenContractRespProposalOpenContractIsForwardStarting int
+// Echo of the request made.
+type ProposalOpenContractRespEchoReq map[string]interface{}
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ProposalOpenContractResp) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req in ProposalOpenContractResp: required")
-	}
-	type Plain ProposalOpenContractResp
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = ProposalOpenContractResp(plain)
-	return nil
+type ProposalOpenContractRespMsgType string
+
+const ProposalOpenContractRespMsgTypeProposalOpenContract ProposalOpenContractRespMsgType = "proposal_open_contract"
+
+var enumValues_ProposalOpenContractRespMsgType = []interface{}{
+	"proposal_open_contract",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -65,126 +55,6 @@ func (j *ProposalOpenContractRespMsgType) UnmarshalJSON(b []byte) error {
 	*j = ProposalOpenContractRespMsgType(v)
 	return nil
 }
-
-const ProposalOpenContractRespMsgTypeProposalOpenContract ProposalOpenContractRespMsgType = "proposal_open_contract"
-
-type ProposalOpenContractRespProposalOpenContractAuditDetailsAllTicksElem struct {
-	// Epoch time of a tick or the contract start or end time.
-	Epoch *int `json:"epoch,omitempty"`
-
-	// A flag used to highlight the record in front-end applications.
-	Flag *string `json:"flag,omitempty"`
-
-	// A short description of the data. It could be a tick or a time associated with
-	// the contract.
-	Name *string `json:"name,omitempty"`
-
-	// The spot value at the given epoch.
-	Tick *float64 `json:"tick,omitempty"`
-
-	// The spot value with the correct precision at the given epoch.
-	TickDisplayValue *string `json:"tick_display_value,omitempty"`
-}
-
-// Latest price and other details for an open contract in the user's portfolio
-type ProposalOpenContractResp struct {
-	// Echo of the request made.
-	EchoReq ProposalOpenContractRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType *ProposalOpenContractRespMsgType `json:"msg_type,omitempty"`
-
-	// Latest price and other details for an open contract
-	ProposalOpenContract *ProposalOpenContractRespProposalOpenContract `json:"proposal_open_contract,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// For subscription requests only.
-	Subscription *ProposalOpenContractRespSubscription `json:"subscription,omitempty"`
-}
-
-type ProposalOpenContractRespProposalOpenContractAuditDetailsContractStartElem struct {
-	// Epoch time of a tick or the contract start or end time.
-	Epoch *int `json:"epoch,omitempty"`
-
-	// A flag used to highlight the record in front-end applications.
-	Flag *string `json:"flag,omitempty"`
-
-	// A short description of the data. It could be a tick or a time associated with
-	// the contract.
-	Name *string `json:"name,omitempty"`
-
-	// The spot value at the given epoch.
-	Tick *float64 `json:"tick,omitempty"`
-
-	// The spot value with the correct precision at the given epoch.
-	TickDisplayValue *string `json:"tick_display_value,omitempty"`
-}
-
-// Tick details around contract start and end time.
-type ProposalOpenContractRespProposalOpenContractAuditDetails struct {
-	// Ticks for tick expiry contract from start time till expiry.
-	AllTicks []ProposalOpenContractRespProposalOpenContractAuditDetailsAllTicksElem `json:"all_ticks,omitempty"`
-
-	// Ticks around contract end time.
-	ContractEnd []ProposalOpenContractRespProposalOpenContractAuditDetailsContractEndElem `json:"contract_end,omitempty"`
-
-	// Ticks around contract start time.
-	ContractStart []ProposalOpenContractRespProposalOpenContractAuditDetailsContractStartElem `json:"contract_start,omitempty"`
-}
-
-// Contains information about contract cancellation option.
-type ProposalOpenContractRespProposalOpenContractCancellation struct {
-	// Ask price of contract cancellation option.
-	AskPrice *float64 `json:"ask_price,omitempty"`
-
-	// Expiry time in epoch for contract cancellation option.
-	DateExpiry *int `json:"date_expiry,omitempty"`
-}
-
-type ProposalOpenContractRespProposalOpenContractIsExpired int
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ProposalOpenContractRespSubscription) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id in ProposalOpenContractRespSubscription: required")
-	}
-	type Plain ProposalOpenContractRespSubscription
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = ProposalOpenContractRespSubscription(plain)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ProposalOpenContractRespProposalOpenContractIsExpired) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ProposalOpenContractRespProposalOpenContractIsExpired {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalOpenContractRespProposalOpenContractIsExpired, v)
-	}
-	*j = ProposalOpenContractRespProposalOpenContractIsExpired(v)
-	return nil
-}
-
-type ProposalOpenContractRespMsgType string
 
 // Latest price and other details for an open contract
 type ProposalOpenContractRespProposalOpenContract struct {
@@ -432,6 +302,115 @@ type ProposalOpenContractRespProposalOpenContract struct {
 	ValidationErrorCode *string `json:"validation_error_code,omitempty"`
 }
 
+// Tick details around contract start and end time.
+type ProposalOpenContractRespProposalOpenContractAuditDetails struct {
+	// Ticks for tick expiry contract from start time till expiry.
+	AllTicks []ProposalOpenContractRespProposalOpenContractAuditDetailsAllTicksElem `json:"all_ticks,omitempty"`
+
+	// Ticks around contract end time.
+	ContractEnd []ProposalOpenContractRespProposalOpenContractAuditDetailsContractEndElem `json:"contract_end,omitempty"`
+
+	// Ticks around contract start time.
+	ContractStart []ProposalOpenContractRespProposalOpenContractAuditDetailsContractStartElem `json:"contract_start,omitempty"`
+}
+
+type ProposalOpenContractRespProposalOpenContractAuditDetailsAllTicksElem struct {
+	// Epoch time of a tick or the contract start or end time.
+	Epoch *int `json:"epoch,omitempty"`
+
+	// A flag used to highlight the record in front-end applications.
+	Flag *string `json:"flag,omitempty"`
+
+	// A short description of the data. It could be a tick or a time associated with
+	// the contract.
+	Name *string `json:"name,omitempty"`
+
+	// The spot value at the given epoch.
+	Tick *float64 `json:"tick,omitempty"`
+
+	// The spot value with the correct precision at the given epoch.
+	TickDisplayValue *string `json:"tick_display_value,omitempty"`
+}
+
+type ProposalOpenContractRespProposalOpenContractAuditDetailsContractEndElem struct {
+	// Epoch time of a tick or the contract start or end time.
+	Epoch *int `json:"epoch,omitempty"`
+
+	// A flag used to highlight the record in front-end applications.
+	Flag *string `json:"flag,omitempty"`
+
+	// A short description of the data. It could be a tick or a time associated with
+	// the contract.
+	Name *string `json:"name,omitempty"`
+
+	// The spot value at the given epoch.
+	Tick *float64 `json:"tick,omitempty"`
+
+	// The spot value with the correct precision at the given epoch.
+	TickDisplayValue *string `json:"tick_display_value,omitempty"`
+}
+
+type ProposalOpenContractRespProposalOpenContractAuditDetailsContractStartElem struct {
+	// Epoch time of a tick or the contract start or end time.
+	Epoch *int `json:"epoch,omitempty"`
+
+	// A flag used to highlight the record in front-end applications.
+	Flag *string `json:"flag,omitempty"`
+
+	// A short description of the data. It could be a tick or a time associated with
+	// the contract.
+	Name *string `json:"name,omitempty"`
+
+	// The spot value at the given epoch.
+	Tick *float64 `json:"tick,omitempty"`
+
+	// The spot value with the correct precision at the given epoch.
+	TickDisplayValue *string `json:"tick_display_value,omitempty"`
+}
+
+// Contains information about contract cancellation option.
+type ProposalOpenContractRespProposalOpenContractCancellation struct {
+	// Ask price of contract cancellation option.
+	AskPrice *float64 `json:"ask_price,omitempty"`
+
+	// Expiry time in epoch for contract cancellation option.
+	DateExpiry *int `json:"date_expiry,omitempty"`
+}
+
+type ProposalOpenContractRespProposalOpenContractIsExpired int
+
+var enumValues_ProposalOpenContractRespProposalOpenContractIsExpired = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ProposalOpenContractRespProposalOpenContractIsExpired) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ProposalOpenContractRespProposalOpenContractIsExpired {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalOpenContractRespProposalOpenContractIsExpired, v)
+	}
+	*j = ProposalOpenContractRespProposalOpenContractIsExpired(v)
+	return nil
+}
+
+type ProposalOpenContractRespProposalOpenContractIsForwardStarting int
+
+var enumValues_ProposalOpenContractRespProposalOpenContractIsForwardStarting = []interface{}{
+	0,
+	1,
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ProposalOpenContractRespProposalOpenContractIsForwardStarting) UnmarshalJSON(b []byte) error {
 	var v int
@@ -452,31 +431,11 @@ func (j *ProposalOpenContractRespProposalOpenContractIsForwardStarting) Unmarsha
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ProposalOpenContractRespProposalOpenContractStatus) UnmarshalJSON(b []byte) error {
-	var v struct {
-		Value interface{}
-	}
-	if err := json.Unmarshal(b, &v.Value); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ProposalOpenContractRespProposalOpenContractStatus {
-		if reflect.DeepEqual(v.Value, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalOpenContractRespProposalOpenContractStatus, v.Value)
-	}
-	*j = ProposalOpenContractRespProposalOpenContractStatus(v)
-	return nil
-}
+type ProposalOpenContractRespProposalOpenContractIsIntraday int
 
-// MarshalJSON implements json.Marshaler.
-func (j *ProposalOpenContractRespProposalOpenContractStatus) MarshalJSON() ([]byte, error) {
-	return json.Marshal(j.Value)
+var enumValues_ProposalOpenContractRespProposalOpenContractIsIntraday = []interface{}{
+	0,
+	1,
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -499,28 +458,12 @@ func (j *ProposalOpenContractRespProposalOpenContractIsIntraday) UnmarshalJSON(b
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ProposalOpenContractRespProposalOpenContractIsValidToSell) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ProposalOpenContractRespProposalOpenContractIsValidToSell {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalOpenContractRespProposalOpenContractIsValidToSell, v)
-	}
-	*j = ProposalOpenContractRespProposalOpenContractIsValidToSell(v)
-	return nil
-}
+type ProposalOpenContractRespProposalOpenContractIsPathDependent int
 
-// Echo of the request made.
-type ProposalOpenContractRespEchoReq map[string]interface{}
+var enumValues_ProposalOpenContractRespProposalOpenContractIsPathDependent = []interface{}{
+	0,
+	1,
+}
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ProposalOpenContractRespProposalOpenContractIsPathDependent) UnmarshalJSON(b []byte) error {
@@ -542,24 +485,38 @@ func (j *ProposalOpenContractRespProposalOpenContractIsPathDependent) UnmarshalJ
 	return nil
 }
 
+type ProposalOpenContractRespProposalOpenContractIsSettleable int
+
+var enumValues_ProposalOpenContractRespProposalOpenContractIsSettleable = []interface{}{
+	0,
+	1,
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *ProposalOpenContractRespProposalOpenContractIsValidToCancel) UnmarshalJSON(b []byte) error {
+func (j *ProposalOpenContractRespProposalOpenContractIsSettleable) UnmarshalJSON(b []byte) error {
 	var v int
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_ProposalOpenContractRespProposalOpenContractIsValidToCancel {
+	for _, expected := range enumValues_ProposalOpenContractRespProposalOpenContractIsSettleable {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalOpenContractRespProposalOpenContractIsValidToCancel, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalOpenContractRespProposalOpenContractIsSettleable, v)
 	}
-	*j = ProposalOpenContractRespProposalOpenContractIsValidToCancel(v)
+	*j = ProposalOpenContractRespProposalOpenContractIsSettleable(v)
 	return nil
+}
+
+type ProposalOpenContractRespProposalOpenContractIsSold int
+
+var enumValues_ProposalOpenContractRespProposalOpenContractIsSold = []interface{}{
+	0,
+	1,
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -582,35 +539,59 @@ func (j *ProposalOpenContractRespProposalOpenContractIsSold) UnmarshalJSON(b []b
 	return nil
 }
 
-type ProposalOpenContractRespProposalOpenContractAuditDetailsContractEndElem struct {
-	// Epoch time of a tick or the contract start or end time.
-	Epoch *int `json:"epoch,omitempty"`
-
-	// A flag used to highlight the record in front-end applications.
-	Flag *string `json:"flag,omitempty"`
-
-	// A short description of the data. It could be a tick or a time associated with
-	// the contract.
-	Name *string `json:"name,omitempty"`
-
-	// The spot value at the given epoch.
-	Tick *float64 `json:"tick,omitempty"`
-
-	// The spot value with the correct precision at the given epoch.
-	TickDisplayValue *string `json:"tick_display_value,omitempty"`
-}
-
-type ProposalOpenContractRespProposalOpenContractIsIntraday int
-
-type ProposalOpenContractRespProposalOpenContractIsPathDependent int
-
-type ProposalOpenContractRespProposalOpenContractIsSettleable int
-
-type ProposalOpenContractRespProposalOpenContractIsSold int
-
 type ProposalOpenContractRespProposalOpenContractIsValidToCancel int
 
+var enumValues_ProposalOpenContractRespProposalOpenContractIsValidToCancel = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ProposalOpenContractRespProposalOpenContractIsValidToCancel) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ProposalOpenContractRespProposalOpenContractIsValidToCancel {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalOpenContractRespProposalOpenContractIsValidToCancel, v)
+	}
+	*j = ProposalOpenContractRespProposalOpenContractIsValidToCancel(v)
+	return nil
+}
+
 type ProposalOpenContractRespProposalOpenContractIsValidToSell int
+
+var enumValues_ProposalOpenContractRespProposalOpenContractIsValidToSell = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ProposalOpenContractRespProposalOpenContractIsValidToSell) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ProposalOpenContractRespProposalOpenContractIsValidToSell {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalOpenContractRespProposalOpenContractIsValidToSell, v)
+	}
+	*j = ProposalOpenContractRespProposalOpenContractIsValidToSell(v)
+	return nil
+}
 
 // Orders are applicable to `MULTUP` and `MULTDOWN` contracts only.
 type ProposalOpenContractRespProposalOpenContractLimitOrder struct {
@@ -679,6 +660,42 @@ type ProposalOpenContractRespProposalOpenContractStatus struct {
 	Value interface{}
 }
 
+// MarshalJSON implements json.Marshaler.
+func (j *ProposalOpenContractRespProposalOpenContractStatus) MarshalJSON() ([]byte, error) {
+	return json.Marshal(j.Value)
+}
+
+var enumValues_ProposalOpenContractRespProposalOpenContractStatus = []interface{}{
+	"open",
+	"sold",
+	"won",
+	"lost",
+	"cancelled",
+	nil,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ProposalOpenContractRespProposalOpenContractStatus) UnmarshalJSON(b []byte) error {
+	var v struct {
+		Value interface{}
+	}
+	if err := json.Unmarshal(b, &v.Value); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ProposalOpenContractRespProposalOpenContractStatus {
+		if reflect.DeepEqual(v.Value, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalOpenContractRespProposalOpenContractStatus, v.Value)
+	}
+	*j = ProposalOpenContractRespProposalOpenContractStatus(v)
+	return nil
+}
+
 type ProposalOpenContractRespProposalOpenContractTickStreamElem struct {
 	// Epoch time of a tick or the contract start or end time.
 	Epoch *int `json:"epoch,omitempty"`
@@ -709,46 +726,38 @@ type ProposalOpenContractRespSubscription struct {
 	Id string `json:"id"`
 }
 
-var enumValues_ProposalOpenContractRespMsgType = []interface{}{
-	"proposal_open_contract",
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ProposalOpenContractRespSubscription) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if _, ok := raw["id"]; raw != nil && !ok {
+		return fmt.Errorf("field id in ProposalOpenContractRespSubscription: required")
+	}
+	type Plain ProposalOpenContractRespSubscription
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = ProposalOpenContractRespSubscription(plain)
+	return nil
 }
-var enumValues_ProposalOpenContractRespProposalOpenContractIsExpired = []interface{}{
-	0,
-	1,
-}
-var enumValues_ProposalOpenContractRespProposalOpenContractIsForwardStarting = []interface{}{
-	0,
-	1,
-}
-var enumValues_ProposalOpenContractRespProposalOpenContractIsIntraday = []interface{}{
-	0,
-	1,
-}
-var enumValues_ProposalOpenContractRespProposalOpenContractIsPathDependent = []interface{}{
-	0,
-	1,
-}
-var enumValues_ProposalOpenContractRespProposalOpenContractIsSettleable = []interface{}{
-	0,
-	1,
-}
-var enumValues_ProposalOpenContractRespProposalOpenContractIsSold = []interface{}{
-	0,
-	1,
-}
-var enumValues_ProposalOpenContractRespProposalOpenContractIsValidToCancel = []interface{}{
-	0,
-	1,
-}
-var enumValues_ProposalOpenContractRespProposalOpenContractIsValidToSell = []interface{}{
-	0,
-	1,
-}
-var enumValues_ProposalOpenContractRespProposalOpenContractStatus = []interface{}{
-	"open",
-	"sold",
-	"won",
-	"lost",
-	"cancelled",
-	nil,
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ProposalOpenContractResp) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
+		return fmt.Errorf("field echo_req in ProposalOpenContractResp: required")
+	}
+	type Plain ProposalOpenContractResp
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = ProposalOpenContractResp(plain)
+	return nil
 }

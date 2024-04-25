@@ -6,6 +6,39 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Payment Agent Transfer - this call is available only to accounts that are
+// approved Payment Agents.
+type PaymentagentTransfer struct {
+	// The amount to transfer.
+	Amount float64 `json:"amount"`
+
+	// Currency code.
+	Currency string `json:"currency"`
+
+	// [Optional] Remarks about the transfer.
+	Description *string `json:"description,omitempty"`
+
+	// [Optional] If set to `1`, just do validation.
+	DryRun *PaymentagentTransferDryRun `json:"dry_run,omitempty"`
+
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough PaymentagentTransferPassthrough `json:"passthrough,omitempty"`
+
+	// Must be `1`
+	PaymentagentTransfer PaymentagentTransferPaymentagentTransfer `json:"paymentagent_transfer"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// The loginid of the recipient account.
+	TransferTo string `json:"transfer_to"`
+}
+
 type PaymentagentTransferDryRun int
 
 var enumValues_PaymentagentTransferDryRun = []interface{}{
@@ -63,55 +96,22 @@ func (j *PaymentagentTransferPaymentagentTransfer) UnmarshalJSON(b []byte) error
 	return nil
 }
 
-// Payment Agent Transfer - this call is available only to accounts that are
-// approved Payment Agents.
-type PaymentagentTransfer struct {
-	// The amount to transfer.
-	Amount float64 `json:"amount"`
-
-	// Currency code.
-	Currency string `json:"currency"`
-
-	// [Optional] Remarks about the transfer.
-	Description *string `json:"description,omitempty"`
-
-	// [Optional] If set to `1`, just do validation.
-	DryRun *PaymentagentTransferDryRun `json:"dry_run,omitempty"`
-
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough PaymentagentTransferPassthrough `json:"passthrough,omitempty"`
-
-	// Must be `1`
-	PaymentagentTransfer PaymentagentTransferPaymentagentTransfer `json:"paymentagent_transfer"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// The loginid of the recipient account.
-	TransferTo string `json:"transfer_to"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *PaymentagentTransfer) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["amount"]; !ok || v == nil {
+	if _, ok := raw["amount"]; raw != nil && !ok {
 		return fmt.Errorf("field amount in PaymentagentTransfer: required")
 	}
-	if v, ok := raw["currency"]; !ok || v == nil {
+	if _, ok := raw["currency"]; raw != nil && !ok {
 		return fmt.Errorf("field currency in PaymentagentTransfer: required")
 	}
-	if v, ok := raw["paymentagent_transfer"]; !ok || v == nil {
+	if _, ok := raw["paymentagent_transfer"]; raw != nil && !ok {
 		return fmt.Errorf("field paymentagent_transfer in PaymentagentTransfer: required")
 	}
-	if v, ok := raw["transfer_to"]; !ok || v == nil {
+	if _, ok := raw["transfer_to"]; raw != nil && !ok {
 		return fmt.Errorf("field transfer_to in PaymentagentTransfer: required")
 	}
 	type Plain PaymentagentTransfer

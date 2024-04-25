@@ -32,11 +32,53 @@ type TransactionRespMsgType string
 
 const TransactionRespMsgTypeTransaction TransactionRespMsgType = "transaction"
 
+var enumValues_TransactionRespMsgType = []interface{}{
+	"transaction",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *TransactionRespMsgType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_TransactionRespMsgType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TransactionRespMsgType, v)
+	}
+	*j = TransactionRespMsgType(v)
+	return nil
+}
+
 // For subscription requests only.
 type TransactionRespSubscription struct {
 	// A per-connection unique identifier. Can be passed to the `forget` API call to
 	// unsubscribe.
 	Id string `json:"id"`
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *TransactionRespSubscription) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if _, ok := raw["id"]; raw != nil && !ok {
+		return fmt.Errorf("field id in TransactionRespSubscription: required")
+	}
+	type Plain TransactionRespSubscription
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = TransactionRespSubscription(plain)
+	return nil
 }
 
 // Realtime stream of user transaction updates.
@@ -68,7 +110,7 @@ type TransactionRespTransaction struct {
 	DisplayName *string `json:"display_name,omitempty"`
 
 	// The high barrier of a contract. Only applicable to double barrier contracts.
-	HighBarrier *string `json:"high_barrier,omitempty"`
+	HighBarrier interface{} `json:"high_barrier,omitempty"`
 
 	// A per-connection unique identifier. Can be passed to the `forget` API call to
 	// unsubscribe.
@@ -114,6 +156,8 @@ const TransactionRespTransactionActionBuy TransactionRespTransactionAction = "bu
 const TransactionRespTransactionActionDeposit TransactionRespTransactionAction = "deposit"
 const TransactionRespTransactionActionEscrow TransactionRespTransactionAction = "escrow"
 const TransactionRespTransactionActionSell TransactionRespTransactionAction = "sell"
+const TransactionRespTransactionActionTransfer TransactionRespTransactionAction = "transfer"
+const TransactionRespTransactionActionVirtualCredit TransactionRespTransactionAction = "virtual_credit"
 const TransactionRespTransactionActionWithdrawal TransactionRespTransactionAction = "withdrawal"
 
 var enumValues_TransactionRespTransactionAction = []interface{}{
@@ -148,60 +192,15 @@ func (j *TransactionRespTransactionAction) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *TransactionRespSubscription) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if v, ok := raw["id"]; !ok || v == nil {
-		return fmt.Errorf("field id in TransactionRespSubscription: required")
-	}
-	type Plain TransactionRespSubscription
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = TransactionRespSubscription(plain)
-	return nil
-}
-
-const TransactionRespTransactionActionTransfer TransactionRespTransactionAction = "transfer"
-const TransactionRespTransactionActionVirtualCredit TransactionRespTransactionAction = "virtual_credit"
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *TransactionRespMsgType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_TransactionRespMsgType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TransactionRespMsgType, v)
-	}
-	*j = TransactionRespMsgType(v)
-	return nil
-}
-
-var enumValues_TransactionRespMsgType = []interface{}{
-	"transaction",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
 func (j *TransactionResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in TransactionResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in TransactionResp: required")
 	}
 	type Plain TransactionResp

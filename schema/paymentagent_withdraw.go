@@ -6,6 +6,43 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Initiate a withdrawal to an approved Payment Agent.
+type PaymentagentWithdraw struct {
+	// The amount to withdraw to the payment agent.
+	Amount float64 `json:"amount"`
+
+	// The currency code.
+	Currency string `json:"currency"`
+
+	// [Optional] Remarks about the withdraw. Only letters, numbers, space, period,
+	// comma, - ' are allowed.
+	Description *string `json:"description,omitempty"`
+
+	// [Optional] If set to 1, just do validation.
+	DryRun *PaymentagentWithdrawDryRun `json:"dry_run,omitempty"`
+
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough PaymentagentWithdrawPassthrough `json:"passthrough,omitempty"`
+
+	// The payment agent loginid received from the `paymentagent_list` call.
+	PaymentagentLoginid string `json:"paymentagent_loginid"`
+
+	// Must be `1`
+	PaymentagentWithdraw PaymentagentWithdrawPaymentagentWithdraw `json:"paymentagent_withdraw"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// Email verification code (received from a `verify_email` call, which must be
+	// done first)
+	VerificationCode string `json:"verification_code"`
+}
+
 type PaymentagentWithdrawDryRun int
 
 var enumValues_PaymentagentWithdrawDryRun = []interface{}{
@@ -63,62 +100,25 @@ func (j *PaymentagentWithdrawPaymentagentWithdraw) UnmarshalJSON(b []byte) error
 	return nil
 }
 
-// Initiate a withdrawal to an approved Payment Agent.
-type PaymentagentWithdraw struct {
-	// The amount to withdraw to the payment agent.
-	Amount float64 `json:"amount"`
-
-	// The currency code.
-	Currency string `json:"currency"`
-
-	// [Optional] Remarks about the withdraw. Only letters, numbers, space, period,
-	// comma, - ' are allowed.
-	Description *string `json:"description,omitempty"`
-
-	// [Optional] If set to 1, just do validation.
-	DryRun *PaymentagentWithdrawDryRun `json:"dry_run,omitempty"`
-
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough PaymentagentWithdrawPassthrough `json:"passthrough,omitempty"`
-
-	// The payment agent loginid received from the `paymentagent_list` call.
-	PaymentagentLoginid string `json:"paymentagent_loginid"`
-
-	// Must be `1`
-	PaymentagentWithdraw PaymentagentWithdrawPaymentagentWithdraw `json:"paymentagent_withdraw"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// Email verification code (received from a `verify_email` call, which must be
-	// done first)
-	VerificationCode string `json:"verification_code"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *PaymentagentWithdraw) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["amount"]; !ok || v == nil {
+	if _, ok := raw["amount"]; raw != nil && !ok {
 		return fmt.Errorf("field amount in PaymentagentWithdraw: required")
 	}
-	if v, ok := raw["currency"]; !ok || v == nil {
+	if _, ok := raw["currency"]; raw != nil && !ok {
 		return fmt.Errorf("field currency in PaymentagentWithdraw: required")
 	}
-	if v, ok := raw["paymentagent_loginid"]; !ok || v == nil {
+	if _, ok := raw["paymentagent_loginid"]; raw != nil && !ok {
 		return fmt.Errorf("field paymentagent_loginid in PaymentagentWithdraw: required")
 	}
-	if v, ok := raw["paymentagent_withdraw"]; !ok || v == nil {
+	if _, ok := raw["paymentagent_withdraw"]; raw != nil && !ok {
 		return fmt.Errorf("field paymentagent_withdraw in PaymentagentWithdraw: required")
 	}
-	if v, ok := raw["verification_code"]; !ok || v == nil {
+	if _, ok := raw["verification_code"]; raw != nil && !ok {
 		return fmt.Errorf("field verification_code in PaymentagentWithdraw: required")
 	}
 	type Plain PaymentagentWithdraw

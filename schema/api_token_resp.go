@@ -36,7 +36,55 @@ type ApiTokenRespApiToken struct {
 
 type ApiTokenRespApiTokenDeleteToken int
 
+var enumValues_ApiTokenRespApiTokenDeleteToken = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ApiTokenRespApiTokenDeleteToken) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ApiTokenRespApiTokenDeleteToken {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ApiTokenRespApiTokenDeleteToken, v)
+	}
+	*j = ApiTokenRespApiTokenDeleteToken(v)
+	return nil
+}
+
 type ApiTokenRespApiTokenNewToken int
+
+var enumValues_ApiTokenRespApiTokenNewToken = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ApiTokenRespApiTokenNewToken) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ApiTokenRespApiTokenNewToken {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ApiTokenRespApiTokenNewToken, v)
+	}
+	*j = ApiTokenRespApiTokenNewToken(v)
+	return nil
+}
 
 // The information for each token.
 type ApiTokenRespApiTokenTokensElem struct {
@@ -64,30 +112,12 @@ const ApiTokenRespApiTokenTokensElemScopesElemRead ApiTokenRespApiTokenTokensEle
 const ApiTokenRespApiTokenTokensElemScopesElemTrade ApiTokenRespApiTokenTokensElemScopesElem = "trade"
 const ApiTokenRespApiTokenTokensElemScopesElemTradingInformation ApiTokenRespApiTokenTokensElemScopesElem = "trading_information"
 
-// Echo of the request made.
-type ApiTokenRespEchoReq map[string]interface{}
-
-type ApiTokenRespMsgType string
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ApiTokenResp) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req in ApiTokenResp: required")
-	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type in ApiTokenResp: required")
-	}
-	type Plain ApiTokenResp
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = ApiTokenResp(plain)
-	return nil
+var enumValues_ApiTokenRespApiTokenTokensElemScopesElem = []interface{}{
+	"read",
+	"trade",
+	"trading_information",
+	"payments",
+	"admin",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -110,53 +140,12 @@ func (j *ApiTokenRespApiTokenTokensElemScopesElem) UnmarshalJSON(b []byte) error
 	return nil
 }
 
-var enumValues_ApiTokenRespApiTokenTokensElemScopesElem = []interface{}{
-	"read",
-	"trade",
-	"trading_information",
-	"payments",
-	"admin",
-}
+// Echo of the request made.
+type ApiTokenRespEchoReq map[string]interface{}
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ApiTokenRespApiTokenNewToken) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ApiTokenRespApiTokenNewToken {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ApiTokenRespApiTokenNewToken, v)
-	}
-	*j = ApiTokenRespApiTokenNewToken(v)
-	return nil
-}
+type ApiTokenRespMsgType string
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ApiTokenRespApiTokenDeleteToken) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ApiTokenRespApiTokenDeleteToken {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ApiTokenRespApiTokenDeleteToken, v)
-	}
-	*j = ApiTokenRespApiTokenDeleteToken(v)
-	return nil
-}
+const ApiTokenRespMsgTypeApiToken ApiTokenRespMsgType = "api_token"
 
 var enumValues_ApiTokenRespMsgType = []interface{}{
 	"api_token",
@@ -182,11 +171,23 @@ func (j *ApiTokenRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-const ApiTokenRespMsgTypeApiToken ApiTokenRespMsgType = "api_token"
-
-var enumValues_ApiTokenRespApiTokenDeleteToken = []interface{}{
-	1,
-}
-var enumValues_ApiTokenRespApiTokenNewToken = []interface{}{
-	1,
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ApiTokenResp) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
+		return fmt.Errorf("field echo_req in ApiTokenResp: required")
+	}
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
+		return fmt.Errorf("field msg_type in ApiTokenResp: required")
+	}
+	type Plain ApiTokenResp
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = ApiTokenResp(plain)
+	return nil
 }

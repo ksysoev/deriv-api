@@ -6,10 +6,28 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// The result of server time request.
+type TimeResp struct {
+	// Echo of the request made.
+	EchoReq TimeRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType TimeRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// Epoch of server time.
+	Time *int `json:"time,omitempty"`
+}
+
 // Echo of the request made.
 type TimeRespEchoReq map[string]interface{}
 
 type TimeRespMsgType string
+
+const TimeRespMsgTypeTime TimeRespMsgType = "time"
 
 var enumValues_TimeRespMsgType = []interface{}{
 	"time",
@@ -35,34 +53,16 @@ func (j *TimeRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// The result of server time request.
-type TimeResp struct {
-	// Echo of the request made.
-	EchoReq TimeRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType TimeRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// Epoch of server time.
-	Time *int `json:"time,omitempty"`
-}
-
-const TimeRespMsgTypeTime TimeRespMsgType = "time"
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TimeResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in TimeResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in TimeResp: required")
 	}
 	type Plain TimeResp

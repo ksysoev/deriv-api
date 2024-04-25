@@ -6,6 +6,23 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Get Account Status
+type GetAccountStatus struct {
+	// Must be `1`
+	GetAccountStatus GetAccountStatusGetAccountStatus `json:"get_account_status"`
+
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough GetAccountStatusPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 type GetAccountStatusGetAccountStatus int
 
 var enumValues_GetAccountStatusGetAccountStatus = []interface{}{
@@ -32,23 +49,6 @@ func (j *GetAccountStatusGetAccountStatus) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Get Account Status
-type GetAccountStatus struct {
-	// Must be `1`
-	GetAccountStatus GetAccountStatusGetAccountStatus `json:"get_account_status"`
-
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough GetAccountStatusPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type GetAccountStatusPassthrough map[string]interface{}
@@ -59,7 +59,7 @@ func (j *GetAccountStatus) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["get_account_status"]; !ok || v == nil {
+	if _, ok := raw["get_account_status"]; raw != nil && !ok {
 		return fmt.Errorf("field get_account_status in GetAccountStatus: required")
 	}
 	type Plain GetAccountStatus

@@ -6,10 +6,25 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Sets client's payment agent details.
+type PaymentagentCreateResp struct {
+	// Echo of the request made.
+	EchoReq PaymentagentCreateRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType PaymentagentCreateRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // Echo of the request made.
 type PaymentagentCreateRespEchoReq map[string]interface{}
 
 type PaymentagentCreateRespMsgType string
+
+const PaymentagentCreateRespMsgTypePaymentagentCreate PaymentagentCreateRespMsgType = "paymentagent_create"
 
 var enumValues_PaymentagentCreateRespMsgType = []interface{}{
 	"paymentagent_create",
@@ -35,31 +50,16 @@ func (j *PaymentagentCreateRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Sets client's payment agent details.
-type PaymentagentCreateResp struct {
-	// Echo of the request made.
-	EchoReq PaymentagentCreateRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType PaymentagentCreateRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
-const PaymentagentCreateRespMsgTypePaymentagentCreate PaymentagentCreateRespMsgType = "paymentagent_create"
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *PaymentagentCreateResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in PaymentagentCreateResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in PaymentagentCreateResp: required")
 	}
 	type Plain PaymentagentCreateResp

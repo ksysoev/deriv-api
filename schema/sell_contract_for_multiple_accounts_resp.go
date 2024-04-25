@@ -6,10 +6,28 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Confirmation of the sale status for the selected contracts and accounts.
+type SellContractForMultipleAccountsResp struct {
+	// Echo of the request made.
+	EchoReq SellContractForMultipleAccountsRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType SellContractForMultipleAccountsRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// Status information for each affected account.
+	SellContractForMultipleAccounts *SellContractForMultipleAccountsRespSellContractForMultipleAccounts `json:"sell_contract_for_multiple_accounts,omitempty"`
+}
+
 // Echo of the request made.
 type SellContractForMultipleAccountsRespEchoReq map[string]interface{}
 
 type SellContractForMultipleAccountsRespMsgType string
+
+const SellContractForMultipleAccountsRespMsgTypeSellContractForMultipleAccounts SellContractForMultipleAccountsRespMsgType = "sell_contract_for_multiple_accounts"
 
 var enumValues_SellContractForMultipleAccountsRespMsgType = []interface{}{
 	"sell_contract_for_multiple_accounts",
@@ -35,24 +53,6 @@ func (j *SellContractForMultipleAccountsRespMsgType) UnmarshalJSON(b []byte) err
 	return nil
 }
 
-// Confirmation of the sale status for the selected contracts and accounts.
-type SellContractForMultipleAccountsResp struct {
-	// Echo of the request made.
-	EchoReq SellContractForMultipleAccountsRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType SellContractForMultipleAccountsRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// Status information for each affected account.
-	SellContractForMultipleAccounts *SellContractForMultipleAccountsRespSellContractForMultipleAccounts `json:"sell_contract_for_multiple_accounts,omitempty"`
-}
-
-const SellContractForMultipleAccountsRespMsgTypeSellContractForMultipleAccounts SellContractForMultipleAccountsRespMsgType = "sell_contract_for_multiple_accounts"
-
 // Status information for each affected account.
 type SellContractForMultipleAccountsRespSellContractForMultipleAccounts struct {
 	// The result of sell for multiple accounts request.
@@ -65,10 +65,10 @@ func (j *SellContractForMultipleAccountsResp) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in SellContractForMultipleAccountsResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in SellContractForMultipleAccountsResp: required")
 	}
 	type Plain SellContractForMultipleAccountsResp

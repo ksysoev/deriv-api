@@ -6,10 +6,32 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Server status alongside general settings like call limits, currencies
+// information, supported languages, etc.
+type WebsiteStatusResp struct {
+	// Echo of the request made.
+	EchoReq WebsiteStatusRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType WebsiteStatusRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// For subscription requests only.
+	Subscription *WebsiteStatusRespSubscription `json:"subscription,omitempty"`
+
+	// Server status and other information regarding general settings
+	WebsiteStatus *WebsiteStatusRespWebsiteStatus `json:"website_status,omitempty"`
+}
+
 // Echo of the request made.
 type WebsiteStatusRespEchoReq map[string]interface{}
 
 type WebsiteStatusRespMsgType string
+
+const WebsiteStatusRespMsgTypeWebsiteStatus WebsiteStatusRespMsgType = "website_status"
 
 var enumValues_WebsiteStatusRespMsgType = []interface{}{
 	"website_status",
@@ -35,8 +57,6 @@ func (j *WebsiteStatusRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-const WebsiteStatusRespMsgTypeWebsiteStatus WebsiteStatusRespMsgType = "website_status"
-
 // For subscription requests only.
 type WebsiteStatusRespSubscription struct {
 	// A per-connection unique identifier. Can be passed to the `forget` API call to
@@ -50,7 +70,7 @@ func (j *WebsiteStatusRespSubscription) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["id"]; !ok || v == nil {
+	if _, ok := raw["id"]; raw != nil && !ok {
 		return fmt.Errorf("field id in WebsiteStatusRespSubscription: required")
 	}
 	type Plain WebsiteStatusRespSubscription
@@ -60,6 +80,61 @@ func (j *WebsiteStatusRespSubscription) UnmarshalJSON(b []byte) error {
 	}
 	*j = WebsiteStatusRespSubscription(plain)
 	return nil
+}
+
+// Server status and other information regarding general settings
+type WebsiteStatusRespWebsiteStatus struct {
+	// Maximum number of API calls during specified period of time.
+	ApiCallLimits WebsiteStatusRespWebsiteStatusApiCallLimits `json:"api_call_limits"`
+
+	// List of all available broker codes.
+	BrokerCodes []string `json:"broker_codes,omitempty"`
+
+	// Country code of connected IP
+	ClientsCountry *string `json:"clients_country,omitempty"`
+
+	// Available currencies and their information
+	CurrenciesConfig WebsiteStatusRespWebsiteStatusCurrenciesConfig `json:"currencies_config"`
+
+	// Suspension status of Dxtrade/DerivX API calls
+	DxtradeStatus *WebsiteStatusRespWebsiteStatusDxtradeStatus `json:"dxtrade_status,omitempty"`
+
+	// Text for site status banner, contains problem description. shown only if set by
+	// the system.
+	Message *string `json:"message,omitempty"`
+
+	// Suspension status of MT5 API calls
+	Mt5Status *WebsiteStatusRespWebsiteStatusMt5Status `json:"mt5_status,omitempty"`
+
+	// Peer-to-peer payment system settings.
+	P2PConfig *WebsiteStatusRespWebsiteStatusP2PConfig `json:"p2p_config,omitempty"`
+
+	// Payments Agents system settings.
+	PaymentAgents *WebsiteStatusRespWebsiteStatusPaymentAgents `json:"payment_agents,omitempty"`
+
+	// The current status of the website.
+	SiteStatus *WebsiteStatusRespWebsiteStatusSiteStatus `json:"site_status,omitempty"`
+
+	// Provides codes for languages supported.
+	SupportedLanguages []string `json:"supported_languages,omitempty"`
+
+	// Latest terms and conditions version.
+	TermsConditionsVersion *string `json:"terms_conditions_version,omitempty"`
+}
+
+// Maximum number of API calls during specified period of time.
+type WebsiteStatusRespWebsiteStatusApiCallLimits struct {
+	// Maximum subscription to proposal calls.
+	MaxProposalSubscription WebsiteStatusRespWebsiteStatusApiCallLimitsMaxProposalSubscription `json:"max_proposal_subscription"`
+
+	// Maximum number of general requests allowed during specified period of time.
+	MaxRequestesGeneral WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestesGeneral `json:"max_requestes_general"`
+
+	// Maximum number of outcome requests allowed during specified period of time.
+	MaxRequestsOutcome WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsOutcome `json:"max_requests_outcome"`
+
+	// Maximum number of pricing requests allowed during specified period of time.
+	MaxRequestsPricing WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsPricing `json:"max_requests_pricing"`
 }
 
 // Maximum subscription to proposal calls.
@@ -77,10 +152,10 @@ func (j *WebsiteStatusRespWebsiteStatusApiCallLimitsMaxProposalSubscription) Unm
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["applies_to"]; !ok || v == nil {
+	if _, ok := raw["applies_to"]; raw != nil && !ok {
 		return fmt.Errorf("field applies_to in WebsiteStatusRespWebsiteStatusApiCallLimitsMaxProposalSubscription: required")
 	}
-	if v, ok := raw["max"]; !ok || v == nil {
+	if _, ok := raw["max"]; raw != nil && !ok {
 		return fmt.Errorf("field max in WebsiteStatusRespWebsiteStatusApiCallLimitsMaxProposalSubscription: required")
 	}
 	type Plain WebsiteStatusRespWebsiteStatusApiCallLimitsMaxProposalSubscription
@@ -110,13 +185,13 @@ func (j *WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestesGeneral) Unmarsh
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["applies_to"]; !ok || v == nil {
+	if _, ok := raw["applies_to"]; raw != nil && !ok {
 		return fmt.Errorf("field applies_to in WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestesGeneral: required")
 	}
-	if v, ok := raw["hourly"]; !ok || v == nil {
+	if _, ok := raw["hourly"]; raw != nil && !ok {
 		return fmt.Errorf("field hourly in WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestesGeneral: required")
 	}
-	if v, ok := raw["minutely"]; !ok || v == nil {
+	if _, ok := raw["minutely"]; raw != nil && !ok {
 		return fmt.Errorf("field minutely in WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestesGeneral: required")
 	}
 	type Plain WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestesGeneral
@@ -146,13 +221,13 @@ func (j *WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsOutcome) Unmarsha
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["applies_to"]; !ok || v == nil {
+	if _, ok := raw["applies_to"]; raw != nil && !ok {
 		return fmt.Errorf("field applies_to in WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsOutcome: required")
 	}
-	if v, ok := raw["hourly"]; !ok || v == nil {
+	if _, ok := raw["hourly"]; raw != nil && !ok {
 		return fmt.Errorf("field hourly in WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsOutcome: required")
 	}
-	if v, ok := raw["minutely"]; !ok || v == nil {
+	if _, ok := raw["minutely"]; raw != nil && !ok {
 		return fmt.Errorf("field minutely in WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsOutcome: required")
 	}
 	type Plain WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsOutcome
@@ -182,13 +257,13 @@ func (j *WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsPricing) Unmarsha
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["applies_to"]; !ok || v == nil {
+	if _, ok := raw["applies_to"]; raw != nil && !ok {
 		return fmt.Errorf("field applies_to in WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsPricing: required")
 	}
-	if v, ok := raw["hourly"]; !ok || v == nil {
+	if _, ok := raw["hourly"]; raw != nil && !ok {
 		return fmt.Errorf("field hourly in WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsPricing: required")
 	}
-	if v, ok := raw["minutely"]; !ok || v == nil {
+	if _, ok := raw["minutely"]; raw != nil && !ok {
 		return fmt.Errorf("field minutely in WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsPricing: required")
 	}
 	type Plain WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsPricing
@@ -200,37 +275,22 @@ func (j *WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsPricing) Unmarsha
 	return nil
 }
 
-// Maximum number of API calls during specified period of time.
-type WebsiteStatusRespWebsiteStatusApiCallLimits struct {
-	// Maximum subscription to proposal calls.
-	MaxProposalSubscription WebsiteStatusRespWebsiteStatusApiCallLimitsMaxProposalSubscription `json:"max_proposal_subscription"`
-
-	// Maximum number of general requests allowed during specified period of time.
-	MaxRequestesGeneral WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestesGeneral `json:"max_requestes_general"`
-
-	// Maximum number of outcome requests allowed during specified period of time.
-	MaxRequestsOutcome WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsOutcome `json:"max_requests_outcome"`
-
-	// Maximum number of pricing requests allowed during specified period of time.
-	MaxRequestsPricing WebsiteStatusRespWebsiteStatusApiCallLimitsMaxRequestsPricing `json:"max_requests_pricing"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *WebsiteStatusRespWebsiteStatusApiCallLimits) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["max_proposal_subscription"]; !ok || v == nil {
+	if _, ok := raw["max_proposal_subscription"]; raw != nil && !ok {
 		return fmt.Errorf("field max_proposal_subscription in WebsiteStatusRespWebsiteStatusApiCallLimits: required")
 	}
-	if v, ok := raw["max_requestes_general"]; !ok || v == nil {
+	if _, ok := raw["max_requestes_general"]; raw != nil && !ok {
 		return fmt.Errorf("field max_requestes_general in WebsiteStatusRespWebsiteStatusApiCallLimits: required")
 	}
-	if v, ok := raw["max_requests_outcome"]; !ok || v == nil {
+	if _, ok := raw["max_requests_outcome"]; raw != nil && !ok {
 		return fmt.Errorf("field max_requests_outcome in WebsiteStatusRespWebsiteStatusApiCallLimits: required")
 	}
-	if v, ok := raw["max_requests_pricing"]; !ok || v == nil {
+	if _, ok := raw["max_requests_pricing"]; raw != nil && !ok {
 		return fmt.Errorf("field max_requests_pricing in WebsiteStatusRespWebsiteStatusApiCallLimits: required")
 	}
 	type Plain WebsiteStatusRespWebsiteStatusApiCallLimits
@@ -264,279 +324,6 @@ type WebsiteStatusRespWebsiteStatusMt5Status struct {
 
 	// Suspension of MT5 API calls on real trading servers.
 	Real []interface{} `json:"real,omitempty"`
-}
-
-type WebsiteStatusRespWebsiteStatusP2PConfigBlockTradeDisabled int
-
-var enumValues_WebsiteStatusRespWebsiteStatusP2PConfigBlockTradeDisabled = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *WebsiteStatusRespWebsiteStatusP2PConfigBlockTradeDisabled) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_WebsiteStatusRespWebsiteStatusP2PConfigBlockTradeDisabled {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_WebsiteStatusRespWebsiteStatusP2PConfigBlockTradeDisabled, v)
-	}
-	*j = WebsiteStatusRespWebsiteStatusP2PConfigBlockTradeDisabled(v)
-	return nil
-}
-
-// Block trading settings
-type WebsiteStatusRespWebsiteStatusP2PConfigBlockTrade struct {
-	// When 1, Block trading is unavailable.
-	Disabled *WebsiteStatusRespWebsiteStatusP2PConfigBlockTradeDisabled `json:"disabled,omitempty"`
-
-	// Maximum amount of a block trade advert, in USD.
-	MaximumAdvertAmount *float64 `json:"maximum_advert_amount,omitempty"`
-}
-
-type WebsiteStatusRespWebsiteStatusP2PConfigCrossBorderAdsEnabled int
-
-var enumValues_WebsiteStatusRespWebsiteStatusP2PConfigCrossBorderAdsEnabled = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *WebsiteStatusRespWebsiteStatusP2PConfigCrossBorderAdsEnabled) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_WebsiteStatusRespWebsiteStatusP2PConfigCrossBorderAdsEnabled {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_WebsiteStatusRespWebsiteStatusP2PConfigCrossBorderAdsEnabled, v)
-	}
-	*j = WebsiteStatusRespWebsiteStatusP2PConfigCrossBorderAdsEnabled(v)
-	return nil
-}
-
-type WebsiteStatusRespWebsiteStatusP2PConfigDisabled int
-
-var enumValues_WebsiteStatusRespWebsiteStatusP2PConfigDisabled = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *WebsiteStatusRespWebsiteStatusP2PConfigDisabled) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_WebsiteStatusRespWebsiteStatusP2PConfigDisabled {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_WebsiteStatusRespWebsiteStatusP2PConfigDisabled, v)
-	}
-	*j = WebsiteStatusRespWebsiteStatusP2PConfigDisabled(v)
-	return nil
-}
-
-type WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdverts string
-
-var enumValues_WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdverts = []interface{}{
-	"disabled",
-	"enabled",
-	"list_only",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdverts) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdverts {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdverts, v)
-	}
-	*j = WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdverts(v)
-	return nil
-}
-
-const WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdvertsDisabled WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdverts = "disabled"
-const WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdvertsEnabled WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdverts = "enabled"
-const WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdvertsListOnly WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdverts = "list_only"
-
-type WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdverts string
-
-var enumValues_WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdverts = []interface{}{
-	"disabled",
-	"enabled",
-	"list_only",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdverts) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdverts {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdverts, v)
-	}
-	*j = WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdverts(v)
-	return nil
-}
-
-const WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdvertsDisabled WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdverts = "disabled"
-const WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdvertsEnabled WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdverts = "enabled"
-const WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdvertsListOnly WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdverts = "list_only"
-
-type WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemHasAdverts int
-
-var enumValues_WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemHasAdverts = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemHasAdverts) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemHasAdverts {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemHasAdverts, v)
-	}
-	*j = WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemHasAdverts(v)
-	return nil
-}
-
-type WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemIsDefault int
-
-var enumValues_WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemIsDefault = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemIsDefault) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemIsDefault {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemIsDefault, v)
-	}
-	*j = WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemIsDefault(v)
-	return nil
-}
-
-// Local currency details.
-type WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElem struct {
-	// Local currency name
-	DisplayName string `json:"display_name"`
-
-	// Indicates that there are adverts available for this currency.
-	HasAdverts WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemHasAdverts `json:"has_adverts"`
-
-	// Indicates that this is local currency for the current country.
-	IsDefault *WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemIsDefault `json:"is_default,omitempty"`
-
-	// Local currency symbol
-	Symbol string `json:"symbol"`
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElem) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if v, ok := raw["display_name"]; !ok || v == nil {
-		return fmt.Errorf("field display_name in WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElem: required")
-	}
-	if v, ok := raw["has_adverts"]; !ok || v == nil {
-		return fmt.Errorf("field has_adverts in WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElem: required")
-	}
-	if v, ok := raw["symbol"]; !ok || v == nil {
-		return fmt.Errorf("field symbol in WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElem: required")
-	}
-	type Plain WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElem
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElem(plain)
-	return nil
-}
-
-type WebsiteStatusRespWebsiteStatusP2PConfigPaymentMethodsEnabled int
-
-var enumValues_WebsiteStatusRespWebsiteStatusP2PConfigPaymentMethodsEnabled = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *WebsiteStatusRespWebsiteStatusP2PConfigPaymentMethodsEnabled) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_WebsiteStatusRespWebsiteStatusP2PConfigPaymentMethodsEnabled {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_WebsiteStatusRespWebsiteStatusP2PConfigPaymentMethodsEnabled, v)
-	}
-	*j = WebsiteStatusRespWebsiteStatusP2PConfigPaymentMethodsEnabled(v)
-	return nil
 }
 
 // Peer-to-peer payment system settings.
@@ -617,70 +404,343 @@ type WebsiteStatusRespWebsiteStatusP2PConfig struct {
 	SupportedCurrencies []string `json:"supported_currencies"`
 }
 
+// Block trading settings
+type WebsiteStatusRespWebsiteStatusP2PConfigBlockTrade struct {
+	// When 1, Block trading is unavailable.
+	Disabled *WebsiteStatusRespWebsiteStatusP2PConfigBlockTradeDisabled `json:"disabled,omitempty"`
+
+	// Maximum amount of a block trade advert, in USD.
+	MaximumAdvertAmount *float64 `json:"maximum_advert_amount,omitempty"`
+}
+
+type WebsiteStatusRespWebsiteStatusP2PConfigBlockTradeDisabled int
+
+var enumValues_WebsiteStatusRespWebsiteStatusP2PConfigBlockTradeDisabled = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *WebsiteStatusRespWebsiteStatusP2PConfigBlockTradeDisabled) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_WebsiteStatusRespWebsiteStatusP2PConfigBlockTradeDisabled {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_WebsiteStatusRespWebsiteStatusP2PConfigBlockTradeDisabled, v)
+	}
+	*j = WebsiteStatusRespWebsiteStatusP2PConfigBlockTradeDisabled(v)
+	return nil
+}
+
+type WebsiteStatusRespWebsiteStatusP2PConfigCrossBorderAdsEnabled int
+
+var enumValues_WebsiteStatusRespWebsiteStatusP2PConfigCrossBorderAdsEnabled = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *WebsiteStatusRespWebsiteStatusP2PConfigCrossBorderAdsEnabled) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_WebsiteStatusRespWebsiteStatusP2PConfigCrossBorderAdsEnabled {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_WebsiteStatusRespWebsiteStatusP2PConfigCrossBorderAdsEnabled, v)
+	}
+	*j = WebsiteStatusRespWebsiteStatusP2PConfigCrossBorderAdsEnabled(v)
+	return nil
+}
+
+type WebsiteStatusRespWebsiteStatusP2PConfigDisabled int
+
+var enumValues_WebsiteStatusRespWebsiteStatusP2PConfigDisabled = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *WebsiteStatusRespWebsiteStatusP2PConfigDisabled) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_WebsiteStatusRespWebsiteStatusP2PConfigDisabled {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_WebsiteStatusRespWebsiteStatusP2PConfigDisabled, v)
+	}
+	*j = WebsiteStatusRespWebsiteStatusP2PConfigDisabled(v)
+	return nil
+}
+
+type WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdverts string
+
+const WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdvertsDisabled WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdverts = "disabled"
+const WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdvertsEnabled WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdverts = "enabled"
+const WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdvertsListOnly WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdverts = "list_only"
+
+var enumValues_WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdverts = []interface{}{
+	"disabled",
+	"enabled",
+	"list_only",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdverts) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdverts {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdverts, v)
+	}
+	*j = WebsiteStatusRespWebsiteStatusP2PConfigFixedRateAdverts(v)
+	return nil
+}
+
+type WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdverts string
+
+const WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdvertsDisabled WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdverts = "disabled"
+const WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdvertsEnabled WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdverts = "enabled"
+const WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdvertsListOnly WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdverts = "list_only"
+
+var enumValues_WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdverts = []interface{}{
+	"disabled",
+	"enabled",
+	"list_only",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdverts) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdverts {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdverts, v)
+	}
+	*j = WebsiteStatusRespWebsiteStatusP2PConfigFloatRateAdverts(v)
+	return nil
+}
+
+// Local currency details.
+type WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElem struct {
+	// Local currency name
+	DisplayName string `json:"display_name"`
+
+	// Indicates that there are adverts available for this currency.
+	HasAdverts WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemHasAdverts `json:"has_adverts"`
+
+	// Indicates that this is local currency for the current country.
+	IsDefault *WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemIsDefault `json:"is_default,omitempty"`
+
+	// Local currency symbol
+	Symbol string `json:"symbol"`
+}
+
+type WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemHasAdverts int
+
+var enumValues_WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemHasAdverts = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemHasAdverts) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemHasAdverts {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemHasAdverts, v)
+	}
+	*j = WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemHasAdverts(v)
+	return nil
+}
+
+type WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemIsDefault int
+
+var enumValues_WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemIsDefault = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemIsDefault) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemIsDefault {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemIsDefault, v)
+	}
+	*j = WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElemIsDefault(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElem) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if _, ok := raw["display_name"]; raw != nil && !ok {
+		return fmt.Errorf("field display_name in WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElem: required")
+	}
+	if _, ok := raw["has_adverts"]; raw != nil && !ok {
+		return fmt.Errorf("field has_adverts in WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElem: required")
+	}
+	if _, ok := raw["symbol"]; raw != nil && !ok {
+		return fmt.Errorf("field symbol in WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElem: required")
+	}
+	type Plain WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElem
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = WebsiteStatusRespWebsiteStatusP2PConfigLocalCurrenciesElem(plain)
+	return nil
+}
+
+type WebsiteStatusRespWebsiteStatusP2PConfigPaymentMethodsEnabled int
+
+var enumValues_WebsiteStatusRespWebsiteStatusP2PConfigPaymentMethodsEnabled = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *WebsiteStatusRespWebsiteStatusP2PConfigPaymentMethodsEnabled) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_WebsiteStatusRespWebsiteStatusP2PConfigPaymentMethodsEnabled {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_WebsiteStatusRespWebsiteStatusP2PConfigPaymentMethodsEnabled, v)
+	}
+	*j = WebsiteStatusRespWebsiteStatusP2PConfigPaymentMethodsEnabled(v)
+	return nil
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *WebsiteStatusRespWebsiteStatusP2PConfig) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["adverts_active_limit"]; !ok || v == nil {
+	if _, ok := raw["adverts_active_limit"]; raw != nil && !ok {
 		return fmt.Errorf("field adverts_active_limit in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
-	if v, ok := raw["block_trade"]; !ok || v == nil {
+	if _, ok := raw["block_trade"]; raw != nil && !ok {
 		return fmt.Errorf("field block_trade in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
-	if v, ok := raw["cancellation_block_duration"]; !ok || v == nil {
+	if _, ok := raw["cancellation_block_duration"]; raw != nil && !ok {
 		return fmt.Errorf("field cancellation_block_duration in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
-	if v, ok := raw["cancellation_count_period"]; !ok || v == nil {
+	if _, ok := raw["cancellation_count_period"]; raw != nil && !ok {
 		return fmt.Errorf("field cancellation_count_period in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
-	if v, ok := raw["cancellation_grace_period"]; !ok || v == nil {
+	if _, ok := raw["cancellation_grace_period"]; raw != nil && !ok {
 		return fmt.Errorf("field cancellation_grace_period in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
-	if v, ok := raw["cancellation_limit"]; !ok || v == nil {
+	if _, ok := raw["cancellation_limit"]; raw != nil && !ok {
 		return fmt.Errorf("field cancellation_limit in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
-	if v, ok := raw["cross_border_ads_enabled"]; !ok || v == nil {
+	if _, ok := raw["cross_border_ads_enabled"]; raw != nil && !ok {
 		return fmt.Errorf("field cross_border_ads_enabled in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
-	if v, ok := raw["disabled"]; !ok || v == nil {
+	if _, ok := raw["disabled"]; raw != nil && !ok {
 		return fmt.Errorf("field disabled in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
-	if v, ok := raw["feature_level"]; !ok || v == nil {
+	if _, ok := raw["feature_level"]; raw != nil && !ok {
 		return fmt.Errorf("field feature_level in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
-	if v, ok := raw["fixed_rate_adverts"]; !ok || v == nil {
+	if _, ok := raw["fixed_rate_adverts"]; raw != nil && !ok {
 		return fmt.Errorf("field fixed_rate_adverts in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
-	if v, ok := raw["float_rate_adverts"]; !ok || v == nil {
+	if _, ok := raw["float_rate_adverts"]; raw != nil && !ok {
 		return fmt.Errorf("field float_rate_adverts in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
-	if v, ok := raw["float_rate_offset_limit"]; !ok || v == nil {
+	if _, ok := raw["float_rate_offset_limit"]; raw != nil && !ok {
 		return fmt.Errorf("field float_rate_offset_limit in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
-	if v, ok := raw["local_currencies"]; !ok || v == nil {
+	if _, ok := raw["local_currencies"]; raw != nil && !ok {
 		return fmt.Errorf("field local_currencies in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
-	if v, ok := raw["maximum_advert_amount"]; !ok || v == nil {
+	if _, ok := raw["maximum_advert_amount"]; raw != nil && !ok {
 		return fmt.Errorf("field maximum_advert_amount in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
-	if v, ok := raw["maximum_order_amount"]; !ok || v == nil {
+	if _, ok := raw["maximum_order_amount"]; raw != nil && !ok {
 		return fmt.Errorf("field maximum_order_amount in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
-	if v, ok := raw["order_daily_limit"]; !ok || v == nil {
+	if _, ok := raw["order_daily_limit"]; raw != nil && !ok {
 		return fmt.Errorf("field order_daily_limit in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
-	if v, ok := raw["order_payment_period"]; !ok || v == nil {
+	if _, ok := raw["order_payment_period"]; raw != nil && !ok {
 		return fmt.Errorf("field order_payment_period in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
-	if v, ok := raw["payment_methods_enabled"]; !ok || v == nil {
+	if _, ok := raw["payment_methods_enabled"]; raw != nil && !ok {
 		return fmt.Errorf("field payment_methods_enabled in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
-	if v, ok := raw["review_period"]; !ok || v == nil {
+	if _, ok := raw["review_period"]; raw != nil && !ok {
 		return fmt.Errorf("field review_period in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
-	if v, ok := raw["supported_currencies"]; !ok || v == nil {
+	if _, ok := raw["supported_currencies"]; raw != nil && !ok {
 		return fmt.Errorf("field supported_currencies in WebsiteStatusRespWebsiteStatusP2PConfig: required")
 	}
 	type Plain WebsiteStatusRespWebsiteStatusP2PConfig
@@ -707,7 +767,7 @@ func (j *WebsiteStatusRespWebsiteStatusPaymentAgents) UnmarshalJSON(b []byte) er
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["initial_deposit_per_country"]; !ok || v == nil {
+	if _, ok := raw["initial_deposit_per_country"]; raw != nil && !ok {
 		return fmt.Errorf("field initial_deposit_per_country in WebsiteStatusRespWebsiteStatusPaymentAgents: required")
 	}
 	type Plain WebsiteStatusRespWebsiteStatusPaymentAgents
@@ -720,6 +780,10 @@ func (j *WebsiteStatusRespWebsiteStatusPaymentAgents) UnmarshalJSON(b []byte) er
 }
 
 type WebsiteStatusRespWebsiteStatusSiteStatus string
+
+const WebsiteStatusRespWebsiteStatusSiteStatusDown WebsiteStatusRespWebsiteStatusSiteStatus = "down"
+const WebsiteStatusRespWebsiteStatusSiteStatusUp WebsiteStatusRespWebsiteStatusSiteStatus = "up"
+const WebsiteStatusRespWebsiteStatusSiteStatusUpdating WebsiteStatusRespWebsiteStatusSiteStatus = "updating"
 
 var enumValues_WebsiteStatusRespWebsiteStatusSiteStatus = []interface{}{
 	"up",
@@ -747,60 +811,16 @@ func (j *WebsiteStatusRespWebsiteStatusSiteStatus) UnmarshalJSON(b []byte) error
 	return nil
 }
 
-// Server status and other information regarding general settings
-type WebsiteStatusRespWebsiteStatus struct {
-	// Maximum number of API calls during specified period of time.
-	ApiCallLimits WebsiteStatusRespWebsiteStatusApiCallLimits `json:"api_call_limits"`
-
-	// List of all available broker codes.
-	BrokerCodes []string `json:"broker_codes,omitempty"`
-
-	// Country code of connected IP
-	ClientsCountry *string `json:"clients_country,omitempty"`
-
-	// Available currencies and their information
-	CurrenciesConfig WebsiteStatusRespWebsiteStatusCurrenciesConfig `json:"currencies_config"`
-
-	// Suspension status of Dxtrade/DerivX API calls
-	DxtradeStatus *WebsiteStatusRespWebsiteStatusDxtradeStatus `json:"dxtrade_status,omitempty"`
-
-	// Text for site status banner, contains problem description. shown only if set by
-	// the system.
-	Message *string `json:"message,omitempty"`
-
-	// Suspension status of MT5 API calls
-	Mt5Status *WebsiteStatusRespWebsiteStatusMt5Status `json:"mt5_status,omitempty"`
-
-	// Peer-to-peer payment system settings.
-	P2PConfig *WebsiteStatusRespWebsiteStatusP2PConfig `json:"p2p_config,omitempty"`
-
-	// Payments Agents system settings.
-	PaymentAgents *WebsiteStatusRespWebsiteStatusPaymentAgents `json:"payment_agents,omitempty"`
-
-	// The current status of the website.
-	SiteStatus *WebsiteStatusRespWebsiteStatusSiteStatus `json:"site_status,omitempty"`
-
-	// Provides codes for languages supported.
-	SupportedLanguages []string `json:"supported_languages,omitempty"`
-
-	// Latest terms and conditions version.
-	TermsConditionsVersion *string `json:"terms_conditions_version,omitempty"`
-}
-
-const WebsiteStatusRespWebsiteStatusSiteStatusDown WebsiteStatusRespWebsiteStatusSiteStatus = "down"
-const WebsiteStatusRespWebsiteStatusSiteStatusUp WebsiteStatusRespWebsiteStatusSiteStatus = "up"
-const WebsiteStatusRespWebsiteStatusSiteStatusUpdating WebsiteStatusRespWebsiteStatusSiteStatus = "updating"
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *WebsiteStatusRespWebsiteStatus) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["api_call_limits"]; !ok || v == nil {
+	if _, ok := raw["api_call_limits"]; raw != nil && !ok {
 		return fmt.Errorf("field api_call_limits in WebsiteStatusRespWebsiteStatus: required")
 	}
-	if v, ok := raw["currencies_config"]; !ok || v == nil {
+	if _, ok := raw["currencies_config"]; raw != nil && !ok {
 		return fmt.Errorf("field currencies_config in WebsiteStatusRespWebsiteStatus: required")
 	}
 	type Plain WebsiteStatusRespWebsiteStatus
@@ -812,36 +832,16 @@ func (j *WebsiteStatusRespWebsiteStatus) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Server status alongside general settings like call limits, currencies
-// information, supported languages, etc.
-type WebsiteStatusResp struct {
-	// Echo of the request made.
-	EchoReq WebsiteStatusRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType WebsiteStatusRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// For subscription requests only.
-	Subscription *WebsiteStatusRespSubscription `json:"subscription,omitempty"`
-
-	// Server status and other information regarding general settings
-	WebsiteStatus *WebsiteStatusRespWebsiteStatus `json:"website_status,omitempty"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *WebsiteStatusResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in WebsiteStatusResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in WebsiteStatusResp: required")
 	}
 	type Plain WebsiteStatusResp

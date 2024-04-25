@@ -6,10 +6,28 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// A message with results is received
+type CopyStopResp struct {
+	// Copy stopping confirmation. Returns 1 is success.
+	CopyStop *int `json:"copy_stop,omitempty"`
+
+	// Echo of the request made.
+	EchoReq CopyStopRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType CopyStopRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // Echo of the request made.
 type CopyStopRespEchoReq map[string]interface{}
 
 type CopyStopRespMsgType string
+
+const CopyStopRespMsgTypeCopyStop CopyStopRespMsgType = "copy_stop"
 
 var enumValues_CopyStopRespMsgType = []interface{}{
 	"copy_stop",
@@ -35,34 +53,16 @@ func (j *CopyStopRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// A message with results is received
-type CopyStopResp struct {
-	// Copy stopping confirmation. Returns 1 is success.
-	CopyStop *int `json:"copy_stop,omitempty"`
-
-	// Echo of the request made.
-	EchoReq CopyStopRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType CopyStopRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
-const CopyStopRespMsgTypeCopyStop CopyStopRespMsgType = "copy_stop"
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *CopyStopResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in CopyStopResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in CopyStopResp: required")
 	}
 	type Plain CopyStopResp

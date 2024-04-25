@@ -38,6 +38,30 @@ type VerifyEmailCellxpertType string
 
 const VerifyEmailCellxpertTypePartnerAccountOpening VerifyEmailCellxpertType = "partner_account_opening"
 
+var enumValues_VerifyEmailCellxpertType = []interface{}{
+	"partner_account_opening",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *VerifyEmailCellxpertType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_VerifyEmailCellxpertType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_VerifyEmailCellxpertType, v)
+	}
+	*j = VerifyEmailCellxpertType(v)
+	return nil
+}
+
 // [Optional] Extra parameters that can be attached to the verify email link URL.
 type VerifyEmailCellxpertUrlParameters struct {
 	// [Optional] Affiliate token, within 32 characters.
@@ -128,6 +152,11 @@ type VerifyEmailCellxpertUrlParametersSignupDevice string
 const VerifyEmailCellxpertUrlParametersSignupDeviceDesktop VerifyEmailCellxpertUrlParametersSignupDevice = "desktop"
 const VerifyEmailCellxpertUrlParametersSignupDeviceMobile VerifyEmailCellxpertUrlParametersSignupDevice = "mobile"
 
+var enumValues_VerifyEmailCellxpertUrlParametersSignupDevice = []interface{}{
+	"desktop",
+	"mobile",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *VerifyEmailCellxpertUrlParametersSignupDevice) UnmarshalJSON(b []byte) error {
 	var v string
@@ -148,45 +177,16 @@ func (j *VerifyEmailCellxpertUrlParametersSignupDevice) UnmarshalJSON(b []byte) 
 	return nil
 }
 
-var enumValues_VerifyEmailCellxpertUrlParametersSignupDevice = []interface{}{
-	"desktop",
-	"mobile",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *VerifyEmailCellxpertType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_VerifyEmailCellxpertType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_VerifyEmailCellxpertType, v)
-	}
-	*j = VerifyEmailCellxpertType(v)
-	return nil
-}
-
-var enumValues_VerifyEmailCellxpertType = []interface{}{
-	"partner_account_opening",
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *VerifyEmailCellxpert) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["type"]; !ok || v == nil {
+	if _, ok := raw["type"]; raw != nil && !ok {
 		return fmt.Errorf("field type in VerifyEmailCellxpert: required")
 	}
-	if v, ok := raw["verify_email_cellxpert"]; !ok || v == nil {
+	if _, ok := raw["verify_email_cellxpert"]; raw != nil && !ok {
 		return fmt.Errorf("field verify_email_cellxpert in VerifyEmailCellxpert: required")
 	}
 	type Plain VerifyEmailCellxpert

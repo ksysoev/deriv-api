@@ -6,10 +6,28 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// A message with transaction results is received
+type SellResp struct {
+	// Echo of the request made.
+	EchoReq SellRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType SellRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// Receipt for the transaction
+	Sell *SellRespSell `json:"sell,omitempty"`
+}
+
 // Echo of the request made.
 type SellRespEchoReq map[string]interface{}
 
 type SellRespMsgType string
+
+const SellRespMsgTypeSell SellRespMsgType = "sell"
 
 var enumValues_SellRespMsgType = []interface{}{
 	"sell",
@@ -35,24 +53,6 @@ func (j *SellRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// A message with transaction results is received
-type SellResp struct {
-	// Echo of the request made.
-	EchoReq SellRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType SellRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// Receipt for the transaction
-	Sell *SellRespSell `json:"sell,omitempty"`
-}
-
-const SellRespMsgTypeSell SellRespMsgType = "sell"
-
 // Receipt for the transaction
 type SellRespSell struct {
 	// New account balance after completion of the sale
@@ -77,10 +77,10 @@ func (j *SellResp) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in SellResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in SellResp: required")
 	}
 	type Plain SellResp

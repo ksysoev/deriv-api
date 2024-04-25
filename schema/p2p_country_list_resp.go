@@ -6,10 +6,28 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// List all or specific country and its payment methods.
+type P2PCountryListResp struct {
+	// Echo of the request made.
+	EchoReq P2PCountryListRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType P2PCountryListRespMsgType `json:"msg_type"`
+
+	// Country identified by country code
+	P2PCountryList P2PCountryListRespP2PCountryList `json:"p2p_country_list,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // Echo of the request made.
 type P2PCountryListRespEchoReq map[string]interface{}
 
 type P2PCountryListRespMsgType string
+
+const P2PCountryListRespMsgTypeP2PCountryList P2PCountryListRespMsgType = "p2p_country_list"
 
 var enumValues_P2PCountryListRespMsgType = []interface{}{
 	"p2p_country_list",
@@ -35,24 +53,6 @@ func (j *P2PCountryListRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// List all or specific country and its payment methods.
-type P2PCountryListResp struct {
-	// Echo of the request made.
-	EchoReq P2PCountryListRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType P2PCountryListRespMsgType `json:"msg_type"`
-
-	// Country identified by country code
-	P2PCountryList P2PCountryListRespP2PCountryList `json:"p2p_country_list,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
-const P2PCountryListRespMsgTypeP2PCountryList P2PCountryListRespMsgType = "p2p_country_list"
-
 // Country identified by country code
 type P2PCountryListRespP2PCountryList map[string]interface{}
 
@@ -62,10 +62,10 @@ func (j *P2PCountryListResp) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in P2PCountryListResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in P2PCountryListResp: required")
 	}
 	type Plain P2PCountryListResp

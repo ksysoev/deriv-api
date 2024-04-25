@@ -6,32 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-type P2PAdvertiserAdvertsP2PAdvertiserAdverts int
-
-var enumValues_P2PAdvertiserAdvertsP2PAdvertiserAdverts = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertiserAdvertsP2PAdvertiserAdverts) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertiserAdvertsP2PAdvertiserAdverts {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserAdvertsP2PAdvertiserAdverts, v)
-	}
-	*j = P2PAdvertiserAdvertsP2PAdvertiserAdverts(v)
-	return nil
-}
-
 // Returns all P2P adverts created by the authorized client. Can only be used by a
 // registered P2P advertiser.
 type P2PAdvertiserAdverts struct {
@@ -58,6 +32,32 @@ type P2PAdvertiserAdverts struct {
 	ReqId *int `json:"req_id,omitempty"`
 }
 
+type P2PAdvertiserAdvertsP2PAdvertiserAdverts int
+
+var enumValues_P2PAdvertiserAdvertsP2PAdvertiserAdverts = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertiserAdvertsP2PAdvertiserAdverts) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertiserAdvertsP2PAdvertiserAdverts {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserAdvertsP2PAdvertiserAdverts, v)
+	}
+	*j = P2PAdvertiserAdvertsP2PAdvertiserAdverts(v)
+	return nil
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type P2PAdvertiserAdvertsPassthrough map[string]interface{}
@@ -68,7 +68,7 @@ func (j *P2PAdvertiserAdverts) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["p2p_advertiser_adverts"]; !ok || v == nil {
+	if _, ok := raw["p2p_advertiser_adverts"]; raw != nil && !ok {
 		return fmt.Errorf("field p2p_advertiser_adverts in P2PAdvertiserAdverts: required")
 	}
 	type Plain P2PAdvertiserAdverts

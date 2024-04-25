@@ -40,6 +40,20 @@ const LandingCompanyDetailsLandingCompanyDetailsSvg LandingCompanyDetailsLanding
 const LandingCompanyDetailsLandingCompanyDetailsVanuatu LandingCompanyDetailsLandingCompanyDetails = "vanuatu"
 const LandingCompanyDetailsLandingCompanyDetailsVirtual LandingCompanyDetailsLandingCompanyDetails = "virtual"
 
+var enumValues_LandingCompanyDetailsLandingCompanyDetails = []interface{}{
+	"iom",
+	"malta",
+	"maltainvest",
+	"svg",
+	"virtual",
+	"vanuatu",
+	"samoa",
+	"samoa-virtual",
+	"dsl",
+	"bvi",
+	"labuan",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *LandingCompanyDetailsLandingCompanyDetails) UnmarshalJSON(b []byte) error {
 	var v string
@@ -64,27 +78,13 @@ func (j *LandingCompanyDetailsLandingCompanyDetails) UnmarshalJSON(b []byte) err
 // the `echo_req` output field.
 type LandingCompanyDetailsPassthrough map[string]interface{}
 
-var enumValues_LandingCompanyDetailsLandingCompanyDetails = []interface{}{
-	"iom",
-	"malta",
-	"maltainvest",
-	"svg",
-	"virtual",
-	"vanuatu",
-	"samoa",
-	"samoa-virtual",
-	"dsl",
-	"bvi",
-	"labuan",
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *LandingCompanyDetails) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["landing_company_details"]; !ok || v == nil {
+	if _, ok := raw["landing_company_details"]; raw != nil && !ok {
 		return fmt.Errorf("field landing_company_details in LandingCompanyDetails: required")
 	}
 	type Plain LandingCompanyDetails

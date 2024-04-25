@@ -6,6 +6,30 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Get the current estimations for cryptocurrencies. E.g. Withdrawal fee.
+type CryptoEstimations struct {
+	// Must be `1`
+	CryptoEstimations CryptoEstimationsCryptoEstimations `json:"crypto_estimations"`
+
+	// Cryptocurrency code for which fee estimation is provided.
+	CurrencyCode string `json:"currency_code"`
+
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough CryptoEstimationsPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// [Optional] If set to 1, will send updates whenever there is an update to crypto
+	// estimations.
+	Subscribe *CryptoEstimationsSubscribe `json:"subscribe,omitempty"`
+}
+
 type CryptoEstimationsCryptoEstimations int
 
 var enumValues_CryptoEstimationsCryptoEstimations = []interface{}{
@@ -62,40 +86,16 @@ func (j *CryptoEstimationsSubscribe) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Get the current estimations for cryptocurrencies. E.g. Withdrawal fee.
-type CryptoEstimations struct {
-	// Must be `1`
-	CryptoEstimations CryptoEstimationsCryptoEstimations `json:"crypto_estimations"`
-
-	// Cryptocurrency code for which fee estimation is provided.
-	CurrencyCode string `json:"currency_code"`
-
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough CryptoEstimationsPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// [Optional] If set to 1, will send updates whenever there is an update to crypto
-	// estimations.
-	Subscribe *CryptoEstimationsSubscribe `json:"subscribe,omitempty"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *CryptoEstimations) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["crypto_estimations"]; !ok || v == nil {
+	if _, ok := raw["crypto_estimations"]; raw != nil && !ok {
 		return fmt.Errorf("field crypto_estimations in CryptoEstimations: required")
 	}
-	if v, ok := raw["currency_code"]; !ok || v == nil {
+	if _, ok := raw["currency_code"]; raw != nil && !ok {
 		return fmt.Errorf("field currency_code in CryptoEstimations: required")
 	}
 	type Plain CryptoEstimations

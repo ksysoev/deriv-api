@@ -29,6 +29,30 @@ type Mt5NewAccountRespMsgType string
 
 const Mt5NewAccountRespMsgTypeMt5NewAccount Mt5NewAccountRespMsgType = "mt5_new_account"
 
+var enumValues_Mt5NewAccountRespMsgType = []interface{}{
+	"mt5_new_account",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5NewAccountRespMsgType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5NewAccountRespMsgType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5NewAccountRespMsgType, v)
+	}
+	*j = Mt5NewAccountRespMsgType(v)
+	return nil
+}
+
 // New MT5 account details
 type Mt5NewAccountRespMt5NewAccount struct {
 	// Account type.
@@ -66,76 +90,11 @@ const Mt5NewAccountRespMt5NewAccountAccountTypeDemo Mt5NewAccountRespMt5NewAccou
 const Mt5NewAccountRespMt5NewAccountAccountTypeFinancial Mt5NewAccountRespMt5NewAccountAccountType = "financial"
 const Mt5NewAccountRespMt5NewAccountAccountTypeGaming Mt5NewAccountRespMt5NewAccountAccountType = "gaming"
 
-type Mt5NewAccountRespMt5NewAccountMt5AccountCategory string
-
-const Mt5NewAccountRespMt5NewAccountMt5AccountCategoryConventional Mt5NewAccountRespMt5NewAccountMt5AccountCategory = "conventional"
-const Mt5NewAccountRespMt5NewAccountMt5AccountCategorySwapFree Mt5NewAccountRespMt5NewAccountMt5AccountCategory = "swap_free"
-
-type Mt5NewAccountRespMt5NewAccountMt5AccountType string
-
-const Mt5NewAccountRespMt5NewAccountMt5AccountTypeFinancial Mt5NewAccountRespMt5NewAccountMt5AccountType = "financial"
-const Mt5NewAccountRespMt5NewAccountMt5AccountTypeFinancialStp Mt5NewAccountRespMt5NewAccountMt5AccountType = "financial_stp"
-const Mt5NewAccountRespMt5NewAccountMt5AccountTypeStandard Mt5NewAccountRespMt5NewAccountMt5AccountType = "standard"
-
-var enumValues_Mt5NewAccountRespMsgType = []interface{}{
-	"mt5_new_account",
-}
 var enumValues_Mt5NewAccountRespMt5NewAccountAccountType = []interface{}{
 	"demo",
 	"gaming",
 	"financial",
 	"all",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *Mt5NewAccountRespMt5NewAccountMt5AccountType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_Mt5NewAccountRespMt5NewAccountMt5AccountType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5NewAccountRespMt5NewAccountMt5AccountType, v)
-	}
-	*j = Mt5NewAccountRespMt5NewAccountMt5AccountType(v)
-	return nil
-}
-
-var enumValues_Mt5NewAccountRespMt5NewAccountMt5AccountType = []interface{}{
-	"financial",
-	"financial_stp",
-	"standard",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *Mt5NewAccountRespMt5NewAccountMt5AccountCategory) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_Mt5NewAccountRespMt5NewAccountMt5AccountCategory {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5NewAccountRespMt5NewAccountMt5AccountCategory, v)
-	}
-	*j = Mt5NewAccountRespMt5NewAccountMt5AccountCategory(v)
-	return nil
-}
-
-var enumValues_Mt5NewAccountRespMt5NewAccountMt5AccountCategory = []interface{}{
-	"conventional",
-	"swap_free",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -158,23 +117,65 @@ func (j *Mt5NewAccountRespMt5NewAccountAccountType) UnmarshalJSON(b []byte) erro
 	return nil
 }
 
+type Mt5NewAccountRespMt5NewAccountMt5AccountCategory string
+
+const Mt5NewAccountRespMt5NewAccountMt5AccountCategoryConventional Mt5NewAccountRespMt5NewAccountMt5AccountCategory = "conventional"
+const Mt5NewAccountRespMt5NewAccountMt5AccountCategorySwapFree Mt5NewAccountRespMt5NewAccountMt5AccountCategory = "swap_free"
+
+var enumValues_Mt5NewAccountRespMt5NewAccountMt5AccountCategory = []interface{}{
+	"conventional",
+	"swap_free",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *Mt5NewAccountRespMsgType) UnmarshalJSON(b []byte) error {
+func (j *Mt5NewAccountRespMt5NewAccountMt5AccountCategory) UnmarshalJSON(b []byte) error {
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_Mt5NewAccountRespMsgType {
+	for _, expected := range enumValues_Mt5NewAccountRespMt5NewAccountMt5AccountCategory {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5NewAccountRespMsgType, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5NewAccountRespMt5NewAccountMt5AccountCategory, v)
 	}
-	*j = Mt5NewAccountRespMsgType(v)
+	*j = Mt5NewAccountRespMt5NewAccountMt5AccountCategory(v)
+	return nil
+}
+
+type Mt5NewAccountRespMt5NewAccountMt5AccountType string
+
+const Mt5NewAccountRespMt5NewAccountMt5AccountTypeFinancial Mt5NewAccountRespMt5NewAccountMt5AccountType = "financial"
+const Mt5NewAccountRespMt5NewAccountMt5AccountTypeFinancialStp Mt5NewAccountRespMt5NewAccountMt5AccountType = "financial_stp"
+const Mt5NewAccountRespMt5NewAccountMt5AccountTypeStandard Mt5NewAccountRespMt5NewAccountMt5AccountType = "standard"
+
+var enumValues_Mt5NewAccountRespMt5NewAccountMt5AccountType = []interface{}{
+	"financial",
+	"financial_stp",
+	"standard",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5NewAccountRespMt5NewAccountMt5AccountType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5NewAccountRespMt5NewAccountMt5AccountType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5NewAccountRespMt5NewAccountMt5AccountType, v)
+	}
+	*j = Mt5NewAccountRespMt5NewAccountMt5AccountType(v)
 	return nil
 }
 
@@ -184,10 +185,10 @@ func (j *Mt5NewAccountResp) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in Mt5NewAccountResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in Mt5NewAccountResp: required")
 	}
 	type Plain Mt5NewAccountResp
