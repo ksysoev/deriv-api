@@ -231,6 +231,9 @@ type GetAccountStatusRespGetAccountStatusAuthenticationDocument struct {
 	// This represents the current status of the proof of address document submitted
 	// for authentication.
 	Status *GetAccountStatusRespGetAccountStatusAuthenticationDocumentStatus `json:"status,omitempty"`
+
+	// This represents the current status of authentication for each mt5 jurisdiction.
+	VerifiedJurisdiction *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdiction `json:"verified_jurisdiction,omitempty"`
 }
 
 // This represents the current status of idv authentication for each mt5
@@ -613,6 +616,350 @@ func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentStatus) Unmar
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentStatus, v)
 	}
 	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentStatus(v)
+	return nil
+}
+
+// This represents the current status of authentication for each mt5 jurisdiction.
+type GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdiction struct {
+	// This represents whether the client is allowed or not to create an account under
+	// this jurisdiction
+	Bvi *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionBvi `json:"bvi,omitempty"`
+
+	// This represents whether the client is allowed or not to create an account under
+	// this jurisdiction
+	Dsl *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionDsl `json:"dsl,omitempty"`
+
+	// This represents whether the client is allowed or not to create an account under
+	// this jurisdiction
+	Iom *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionIom `json:"iom,omitempty"`
+
+	// This represents whether the client is allowed or not to create an account under
+	// this jurisdiction
+	Labuan *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionLabuan `json:"labuan,omitempty"`
+
+	// This represents whether the client is allowed or not to create an account under
+	// this jurisdiction
+	Malta *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMalta `json:"malta,omitempty"`
+
+	// This represents whether the client is allowed or not to create an account under
+	// this jurisdiction
+	Maltainvest *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMaltainvest `json:"maltainvest,omitempty"`
+
+	// This represents whether the client is allowed or not to create an account under
+	// this jurisdiction
+	Samoa *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionSamoa `json:"samoa,omitempty"`
+
+	// This represents whether the client is allowed or not to create an account under
+	// this jurisdiction
+	SamoaVirtual *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionSamoaVirtual `json:"samoa-virtual,omitempty"`
+
+	// This represents whether the client is allowed or not to create an account under
+	// this jurisdiction
+	Svg *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionSvg `json:"svg,omitempty"`
+
+	// This represents whether the client is allowed or not to create an account under
+	// this jurisdiction
+	Vanuatu *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionVanuatu `json:"vanuatu,omitempty"`
+
+	// This represents whether the client is allowed or not to create an account under
+	// this jurisdiction
+	Virtual *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionVirtual `json:"virtual,omitempty"`
+}
+
+type GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionBvi int
+
+var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionBvi = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionBvi) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionBvi {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionBvi, v)
+	}
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionBvi(v)
+	return nil
+}
+
+type GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionDsl int
+
+var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionDsl = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionDsl) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionDsl {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionDsl, v)
+	}
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionDsl(v)
+	return nil
+}
+
+type GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionIom int
+
+var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionIom = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionIom) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionIom {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionIom, v)
+	}
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionIom(v)
+	return nil
+}
+
+type GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionLabuan int
+
+var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionLabuan = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionLabuan) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionLabuan {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionLabuan, v)
+	}
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionLabuan(v)
+	return nil
+}
+
+type GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMalta int
+
+var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMalta = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMalta) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMalta {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMalta, v)
+	}
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMalta(v)
+	return nil
+}
+
+type GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMaltainvest int
+
+var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMaltainvest = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMaltainvest) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMaltainvest {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMaltainvest, v)
+	}
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMaltainvest(v)
+	return nil
+}
+
+type GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionSamoa int
+
+type GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionSamoaVirtual int
+
+var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionSamoaVirtual = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionSamoaVirtual) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionSamoaVirtual {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionSamoaVirtual, v)
+	}
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionSamoaVirtual(v)
+	return nil
+}
+
+var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionSamoa = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionSamoa) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionSamoa {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionSamoa, v)
+	}
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionSamoa(v)
+	return nil
+}
+
+type GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionSvg int
+
+var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionSvg = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionSvg) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionSvg {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionSvg, v)
+	}
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionSvg(v)
+	return nil
+}
+
+type GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionVanuatu int
+
+var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionVanuatu = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionVanuatu) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionVanuatu {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionVanuatu, v)
+	}
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionVanuatu(v)
+	return nil
+}
+
+type GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionVirtual int
+
+var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionVirtual = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionVirtual) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionVirtual {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionVirtual, v)
+	}
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionVirtual(v)
 	return nil
 }
 
