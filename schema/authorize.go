@@ -6,6 +6,30 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Authorize current WebSocket session to act on behalf of the owner of a given
+// token. Must precede requests that need to access client account, for example
+// purchasing and selling contracts or viewing portfolio.
+type Authorize struct {
+	// [Optional] Send this when you use api tokens for authorization and want to
+	// track activity using `login_history` call.
+	AddToLoginHistory AuthorizeAddToLoginHistory `json:"add_to_login_history,omitempty"`
+
+	// Authentication token. May be retrieved from
+	// https://www.binary.com/en/user/security/api_tokenws.html
+	Authorize string `json:"authorize"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough AuthorizePassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// Additional Authentication tokens of authorized user that may be used in this
+	// session. Upto 10 tokens.
+	Tokens []string `json:"tokens,omitempty"`
+}
+
 type AuthorizeAddToLoginHistory int
 
 var enumValues_AuthorizeAddToLoginHistory = []interface{}{
@@ -33,30 +57,6 @@ func (j *AuthorizeAddToLoginHistory) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Authorize current WebSocket session to act on behalf of the owner of a given
-// token. Must precede requests that need to access client account, for example
-// purchasing and selling contracts or viewing portfolio.
-type Authorize struct {
-	// [Optional] Send this when you use api tokens for authorization and want to
-	// track activity using `login_history` call.
-	AddToLoginHistory AuthorizeAddToLoginHistory `json:"add_to_login_history,omitempty"`
-
-	// Authentication token. May be retrieved from
-	// https://www.binary.com/en/user/security/api_tokenws.html
-	Authorize string `json:"authorize"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough AuthorizePassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// Additional Authentication tokens of authorized user that may be used in this
-	// session. Upto 10 tokens.
-	Tokens []string `json:"tokens,omitempty"`
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type AuthorizePassthrough map[string]interface{}
@@ -67,7 +67,7 @@ func (j *Authorize) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["authorize"]; !ok || v == nil {
+	if _, ok := raw["authorize"]; raw != nil && !ok {
 		return fmt.Errorf("field authorize in Authorize: required")
 	}
 	type Plain Authorize

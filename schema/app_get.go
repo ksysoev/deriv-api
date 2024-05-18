@@ -32,7 +32,7 @@ func (j *AppGet) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["app_get"]; !ok || v == nil {
+	if _, ok := raw["app_get"]; raw != nil && !ok {
 		return fmt.Errorf("field app_get in AppGet: required")
 	}
 	type Plain AppGet

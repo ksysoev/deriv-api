@@ -29,6 +29,30 @@ type PaymentagentListRespMsgType string
 
 const PaymentagentListRespMsgTypePaymentagentList PaymentagentListRespMsgType = "paymentagent_list"
 
+var enumValues_PaymentagentListRespMsgType = []interface{}{
+	"paymentagent_list",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *PaymentagentListRespMsgType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_PaymentagentListRespMsgType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_PaymentagentListRespMsgType, v)
+	}
+	*j = PaymentagentListRespMsgType(v)
+	return nil
+}
+
 // Payment Agent List
 type PaymentagentListRespPaymentagentList struct {
 	// The list of countries in which payment agent is available.
@@ -100,43 +124,43 @@ func (j *PaymentagentListRespPaymentagentListListElem) UnmarshalJSON(b []byte) e
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["currencies"]; !ok || v == nil {
+	if _, ok := raw["currencies"]; raw != nil && !ok {
 		return fmt.Errorf("field currencies in PaymentagentListRespPaymentagentListListElem: required")
 	}
-	if v, ok := raw["deposit_commission"]; !ok || v == nil {
+	if _, ok := raw["deposit_commission"]; raw != nil && !ok {
 		return fmt.Errorf("field deposit_commission in PaymentagentListRespPaymentagentListListElem: required")
 	}
-	if v, ok := raw["email"]; !ok || v == nil {
+	if _, ok := raw["email"]; raw != nil && !ok {
 		return fmt.Errorf("field email in PaymentagentListRespPaymentagentListListElem: required")
 	}
-	if v, ok := raw["further_information"]; !ok || v == nil {
+	if _, ok := raw["further_information"]; raw != nil && !ok {
 		return fmt.Errorf("field further_information in PaymentagentListRespPaymentagentListListElem: required")
 	}
-	if v, ok := raw["max_withdrawal"]; !ok || v == nil {
+	if _, ok := raw["max_withdrawal"]; raw != nil && !ok {
 		return fmt.Errorf("field max_withdrawal in PaymentagentListRespPaymentagentListListElem: required")
 	}
-	if v, ok := raw["min_withdrawal"]; !ok || v == nil {
+	if _, ok := raw["min_withdrawal"]; raw != nil && !ok {
 		return fmt.Errorf("field min_withdrawal in PaymentagentListRespPaymentagentListListElem: required")
 	}
-	if v, ok := raw["name"]; !ok || v == nil {
+	if _, ok := raw["name"]; raw != nil && !ok {
 		return fmt.Errorf("field name in PaymentagentListRespPaymentagentListListElem: required")
 	}
-	if v, ok := raw["paymentagent_loginid"]; !ok || v == nil {
+	if _, ok := raw["paymentagent_loginid"]; raw != nil && !ok {
 		return fmt.Errorf("field paymentagent_loginid in PaymentagentListRespPaymentagentListListElem: required")
 	}
-	if v, ok := raw["phone_numbers"]; !ok || v == nil {
+	if _, ok := raw["phone_numbers"]; raw != nil && !ok {
 		return fmt.Errorf("field phone_numbers in PaymentagentListRespPaymentagentListListElem: required")
 	}
-	if v, ok := raw["summary"]; !ok || v == nil {
+	if _, ok := raw["summary"]; raw != nil && !ok {
 		return fmt.Errorf("field summary in PaymentagentListRespPaymentagentListListElem: required")
 	}
-	if v, ok := raw["supported_payment_methods"]; !ok || v == nil {
+	if _, ok := raw["supported_payment_methods"]; raw != nil && !ok {
 		return fmt.Errorf("field supported_payment_methods in PaymentagentListRespPaymentagentListListElem: required")
 	}
-	if v, ok := raw["urls"]; !ok || v == nil {
+	if _, ok := raw["urls"]; raw != nil && !ok {
 		return fmt.Errorf("field urls in PaymentagentListRespPaymentagentListListElem: required")
 	}
-	if v, ok := raw["withdrawal_commission"]; !ok || v == nil {
+	if _, ok := raw["withdrawal_commission"]; raw != nil && !ok {
 		return fmt.Errorf("field withdrawal_commission in PaymentagentListRespPaymentagentListListElem: required")
 	}
 	type Plain PaymentagentListRespPaymentagentListListElem
@@ -149,32 +173,12 @@ func (j *PaymentagentListRespPaymentagentListListElem) UnmarshalJSON(b []byte) e
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *PaymentagentListRespMsgType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_PaymentagentListRespMsgType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_PaymentagentListRespMsgType, v)
-	}
-	*j = PaymentagentListRespMsgType(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
 func (j *PaymentagentListRespPaymentagentList) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["list"]; !ok || v == nil {
+	if _, ok := raw["list"]; raw != nil && !ok {
 		return fmt.Errorf("field list in PaymentagentListRespPaymentagentList: required")
 	}
 	type Plain PaymentagentListRespPaymentagentList
@@ -186,20 +190,16 @@ func (j *PaymentagentListRespPaymentagentList) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-var enumValues_PaymentagentListRespMsgType = []interface{}{
-	"paymentagent_list",
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *PaymentagentListResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in PaymentagentListResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in PaymentagentListResp: required")
 	}
 	type Plain PaymentagentListResp

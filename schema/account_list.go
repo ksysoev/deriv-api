@@ -6,6 +6,19 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Returns all accounts belonging to the authorized user.
+type AccountList struct {
+	// Must be `1`
+	AccountList AccountListAccountList `json:"account_list"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough AccountListPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 type AccountListAccountList int
 
 var enumValues_AccountListAccountList = []interface{}{
@@ -32,19 +45,6 @@ func (j *AccountListAccountList) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Returns all accounts belonging to the authorized user.
-type AccountList struct {
-	// Must be `1`
-	AccountList AccountListAccountList `json:"account_list"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough AccountListPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type AccountListPassthrough map[string]interface{}
@@ -55,7 +55,7 @@ func (j *AccountList) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["account_list"]; !ok || v == nil {
+	if _, ok := raw["account_list"]; raw != nil && !ok {
 		return fmt.Errorf("field account_list in AccountList: required")
 	}
 	type Plain AccountList

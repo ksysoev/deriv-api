@@ -6,63 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-type Mt5PasswordChangeMt5PasswordChange int
-
-var enumValues_Mt5PasswordChangeMt5PasswordChange = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *Mt5PasswordChangeMt5PasswordChange) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_Mt5PasswordChangeMt5PasswordChange {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5PasswordChangeMt5PasswordChange, v)
-	}
-	*j = Mt5PasswordChangeMt5PasswordChange(v)
-	return nil
-}
-
-// [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
-type Mt5PasswordChangePassthrough map[string]interface{}
-
-type Mt5PasswordChangePasswordType string
-
-var enumValues_Mt5PasswordChangePasswordType = []interface{}{
-	"main",
-	"investor",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *Mt5PasswordChangePasswordType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_Mt5PasswordChangePasswordType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5PasswordChangePasswordType, v)
-	}
-	*j = Mt5PasswordChangePasswordType(v)
-	return nil
-}
-
 // To change passwords of the MT5 account.
 type Mt5PasswordChange struct {
 	// MT5 user login
@@ -95,8 +38,65 @@ type Mt5PasswordChange struct {
 	ReqId *int `json:"req_id,omitempty"`
 }
 
+type Mt5PasswordChangeMt5PasswordChange int
+
+var enumValues_Mt5PasswordChangeMt5PasswordChange = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5PasswordChangeMt5PasswordChange) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5PasswordChangeMt5PasswordChange {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5PasswordChangeMt5PasswordChange, v)
+	}
+	*j = Mt5PasswordChangeMt5PasswordChange(v)
+	return nil
+}
+
+// [Optional] Used to pass data through the websocket, which may be retrieved via
+// the `echo_req` output field.
+type Mt5PasswordChangePassthrough map[string]interface{}
+
+type Mt5PasswordChangePasswordType string
+
 const Mt5PasswordChangePasswordTypeInvestor Mt5PasswordChangePasswordType = "investor"
 const Mt5PasswordChangePasswordTypeMain Mt5PasswordChangePasswordType = "main"
+
+var enumValues_Mt5PasswordChangePasswordType = []interface{}{
+	"main",
+	"investor",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5PasswordChangePasswordType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5PasswordChangePasswordType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5PasswordChangePasswordType, v)
+	}
+	*j = Mt5PasswordChangePasswordType(v)
+	return nil
+}
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *Mt5PasswordChange) UnmarshalJSON(b []byte) error {
@@ -104,16 +104,16 @@ func (j *Mt5PasswordChange) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["login"]; !ok || v == nil {
+	if _, ok := raw["login"]; raw != nil && !ok {
 		return fmt.Errorf("field login in Mt5PasswordChange: required")
 	}
-	if v, ok := raw["mt5_password_change"]; !ok || v == nil {
+	if _, ok := raw["mt5_password_change"]; raw != nil && !ok {
 		return fmt.Errorf("field mt5_password_change in Mt5PasswordChange: required")
 	}
-	if v, ok := raw["new_password"]; !ok || v == nil {
+	if _, ok := raw["new_password"]; raw != nil && !ok {
 		return fmt.Errorf("field new_password in Mt5PasswordChange: required")
 	}
-	if v, ok := raw["old_password"]; !ok || v == nil {
+	if _, ok := raw["old_password"]; raw != nil && !ok {
 		return fmt.Errorf("field old_password in Mt5PasswordChange: required")
 	}
 	type Plain Mt5PasswordChange

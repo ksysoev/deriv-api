@@ -52,6 +52,17 @@ const StatementActionTypeTransfer StatementActionType = "transfer"
 const StatementActionTypeVirtualCredit StatementActionType = "virtual_credit"
 const StatementActionTypeWithdrawal StatementActionType = "withdrawal"
 
+var enumValues_StatementActionType = []interface{}{
+	"buy",
+	"sell",
+	"deposit",
+	"withdrawal",
+	"escrow",
+	"adjustment",
+	"virtual_credit",
+	"transfer",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *StatementActionType) UnmarshalJSON(b []byte) error {
 	var v string
@@ -129,24 +140,13 @@ func (j *StatementStatement) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-var enumValues_StatementActionType = []interface{}{
-	"buy",
-	"sell",
-	"deposit",
-	"withdrawal",
-	"escrow",
-	"adjustment",
-	"virtual_credit",
-	"transfer",
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *Statement) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["statement"]; !ok || v == nil {
+	if _, ok := raw["statement"]; raw != nil && !ok {
 		return fmt.Errorf("field statement in Statement: required")
 	}
 	type Plain Statement

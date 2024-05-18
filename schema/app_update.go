@@ -6,40 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
-type AppUpdatePassthrough map[string]interface{}
-
-type AppUpdateScopesElem string
-
-var enumValues_AppUpdateScopesElem = []interface{}{
-	"read",
-	"trade",
-	"trading_information",
-	"payments",
-	"admin",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *AppUpdateScopesElem) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_AppUpdateScopesElem {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AppUpdateScopesElem, v)
-	}
-	*j = AppUpdateScopesElem(v)
-	return nil
-}
-
 // Update a new OAuth application
 type AppUpdate struct {
 	// [Optional] Markup to be added to contract prices (as a percentage of contract
@@ -88,11 +54,45 @@ type AppUpdate struct {
 	VerificationUri *string `json:"verification_uri,omitempty"`
 }
 
+// [Optional] Used to pass data through the websocket, which may be retrieved via
+// the `echo_req` output field.
+type AppUpdatePassthrough map[string]interface{}
+
+type AppUpdateScopesElem string
+
 const AppUpdateScopesElemAdmin AppUpdateScopesElem = "admin"
 const AppUpdateScopesElemPayments AppUpdateScopesElem = "payments"
 const AppUpdateScopesElemRead AppUpdateScopesElem = "read"
 const AppUpdateScopesElemTrade AppUpdateScopesElem = "trade"
 const AppUpdateScopesElemTradingInformation AppUpdateScopesElem = "trading_information"
+
+var enumValues_AppUpdateScopesElem = []interface{}{
+	"read",
+	"trade",
+	"trading_information",
+	"payments",
+	"admin",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *AppUpdateScopesElem) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_AppUpdateScopesElem {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AppUpdateScopesElem, v)
+	}
+	*j = AppUpdateScopesElem(v)
+	return nil
+}
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *AppUpdate) UnmarshalJSON(b []byte) error {
@@ -100,13 +100,13 @@ func (j *AppUpdate) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["app_update"]; !ok || v == nil {
+	if _, ok := raw["app_update"]; raw != nil && !ok {
 		return fmt.Errorf("field app_update in AppUpdate: required")
 	}
-	if v, ok := raw["name"]; !ok || v == nil {
+	if _, ok := raw["name"]; raw != nil && !ok {
 		return fmt.Errorf("field name in AppUpdate: required")
 	}
-	if v, ok := raw["scopes"]; !ok || v == nil {
+	if _, ok := raw["scopes"]; raw != nil && !ok {
 		return fmt.Errorf("field scopes in AppUpdate: required")
 	}
 	type Plain AppUpdate

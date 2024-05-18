@@ -6,10 +6,28 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// MT5 user password check receive
+type Mt5PasswordCheckResp struct {
+	// Echo of the request made.
+	EchoReq Mt5PasswordCheckRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType Mt5PasswordCheckRespMsgType `json:"msg_type"`
+
+	// `1` on success
+	Mt5PasswordCheck *int `json:"mt5_password_check,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // Echo of the request made.
 type Mt5PasswordCheckRespEchoReq map[string]interface{}
 
 type Mt5PasswordCheckRespMsgType string
+
+const Mt5PasswordCheckRespMsgTypeMt5PasswordCheck Mt5PasswordCheckRespMsgType = "mt5_password_check"
 
 var enumValues_Mt5PasswordCheckRespMsgType = []interface{}{
 	"mt5_password_check",
@@ -35,34 +53,16 @@ func (j *Mt5PasswordCheckRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// MT5 user password check receive
-type Mt5PasswordCheckResp struct {
-	// Echo of the request made.
-	EchoReq Mt5PasswordCheckRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType Mt5PasswordCheckRespMsgType `json:"msg_type"`
-
-	// `1` on success
-	Mt5PasswordCheck *int `json:"mt5_password_check,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
-const Mt5PasswordCheckRespMsgTypeMt5PasswordCheck Mt5PasswordCheckRespMsgType = "mt5_password_check"
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *Mt5PasswordCheckResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in Mt5PasswordCheckResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in Mt5PasswordCheckResp: required")
 	}
 	type Plain Mt5PasswordCheckResp

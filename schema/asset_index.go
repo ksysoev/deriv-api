@@ -34,6 +34,30 @@ type AssetIndex struct {
 
 type AssetIndexAssetIndex int
 
+var enumValues_AssetIndexAssetIndex = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *AssetIndexAssetIndex) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_AssetIndexAssetIndex {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AssetIndexAssetIndex, v)
+	}
+	*j = AssetIndexAssetIndex(v)
+	return nil
+}
+
 type AssetIndexLandingCompany string
 
 const AssetIndexLandingCompanyIom AssetIndexLandingCompany = "iom"
@@ -78,29 +102,18 @@ func (j *AssetIndexLandingCompanyShort) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *AssetIndexAssetIndex) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_AssetIndexAssetIndex {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AssetIndexAssetIndex, v)
-	}
-	*j = AssetIndexAssetIndex(v)
-	return nil
-}
-
 const AssetIndexLandingCompanySvg AssetIndexLandingCompany = "svg"
 const AssetIndexLandingCompanyVanuatu AssetIndexLandingCompany = "vanuatu"
 const AssetIndexLandingCompanyVirtual AssetIndexLandingCompany = "virtual"
+
+var enumValues_AssetIndexLandingCompany = []interface{}{
+	"iom",
+	"malta",
+	"maltainvest",
+	"svg",
+	"virtual",
+	"vanuatu",
+}
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *AssetIndexLandingCompany) UnmarshalJSON(b []byte) error {
@@ -126,25 +139,13 @@ func (j *AssetIndexLandingCompany) UnmarshalJSON(b []byte) error {
 // the `echo_req` output field.
 type AssetIndexPassthrough map[string]interface{}
 
-var enumValues_AssetIndexAssetIndex = []interface{}{
-	1,
-}
-var enumValues_AssetIndexLandingCompany = []interface{}{
-	"iom",
-	"malta",
-	"maltainvest",
-	"svg",
-	"virtual",
-	"vanuatu",
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *AssetIndex) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["asset_index"]; !ok || v == nil {
+	if _, ok := raw["asset_index"]; raw != nil && !ok {
 		return fmt.Errorf("field asset_index in AssetIndex: required")
 	}
 	type Plain AssetIndex

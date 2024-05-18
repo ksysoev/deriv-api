@@ -33,6 +33,30 @@ type PaymentagentDetailsRespMsgType string
 
 const PaymentagentDetailsRespMsgTypePaymentagentDetails PaymentagentDetailsRespMsgType = "paymentagent_details"
 
+var enumValues_PaymentagentDetailsRespMsgType = []interface{}{
+	"paymentagent_details",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *PaymentagentDetailsRespMsgType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_PaymentagentDetailsRespMsgType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_PaymentagentDetailsRespMsgType, v)
+	}
+	*j = PaymentagentDetailsRespMsgType(v)
+	return nil
+}
+
 // Used to pass data through the websocket, which may be retrieved via the
 // `echo_req` output field.
 type PaymentagentDetailsRespPassthrough map[string]interface{}
@@ -98,14 +122,32 @@ type PaymentagentDetailsRespPaymentagentDetails struct {
 
 type PaymentagentDetailsRespPaymentagentDetailsCanApply int
 
-type PaymentagentDetailsRespPaymentagentDetailsCodeOfConductApproval int
-
-type PaymentagentDetailsRespPaymentagentDetailsNewlyAuthorized int
-
-type PaymentagentDetailsRespPaymentagentDetailsPhoneNumbersElem struct {
-	// A phone number.
-	PhoneNumber *string `json:"phone_number,omitempty"`
+var enumValues_PaymentagentDetailsRespPaymentagentDetailsCanApply = []interface{}{
+	0,
+	1,
 }
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *PaymentagentDetailsRespPaymentagentDetailsCanApply) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_PaymentagentDetailsRespPaymentagentDetailsCanApply {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_PaymentagentDetailsRespPaymentagentDetailsCanApply, v)
+	}
+	*j = PaymentagentDetailsRespPaymentagentDetailsCanApply(v)
+	return nil
+}
+
+type PaymentagentDetailsRespPaymentagentDetailsCodeOfConductApproval int
 
 var enumValues_PaymentagentDetailsRespPaymentagentDetailsCodeOfConductApproval = []interface{}{
 	0,
@@ -132,25 +174,7 @@ func (j *PaymentagentDetailsRespPaymentagentDetailsCodeOfConductApproval) Unmars
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *PaymentagentDetailsRespPaymentagentDetailsCanApply) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_PaymentagentDetailsRespPaymentagentDetailsCanApply {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_PaymentagentDetailsRespPaymentagentDetailsCanApply, v)
-	}
-	*j = PaymentagentDetailsRespPaymentagentDetailsCanApply(v)
-	return nil
-}
+type PaymentagentDetailsRespPaymentagentDetailsNewlyAuthorized int
 
 var enumValues_PaymentagentDetailsRespPaymentagentDetailsNewlyAuthorized = []interface{}{
 	0,
@@ -177,6 +201,11 @@ func (j *PaymentagentDetailsRespPaymentagentDetailsNewlyAuthorized) UnmarshalJSO
 	return nil
 }
 
+type PaymentagentDetailsRespPaymentagentDetailsPhoneNumbersElem struct {
+	// A phone number.
+	PhoneNumber *string `json:"phone_number,omitempty"`
+}
+
 type PaymentagentDetailsRespPaymentagentDetailsSupportedPaymentMethodsElem struct {
 	// A payment method's name
 	PaymentMethod *string `json:"payment_method,omitempty"`
@@ -187,38 +216,13 @@ type PaymentagentDetailsRespPaymentagentDetailsUrlsElem struct {
 	Url *string `json:"url,omitempty"`
 }
 
-var enumValues_PaymentagentDetailsRespPaymentagentDetailsCanApply = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *PaymentagentDetailsRespMsgType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_PaymentagentDetailsRespMsgType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_PaymentagentDetailsRespMsgType, v)
-	}
-	*j = PaymentagentDetailsRespMsgType(v)
-	return nil
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *PaymentagentDetailsRespPaymentagentDetails) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["can_apply"]; !ok || v == nil {
+	if _, ok := raw["can_apply"]; raw != nil && !ok {
 		return fmt.Errorf("field can_apply in PaymentagentDetailsRespPaymentagentDetails: required")
 	}
 	type Plain PaymentagentDetailsRespPaymentagentDetails
@@ -230,20 +234,16 @@ func (j *PaymentagentDetailsRespPaymentagentDetails) UnmarshalJSON(b []byte) err
 	return nil
 }
 
-var enumValues_PaymentagentDetailsRespMsgType = []interface{}{
-	"paymentagent_details",
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *PaymentagentDetailsResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in PaymentagentDetailsResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in PaymentagentDetailsResp: required")
 	}
 	type Plain PaymentagentDetailsResp

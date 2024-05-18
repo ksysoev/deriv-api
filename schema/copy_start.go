@@ -44,7 +44,7 @@ func (j *CopyStart) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["copy_start"]; !ok || v == nil {
+	if _, ok := raw["copy_start"]; raw != nil && !ok {
 		return fmt.Errorf("field copy_start in CopyStart: required")
 	}
 	type Plain CopyStart

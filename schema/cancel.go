@@ -32,7 +32,7 @@ func (j *Cancel) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["cancel"]; !ok || v == nil {
+	if _, ok := raw["cancel"]; raw != nil && !ok {
 		return fmt.Errorf("field cancel in Cancel: required")
 	}
 	type Plain Cancel

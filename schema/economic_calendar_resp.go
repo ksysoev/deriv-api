@@ -6,6 +6,22 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// A list of economic events.
+type EconomicCalendarResp struct {
+	// Echo of the request made.
+	EchoReq EconomicCalendarRespEchoReq `json:"echo_req"`
+
+	// Economic calendar.
+	EconomicCalendar *EconomicCalendarRespEconomicCalendar `json:"economic_calendar,omitempty"`
+
+	// Action name of the request made.
+	MsgType EconomicCalendarRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // Echo of the request made.
 type EconomicCalendarRespEchoReq map[string]interface{}
 
@@ -58,6 +74,8 @@ type EconomicCalendarRespEconomicCalendarEventsElemPrevious struct {
 
 type EconomicCalendarRespMsgType string
 
+const EconomicCalendarRespMsgTypeEconomicCalendar EconomicCalendarRespMsgType = "economic_calendar"
+
 var enumValues_EconomicCalendarRespMsgType = []interface{}{
 	"economic_calendar",
 }
@@ -82,34 +100,16 @@ func (j *EconomicCalendarRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// A list of economic events.
-type EconomicCalendarResp struct {
-	// Echo of the request made.
-	EchoReq EconomicCalendarRespEchoReq `json:"echo_req"`
-
-	// Economic calendar.
-	EconomicCalendar *EconomicCalendarRespEconomicCalendar `json:"economic_calendar,omitempty"`
-
-	// Action name of the request made.
-	MsgType EconomicCalendarRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
-const EconomicCalendarRespMsgTypeEconomicCalendar EconomicCalendarRespMsgType = "economic_calendar"
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *EconomicCalendarResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in EconomicCalendarResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in EconomicCalendarResp: required")
 	}
 	type Plain EconomicCalendarResp

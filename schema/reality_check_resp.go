@@ -6,10 +6,28 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// This gives summary of client's trades and account for reality check
+type RealityCheckResp struct {
+	// Echo of the request made.
+	EchoReq RealityCheckRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType RealityCheckRespMsgType `json:"msg_type"`
+
+	// Reality check summary of trades.
+	RealityCheck *RealityCheckRespRealityCheck `json:"reality_check,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // Echo of the request made.
 type RealityCheckRespEchoReq map[string]interface{}
 
 type RealityCheckRespMsgType string
+
+const RealityCheckRespMsgTypeRealityCheck RealityCheckRespMsgType = "reality_check"
 
 var enumValues_RealityCheckRespMsgType = []interface{}{
 	"reality_check",
@@ -34,24 +52,6 @@ func (j *RealityCheckRespMsgType) UnmarshalJSON(b []byte) error {
 	*j = RealityCheckRespMsgType(v)
 	return nil
 }
-
-// This gives summary of client's trades and account for reality check
-type RealityCheckResp struct {
-	// Echo of the request made.
-	EchoReq RealityCheckRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType RealityCheckRespMsgType `json:"msg_type"`
-
-	// Reality check summary of trades.
-	RealityCheck *RealityCheckRespRealityCheck `json:"reality_check,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
-const RealityCheckRespMsgTypeRealityCheck RealityCheckRespMsgType = "reality_check"
 
 // Reality check summary of trades.
 type RealityCheckRespRealityCheck struct {
@@ -89,10 +89,10 @@ func (j *RealityCheckResp) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in RealityCheckResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in RealityCheckResp: required")
 	}
 	type Plain RealityCheckResp

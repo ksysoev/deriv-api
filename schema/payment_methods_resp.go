@@ -6,10 +6,29 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// List of available payment methods for a given country.
+type PaymentMethodsResp struct {
+	// Echo of the request made.
+	EchoReq PaymentMethodsRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType PaymentMethodsRespMsgType `json:"msg_type"`
+
+	// Available payment methods for a given country. Note: if a user is logged in,
+	// the residence country will be considered.
+	PaymentMethods []PaymentMethodsRespPaymentMethodsElem `json:"payment_methods,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // Echo of the request made.
 type PaymentMethodsRespEchoReq map[string]interface{}
 
 type PaymentMethodsRespMsgType string
+
+const PaymentMethodsRespMsgTypePaymentMethods PaymentMethodsRespMsgType = "payment_methods"
 
 var enumValues_PaymentMethodsRespMsgType = []interface{}{
 	"payment_methods",
@@ -34,8 +53,6 @@ func (j *PaymentMethodsRespMsgType) UnmarshalJSON(b []byte) error {
 	*j = PaymentMethodsRespMsgType(v)
 	return nil
 }
-
-const PaymentMethodsRespMsgTypePaymentMethods PaymentMethodsRespMsgType = "payment_methods"
 
 // A payment method suported for the given country
 type PaymentMethodsRespPaymentMethodsElem struct {
@@ -91,43 +108,43 @@ func (j *PaymentMethodsRespPaymentMethodsElem) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["deposit_limits"]; !ok || v == nil {
+	if _, ok := raw["deposit_limits"]; raw != nil && !ok {
 		return fmt.Errorf("field deposit_limits in PaymentMethodsRespPaymentMethodsElem: required")
 	}
-	if v, ok := raw["deposit_time"]; !ok || v == nil {
+	if _, ok := raw["deposit_time"]; raw != nil && !ok {
 		return fmt.Errorf("field deposit_time in PaymentMethodsRespPaymentMethodsElem: required")
 	}
-	if v, ok := raw["description"]; !ok || v == nil {
+	if _, ok := raw["description"]; raw != nil && !ok {
 		return fmt.Errorf("field description in PaymentMethodsRespPaymentMethodsElem: required")
 	}
-	if v, ok := raw["display_name"]; !ok || v == nil {
+	if _, ok := raw["display_name"]; raw != nil && !ok {
 		return fmt.Errorf("field display_name in PaymentMethodsRespPaymentMethodsElem: required")
 	}
-	if v, ok := raw["id"]; !ok || v == nil {
+	if _, ok := raw["id"]; raw != nil && !ok {
 		return fmt.Errorf("field id in PaymentMethodsRespPaymentMethodsElem: required")
 	}
-	if v, ok := raw["payment_processor"]; !ok || v == nil {
+	if _, ok := raw["payment_processor"]; raw != nil && !ok {
 		return fmt.Errorf("field payment_processor in PaymentMethodsRespPaymentMethodsElem: required")
 	}
-	if v, ok := raw["predefined_amounts"]; !ok || v == nil {
+	if _, ok := raw["predefined_amounts"]; raw != nil && !ok {
 		return fmt.Errorf("field predefined_amounts in PaymentMethodsRespPaymentMethodsElem: required")
 	}
-	if v, ok := raw["signup_link"]; !ok || v == nil {
+	if _, ok := raw["signup_link"]; raw != nil && !ok {
 		return fmt.Errorf("field signup_link in PaymentMethodsRespPaymentMethodsElem: required")
 	}
-	if v, ok := raw["supported_currencies"]; !ok || v == nil {
+	if _, ok := raw["supported_currencies"]; raw != nil && !ok {
 		return fmt.Errorf("field supported_currencies in PaymentMethodsRespPaymentMethodsElem: required")
 	}
-	if v, ok := raw["type"]; !ok || v == nil {
+	if _, ok := raw["type"]; raw != nil && !ok {
 		return fmt.Errorf("field type in PaymentMethodsRespPaymentMethodsElem: required")
 	}
-	if v, ok := raw["type_display_name"]; !ok || v == nil {
+	if _, ok := raw["type_display_name"]; raw != nil && !ok {
 		return fmt.Errorf("field type_display_name in PaymentMethodsRespPaymentMethodsElem: required")
 	}
-	if v, ok := raw["withdraw_limits"]; !ok || v == nil {
+	if _, ok := raw["withdraw_limits"]; raw != nil && !ok {
 		return fmt.Errorf("field withdraw_limits in PaymentMethodsRespPaymentMethodsElem: required")
 	}
-	if v, ok := raw["withdrawal_time"]; !ok || v == nil {
+	if _, ok := raw["withdrawal_time"]; raw != nil && !ok {
 		return fmt.Errorf("field withdrawal_time in PaymentMethodsRespPaymentMethodsElem: required")
 	}
 	type Plain PaymentMethodsRespPaymentMethodsElem
@@ -139,33 +156,16 @@ func (j *PaymentMethodsRespPaymentMethodsElem) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// List of available payment methods for a given country.
-type PaymentMethodsResp struct {
-	// Echo of the request made.
-	EchoReq PaymentMethodsRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType PaymentMethodsRespMsgType `json:"msg_type"`
-
-	// Available payment methods for a given country. Note: if a user is logged in,
-	// the residence country will be considered.
-	PaymentMethods []PaymentMethodsRespPaymentMethodsElem `json:"payment_methods,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *PaymentMethodsResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in PaymentMethodsResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in PaymentMethodsResp: required")
 	}
 	type Plain PaymentMethodsResp

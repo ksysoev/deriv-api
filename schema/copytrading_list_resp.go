@@ -6,6 +6,31 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Details of copiers and/or traders for Copy Trading
+type CopytradingListResp struct {
+	// The trading information of copiers or traders.
+	CopytradingList *CopytradingListRespCopytradingList `json:"copytrading_list,omitempty"`
+
+	// Echo of the request made.
+	EchoReq CopytradingListRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType CopytradingListRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+// The trading information of copiers or traders.
+type CopytradingListRespCopytradingList struct {
+	// List of users who are currently copy trading the authenticated user
+	Copiers []CopytradingListRespCopytradingListCopiersElem `json:"copiers"`
+
+	// List of traders being followed by the authenticated user
+	Traders []CopytradingListRespCopytradingListTradersElem `json:"traders"`
+}
+
 type CopytradingListRespCopytradingListCopiersElem struct {
 	// The loginid of the copier's account.
 	Loginid string `json:"loginid"`
@@ -17,7 +42,7 @@ func (j *CopytradingListRespCopytradingListCopiersElem) UnmarshalJSON(b []byte) 
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["loginid"]; !ok || v == nil {
+	if _, ok := raw["loginid"]; raw != nil && !ok {
 		return fmt.Errorf("field loginid in CopytradingListRespCopytradingListCopiersElem: required")
 	}
 	type Plain CopytradingListRespCopytradingListCopiersElem
@@ -27,15 +52,6 @@ func (j *CopytradingListRespCopytradingListCopiersElem) UnmarshalJSON(b []byte) 
 	}
 	*j = CopytradingListRespCopytradingListCopiersElem(plain)
 	return nil
-}
-
-// The trading information of copiers or traders.
-type CopytradingListRespCopytradingList struct {
-	// List of users who are currently copy trading the authenticated user
-	Copiers []CopytradingListRespCopytradingListCopiersElem `json:"copiers"`
-
-	// List of traders being followed by the authenticated user
-	Traders []CopytradingListRespCopytradingListTradersElem `json:"traders"`
 }
 
 type CopytradingListRespCopytradingListTradersElem struct {
@@ -64,10 +80,10 @@ func (j *CopytradingListRespCopytradingList) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["copiers"]; !ok || v == nil {
+	if _, ok := raw["copiers"]; raw != nil && !ok {
 		return fmt.Errorf("field copiers in CopytradingListRespCopytradingList: required")
 	}
-	if v, ok := raw["traders"]; !ok || v == nil {
+	if _, ok := raw["traders"]; raw != nil && !ok {
 		return fmt.Errorf("field traders in CopytradingListRespCopytradingList: required")
 	}
 	type Plain CopytradingListRespCopytradingList
@@ -83,6 +99,8 @@ func (j *CopytradingListRespCopytradingList) UnmarshalJSON(b []byte) error {
 type CopytradingListRespEchoReq map[string]interface{}
 
 type CopytradingListRespMsgType string
+
+const CopytradingListRespMsgTypeCopytradingList CopytradingListRespMsgType = "copytrading_list"
 
 var enumValues_CopytradingListRespMsgType = []interface{}{
 	"copytrading_list",
@@ -108,34 +126,16 @@ func (j *CopytradingListRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Details of copiers and/or traders for Copy Trading
-type CopytradingListResp struct {
-	// The trading information of copiers or traders.
-	CopytradingList *CopytradingListRespCopytradingList `json:"copytrading_list,omitempty"`
-
-	// Echo of the request made.
-	EchoReq CopytradingListRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType CopytradingListRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
-const CopytradingListRespMsgTypeCopytradingList CopytradingListRespMsgType = "copytrading_list"
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *CopytradingListResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in CopytradingListResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in CopytradingListResp: required")
 	}
 	type Plain CopytradingListResp

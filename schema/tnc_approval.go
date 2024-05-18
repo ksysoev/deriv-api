@@ -6,6 +6,29 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// To approve the latest version of terms and conditions.
+type TncApproval struct {
+	// [Optional] For Affiliate's Code of Conduct Agreement.
+	AffiliateCocAgreement *TncApprovalAffiliateCocAgreement `json:"affiliate_coc_agreement,omitempty"`
+
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough TncApprovalPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// Must be `1`
+	TncApproval TncApprovalTncApproval `json:"tnc_approval"`
+
+	// [Optional] For `ASK_UK_FUNDS_PROTECTION` in `cashier`.
+	UkgcFundsProtection *TncApprovalUkgcFundsProtection `json:"ukgc_funds_protection,omitempty"`
+}
+
 type TncApprovalAffiliateCocAgreement int
 
 var enumValues_TncApprovalAffiliateCocAgreement = []interface{}{
@@ -88,36 +111,13 @@ func (j *TncApprovalUkgcFundsProtection) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// To approve the latest version of terms and conditions.
-type TncApproval struct {
-	// [Optional] For Affiliate's Code of Conduct Agreement.
-	AffiliateCocAgreement *TncApprovalAffiliateCocAgreement `json:"affiliate_coc_agreement,omitempty"`
-
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough TncApprovalPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// Must be `1`
-	TncApproval TncApprovalTncApproval `json:"tnc_approval"`
-
-	// [Optional] For `ASK_UK_FUNDS_PROTECTION` in `cashier`.
-	UkgcFundsProtection *TncApprovalUkgcFundsProtection `json:"ukgc_funds_protection,omitempty"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TncApproval) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["tnc_approval"]; !ok || v == nil {
+	if _, ok := raw["tnc_approval"]; raw != nil && !ok {
 		return fmt.Errorf("field tnc_approval in TncApproval: required")
 	}
 	type Plain TncApproval

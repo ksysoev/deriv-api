@@ -6,10 +6,34 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Cashier information for the specified type.
+type CashierResp struct {
+	// Possible error codes are:
+	// - `ASK_TNC_APPROVAL`: API call `tnc_approval`
+	// - `ASK_AUTHENTICATE`
+	// - `ASK_UK_FUNDS_PROTECTION`: API call `tnc_approval`
+	// - `ASK_CURRENCY`: API call `set_account_currency`
+	// - `ASK_EMAIL_VERIFY`: API call `verify_email`
+	// - `ASK_FIX_DETAILS`: API call `set_settings`
+	Cashier interface{} `json:"cashier,omitempty"`
+
+	// Echo of the request made.
+	EchoReq CashierRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType CashierRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // Echo of the request made.
 type CashierRespEchoReq map[string]interface{}
 
 type CashierRespMsgType string
+
+const CashierRespMsgTypeCashier CashierRespMsgType = "cashier"
 
 var enumValues_CashierRespMsgType = []interface{}{
 	"cashier",
@@ -35,40 +59,16 @@ func (j *CashierRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Cashier information for the specified type.
-type CashierResp struct {
-	// Possible error codes are:
-	// - `ASK_TNC_APPROVAL`: API call `tnc_approval`
-	// - `ASK_AUTHENTICATE`
-	// - `ASK_UK_FUNDS_PROTECTION`: API call `tnc_approval`
-	// - `ASK_CURRENCY`: API call `set_account_currency`
-	// - `ASK_EMAIL_VERIFY`: API call `verify_email`
-	// - `ASK_FIX_DETAILS`: API call `set_settings`
-	Cashier interface{} `json:"cashier,omitempty"`
-
-	// Echo of the request made.
-	EchoReq CashierRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType CashierRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
-const CashierRespMsgTypeCashier CashierRespMsgType = "cashier"
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *CashierResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in CashierResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in CashierResp: required")
 	}
 	type Plain CashierResp

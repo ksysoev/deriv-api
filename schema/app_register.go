@@ -6,76 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *AppRegisterScopesElem) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_AppRegisterScopesElem {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AppRegisterScopesElem, v)
-	}
-	*j = AppRegisterScopesElem(v)
-	return nil
-}
-
-type AppRegisterScopesElem string
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *AppRegisterAppRegister) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_AppRegisterAppRegister {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AppRegisterAppRegister, v)
-	}
-	*j = AppRegisterAppRegister(v)
-	return nil
-}
-
-// [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
-type AppRegisterPassthrough map[string]interface{}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *AppRegister) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if v, ok := raw["app_register"]; !ok || v == nil {
-		return fmt.Errorf("field app_register in AppRegister: required")
-	}
-	if v, ok := raw["name"]; !ok || v == nil {
-		return fmt.Errorf("field name in AppRegister: required")
-	}
-	if v, ok := raw["scopes"]; !ok || v == nil {
-		return fmt.Errorf("field scopes in AppRegister: required")
-	}
-	type Plain AppRegister
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = AppRegister(plain)
-	return nil
-}
-
 // Register a new OAuth application
 type AppRegister struct {
 	// [Optional] Markup to be added to contract prices (as a percentage of contract
@@ -126,19 +56,90 @@ type AppRegister struct {
 
 type AppRegisterAppRegister int
 
+var enumValues_AppRegisterAppRegister = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *AppRegisterAppRegister) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_AppRegisterAppRegister {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AppRegisterAppRegister, v)
+	}
+	*j = AppRegisterAppRegister(v)
+	return nil
+}
+
+// [Optional] Used to pass data through the websocket, which may be retrieved via
+// the `echo_req` output field.
+type AppRegisterPassthrough map[string]interface{}
+
+type AppRegisterScopesElem string
+
 const AppRegisterScopesElemAdmin AppRegisterScopesElem = "admin"
 const AppRegisterScopesElemPayments AppRegisterScopesElem = "payments"
 const AppRegisterScopesElemRead AppRegisterScopesElem = "read"
 const AppRegisterScopesElemTrade AppRegisterScopesElem = "trade"
 const AppRegisterScopesElemTradingInformation AppRegisterScopesElem = "trading_information"
 
-var enumValues_AppRegisterAppRegister = []interface{}{
-	1,
-}
 var enumValues_AppRegisterScopesElem = []interface{}{
 	"read",
 	"trade",
 	"trading_information",
 	"payments",
 	"admin",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *AppRegisterScopesElem) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_AppRegisterScopesElem {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AppRegisterScopesElem, v)
+	}
+	*j = AppRegisterScopesElem(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *AppRegister) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if _, ok := raw["app_register"]; raw != nil && !ok {
+		return fmt.Errorf("field app_register in AppRegister: required")
+	}
+	if _, ok := raw["name"]; raw != nil && !ok {
+		return fmt.Errorf("field name in AppRegister: required")
+	}
+	if _, ok := raw["scopes"]; raw != nil && !ok {
+		return fmt.Errorf("field scopes in AppRegister: required")
+	}
+	type Plain AppRegister
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = AppRegister(plain)
+	return nil
 }

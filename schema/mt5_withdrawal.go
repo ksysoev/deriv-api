@@ -6,32 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-type Mt5WithdrawalMt5Withdrawal int
-
-var enumValues_Mt5WithdrawalMt5Withdrawal = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *Mt5WithdrawalMt5Withdrawal) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_Mt5WithdrawalMt5Withdrawal {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5WithdrawalMt5Withdrawal, v)
-	}
-	*j = Mt5WithdrawalMt5Withdrawal(v)
-	return nil
-}
-
 // This call allows withdrawal from MT5 account to Binary account.
 type Mt5Withdrawal struct {
 	// Amount to withdraw (in the currency of the MT5 account); min = $1 or an
@@ -59,6 +33,32 @@ type Mt5Withdrawal struct {
 	ToBinary string `json:"to_binary"`
 }
 
+type Mt5WithdrawalMt5Withdrawal int
+
+var enumValues_Mt5WithdrawalMt5Withdrawal = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5WithdrawalMt5Withdrawal) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5WithdrawalMt5Withdrawal {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5WithdrawalMt5Withdrawal, v)
+	}
+	*j = Mt5WithdrawalMt5Withdrawal(v)
+	return nil
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type Mt5WithdrawalPassthrough map[string]interface{}
@@ -69,16 +69,16 @@ func (j *Mt5Withdrawal) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["amount"]; !ok || v == nil {
+	if _, ok := raw["amount"]; raw != nil && !ok {
 		return fmt.Errorf("field amount in Mt5Withdrawal: required")
 	}
-	if v, ok := raw["from_mt5"]; !ok || v == nil {
+	if _, ok := raw["from_mt5"]; raw != nil && !ok {
 		return fmt.Errorf("field from_mt5 in Mt5Withdrawal: required")
 	}
-	if v, ok := raw["mt5_withdrawal"]; !ok || v == nil {
+	if _, ok := raw["mt5_withdrawal"]; raw != nil && !ok {
 		return fmt.Errorf("field mt5_withdrawal in Mt5Withdrawal: required")
 	}
-	if v, ok := raw["to_binary"]; !ok || v == nil {
+	if _, ok := raw["to_binary"]; raw != nil && !ok {
 		return fmt.Errorf("field to_binary in Mt5Withdrawal: required")
 	}
 	type Plain Mt5Withdrawal

@@ -29,6 +29,30 @@ type P2POrderReviewRespMsgType string
 
 const P2POrderReviewRespMsgTypeP2POrderReview P2POrderReviewRespMsgType = "p2p_order_review"
 
+var enumValues_P2POrderReviewRespMsgType = []interface{}{
+	"p2p_order_review",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2POrderReviewRespMsgType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2POrderReviewRespMsgType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderReviewRespMsgType, v)
+	}
+	*j = P2POrderReviewRespMsgType(v)
+	return nil
+}
+
 // Details of the created order review.
 type P2POrderReviewRespP2POrderReview struct {
 	// The reviewed advertiser's identification number.
@@ -51,15 +75,15 @@ type P2POrderReviewRespP2POrderReviewRecommended struct {
 	Value interface{}
 }
 
+// MarshalJSON implements json.Marshaler.
+func (j *P2POrderReviewRespP2POrderReviewRecommended) MarshalJSON() ([]byte, error) {
+	return json.Marshal(j.Value)
+}
+
 var enumValues_P2POrderReviewRespP2POrderReviewRecommended = []interface{}{
 	nil,
 	0.0,
 	1.0,
-}
-
-// MarshalJSON implements json.Marshaler.
-func (j *P2POrderReviewRespP2POrderReviewRecommended) MarshalJSON() ([]byte, error) {
-	return json.Marshal(j.Value)
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -85,44 +109,24 @@ func (j *P2POrderReviewRespP2POrderReviewRecommended) UnmarshalJSON(b []byte) er
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *P2POrderReviewRespMsgType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2POrderReviewRespMsgType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderReviewRespMsgType, v)
-	}
-	*j = P2POrderReviewRespMsgType(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
 func (j *P2POrderReviewRespP2POrderReview) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["advertiser_id"]; !ok || v == nil {
+	if _, ok := raw["advertiser_id"]; raw != nil && !ok {
 		return fmt.Errorf("field advertiser_id in P2POrderReviewRespP2POrderReview: required")
 	}
-	if v, ok := raw["created_time"]; !ok || v == nil {
+	if _, ok := raw["created_time"]; raw != nil && !ok {
 		return fmt.Errorf("field created_time in P2POrderReviewRespP2POrderReview: required")
 	}
-	if v, ok := raw["order_id"]; !ok || v == nil {
+	if _, ok := raw["order_id"]; raw != nil && !ok {
 		return fmt.Errorf("field order_id in P2POrderReviewRespP2POrderReview: required")
 	}
-	if v, ok := raw["rating"]; !ok || v == nil {
+	if _, ok := raw["rating"]; raw != nil && !ok {
 		return fmt.Errorf("field rating in P2POrderReviewRespP2POrderReview: required")
 	}
-	if v, ok := raw["recommended"]; !ok || v == nil {
+	if _, ok := raw["recommended"]; raw != nil && !ok {
 		return fmt.Errorf("field recommended in P2POrderReviewRespP2POrderReview: required")
 	}
 	type Plain P2POrderReviewRespP2POrderReview
@@ -134,20 +138,16 @@ func (j *P2POrderReviewRespP2POrderReview) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-var enumValues_P2POrderReviewRespMsgType = []interface{}{
-	"p2p_order_review",
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2POrderReviewResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in P2POrderReviewResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in P2POrderReviewResp: required")
 	}
 	type Plain P2POrderReviewResp

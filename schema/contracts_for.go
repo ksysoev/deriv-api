@@ -55,7 +55,15 @@ const ContractsForLandingCompanyShortMaltainvest ContractsForLandingCompanyShort
 const ContractsForLandingCompanyShortSvg ContractsForLandingCompanyShort = "svg"
 const ContractsForLandingCompanyShortVanuatu ContractsForLandingCompanyShort = "vanuatu"
 const ContractsForLandingCompanyShortVirtual ContractsForLandingCompanyShort = "virtual"
-const ContractsForLandingCompanySvg ContractsForLandingCompany = "svg"
+
+var enumValues_ContractsForLandingCompanyShort = []interface{}{
+	"iom",
+	"malta",
+	"maltainvest",
+	"svg",
+	"virtual",
+	"vanuatu",
+}
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ContractsForLandingCompanyShort) UnmarshalJSON(b []byte) error {
@@ -77,10 +85,11 @@ func (j *ContractsForLandingCompanyShort) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+const ContractsForLandingCompanySvg ContractsForLandingCompany = "svg"
 const ContractsForLandingCompanyVanuatu ContractsForLandingCompany = "vanuatu"
 const ContractsForLandingCompanyVirtual ContractsForLandingCompany = "virtual"
 
-var enumValues_ContractsForLandingCompanyShort = []interface{}{
+var enumValues_ContractsForLandingCompany = []interface{}{
 	"iom",
 	"malta",
 	"maltainvest",
@@ -115,6 +124,8 @@ type ContractsForPassthrough map[string]interface{}
 
 type ContractsForProductType string
 
+const ContractsForProductTypeBasic ContractsForProductType = "basic"
+
 var enumValues_ContractsForProductType = []interface{}{
 	"basic",
 }
@@ -139,24 +150,13 @@ func (j *ContractsForProductType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-const ContractsForProductTypeBasic ContractsForProductType = "basic"
-
-var enumValues_ContractsForLandingCompany = []interface{}{
-	"iom",
-	"malta",
-	"maltainvest",
-	"svg",
-	"virtual",
-	"vanuatu",
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ContractsFor) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["contracts_for"]; !ok || v == nil {
+	if _, ok := raw["contracts_for"]; raw != nil && !ok {
 		return fmt.Errorf("field contracts_for in ContractsFor: required")
 	}
 	type Plain ContractsFor

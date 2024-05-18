@@ -6,10 +6,28 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// List all P2P payment methods.
+type P2PPaymentMethodsResp struct {
+	// Echo of the request made.
+	EchoReq P2PPaymentMethodsRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType P2PPaymentMethodsRespMsgType `json:"msg_type"`
+
+	// Payment methods keyed by identifier.
+	P2PPaymentMethods P2PPaymentMethodsRespP2PPaymentMethods `json:"p2p_payment_methods,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // Echo of the request made.
 type P2PPaymentMethodsRespEchoReq map[string]interface{}
 
 type P2PPaymentMethodsRespMsgType string
+
+const P2PPaymentMethodsRespMsgTypeP2PPaymentMethods P2PPaymentMethodsRespMsgType = "p2p_payment_methods"
 
 var enumValues_P2PPaymentMethodsRespMsgType = []interface{}{
 	"p2p_payment_methods",
@@ -35,24 +53,6 @@ func (j *P2PPaymentMethodsRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// List all P2P payment methods.
-type P2PPaymentMethodsResp struct {
-	// Echo of the request made.
-	EchoReq P2PPaymentMethodsRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType P2PPaymentMethodsRespMsgType `json:"msg_type"`
-
-	// Payment methods keyed by identifier.
-	P2PPaymentMethods P2PPaymentMethodsRespP2PPaymentMethods `json:"p2p_payment_methods,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
-const P2PPaymentMethodsRespMsgTypeP2PPaymentMethods P2PPaymentMethodsRespMsgType = "p2p_payment_methods"
-
 // Payment methods keyed by identifier.
 type P2PPaymentMethodsRespP2PPaymentMethods map[string]interface{}
 
@@ -62,10 +62,10 @@ func (j *P2PPaymentMethodsResp) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in P2PPaymentMethodsResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in P2PPaymentMethodsResp: required")
 	}
 	type Plain P2PPaymentMethodsResp

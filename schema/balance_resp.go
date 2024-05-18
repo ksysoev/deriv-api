@@ -83,6 +83,48 @@ type BalanceRespBalanceTotalDerivDemo struct {
 	Currency string `json:"currency"`
 }
 
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *BalanceRespBalanceTotalDerivDemo) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if _, ok := raw["amount"]; raw != nil && !ok {
+		return fmt.Errorf("field amount in BalanceRespBalanceTotalDerivDemo: required")
+	}
+	if _, ok := raw["currency"]; raw != nil && !ok {
+		return fmt.Errorf("field currency in BalanceRespBalanceTotalDerivDemo: required")
+	}
+	type Plain BalanceRespBalanceTotalDerivDemo
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = BalanceRespBalanceTotalDerivDemo(plain)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *BalanceRespBalanceTotalDeriv) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if _, ok := raw["amount"]; raw != nil && !ok {
+		return fmt.Errorf("field amount in BalanceRespBalanceTotalDeriv: required")
+	}
+	if _, ok := raw["currency"]; raw != nil && !ok {
+		return fmt.Errorf("field currency in BalanceRespBalanceTotalDeriv: required")
+	}
+	type Plain BalanceRespBalanceTotalDeriv
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = BalanceRespBalanceTotalDeriv(plain)
+	return nil
+}
+
 // Total balance of all MT5 real money accounts.
 type BalanceRespBalanceTotalMt5 struct {
 	// Total balance of all MT5 accounts
@@ -101,53 +143,24 @@ type BalanceRespBalanceTotalMt5Demo struct {
 	Currency string `json:"currency"`
 }
 
-// Echo of the request made.
-type BalanceRespEchoReq map[string]interface{}
-
-type BalanceRespMsgType string
-
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *BalanceRespBalanceTotalDerivDemo) UnmarshalJSON(b []byte) error {
+func (j *BalanceRespBalanceTotalMt5Demo) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["amount"]; !ok || v == nil {
-		return fmt.Errorf("field amount in BalanceRespBalanceTotalDerivDemo: required")
+	if _, ok := raw["amount"]; raw != nil && !ok {
+		return fmt.Errorf("field amount in BalanceRespBalanceTotalMt5Demo: required")
 	}
-	if v, ok := raw["currency"]; !ok || v == nil {
-		return fmt.Errorf("field currency in BalanceRespBalanceTotalDerivDemo: required")
+	if _, ok := raw["currency"]; raw != nil && !ok {
+		return fmt.Errorf("field currency in BalanceRespBalanceTotalMt5Demo: required")
 	}
-	type Plain BalanceRespBalanceTotalDerivDemo
+	type Plain BalanceRespBalanceTotalMt5Demo
 	var plain Plain
 	if err := json.Unmarshal(b, &plain); err != nil {
 		return err
 	}
-	*j = BalanceRespBalanceTotalDerivDemo(plain)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *BalanceRespBalance) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if v, ok := raw["balance"]; !ok || v == nil {
-		return fmt.Errorf("field balance in BalanceRespBalance: required")
-	}
-	if v, ok := raw["currency"]; !ok || v == nil {
-		return fmt.Errorf("field currency in BalanceRespBalance: required")
-	}
-	if v, ok := raw["loginid"]; !ok || v == nil {
-		return fmt.Errorf("field loginid in BalanceRespBalance: required")
-	}
-	type Plain BalanceRespBalance
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = BalanceRespBalance(plain)
+	*j = BalanceRespBalanceTotalMt5Demo(plain)
 	return nil
 }
 
@@ -157,10 +170,10 @@ func (j *BalanceRespBalanceTotalMt5) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["amount"]; !ok || v == nil {
+	if _, ok := raw["amount"]; raw != nil && !ok {
 		return fmt.Errorf("field amount in BalanceRespBalanceTotalMt5: required")
 	}
-	if v, ok := raw["currency"]; !ok || v == nil {
+	if _, ok := raw["currency"]; raw != nil && !ok {
 		return fmt.Errorf("field currency in BalanceRespBalanceTotalMt5: required")
 	}
 	type Plain BalanceRespBalanceTotalMt5
@@ -173,25 +186,35 @@ func (j *BalanceRespBalanceTotalMt5) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *BalanceRespBalanceTotalMt5Demo) UnmarshalJSON(b []byte) error {
+func (j *BalanceRespBalance) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["amount"]; !ok || v == nil {
-		return fmt.Errorf("field amount in BalanceRespBalanceTotalMt5Demo: required")
+	if _, ok := raw["balance"]; raw != nil && !ok {
+		return fmt.Errorf("field balance in BalanceRespBalance: required")
 	}
-	if v, ok := raw["currency"]; !ok || v == nil {
-		return fmt.Errorf("field currency in BalanceRespBalanceTotalMt5Demo: required")
+	if _, ok := raw["currency"]; raw != nil && !ok {
+		return fmt.Errorf("field currency in BalanceRespBalance: required")
 	}
-	type Plain BalanceRespBalanceTotalMt5Demo
+	if _, ok := raw["loginid"]; raw != nil && !ok {
+		return fmt.Errorf("field loginid in BalanceRespBalance: required")
+	}
+	type Plain BalanceRespBalance
 	var plain Plain
 	if err := json.Unmarshal(b, &plain); err != nil {
 		return err
 	}
-	*j = BalanceRespBalanceTotalMt5Demo(plain)
+	*j = BalanceRespBalance(plain)
 	return nil
 }
+
+// Echo of the request made.
+type BalanceRespEchoReq map[string]interface{}
+
+type BalanceRespMsgType string
+
+const BalanceRespMsgTypeBalance BalanceRespMsgType = "balance"
 
 var enumValues_BalanceRespMsgType = []interface{}{
 	"balance",
@@ -217,8 +240,6 @@ func (j *BalanceRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-const BalanceRespMsgTypeBalance BalanceRespMsgType = "balance"
-
 // For subscription requests only.
 type BalanceRespSubscription struct {
 	// A per-connection unique identifier. Can be passed to the `forget` API call to
@@ -232,7 +253,7 @@ func (j *BalanceRespSubscription) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["id"]; !ok || v == nil {
+	if _, ok := raw["id"]; raw != nil && !ok {
 		return fmt.Errorf("field id in BalanceRespSubscription: required")
 	}
 	type Plain BalanceRespSubscription
@@ -245,36 +266,15 @@ func (j *BalanceRespSubscription) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *BalanceRespBalanceTotalDeriv) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if v, ok := raw["amount"]; !ok || v == nil {
-		return fmt.Errorf("field amount in BalanceRespBalanceTotalDeriv: required")
-	}
-	if v, ok := raw["currency"]; !ok || v == nil {
-		return fmt.Errorf("field currency in BalanceRespBalanceTotalDeriv: required")
-	}
-	type Plain BalanceRespBalanceTotalDeriv
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = BalanceRespBalanceTotalDeriv(plain)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
 func (j *BalanceResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in BalanceResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in BalanceResp: required")
 	}
 	type Plain BalanceResp

@@ -48,6 +48,19 @@ const VerifyEmailTypeTradingPlatformDxtradePasswordReset VerifyEmailType = "trad
 const VerifyEmailTypeTradingPlatformInvestorPasswordReset VerifyEmailType = "trading_platform_investor_password_reset"
 const VerifyEmailTypeTradingPlatformMt5PasswordReset VerifyEmailType = "trading_platform_mt5_password_reset"
 
+var enumValues_VerifyEmailType = []interface{}{
+	"partner_account_opening",
+	"account_opening",
+	"account_verification",
+	"reset_password",
+	"paymentagent_withdraw",
+	"payment_withdraw",
+	"trading_platform_dxtrade_password_reset",
+	"trading_platform_mt5_password_reset",
+	"trading_platform_investor_password_reset",
+	"request_email",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *VerifyEmailType) UnmarshalJSON(b []byte) error {
 	var v string
@@ -65,33 +78,6 @@ func (j *VerifyEmailType) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_VerifyEmailType, v)
 	}
 	*j = VerifyEmailType(v)
-	return nil
-}
-
-type VerifyEmailUrlParametersSignupDevice string
-
-var enumValues_VerifyEmailUrlParametersSignupDevice = []interface{}{
-	"desktop",
-	"mobile",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *VerifyEmailUrlParametersSignupDevice) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_VerifyEmailUrlParametersSignupDevice {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_VerifyEmailUrlParametersSignupDevice, v)
-	}
-	*j = VerifyEmailUrlParametersSignupDevice(v)
 	return nil
 }
 
@@ -177,20 +163,34 @@ type VerifyEmailUrlParameters struct {
 	UtmTerm interface{} `json:"utm_term,omitempty"`
 }
 
+type VerifyEmailUrlParametersSignupDevice string
+
 const VerifyEmailUrlParametersSignupDeviceDesktop VerifyEmailUrlParametersSignupDevice = "desktop"
 const VerifyEmailUrlParametersSignupDeviceMobile VerifyEmailUrlParametersSignupDevice = "mobile"
 
-var enumValues_VerifyEmailType = []interface{}{
-	"partner_account_opening",
-	"account_opening",
-	"account_verification",
-	"reset_password",
-	"paymentagent_withdraw",
-	"payment_withdraw",
-	"trading_platform_dxtrade_password_reset",
-	"trading_platform_mt5_password_reset",
-	"trading_platform_investor_password_reset",
-	"request_email",
+var enumValues_VerifyEmailUrlParametersSignupDevice = []interface{}{
+	"desktop",
+	"mobile",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *VerifyEmailUrlParametersSignupDevice) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_VerifyEmailUrlParametersSignupDevice {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_VerifyEmailUrlParametersSignupDevice, v)
+	}
+	*j = VerifyEmailUrlParametersSignupDevice(v)
+	return nil
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -199,10 +199,10 @@ func (j *VerifyEmail) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["type"]; !ok || v == nil {
+	if _, ok := raw["type"]; raw != nil && !ok {
 		return fmt.Errorf("field type in VerifyEmail: required")
 	}
-	if v, ok := raw["verify_email"]; !ok || v == nil {
+	if _, ok := raw["verify_email"]; raw != nil && !ok {
 		return fmt.Errorf("field verify_email in VerifyEmail: required")
 	}
 	type Plain VerifyEmail

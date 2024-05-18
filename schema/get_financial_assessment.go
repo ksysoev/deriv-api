@@ -6,6 +6,25 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// This call gets the financial assessment details. The 'financial assessment' is a
+// questionnaire that clients of certain Landing Companies need to complete, due to
+// regulatory and KYC (know your client) requirements.
+type GetFinancialAssessment struct {
+	// Must be `1`
+	GetFinancialAssessment GetFinancialAssessmentGetFinancialAssessment `json:"get_financial_assessment"`
+
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough GetFinancialAssessmentPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 type GetFinancialAssessmentGetFinancialAssessment int
 
 var enumValues_GetFinancialAssessmentGetFinancialAssessment = []interface{}{
@@ -32,25 +51,6 @@ func (j *GetFinancialAssessmentGetFinancialAssessment) UnmarshalJSON(b []byte) e
 	return nil
 }
 
-// This call gets the financial assessment details. The 'financial assessment' is a
-// questionnaire that clients of certain Landing Companies need to complete, due to
-// regulatory and KYC (know your client) requirements.
-type GetFinancialAssessment struct {
-	// Must be `1`
-	GetFinancialAssessment GetFinancialAssessmentGetFinancialAssessment `json:"get_financial_assessment"`
-
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough GetFinancialAssessmentPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type GetFinancialAssessmentPassthrough map[string]interface{}
@@ -61,7 +61,7 @@ func (j *GetFinancialAssessment) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["get_financial_assessment"]; !ok || v == nil {
+	if _, ok := raw["get_financial_assessment"]; raw != nil && !ok {
 		return fmt.Errorf("field get_financial_assessment in GetFinancialAssessment: required")
 	}
 	type Plain GetFinancialAssessment

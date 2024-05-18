@@ -6,6 +6,32 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// This call validates the main password for the MT5 user
+type Mt5PasswordCheck struct {
+	// MT5 user login
+	Login string `json:"login"`
+
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// Must be `1`
+	Mt5PasswordCheck Mt5PasswordCheckMt5PasswordCheck `json:"mt5_password_check"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough Mt5PasswordCheckPassthrough `json:"passthrough,omitempty"`
+
+	// The password of the account.
+	Password string `json:"password"`
+
+	// [Optional] Type of the password to check.
+	PasswordType Mt5PasswordCheckPasswordType `json:"password_type,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 type Mt5PasswordCheckMt5PasswordCheck int
 
 var enumValues_Mt5PasswordCheckMt5PasswordCheck = []interface{}{
@@ -38,6 +64,9 @@ type Mt5PasswordCheckPassthrough map[string]interface{}
 
 type Mt5PasswordCheckPasswordType string
 
+const Mt5PasswordCheckPasswordTypeInvestor Mt5PasswordCheckPasswordType = "investor"
+const Mt5PasswordCheckPasswordTypeMain Mt5PasswordCheckPasswordType = "main"
+
 var enumValues_Mt5PasswordCheckPasswordType = []interface{}{
 	"main",
 	"investor",
@@ -63,48 +92,19 @@ func (j *Mt5PasswordCheckPasswordType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// This call validates the main password for the MT5 user
-type Mt5PasswordCheck struct {
-	// MT5 user login
-	Login string `json:"login"`
-
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// Must be `1`
-	Mt5PasswordCheck Mt5PasswordCheckMt5PasswordCheck `json:"mt5_password_check"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough Mt5PasswordCheckPassthrough `json:"passthrough,omitempty"`
-
-	// The password of the account.
-	Password string `json:"password"`
-
-	// [Optional] Type of the password to check.
-	PasswordType Mt5PasswordCheckPasswordType `json:"password_type,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
-const Mt5PasswordCheckPasswordTypeInvestor Mt5PasswordCheckPasswordType = "investor"
-const Mt5PasswordCheckPasswordTypeMain Mt5PasswordCheckPasswordType = "main"
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *Mt5PasswordCheck) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["login"]; !ok || v == nil {
+	if _, ok := raw["login"]; raw != nil && !ok {
 		return fmt.Errorf("field login in Mt5PasswordCheck: required")
 	}
-	if v, ok := raw["mt5_password_check"]; !ok || v == nil {
+	if _, ok := raw["mt5_password_check"]; raw != nil && !ok {
 		return fmt.Errorf("field mt5_password_check in Mt5PasswordCheck: required")
 	}
-	if v, ok := raw["password"]; !ok || v == nil {
+	if _, ok := raw["password"]; raw != nil && !ok {
 		return fmt.Errorf("field password in Mt5PasswordCheck: required")
 	}
 	type Plain Mt5PasswordCheck

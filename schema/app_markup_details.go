@@ -54,42 +54,8 @@ type AppMarkupDetails struct {
 
 type AppMarkupDetailsAppMarkupDetails int
 
-type AppMarkupDetailsDescription int
-
-// [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
-type AppMarkupDetailsPassthrough map[string]interface{}
-
-type AppMarkupDetailsSort string
-
-const AppMarkupDetailsSortASC AppMarkupDetailsSort = "ASC"
-const AppMarkupDetailsSortDESC AppMarkupDetailsSort = "DESC"
-
-type AppMarkupDetailsSortFieldsElem string
-
-var enumValues_AppMarkupDetailsSort = []interface{}{
-	"ASC",
-	"DESC",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *AppMarkupDetailsSort) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_AppMarkupDetailsSort {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AppMarkupDetailsSort, v)
-	}
-	*j = AppMarkupDetailsSort(v)
-	return nil
+var enumValues_AppMarkupDetailsAppMarkupDetails = []interface{}{
+	1,
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -111,6 +77,8 @@ func (j *AppMarkupDetailsAppMarkupDetails) UnmarshalJSON(b []byte) error {
 	*j = AppMarkupDetailsAppMarkupDetails(v)
 	return nil
 }
+
+type AppMarkupDetailsDescription int
 
 var enumValues_AppMarkupDetailsDescription = []interface{}{
 	0,
@@ -136,6 +104,21 @@ func (j *AppMarkupDetailsDescription) UnmarshalJSON(b []byte) error {
 	*j = AppMarkupDetailsDescription(v)
 	return nil
 }
+
+// [Optional] Used to pass data through the websocket, which may be retrieved via
+// the `echo_req` output field.
+type AppMarkupDetailsPassthrough map[string]interface{}
+
+type AppMarkupDetailsSort string
+
+const AppMarkupDetailsSortASC AppMarkupDetailsSort = "ASC"
+const AppMarkupDetailsSortDESC AppMarkupDetailsSort = "DESC"
+
+type AppMarkupDetailsSortFieldsElem string
+
+const AppMarkupDetailsSortFieldsElemAppId AppMarkupDetailsSortFieldsElem = "app_id"
+const AppMarkupDetailsSortFieldsElemClientLoginid AppMarkupDetailsSortFieldsElem = "client_loginid"
+const AppMarkupDetailsSortFieldsElemTransactionTime AppMarkupDetailsSortFieldsElem = "transaction_time"
 
 var enumValues_AppMarkupDetailsSortFieldsElem = []interface{}{
 	"app_id",
@@ -163,12 +146,29 @@ func (j *AppMarkupDetailsSortFieldsElem) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-const AppMarkupDetailsSortFieldsElemAppId AppMarkupDetailsSortFieldsElem = "app_id"
-const AppMarkupDetailsSortFieldsElemClientLoginid AppMarkupDetailsSortFieldsElem = "client_loginid"
-const AppMarkupDetailsSortFieldsElemTransactionTime AppMarkupDetailsSortFieldsElem = "transaction_time"
+var enumValues_AppMarkupDetailsSort = []interface{}{
+	"ASC",
+	"DESC",
+}
 
-var enumValues_AppMarkupDetailsAppMarkupDetails = []interface{}{
-	1,
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *AppMarkupDetailsSort) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_AppMarkupDetailsSort {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AppMarkupDetailsSort, v)
+	}
+	*j = AppMarkupDetailsSort(v)
+	return nil
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -177,13 +177,13 @@ func (j *AppMarkupDetails) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["app_markup_details"]; !ok || v == nil {
+	if _, ok := raw["app_markup_details"]; raw != nil && !ok {
 		return fmt.Errorf("field app_markup_details in AppMarkupDetails: required")
 	}
-	if v, ok := raw["date_from"]; !ok || v == nil {
+	if _, ok := raw["date_from"]; raw != nil && !ok {
 		return fmt.Errorf("field date_from in AppMarkupDetails: required")
 	}
-	if v, ok := raw["date_to"]; !ok || v == nil {
+	if _, ok := raw["date_to"]; raw != nil && !ok {
 		return fmt.Errorf("field date_to in AppMarkupDetails: required")
 	}
 	type Plain AppMarkupDetails

@@ -6,6 +6,22 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Per transaction reporting of app_markup
+type AppMarkupDetailsResp struct {
+	// App Markup transaction details
+	AppMarkupDetails *AppMarkupDetailsRespAppMarkupDetails `json:"app_markup_details,omitempty"`
+
+	// Echo of the request made.
+	EchoReq AppMarkupDetailsRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType AppMarkupDetailsRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // App Markup transaction details
 type AppMarkupDetailsRespAppMarkupDetails struct {
 	// Array of returned transactions
@@ -50,6 +66,8 @@ type AppMarkupDetailsRespEchoReq map[string]interface{}
 
 type AppMarkupDetailsRespMsgType string
 
+const AppMarkupDetailsRespMsgTypeAppMarkupDetails AppMarkupDetailsRespMsgType = "app_markup_details"
+
 var enumValues_AppMarkupDetailsRespMsgType = []interface{}{
 	"app_markup_details",
 }
@@ -74,34 +92,16 @@ func (j *AppMarkupDetailsRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Per transaction reporting of app_markup
-type AppMarkupDetailsResp struct {
-	// App Markup transaction details
-	AppMarkupDetails *AppMarkupDetailsRespAppMarkupDetails `json:"app_markup_details,omitempty"`
-
-	// Echo of the request made.
-	EchoReq AppMarkupDetailsRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType AppMarkupDetailsRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
-const AppMarkupDetailsRespMsgTypeAppMarkupDetails AppMarkupDetailsRespMsgType = "app_markup_details"
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *AppMarkupDetailsResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in AppMarkupDetailsResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in AppMarkupDetailsResp: required")
 	}
 	type Plain AppMarkupDetailsResp

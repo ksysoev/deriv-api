@@ -38,7 +38,7 @@ func (j *PaymentagentList) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["paymentagent_list"]; !ok || v == nil {
+	if _, ok := raw["paymentagent_list"]; raw != nil && !ok {
 		return fmt.Errorf("field paymentagent_list in PaymentagentList: required")
 	}
 	type Plain PaymentagentList
