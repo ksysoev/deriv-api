@@ -6,28 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Verify Email Receive
-type VerifyEmailResp struct {
-	// Echo of the request made.
-	EchoReq VerifyEmailRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType VerifyEmailRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// 1 for success (secure code has been sent to the email address)
-	VerifyEmail *VerifyEmailRespVerifyEmail `json:"verify_email,omitempty"`
-}
-
 // Echo of the request made.
 type VerifyEmailRespEchoReq map[string]interface{}
 
 type VerifyEmailRespMsgType string
-
-const VerifyEmailRespMsgTypeVerifyEmail VerifyEmailRespMsgType = "verify_email"
 
 var enumValues_VerifyEmailRespMsgType = []interface{}{
 	"verify_email",
@@ -52,6 +34,8 @@ func (j *VerifyEmailRespMsgType) UnmarshalJSON(b []byte) error {
 	*j = VerifyEmailRespMsgType(v)
 	return nil
 }
+
+const VerifyEmailRespMsgTypeVerifyEmail VerifyEmailRespMsgType = "verify_email"
 
 type VerifyEmailRespVerifyEmail int
 
@@ -80,16 +64,32 @@ func (j *VerifyEmailRespVerifyEmail) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Verify Email Receive
+type VerifyEmailResp struct {
+	// Echo of the request made.
+	EchoReq VerifyEmailRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType VerifyEmailRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// 1 for success (secure code has been sent to the email address)
+	VerifyEmail *VerifyEmailRespVerifyEmail `json:"verify_email,omitempty"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *VerifyEmailResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in VerifyEmailResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in VerifyEmailResp: required")
 	}
 	type Plain VerifyEmailResp

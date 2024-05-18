@@ -6,26 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Retrieve summary of client's trades and account for the Reality Check facility.
-// A 'reality check' means a display of time elapsed since the session began, and
-// associated client profit/loss. The Reality Check facility is a regulatory
-// requirement for certain landing companies.
-type RealityCheck struct {
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough RealityCheckPassthrough `json:"passthrough,omitempty"`
-
-	// Must be `1`
-	RealityCheck RealityCheckRealityCheck `json:"reality_check"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type RealityCheckPassthrough map[string]interface{}
@@ -56,13 +36,33 @@ func (j *RealityCheckRealityCheck) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Retrieve summary of client's trades and account for the Reality Check facility.
+// A 'reality check' means a display of time elapsed since the session began, and
+// associated client profit/loss. The Reality Check facility is a regulatory
+// requirement for certain landing companies.
+type RealityCheck struct {
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough RealityCheckPassthrough `json:"passthrough,omitempty"`
+
+	// Must be `1`
+	RealityCheck RealityCheckRealityCheck `json:"reality_check"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *RealityCheck) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["reality_check"]; raw != nil && !ok {
+	if v, ok := raw["reality_check"]; !ok || v == nil {
 		return fmt.Errorf("field reality_check in RealityCheck: required")
 	}
 	type Plain RealityCheck

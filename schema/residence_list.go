@@ -6,20 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// This call returns a list of countries and 2-letter country codes, suitable for
-// populating the account opening form.
-type ResidenceList struct {
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough ResidenceListPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// Must be `1`
-	ResidenceList ResidenceListResidenceList `json:"residence_list"`
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type ResidenceListPassthrough map[string]interface{}
@@ -50,13 +36,27 @@ func (j *ResidenceListResidenceList) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// This call returns a list of countries and 2-letter country codes, suitable for
+// populating the account opening form.
+type ResidenceList struct {
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough ResidenceListPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// Must be `1`
+	ResidenceList ResidenceListResidenceList `json:"residence_list"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ResidenceList) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["residence_list"]; raw != nil && !ok {
+	if v, ok := raw["residence_list"]; !ok || v == nil {
 		return fmt.Errorf("field residence_list in ResidenceList: required")
 	}
 	type Plain ResidenceList

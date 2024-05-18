@@ -6,28 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Retrieve advertisers has/had trade with the current advertiser.
-type P2PAdvertiserListResp struct {
-	// Echo of the request made.
-	EchoReq P2PAdvertiserListRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType P2PAdvertiserListRespMsgType `json:"msg_type"`
-
-	// P2P advertiser list.
-	P2PAdvertiserList *P2PAdvertiserListRespP2PAdvertiserList `json:"p2p_advertiser_list,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Echo of the request made.
 type P2PAdvertiserListRespEchoReq map[string]interface{}
 
 type P2PAdvertiserListRespMsgType string
-
-const P2PAdvertiserListRespMsgTypeP2PAdvertiserList P2PAdvertiserListRespMsgType = "p2p_advertiser_list"
 
 var enumValues_P2PAdvertiserListRespMsgType = []interface{}{
 	"p2p_advertiser_list",
@@ -53,121 +35,7 @@ func (j *P2PAdvertiserListRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// P2P advertiser list.
-type P2PAdvertiserListRespP2PAdvertiserList struct {
-	// List of advertisers.
-	List []P2PAdvertiserListRespP2PAdvertiserListListElem `json:"list"`
-}
-
-type P2PAdvertiserListRespP2PAdvertiserListListElem struct {
-	// Average difference of advert rate compared to the market rate over the past 30
-	// days.
-	AdvertRates *float64 `json:"advert_rates"`
-
-	// Boolean value: 1 or 0, indicating whether the advertiser's identify has been
-	// verified.
-	BasicVerification P2PAdvertiserListRespP2PAdvertiserListListElemBasicVerification `json:"basic_verification"`
-
-	// The percentage of completed orders out of total orders as a buyer within the
-	// past 30 days.
-	BuyCompletionRate *float64 `json:"buy_completion_rate"`
-
-	// Buy order volume in the past 30 days.
-	BuyOrdersAmount string `json:"buy_orders_amount"`
-
-	// The number of buy order completed within the past 30 days.
-	BuyOrdersCount int `json:"buy_orders_count"`
-
-	// The average time in seconds taken to make payment as a buyer within the past 30
-	// days.
-	BuyTimeAvg *int `json:"buy_time_avg"`
-
-	// The average time in seconds taken to cancel orders as a buyer within the past
-	// 30 days.
-	CancelTimeAvg *int `json:"cancel_time_avg"`
-
-	// The epoch time that the trade partner became an advertiser.
-	CreatedTime int `json:"created_time"`
-
-	// Default description that can be used every time an advert is created.
-	DefaultAdvertDescription string `json:"default_advert_description"`
-
-	// The advertiser's first name.
-	FirstName *string `json:"first_name,omitempty"`
-
-	// Boolean value: 1 or 0, indicating whether the advertiser's address has been
-	// verified.
-	FullVerification P2PAdvertiserListRespP2PAdvertiserListListElemFullVerification `json:"full_verification"`
-
-	// The advertiser's identification number.
-	Id string `json:"id"`
-
-	// The approval status of the advertiser.
-	IsApproved P2PAdvertiserListRespP2PAdvertiserListListElemIsApproved `json:"is_approved"`
-
-	// Indicates that the advertiser is blocked by the current user.
-	IsBlocked P2PAdvertiserListRespP2PAdvertiserListListElemIsBlocked `json:"is_blocked"`
-
-	// Indicates if the trade partner is favourited by requester.
-	IsFavourite *P2PAdvertiserListRespP2PAdvertiserListListElemIsFavourite `json:"is_favourite,omitempty"`
-
-	// Indicates if the advertiser's active adverts are listed. When `0`, adverts
-	// won't be listed regardless if they are active or not.
-	IsListed P2PAdvertiserListRespP2PAdvertiserListListElemIsListed `json:"is_listed"`
-
-	// Indicates if the advertiser is currently online.
-	IsOnline P2PAdvertiserListRespP2PAdvertiserListListElemIsOnline `json:"is_online"`
-
-	// Indicates if the trade partner is recommended by requester.
-	IsRecommended *P2PAdvertiserListRespP2PAdvertiserListListElemIsRecommended `json:"is_recommended,omitempty"`
-
-	// The advertiser's last name.
-	LastName *string `json:"last_name,omitempty"`
-
-	// Epoch of the latest time the advertiser was online, up to 6 months.
-	LastOnlineTime *int `json:"last_online_time"`
-
-	// The advertiser's displayed name.
-	Name string `json:"name"`
-
-	// Number of different users the advertiser has traded with since registration.
-	PartnerCount int `json:"partner_count"`
-
-	// Average rating of the advertiser, range is 1-5.
-	RatingAverage *float64 `json:"rating_average"`
-
-	// Number of ratings given to the advertiser.
-	RatingCount int `json:"rating_count"`
-
-	// Percentage of users who have recommended the advertiser.
-	RecommendedAverage *float64 `json:"recommended_average"`
-
-	// Number of times the advertiser has been recommended.
-	RecommendedCount *int `json:"recommended_count"`
-
-	// The average time in seconds taken to release funds as a seller within the past
-	// 30 days.
-	ReleaseTimeAvg *int `json:"release_time_avg"`
-
-	// The percentage of completed orders out of total orders as a seller within the
-	// past 30 days.
-	SellCompletionRate *float64 `json:"sell_completion_rate"`
-
-	// Sell order volume in the past 30 days.
-	SellOrdersAmount string `json:"sell_orders_amount"`
-
-	// The number of sell order orders completed within the past 30 days.
-	SellOrdersCount int `json:"sell_orders_count"`
-
-	// The percentage of completed orders out of all orders within the past 30 days.
-	TotalCompletionRate *float64 `json:"total_completion_rate"`
-
-	// The total number of orders completed since advertiser registration.
-	TotalOrdersCount int `json:"total_orders_count"`
-
-	// Total order volume since advertiser registration.
-	TotalTurnover string `json:"total_turnover"`
-}
+const P2PAdvertiserListRespMsgTypeP2PAdvertiserList P2PAdvertiserListRespMsgType = "p2p_advertiser_list"
 
 type P2PAdvertiserListRespP2PAdvertiserListListElemBasicVerification int
 
@@ -385,97 +253,207 @@ func (j *P2PAdvertiserListRespP2PAdvertiserListListElemIsRecommended) UnmarshalJ
 	return nil
 }
 
+type P2PAdvertiserListRespP2PAdvertiserListListElem struct {
+	// Average difference of advert rate compared to the market rate over the past 30
+	// days.
+	AdvertRates *float64 `json:"advert_rates"`
+
+	// Boolean value: 1 or 0, indicating whether the advertiser's identify has been
+	// verified.
+	BasicVerification P2PAdvertiserListRespP2PAdvertiserListListElemBasicVerification `json:"basic_verification"`
+
+	// The percentage of completed orders out of total orders as a buyer within the
+	// past 30 days.
+	BuyCompletionRate *float64 `json:"buy_completion_rate"`
+
+	// Buy order volume in the past 30 days.
+	BuyOrdersAmount string `json:"buy_orders_amount"`
+
+	// The number of buy order completed within the past 30 days.
+	BuyOrdersCount int `json:"buy_orders_count"`
+
+	// The average time in seconds taken to make payment as a buyer within the past 30
+	// days.
+	BuyTimeAvg *int `json:"buy_time_avg"`
+
+	// The average time in seconds taken to cancel orders as a buyer within the past
+	// 30 days.
+	CancelTimeAvg *int `json:"cancel_time_avg"`
+
+	// The epoch time that the trade partner became an advertiser.
+	CreatedTime int `json:"created_time"`
+
+	// Default description that can be used every time an advert is created.
+	DefaultAdvertDescription string `json:"default_advert_description"`
+
+	// The advertiser's first name.
+	FirstName *string `json:"first_name,omitempty"`
+
+	// Boolean value: 1 or 0, indicating whether the advertiser's address has been
+	// verified.
+	FullVerification P2PAdvertiserListRespP2PAdvertiserListListElemFullVerification `json:"full_verification"`
+
+	// The advertiser's identification number.
+	Id string `json:"id"`
+
+	// The approval status of the advertiser.
+	IsApproved P2PAdvertiserListRespP2PAdvertiserListListElemIsApproved `json:"is_approved"`
+
+	// Indicates that the advertiser is blocked by the current user.
+	IsBlocked P2PAdvertiserListRespP2PAdvertiserListListElemIsBlocked `json:"is_blocked"`
+
+	// Indicates if the trade partner is favourited by requester.
+	IsFavourite *P2PAdvertiserListRespP2PAdvertiserListListElemIsFavourite `json:"is_favourite,omitempty"`
+
+	// Indicates if the advertiser's active adverts are listed. When `0`, adverts
+	// won't be listed regardless if they are active or not.
+	IsListed P2PAdvertiserListRespP2PAdvertiserListListElemIsListed `json:"is_listed"`
+
+	// Indicates if the advertiser is currently online.
+	IsOnline P2PAdvertiserListRespP2PAdvertiserListListElemIsOnline `json:"is_online"`
+
+	// Indicates if the trade partner is recommended by requester.
+	IsRecommended *P2PAdvertiserListRespP2PAdvertiserListListElemIsRecommended `json:"is_recommended,omitempty"`
+
+	// The advertiser's last name.
+	LastName *string `json:"last_name,omitempty"`
+
+	// Epoch of the latest time the advertiser was online, up to 6 months.
+	LastOnlineTime *int `json:"last_online_time"`
+
+	// The advertiser's displayed name.
+	Name string `json:"name"`
+
+	// Number of different users the advertiser has traded with since registration.
+	PartnerCount int `json:"partner_count"`
+
+	// Average rating of the advertiser, range is 1-5.
+	RatingAverage *float64 `json:"rating_average"`
+
+	// Number of ratings given to the advertiser.
+	RatingCount int `json:"rating_count"`
+
+	// Percentage of users who have recommended the advertiser.
+	RecommendedAverage *float64 `json:"recommended_average"`
+
+	// Number of times the advertiser has been recommended.
+	RecommendedCount *int `json:"recommended_count"`
+
+	// The average time in seconds taken to release funds as a seller within the past
+	// 30 days.
+	ReleaseTimeAvg *int `json:"release_time_avg"`
+
+	// The percentage of completed orders out of total orders as a seller within the
+	// past 30 days.
+	SellCompletionRate *float64 `json:"sell_completion_rate"`
+
+	// Sell order volume in the past 30 days.
+	SellOrdersAmount string `json:"sell_orders_amount"`
+
+	// The number of sell order orders completed within the past 30 days.
+	SellOrdersCount int `json:"sell_orders_count"`
+
+	// The percentage of completed orders out of all orders within the past 30 days.
+	TotalCompletionRate *float64 `json:"total_completion_rate"`
+
+	// The total number of orders completed since advertiser registration.
+	TotalOrdersCount int `json:"total_orders_count"`
+
+	// Total order volume since advertiser registration.
+	TotalTurnover string `json:"total_turnover"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PAdvertiserListRespP2PAdvertiserListListElem) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["advert_rates"]; raw != nil && !ok {
+	if v, ok := raw["advert_rates"]; !ok || v == nil {
 		return fmt.Errorf("field advert_rates in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["basic_verification"]; raw != nil && !ok {
+	if v, ok := raw["basic_verification"]; !ok || v == nil {
 		return fmt.Errorf("field basic_verification in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["buy_completion_rate"]; raw != nil && !ok {
+	if v, ok := raw["buy_completion_rate"]; !ok || v == nil {
 		return fmt.Errorf("field buy_completion_rate in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["buy_orders_amount"]; raw != nil && !ok {
+	if v, ok := raw["buy_orders_amount"]; !ok || v == nil {
 		return fmt.Errorf("field buy_orders_amount in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["buy_orders_count"]; raw != nil && !ok {
+	if v, ok := raw["buy_orders_count"]; !ok || v == nil {
 		return fmt.Errorf("field buy_orders_count in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["buy_time_avg"]; raw != nil && !ok {
+	if v, ok := raw["buy_time_avg"]; !ok || v == nil {
 		return fmt.Errorf("field buy_time_avg in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["cancel_time_avg"]; raw != nil && !ok {
+	if v, ok := raw["cancel_time_avg"]; !ok || v == nil {
 		return fmt.Errorf("field cancel_time_avg in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["created_time"]; raw != nil && !ok {
+	if v, ok := raw["created_time"]; !ok || v == nil {
 		return fmt.Errorf("field created_time in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["default_advert_description"]; raw != nil && !ok {
+	if v, ok := raw["default_advert_description"]; !ok || v == nil {
 		return fmt.Errorf("field default_advert_description in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["full_verification"]; raw != nil && !ok {
+	if v, ok := raw["full_verification"]; !ok || v == nil {
 		return fmt.Errorf("field full_verification in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["id"]; raw != nil && !ok {
+	if v, ok := raw["id"]; !ok || v == nil {
 		return fmt.Errorf("field id in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["is_approved"]; raw != nil && !ok {
+	if v, ok := raw["is_approved"]; !ok || v == nil {
 		return fmt.Errorf("field is_approved in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["is_blocked"]; raw != nil && !ok {
+	if v, ok := raw["is_blocked"]; !ok || v == nil {
 		return fmt.Errorf("field is_blocked in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["is_listed"]; raw != nil && !ok {
+	if v, ok := raw["is_listed"]; !ok || v == nil {
 		return fmt.Errorf("field is_listed in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["is_online"]; raw != nil && !ok {
+	if v, ok := raw["is_online"]; !ok || v == nil {
 		return fmt.Errorf("field is_online in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["last_online_time"]; raw != nil && !ok {
+	if v, ok := raw["last_online_time"]; !ok || v == nil {
 		return fmt.Errorf("field last_online_time in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["name"]; raw != nil && !ok {
+	if v, ok := raw["name"]; !ok || v == nil {
 		return fmt.Errorf("field name in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["partner_count"]; raw != nil && !ok {
+	if v, ok := raw["partner_count"]; !ok || v == nil {
 		return fmt.Errorf("field partner_count in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["rating_average"]; raw != nil && !ok {
+	if v, ok := raw["rating_average"]; !ok || v == nil {
 		return fmt.Errorf("field rating_average in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["rating_count"]; raw != nil && !ok {
+	if v, ok := raw["rating_count"]; !ok || v == nil {
 		return fmt.Errorf("field rating_count in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["recommended_average"]; raw != nil && !ok {
+	if v, ok := raw["recommended_average"]; !ok || v == nil {
 		return fmt.Errorf("field recommended_average in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["recommended_count"]; raw != nil && !ok {
+	if v, ok := raw["recommended_count"]; !ok || v == nil {
 		return fmt.Errorf("field recommended_count in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["release_time_avg"]; raw != nil && !ok {
+	if v, ok := raw["release_time_avg"]; !ok || v == nil {
 		return fmt.Errorf("field release_time_avg in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["sell_completion_rate"]; raw != nil && !ok {
+	if v, ok := raw["sell_completion_rate"]; !ok || v == nil {
 		return fmt.Errorf("field sell_completion_rate in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["sell_orders_amount"]; raw != nil && !ok {
+	if v, ok := raw["sell_orders_amount"]; !ok || v == nil {
 		return fmt.Errorf("field sell_orders_amount in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["sell_orders_count"]; raw != nil && !ok {
+	if v, ok := raw["sell_orders_count"]; !ok || v == nil {
 		return fmt.Errorf("field sell_orders_count in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["total_completion_rate"]; raw != nil && !ok {
+	if v, ok := raw["total_completion_rate"]; !ok || v == nil {
 		return fmt.Errorf("field total_completion_rate in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["total_orders_count"]; raw != nil && !ok {
+	if v, ok := raw["total_orders_count"]; !ok || v == nil {
 		return fmt.Errorf("field total_orders_count in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
-	if _, ok := raw["total_turnover"]; raw != nil && !ok {
+	if v, ok := raw["total_turnover"]; !ok || v == nil {
 		return fmt.Errorf("field total_turnover in P2PAdvertiserListRespP2PAdvertiserListListElem: required")
 	}
 	type Plain P2PAdvertiserListRespP2PAdvertiserListListElem
@@ -487,13 +465,19 @@ func (j *P2PAdvertiserListRespP2PAdvertiserListListElem) UnmarshalJSON(b []byte)
 	return nil
 }
 
+// P2P advertiser list.
+type P2PAdvertiserListRespP2PAdvertiserList struct {
+	// List of advertisers.
+	List []P2PAdvertiserListRespP2PAdvertiserListListElem `json:"list"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PAdvertiserListRespP2PAdvertiserList) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["list"]; raw != nil && !ok {
+	if v, ok := raw["list"]; !ok || v == nil {
 		return fmt.Errorf("field list in P2PAdvertiserListRespP2PAdvertiserList: required")
 	}
 	type Plain P2PAdvertiserListRespP2PAdvertiserList
@@ -505,16 +489,32 @@ func (j *P2PAdvertiserListRespP2PAdvertiserList) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Retrieve advertisers has/had trade with the current advertiser.
+type P2PAdvertiserListResp struct {
+	// Echo of the request made.
+	EchoReq P2PAdvertiserListRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType P2PAdvertiserListRespMsgType `json:"msg_type"`
+
+	// P2P advertiser list.
+	P2PAdvertiserList *P2PAdvertiserListRespP2PAdvertiserList `json:"p2p_advertiser_list,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PAdvertiserListResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in P2PAdvertiserListResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in P2PAdvertiserListResp: required")
 	}
 	type Plain P2PAdvertiserListResp

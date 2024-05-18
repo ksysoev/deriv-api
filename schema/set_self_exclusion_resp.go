@@ -6,28 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// A message with User Self-Exclusion
-type SetSelfExclusionResp struct {
-	// Echo of the request made.
-	EchoReq SetSelfExclusionRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType SetSelfExclusionRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// `1` on success
-	SetSelfExclusion *int `json:"set_self_exclusion,omitempty"`
-}
-
 // Echo of the request made.
 type SetSelfExclusionRespEchoReq map[string]interface{}
 
 type SetSelfExclusionRespMsgType string
-
-const SetSelfExclusionRespMsgTypeSetSelfExclusion SetSelfExclusionRespMsgType = "set_self_exclusion"
 
 var enumValues_SetSelfExclusionRespMsgType = []interface{}{
 	"set_self_exclusion",
@@ -53,16 +35,34 @@ func (j *SetSelfExclusionRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// A message with User Self-Exclusion
+type SetSelfExclusionResp struct {
+	// Echo of the request made.
+	EchoReq SetSelfExclusionRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType SetSelfExclusionRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// `1` on success
+	SetSelfExclusion *int `json:"set_self_exclusion,omitempty"`
+}
+
+const SetSelfExclusionRespMsgTypeSetSelfExclusion SetSelfExclusionRespMsgType = "set_self_exclusion"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *SetSelfExclusionResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in SetSelfExclusionResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in SetSelfExclusionResp: required")
 	}
 	type Plain SetSelfExclusionResp

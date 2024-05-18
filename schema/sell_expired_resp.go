@@ -6,28 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// The result of sell expired contract
-type SellExpiredResp struct {
-	// Echo of the request made.
-	EchoReq SellExpiredRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType SellExpiredRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// Sell expired contract object containing count of contracts sold
-	SellExpired *SellExpiredRespSellExpired `json:"sell_expired,omitempty"`
-}
-
 // Echo of the request made.
 type SellExpiredRespEchoReq map[string]interface{}
 
 type SellExpiredRespMsgType string
-
-const SellExpiredRespMsgTypeSellExpired SellExpiredRespMsgType = "sell_expired"
 
 var enumValues_SellExpiredRespMsgType = []interface{}{
 	"sell_expired",
@@ -53,6 +35,24 @@ func (j *SellExpiredRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// The result of sell expired contract
+type SellExpiredResp struct {
+	// Echo of the request made.
+	EchoReq SellExpiredRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType SellExpiredRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// Sell expired contract object containing count of contracts sold
+	SellExpired *SellExpiredRespSellExpired `json:"sell_expired,omitempty"`
+}
+
+const SellExpiredRespMsgTypeSellExpired SellExpiredRespMsgType = "sell_expired"
+
 // Sell expired contract object containing count of contracts sold
 type SellExpiredRespSellExpired struct {
 	// The number of contracts that has been sold.
@@ -65,10 +65,10 @@ func (j *SellExpiredResp) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in SellExpiredResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in SellExpiredResp: required")
 	}
 	type Plain SellExpiredResp

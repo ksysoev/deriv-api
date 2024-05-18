@@ -29,30 +29,6 @@ type P2POrderConfirmRespMsgType string
 
 const P2POrderConfirmRespMsgTypeP2POrderConfirm P2POrderConfirmRespMsgType = "p2p_order_confirm"
 
-var enumValues_P2POrderConfirmRespMsgType = []interface{}{
-	"p2p_order_confirm",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2POrderConfirmRespMsgType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2POrderConfirmRespMsgType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderConfirmRespMsgType, v)
-	}
-	*j = P2POrderConfirmRespMsgType(v)
-	return nil
-}
-
 // Confirmation details
 type P2POrderConfirmRespP2POrderConfirm struct {
 	// The `dry_run` was successful.
@@ -67,9 +43,7 @@ type P2POrderConfirmRespP2POrderConfirm struct {
 
 type P2POrderConfirmRespP2POrderConfirmDryRun int
 
-var enumValues_P2POrderConfirmRespP2POrderConfirmDryRun = []interface{}{
-	1,
-}
+type P2POrderConfirmRespP2POrderConfirmStatus string
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2POrderConfirmRespP2POrderConfirmDryRun) UnmarshalJSON(b []byte) error {
@@ -91,11 +65,9 @@ func (j *P2POrderConfirmRespP2POrderConfirmDryRun) UnmarshalJSON(b []byte) error
 	return nil
 }
 
-type P2POrderConfirmRespP2POrderConfirmStatus string
-
-const P2POrderConfirmRespP2POrderConfirmStatusBuyerConfirmed P2POrderConfirmRespP2POrderConfirmStatus = "buyer-confirmed"
-const P2POrderConfirmRespP2POrderConfirmStatusCompleted P2POrderConfirmRespP2POrderConfirmStatus = "completed"
-
+var enumValues_P2POrderConfirmRespP2POrderConfirmDryRun = []interface{}{
+	1,
+}
 var enumValues_P2POrderConfirmRespP2POrderConfirmStatus = []interface{}{
 	"buyer-confirmed",
 	"completed",
@@ -121,13 +93,36 @@ func (j *P2POrderConfirmRespP2POrderConfirmStatus) UnmarshalJSON(b []byte) error
 	return nil
 }
 
+const P2POrderConfirmRespP2POrderConfirmStatusBuyerConfirmed P2POrderConfirmRespP2POrderConfirmStatus = "buyer-confirmed"
+const P2POrderConfirmRespP2POrderConfirmStatusCompleted P2POrderConfirmRespP2POrderConfirmStatus = "completed"
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2POrderConfirmRespMsgType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2POrderConfirmRespMsgType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderConfirmRespMsgType, v)
+	}
+	*j = P2POrderConfirmRespMsgType(v)
+	return nil
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2POrderConfirmRespP2POrderConfirm) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["id"]; raw != nil && !ok {
+	if v, ok := raw["id"]; !ok || v == nil {
 		return fmt.Errorf("field id in P2POrderConfirmRespP2POrderConfirm: required")
 	}
 	type Plain P2POrderConfirmRespP2POrderConfirm
@@ -139,16 +134,20 @@ func (j *P2POrderConfirmRespP2POrderConfirm) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+var enumValues_P2POrderConfirmRespMsgType = []interface{}{
+	"p2p_order_confirm",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2POrderConfirmResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in P2POrderConfirmResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in P2POrderConfirmResp: required")
 	}
 	type Plain P2POrderConfirmResp

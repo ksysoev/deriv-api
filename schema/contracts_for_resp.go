@@ -158,68 +158,8 @@ type ContractsForRespContractsForAvailableElemForwardStartingOptionsElem struct 
 // A hash of predefined trading period
 type ContractsForRespContractsForAvailableElemTradingPeriod map[string]interface{}
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ContractsForRespContractsForAvailableElem) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if _, ok := raw["barrier_category"]; raw != nil && !ok {
-		return fmt.Errorf("field barrier_category in ContractsForRespContractsForAvailableElem: required")
-	}
-	if _, ok := raw["barriers"]; raw != nil && !ok {
-		return fmt.Errorf("field barriers in ContractsForRespContractsForAvailableElem: required")
-	}
-	if _, ok := raw["contract_category"]; raw != nil && !ok {
-		return fmt.Errorf("field contract_category in ContractsForRespContractsForAvailableElem: required")
-	}
-	if _, ok := raw["contract_category_display"]; raw != nil && !ok {
-		return fmt.Errorf("field contract_category_display in ContractsForRespContractsForAvailableElem: required")
-	}
-	if _, ok := raw["contract_type"]; raw != nil && !ok {
-		return fmt.Errorf("field contract_type in ContractsForRespContractsForAvailableElem: required")
-	}
-	if _, ok := raw["exchange_name"]; raw != nil && !ok {
-		return fmt.Errorf("field exchange_name in ContractsForRespContractsForAvailableElem: required")
-	}
-	if _, ok := raw["expiry_type"]; raw != nil && !ok {
-		return fmt.Errorf("field expiry_type in ContractsForRespContractsForAvailableElem: required")
-	}
-	if _, ok := raw["market"]; raw != nil && !ok {
-		return fmt.Errorf("field market in ContractsForRespContractsForAvailableElem: required")
-	}
-	if _, ok := raw["max_contract_duration"]; raw != nil && !ok {
-		return fmt.Errorf("field max_contract_duration in ContractsForRespContractsForAvailableElem: required")
-	}
-	if _, ok := raw["min_contract_duration"]; raw != nil && !ok {
-		return fmt.Errorf("field min_contract_duration in ContractsForRespContractsForAvailableElem: required")
-	}
-	if _, ok := raw["sentiment"]; raw != nil && !ok {
-		return fmt.Errorf("field sentiment in ContractsForRespContractsForAvailableElem: required")
-	}
-	if _, ok := raw["start_type"]; raw != nil && !ok {
-		return fmt.Errorf("field start_type in ContractsForRespContractsForAvailableElem: required")
-	}
-	if _, ok := raw["submarket"]; raw != nil && !ok {
-		return fmt.Errorf("field submarket in ContractsForRespContractsForAvailableElem: required")
-	}
-	if _, ok := raw["underlying_symbol"]; raw != nil && !ok {
-		return fmt.Errorf("field underlying_symbol in ContractsForRespContractsForAvailableElem: required")
-	}
-	type Plain ContractsForRespContractsForAvailableElem
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	if plain.AvailableBarriers != nil && len(plain.AvailableBarriers) < 1 {
-		return fmt.Errorf("field %s length: must be >= %d", "available_barriers", 1)
-	}
-	if plain.ForwardStartingOptions != nil && len(plain.ForwardStartingOptions) < 1 {
-		return fmt.Errorf("field %s length: must be >= %d", "forward_starting_options", 1)
-	}
-	*j = ContractsForRespContractsForAvailableElem(plain)
-	return nil
-}
+// Echo of the request made.
+type ContractsForRespEchoReq map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ContractsForRespContractsFor) UnmarshalJSON(b []byte) error {
@@ -227,7 +167,7 @@ func (j *ContractsForRespContractsFor) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["available"]; raw != nil && !ok {
+	if v, ok := raw["available"]; !ok || v == nil {
 		return fmt.Errorf("field available in ContractsForRespContractsFor: required")
 	}
 	type Plain ContractsForRespContractsFor
@@ -242,12 +182,7 @@ func (j *ContractsForRespContractsFor) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Echo of the request made.
-type ContractsForRespEchoReq map[string]interface{}
-
 type ContractsForRespMsgType string
-
-const ContractsForRespMsgTypeContractsFor ContractsForRespMsgType = "contracts_for"
 
 var enumValues_ContractsForRespMsgType = []interface{}{
 	"contracts_for",
@@ -273,16 +208,81 @@ func (j *ContractsForRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+const ContractsForRespMsgTypeContractsFor ContractsForRespMsgType = "contracts_for"
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ContractsForRespContractsForAvailableElem) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if v, ok := raw["barrier_category"]; !ok || v == nil {
+		return fmt.Errorf("field barrier_category in ContractsForRespContractsForAvailableElem: required")
+	}
+	if v, ok := raw["barriers"]; !ok || v == nil {
+		return fmt.Errorf("field barriers in ContractsForRespContractsForAvailableElem: required")
+	}
+	if v, ok := raw["contract_category"]; !ok || v == nil {
+		return fmt.Errorf("field contract_category in ContractsForRespContractsForAvailableElem: required")
+	}
+	if v, ok := raw["contract_category_display"]; !ok || v == nil {
+		return fmt.Errorf("field contract_category_display in ContractsForRespContractsForAvailableElem: required")
+	}
+	if v, ok := raw["contract_type"]; !ok || v == nil {
+		return fmt.Errorf("field contract_type in ContractsForRespContractsForAvailableElem: required")
+	}
+	if v, ok := raw["exchange_name"]; !ok || v == nil {
+		return fmt.Errorf("field exchange_name in ContractsForRespContractsForAvailableElem: required")
+	}
+	if v, ok := raw["expiry_type"]; !ok || v == nil {
+		return fmt.Errorf("field expiry_type in ContractsForRespContractsForAvailableElem: required")
+	}
+	if v, ok := raw["market"]; !ok || v == nil {
+		return fmt.Errorf("field market in ContractsForRespContractsForAvailableElem: required")
+	}
+	if v, ok := raw["max_contract_duration"]; !ok || v == nil {
+		return fmt.Errorf("field max_contract_duration in ContractsForRespContractsForAvailableElem: required")
+	}
+	if v, ok := raw["min_contract_duration"]; !ok || v == nil {
+		return fmt.Errorf("field min_contract_duration in ContractsForRespContractsForAvailableElem: required")
+	}
+	if v, ok := raw["sentiment"]; !ok || v == nil {
+		return fmt.Errorf("field sentiment in ContractsForRespContractsForAvailableElem: required")
+	}
+	if v, ok := raw["start_type"]; !ok || v == nil {
+		return fmt.Errorf("field start_type in ContractsForRespContractsForAvailableElem: required")
+	}
+	if v, ok := raw["submarket"]; !ok || v == nil {
+		return fmt.Errorf("field submarket in ContractsForRespContractsForAvailableElem: required")
+	}
+	if v, ok := raw["underlying_symbol"]; !ok || v == nil {
+		return fmt.Errorf("field underlying_symbol in ContractsForRespContractsForAvailableElem: required")
+	}
+	type Plain ContractsForRespContractsForAvailableElem
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	if plain.AvailableBarriers != nil && len(plain.AvailableBarriers) < 1 {
+		return fmt.Errorf("field %s length: must be >= %d", "available_barriers", 1)
+	}
+	if plain.ForwardStartingOptions != nil && len(plain.ForwardStartingOptions) < 1 {
+		return fmt.Errorf("field %s length: must be >= %d", "forward_starting_options", 1)
+	}
+	*j = ContractsForRespContractsForAvailableElem(plain)
+	return nil
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ContractsForResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in ContractsForResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in ContractsForResp: required")
 	}
 	type Plain ContractsForResp

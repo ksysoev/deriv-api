@@ -6,32 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Returns all P2P adverts created by the authorized client. Can only be used by a
-// registered P2P advertiser.
-type P2PAdvertiserAdverts struct {
-	// [Optional] Used for paging. This value will also apply to subsription
-	// responses.
-	Limit int `json:"limit,omitempty"`
-
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used for paging. This value will also apply to subsription
-	// responses.
-	Offset int `json:"offset,omitempty"`
-
-	// Must be 1
-	P2PAdvertiserAdverts P2PAdvertiserAdvertsP2PAdvertiserAdverts `json:"p2p_advertiser_adverts"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough P2PAdvertiserAdvertsPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 type P2PAdvertiserAdvertsP2PAdvertiserAdverts int
 
 var enumValues_P2PAdvertiserAdvertsP2PAdvertiserAdverts = []interface{}{
@@ -58,6 +32,32 @@ func (j *P2PAdvertiserAdvertsP2PAdvertiserAdverts) UnmarshalJSON(b []byte) error
 	return nil
 }
 
+// Returns all P2P adverts created by the authorized client. Can only be used by a
+// registered P2P advertiser.
+type P2PAdvertiserAdverts struct {
+	// [Optional] Used for paging. This value will also apply to subsription
+	// responses.
+	Limit int `json:"limit,omitempty"`
+
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used for paging. This value will also apply to subsription
+	// responses.
+	Offset int `json:"offset,omitempty"`
+
+	// Must be 1
+	P2PAdvertiserAdverts P2PAdvertiserAdvertsP2PAdvertiserAdverts `json:"p2p_advertiser_adverts"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough P2PAdvertiserAdvertsPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type P2PAdvertiserAdvertsPassthrough map[string]interface{}
@@ -68,7 +68,7 @@ func (j *P2PAdvertiserAdverts) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["p2p_advertiser_adverts"]; raw != nil && !ok {
+	if v, ok := raw["p2p_advertiser_adverts"]; !ok || v == nil {
 		return fmt.Errorf("field p2p_advertiser_adverts in P2PAdvertiserAdverts: required")
 	}
 	type Plain P2PAdvertiserAdverts

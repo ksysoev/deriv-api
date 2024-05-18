@@ -32,30 +32,6 @@ type P2POrderListRespMsgType string
 
 const P2POrderListRespMsgTypeP2POrderList P2POrderListRespMsgType = "p2p_order_list"
 
-var enumValues_P2POrderListRespMsgType = []interface{}{
-	"p2p_order_list",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2POrderListRespMsgType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2POrderListRespMsgType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderListRespMsgType, v)
-	}
-	*j = P2POrderListRespMsgType(v)
-	return nil
-}
-
 // List of P2P orders.
 type P2POrderListRespP2POrderList struct {
 	// List of orders.
@@ -181,90 +157,10 @@ type P2POrderListRespP2POrderListListElemAdvertDetails struct {
 
 type P2POrderListRespP2POrderListListElemAdvertDetailsBlockTrade int
 
-var enumValues_P2POrderListRespP2POrderListListElemAdvertDetailsBlockTrade = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2POrderListRespP2POrderListListElemAdvertDetailsBlockTrade) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2POrderListRespP2POrderListListElemAdvertDetailsBlockTrade {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderListRespP2POrderListListElemAdvertDetailsBlockTrade, v)
-	}
-	*j = P2POrderListRespP2POrderListListElemAdvertDetailsBlockTrade(v)
-	return nil
-}
-
 type P2POrderListRespP2POrderListListElemAdvertDetailsType string
 
 const P2POrderListRespP2POrderListListElemAdvertDetailsTypeBuy P2POrderListRespP2POrderListListElemAdvertDetailsType = "buy"
 const P2POrderListRespP2POrderListListElemAdvertDetailsTypeSell P2POrderListRespP2POrderListListElemAdvertDetailsType = "sell"
-
-var enumValues_P2POrderListRespP2POrderListListElemAdvertDetailsType = []interface{}{
-	"buy",
-	"sell",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2POrderListRespP2POrderListListElemAdvertDetailsType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2POrderListRespP2POrderListListElemAdvertDetailsType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderListRespP2POrderListListElemAdvertDetailsType, v)
-	}
-	*j = P2POrderListRespP2POrderListListElemAdvertDetailsType(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2POrderListRespP2POrderListListElemAdvertDetails) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if _, ok := raw["block_trade"]; raw != nil && !ok {
-		return fmt.Errorf("field block_trade in P2POrderListRespP2POrderListListElemAdvertDetails: required")
-	}
-	if _, ok := raw["description"]; raw != nil && !ok {
-		return fmt.Errorf("field description in P2POrderListRespP2POrderListListElemAdvertDetails: required")
-	}
-	if _, ok := raw["id"]; raw != nil && !ok {
-		return fmt.Errorf("field id in P2POrderListRespP2POrderListListElemAdvertDetails: required")
-	}
-	if _, ok := raw["payment_method"]; raw != nil && !ok {
-		return fmt.Errorf("field payment_method in P2POrderListRespP2POrderListListElemAdvertDetails: required")
-	}
-	if _, ok := raw["type"]; raw != nil && !ok {
-		return fmt.Errorf("field type in P2POrderListRespP2POrderListListElemAdvertDetails: required")
-	}
-	type Plain P2POrderListRespP2POrderListListElemAdvertDetails
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = P2POrderListRespP2POrderListListElemAdvertDetails(plain)
-	return nil
-}
 
 // Details of the advertiser for this order.
 type P2POrderListRespP2POrderListListElemAdvertiserDetails struct {
@@ -296,96 +192,8 @@ type P2POrderListRespP2POrderListListElemAdvertiserDetails struct {
 
 type P2POrderListRespP2POrderListListElemAdvertiserDetailsIsOnline int
 
-var enumValues_P2POrderListRespP2POrderListListElemAdvertiserDetailsIsOnline = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2POrderListRespP2POrderListListElemAdvertiserDetailsIsOnline) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2POrderListRespP2POrderListListElemAdvertiserDetailsIsOnline {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderListRespP2POrderListListElemAdvertiserDetailsIsOnline, v)
-	}
-	*j = P2POrderListRespP2POrderListListElemAdvertiserDetailsIsOnline(v)
-	return nil
-}
-
 type P2POrderListRespP2POrderListListElemAdvertiserDetailsIsRecommended struct {
 	Value interface{}
-}
-
-// MarshalJSON implements json.Marshaler.
-func (j *P2POrderListRespP2POrderListListElemAdvertiserDetailsIsRecommended) MarshalJSON() ([]byte, error) {
-	return json.Marshal(j.Value)
-}
-
-var enumValues_P2POrderListRespP2POrderListListElemAdvertiserDetailsIsRecommended = []interface{}{
-	nil,
-	0.0,
-	1.0,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2POrderListRespP2POrderListListElemAdvertiserDetailsIsRecommended) UnmarshalJSON(b []byte) error {
-	var v struct {
-		Value interface{}
-	}
-	if err := json.Unmarshal(b, &v.Value); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2POrderListRespP2POrderListListElemAdvertiserDetailsIsRecommended {
-		if reflect.DeepEqual(v.Value, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderListRespP2POrderListListElemAdvertiserDetailsIsRecommended, v.Value)
-	}
-	*j = P2POrderListRespP2POrderListListElemAdvertiserDetailsIsRecommended(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2POrderListRespP2POrderListListElemAdvertiserDetails) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if _, ok := raw["id"]; raw != nil && !ok {
-		return fmt.Errorf("field id in P2POrderListRespP2POrderListListElemAdvertiserDetails: required")
-	}
-	if _, ok := raw["is_online"]; raw != nil && !ok {
-		return fmt.Errorf("field is_online in P2POrderListRespP2POrderListListElemAdvertiserDetails: required")
-	}
-	if _, ok := raw["last_online_time"]; raw != nil && !ok {
-		return fmt.Errorf("field last_online_time in P2POrderListRespP2POrderListListElemAdvertiserDetails: required")
-	}
-	if _, ok := raw["loginid"]; raw != nil && !ok {
-		return fmt.Errorf("field loginid in P2POrderListRespP2POrderListListElemAdvertiserDetails: required")
-	}
-	if _, ok := raw["name"]; raw != nil && !ok {
-		return fmt.Errorf("field name in P2POrderListRespP2POrderListListElemAdvertiserDetails: required")
-	}
-	type Plain P2POrderListRespP2POrderListListElemAdvertiserDetails
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = P2POrderListRespP2POrderListListElemAdvertiserDetails(plain)
-	return nil
 }
 
 // Details of the client who created the order.
@@ -418,44 +226,81 @@ type P2POrderListRespP2POrderListListElemClientDetails struct {
 
 type P2POrderListRespP2POrderListListElemClientDetailsIsOnline int
 
-var enumValues_P2POrderListRespP2POrderListListElemClientDetailsIsOnline = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2POrderListRespP2POrderListListElemClientDetailsIsOnline) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2POrderListRespP2POrderListListElemClientDetailsIsOnline {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderListRespP2POrderListListElemClientDetailsIsOnline, v)
-	}
-	*j = P2POrderListRespP2POrderListListElemClientDetailsIsOnline(v)
-	return nil
-}
-
 type P2POrderListRespP2POrderListListElemClientDetailsIsRecommended struct {
 	Value interface{}
 }
+
+// Details of the order dispute.
+type P2POrderListRespP2POrderListListElemDisputeDetails struct {
+	// The dispute reason
+	DisputeReason *string `json:"dispute_reason"`
+
+	// The loginid of the client who's raising the dispute
+	DisputerLoginid *string `json:"disputer_loginid"`
+}
+
+type P2POrderListRespP2POrderListListElemIsIncoming int
+
+type P2POrderListRespP2POrderListListElemIsReviewable int
+
+type P2POrderListRespP2POrderListListElemIsSeen int
+
+// Details of the review you gave for this order, if any.
+type P2POrderListRespP2POrderListListElemReviewDetails struct {
+	// The epoch time of the review.
+	CreatedTime int `json:"created_time"`
+
+	// Rating for the transaction, 1 to 5.
+	Rating int `json:"rating"`
+
+	// `1` if the advertiser is recommended, `0` if not recommended.
+	Recommended P2POrderListRespP2POrderListListElemReviewDetailsRecommended `json:"recommended"`
+}
+
+type P2POrderListRespP2POrderListListElemReviewDetailsRecommended struct {
+	Value interface{}
+}
+
+type P2POrderListRespP2POrderListListElemStatus string
+
+const P2POrderListRespP2POrderListListElemStatusBlocked P2POrderListRespP2POrderListListElemStatus = "blocked"
+const P2POrderListRespP2POrderListListElemStatusBuyerConfirmed P2POrderListRespP2POrderListListElemStatus = "buyer-confirmed"
+const P2POrderListRespP2POrderListListElemStatusCancelled P2POrderListRespP2POrderListListElemStatus = "cancelled"
+const P2POrderListRespP2POrderListListElemStatusCompleted P2POrderListRespP2POrderListListElemStatus = "completed"
+const P2POrderListRespP2POrderListListElemStatusDisputeCompleted P2POrderListRespP2POrderListListElemStatus = "dispute-completed"
+const P2POrderListRespP2POrderListListElemStatusDisputeRefunded P2POrderListRespP2POrderListListElemStatus = "dispute-refunded"
+const P2POrderListRespP2POrderListListElemStatusDisputed P2POrderListRespP2POrderListListElemStatus = "disputed"
+const P2POrderListRespP2POrderListListElemStatusPending P2POrderListRespP2POrderListListElemStatus = "pending"
+const P2POrderListRespP2POrderListListElemStatusRefunded P2POrderListRespP2POrderListListElemStatus = "refunded"
+const P2POrderListRespP2POrderListListElemStatusTimedOut P2POrderListRespP2POrderListListElemStatus = "timed-out"
+
+type P2POrderListRespP2POrderListListElemType string
+
+const P2POrderListRespP2POrderListListElemTypeBuy P2POrderListRespP2POrderListListElemType = "buy"
 
 // MarshalJSON implements json.Marshaler.
 func (j *P2POrderListRespP2POrderListListElemClientDetailsIsRecommended) MarshalJSON() ([]byte, error) {
 	return json.Marshal(j.Value)
 }
 
-var enumValues_P2POrderListRespP2POrderListListElemClientDetailsIsRecommended = []interface{}{
-	nil,
-	0.0,
-	1.0,
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2POrderListRespP2POrderListListElemIsIncoming) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2POrderListRespP2POrderListListElemIsIncoming {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderListRespP2POrderListListElemIsIncoming, v)
+	}
+	*j = P2POrderListRespP2POrderListListElemIsIncoming(v)
+	return nil
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -479,95 +324,6 @@ func (j *P2POrderListRespP2POrderListListElemClientDetailsIsRecommended) Unmarsh
 	*j = P2POrderListRespP2POrderListListElemClientDetailsIsRecommended(v)
 	return nil
 }
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2POrderListRespP2POrderListListElemClientDetails) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if _, ok := raw["id"]; raw != nil && !ok {
-		return fmt.Errorf("field id in P2POrderListRespP2POrderListListElemClientDetails: required")
-	}
-	if _, ok := raw["is_online"]; raw != nil && !ok {
-		return fmt.Errorf("field is_online in P2POrderListRespP2POrderListListElemClientDetails: required")
-	}
-	if _, ok := raw["last_online_time"]; raw != nil && !ok {
-		return fmt.Errorf("field last_online_time in P2POrderListRespP2POrderListListElemClientDetails: required")
-	}
-	if _, ok := raw["loginid"]; raw != nil && !ok {
-		return fmt.Errorf("field loginid in P2POrderListRespP2POrderListListElemClientDetails: required")
-	}
-	if _, ok := raw["name"]; raw != nil && !ok {
-		return fmt.Errorf("field name in P2POrderListRespP2POrderListListElemClientDetails: required")
-	}
-	type Plain P2POrderListRespP2POrderListListElemClientDetails
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = P2POrderListRespP2POrderListListElemClientDetails(plain)
-	return nil
-}
-
-// Details of the order dispute.
-type P2POrderListRespP2POrderListListElemDisputeDetails struct {
-	// The dispute reason
-	DisputeReason *string `json:"dispute_reason"`
-
-	// The loginid of the client who's raising the dispute
-	DisputerLoginid *string `json:"disputer_loginid"`
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2POrderListRespP2POrderListListElemDisputeDetails) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if _, ok := raw["dispute_reason"]; raw != nil && !ok {
-		return fmt.Errorf("field dispute_reason in P2POrderListRespP2POrderListListElemDisputeDetails: required")
-	}
-	if _, ok := raw["disputer_loginid"]; raw != nil && !ok {
-		return fmt.Errorf("field disputer_loginid in P2POrderListRespP2POrderListListElemDisputeDetails: required")
-	}
-	type Plain P2POrderListRespP2POrderListListElemDisputeDetails
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = P2POrderListRespP2POrderListListElemDisputeDetails(plain)
-	return nil
-}
-
-type P2POrderListRespP2POrderListListElemIsIncoming int
-
-var enumValues_P2POrderListRespP2POrderListListElemIsIncoming = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2POrderListRespP2POrderListListElemIsIncoming) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2POrderListRespP2POrderListListElemIsIncoming {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderListRespP2POrderListListElemIsIncoming, v)
-	}
-	*j = P2POrderListRespP2POrderListListElemIsIncoming(v)
-	return nil
-}
-
-type P2POrderListRespP2POrderListListElemIsReviewable int
 
 var enumValues_P2POrderListRespP2POrderListListElemIsReviewable = []interface{}{
 	0,
@@ -594,8 +350,11 @@ func (j *P2POrderListRespP2POrderListListElemIsReviewable) UnmarshalJSON(b []byt
 	return nil
 }
 
-type P2POrderListRespP2POrderListListElemIsSeen int
-
+var enumValues_P2POrderListRespP2POrderListListElemClientDetailsIsRecommended = []interface{}{
+	nil,
+	0.0,
+	1.0,
+}
 var enumValues_P2POrderListRespP2POrderListListElemIsSeen = []interface{}{
 	1,
 	0,
@@ -621,20 +380,30 @@ func (j *P2POrderListRespP2POrderListListElemIsSeen) UnmarshalJSON(b []byte) err
 	return nil
 }
 
-// Details of the review you gave for this order, if any.
-type P2POrderListRespP2POrderListListElemReviewDetails struct {
-	// The epoch time of the review.
-	CreatedTime int `json:"created_time"`
-
-	// Rating for the transaction, 1 to 5.
-	Rating int `json:"rating"`
-
-	// `1` if the advertiser is recommended, `0` if not recommended.
-	Recommended P2POrderListRespP2POrderListListElemReviewDetailsRecommended `json:"recommended"`
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2POrderListRespP2POrderListListElemClientDetailsIsOnline) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2POrderListRespP2POrderListListElemClientDetailsIsOnline {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderListRespP2POrderListListElemClientDetailsIsOnline, v)
+	}
+	*j = P2POrderListRespP2POrderListListElemClientDetailsIsOnline(v)
+	return nil
 }
 
-type P2POrderListRespP2POrderListListElemReviewDetailsRecommended struct {
-	Value interface{}
+var enumValues_P2POrderListRespP2POrderListListElemAdvertiserDetailsIsRecommended = []interface{}{
+	nil,
+	0.0,
+	1.0,
 }
 
 // MarshalJSON implements json.Marshaler.
@@ -642,32 +411,29 @@ func (j *P2POrderListRespP2POrderListListElemReviewDetailsRecommended) MarshalJS
 	return json.Marshal(j.Value)
 }
 
-var enumValues_P2POrderListRespP2POrderListListElemReviewDetailsRecommended = []interface{}{
-	nil,
-	0.0,
-	1.0,
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *P2POrderListRespP2POrderListListElemReviewDetailsRecommended) UnmarshalJSON(b []byte) error {
-	var v struct {
-		Value interface{}
-	}
-	if err := json.Unmarshal(b, &v.Value); err != nil {
+func (j *P2POrderListRespP2POrderListListElemAdvertiserDetailsIsOnline) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_P2POrderListRespP2POrderListListElemReviewDetailsRecommended {
-		if reflect.DeepEqual(v.Value, expected) {
+	for _, expected := range enumValues_P2POrderListRespP2POrderListListElemAdvertiserDetailsIsOnline {
+		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderListRespP2POrderListListElemReviewDetailsRecommended, v.Value)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderListRespP2POrderListListElemAdvertiserDetailsIsOnline, v)
 	}
-	*j = P2POrderListRespP2POrderListListElemReviewDetailsRecommended(v)
+	*j = P2POrderListRespP2POrderListListElemAdvertiserDetailsIsOnline(v)
 	return nil
+}
+
+var enumValues_P2POrderListRespP2POrderListListElemClientDetailsIsOnline = []interface{}{
+	0,
+	1,
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -676,13 +442,13 @@ func (j *P2POrderListRespP2POrderListListElemReviewDetails) UnmarshalJSON(b []by
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["created_time"]; raw != nil && !ok {
+	if v, ok := raw["created_time"]; !ok || v == nil {
 		return fmt.Errorf("field created_time in P2POrderListRespP2POrderListListElemReviewDetails: required")
 	}
-	if _, ok := raw["rating"]; raw != nil && !ok {
+	if v, ok := raw["rating"]; !ok || v == nil {
 		return fmt.Errorf("field rating in P2POrderListRespP2POrderListListElemReviewDetails: required")
 	}
-	if _, ok := raw["recommended"]; raw != nil && !ok {
+	if v, ok := raw["recommended"]; !ok || v == nil {
 		return fmt.Errorf("field recommended in P2POrderListRespP2POrderListListElemReviewDetails: required")
 	}
 	type Plain P2POrderListRespP2POrderListListElemReviewDetails
@@ -694,18 +460,35 @@ func (j *P2POrderListRespP2POrderListListElemReviewDetails) UnmarshalJSON(b []by
 	return nil
 }
 
-type P2POrderListRespP2POrderListListElemStatus string
-
-const P2POrderListRespP2POrderListListElemStatusBlocked P2POrderListRespP2POrderListListElemStatus = "blocked"
-const P2POrderListRespP2POrderListListElemStatusBuyerConfirmed P2POrderListRespP2POrderListListElemStatus = "buyer-confirmed"
-const P2POrderListRespP2POrderListListElemStatusCancelled P2POrderListRespP2POrderListListElemStatus = "cancelled"
-const P2POrderListRespP2POrderListListElemStatusCompleted P2POrderListRespP2POrderListListElemStatus = "completed"
-const P2POrderListRespP2POrderListListElemStatusDisputeCompleted P2POrderListRespP2POrderListListElemStatus = "dispute-completed"
-const P2POrderListRespP2POrderListListElemStatusDisputeRefunded P2POrderListRespP2POrderListListElemStatus = "dispute-refunded"
-const P2POrderListRespP2POrderListListElemStatusDisputed P2POrderListRespP2POrderListListElemStatus = "disputed"
-const P2POrderListRespP2POrderListListElemStatusPending P2POrderListRespP2POrderListListElemStatus = "pending"
-const P2POrderListRespP2POrderListListElemStatusRefunded P2POrderListRespP2POrderListListElemStatus = "refunded"
-const P2POrderListRespP2POrderListListElemStatusTimedOut P2POrderListRespP2POrderListListElemStatus = "timed-out"
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2POrderListRespP2POrderListListElemAdvertiserDetails) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if v, ok := raw["id"]; !ok || v == nil {
+		return fmt.Errorf("field id in P2POrderListRespP2POrderListListElemAdvertiserDetails: required")
+	}
+	if v, ok := raw["is_online"]; !ok || v == nil {
+		return fmt.Errorf("field is_online in P2POrderListRespP2POrderListListElemAdvertiserDetails: required")
+	}
+	if v, ok := raw["last_online_time"]; !ok || v == nil {
+		return fmt.Errorf("field last_online_time in P2POrderListRespP2POrderListListElemAdvertiserDetails: required")
+	}
+	if v, ok := raw["loginid"]; !ok || v == nil {
+		return fmt.Errorf("field loginid in P2POrderListRespP2POrderListListElemAdvertiserDetails: required")
+	}
+	if v, ok := raw["name"]; !ok || v == nil {
+		return fmt.Errorf("field name in P2POrderListRespP2POrderListListElemAdvertiserDetails: required")
+	}
+	type Plain P2POrderListRespP2POrderListListElemAdvertiserDetails
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = P2POrderListRespP2POrderListListElemAdvertiserDetails(plain)
+	return nil
+}
 
 var enumValues_P2POrderListRespP2POrderListListElemStatus = []interface{}{
 	"pending",
@@ -740,10 +523,165 @@ func (j *P2POrderListRespP2POrderListListElemStatus) UnmarshalJSON(b []byte) err
 	return nil
 }
 
-type P2POrderListRespP2POrderListListElemType string
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2POrderListRespP2POrderListListElemAdvertiserDetailsIsRecommended) UnmarshalJSON(b []byte) error {
+	var v struct {
+		Value interface{}
+	}
+	if err := json.Unmarshal(b, &v.Value); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2POrderListRespP2POrderListListElemAdvertiserDetailsIsRecommended {
+		if reflect.DeepEqual(v.Value, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderListRespP2POrderListListElemAdvertiserDetailsIsRecommended, v.Value)
+	}
+	*j = P2POrderListRespP2POrderListListElemAdvertiserDetailsIsRecommended(v)
+	return nil
+}
 
-const P2POrderListRespP2POrderListListElemTypeBuy P2POrderListRespP2POrderListListElemType = "buy"
-const P2POrderListRespP2POrderListListElemTypeSell P2POrderListRespP2POrderListListElemType = "sell"
+// MarshalJSON implements json.Marshaler.
+func (j *P2POrderListRespP2POrderListListElemAdvertiserDetailsIsRecommended) MarshalJSON() ([]byte, error) {
+	return json.Marshal(j.Value)
+}
+
+var enumValues_P2POrderListRespP2POrderListListElemReviewDetailsRecommended = []interface{}{
+	nil,
+	0.0,
+	1.0,
+}
+var enumValues_P2POrderListRespP2POrderListListElemIsIncoming = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2POrderListRespP2POrderListListElemReviewDetailsRecommended) UnmarshalJSON(b []byte) error {
+	var v struct {
+		Value interface{}
+	}
+	if err := json.Unmarshal(b, &v.Value); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2POrderListRespP2POrderListListElemReviewDetailsRecommended {
+		if reflect.DeepEqual(v.Value, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderListRespP2POrderListListElemReviewDetailsRecommended, v.Value)
+	}
+	*j = P2POrderListRespP2POrderListListElemReviewDetailsRecommended(v)
+	return nil
+}
+
+var enumValues_P2POrderListRespP2POrderListListElemAdvertiserDetailsIsOnline = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2POrderListRespP2POrderListListElemAdvertDetails) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if v, ok := raw["block_trade"]; !ok || v == nil {
+		return fmt.Errorf("field block_trade in P2POrderListRespP2POrderListListElemAdvertDetails: required")
+	}
+	if v, ok := raw["description"]; !ok || v == nil {
+		return fmt.Errorf("field description in P2POrderListRespP2POrderListListElemAdvertDetails: required")
+	}
+	if v, ok := raw["id"]; !ok || v == nil {
+		return fmt.Errorf("field id in P2POrderListRespP2POrderListListElemAdvertDetails: required")
+	}
+	if v, ok := raw["payment_method"]; !ok || v == nil {
+		return fmt.Errorf("field payment_method in P2POrderListRespP2POrderListListElemAdvertDetails: required")
+	}
+	if v, ok := raw["type"]; !ok || v == nil {
+		return fmt.Errorf("field type in P2POrderListRespP2POrderListListElemAdvertDetails: required")
+	}
+	type Plain P2POrderListRespP2POrderListListElemAdvertDetails
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = P2POrderListRespP2POrderListListElemAdvertDetails(plain)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2POrderListRespP2POrderListListElemAdvertDetailsType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2POrderListRespP2POrderListListElemAdvertDetailsType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderListRespP2POrderListListElemAdvertDetailsType, v)
+	}
+	*j = P2POrderListRespP2POrderListListElemAdvertDetailsType(v)
+	return nil
+}
+
+var enumValues_P2POrderListRespP2POrderListListElemAdvertDetailsType = []interface{}{
+	"buy",
+	"sell",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2POrderListRespP2POrderListListElemAdvertDetailsBlockTrade) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2POrderListRespP2POrderListListElemAdvertDetailsBlockTrade {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderListRespP2POrderListListElemAdvertDetailsBlockTrade, v)
+	}
+	*j = P2POrderListRespP2POrderListListElemAdvertDetailsBlockTrade(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2POrderListRespP2POrderListListElemDisputeDetails) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if v, ok := raw["dispute_reason"]; !ok || v == nil {
+		return fmt.Errorf("field dispute_reason in P2POrderListRespP2POrderListListElemDisputeDetails: required")
+	}
+	if v, ok := raw["disputer_loginid"]; !ok || v == nil {
+		return fmt.Errorf("field disputer_loginid in P2POrderListRespP2POrderListListElemDisputeDetails: required")
+	}
+	type Plain P2POrderListRespP2POrderListListElemDisputeDetails
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = P2POrderListRespP2POrderListListElemDisputeDetails(plain)
+	return nil
+}
 
 var enumValues_P2POrderListRespP2POrderListListElemType = []interface{}{
 	"buy",
@@ -769,6 +707,38 @@ func (j *P2POrderListRespP2POrderListListElemType) UnmarshalJSON(b []byte) error
 	*j = P2POrderListRespP2POrderListListElemType(v)
 	return nil
 }
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2POrderListRespP2POrderListListElemClientDetails) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if v, ok := raw["id"]; !ok || v == nil {
+		return fmt.Errorf("field id in P2POrderListRespP2POrderListListElemClientDetails: required")
+	}
+	if v, ok := raw["is_online"]; !ok || v == nil {
+		return fmt.Errorf("field is_online in P2POrderListRespP2POrderListListElemClientDetails: required")
+	}
+	if v, ok := raw["last_online_time"]; !ok || v == nil {
+		return fmt.Errorf("field last_online_time in P2POrderListRespP2POrderListListElemClientDetails: required")
+	}
+	if v, ok := raw["loginid"]; !ok || v == nil {
+		return fmt.Errorf("field loginid in P2POrderListRespP2POrderListListElemClientDetails: required")
+	}
+	if v, ok := raw["name"]; !ok || v == nil {
+		return fmt.Errorf("field name in P2POrderListRespP2POrderListListElemClientDetails: required")
+	}
+	type Plain P2POrderListRespP2POrderListListElemClientDetails
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = P2POrderListRespP2POrderListListElemClientDetails(plain)
+	return nil
+}
+
+const P2POrderListRespP2POrderListListElemTypeSell P2POrderListRespP2POrderListListElemType = "sell"
 
 type P2POrderListRespP2POrderListListElemVerificationPending int
 
@@ -797,73 +767,78 @@ func (j *P2POrderListRespP2POrderListListElemVerificationPending) UnmarshalJSON(
 	return nil
 }
 
+var enumValues_P2POrderListRespP2POrderListListElemAdvertDetailsBlockTrade = []interface{}{
+	0,
+	1,
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2POrderListRespP2POrderListListElem) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["account_currency"]; raw != nil && !ok {
+	if v, ok := raw["account_currency"]; !ok || v == nil {
 		return fmt.Errorf("field account_currency in P2POrderListRespP2POrderListListElem: required")
 	}
-	if _, ok := raw["advert_details"]; raw != nil && !ok {
+	if v, ok := raw["advert_details"]; !ok || v == nil {
 		return fmt.Errorf("field advert_details in P2POrderListRespP2POrderListListElem: required")
 	}
-	if _, ok := raw["advertiser_details"]; raw != nil && !ok {
+	if v, ok := raw["advertiser_details"]; !ok || v == nil {
 		return fmt.Errorf("field advertiser_details in P2POrderListRespP2POrderListListElem: required")
 	}
-	if _, ok := raw["amount"]; raw != nil && !ok {
+	if v, ok := raw["amount"]; !ok || v == nil {
 		return fmt.Errorf("field amount in P2POrderListRespP2POrderListListElem: required")
 	}
-	if _, ok := raw["amount_display"]; raw != nil && !ok {
+	if v, ok := raw["amount_display"]; !ok || v == nil {
 		return fmt.Errorf("field amount_display in P2POrderListRespP2POrderListListElem: required")
 	}
-	if _, ok := raw["chat_channel_url"]; raw != nil && !ok {
+	if v, ok := raw["chat_channel_url"]; !ok || v == nil {
 		return fmt.Errorf("field chat_channel_url in P2POrderListRespP2POrderListListElem: required")
 	}
-	if _, ok := raw["contact_info"]; raw != nil && !ok {
+	if v, ok := raw["contact_info"]; !ok || v == nil {
 		return fmt.Errorf("field contact_info in P2POrderListRespP2POrderListListElem: required")
 	}
-	if _, ok := raw["created_time"]; raw != nil && !ok {
+	if v, ok := raw["created_time"]; !ok || v == nil {
 		return fmt.Errorf("field created_time in P2POrderListRespP2POrderListListElem: required")
 	}
-	if _, ok := raw["dispute_details"]; raw != nil && !ok {
+	if v, ok := raw["dispute_details"]; !ok || v == nil {
 		return fmt.Errorf("field dispute_details in P2POrderListRespP2POrderListListElem: required")
 	}
-	if _, ok := raw["expiry_time"]; raw != nil && !ok {
+	if v, ok := raw["expiry_time"]; !ok || v == nil {
 		return fmt.Errorf("field expiry_time in P2POrderListRespP2POrderListListElem: required")
 	}
-	if _, ok := raw["id"]; raw != nil && !ok {
+	if v, ok := raw["id"]; !ok || v == nil {
 		return fmt.Errorf("field id in P2POrderListRespP2POrderListListElem: required")
 	}
-	if _, ok := raw["is_incoming"]; raw != nil && !ok {
+	if v, ok := raw["is_incoming"]; !ok || v == nil {
 		return fmt.Errorf("field is_incoming in P2POrderListRespP2POrderListListElem: required")
 	}
-	if _, ok := raw["is_reviewable"]; raw != nil && !ok {
+	if v, ok := raw["is_reviewable"]; !ok || v == nil {
 		return fmt.Errorf("field is_reviewable in P2POrderListRespP2POrderListListElem: required")
 	}
-	if _, ok := raw["local_currency"]; raw != nil && !ok {
+	if v, ok := raw["local_currency"]; !ok || v == nil {
 		return fmt.Errorf("field local_currency in P2POrderListRespP2POrderListListElem: required")
 	}
-	if _, ok := raw["payment_info"]; raw != nil && !ok {
+	if v, ok := raw["payment_info"]; !ok || v == nil {
 		return fmt.Errorf("field payment_info in P2POrderListRespP2POrderListListElem: required")
 	}
-	if _, ok := raw["price"]; raw != nil && !ok {
+	if v, ok := raw["price"]; !ok || v == nil {
 		return fmt.Errorf("field price in P2POrderListRespP2POrderListListElem: required")
 	}
-	if _, ok := raw["price_display"]; raw != nil && !ok {
+	if v, ok := raw["price_display"]; !ok || v == nil {
 		return fmt.Errorf("field price_display in P2POrderListRespP2POrderListListElem: required")
 	}
-	if _, ok := raw["rate"]; raw != nil && !ok {
+	if v, ok := raw["rate"]; !ok || v == nil {
 		return fmt.Errorf("field rate in P2POrderListRespP2POrderListListElem: required")
 	}
-	if _, ok := raw["rate_display"]; raw != nil && !ok {
+	if v, ok := raw["rate_display"]; !ok || v == nil {
 		return fmt.Errorf("field rate_display in P2POrderListRespP2POrderListListElem: required")
 	}
-	if _, ok := raw["status"]; raw != nil && !ok {
+	if v, ok := raw["status"]; !ok || v == nil {
 		return fmt.Errorf("field status in P2POrderListRespP2POrderListListElem: required")
 	}
-	if _, ok := raw["type"]; raw != nil && !ok {
+	if v, ok := raw["type"]; !ok || v == nil {
 		return fmt.Errorf("field type in P2POrderListRespP2POrderListListElem: required")
 	}
 	type Plain P2POrderListRespP2POrderListListElem
@@ -876,12 +851,32 @@ func (j *P2POrderListRespP2POrderListListElem) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
+func (j *P2POrderListRespMsgType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2POrderListRespMsgType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderListRespMsgType, v)
+	}
+	*j = P2POrderListRespMsgType(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
 func (j *P2POrderListRespP2POrderList) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["list"]; raw != nil && !ok {
+	if v, ok := raw["list"]; !ok || v == nil {
 		return fmt.Errorf("field list in P2POrderListRespP2POrderList: required")
 	}
 	type Plain P2POrderListRespP2POrderList
@@ -906,7 +901,7 @@ func (j *P2POrderListRespSubscription) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["id"]; raw != nil && !ok {
+	if v, ok := raw["id"]; !ok || v == nil {
 		return fmt.Errorf("field id in P2POrderListRespSubscription: required")
 	}
 	type Plain P2POrderListRespSubscription
@@ -918,16 +913,20 @@ func (j *P2POrderListRespSubscription) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+var enumValues_P2POrderListRespMsgType = []interface{}{
+	"p2p_order_list",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2POrderListResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in P2POrderListResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in P2POrderListResp: required")
 	}
 	type Plain P2POrderListResp

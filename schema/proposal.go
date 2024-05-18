@@ -109,61 +109,10 @@ const ProposalBarrierRangeMiddle ProposalBarrierRange = "middle"
 const ProposalBarrierRangeTight ProposalBarrierRange = "tight"
 const ProposalBarrierRangeWide ProposalBarrierRange = "wide"
 
-var enumValues_ProposalBarrierRange = []interface{}{
-	"tight",
-	"middle",
-	"wide",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ProposalBarrierRange) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ProposalBarrierRange {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalBarrierRange, v)
-	}
-	*j = ProposalBarrierRange(v)
-	return nil
-}
-
 type ProposalBasis string
 
 const ProposalBasisPayout ProposalBasis = "payout"
 const ProposalBasisStake ProposalBasis = "stake"
-
-var enumValues_ProposalBasis = []interface{}{
-	"payout",
-	"stake",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ProposalBasis) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ProposalBasis {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalBasis, v)
-	}
-	*j = ProposalBasis(v)
-	return nil
-}
 
 type ProposalContractType string
 
@@ -206,6 +155,48 @@ const ProposalContractTypeUPORDOWN ProposalContractType = "UPORDOWN"
 const ProposalContractTypeVANILLALONGCALL ProposalContractType = "VANILLALONGCALL"
 const ProposalContractTypeVANILLALONGPUT ProposalContractType = "VANILLALONGPUT"
 
+type ProposalDurationUnit string
+
+const ProposalDurationUnitD ProposalDurationUnit = "d"
+const ProposalDurationUnitH ProposalDurationUnit = "h"
+const ProposalDurationUnitM ProposalDurationUnit = "m"
+const ProposalDurationUnitS ProposalDurationUnit = "s"
+const ProposalDurationUnitT ProposalDurationUnit = "t"
+
+// Add an order to close the contract once the order condition is met (only for
+// `MULTUP` and `MULTDOWN` and 'ACCU' contracts). Supported orders: `take_profit`,
+// `stop_loss`.
+type ProposalLimitOrder struct {
+	// Contract will be automatically closed when the value of the contract reaches a
+	// specific loss.
+	StopLoss *float64 `json:"stop_loss,omitempty"`
+
+	// Contract will be automatically closed when the value of the contract reaches a
+	// specific profit.
+	TakeProfit *float64 `json:"take_profit,omitempty"`
+}
+
+// [Optional] Used to pass data through the websocket, which may be retrieved via
+// the `echo_req` output field.
+type ProposalPassthrough map[string]interface{}
+
+type ProposalProductType string
+
+const ProposalProductTypeBasic ProposalProductType = "basic"
+
+type ProposalProposal int
+
+type ProposalSubscribe int
+
+var enumValues_ProposalBarrierRange = []interface{}{
+	"tight",
+	"middle",
+	"wide",
+}
+var enumValues_ProposalBasis = []interface{}{
+	"payout",
+	"stake",
+}
 var enumValues_ProposalContractType = []interface{}{
 	"MULTUP",
 	"MULTDOWN",
@@ -246,35 +237,6 @@ var enumValues_ProposalContractType = []interface{}{
 	"TURBOSLONG",
 	"TURBOSSHORT",
 }
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ProposalContractType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ProposalContractType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalContractType, v)
-	}
-	*j = ProposalContractType(v)
-	return nil
-}
-
-type ProposalDurationUnit string
-
-const ProposalDurationUnitD ProposalDurationUnit = "d"
-const ProposalDurationUnitH ProposalDurationUnit = "h"
-const ProposalDurationUnitM ProposalDurationUnit = "m"
-const ProposalDurationUnitS ProposalDurationUnit = "s"
-const ProposalDurationUnitT ProposalDurationUnit = "t"
-
 var enumValues_ProposalDurationUnit = []interface{}{
 	"d",
 	"m",
@@ -282,48 +244,6 @@ var enumValues_ProposalDurationUnit = []interface{}{
 	"h",
 	"t",
 }
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ProposalDurationUnit) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ProposalDurationUnit {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalDurationUnit, v)
-	}
-	*j = ProposalDurationUnit(v)
-	return nil
-}
-
-// Add an order to close the contract once the order condition is met (only for
-// `MULTUP` and `MULTDOWN` and 'ACCU' contracts). Supported orders: `take_profit`,
-// `stop_loss`.
-type ProposalLimitOrder struct {
-	// Contract will be automatically closed when the value of the contract reaches a
-	// specific loss.
-	StopLoss *float64 `json:"stop_loss,omitempty"`
-
-	// Contract will be automatically closed when the value of the contract reaches a
-	// specific profit.
-	TakeProfit *float64 `json:"take_profit,omitempty"`
-}
-
-// [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
-type ProposalPassthrough map[string]interface{}
-
-type ProposalProductType string
-
-const ProposalProductTypeBasic ProposalProductType = "basic"
-
 var enumValues_ProposalProductType = []interface{}{
 	"basic",
 }
@@ -348,7 +268,45 @@ func (j *ProposalProductType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type ProposalProposal int
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ProposalDurationUnit) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ProposalDurationUnit {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalDurationUnit, v)
+	}
+	*j = ProposalDurationUnit(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ProposalContractType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ProposalContractType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalContractType, v)
+	}
+	*j = ProposalContractType(v)
+	return nil
+}
 
 var enumValues_ProposalProposal = []interface{}{
 	1,
@@ -374,7 +332,25 @@ func (j *ProposalProposal) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type ProposalSubscribe int
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ProposalBasis) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ProposalBasis {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalBasis, v)
+	}
+	*j = ProposalBasis(v)
+	return nil
+}
 
 var enumValues_ProposalSubscribe = []interface{}{
 	1,
@@ -401,21 +377,41 @@ func (j *ProposalSubscribe) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
+func (j *ProposalBarrierRange) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ProposalBarrierRange {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalBarrierRange, v)
+	}
+	*j = ProposalBarrierRange(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
 func (j *Proposal) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["contract_type"]; raw != nil && !ok {
+	if v, ok := raw["contract_type"]; !ok || v == nil {
 		return fmt.Errorf("field contract_type in Proposal: required")
 	}
-	if _, ok := raw["currency"]; raw != nil && !ok {
+	if v, ok := raw["currency"]; !ok || v == nil {
 		return fmt.Errorf("field currency in Proposal: required")
 	}
-	if _, ok := raw["proposal"]; raw != nil && !ok {
+	if v, ok := raw["proposal"]; !ok || v == nil {
 		return fmt.Errorf("field proposal in Proposal: required")
 	}
-	if _, ok := raw["symbol"]; raw != nil && !ok {
+	if v, ok := raw["symbol"]; !ok || v == nil {
 		return fmt.Errorf("field symbol in Proposal: required")
 	}
 	type Plain Proposal

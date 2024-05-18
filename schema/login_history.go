@@ -6,26 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Retrieve a summary of login history for user.
-type LoginHistory struct {
-	// [Optional] Apply limit to count of login history records.
-	Limit int `json:"limit,omitempty"`
-
-	// Must be `1`
-	LoginHistory LoginHistoryLoginHistory `json:"login_history"`
-
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough LoginHistoryPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 type LoginHistoryLoginHistory int
 
 var enumValues_LoginHistoryLoginHistory = []interface{}{
@@ -52,6 +32,26 @@ func (j *LoginHistoryLoginHistory) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Retrieve a summary of login history for user.
+type LoginHistory struct {
+	// [Optional] Apply limit to count of login history records.
+	Limit int `json:"limit,omitempty"`
+
+	// Must be `1`
+	LoginHistory LoginHistoryLoginHistory `json:"login_history"`
+
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough LoginHistoryPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type LoginHistoryPassthrough map[string]interface{}
@@ -62,7 +62,7 @@ func (j *LoginHistory) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["login_history"]; raw != nil && !ok {
+	if v, ok := raw["login_history"]; !ok || v == nil {
 		return fmt.Errorf("field login_history in LoginHistory: required")
 	}
 	type Plain LoginHistory

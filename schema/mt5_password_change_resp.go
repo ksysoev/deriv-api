@@ -6,28 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// MT5 user password change receive
-type Mt5PasswordChangeResp struct {
-	// Echo of the request made.
-	EchoReq Mt5PasswordChangeRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType Mt5PasswordChangeRespMsgType `json:"msg_type"`
-
-	// `1` on success
-	Mt5PasswordChange *int `json:"mt5_password_change,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Echo of the request made.
 type Mt5PasswordChangeRespEchoReq map[string]interface{}
 
 type Mt5PasswordChangeRespMsgType string
-
-const Mt5PasswordChangeRespMsgTypeMt5PasswordChange Mt5PasswordChangeRespMsgType = "mt5_password_change"
 
 var enumValues_Mt5PasswordChangeRespMsgType = []interface{}{
 	"mt5_password_change",
@@ -53,16 +35,34 @@ func (j *Mt5PasswordChangeRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// MT5 user password change receive
+type Mt5PasswordChangeResp struct {
+	// Echo of the request made.
+	EchoReq Mt5PasswordChangeRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType Mt5PasswordChangeRespMsgType `json:"msg_type"`
+
+	// `1` on success
+	Mt5PasswordChange *int `json:"mt5_password_change,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const Mt5PasswordChangeRespMsgTypeMt5PasswordChange Mt5PasswordChangeRespMsgType = "mt5_password_change"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *Mt5PasswordChangeResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in Mt5PasswordChangeResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in Mt5PasswordChangeResp: required")
 	}
 	type Plain Mt5PasswordChangeResp

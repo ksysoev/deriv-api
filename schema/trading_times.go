@@ -29,7 +29,7 @@ func (j *TradingTimes) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["trading_times"]; raw != nil && !ok {
+	if v, ok := raw["trading_times"]; !ok || v == nil {
 		return fmt.Errorf("field trading_times in TradingTimes: required")
 	}
 	type Plain TradingTimes

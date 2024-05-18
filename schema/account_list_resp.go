@@ -62,34 +62,102 @@ type AccountListRespAccountListElemAccountCategory string
 const AccountListRespAccountListElemAccountCategoryTrading AccountListRespAccountListElemAccountCategory = "trading"
 const AccountListRespAccountListElemAccountCategoryWallet AccountListRespAccountListElemAccountCategory = "wallet"
 
-var enumValues_AccountListRespAccountListElemAccountCategory = []interface{}{
-	"trading",
-	"wallet",
+type AccountListRespAccountListElemIsDisabled int
+
+type AccountListRespAccountListElemIsVirtual int
+
+type AccountListRespAccountListElemLinkedToElem struct {
+	// Account ID.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// Account platform name.
+	Platform *AccountListRespAccountListElemLinkedToElemPlatform `json:"platform,omitempty"`
+}
+
+type AccountListRespAccountListElemLinkedToElemPlatform string
+
+const AccountListRespAccountListElemLinkedToElemPlatformCtrader AccountListRespAccountListElemLinkedToElemPlatform = "ctrader"
+const AccountListRespAccountListElemLinkedToElemPlatformDerivez AccountListRespAccountListElemLinkedToElemPlatform = "derivez"
+const AccountListRespAccountListElemLinkedToElemPlatformDtrade AccountListRespAccountListElemLinkedToElemPlatform = "dtrade"
+const AccountListRespAccountListElemLinkedToElemPlatformDwallet AccountListRespAccountListElemLinkedToElemPlatform = "dwallet"
+const AccountListRespAccountListElemLinkedToElemPlatformDxtrade AccountListRespAccountListElemLinkedToElemPlatform = "dxtrade"
+const AccountListRespAccountListElemLinkedToElemPlatformMt5 AccountListRespAccountListElemLinkedToElemPlatform = "mt5"
+
+// Echo of the request made.
+type AccountListRespEchoReq map[string]interface{}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *AccountListRespAccountListElem) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if v, ok := raw["account_category"]; !ok || v == nil {
+		return fmt.Errorf("field account_category in AccountListRespAccountListElem: required")
+	}
+	if v, ok := raw["account_type"]; !ok || v == nil {
+		return fmt.Errorf("field account_type in AccountListRespAccountListElem: required")
+	}
+	if v, ok := raw["created_at"]; !ok || v == nil {
+		return fmt.Errorf("field created_at in AccountListRespAccountListElem: required")
+	}
+	if v, ok := raw["currency"]; !ok || v == nil {
+		return fmt.Errorf("field currency in AccountListRespAccountListElem: required")
+	}
+	if v, ok := raw["is_disabled"]; !ok || v == nil {
+		return fmt.Errorf("field is_disabled in AccountListRespAccountListElem: required")
+	}
+	if v, ok := raw["is_virtual"]; !ok || v == nil {
+		return fmt.Errorf("field is_virtual in AccountListRespAccountListElem: required")
+	}
+	if v, ok := raw["landing_company_name"]; !ok || v == nil {
+		return fmt.Errorf("field landing_company_name in AccountListRespAccountListElem: required")
+	}
+	if v, ok := raw["linked_to"]; !ok || v == nil {
+		return fmt.Errorf("field linked_to in AccountListRespAccountListElem: required")
+	}
+	if v, ok := raw["loginid"]; !ok || v == nil {
+		return fmt.Errorf("field loginid in AccountListRespAccountListElem: required")
+	}
+	type Plain AccountListRespAccountListElem
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = AccountListRespAccountListElem(plain)
+	return nil
+}
+
+var enumValues_AccountListRespAccountListElemLinkedToElemPlatform = []interface{}{
+	"ctrader",
+	"derivez",
+	"dtrade",
+	"dwallet",
+	"dxtrade",
+	"mt5",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *AccountListRespAccountListElemAccountCategory) UnmarshalJSON(b []byte) error {
-	var v string
+func (j *AccountListRespAccountListElemIsVirtual) UnmarshalJSON(b []byte) error {
+	var v int
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_AccountListRespAccountListElemAccountCategory {
+	for _, expected := range enumValues_AccountListRespAccountListElemIsVirtual {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AccountListRespAccountListElemAccountCategory, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AccountListRespAccountListElemIsVirtual, v)
 	}
-	*j = AccountListRespAccountListElemAccountCategory(v)
+	*j = AccountListRespAccountListElemIsVirtual(v)
 	return nil
 }
 
-type AccountListRespAccountListElemIsDisabled int
-
-var enumValues_AccountListRespAccountListElemIsDisabled = []interface{}{
+var enumValues_AccountListRespAccountListElemIsVirtual = []interface{}{
 	1,
 	0,
 }
@@ -114,57 +182,9 @@ func (j *AccountListRespAccountListElemIsDisabled) UnmarshalJSON(b []byte) error
 	return nil
 }
 
-type AccountListRespAccountListElemIsVirtual int
-
-var enumValues_AccountListRespAccountListElemIsVirtual = []interface{}{
+var enumValues_AccountListRespAccountListElemIsDisabled = []interface{}{
 	1,
 	0,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *AccountListRespAccountListElemIsVirtual) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_AccountListRespAccountListElemIsVirtual {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AccountListRespAccountListElemIsVirtual, v)
-	}
-	*j = AccountListRespAccountListElemIsVirtual(v)
-	return nil
-}
-
-type AccountListRespAccountListElemLinkedToElem struct {
-	// Account ID.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// Account platform name.
-	Platform *AccountListRespAccountListElemLinkedToElemPlatform `json:"platform,omitempty"`
-}
-
-type AccountListRespAccountListElemLinkedToElemPlatform string
-
-const AccountListRespAccountListElemLinkedToElemPlatformCtrader AccountListRespAccountListElemLinkedToElemPlatform = "ctrader"
-const AccountListRespAccountListElemLinkedToElemPlatformDerivez AccountListRespAccountListElemLinkedToElemPlatform = "derivez"
-const AccountListRespAccountListElemLinkedToElemPlatformDtrade AccountListRespAccountListElemLinkedToElemPlatform = "dtrade"
-const AccountListRespAccountListElemLinkedToElemPlatformDwallet AccountListRespAccountListElemLinkedToElemPlatform = "dwallet"
-const AccountListRespAccountListElemLinkedToElemPlatformDxtrade AccountListRespAccountListElemLinkedToElemPlatform = "dxtrade"
-const AccountListRespAccountListElemLinkedToElemPlatformMt5 AccountListRespAccountListElemLinkedToElemPlatform = "mt5"
-
-var enumValues_AccountListRespAccountListElemLinkedToElemPlatform = []interface{}{
-	"ctrader",
-	"derivez",
-	"dtrade",
-	"dwallet",
-	"dxtrade",
-	"mt5",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -188,53 +208,26 @@ func (j *AccountListRespAccountListElemLinkedToElemPlatform) UnmarshalJSON(b []b
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *AccountListRespAccountListElem) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
+func (j *AccountListRespAccountListElemAccountCategory) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
-	if _, ok := raw["account_category"]; raw != nil && !ok {
-		return fmt.Errorf("field account_category in AccountListRespAccountListElem: required")
+	var ok bool
+	for _, expected := range enumValues_AccountListRespAccountListElemAccountCategory {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
 	}
-	if _, ok := raw["account_type"]; raw != nil && !ok {
-		return fmt.Errorf("field account_type in AccountListRespAccountListElem: required")
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AccountListRespAccountListElemAccountCategory, v)
 	}
-	if _, ok := raw["created_at"]; raw != nil && !ok {
-		return fmt.Errorf("field created_at in AccountListRespAccountListElem: required")
-	}
-	if _, ok := raw["currency"]; raw != nil && !ok {
-		return fmt.Errorf("field currency in AccountListRespAccountListElem: required")
-	}
-	if _, ok := raw["is_disabled"]; raw != nil && !ok {
-		return fmt.Errorf("field is_disabled in AccountListRespAccountListElem: required")
-	}
-	if _, ok := raw["is_virtual"]; raw != nil && !ok {
-		return fmt.Errorf("field is_virtual in AccountListRespAccountListElem: required")
-	}
-	if _, ok := raw["landing_company_name"]; raw != nil && !ok {
-		return fmt.Errorf("field landing_company_name in AccountListRespAccountListElem: required")
-	}
-	if _, ok := raw["linked_to"]; raw != nil && !ok {
-		return fmt.Errorf("field linked_to in AccountListRespAccountListElem: required")
-	}
-	if _, ok := raw["loginid"]; raw != nil && !ok {
-		return fmt.Errorf("field loginid in AccountListRespAccountListElem: required")
-	}
-	type Plain AccountListRespAccountListElem
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = AccountListRespAccountListElem(plain)
+	*j = AccountListRespAccountListElemAccountCategory(v)
 	return nil
 }
 
-// Echo of the request made.
-type AccountListRespEchoReq map[string]interface{}
-
 type AccountListRespMsgType string
-
-const AccountListRespMsgTypeAccountList AccountListRespMsgType = "account_list"
 
 var enumValues_AccountListRespMsgType = []interface{}{
 	"account_list",
@@ -260,16 +253,23 @@ func (j *AccountListRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+const AccountListRespMsgTypeAccountList AccountListRespMsgType = "account_list"
+
+var enumValues_AccountListRespAccountListElemAccountCategory = []interface{}{
+	"trading",
+	"wallet",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *AccountListResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in AccountListResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in AccountListResp: required")
 	}
 	type Plain AccountListResp

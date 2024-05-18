@@ -6,32 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Latest spot price for a given symbol. Continuous responses with a frequency of
-// up to one second.
-type TicksResp struct {
-	// Echo of the request made.
-	EchoReq TicksRespEchoReq `json:"echo_req"`
-
-	// Type of the response.
-	MsgType TicksRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// For subscription requests only.
-	Subscription *TicksRespSubscription `json:"subscription,omitempty"`
-
-	// Tick by tick list of streamed data
-	Tick *TicksRespTick `json:"tick,omitempty"`
-}
-
 // Echo of the request made.
 type TicksRespEchoReq map[string]interface{}
 
 type TicksRespMsgType string
-
-const TicksRespMsgTypeTick TicksRespMsgType = "tick"
 
 var enumValues_TicksRespMsgType = []interface{}{
 	"tick",
@@ -57,6 +35,8 @@ func (j *TicksRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+const TicksRespMsgTypeTick TicksRespMsgType = "tick"
+
 // For subscription requests only.
 type TicksRespSubscription struct {
 	// A per-connection unique identifier. Can be passed to the `forget` API call to
@@ -70,7 +50,7 @@ func (j *TicksRespSubscription) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["id"]; raw != nil && !ok {
+	if v, ok := raw["id"]; !ok || v == nil {
 		return fmt.Errorf("field id in TicksRespSubscription: required")
 	}
 	type Plain TicksRespSubscription
@@ -114,7 +94,7 @@ func (j *TicksRespTick) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["pip_size"]; raw != nil && !ok {
+	if v, ok := raw["pip_size"]; !ok || v == nil {
 		return fmt.Errorf("field pip_size in TicksRespTick: required")
 	}
 	type Plain TicksRespTick
@@ -126,16 +106,36 @@ func (j *TicksRespTick) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Latest spot price for a given symbol. Continuous responses with a frequency of
+// up to one second.
+type TicksResp struct {
+	// Echo of the request made.
+	EchoReq TicksRespEchoReq `json:"echo_req"`
+
+	// Type of the response.
+	MsgType TicksRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// For subscription requests only.
+	Subscription *TicksRespSubscription `json:"subscription,omitempty"`
+
+	// Tick by tick list of streamed data
+	Tick *TicksRespTick `json:"tick,omitempty"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TicksResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in TicksResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in TicksResp: required")
 	}
 	type Plain TicksResp

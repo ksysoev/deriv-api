@@ -66,34 +66,6 @@ const DocumentUploadDocumentFormatJPG DocumentUploadDocumentFormat = "JPG"
 const DocumentUploadDocumentFormatPDF DocumentUploadDocumentFormat = "PDF"
 const DocumentUploadDocumentFormatPNG DocumentUploadDocumentFormat = "PNG"
 
-var enumValues_DocumentUploadDocumentFormat = []interface{}{
-	"PNG",
-	"JPG",
-	"JPEG",
-	"GIF",
-	"PDF",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *DocumentUploadDocumentFormat) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_DocumentUploadDocumentFormat {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_DocumentUploadDocumentFormat, v)
-	}
-	*j = DocumentUploadDocumentFormat(v)
-	return nil
-}
-
 type DocumentUploadDocumentType string
 
 const DocumentUploadDocumentTypeAmlglobalcheck DocumentUploadDocumentType = "amlglobalcheck"
@@ -124,21 +96,63 @@ const DocumentUploadDocumentTypePhoneBill DocumentUploadDocumentType = "phone_bi
 const DocumentUploadDocumentTypePoaOthers DocumentUploadDocumentType = "poa_others"
 const DocumentUploadDocumentTypePoiOthers DocumentUploadDocumentType = "poi_others"
 const DocumentUploadDocumentTypePowerOfAttorney DocumentUploadDocumentType = "power_of_attorney"
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *DocumentUploadDocumentUpload) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_DocumentUploadDocumentUpload {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_DocumentUploadDocumentUpload, v)
+	}
+	*j = DocumentUploadDocumentUpload(v)
+	return nil
+}
+
 const DocumentUploadDocumentTypeProofOfOwnership DocumentUploadDocumentType = "proof_of_ownership"
+const DocumentUploadDocumentTypeTaxReturn DocumentUploadDocumentType = "tax_return"
+const DocumentUploadDocumentTypeSelfieWithId DocumentUploadDocumentType = "selfie_with_id"
+const DocumentUploadDocumentTypeTaxPhotoId DocumentUploadDocumentType = "tax_photo_id"
+const DocumentUploadDocumentTypeStudentCard DocumentUploadDocumentType = "student_card"
+const DocumentUploadDocumentTypeVoterCard DocumentUploadDocumentType = "voter_card"
 const DocumentUploadDocumentTypeProofaddress DocumentUploadDocumentType = "proofaddress"
 const DocumentUploadDocumentTypeProofid DocumentUploadDocumentType = "proofid"
-const DocumentUploadDocumentTypeSelfieWithId DocumentUploadDocumentType = "selfie_with_id"
-const DocumentUploadDocumentTypeStudentCard DocumentUploadDocumentType = "student_card"
-const DocumentUploadDocumentTypeTaxPhotoId DocumentUploadDocumentType = "tax_photo_id"
-const DocumentUploadDocumentTypeTaxReceipt DocumentUploadDocumentType = "tax_receipt"
-const DocumentUploadDocumentTypeTaxReturn DocumentUploadDocumentType = "tax_return"
 const DocumentUploadDocumentTypeUtilityBill DocumentUploadDocumentType = "utility_bill"
-const DocumentUploadDocumentTypeVoterCard DocumentUploadDocumentType = "voter_card"
+const DocumentUploadDocumentTypeServiceIdCard DocumentUploadDocumentType = "service_id_card"
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *DocumentUploadDocumentType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_DocumentUploadDocumentType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_DocumentUploadDocumentType, v)
+	}
+	*j = DocumentUploadDocumentType(v)
+	return nil
+}
 
 var enumValues_DocumentUploadDocumentType = []interface{}{
 	"passport",
 	"national_identity_card",
 	"identification_number_document",
+	"service_id_card",
 	"driving_licence",
 	"utility_bill",
 	"bankstatement",
@@ -177,22 +191,22 @@ var enumValues_DocumentUploadDocumentType = []interface{}{
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *DocumentUploadDocumentType) UnmarshalJSON(b []byte) error {
+func (j *DocumentUploadDocumentFormat) UnmarshalJSON(b []byte) error {
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_DocumentUploadDocumentType {
+	for _, expected := range enumValues_DocumentUploadDocumentFormat {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_DocumentUploadDocumentType, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_DocumentUploadDocumentFormat, v)
 	}
-	*j = DocumentUploadDocumentType(v)
+	*j = DocumentUploadDocumentFormat(v)
 	return nil
 }
 
@@ -202,25 +216,7 @@ var enumValues_DocumentUploadDocumentUpload = []interface{}{
 	1,
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *DocumentUploadDocumentUpload) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_DocumentUploadDocumentUpload {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_DocumentUploadDocumentUpload, v)
-	}
-	*j = DocumentUploadDocumentUpload(v)
-	return nil
-}
+const DocumentUploadDocumentTypeTaxReceipt DocumentUploadDocumentType = "tax_receipt"
 
 type DocumentUploadLifetimeValid int
 
@@ -251,10 +247,6 @@ func (j *DocumentUploadLifetimeValid) UnmarshalJSON(b []byte) error {
 
 type DocumentUploadPageType string
 
-const DocumentUploadPageTypeBack DocumentUploadPageType = "back"
-const DocumentUploadPageTypeFront DocumentUploadPageType = "front"
-const DocumentUploadPageTypePhoto DocumentUploadPageType = "photo"
-
 var enumValues_DocumentUploadPageType = []interface{}{
 	"front",
 	"back",
@@ -281,9 +273,17 @@ func (j *DocumentUploadPageType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+const DocumentUploadPageTypeFront DocumentUploadPageType = "front"
+const DocumentUploadPageTypeBack DocumentUploadPageType = "back"
+const DocumentUploadPageTypePhoto DocumentUploadPageType = "photo"
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type DocumentUploadPassthrough map[string]interface{}
+
+// A collection of unspecific information related to the proof of ownership being
+// uploaded
+type DocumentUploadProofOfOwnershipDetails map[string]interface{}
 
 // [Optional] It contains info about the proof of ownership being uploaded
 // (mandatory for proof_of_ownership document type)
@@ -297,20 +297,16 @@ type DocumentUploadProofOfOwnership struct {
 	Id float64 `json:"id"`
 }
 
-// A collection of unspecific information related to the proof of ownership being
-// uploaded
-type DocumentUploadProofOfOwnershipDetails map[string]interface{}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *DocumentUploadProofOfOwnership) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["details"]; raw != nil && !ok {
+	if v, ok := raw["details"]; !ok || v == nil {
 		return fmt.Errorf("field details in DocumentUploadProofOfOwnership: required")
 	}
-	if _, ok := raw["id"]; raw != nil && !ok {
+	if v, ok := raw["id"]; !ok || v == nil {
 		return fmt.Errorf("field id in DocumentUploadProofOfOwnership: required")
 	}
 	type Plain DocumentUploadProofOfOwnership
@@ -322,25 +318,33 @@ func (j *DocumentUploadProofOfOwnership) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+var enumValues_DocumentUploadDocumentFormat = []interface{}{
+	"PNG",
+	"JPG",
+	"JPEG",
+	"GIF",
+	"PDF",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *DocumentUpload) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["document_format"]; raw != nil && !ok {
+	if v, ok := raw["document_format"]; !ok || v == nil {
 		return fmt.Errorf("field document_format in DocumentUpload: required")
 	}
-	if _, ok := raw["document_type"]; raw != nil && !ok {
+	if v, ok := raw["document_type"]; !ok || v == nil {
 		return fmt.Errorf("field document_type in DocumentUpload: required")
 	}
-	if _, ok := raw["document_upload"]; raw != nil && !ok {
+	if v, ok := raw["document_upload"]; !ok || v == nil {
 		return fmt.Errorf("field document_upload in DocumentUpload: required")
 	}
-	if _, ok := raw["expected_checksum"]; raw != nil && !ok {
+	if v, ok := raw["expected_checksum"]; !ok || v == nil {
 		return fmt.Errorf("field expected_checksum in DocumentUpload: required")
 	}
-	if _, ok := raw["file_size"]; raw != nil && !ok {
+	if v, ok := raw["file_size"]; !ok || v == nil {
 		return fmt.Errorf("field file_size in DocumentUpload: required")
 	}
 	type Plain DocumentUpload

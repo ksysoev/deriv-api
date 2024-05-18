@@ -6,39 +6,8 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Recent login/logout history records
-type LoginHistoryResp struct {
-	// Echo of the request made.
-	EchoReq LoginHistoryRespEchoReq `json:"echo_req"`
-
-	// Array of records of client login/logout activities
-	LoginHistory []LoginHistoryRespLoginHistoryElem `json:"login_history,omitempty"`
-
-	// Action name of the request made.
-	MsgType LoginHistoryRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Echo of the request made.
 type LoginHistoryRespEchoReq map[string]interface{}
-
-// User login history
-type LoginHistoryRespLoginHistoryElem struct {
-	// Type of action.
-	Action string `json:"action"`
-
-	// Provides details about browser, device used during login or logout
-	Environment string `json:"environment"`
-
-	// Status of activity: 1 - success, 0 - failure
-	Status LoginHistoryRespLoginHistoryElemStatus `json:"status"`
-
-	// Epoch time of the activity
-	Time int `json:"time"`
-}
 
 type LoginHistoryRespLoginHistoryElemStatus int
 
@@ -67,22 +36,37 @@ func (j *LoginHistoryRespLoginHistoryElemStatus) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// User login history
+type LoginHistoryRespLoginHistoryElem struct {
+	// Type of action.
+	Action string `json:"action"`
+
+	// Provides details about browser, device used during login or logout
+	Environment string `json:"environment"`
+
+	// Status of activity: 1 - success, 0 - failure
+	Status LoginHistoryRespLoginHistoryElemStatus `json:"status"`
+
+	// Epoch time of the activity
+	Time int `json:"time"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *LoginHistoryRespLoginHistoryElem) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["action"]; raw != nil && !ok {
+	if v, ok := raw["action"]; !ok || v == nil {
 		return fmt.Errorf("field action in LoginHistoryRespLoginHistoryElem: required")
 	}
-	if _, ok := raw["environment"]; raw != nil && !ok {
+	if v, ok := raw["environment"]; !ok || v == nil {
 		return fmt.Errorf("field environment in LoginHistoryRespLoginHistoryElem: required")
 	}
-	if _, ok := raw["status"]; raw != nil && !ok {
+	if v, ok := raw["status"]; !ok || v == nil {
 		return fmt.Errorf("field status in LoginHistoryRespLoginHistoryElem: required")
 	}
-	if _, ok := raw["time"]; raw != nil && !ok {
+	if v, ok := raw["time"]; !ok || v == nil {
 		return fmt.Errorf("field time in LoginHistoryRespLoginHistoryElem: required")
 	}
 	type Plain LoginHistoryRespLoginHistoryElem
@@ -95,8 +79,6 @@ func (j *LoginHistoryRespLoginHistoryElem) UnmarshalJSON(b []byte) error {
 }
 
 type LoginHistoryRespMsgType string
-
-const LoginHistoryRespMsgTypeLoginHistory LoginHistoryRespMsgType = "login_history"
 
 var enumValues_LoginHistoryRespMsgType = []interface{}{
 	"login_history",
@@ -122,16 +104,34 @@ func (j *LoginHistoryRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Recent login/logout history records
+type LoginHistoryResp struct {
+	// Echo of the request made.
+	EchoReq LoginHistoryRespEchoReq `json:"echo_req"`
+
+	// Array of records of client login/logout activities
+	LoginHistory []LoginHistoryRespLoginHistoryElem `json:"login_history,omitempty"`
+
+	// Action name of the request made.
+	MsgType LoginHistoryRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const LoginHistoryRespMsgTypeLoginHistory LoginHistoryRespMsgType = "login_history"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *LoginHistoryResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in LoginHistoryResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in LoginHistoryResp: required")
 	}
 	type Plain LoginHistoryResp

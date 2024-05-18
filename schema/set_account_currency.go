@@ -35,7 +35,7 @@ func (j *SetAccountCurrency) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["set_account_currency"]; raw != nil && !ok {
+	if v, ok := raw["set_account_currency"]; !ok || v == nil {
 		return fmt.Errorf("field set_account_currency in SetAccountCurrency: required")
 	}
 	type Plain SetAccountCurrency

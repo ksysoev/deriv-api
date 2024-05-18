@@ -32,7 +32,7 @@ func (j *AppDelete) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["app_delete"]; raw != nil && !ok {
+	if v, ok := raw["app_delete"]; !ok || v == nil {
 		return fmt.Errorf("field app_delete in AppDelete: required")
 	}
 	type Plain AppDelete

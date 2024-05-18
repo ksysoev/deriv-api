@@ -6,28 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// The result of the Trading Platform password reset.
-type TradingPlatformPasswordResetResp struct {
-	// Echo of the request made.
-	EchoReq TradingPlatformPasswordResetRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType TradingPlatformPasswordResetRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// If set to 1, the password has been reset.
-	TradingPlatformPasswordReset *TradingPlatformPasswordResetRespTradingPlatformPasswordReset `json:"trading_platform_password_reset,omitempty"`
-}
-
 // Echo of the request made.
 type TradingPlatformPasswordResetRespEchoReq map[string]interface{}
 
 type TradingPlatformPasswordResetRespMsgType string
-
-const TradingPlatformPasswordResetRespMsgTypeTradingPlatformPasswordReset TradingPlatformPasswordResetRespMsgType = "trading_platform_password_reset"
 
 var enumValues_TradingPlatformPasswordResetRespMsgType = []interface{}{
 	"trading_platform_password_reset",
@@ -52,6 +34,8 @@ func (j *TradingPlatformPasswordResetRespMsgType) UnmarshalJSON(b []byte) error 
 	*j = TradingPlatformPasswordResetRespMsgType(v)
 	return nil
 }
+
+const TradingPlatformPasswordResetRespMsgTypeTradingPlatformPasswordReset TradingPlatformPasswordResetRespMsgType = "trading_platform_password_reset"
 
 type TradingPlatformPasswordResetRespTradingPlatformPasswordReset int
 
@@ -80,16 +64,32 @@ func (j *TradingPlatformPasswordResetRespTradingPlatformPasswordReset) Unmarshal
 	return nil
 }
 
+// The result of the Trading Platform password reset.
+type TradingPlatformPasswordResetResp struct {
+	// Echo of the request made.
+	EchoReq TradingPlatformPasswordResetRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType TradingPlatformPasswordResetRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// If set to 1, the password has been reset.
+	TradingPlatformPasswordReset *TradingPlatformPasswordResetRespTradingPlatformPasswordReset `json:"trading_platform_password_reset,omitempty"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TradingPlatformPasswordResetResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in TradingPlatformPasswordResetResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in TradingPlatformPasswordResetResp: required")
 	}
 	type Plain TradingPlatformPasswordResetResp

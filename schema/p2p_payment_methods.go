@@ -6,23 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// List all P2P payment methods.
-type P2PPaymentMethods struct {
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// Must be 1
-	P2PPaymentMethods P2PPaymentMethodsP2PPaymentMethods `json:"p2p_payment_methods"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough P2PPaymentMethodsPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 type P2PPaymentMethodsP2PPaymentMethods int
 
 var enumValues_P2PPaymentMethodsP2PPaymentMethods = []interface{}{
@@ -49,6 +32,23 @@ func (j *P2PPaymentMethodsP2PPaymentMethods) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// List all P2P payment methods.
+type P2PPaymentMethods struct {
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// Must be 1
+	P2PPaymentMethods P2PPaymentMethodsP2PPaymentMethods `json:"p2p_payment_methods"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough P2PPaymentMethodsPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type P2PPaymentMethodsPassthrough map[string]interface{}
@@ -59,7 +59,7 @@ func (j *P2PPaymentMethods) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["p2p_payment_methods"]; raw != nil && !ok {
+	if v, ok := raw["p2p_payment_methods"]; !ok || v == nil {
 		return fmt.Errorf("field p2p_payment_methods in P2PPaymentMethods: required")
 	}
 	type Plain P2PPaymentMethods

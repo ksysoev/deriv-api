@@ -6,23 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Get list of MT5 accounts for client
-type Mt5LoginList struct {
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// Must be `1`
-	Mt5LoginList Mt5LoginListMt5LoginList `json:"mt5_login_list"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough Mt5LoginListPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 type Mt5LoginListMt5LoginList int
 
 var enumValues_Mt5LoginListMt5LoginList = []interface{}{
@@ -49,6 +32,23 @@ func (j *Mt5LoginListMt5LoginList) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Get list of MT5 accounts for client
+type Mt5LoginList struct {
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// Must be `1`
+	Mt5LoginList Mt5LoginListMt5LoginList `json:"mt5_login_list"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough Mt5LoginListPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type Mt5LoginListPassthrough map[string]interface{}
@@ -59,7 +59,7 @@ func (j *Mt5LoginList) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["mt5_login_list"]; raw != nil && !ok {
+	if v, ok := raw["mt5_login_list"]; !ok || v == nil {
 		return fmt.Errorf("field mt5_login_list in Mt5LoginList: required")
 	}
 	type Plain Mt5LoginList

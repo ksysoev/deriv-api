@@ -6,22 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// The response will display the configuration details related to cryptocurrencies
-type CryptoConfigResp struct {
-	// Provides cryptocurrencies configuration.
-	CryptoConfig *CryptoConfigRespCryptoConfig `json:"crypto_config,omitempty"`
-
-	// Echo of the request made.
-	EchoReq CryptoConfigRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType CryptoConfigRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Provides cryptocurrencies configuration.
 type CryptoConfigRespCryptoConfig struct {
 	// Currency configuration including limitiations for each crypto currency.
@@ -37,7 +21,7 @@ func (j *CryptoConfigRespCryptoConfig) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["currencies_config"]; raw != nil && !ok {
+	if v, ok := raw["currencies_config"]; !ok || v == nil {
 		return fmt.Errorf("field currencies_config in CryptoConfigRespCryptoConfig: required")
 	}
 	type Plain CryptoConfigRespCryptoConfig
@@ -53,8 +37,6 @@ func (j *CryptoConfigRespCryptoConfig) UnmarshalJSON(b []byte) error {
 type CryptoConfigRespEchoReq map[string]interface{}
 
 type CryptoConfigRespMsgType string
-
-const CryptoConfigRespMsgTypeCryptoConfig CryptoConfigRespMsgType = "crypto_config"
 
 var enumValues_CryptoConfigRespMsgType = []interface{}{
 	"crypto_config",
@@ -80,16 +62,34 @@ func (j *CryptoConfigRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// The response will display the configuration details related to cryptocurrencies
+type CryptoConfigResp struct {
+	// Provides cryptocurrencies configuration.
+	CryptoConfig *CryptoConfigRespCryptoConfig `json:"crypto_config,omitempty"`
+
+	// Echo of the request made.
+	EchoReq CryptoConfigRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType CryptoConfigRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const CryptoConfigRespMsgTypeCryptoConfig CryptoConfigRespMsgType = "crypto_config"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *CryptoConfigResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in CryptoConfigResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in CryptoConfigResp: required")
 	}
 	type Plain CryptoConfigResp

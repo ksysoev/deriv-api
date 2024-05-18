@@ -6,35 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Retrieves the exchange rate from a base currency to a target currency supported
-// by the system.
-type ExchangeRates struct {
-	// Base currency (can be obtained from `payout_currencies` call)
-	BaseCurrency string `json:"base_currency"`
-
-	// Must be `1`
-	ExchangeRates ExchangeRatesExchangeRates `json:"exchange_rates"`
-
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough ExchangeRatesPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// [Optional] 1 - to initiate a realtime stream of exchange rates relative to base
-	// currency.
-	Subscribe *ExchangeRatesSubscribe `json:"subscribe,omitempty"`
-
-	// [Optional] Target currency for the exchange rate. If subscribe is set,
-	// target_currency must be specified as well.
-	TargetCurrency *string `json:"target_currency,omitempty"`
-}
-
 type ExchangeRatesExchangeRates int
 
 var enumValues_ExchangeRatesExchangeRates = []interface{}{
@@ -58,6 +29,32 @@ func (j *ExchangeRatesExchangeRates) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ExchangeRatesExchangeRates, v)
 	}
 	*j = ExchangeRatesExchangeRates(v)
+	return nil
+}
+
+type ExchangeRatesIncludeSpread int
+
+var enumValues_ExchangeRatesIncludeSpread = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ExchangeRatesIncludeSpread) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ExchangeRatesIncludeSpread {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ExchangeRatesIncludeSpread, v)
+	}
+	*j = ExchangeRatesIncludeSpread(v)
 	return nil
 }
 
@@ -91,16 +88,49 @@ func (j *ExchangeRatesSubscribe) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Retrieves the exchange rate from a base currency to a target currency supported
+// by the system.
+type ExchangeRates struct {
+	// Base currency (can be obtained from `payout_currencies` call)
+	BaseCurrency string `json:"base_currency"`
+
+	// Must be `1`
+	ExchangeRates ExchangeRatesExchangeRates `json:"exchange_rates"`
+
+	// [Optional] 1 - Request for ask and bid rates along with the spot rate. Only
+	// available if target_currency is provided.
+	IncludeSpread *ExchangeRatesIncludeSpread `json:"include_spread,omitempty"`
+
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough ExchangeRatesPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// [Optional] 1 - to initiate a realtime stream of exchange rates relative to base
+	// currency.
+	Subscribe *ExchangeRatesSubscribe `json:"subscribe,omitempty"`
+
+	// [Optional] Target currency for the exchange rate. If subscribe is set,
+	// target_currency must be specified as well.
+	TargetCurrency *string `json:"target_currency,omitempty"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ExchangeRates) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["base_currency"]; raw != nil && !ok {
+	if v, ok := raw["base_currency"]; !ok || v == nil {
 		return fmt.Errorf("field base_currency in ExchangeRates: required")
 	}
-	if _, ok := raw["exchange_rates"]; raw != nil && !ok {
+	if v, ok := raw["exchange_rates"]; !ok || v == nil {
 		return fmt.Errorf("field exchange_rates in ExchangeRates: required")
 	}
 	type Plain ExchangeRates

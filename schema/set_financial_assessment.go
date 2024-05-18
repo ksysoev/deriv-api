@@ -93,65 +93,11 @@ const SetFinancialAssessmentAccountTurnoverA50001100000 SetFinancialAssessmentAc
 const SetFinancialAssessmentAccountTurnoverLessThan25000 SetFinancialAssessmentAccountTurnover = "Less than $25,000"
 const SetFinancialAssessmentAccountTurnoverOver500000 SetFinancialAssessmentAccountTurnover = "Over $500,000"
 
-var enumValues_SetFinancialAssessmentAccountTurnover = []interface{}{
-	"Less than $25,000",
-	"$25,000 - $50,000",
-	"$50,001 - $100,000",
-	"$100,001 - $500,000",
-	"Over $500,000",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentAccountTurnover) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentAccountTurnover {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentAccountTurnover, v)
-	}
-	*j = SetFinancialAssessmentAccountTurnover(v)
-	return nil
-}
-
 type SetFinancialAssessmentBinaryOptionsTradingExperience string
 
 const SetFinancialAssessmentBinaryOptionsTradingExperienceA01Year SetFinancialAssessmentBinaryOptionsTradingExperience = "0-1 year"
 const SetFinancialAssessmentBinaryOptionsTradingExperienceA12Years SetFinancialAssessmentBinaryOptionsTradingExperience = "1-2 years"
 const SetFinancialAssessmentBinaryOptionsTradingExperienceOver3Years SetFinancialAssessmentBinaryOptionsTradingExperience = "Over 3 years"
-
-var enumValues_SetFinancialAssessmentBinaryOptionsTradingExperience = []interface{}{
-	"0-1 year",
-	"1-2 years",
-	"Over 3 years",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentBinaryOptionsTradingExperience) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentBinaryOptionsTradingExperience {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentBinaryOptionsTradingExperience, v)
-	}
-	*j = SetFinancialAssessmentBinaryOptionsTradingExperience(v)
-	return nil
-}
 
 type SetFinancialAssessmentBinaryOptionsTradingFrequency string
 
@@ -160,64 +106,11 @@ const SetFinancialAssessmentBinaryOptionsTradingFrequencyA1139TransactionsInTheP
 const SetFinancialAssessmentBinaryOptionsTradingFrequencyA40TransactionsOrMoreInThePast12Months SetFinancialAssessmentBinaryOptionsTradingFrequency = "40 transactions or more in the past 12 months"
 const SetFinancialAssessmentBinaryOptionsTradingFrequencyA610TransactionsInThePast12Months SetFinancialAssessmentBinaryOptionsTradingFrequency = "6-10 transactions in the past 12 months"
 
-var enumValues_SetFinancialAssessmentBinaryOptionsTradingFrequency = []interface{}{
-	"0-5 transactions in the past 12 months",
-	"6-10 transactions in the past 12 months",
-	"11-39 transactions in the past 12 months",
-	"40 transactions or more in the past 12 months",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentBinaryOptionsTradingFrequency) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentBinaryOptionsTradingFrequency {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentBinaryOptionsTradingFrequency, v)
-	}
-	*j = SetFinancialAssessmentBinaryOptionsTradingFrequency(v)
-	return nil
-}
-
 type SetFinancialAssessmentCfdTradingExperience string
 
 const SetFinancialAssessmentCfdTradingExperienceA01Year SetFinancialAssessmentCfdTradingExperience = "0-1 year"
 const SetFinancialAssessmentCfdTradingExperienceA12Years SetFinancialAssessmentCfdTradingExperience = "1-2 years"
 const SetFinancialAssessmentCfdTradingExperienceOver3Years SetFinancialAssessmentCfdTradingExperience = "Over 3 years"
-
-var enumValues_SetFinancialAssessmentCfdTradingExperience = []interface{}{
-	"0-1 year",
-	"1-2 years",
-	"Over 3 years",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentCfdTradingExperience) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentCfdTradingExperience {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentCfdTradingExperience, v)
-	}
-	*j = SetFinancialAssessmentCfdTradingExperience(v)
-	return nil
-}
 
 type SetFinancialAssessmentCfdTradingFrequency string
 
@@ -226,64 +119,11 @@ const SetFinancialAssessmentCfdTradingFrequencyA1139TransactionsInThePast12Month
 const SetFinancialAssessmentCfdTradingFrequencyA40TransactionsOrMoreInThePast12Months SetFinancialAssessmentCfdTradingFrequency = "40 transactions or more in the past 12 months"
 const SetFinancialAssessmentCfdTradingFrequencyA610TransactionsInThePast12Months SetFinancialAssessmentCfdTradingFrequency = "6-10 transactions in the past 12 months"
 
-var enumValues_SetFinancialAssessmentCfdTradingFrequency = []interface{}{
-	"0-5 transactions in the past 12 months",
-	"6-10 transactions in the past 12 months",
-	"11-39 transactions in the past 12 months",
-	"40 transactions or more in the past 12 months",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentCfdTradingFrequency) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentCfdTradingFrequency {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentCfdTradingFrequency, v)
-	}
-	*j = SetFinancialAssessmentCfdTradingFrequency(v)
-	return nil
-}
-
 type SetFinancialAssessmentEducationLevel string
 
 const SetFinancialAssessmentEducationLevelPrimary SetFinancialAssessmentEducationLevel = "Primary"
 const SetFinancialAssessmentEducationLevelSecondary SetFinancialAssessmentEducationLevel = "Secondary"
 const SetFinancialAssessmentEducationLevelTertiary SetFinancialAssessmentEducationLevel = "Tertiary"
-
-var enumValues_SetFinancialAssessmentEducationLevel = []interface{}{
-	"Primary",
-	"Secondary",
-	"Tertiary",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentEducationLevel) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentEducationLevel {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentEducationLevel, v)
-	}
-	*j = SetFinancialAssessmentEducationLevel(v)
-	return nil
-}
 
 type SetFinancialAssessmentEmploymentIndustry string
 
@@ -302,43 +142,6 @@ const SetFinancialAssessmentEmploymentIndustrySocialCultural SetFinancialAssessm
 const SetFinancialAssessmentEmploymentIndustryTourism SetFinancialAssessmentEmploymentIndustry = "Tourism"
 const SetFinancialAssessmentEmploymentIndustryUnemployed SetFinancialAssessmentEmploymentIndustry = "Unemployed"
 
-var enumValues_SetFinancialAssessmentEmploymentIndustry = []interface{}{
-	"Construction",
-	"Education",
-	"Finance",
-	"Health",
-	"Tourism",
-	"Information & Communications Technology",
-	"Science & Engineering",
-	"Legal",
-	"Social & Cultural",
-	"Agriculture",
-	"Real Estate",
-	"Food Services",
-	"Manufacturing",
-	"Unemployed",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentEmploymentIndustry) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentEmploymentIndustry {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentEmploymentIndustry, v)
-	}
-	*j = SetFinancialAssessmentEmploymentIndustry(v)
-	return nil
-}
-
 type SetFinancialAssessmentEmploymentStatus string
 
 const SetFinancialAssessmentEmploymentStatusEmployed SetFinancialAssessmentEmploymentStatus = "Employed"
@@ -347,34 +150,6 @@ const SetFinancialAssessmentEmploymentStatusSelfEmployed SetFinancialAssessmentE
 const SetFinancialAssessmentEmploymentStatusStudent SetFinancialAssessmentEmploymentStatus = "Student"
 const SetFinancialAssessmentEmploymentStatusUnemployed SetFinancialAssessmentEmploymentStatus = "Unemployed"
 
-var enumValues_SetFinancialAssessmentEmploymentStatus = []interface{}{
-	"Employed",
-	"Pensioner",
-	"Self-Employed",
-	"Student",
-	"Unemployed",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentEmploymentStatus) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentEmploymentStatus {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentEmploymentStatus, v)
-	}
-	*j = SetFinancialAssessmentEmploymentStatus(v)
-	return nil
-}
-
 type SetFinancialAssessmentEstimatedWorth string
 
 const SetFinancialAssessmentEstimatedWorthA100000250000 SetFinancialAssessmentEstimatedWorth = "$100,000 - $250,000"
@@ -382,34 +157,6 @@ const SetFinancialAssessmentEstimatedWorthA250001500000 SetFinancialAssessmentEs
 const SetFinancialAssessmentEstimatedWorthA5000011000000 SetFinancialAssessmentEstimatedWorth = "$500,001 - $1,000,000"
 const SetFinancialAssessmentEstimatedWorthLessThan100000 SetFinancialAssessmentEstimatedWorth = "Less than $100,000"
 const SetFinancialAssessmentEstimatedWorthOver1000000 SetFinancialAssessmentEstimatedWorth = "Over $1,000,000"
-
-var enumValues_SetFinancialAssessmentEstimatedWorth = []interface{}{
-	"Less than $100,000",
-	"$100,000 - $250,000",
-	"$250,001 - $500,000",
-	"$500,001 - $1,000,000",
-	"Over $1,000,000",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentEstimatedWorth) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentEstimatedWorth {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentEstimatedWorth, v)
-	}
-	*j = SetFinancialAssessmentEstimatedWorth(v)
-	return nil
-}
 
 // [Optional] The financial information of a client
 type SetFinancialAssessmentFinancialInformation struct {
@@ -449,65 +196,11 @@ const SetFinancialAssessmentFinancialInformationAccountTurnoverA50001100000 SetF
 const SetFinancialAssessmentFinancialInformationAccountTurnoverLessThan25000 SetFinancialAssessmentFinancialInformationAccountTurnover = "Less than $25,000"
 const SetFinancialAssessmentFinancialInformationAccountTurnoverOver500000 SetFinancialAssessmentFinancialInformationAccountTurnover = "Over $500,000"
 
-var enumValues_SetFinancialAssessmentFinancialInformationAccountTurnover = []interface{}{
-	"Less than $25,000",
-	"$25,000 - $50,000",
-	"$50,001 - $100,000",
-	"$100,001 - $500,000",
-	"Over $500,000",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentFinancialInformationAccountTurnover) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentFinancialInformationAccountTurnover {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentFinancialInformationAccountTurnover, v)
-	}
-	*j = SetFinancialAssessmentFinancialInformationAccountTurnover(v)
-	return nil
-}
-
 type SetFinancialAssessmentFinancialInformationEducationLevel string
 
 const SetFinancialAssessmentFinancialInformationEducationLevelPrimary SetFinancialAssessmentFinancialInformationEducationLevel = "Primary"
 const SetFinancialAssessmentFinancialInformationEducationLevelSecondary SetFinancialAssessmentFinancialInformationEducationLevel = "Secondary"
 const SetFinancialAssessmentFinancialInformationEducationLevelTertiary SetFinancialAssessmentFinancialInformationEducationLevel = "Tertiary"
-
-var enumValues_SetFinancialAssessmentFinancialInformationEducationLevel = []interface{}{
-	"Primary",
-	"Secondary",
-	"Tertiary",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentFinancialInformationEducationLevel) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentFinancialInformationEducationLevel {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentFinancialInformationEducationLevel, v)
-	}
-	*j = SetFinancialAssessmentFinancialInformationEducationLevel(v)
-	return nil
-}
 
 type SetFinancialAssessmentFinancialInformationEmploymentIndustry string
 
@@ -526,43 +219,6 @@ const SetFinancialAssessmentFinancialInformationEmploymentIndustrySocialCultural
 const SetFinancialAssessmentFinancialInformationEmploymentIndustryTourism SetFinancialAssessmentFinancialInformationEmploymentIndustry = "Tourism"
 const SetFinancialAssessmentFinancialInformationEmploymentIndustryUnemployed SetFinancialAssessmentFinancialInformationEmploymentIndustry = "Unemployed"
 
-var enumValues_SetFinancialAssessmentFinancialInformationEmploymentIndustry = []interface{}{
-	"Construction",
-	"Education",
-	"Finance",
-	"Health",
-	"Tourism",
-	"Information & Communications Technology",
-	"Science & Engineering",
-	"Legal",
-	"Social & Cultural",
-	"Agriculture",
-	"Real Estate",
-	"Food Services",
-	"Manufacturing",
-	"Unemployed",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentFinancialInformationEmploymentIndustry) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentFinancialInformationEmploymentIndustry {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentFinancialInformationEmploymentIndustry, v)
-	}
-	*j = SetFinancialAssessmentFinancialInformationEmploymentIndustry(v)
-	return nil
-}
-
 type SetFinancialAssessmentFinancialInformationEmploymentStatus string
 
 const SetFinancialAssessmentFinancialInformationEmploymentStatusEmployed SetFinancialAssessmentFinancialInformationEmploymentStatus = "Employed"
@@ -571,34 +227,6 @@ const SetFinancialAssessmentFinancialInformationEmploymentStatusSelfEmployed Set
 const SetFinancialAssessmentFinancialInformationEmploymentStatusStudent SetFinancialAssessmentFinancialInformationEmploymentStatus = "Student"
 const SetFinancialAssessmentFinancialInformationEmploymentStatusUnemployed SetFinancialAssessmentFinancialInformationEmploymentStatus = "Unemployed"
 
-var enumValues_SetFinancialAssessmentFinancialInformationEmploymentStatus = []interface{}{
-	"Employed",
-	"Pensioner",
-	"Self-Employed",
-	"Student",
-	"Unemployed",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentFinancialInformationEmploymentStatus) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentFinancialInformationEmploymentStatus {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentFinancialInformationEmploymentStatus, v)
-	}
-	*j = SetFinancialAssessmentFinancialInformationEmploymentStatus(v)
-	return nil
-}
-
 type SetFinancialAssessmentFinancialInformationEstimatedWorth string
 
 const SetFinancialAssessmentFinancialInformationEstimatedWorthA100000250000 SetFinancialAssessmentFinancialInformationEstimatedWorth = "$100,000 - $250,000"
@@ -606,34 +234,6 @@ const SetFinancialAssessmentFinancialInformationEstimatedWorthA250001500000 SetF
 const SetFinancialAssessmentFinancialInformationEstimatedWorthA5000011000000 SetFinancialAssessmentFinancialInformationEstimatedWorth = "$500,001 - $1,000,000"
 const SetFinancialAssessmentFinancialInformationEstimatedWorthLessThan100000 SetFinancialAssessmentFinancialInformationEstimatedWorth = "Less than $100,000"
 const SetFinancialAssessmentFinancialInformationEstimatedWorthOver1000000 SetFinancialAssessmentFinancialInformationEstimatedWorth = "Over $1,000,000"
-
-var enumValues_SetFinancialAssessmentFinancialInformationEstimatedWorth = []interface{}{
-	"Less than $100,000",
-	"$100,000 - $250,000",
-	"$250,001 - $500,000",
-	"$500,001 - $1,000,000",
-	"Over $1,000,000",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentFinancialInformationEstimatedWorth) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentFinancialInformationEstimatedWorth {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentFinancialInformationEstimatedWorth, v)
-	}
-	*j = SetFinancialAssessmentFinancialInformationEstimatedWorth(v)
-	return nil
-}
 
 type SetFinancialAssessmentFinancialInformationIncomeSource string
 
@@ -644,35 +244,6 @@ const SetFinancialAssessmentFinancialInformationIncomeSourceSavingsInheritance S
 const SetFinancialAssessmentFinancialInformationIncomeSourceSelfEmployed SetFinancialAssessmentFinancialInformationIncomeSource = "Self-Employed"
 const SetFinancialAssessmentFinancialInformationIncomeSourceStateBenefits SetFinancialAssessmentFinancialInformationIncomeSource = "State Benefits"
 
-var enumValues_SetFinancialAssessmentFinancialInformationIncomeSource = []interface{}{
-	"Salaried Employee",
-	"Self-Employed",
-	"Investments & Dividends",
-	"Pension",
-	"State Benefits",
-	"Savings & Inheritance",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentFinancialInformationIncomeSource) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentFinancialInformationIncomeSource {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentFinancialInformationIncomeSource, v)
-	}
-	*j = SetFinancialAssessmentFinancialInformationIncomeSource(v)
-	return nil
-}
-
 type SetFinancialAssessmentFinancialInformationNetIncome string
 
 const SetFinancialAssessmentFinancialInformationNetIncomeA100001500000 SetFinancialAssessmentFinancialInformationNetIncome = "$100,001 - $500,000"
@@ -680,34 +251,6 @@ const SetFinancialAssessmentFinancialInformationNetIncomeA2500050000 SetFinancia
 const SetFinancialAssessmentFinancialInformationNetIncomeA50001100000 SetFinancialAssessmentFinancialInformationNetIncome = "$50,001 - $100,000"
 const SetFinancialAssessmentFinancialInformationNetIncomeLessThan25000 SetFinancialAssessmentFinancialInformationNetIncome = "Less than $25,000"
 const SetFinancialAssessmentFinancialInformationNetIncomeOver500000 SetFinancialAssessmentFinancialInformationNetIncome = "Over $500,000"
-
-var enumValues_SetFinancialAssessmentFinancialInformationNetIncome = []interface{}{
-	"Less than $25,000",
-	"$25,000 - $50,000",
-	"$50,001 - $100,000",
-	"$100,001 - $500,000",
-	"Over $500,000",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentFinancialInformationNetIncome) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentFinancialInformationNetIncome {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentFinancialInformationNetIncome, v)
-	}
-	*j = SetFinancialAssessmentFinancialInformationNetIncome(v)
-	return nil
-}
 
 type SetFinancialAssessmentFinancialInformationOccupation string
 
@@ -726,43 +269,6 @@ const SetFinancialAssessmentFinancialInformationOccupationProfessionals SetFinan
 const SetFinancialAssessmentFinancialInformationOccupationStudents SetFinancialAssessmentFinancialInformationOccupation = "Students"
 const SetFinancialAssessmentFinancialInformationOccupationUnemployed SetFinancialAssessmentFinancialInformationOccupation = "Unemployed"
 
-var enumValues_SetFinancialAssessmentFinancialInformationOccupation = []interface{}{
-	"Chief Executives, Senior Officials and Legislators",
-	"Managers",
-	"Professionals",
-	"Clerks",
-	"Personal Care, Sales and Service Workers",
-	"Agricultural, Forestry and Fishery Workers",
-	"Craft, Metal, Electrical and Electronics Workers",
-	"Plant and Machine Operators and Assemblers",
-	"Cleaners and Helpers",
-	"Mining, Construction, Manufacturing and Transport Workers",
-	"Armed Forces",
-	"Government Officers",
-	"Students",
-	"Unemployed",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentFinancialInformationOccupation) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentFinancialInformationOccupation {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentFinancialInformationOccupation, v)
-	}
-	*j = SetFinancialAssessmentFinancialInformationOccupation(v)
-	return nil
-}
-
 type SetFinancialAssessmentFinancialInformationSourceOfWealth string
 
 const SetFinancialAssessmentFinancialInformationSourceOfWealthAccumulationOfIncomeSavings SetFinancialAssessmentFinancialInformationSourceOfWealth = "Accumulation of Income/Savings"
@@ -773,97 +279,11 @@ const SetFinancialAssessmentFinancialInformationSourceOfWealthInheritance SetFin
 const SetFinancialAssessmentFinancialInformationSourceOfWealthInvestmentIncome SetFinancialAssessmentFinancialInformationSourceOfWealth = "Investment Income"
 const SetFinancialAssessmentFinancialInformationSourceOfWealthSaleOfProperty SetFinancialAssessmentFinancialInformationSourceOfWealth = "Sale of Property"
 
-var enumValues_SetFinancialAssessmentFinancialInformationSourceOfWealth = []interface{}{
-	"Accumulation of Income/Savings",
-	"Cash Business",
-	"Company Ownership",
-	"Divorce Settlement",
-	"Inheritance",
-	"Investment Income",
-	"Sale of Property",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentFinancialInformationSourceOfWealth) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentFinancialInformationSourceOfWealth {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentFinancialInformationSourceOfWealth, v)
-	}
-	*j = SetFinancialAssessmentFinancialInformationSourceOfWealth(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentFinancialInformation) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if _, ok := raw["education_level"]; raw != nil && !ok {
-		return fmt.Errorf("field education_level in SetFinancialAssessmentFinancialInformation: required")
-	}
-	if _, ok := raw["employment_industry"]; raw != nil && !ok {
-		return fmt.Errorf("field employment_industry in SetFinancialAssessmentFinancialInformation: required")
-	}
-	if _, ok := raw["estimated_worth"]; raw != nil && !ok {
-		return fmt.Errorf("field estimated_worth in SetFinancialAssessmentFinancialInformation: required")
-	}
-	if _, ok := raw["income_source"]; raw != nil && !ok {
-		return fmt.Errorf("field income_source in SetFinancialAssessmentFinancialInformation: required")
-	}
-	if _, ok := raw["net_income"]; raw != nil && !ok {
-		return fmt.Errorf("field net_income in SetFinancialAssessmentFinancialInformation: required")
-	}
-	type Plain SetFinancialAssessmentFinancialInformation
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = SetFinancialAssessmentFinancialInformation(plain)
-	return nil
-}
-
 type SetFinancialAssessmentForexTradingExperience string
 
 const SetFinancialAssessmentForexTradingExperienceA01Year SetFinancialAssessmentForexTradingExperience = "0-1 year"
 const SetFinancialAssessmentForexTradingExperienceA12Years SetFinancialAssessmentForexTradingExperience = "1-2 years"
 const SetFinancialAssessmentForexTradingExperienceOver3Years SetFinancialAssessmentForexTradingExperience = "Over 3 years"
-
-var enumValues_SetFinancialAssessmentForexTradingExperience = []interface{}{
-	"0-1 year",
-	"1-2 years",
-	"Over 3 years",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentForexTradingExperience) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentForexTradingExperience {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentForexTradingExperience, v)
-	}
-	*j = SetFinancialAssessmentForexTradingExperience(v)
-	return nil
-}
 
 type SetFinancialAssessmentForexTradingFrequency string
 
@@ -871,33 +291,6 @@ const SetFinancialAssessmentForexTradingFrequencyA05TransactionsInThePast12Month
 const SetFinancialAssessmentForexTradingFrequencyA1139TransactionsInThePast12Months SetFinancialAssessmentForexTradingFrequency = "11-39 transactions in the past 12 months"
 const SetFinancialAssessmentForexTradingFrequencyA40TransactionsOrMoreInThePast12Months SetFinancialAssessmentForexTradingFrequency = "40 transactions or more in the past 12 months"
 const SetFinancialAssessmentForexTradingFrequencyA610TransactionsInThePast12Months SetFinancialAssessmentForexTradingFrequency = "6-10 transactions in the past 12 months"
-
-var enumValues_SetFinancialAssessmentForexTradingFrequency = []interface{}{
-	"0-5 transactions in the past 12 months",
-	"6-10 transactions in the past 12 months",
-	"11-39 transactions in the past 12 months",
-	"40 transactions or more in the past 12 months",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentForexTradingFrequency) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentForexTradingFrequency {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentForexTradingFrequency, v)
-	}
-	*j = SetFinancialAssessmentForexTradingFrequency(v)
-	return nil
-}
 
 type SetFinancialAssessmentIncomeSource string
 
@@ -908,35 +301,6 @@ const SetFinancialAssessmentIncomeSourceSavingsInheritance SetFinancialAssessmen
 const SetFinancialAssessmentIncomeSourceSelfEmployed SetFinancialAssessmentIncomeSource = "Self-Employed"
 const SetFinancialAssessmentIncomeSourceStateBenefits SetFinancialAssessmentIncomeSource = "State Benefits"
 
-var enumValues_SetFinancialAssessmentIncomeSource = []interface{}{
-	"Salaried Employee",
-	"Self-Employed",
-	"Investments & Dividends",
-	"Pension",
-	"State Benefits",
-	"Savings & Inheritance",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentIncomeSource) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentIncomeSource {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentIncomeSource, v)
-	}
-	*j = SetFinancialAssessmentIncomeSource(v)
-	return nil
-}
-
 type SetFinancialAssessmentNetIncome string
 
 const SetFinancialAssessmentNetIncomeA100001500000 SetFinancialAssessmentNetIncome = "$100,001 - $500,000"
@@ -944,34 +308,6 @@ const SetFinancialAssessmentNetIncomeA2500050000 SetFinancialAssessmentNetIncome
 const SetFinancialAssessmentNetIncomeA50001100000 SetFinancialAssessmentNetIncome = "$50,001 - $100,000"
 const SetFinancialAssessmentNetIncomeLessThan25000 SetFinancialAssessmentNetIncome = "Less than $25,000"
 const SetFinancialAssessmentNetIncomeOver500000 SetFinancialAssessmentNetIncome = "Over $500,000"
-
-var enumValues_SetFinancialAssessmentNetIncome = []interface{}{
-	"Less than $25,000",
-	"$25,000 - $50,000",
-	"$50,001 - $100,000",
-	"$100,001 - $500,000",
-	"Over $500,000",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentNetIncome) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentNetIncome {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentNetIncome, v)
-	}
-	*j = SetFinancialAssessmentNetIncome(v)
-	return nil
-}
 
 type SetFinancialAssessmentOccupation string
 
@@ -990,74 +326,11 @@ const SetFinancialAssessmentOccupationProfessionals SetFinancialAssessmentOccupa
 const SetFinancialAssessmentOccupationStudents SetFinancialAssessmentOccupation = "Students"
 const SetFinancialAssessmentOccupationUnemployed SetFinancialAssessmentOccupation = "Unemployed"
 
-var enumValues_SetFinancialAssessmentOccupation = []interface{}{
-	"Chief Executives, Senior Officials and Legislators",
-	"Managers",
-	"Professionals",
-	"Clerks",
-	"Personal Care, Sales and Service Workers",
-	"Agricultural, Forestry and Fishery Workers",
-	"Craft, Metal, Electrical and Electronics Workers",
-	"Plant and Machine Operators and Assemblers",
-	"Cleaners and Helpers",
-	"Mining, Construction, Manufacturing and Transport Workers",
-	"Armed Forces",
-	"Government Officers",
-	"Students",
-	"Unemployed",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentOccupation) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentOccupation {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentOccupation, v)
-	}
-	*j = SetFinancialAssessmentOccupation(v)
-	return nil
-}
-
 type SetFinancialAssessmentOtherInstrumentsTradingExperience string
 
 const SetFinancialAssessmentOtherInstrumentsTradingExperienceA01Year SetFinancialAssessmentOtherInstrumentsTradingExperience = "0-1 year"
 const SetFinancialAssessmentOtherInstrumentsTradingExperienceA12Years SetFinancialAssessmentOtherInstrumentsTradingExperience = "1-2 years"
 const SetFinancialAssessmentOtherInstrumentsTradingExperienceOver3Years SetFinancialAssessmentOtherInstrumentsTradingExperience = "Over 3 years"
-
-var enumValues_SetFinancialAssessmentOtherInstrumentsTradingExperience = []interface{}{
-	"0-1 year",
-	"1-2 years",
-	"Over 3 years",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentOtherInstrumentsTradingExperience) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentOtherInstrumentsTradingExperience {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentOtherInstrumentsTradingExperience, v)
-	}
-	*j = SetFinancialAssessmentOtherInstrumentsTradingExperience(v)
-	return nil
-}
 
 type SetFinancialAssessmentOtherInstrumentsTradingFrequency string
 
@@ -1066,62 +339,11 @@ const SetFinancialAssessmentOtherInstrumentsTradingFrequencyA1139TransactionsInT
 const SetFinancialAssessmentOtherInstrumentsTradingFrequencyA40TransactionsOrMoreInThePast12Months SetFinancialAssessmentOtherInstrumentsTradingFrequency = "40 transactions or more in the past 12 months"
 const SetFinancialAssessmentOtherInstrumentsTradingFrequencyA610TransactionsInThePast12Months SetFinancialAssessmentOtherInstrumentsTradingFrequency = "6-10 transactions in the past 12 months"
 
-var enumValues_SetFinancialAssessmentOtherInstrumentsTradingFrequency = []interface{}{
-	"0-5 transactions in the past 12 months",
-	"6-10 transactions in the past 12 months",
-	"11-39 transactions in the past 12 months",
-	"40 transactions or more in the past 12 months",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentOtherInstrumentsTradingFrequency) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentOtherInstrumentsTradingFrequency {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentOtherInstrumentsTradingFrequency, v)
-	}
-	*j = SetFinancialAssessmentOtherInstrumentsTradingFrequency(v)
-	return nil
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type SetFinancialAssessmentPassthrough map[string]interface{}
 
 type SetFinancialAssessmentSetFinancialAssessment int
-
-var enumValues_SetFinancialAssessmentSetFinancialAssessment = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentSetFinancialAssessment) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentSetFinancialAssessment {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentSetFinancialAssessment, v)
-	}
-	*j = SetFinancialAssessmentSetFinancialAssessment(v)
-	return nil
-}
 
 type SetFinancialAssessmentSourceOfWealth string
 
@@ -1132,36 +354,6 @@ const SetFinancialAssessmentSourceOfWealthDivorceSettlement SetFinancialAssessme
 const SetFinancialAssessmentSourceOfWealthInheritance SetFinancialAssessmentSourceOfWealth = "Inheritance"
 const SetFinancialAssessmentSourceOfWealthInvestmentIncome SetFinancialAssessmentSourceOfWealth = "Investment Income"
 const SetFinancialAssessmentSourceOfWealthSaleOfProperty SetFinancialAssessmentSourceOfWealth = "Sale of Property"
-
-var enumValues_SetFinancialAssessmentSourceOfWealth = []interface{}{
-	"Accumulation of Income/Savings",
-	"Cash Business",
-	"Company Ownership",
-	"Divorce Settlement",
-	"Inheritance",
-	"Investment Income",
-	"Sale of Property",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentSourceOfWealth) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentSourceOfWealth {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentSourceOfWealth, v)
-	}
-	*j = SetFinancialAssessmentSourceOfWealth(v)
-	return nil
-}
 
 // [Optional] The trading experience of a client
 type SetFinancialAssessmentTradingExperience struct {
@@ -1196,32 +388,6 @@ const SetFinancialAssessmentTradingExperienceBinaryOptionsTradingExperienceA01Ye
 const SetFinancialAssessmentTradingExperienceBinaryOptionsTradingExperienceA12Years SetFinancialAssessmentTradingExperienceBinaryOptionsTradingExperience = "1-2 years"
 const SetFinancialAssessmentTradingExperienceBinaryOptionsTradingExperienceOver3Years SetFinancialAssessmentTradingExperienceBinaryOptionsTradingExperience = "Over 3 years"
 
-var enumValues_SetFinancialAssessmentTradingExperienceBinaryOptionsTradingExperience = []interface{}{
-	"0-1 year",
-	"1-2 years",
-	"Over 3 years",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentTradingExperienceBinaryOptionsTradingExperience) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentTradingExperienceBinaryOptionsTradingExperience {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentTradingExperienceBinaryOptionsTradingExperience, v)
-	}
-	*j = SetFinancialAssessmentTradingExperienceBinaryOptionsTradingExperience(v)
-	return nil
-}
-
 type SetFinancialAssessmentTradingExperienceBinaryOptionsTradingFrequency string
 
 const SetFinancialAssessmentTradingExperienceBinaryOptionsTradingFrequencyA05TransactionsInThePast12Months SetFinancialAssessmentTradingExperienceBinaryOptionsTradingFrequency = "0-5 transactions in the past 12 months"
@@ -1229,64 +395,11 @@ const SetFinancialAssessmentTradingExperienceBinaryOptionsTradingFrequencyA1139T
 const SetFinancialAssessmentTradingExperienceBinaryOptionsTradingFrequencyA40TransactionsOrMoreInThePast12Months SetFinancialAssessmentTradingExperienceBinaryOptionsTradingFrequency = "40 transactions or more in the past 12 months"
 const SetFinancialAssessmentTradingExperienceBinaryOptionsTradingFrequencyA610TransactionsInThePast12Months SetFinancialAssessmentTradingExperienceBinaryOptionsTradingFrequency = "6-10 transactions in the past 12 months"
 
-var enumValues_SetFinancialAssessmentTradingExperienceBinaryOptionsTradingFrequency = []interface{}{
-	"0-5 transactions in the past 12 months",
-	"6-10 transactions in the past 12 months",
-	"11-39 transactions in the past 12 months",
-	"40 transactions or more in the past 12 months",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentTradingExperienceBinaryOptionsTradingFrequency) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentTradingExperienceBinaryOptionsTradingFrequency {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentTradingExperienceBinaryOptionsTradingFrequency, v)
-	}
-	*j = SetFinancialAssessmentTradingExperienceBinaryOptionsTradingFrequency(v)
-	return nil
-}
-
 type SetFinancialAssessmentTradingExperienceCfdTradingExperience string
 
 const SetFinancialAssessmentTradingExperienceCfdTradingExperienceA01Year SetFinancialAssessmentTradingExperienceCfdTradingExperience = "0-1 year"
 const SetFinancialAssessmentTradingExperienceCfdTradingExperienceA12Years SetFinancialAssessmentTradingExperienceCfdTradingExperience = "1-2 years"
 const SetFinancialAssessmentTradingExperienceCfdTradingExperienceOver3Years SetFinancialAssessmentTradingExperienceCfdTradingExperience = "Over 3 years"
-
-var enumValues_SetFinancialAssessmentTradingExperienceCfdTradingExperience = []interface{}{
-	"0-1 year",
-	"1-2 years",
-	"Over 3 years",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentTradingExperienceCfdTradingExperience) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentTradingExperienceCfdTradingExperience {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentTradingExperienceCfdTradingExperience, v)
-	}
-	*j = SetFinancialAssessmentTradingExperienceCfdTradingExperience(v)
-	return nil
-}
 
 type SetFinancialAssessmentTradingExperienceCfdTradingFrequency string
 
@@ -1295,64 +408,11 @@ const SetFinancialAssessmentTradingExperienceCfdTradingFrequencyA1139Transaction
 const SetFinancialAssessmentTradingExperienceCfdTradingFrequencyA40TransactionsOrMoreInThePast12Months SetFinancialAssessmentTradingExperienceCfdTradingFrequency = "40 transactions or more in the past 12 months"
 const SetFinancialAssessmentTradingExperienceCfdTradingFrequencyA610TransactionsInThePast12Months SetFinancialAssessmentTradingExperienceCfdTradingFrequency = "6-10 transactions in the past 12 months"
 
-var enumValues_SetFinancialAssessmentTradingExperienceCfdTradingFrequency = []interface{}{
-	"0-5 transactions in the past 12 months",
-	"6-10 transactions in the past 12 months",
-	"11-39 transactions in the past 12 months",
-	"40 transactions or more in the past 12 months",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentTradingExperienceCfdTradingFrequency) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentTradingExperienceCfdTradingFrequency {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentTradingExperienceCfdTradingFrequency, v)
-	}
-	*j = SetFinancialAssessmentTradingExperienceCfdTradingFrequency(v)
-	return nil
-}
-
 type SetFinancialAssessmentTradingExperienceForexTradingExperience string
 
 const SetFinancialAssessmentTradingExperienceForexTradingExperienceA01Year SetFinancialAssessmentTradingExperienceForexTradingExperience = "0-1 year"
 const SetFinancialAssessmentTradingExperienceForexTradingExperienceA12Years SetFinancialAssessmentTradingExperienceForexTradingExperience = "1-2 years"
 const SetFinancialAssessmentTradingExperienceForexTradingExperienceOver3Years SetFinancialAssessmentTradingExperienceForexTradingExperience = "Over 3 years"
-
-var enumValues_SetFinancialAssessmentTradingExperienceForexTradingExperience = []interface{}{
-	"0-1 year",
-	"1-2 years",
-	"Over 3 years",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentTradingExperienceForexTradingExperience) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentTradingExperienceForexTradingExperience {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentTradingExperienceForexTradingExperience, v)
-	}
-	*j = SetFinancialAssessmentTradingExperienceForexTradingExperience(v)
-	return nil
-}
 
 type SetFinancialAssessmentTradingExperienceForexTradingFrequency string
 
@@ -1361,64 +421,11 @@ const SetFinancialAssessmentTradingExperienceForexTradingFrequencyA1139Transacti
 const SetFinancialAssessmentTradingExperienceForexTradingFrequencyA40TransactionsOrMoreInThePast12Months SetFinancialAssessmentTradingExperienceForexTradingFrequency = "40 transactions or more in the past 12 months"
 const SetFinancialAssessmentTradingExperienceForexTradingFrequencyA610TransactionsInThePast12Months SetFinancialAssessmentTradingExperienceForexTradingFrequency = "6-10 transactions in the past 12 months"
 
-var enumValues_SetFinancialAssessmentTradingExperienceForexTradingFrequency = []interface{}{
-	"0-5 transactions in the past 12 months",
-	"6-10 transactions in the past 12 months",
-	"11-39 transactions in the past 12 months",
-	"40 transactions or more in the past 12 months",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentTradingExperienceForexTradingFrequency) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentTradingExperienceForexTradingFrequency {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentTradingExperienceForexTradingFrequency, v)
-	}
-	*j = SetFinancialAssessmentTradingExperienceForexTradingFrequency(v)
-	return nil
-}
-
 type SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingExperience string
 
 const SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingExperienceA01Year SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingExperience = "0-1 year"
 const SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingExperienceA12Years SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingExperience = "1-2 years"
 const SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingExperienceOver3Years SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingExperience = "Over 3 years"
-
-var enumValues_SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingExperience = []interface{}{
-	"0-1 year",
-	"1-2 years",
-	"Over 3 years",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingExperience) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingExperience {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingExperience, v)
-	}
-	*j = SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingExperience(v)
-	return nil
-}
 
 type SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingFrequency string
 
@@ -1426,33 +433,6 @@ const SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingFrequencyA05
 const SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingFrequencyA1139TransactionsInThePast12Months SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingFrequency = "11-39 transactions in the past 12 months"
 const SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingFrequencyA40TransactionsOrMoreInThePast12Months SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingFrequency = "40 transactions or more in the past 12 months"
 const SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingFrequencyA610TransactionsInThePast12Months SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingFrequency = "6-10 transactions in the past 12 months"
-
-var enumValues_SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingFrequency = []interface{}{
-	"0-5 transactions in the past 12 months",
-	"6-10 transactions in the past 12 months",
-	"11-39 transactions in the past 12 months",
-	"40 transactions or more in the past 12 months",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingFrequency) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingFrequency {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingFrequency, v)
-	}
-	*j = SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingFrequency(v)
-	return nil
-}
 
 // [Optional] The trading experience of a `maltainvest` client
 type SetFinancialAssessmentTradingExperienceRegulated struct {
@@ -1497,33 +477,6 @@ const SetFinancialAssessmentTradingExperienceRegulatedCfdExperienceLessThanAYear
 const SetFinancialAssessmentTradingExperienceRegulatedCfdExperienceNoExperience SetFinancialAssessmentTradingExperienceRegulatedCfdExperience = "No experience"
 const SetFinancialAssessmentTradingExperienceRegulatedCfdExperienceOver3Years SetFinancialAssessmentTradingExperienceRegulatedCfdExperience = "Over 3 years"
 
-var enumValues_SetFinancialAssessmentTradingExperienceRegulatedCfdExperience = []interface{}{
-	"No experience",
-	"Less than a year",
-	"1 - 2 years",
-	"Over 3 years",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetFinancialAssessmentTradingExperienceRegulatedCfdExperience) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetFinancialAssessmentTradingExperienceRegulatedCfdExperience {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentTradingExperienceRegulatedCfdExperience, v)
-	}
-	*j = SetFinancialAssessmentTradingExperienceRegulatedCfdExperience(v)
-	return nil
-}
-
 type SetFinancialAssessmentTradingExperienceRegulatedCfdFrequency string
 
 const SetFinancialAssessmentTradingExperienceRegulatedCfdFrequencyA1139TransactionsInThePast12Months SetFinancialAssessmentTradingExperienceRegulatedCfdFrequency = "11 - 39 transactions in the past 12 months"
@@ -1532,12 +485,288 @@ const SetFinancialAssessmentTradingExperienceRegulatedCfdFrequencyA40Transaction
 const SetFinancialAssessmentTradingExperienceRegulatedCfdFrequencyA610TransactionsInThePast12Months SetFinancialAssessmentTradingExperienceRegulatedCfdFrequency = "6 - 10 transactions in the past 12 months"
 const SetFinancialAssessmentTradingExperienceRegulatedCfdFrequencyNoTransactionsInThePast12Months SetFinancialAssessmentTradingExperienceRegulatedCfdFrequency = "No transactions in the past 12 months"
 
-var enumValues_SetFinancialAssessmentTradingExperienceRegulatedCfdFrequency = []interface{}{
-	"No transactions in the past 12 months",
-	"1 - 5 transactions in the past 12 months",
-	"6 - 10 transactions in the past 12 months",
-	"11 - 39 transactions in the past 12 months",
+type SetFinancialAssessmentTradingExperienceRegulatedCfdTradingDefinition string
+
+const SetFinancialAssessmentTradingExperienceRegulatedCfdTradingDefinitionMakeALongTermInvestment SetFinancialAssessmentTradingExperienceRegulatedCfdTradingDefinition = "Make a long-term investment."
+const SetFinancialAssessmentTradingExperienceRegulatedCfdTradingDefinitionPlaceABetOnThePriceMovement SetFinancialAssessmentTradingExperienceRegulatedCfdTradingDefinition = "Place a bet on the price movement."
+const SetFinancialAssessmentTradingExperienceRegulatedCfdTradingDefinitionPurchaseSharesOfACompanyOrPhysicalCommodities SetFinancialAssessmentTradingExperienceRegulatedCfdTradingDefinition = "Purchase shares of a company or physical commodities."
+const SetFinancialAssessmentTradingExperienceRegulatedCfdTradingDefinitionSpeculateOnThePriceMovement SetFinancialAssessmentTradingExperienceRegulatedCfdTradingDefinition = "Speculate on the price movement."
+
+type SetFinancialAssessmentTradingExperienceRegulatedLeverageImpactTrading string
+
+const SetFinancialAssessmentTradingExperienceRegulatedLeverageImpactTradingLeverageGuaranteesProfits SetFinancialAssessmentTradingExperienceRegulatedLeverageImpactTrading = "Leverage guarantees profits."
+const SetFinancialAssessmentTradingExperienceRegulatedLeverageImpactTradingLeverageIsARiskMitigationTechnique SetFinancialAssessmentTradingExperienceRegulatedLeverageImpactTrading = "Leverage is a risk mitigation technique."
+const SetFinancialAssessmentTradingExperienceRegulatedLeverageImpactTradingLeverageLetsYouOpenLargerPositionsForAFractionOfTheTradeSValue SetFinancialAssessmentTradingExperienceRegulatedLeverageImpactTrading = "Leverage lets you open larger positions for a fraction of the trade's value."
+const SetFinancialAssessmentTradingExperienceRegulatedLeverageImpactTradingLeveragePreventsYouFromOpeningLargePositions SetFinancialAssessmentTradingExperienceRegulatedLeverageImpactTrading = "Leverage prevents you from opening large positions."
+
+type SetFinancialAssessmentTradingExperienceRegulatedLeverageTradingHighRiskStopLoss string
+
+const SetFinancialAssessmentTradingExperienceRegulatedLeverageTradingHighRiskStopLossCancelYourTradeAtAnyTimeWithinAChosenTimeframe SetFinancialAssessmentTradingExperienceRegulatedLeverageTradingHighRiskStopLoss = "Cancel your trade at any time within a chosen timeframe."
+const SetFinancialAssessmentTradingExperienceRegulatedLeverageTradingHighRiskStopLossCloseYourTradeAutomaticallyWhenTheLossIsMoreThanOrEqualToASpecificAmount SetFinancialAssessmentTradingExperienceRegulatedLeverageTradingHighRiskStopLoss = "Close your trade automatically when the loss is more than or equal to a specific amount."
+const SetFinancialAssessmentTradingExperienceRegulatedLeverageTradingHighRiskStopLossCloseYourTradeAutomaticallyWhenTheProfitIsMoreThanOrEqualToASpecificAmount SetFinancialAssessmentTradingExperienceRegulatedLeverageTradingHighRiskStopLoss = "Close your trade automatically when the profit is more than or equal to a specific amount."
+const SetFinancialAssessmentTradingExperienceRegulatedLeverageTradingHighRiskStopLossMakeAGuaranteedProfitOnYourTrade SetFinancialAssessmentTradingExperienceRegulatedLeverageTradingHighRiskStopLoss = "Make a guaranteed profit on your trade."
+
+type SetFinancialAssessmentTradingExperienceRegulatedRequiredInitialMargin string
+
+const SetFinancialAssessmentTradingExperienceRegulatedRequiredInitialMarginAllOfTheAbove SetFinancialAssessmentTradingExperienceRegulatedRequiredInitialMargin = "All of the above."
+const SetFinancialAssessmentTradingExperienceRegulatedRequiredInitialMarginWhenBuyingSharesOfACompany SetFinancialAssessmentTradingExperienceRegulatedRequiredInitialMargin = "When buying shares of a company."
+const SetFinancialAssessmentTradingExperienceRegulatedRequiredInitialMarginWhenOpeningALeveragedCFDTrade SetFinancialAssessmentTradingExperienceRegulatedRequiredInitialMargin = "When opening a Leveraged CFD trade."
+const SetFinancialAssessmentTradingExperienceRegulatedRequiredInitialMarginWhenTradingMultipliers SetFinancialAssessmentTradingExperienceRegulatedRequiredInitialMargin = "When trading Multipliers."
+
+type SetFinancialAssessmentTradingExperienceRegulatedRiskTolerance string
+
+const SetFinancialAssessmentTradingExperienceRegulatedRiskToleranceNo SetFinancialAssessmentTradingExperienceRegulatedRiskTolerance = "No"
+const SetFinancialAssessmentTradingExperienceRegulatedRiskToleranceYes SetFinancialAssessmentTradingExperienceRegulatedRiskTolerance = "Yes"
+
+type SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperience string
+
+const SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperienceIHaveAnAcademicDegreeProfessionalCertificationAndOrWorkExperience SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperience = "I have an academic degree, professional certification, and/or work experience."
+const SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperienceIHaveAttendedSeminarsTrainingAndOrWorkshops SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperience = "I have attended seminars, training, and/or workshops."
+const SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperienceIHaveLittleExperience SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperience = "I have little experience."
+const SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperienceIHaveNoKnowledge SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperience = "I have no knowledge."
+const SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperienceITradeForexCFDsAndOtherComplexFinancialInstruments SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperience = "I trade forex CFDs and other complex financial instruments."
+
+type SetFinancialAssessmentTradingExperienceRegulatedTradingExperienceFinancialInstruments string
+
+const SetFinancialAssessmentTradingExperienceRegulatedTradingExperienceFinancialInstrumentsA12Years SetFinancialAssessmentTradingExperienceRegulatedTradingExperienceFinancialInstruments = "1 - 2 years"
+const SetFinancialAssessmentTradingExperienceRegulatedTradingExperienceFinancialInstrumentsLessThanAYear SetFinancialAssessmentTradingExperienceRegulatedTradingExperienceFinancialInstruments = "Less than a year"
+const SetFinancialAssessmentTradingExperienceRegulatedTradingExperienceFinancialInstrumentsNoExperience SetFinancialAssessmentTradingExperienceRegulatedTradingExperienceFinancialInstruments = "No experience"
+const SetFinancialAssessmentTradingExperienceRegulatedTradingExperienceFinancialInstrumentsOver3Years SetFinancialAssessmentTradingExperienceRegulatedTradingExperienceFinancialInstruments = "Over 3 years"
+
+type SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinancialInstruments string
+
+const SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinancialInstrumentsA1139TransactionsInThePast12Months SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinancialInstruments = "11 - 39 transactions in the past 12 months"
+const SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinancialInstrumentsA15TransactionsInThePast12Months SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinancialInstruments = "1 - 5 transactions in the past 12 months"
+const SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinancialInstrumentsA40TransactionsOrMoreInThePast12Months SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinancialInstruments = "40 transactions or more in the past 12 months"
+const SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinancialInstrumentsA610TransactionsInThePast12Months SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinancialInstruments = "6 - 10 transactions in the past 12 months"
+const SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinancialInstrumentsNoTransactionsInThePast12Months SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinancialInstruments = "No transactions in the past 12 months"
+
+var enumValues_SetFinancialAssessmentAccountTurnover = []interface{}{
+	"Less than $25,000",
+	"$25,000 - $50,000",
+	"$50,001 - $100,000",
+	"$100,001 - $500,000",
+	"Over $500,000",
+}
+var enumValues_SetFinancialAssessmentBinaryOptionsTradingExperience = []interface{}{
+	"0-1 year",
+	"1-2 years",
+	"Over 3 years",
+}
+var enumValues_SetFinancialAssessmentBinaryOptionsTradingFrequency = []interface{}{
+	"0-5 transactions in the past 12 months",
+	"6-10 transactions in the past 12 months",
+	"11-39 transactions in the past 12 months",
 	"40 transactions or more in the past 12 months",
+}
+var enumValues_SetFinancialAssessmentCfdTradingExperience = []interface{}{
+	"0-1 year",
+	"1-2 years",
+	"Over 3 years",
+}
+var enumValues_SetFinancialAssessmentCfdTradingFrequency = []interface{}{
+	"0-5 transactions in the past 12 months",
+	"6-10 transactions in the past 12 months",
+	"11-39 transactions in the past 12 months",
+	"40 transactions or more in the past 12 months",
+}
+var enumValues_SetFinancialAssessmentEducationLevel = []interface{}{
+	"Primary",
+	"Secondary",
+	"Tertiary",
+}
+var enumValues_SetFinancialAssessmentEmploymentIndustry = []interface{}{
+	"Construction",
+	"Education",
+	"Finance",
+	"Health",
+	"Tourism",
+	"Information & Communications Technology",
+	"Science & Engineering",
+	"Legal",
+	"Social & Cultural",
+	"Agriculture",
+	"Real Estate",
+	"Food Services",
+	"Manufacturing",
+	"Unemployed",
+}
+var enumValues_SetFinancialAssessmentEmploymentStatus = []interface{}{
+	"Employed",
+	"Pensioner",
+	"Self-Employed",
+	"Student",
+	"Unemployed",
+}
+var enumValues_SetFinancialAssessmentEstimatedWorth = []interface{}{
+	"Less than $100,000",
+	"$100,000 - $250,000",
+	"$250,001 - $500,000",
+	"$500,001 - $1,000,000",
+	"Over $1,000,000",
+}
+var enumValues_SetFinancialAssessmentFinancialInformationAccountTurnover = []interface{}{
+	"Less than $25,000",
+	"$25,000 - $50,000",
+	"$50,001 - $100,000",
+	"$100,001 - $500,000",
+	"Over $500,000",
+}
+var enumValues_SetFinancialAssessmentFinancialInformationEducationLevel = []interface{}{
+	"Primary",
+	"Secondary",
+	"Tertiary",
+}
+var enumValues_SetFinancialAssessmentFinancialInformationEmploymentIndustry = []interface{}{
+	"Construction",
+	"Education",
+	"Finance",
+	"Health",
+	"Tourism",
+	"Information & Communications Technology",
+	"Science & Engineering",
+	"Legal",
+	"Social & Cultural",
+	"Agriculture",
+	"Real Estate",
+	"Food Services",
+	"Manufacturing",
+	"Unemployed",
+}
+var enumValues_SetFinancialAssessmentFinancialInformationEmploymentStatus = []interface{}{
+	"Employed",
+	"Pensioner",
+	"Self-Employed",
+	"Student",
+	"Unemployed",
+}
+var enumValues_SetFinancialAssessmentFinancialInformationEstimatedWorth = []interface{}{
+	"Less than $100,000",
+	"$100,000 - $250,000",
+	"$250,001 - $500,000",
+	"$500,001 - $1,000,000",
+	"Over $1,000,000",
+}
+var enumValues_SetFinancialAssessmentFinancialInformationIncomeSource = []interface{}{
+	"Salaried Employee",
+	"Self-Employed",
+	"Investments & Dividends",
+	"Pension",
+	"State Benefits",
+	"Savings & Inheritance",
+}
+var enumValues_SetFinancialAssessmentFinancialInformationNetIncome = []interface{}{
+	"Less than $25,000",
+	"$25,000 - $50,000",
+	"$50,001 - $100,000",
+	"$100,001 - $500,000",
+	"Over $500,000",
+}
+var enumValues_SetFinancialAssessmentFinancialInformationOccupation = []interface{}{
+	"Chief Executives, Senior Officials and Legislators",
+	"Managers",
+	"Professionals",
+	"Clerks",
+	"Personal Care, Sales and Service Workers",
+	"Agricultural, Forestry and Fishery Workers",
+	"Craft, Metal, Electrical and Electronics Workers",
+	"Plant and Machine Operators and Assemblers",
+	"Cleaners and Helpers",
+	"Mining, Construction, Manufacturing and Transport Workers",
+	"Armed Forces",
+	"Government Officers",
+	"Students",
+	"Unemployed",
+}
+var enumValues_SetFinancialAssessmentFinancialInformationSourceOfWealth = []interface{}{
+	"Accumulation of Income/Savings",
+	"Cash Business",
+	"Company Ownership",
+	"Divorce Settlement",
+	"Inheritance",
+	"Investment Income",
+	"Sale of Property",
+}
+var enumValues_SetFinancialAssessmentForexTradingExperience = []interface{}{
+	"0-1 year",
+	"1-2 years",
+	"Over 3 years",
+}
+var enumValues_SetFinancialAssessmentForexTradingFrequency = []interface{}{
+	"0-5 transactions in the past 12 months",
+	"6-10 transactions in the past 12 months",
+	"11-39 transactions in the past 12 months",
+	"40 transactions or more in the past 12 months",
+}
+var enumValues_SetFinancialAssessmentIncomeSource = []interface{}{
+	"Salaried Employee",
+	"Self-Employed",
+	"Investments & Dividends",
+	"Pension",
+	"State Benefits",
+	"Savings & Inheritance",
+}
+var enumValues_SetFinancialAssessmentNetIncome = []interface{}{
+	"Less than $25,000",
+	"$25,000 - $50,000",
+	"$50,001 - $100,000",
+	"$100,001 - $500,000",
+	"Over $500,000",
+}
+var enumValues_SetFinancialAssessmentOccupation = []interface{}{
+	"Chief Executives, Senior Officials and Legislators",
+	"Managers",
+	"Professionals",
+	"Clerks",
+	"Personal Care, Sales and Service Workers",
+	"Agricultural, Forestry and Fishery Workers",
+	"Craft, Metal, Electrical and Electronics Workers",
+	"Plant and Machine Operators and Assemblers",
+	"Cleaners and Helpers",
+	"Mining, Construction, Manufacturing and Transport Workers",
+	"Armed Forces",
+	"Government Officers",
+	"Students",
+	"Unemployed",
+}
+var enumValues_SetFinancialAssessmentOtherInstrumentsTradingExperience = []interface{}{
+	"0-1 year",
+	"1-2 years",
+	"Over 3 years",
+}
+var enumValues_SetFinancialAssessmentOtherInstrumentsTradingFrequency = []interface{}{
+	"0-5 transactions in the past 12 months",
+	"6-10 transactions in the past 12 months",
+	"11-39 transactions in the past 12 months",
+	"40 transactions or more in the past 12 months",
+}
+var enumValues_SetFinancialAssessmentSetFinancialAssessment = []interface{}{
+	1,
+}
+var enumValues_SetFinancialAssessmentSourceOfWealth = []interface{}{
+	"Accumulation of Income/Savings",
+	"Cash Business",
+	"Company Ownership",
+	"Divorce Settlement",
+	"Inheritance",
+	"Investment Income",
+	"Sale of Property",
+}
+var enumValues_SetFinancialAssessmentTradingExperienceBinaryOptionsTradingExperience = []interface{}{
+	"0-1 year",
+	"1-2 years",
+	"Over 3 years",
+}
+var enumValues_SetFinancialAssessmentTradingExperienceBinaryOptionsTradingFrequency = []interface{}{
+	"0-5 transactions in the past 12 months",
+	"6-10 transactions in the past 12 months",
+	"11-39 transactions in the past 12 months",
+	"40 transactions or more in the past 12 months",
+}
+var enumValues_SetFinancialAssessmentTradingExperienceCfdTradingExperience = []interface{}{
+	"0-1 year",
+	"1-2 years",
+	"Over 3 years",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -1560,13 +789,40 @@ func (j *SetFinancialAssessmentTradingExperienceRegulatedCfdFrequency) Unmarshal
 	return nil
 }
 
-type SetFinancialAssessmentTradingExperienceRegulatedCfdTradingDefinition string
+var enumValues_SetFinancialAssessmentTradingExperienceRegulatedCfdFrequency = []interface{}{
+	"No transactions in the past 12 months",
+	"1 - 5 transactions in the past 12 months",
+	"6 - 10 transactions in the past 12 months",
+	"11 - 39 transactions in the past 12 months",
+	"40 transactions or more in the past 12 months",
+}
 
-const SetFinancialAssessmentTradingExperienceRegulatedCfdTradingDefinitionMakeALongTermInvestment SetFinancialAssessmentTradingExperienceRegulatedCfdTradingDefinition = "Make a long-term investment."
-const SetFinancialAssessmentTradingExperienceRegulatedCfdTradingDefinitionPlaceABetOnThePriceMovement SetFinancialAssessmentTradingExperienceRegulatedCfdTradingDefinition = "Place a bet on the price movement."
-const SetFinancialAssessmentTradingExperienceRegulatedCfdTradingDefinitionPurchaseSharesOfACompanyOrPhysicalCommodities SetFinancialAssessmentTradingExperienceRegulatedCfdTradingDefinition = "Purchase shares of a company or physical commodities."
-const SetFinancialAssessmentTradingExperienceRegulatedCfdTradingDefinitionSpeculateOnThePriceMovement SetFinancialAssessmentTradingExperienceRegulatedCfdTradingDefinition = "Speculate on the price movement."
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentTradingExperienceRegulatedCfdExperience) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentTradingExperienceRegulatedCfdExperience {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentTradingExperienceRegulatedCfdExperience, v)
+	}
+	*j = SetFinancialAssessmentTradingExperienceRegulatedCfdExperience(v)
+	return nil
+}
 
+var enumValues_SetFinancialAssessmentTradingExperienceRegulatedCfdExperience = []interface{}{
+	"No experience",
+	"Less than a year",
+	"1 - 2 years",
+	"Over 3 years",
+}
 var enumValues_SetFinancialAssessmentTradingExperienceRegulatedCfdTradingDefinition = []interface{}{
 	"Purchase shares of a company or physical commodities.",
 	"Place a bet on the price movement.",
@@ -1594,12 +850,78 @@ func (j *SetFinancialAssessmentTradingExperienceRegulatedCfdTradingDefinition) U
 	return nil
 }
 
-type SetFinancialAssessmentTradingExperienceRegulatedLeverageImpactTrading string
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingFrequency) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingFrequency {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingFrequency, v)
+	}
+	*j = SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingFrequency(v)
+	return nil
+}
 
-const SetFinancialAssessmentTradingExperienceRegulatedLeverageImpactTradingLeverageGuaranteesProfits SetFinancialAssessmentTradingExperienceRegulatedLeverageImpactTrading = "Leverage guarantees profits."
-const SetFinancialAssessmentTradingExperienceRegulatedLeverageImpactTradingLeverageIsARiskMitigationTechnique SetFinancialAssessmentTradingExperienceRegulatedLeverageImpactTrading = "Leverage is a risk mitigation technique."
-const SetFinancialAssessmentTradingExperienceRegulatedLeverageImpactTradingLeverageLetsYouOpenLargerPositionsForAFractionOfTheTradeSValue SetFinancialAssessmentTradingExperienceRegulatedLeverageImpactTrading = "Leverage lets you open larger positions for a fraction of the trade's value."
-const SetFinancialAssessmentTradingExperienceRegulatedLeverageImpactTradingLeveragePreventsYouFromOpeningLargePositions SetFinancialAssessmentTradingExperienceRegulatedLeverageImpactTrading = "Leverage prevents you from opening large positions."
+var enumValues_SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingFrequency = []interface{}{
+	"0-5 transactions in the past 12 months",
+	"6-10 transactions in the past 12 months",
+	"11-39 transactions in the past 12 months",
+	"40 transactions or more in the past 12 months",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingExperience) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingExperience {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingExperience, v)
+	}
+	*j = SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingExperience(v)
+	return nil
+}
+
+var enumValues_SetFinancialAssessmentTradingExperienceOtherInstrumentsTradingExperience = []interface{}{
+	"0-1 year",
+	"1-2 years",
+	"Over 3 years",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentTradingExperienceForexTradingFrequency) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentTradingExperienceForexTradingFrequency {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentTradingExperienceForexTradingFrequency, v)
+	}
+	*j = SetFinancialAssessmentTradingExperienceForexTradingFrequency(v)
+	return nil
+}
 
 var enumValues_SetFinancialAssessmentTradingExperienceRegulatedLeverageImpactTrading = []interface{}{
 	"Leverage is a risk mitigation technique.",
@@ -1628,13 +950,65 @@ func (j *SetFinancialAssessmentTradingExperienceRegulatedLeverageImpactTrading) 
 	return nil
 }
 
-type SetFinancialAssessmentTradingExperienceRegulatedLeverageTradingHighRiskStopLoss string
+var enumValues_SetFinancialAssessmentTradingExperienceForexTradingFrequency = []interface{}{
+	"0-5 transactions in the past 12 months",
+	"6-10 transactions in the past 12 months",
+	"11-39 transactions in the past 12 months",
+	"40 transactions or more in the past 12 months",
+}
 
-const SetFinancialAssessmentTradingExperienceRegulatedLeverageTradingHighRiskStopLossCancelYourTradeAtAnyTimeWithinAChosenTimeframe SetFinancialAssessmentTradingExperienceRegulatedLeverageTradingHighRiskStopLoss = "Cancel your trade at any time within a chosen timeframe."
-const SetFinancialAssessmentTradingExperienceRegulatedLeverageTradingHighRiskStopLossCloseYourTradeAutomaticallyWhenTheLossIsMoreThanOrEqualToASpecificAmount SetFinancialAssessmentTradingExperienceRegulatedLeverageTradingHighRiskStopLoss = "Close your trade automatically when the loss is more than or equal to a specific amount."
-const SetFinancialAssessmentTradingExperienceRegulatedLeverageTradingHighRiskStopLossCloseYourTradeAutomaticallyWhenTheProfitIsMoreThanOrEqualToASpecificAmount SetFinancialAssessmentTradingExperienceRegulatedLeverageTradingHighRiskStopLoss = "Close your trade automatically when the profit is more than or equal to a specific amount."
-const SetFinancialAssessmentTradingExperienceRegulatedLeverageTradingHighRiskStopLossMakeAGuaranteedProfitOnYourTrade SetFinancialAssessmentTradingExperienceRegulatedLeverageTradingHighRiskStopLoss = "Make a guaranteed profit on your trade."
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentTradingExperienceForexTradingExperience) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentTradingExperienceForexTradingExperience {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentTradingExperienceForexTradingExperience, v)
+	}
+	*j = SetFinancialAssessmentTradingExperienceForexTradingExperience(v)
+	return nil
+}
 
+var enumValues_SetFinancialAssessmentTradingExperienceForexTradingExperience = []interface{}{
+	"0-1 year",
+	"1-2 years",
+	"Over 3 years",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentTradingExperienceCfdTradingFrequency) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentTradingExperienceCfdTradingFrequency {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentTradingExperienceCfdTradingFrequency, v)
+	}
+	*j = SetFinancialAssessmentTradingExperienceCfdTradingFrequency(v)
+	return nil
+}
+
+var enumValues_SetFinancialAssessmentTradingExperienceCfdTradingFrequency = []interface{}{
+	"0-5 transactions in the past 12 months",
+	"6-10 transactions in the past 12 months",
+	"11-39 transactions in the past 12 months",
+	"40 transactions or more in the past 12 months",
+}
 var enumValues_SetFinancialAssessmentTradingExperienceRegulatedLeverageTradingHighRiskStopLoss = []interface{}{
 	"Cancel your trade at any time within a chosen timeframe.",
 	"Close your trade automatically when the loss is more than or equal to a specific amount.",
@@ -1662,12 +1036,105 @@ func (j *SetFinancialAssessmentTradingExperienceRegulatedLeverageTradingHighRisk
 	return nil
 }
 
-type SetFinancialAssessmentTradingExperienceRegulatedRequiredInitialMargin string
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentTradingExperienceCfdTradingExperience) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentTradingExperienceCfdTradingExperience {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentTradingExperienceCfdTradingExperience, v)
+	}
+	*j = SetFinancialAssessmentTradingExperienceCfdTradingExperience(v)
+	return nil
+}
 
-const SetFinancialAssessmentTradingExperienceRegulatedRequiredInitialMarginAllOfTheAbove SetFinancialAssessmentTradingExperienceRegulatedRequiredInitialMargin = "All of the above."
-const SetFinancialAssessmentTradingExperienceRegulatedRequiredInitialMarginWhenBuyingSharesOfACompany SetFinancialAssessmentTradingExperienceRegulatedRequiredInitialMargin = "When buying shares of a company."
-const SetFinancialAssessmentTradingExperienceRegulatedRequiredInitialMarginWhenOpeningALeveragedCFDTrade SetFinancialAssessmentTradingExperienceRegulatedRequiredInitialMargin = "When opening a Leveraged CFD trade."
-const SetFinancialAssessmentTradingExperienceRegulatedRequiredInitialMarginWhenTradingMultipliers SetFinancialAssessmentTradingExperienceRegulatedRequiredInitialMargin = "When trading Multipliers."
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentFinancialInformationOccupation) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentFinancialInformationOccupation {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentFinancialInformationOccupation, v)
+	}
+	*j = SetFinancialAssessmentFinancialInformationOccupation(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentTradingExperienceBinaryOptionsTradingFrequency) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentTradingExperienceBinaryOptionsTradingFrequency {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentTradingExperienceBinaryOptionsTradingFrequency, v)
+	}
+	*j = SetFinancialAssessmentTradingExperienceBinaryOptionsTradingFrequency(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentTradingExperienceBinaryOptionsTradingExperience) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentTradingExperienceBinaryOptionsTradingExperience {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentTradingExperienceBinaryOptionsTradingExperience, v)
+	}
+	*j = SetFinancialAssessmentTradingExperienceBinaryOptionsTradingExperience(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentSourceOfWealth) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentSourceOfWealth {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentSourceOfWealth, v)
+	}
+	*j = SetFinancialAssessmentSourceOfWealth(v)
+	return nil
+}
 
 var enumValues_SetFinancialAssessmentTradingExperienceRegulatedRequiredInitialMargin = []interface{}{
 	"When opening a Leveraged CFD trade.",
@@ -1696,10 +1163,105 @@ func (j *SetFinancialAssessmentTradingExperienceRegulatedRequiredInitialMargin) 
 	return nil
 }
 
-type SetFinancialAssessmentTradingExperienceRegulatedRiskTolerance string
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentSetFinancialAssessment) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentSetFinancialAssessment {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentSetFinancialAssessment, v)
+	}
+	*j = SetFinancialAssessmentSetFinancialAssessment(v)
+	return nil
+}
 
-const SetFinancialAssessmentTradingExperienceRegulatedRiskToleranceNo SetFinancialAssessmentTradingExperienceRegulatedRiskTolerance = "No"
-const SetFinancialAssessmentTradingExperienceRegulatedRiskToleranceYes SetFinancialAssessmentTradingExperienceRegulatedRiskTolerance = "Yes"
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentOtherInstrumentsTradingFrequency) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentOtherInstrumentsTradingFrequency {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentOtherInstrumentsTradingFrequency, v)
+	}
+	*j = SetFinancialAssessmentOtherInstrumentsTradingFrequency(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentOtherInstrumentsTradingExperience) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentOtherInstrumentsTradingExperience {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentOtherInstrumentsTradingExperience, v)
+	}
+	*j = SetFinancialAssessmentOtherInstrumentsTradingExperience(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentOccupation) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentOccupation {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentOccupation, v)
+	}
+	*j = SetFinancialAssessmentOccupation(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentNetIncome) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentNetIncome {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentNetIncome, v)
+	}
+	*j = SetFinancialAssessmentNetIncome(v)
+	return nil
+}
 
 var enumValues_SetFinancialAssessmentTradingExperienceRegulatedRiskTolerance = []interface{}{
 	"Yes",
@@ -1726,13 +1288,65 @@ func (j *SetFinancialAssessmentTradingExperienceRegulatedRiskTolerance) Unmarsha
 	return nil
 }
 
-type SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperience string
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentAccountTurnover) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentAccountTurnover {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentAccountTurnover, v)
+	}
+	*j = SetFinancialAssessmentAccountTurnover(v)
+	return nil
+}
 
-const SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperienceIHaveAnAcademicDegreeProfessionalCertificationAndOrWorkExperience SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperience = "I have an academic degree, professional certification, and/or work experience."
-const SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperienceIHaveAttendedSeminarsTrainingAndOrWorkshops SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperience = "I have attended seminars, training, and/or workshops."
-const SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperienceIHaveLittleExperience SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperience = "I have little experience."
-const SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperienceIHaveNoKnowledge SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperience = "I have no knowledge."
-const SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperienceITradeForexCFDsAndOtherComplexFinancialInstruments SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperience = "I trade forex CFDs and other complex financial instruments."
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentIncomeSource) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentIncomeSource {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentIncomeSource, v)
+	}
+	*j = SetFinancialAssessmentIncomeSource(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentBinaryOptionsTradingExperience) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentBinaryOptionsTradingExperience {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentBinaryOptionsTradingExperience, v)
+	}
+	*j = SetFinancialAssessmentBinaryOptionsTradingExperience(v)
+	return nil
+}
 
 var enumValues_SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperience = []interface{}{
 	"I have an academic degree, professional certification, and/or work experience.",
@@ -1762,12 +1376,125 @@ func (j *SetFinancialAssessmentTradingExperienceRegulatedSourceOfExperience) Unm
 	return nil
 }
 
-type SetFinancialAssessmentTradingExperienceRegulatedTradingExperienceFinancialInstruments string
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentBinaryOptionsTradingFrequency) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentBinaryOptionsTradingFrequency {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentBinaryOptionsTradingFrequency, v)
+	}
+	*j = SetFinancialAssessmentBinaryOptionsTradingFrequency(v)
+	return nil
+}
 
-const SetFinancialAssessmentTradingExperienceRegulatedTradingExperienceFinancialInstrumentsA12Years SetFinancialAssessmentTradingExperienceRegulatedTradingExperienceFinancialInstruments = "1 - 2 years"
-const SetFinancialAssessmentTradingExperienceRegulatedTradingExperienceFinancialInstrumentsLessThanAYear SetFinancialAssessmentTradingExperienceRegulatedTradingExperienceFinancialInstruments = "Less than a year"
-const SetFinancialAssessmentTradingExperienceRegulatedTradingExperienceFinancialInstrumentsNoExperience SetFinancialAssessmentTradingExperienceRegulatedTradingExperienceFinancialInstruments = "No experience"
-const SetFinancialAssessmentTradingExperienceRegulatedTradingExperienceFinancialInstrumentsOver3Years SetFinancialAssessmentTradingExperienceRegulatedTradingExperienceFinancialInstruments = "Over 3 years"
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentCfdTradingExperience) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentCfdTradingExperience {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentCfdTradingExperience, v)
+	}
+	*j = SetFinancialAssessmentCfdTradingExperience(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentForexTradingFrequency) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentForexTradingFrequency {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentForexTradingFrequency, v)
+	}
+	*j = SetFinancialAssessmentForexTradingFrequency(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentCfdTradingFrequency) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentCfdTradingFrequency {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentCfdTradingFrequency, v)
+	}
+	*j = SetFinancialAssessmentCfdTradingFrequency(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentEducationLevel) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentEducationLevel {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentEducationLevel, v)
+	}
+	*j = SetFinancialAssessmentEducationLevel(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentForexTradingExperience) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentForexTradingExperience {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentForexTradingExperience, v)
+	}
+	*j = SetFinancialAssessmentForexTradingExperience(v)
+	return nil
+}
 
 var enumValues_SetFinancialAssessmentTradingExperienceRegulatedTradingExperienceFinancialInstruments = []interface{}{
 	"No experience",
@@ -1796,13 +1523,115 @@ func (j *SetFinancialAssessmentTradingExperienceRegulatedTradingExperienceFinanc
 	return nil
 }
 
-type SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinancialInstruments string
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentFinancialInformation) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if v, ok := raw["education_level"]; !ok || v == nil {
+		return fmt.Errorf("field education_level in SetFinancialAssessmentFinancialInformation: required")
+	}
+	if v, ok := raw["employment_industry"]; !ok || v == nil {
+		return fmt.Errorf("field employment_industry in SetFinancialAssessmentFinancialInformation: required")
+	}
+	if v, ok := raw["estimated_worth"]; !ok || v == nil {
+		return fmt.Errorf("field estimated_worth in SetFinancialAssessmentFinancialInformation: required")
+	}
+	if v, ok := raw["income_source"]; !ok || v == nil {
+		return fmt.Errorf("field income_source in SetFinancialAssessmentFinancialInformation: required")
+	}
+	if v, ok := raw["net_income"]; !ok || v == nil {
+		return fmt.Errorf("field net_income in SetFinancialAssessmentFinancialInformation: required")
+	}
+	type Plain SetFinancialAssessmentFinancialInformation
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = SetFinancialAssessmentFinancialInformation(plain)
+	return nil
+}
 
-const SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinancialInstrumentsA1139TransactionsInThePast12Months SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinancialInstruments = "11 - 39 transactions in the past 12 months"
-const SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinancialInstrumentsA15TransactionsInThePast12Months SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinancialInstruments = "1 - 5 transactions in the past 12 months"
-const SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinancialInstrumentsA40TransactionsOrMoreInThePast12Months SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinancialInstruments = "40 transactions or more in the past 12 months"
-const SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinancialInstrumentsA610TransactionsInThePast12Months SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinancialInstruments = "6 - 10 transactions in the past 12 months"
-const SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinancialInstrumentsNoTransactionsInThePast12Months SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinancialInstruments = "No transactions in the past 12 months"
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentEmploymentIndustry) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentEmploymentIndustry {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentEmploymentIndustry, v)
+	}
+	*j = SetFinancialAssessmentEmploymentIndustry(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentEmploymentStatus) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentEmploymentStatus {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentEmploymentStatus, v)
+	}
+	*j = SetFinancialAssessmentEmploymentStatus(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentEstimatedWorth) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentEstimatedWorth {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentEstimatedWorth, v)
+	}
+	*j = SetFinancialAssessmentEstimatedWorth(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentFinancialInformationAccountTurnover) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentFinancialInformationAccountTurnover {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentFinancialInformationAccountTurnover, v)
+	}
+	*j = SetFinancialAssessmentFinancialInformationAccountTurnover(v)
+	return nil
+}
 
 var enumValues_SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinancialInstruments = []interface{}{
 	"No transactions in the past 12 months",
@@ -1833,39 +1662,159 @@ func (j *SetFinancialAssessmentTradingExperienceRegulatedTradingFrequencyFinanci
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentFinancialInformationSourceOfWealth) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentFinancialInformationSourceOfWealth {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentFinancialInformationSourceOfWealth, v)
+	}
+	*j = SetFinancialAssessmentFinancialInformationSourceOfWealth(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentFinancialInformationEducationLevel) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentFinancialInformationEducationLevel {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentFinancialInformationEducationLevel, v)
+	}
+	*j = SetFinancialAssessmentFinancialInformationEducationLevel(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentFinancialInformationEmploymentIndustry) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentFinancialInformationEmploymentIndustry {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentFinancialInformationEmploymentIndustry, v)
+	}
+	*j = SetFinancialAssessmentFinancialInformationEmploymentIndustry(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentFinancialInformationEmploymentStatus) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentFinancialInformationEmploymentStatus {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentFinancialInformationEmploymentStatus, v)
+	}
+	*j = SetFinancialAssessmentFinancialInformationEmploymentStatus(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentFinancialInformationEstimatedWorth) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentFinancialInformationEstimatedWorth {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentFinancialInformationEstimatedWorth, v)
+	}
+	*j = SetFinancialAssessmentFinancialInformationEstimatedWorth(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentFinancialInformationIncomeSource) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentFinancialInformationIncomeSource {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentFinancialInformationIncomeSource, v)
+	}
+	*j = SetFinancialAssessmentFinancialInformationIncomeSource(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
 func (j *SetFinancialAssessmentTradingExperienceRegulated) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["cfd_experience"]; raw != nil && !ok {
+	if v, ok := raw["cfd_experience"]; !ok || v == nil {
 		return fmt.Errorf("field cfd_experience in SetFinancialAssessmentTradingExperienceRegulated: required")
 	}
-	if _, ok := raw["cfd_frequency"]; raw != nil && !ok {
+	if v, ok := raw["cfd_frequency"]; !ok || v == nil {
 		return fmt.Errorf("field cfd_frequency in SetFinancialAssessmentTradingExperienceRegulated: required")
 	}
-	if _, ok := raw["cfd_trading_definition"]; raw != nil && !ok {
+	if v, ok := raw["cfd_trading_definition"]; !ok || v == nil {
 		return fmt.Errorf("field cfd_trading_definition in SetFinancialAssessmentTradingExperienceRegulated: required")
 	}
-	if _, ok := raw["leverage_impact_trading"]; raw != nil && !ok {
+	if v, ok := raw["leverage_impact_trading"]; !ok || v == nil {
 		return fmt.Errorf("field leverage_impact_trading in SetFinancialAssessmentTradingExperienceRegulated: required")
 	}
-	if _, ok := raw["leverage_trading_high_risk_stop_loss"]; raw != nil && !ok {
+	if v, ok := raw["leverage_trading_high_risk_stop_loss"]; !ok || v == nil {
 		return fmt.Errorf("field leverage_trading_high_risk_stop_loss in SetFinancialAssessmentTradingExperienceRegulated: required")
 	}
-	if _, ok := raw["required_initial_margin"]; raw != nil && !ok {
+	if v, ok := raw["required_initial_margin"]; !ok || v == nil {
 		return fmt.Errorf("field required_initial_margin in SetFinancialAssessmentTradingExperienceRegulated: required")
 	}
-	if _, ok := raw["risk_tolerance"]; raw != nil && !ok {
+	if v, ok := raw["risk_tolerance"]; !ok || v == nil {
 		return fmt.Errorf("field risk_tolerance in SetFinancialAssessmentTradingExperienceRegulated: required")
 	}
-	if _, ok := raw["source_of_experience"]; raw != nil && !ok {
+	if v, ok := raw["source_of_experience"]; !ok || v == nil {
 		return fmt.Errorf("field source_of_experience in SetFinancialAssessmentTradingExperienceRegulated: required")
 	}
-	if _, ok := raw["trading_experience_financial_instruments"]; raw != nil && !ok {
+	if v, ok := raw["trading_experience_financial_instruments"]; !ok || v == nil {
 		return fmt.Errorf("field trading_experience_financial_instruments in SetFinancialAssessmentTradingExperienceRegulated: required")
 	}
-	if _, ok := raw["trading_frequency_financial_instruments"]; raw != nil && !ok {
+	if v, ok := raw["trading_frequency_financial_instruments"]; !ok || v == nil {
 		return fmt.Errorf("field trading_frequency_financial_instruments in SetFinancialAssessmentTradingExperienceRegulated: required")
 	}
 	type Plain SetFinancialAssessmentTradingExperienceRegulated
@@ -1878,12 +1827,32 @@ func (j *SetFinancialAssessmentTradingExperienceRegulated) UnmarshalJSON(b []byt
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
+func (j *SetFinancialAssessmentFinancialInformationNetIncome) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetFinancialAssessmentFinancialInformationNetIncome {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetFinancialAssessmentFinancialInformationNetIncome, v)
+	}
+	*j = SetFinancialAssessmentFinancialInformationNetIncome(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
 func (j *SetFinancialAssessment) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["set_financial_assessment"]; raw != nil && !ok {
+	if v, ok := raw["set_financial_assessment"]; !ok || v == nil {
 		return fmt.Errorf("field set_financial_assessment in SetFinancialAssessment: required")
 	}
 	type Plain SetFinancialAssessment

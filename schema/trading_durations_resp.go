@@ -31,30 +31,6 @@ type TradingDurationsRespMsgType string
 
 const TradingDurationsRespMsgTypeTradingDurations TradingDurationsRespMsgType = "trading_durations"
 
-var enumValues_TradingDurationsRespMsgType = []interface{}{
-	"trading_durations",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *TradingDurationsRespMsgType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_TradingDurationsRespMsgType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingDurationsRespMsgType, v)
-	}
-	*j = TradingDurationsRespMsgType(v)
-	return nil
-}
-
 type TradingDurationsRespTradingDurationsElem struct {
 	// Available contract types and trading duration boundaries
 	Data []TradingDurationsRespTradingDurationsElemDataElem `json:"data,omitempty"`
@@ -156,15 +132,39 @@ type TradingDurationsRespTradingDurationsElemSubmarket struct {
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
+func (j *TradingDurationsRespMsgType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_TradingDurationsRespMsgType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingDurationsRespMsgType, v)
+	}
+	*j = TradingDurationsRespMsgType(v)
+	return nil
+}
+
+var enumValues_TradingDurationsRespMsgType = []interface{}{
+	"trading_durations",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
 func (j *TradingDurationsResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in TradingDurationsResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in TradingDurationsResp: required")
 	}
 	type Plain TradingDurationsResp

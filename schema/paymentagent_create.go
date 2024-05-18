@@ -6,53 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Saves client's payment agent details.
-type PaymentagentCreate struct {
-	// [Optional] Client's My Affiliate id, if exists.
-	AffiliateId *string `json:"affiliate_id,omitempty"`
-
-	// Indicates client's agreement with the Code of Conduct.
-	CodeOfConductApproval PaymentagentCreateCodeOfConductApproval `json:"code_of_conduct_approval"`
-
-	// Commission  (%) the agent wants to take on deposits
-	CommissionDeposit float64 `json:"commission_deposit"`
-
-	// Commission  (%) the agent wants to take on withdrawals
-	CommissionWithdrawal float64 `json:"commission_withdrawal"`
-
-	// Payment agent's email address.
-	Email string `json:"email"`
-
-	// [Optional] Information about payment agent and their proposed service.
-	Information string `json:"information"`
-
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough PaymentagentCreatePassthrough `json:"passthrough,omitempty"`
-
-	// The name with which the payment agent is going to be identified.
-	PaymentAgentName string `json:"payment_agent_name"`
-
-	// Must be 1
-	PaymentagentCreate PaymentagentCreatePaymentagentCreate `json:"paymentagent_create"`
-
-	// Payment agent's phone number(s) with country code.
-	PhoneNumbers []PaymentagentCreatePhoneNumbersElem `json:"phone_numbers,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// A list of supported payment methods.
-	SupportedPaymentMethods []PaymentagentCreateSupportedPaymentMethodsElem `json:"supported_payment_methods"`
-
-	// The URL(s) of payment agent's website(s).
-	Urls []PaymentagentCreateUrlsElem `json:"urls"`
-}
-
 type PaymentagentCreateCodeOfConductApproval int
 
 var enumValues_PaymentagentCreateCodeOfConductApproval = []interface{}{
@@ -120,7 +73,7 @@ func (j *PaymentagentCreatePhoneNumbersElem) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["phone_number"]; raw != nil && !ok {
+	if v, ok := raw["phone_number"]; !ok || v == nil {
 		return fmt.Errorf("field phone_number in PaymentagentCreatePhoneNumbersElem: required")
 	}
 	type Plain PaymentagentCreatePhoneNumbersElem
@@ -143,7 +96,7 @@ func (j *PaymentagentCreateSupportedPaymentMethodsElem) UnmarshalJSON(b []byte) 
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["payment_method"]; raw != nil && !ok {
+	if v, ok := raw["payment_method"]; !ok || v == nil {
 		return fmt.Errorf("field payment_method in PaymentagentCreateSupportedPaymentMethodsElem: required")
 	}
 	type Plain PaymentagentCreateSupportedPaymentMethodsElem
@@ -166,7 +119,7 @@ func (j *PaymentagentCreateUrlsElem) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["url"]; raw != nil && !ok {
+	if v, ok := raw["url"]; !ok || v == nil {
 		return fmt.Errorf("field url in PaymentagentCreateUrlsElem: required")
 	}
 	type Plain PaymentagentCreateUrlsElem
@@ -178,37 +131,84 @@ func (j *PaymentagentCreateUrlsElem) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Saves client's payment agent details.
+type PaymentagentCreate struct {
+	// [Optional] Client's My Affiliate id, if exists.
+	AffiliateId *string `json:"affiliate_id,omitempty"`
+
+	// Indicates client's agreement with the Code of Conduct.
+	CodeOfConductApproval PaymentagentCreateCodeOfConductApproval `json:"code_of_conduct_approval"`
+
+	// Commission  (%) the agent wants to take on deposits
+	CommissionDeposit float64 `json:"commission_deposit"`
+
+	// Commission  (%) the agent wants to take on withdrawals
+	CommissionWithdrawal float64 `json:"commission_withdrawal"`
+
+	// Payment agent's email address.
+	Email string `json:"email"`
+
+	// [Optional] Information about payment agent and their proposed service.
+	Information string `json:"information"`
+
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough PaymentagentCreatePassthrough `json:"passthrough,omitempty"`
+
+	// The name with which the payment agent is going to be identified.
+	PaymentAgentName string `json:"payment_agent_name"`
+
+	// Must be 1
+	PaymentagentCreate PaymentagentCreatePaymentagentCreate `json:"paymentagent_create"`
+
+	// Payment agent's phone number(s) with country code.
+	PhoneNumbers []PaymentagentCreatePhoneNumbersElem `json:"phone_numbers,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// A list of supported payment methods.
+	SupportedPaymentMethods []PaymentagentCreateSupportedPaymentMethodsElem `json:"supported_payment_methods"`
+
+	// The URL(s) of payment agent's website(s).
+	Urls []PaymentagentCreateUrlsElem `json:"urls"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *PaymentagentCreate) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["code_of_conduct_approval"]; raw != nil && !ok {
+	if v, ok := raw["code_of_conduct_approval"]; !ok || v == nil {
 		return fmt.Errorf("field code_of_conduct_approval in PaymentagentCreate: required")
 	}
-	if _, ok := raw["commission_deposit"]; raw != nil && !ok {
+	if v, ok := raw["commission_deposit"]; !ok || v == nil {
 		return fmt.Errorf("field commission_deposit in PaymentagentCreate: required")
 	}
-	if _, ok := raw["commission_withdrawal"]; raw != nil && !ok {
+	if v, ok := raw["commission_withdrawal"]; !ok || v == nil {
 		return fmt.Errorf("field commission_withdrawal in PaymentagentCreate: required")
 	}
-	if _, ok := raw["email"]; raw != nil && !ok {
+	if v, ok := raw["email"]; !ok || v == nil {
 		return fmt.Errorf("field email in PaymentagentCreate: required")
 	}
-	if _, ok := raw["information"]; raw != nil && !ok {
+	if v, ok := raw["information"]; !ok || v == nil {
 		return fmt.Errorf("field information in PaymentagentCreate: required")
 	}
-	if _, ok := raw["payment_agent_name"]; raw != nil && !ok {
+	if v, ok := raw["payment_agent_name"]; !ok || v == nil {
 		return fmt.Errorf("field payment_agent_name in PaymentagentCreate: required")
 	}
-	if _, ok := raw["paymentagent_create"]; raw != nil && !ok {
+	if v, ok := raw["paymentagent_create"]; !ok || v == nil {
 		return fmt.Errorf("field paymentagent_create in PaymentagentCreate: required")
 	}
-	if _, ok := raw["supported_payment_methods"]; raw != nil && !ok {
+	if v, ok := raw["supported_payment_methods"]; !ok || v == nil {
 		return fmt.Errorf("field supported_payment_methods in PaymentagentCreate: required")
 	}
-	if _, ok := raw["urls"]; raw != nil && !ok {
+	if v, ok := raw["urls"]; !ok || v == nil {
 		return fmt.Errorf("field urls in PaymentagentCreate: required")
 	}
 	type Plain PaymentagentCreate

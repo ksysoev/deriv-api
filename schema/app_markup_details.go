@@ -54,56 +54,7 @@ type AppMarkupDetails struct {
 
 type AppMarkupDetailsAppMarkupDetails int
 
-var enumValues_AppMarkupDetailsAppMarkupDetails = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *AppMarkupDetailsAppMarkupDetails) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_AppMarkupDetailsAppMarkupDetails {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AppMarkupDetailsAppMarkupDetails, v)
-	}
-	*j = AppMarkupDetailsAppMarkupDetails(v)
-	return nil
-}
-
 type AppMarkupDetailsDescription int
-
-var enumValues_AppMarkupDetailsDescription = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *AppMarkupDetailsDescription) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_AppMarkupDetailsDescription {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AppMarkupDetailsDescription, v)
-	}
-	*j = AppMarkupDetailsDescription(v)
-	return nil
-}
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
@@ -115,36 +66,6 @@ const AppMarkupDetailsSortASC AppMarkupDetailsSort = "ASC"
 const AppMarkupDetailsSortDESC AppMarkupDetailsSort = "DESC"
 
 type AppMarkupDetailsSortFieldsElem string
-
-const AppMarkupDetailsSortFieldsElemAppId AppMarkupDetailsSortFieldsElem = "app_id"
-const AppMarkupDetailsSortFieldsElemClientLoginid AppMarkupDetailsSortFieldsElem = "client_loginid"
-const AppMarkupDetailsSortFieldsElemTransactionTime AppMarkupDetailsSortFieldsElem = "transaction_time"
-
-var enumValues_AppMarkupDetailsSortFieldsElem = []interface{}{
-	"app_id",
-	"client_loginid",
-	"transaction_time",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *AppMarkupDetailsSortFieldsElem) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_AppMarkupDetailsSortFieldsElem {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AppMarkupDetailsSortFieldsElem, v)
-	}
-	*j = AppMarkupDetailsSortFieldsElem(v)
-	return nil
-}
 
 var enumValues_AppMarkupDetailsSort = []interface{}{
 	"ASC",
@@ -172,18 +93,97 @@ func (j *AppMarkupDetailsSort) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
+func (j *AppMarkupDetailsAppMarkupDetails) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_AppMarkupDetailsAppMarkupDetails {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AppMarkupDetailsAppMarkupDetails, v)
+	}
+	*j = AppMarkupDetailsAppMarkupDetails(v)
+	return nil
+}
+
+var enumValues_AppMarkupDetailsDescription = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *AppMarkupDetailsDescription) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_AppMarkupDetailsDescription {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AppMarkupDetailsDescription, v)
+	}
+	*j = AppMarkupDetailsDescription(v)
+	return nil
+}
+
+var enumValues_AppMarkupDetailsSortFieldsElem = []interface{}{
+	"app_id",
+	"client_loginid",
+	"transaction_time",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *AppMarkupDetailsSortFieldsElem) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_AppMarkupDetailsSortFieldsElem {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AppMarkupDetailsSortFieldsElem, v)
+	}
+	*j = AppMarkupDetailsSortFieldsElem(v)
+	return nil
+}
+
+const AppMarkupDetailsSortFieldsElemAppId AppMarkupDetailsSortFieldsElem = "app_id"
+const AppMarkupDetailsSortFieldsElemClientLoginid AppMarkupDetailsSortFieldsElem = "client_loginid"
+const AppMarkupDetailsSortFieldsElemTransactionTime AppMarkupDetailsSortFieldsElem = "transaction_time"
+
+var enumValues_AppMarkupDetailsAppMarkupDetails = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
 func (j *AppMarkupDetails) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["app_markup_details"]; raw != nil && !ok {
+	if v, ok := raw["app_markup_details"]; !ok || v == nil {
 		return fmt.Errorf("field app_markup_details in AppMarkupDetails: required")
 	}
-	if _, ok := raw["date_from"]; raw != nil && !ok {
+	if v, ok := raw["date_from"]; !ok || v == nil {
 		return fmt.Errorf("field date_from in AppMarkupDetails: required")
 	}
-	if _, ok := raw["date_to"]; raw != nil && !ok {
+	if v, ok := raw["date_to"]; !ok || v == nil {
 		return fmt.Errorf("field date_to in AppMarkupDetails: required")
 	}
 	type Plain AppMarkupDetails

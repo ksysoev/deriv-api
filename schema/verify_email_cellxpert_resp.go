@@ -6,28 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Verify Email Cellxpert Receive
-type VerifyEmailCellxpertResp struct {
-	// Echo of the request made.
-	EchoReq VerifyEmailCellxpertRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType VerifyEmailCellxpertRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// 1 for success (secure code has been sent to the email address)
-	VerifyEmailCellxpert *VerifyEmailCellxpertRespVerifyEmailCellxpert `json:"verify_email_cellxpert,omitempty"`
-}
-
 // Echo of the request made.
 type VerifyEmailCellxpertRespEchoReq map[string]interface{}
 
 type VerifyEmailCellxpertRespMsgType string
-
-const VerifyEmailCellxpertRespMsgTypeVerifyEmailCellxpert VerifyEmailCellxpertRespMsgType = "verify_email_cellxpert"
 
 var enumValues_VerifyEmailCellxpertRespMsgType = []interface{}{
 	"verify_email_cellxpert",
@@ -52,6 +34,8 @@ func (j *VerifyEmailCellxpertRespMsgType) UnmarshalJSON(b []byte) error {
 	*j = VerifyEmailCellxpertRespMsgType(v)
 	return nil
 }
+
+const VerifyEmailCellxpertRespMsgTypeVerifyEmailCellxpert VerifyEmailCellxpertRespMsgType = "verify_email_cellxpert"
 
 type VerifyEmailCellxpertRespVerifyEmailCellxpert int
 
@@ -80,16 +64,32 @@ func (j *VerifyEmailCellxpertRespVerifyEmailCellxpert) UnmarshalJSON(b []byte) e
 	return nil
 }
 
+// Verify Email Cellxpert Receive
+type VerifyEmailCellxpertResp struct {
+	// Echo of the request made.
+	EchoReq VerifyEmailCellxpertRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType VerifyEmailCellxpertRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// 1 for success (secure code has been sent to the email address)
+	VerifyEmailCellxpert *VerifyEmailCellxpertRespVerifyEmailCellxpert `json:"verify_email_cellxpert,omitempty"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *VerifyEmailCellxpertResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in VerifyEmailCellxpertResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in VerifyEmailCellxpertResp: required")
 	}
 	type Plain VerifyEmailCellxpertResp

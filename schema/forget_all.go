@@ -24,24 +24,6 @@ type ForgetAll struct {
 // the `echo_req` output field.
 type ForgetAllPassthrough map[string]interface{}
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ForgetAll) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if _, ok := raw["forget_all"]; raw != nil && !ok {
-		return fmt.Errorf("field forget_all in ForgetAll: required")
-	}
-	type Plain ForgetAll
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = ForgetAll(plain)
-	return nil
-}
-
 type StreamTypes string
 
 const StreamTypesBalance StreamTypes = "balance"
@@ -58,6 +40,26 @@ const StreamTypesTicks StreamTypes = "ticks"
 const StreamTypesTradingPlatformAssetListing StreamTypes = "trading_platform_asset_listing"
 const StreamTypesTransaction StreamTypes = "transaction"
 const StreamTypesWebsiteStatus StreamTypes = "website_status"
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *StreamTypes) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_StreamTypes {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_StreamTypes, v)
+	}
+	*j = StreamTypes(v)
+	return nil
+}
 
 var enumValues_StreamTypes = []interface{}{
 	"balance",
@@ -77,21 +79,19 @@ var enumValues_StreamTypes = []interface{}{
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *StreamTypes) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
+func (j *ForgetAll) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	var ok bool
-	for _, expected := range enumValues_StreamTypes {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
+	if v, ok := raw["forget_all"]; !ok || v == nil {
+		return fmt.Errorf("field forget_all in ForgetAll: required")
 	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_StreamTypes, v)
+	type Plain ForgetAll
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
 	}
-	*j = StreamTypes(v)
+	*j = ForgetAll(plain)
 	return nil
 }

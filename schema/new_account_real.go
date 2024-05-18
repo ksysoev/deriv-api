@@ -6,6 +6,139 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountRealFatcaDeclaration) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountRealFatcaDeclaration {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountRealFatcaDeclaration, v)
+	}
+	*j = NewAccountRealFatcaDeclaration(v)
+	return nil
+}
+
+type NewAccountRealSecretQuestion string
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountRealAccountOpeningReason) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountRealAccountOpeningReason {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountRealAccountOpeningReason, v)
+	}
+	*j = NewAccountRealAccountOpeningReason(v)
+	return nil
+}
+
+const NewAccountRealAccountOpeningReasonSpeculative NewAccountRealAccountOpeningReason = "Speculative"
+const NewAccountRealAccountOpeningReasonIncomeEarning NewAccountRealAccountOpeningReason = "Income Earning"
+const NewAccountRealAccountOpeningReasonHedging NewAccountRealAccountOpeningReason = "Hedging"
+const NewAccountRealAccountOpeningReasonPeerToPeerExchange NewAccountRealAccountOpeningReason = "Peer-to-peer exchange"
+
+type NewAccountRealAccountTurnover string
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountReal) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if v, ok := raw["new_account_real"]; !ok || v == nil {
+		return fmt.Errorf("field new_account_real in NewAccountReal: required")
+	}
+	type Plain NewAccountReal
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	if v, ok := raw["client_type"]; !ok || v == nil {
+		plain.ClientType = "retail"
+	}
+	if plain.SecretAnswer != nil && len(*plain.SecretAnswer) < 4 {
+		return fmt.Errorf("field %s length: must be >= %d", "secret_answer", 4)
+	}
+	if plain.SecretAnswer != nil && len(*plain.SecretAnswer) > 50 {
+		return fmt.Errorf("field %s length: must be <= %d", "secret_answer", 50)
+	}
+	*j = NewAccountReal(plain)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountRealAccountTurnover) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountRealAccountTurnover {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountRealAccountTurnover, v)
+	}
+	*j = NewAccountRealAccountTurnover(v)
+	return nil
+}
+
+const NewAccountRealAccountTurnoverLessThan25000 NewAccountRealAccountTurnover = "Less than $25,000"
+const NewAccountRealAccountTurnoverA2500050000 NewAccountRealAccountTurnover = "$25,000 - $50,000"
+const NewAccountRealAccountTurnoverA50001100000 NewAccountRealAccountTurnover = "$50,001 - $100,000"
+const NewAccountRealAccountTurnoverA100001500000 NewAccountRealAccountTurnover = "$100,001 - $500,000"
+const NewAccountRealAccountTurnoverOver500000 NewAccountRealAccountTurnover = "Over $500,000"
+
+type NewAccountRealClientType string
+
+type NewAccountRealAccountOpeningReason string
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountRealClientType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountRealClientType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountRealClientType, v)
+	}
+	*j = NewAccountRealClientType(v)
+	return nil
+}
+
+const NewAccountRealClientTypeProfessional NewAccountRealClientType = "professional"
+const NewAccountRealClientTypeRetail NewAccountRealClientType = "retail"
+
+type NewAccountRealFatcaDeclaration int
+
+type NewAccountRealNewAccountReal int
+
 // This call opens a new real-money account. This call can be made from a
 // virtual-money or a real-money account. If it is the latter, client information
 // fields in this call will be ignored and data from your existing real-money
@@ -53,11 +186,11 @@ type NewAccountReal struct {
 	// [Optional] Indicates client's self-declaration of FATCA.
 	FatcaDeclaration *NewAccountRealFatcaDeclaration `json:"fatca_declaration,omitempty"`
 
-	// Within 2-50 characters, use only letters, spaces, hyphens, full-stops or
+	// Within 1-50 characters, use only letters, spaces, hyphens, full-stops or
 	// apostrophes.
 	FirstName *string `json:"first_name,omitempty"`
 
-	// Within 2-50 characters, use only letters, spaces, hyphens, full-stops or
+	// Within 1-50 characters, use only letters, spaces, hyphens, full-stops or
 	// apostrophes.
 	LastName *string `json:"last_name,omitempty"`
 
@@ -110,138 +243,27 @@ type NewAccountReal struct {
 	TaxResidence *string `json:"tax_residence,omitempty"`
 }
 
-type NewAccountRealAccountOpeningReason string
-
-const NewAccountRealAccountOpeningReasonHedging NewAccountRealAccountOpeningReason = "Hedging"
-const NewAccountRealAccountOpeningReasonIncomeEarning NewAccountRealAccountOpeningReason = "Income Earning"
-const NewAccountRealAccountOpeningReasonPeerToPeerExchange NewAccountRealAccountOpeningReason = "Peer-to-peer exchange"
-const NewAccountRealAccountOpeningReasonSpeculative NewAccountRealAccountOpeningReason = "Speculative"
-
-var enumValues_NewAccountRealAccountOpeningReason = []interface{}{
-	"Speculative",
-	"Income Earning",
-	"Hedging",
-	"Peer-to-peer exchange",
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountRealAccountOpeningReason) UnmarshalJSON(b []byte) error {
+func (j *NewAccountRealSecretQuestion) UnmarshalJSON(b []byte) error {
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_NewAccountRealAccountOpeningReason {
+	for _, expected := range enumValues_NewAccountRealSecretQuestion {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountRealAccountOpeningReason, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountRealSecretQuestion, v)
 	}
-	*j = NewAccountRealAccountOpeningReason(v)
+	*j = NewAccountRealSecretQuestion(v)
 	return nil
 }
 
-type NewAccountRealAccountTurnover string
-
-const NewAccountRealAccountTurnoverA100001500000 NewAccountRealAccountTurnover = "$100,001 - $500,000"
-const NewAccountRealAccountTurnoverA2500050000 NewAccountRealAccountTurnover = "$25,000 - $50,000"
-const NewAccountRealAccountTurnoverA50001100000 NewAccountRealAccountTurnover = "$50,001 - $100,000"
-const NewAccountRealAccountTurnoverLessThan25000 NewAccountRealAccountTurnover = "Less than $25,000"
-const NewAccountRealAccountTurnoverOver500000 NewAccountRealAccountTurnover = "Over $500,000"
-
-var enumValues_NewAccountRealAccountTurnover = []interface{}{
-	"Less than $25,000",
-	"$25,000 - $50,000",
-	"$50,001 - $100,000",
-	"$100,001 - $500,000",
-	"Over $500,000",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountRealAccountTurnover) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_NewAccountRealAccountTurnover {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountRealAccountTurnover, v)
-	}
-	*j = NewAccountRealAccountTurnover(v)
-	return nil
-}
-
-type NewAccountRealClientType string
-
-const NewAccountRealClientTypeProfessional NewAccountRealClientType = "professional"
-const NewAccountRealClientTypeRetail NewAccountRealClientType = "retail"
-
-var enumValues_NewAccountRealClientType = []interface{}{
-	"professional",
-	"retail",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountRealClientType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_NewAccountRealClientType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountRealClientType, v)
-	}
-	*j = NewAccountRealClientType(v)
-	return nil
-}
-
-type NewAccountRealFatcaDeclaration int
-
-var enumValues_NewAccountRealFatcaDeclaration = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountRealFatcaDeclaration) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_NewAccountRealFatcaDeclaration {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountRealFatcaDeclaration, v)
-	}
-	*j = NewAccountRealFatcaDeclaration(v)
-	return nil
-}
-
-type NewAccountRealNewAccountReal int
-
-var enumValues_NewAccountRealNewAccountReal = []interface{}{
-	1,
-}
+type NewAccountRealSalutation string
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *NewAccountRealNewAccountReal) UnmarshalJSON(b []byte) error {
@@ -267,19 +289,8 @@ func (j *NewAccountRealNewAccountReal) UnmarshalJSON(b []byte) error {
 // the `echo_req` output field.
 type NewAccountRealPassthrough map[string]interface{}
 
-type NewAccountRealSalutation string
-
-const NewAccountRealSalutationMiss NewAccountRealSalutation = "Miss"
-const NewAccountRealSalutationMr NewAccountRealSalutation = "Mr"
 const NewAccountRealSalutationMrs NewAccountRealSalutation = "Mrs"
-const NewAccountRealSalutationMs NewAccountRealSalutation = "Ms"
-
-var enumValues_NewAccountRealSalutation = []interface{}{
-	"Mr",
-	"Ms",
-	"Miss",
-	"Mrs",
-}
+const NewAccountRealSalutationMiss NewAccountRealSalutation = "Miss"
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *NewAccountRealSalutation) UnmarshalJSON(b []byte) error {
@@ -301,8 +312,8 @@ func (j *NewAccountRealSalutation) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type NewAccountRealSecretQuestion string
-
+const NewAccountRealSalutationMr NewAccountRealSalutation = "Mr"
+const NewAccountRealSalutationMs NewAccountRealSalutation = "Ms"
 const NewAccountRealSecretQuestionBrandOfFirstCar NewAccountRealSecretQuestion = "Brand of first car"
 const NewAccountRealSecretQuestionFavouriteArtist NewAccountRealSecretQuestion = "Favourite artist"
 const NewAccountRealSecretQuestionFavouriteDish NewAccountRealSecretQuestion = "Favourite dish"
@@ -312,6 +323,36 @@ const NewAccountRealSecretQuestionMotherSMaidenName NewAccountRealSecretQuestion
 const NewAccountRealSecretQuestionNameOfFirstLove NewAccountRealSecretQuestion = "Name of first love"
 const NewAccountRealSecretQuestionNameOfYourPet NewAccountRealSecretQuestion = "Name of your pet"
 
+var enumValues_NewAccountRealAccountOpeningReason = []interface{}{
+	"Speculative",
+	"Income Earning",
+	"Hedging",
+	"Peer-to-peer exchange",
+}
+var enumValues_NewAccountRealAccountTurnover = []interface{}{
+	"Less than $25,000",
+	"$25,000 - $50,000",
+	"$50,001 - $100,000",
+	"$100,001 - $500,000",
+	"Over $500,000",
+}
+var enumValues_NewAccountRealClientType = []interface{}{
+	"professional",
+	"retail",
+}
+var enumValues_NewAccountRealFatcaDeclaration = []interface{}{
+	0,
+	1,
+}
+var enumValues_NewAccountRealNewAccountReal = []interface{}{
+	1,
+}
+var enumValues_NewAccountRealSalutation = []interface{}{
+	"Mr",
+	"Ms",
+	"Miss",
+	"Mrs",
+}
 var enumValues_NewAccountRealSecretQuestion = []interface{}{
 	"Mother's maiden name",
 	"Name of your pet",
@@ -321,51 +362,4 @@ var enumValues_NewAccountRealSecretQuestion = []interface{}{
 	"Favourite dish",
 	"Brand of first car",
 	"Favourite artist",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountRealSecretQuestion) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_NewAccountRealSecretQuestion {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountRealSecretQuestion, v)
-	}
-	*j = NewAccountRealSecretQuestion(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountReal) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if _, ok := raw["new_account_real"]; raw != nil && !ok {
-		return fmt.Errorf("field new_account_real in NewAccountReal: required")
-	}
-	type Plain NewAccountReal
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	if v, ok := raw["client_type"]; !ok || v == nil {
-		plain.ClientType = "retail"
-	}
-	if plain.SecretAnswer != nil && len(*plain.SecretAnswer) < 4 {
-		return fmt.Errorf("field %s length: must be >= %d", "secret_answer", 4)
-	}
-	if plain.SecretAnswer != nil && len(*plain.SecretAnswer) > 50 {
-		return fmt.Errorf("field %s length: must be <= %d", "secret_answer", 50)
-	}
-	*j = NewAccountReal(plain)
-	return nil
 }

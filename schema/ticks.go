@@ -6,23 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Initiate a continuous stream of spot price updates for a given symbol.
-type Ticks struct {
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough TicksPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// [Optional] If set to 1, will send updates whenever a new tick is received.
-	Subscribe *TicksSubscribe `json:"subscribe,omitempty"`
-
-	// The short symbol name or array of symbols (obtained from `active_symbols`
-	// call).
-	Ticks interface{} `json:"ticks"`
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type TicksPassthrough map[string]interface{}
@@ -53,13 +36,30 @@ func (j *TicksSubscribe) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Initiate a continuous stream of spot price updates for a given symbol.
+type Ticks struct {
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough TicksPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// [Optional] If set to 1, will send updates whenever a new tick is received.
+	Subscribe *TicksSubscribe `json:"subscribe,omitempty"`
+
+	// The short symbol name or array of symbols (obtained from `active_symbols`
+	// call).
+	Ticks interface{} `json:"ticks"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *Ticks) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["ticks"]; raw != nil && !ok {
+	if v, ok := raw["ticks"]; !ok || v == nil {
 		return fmt.Errorf("field ticks in Ticks: required")
 	}
 	type Plain Ticks

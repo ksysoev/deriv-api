@@ -6,27 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Subscribe to transaction notifications
-type Transaction struct {
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough TransactionPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// If set to 1, will send updates whenever there is an update to transactions. If
-	// not to 1 then it will not return any records.
-	Subscribe TransactionSubscribe `json:"subscribe"`
-
-	// Must be `1`
-	Transaction TransactionTransaction `json:"transaction"`
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type TransactionPassthrough map[string]interface{}
@@ -83,16 +62,37 @@ func (j *TransactionTransaction) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Subscribe to transaction notifications
+type Transaction struct {
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough TransactionPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// If set to 1, will send updates whenever there is an update to transactions. If
+	// not to 1 then it will not return any records.
+	Subscribe TransactionSubscribe `json:"subscribe"`
+
+	// Must be `1`
+	Transaction TransactionTransaction `json:"transaction"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *Transaction) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["subscribe"]; raw != nil && !ok {
+	if v, ok := raw["subscribe"]; !ok || v == nil {
 		return fmt.Errorf("field subscribe in Transaction: required")
 	}
-	if _, ok := raw["transaction"]; raw != nil && !ok {
+	if v, ok := raw["transaction"]; !ok || v == nil {
 		return fmt.Errorf("field transaction in Transaction: required")
 	}
 	type Plain Transaction

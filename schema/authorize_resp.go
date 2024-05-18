@@ -121,84 +121,9 @@ type AuthorizeRespAuthorizeAccountListElemAccountCategory string
 const AuthorizeRespAuthorizeAccountListElemAccountCategoryTrading AuthorizeRespAuthorizeAccountListElemAccountCategory = "trading"
 const AuthorizeRespAuthorizeAccountListElemAccountCategoryWallet AuthorizeRespAuthorizeAccountListElemAccountCategory = "wallet"
 
-var enumValues_AuthorizeRespAuthorizeAccountListElemAccountCategory = []interface{}{
-	"trading",
-	"wallet",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *AuthorizeRespAuthorizeAccountListElemAccountCategory) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_AuthorizeRespAuthorizeAccountListElemAccountCategory {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AuthorizeRespAuthorizeAccountListElemAccountCategory, v)
-	}
-	*j = AuthorizeRespAuthorizeAccountListElemAccountCategory(v)
-	return nil
-}
-
 type AuthorizeRespAuthorizeAccountListElemIsDisabled int
 
-var enumValues_AuthorizeRespAuthorizeAccountListElemIsDisabled = []interface{}{
-	1,
-	0,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *AuthorizeRespAuthorizeAccountListElemIsDisabled) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_AuthorizeRespAuthorizeAccountListElemIsDisabled {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AuthorizeRespAuthorizeAccountListElemIsDisabled, v)
-	}
-	*j = AuthorizeRespAuthorizeAccountListElemIsDisabled(v)
-	return nil
-}
-
 type AuthorizeRespAuthorizeAccountListElemIsVirtual int
-
-var enumValues_AuthorizeRespAuthorizeAccountListElemIsVirtual = []interface{}{
-	1,
-	0,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *AuthorizeRespAuthorizeAccountListElemIsVirtual) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_AuthorizeRespAuthorizeAccountListElemIsVirtual {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AuthorizeRespAuthorizeAccountListElemIsVirtual, v)
-	}
-	*j = AuthorizeRespAuthorizeAccountListElemIsVirtual(v)
-	return nil
-}
 
 type AuthorizeRespAuthorizeAccountListElemLinkedToElem struct {
 	// Account ID.
@@ -217,7 +142,60 @@ const AuthorizeRespAuthorizeAccountListElemLinkedToElemPlatformDwallet Authorize
 const AuthorizeRespAuthorizeAccountListElemLinkedToElemPlatformDxtrade AuthorizeRespAuthorizeAccountListElemLinkedToElemPlatform = "dxtrade"
 const AuthorizeRespAuthorizeAccountListElemLinkedToElemPlatformMt5 AuthorizeRespAuthorizeAccountListElemLinkedToElemPlatform = "mt5"
 
+type AuthorizeRespAuthorizeIsVirtual int
+
+type AuthorizeRespAuthorizeLinkedToElem struct {
+	// Account ID.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// Account platform name.
+	Platform *AuthorizeRespAuthorizeLinkedToElemPlatform `json:"platform,omitempty"`
+}
+
+type AuthorizeRespAuthorizeLinkedToElemPlatform string
+
+const AuthorizeRespAuthorizeLinkedToElemPlatformCtrader AuthorizeRespAuthorizeLinkedToElemPlatform = "ctrader"
+const AuthorizeRespAuthorizeLinkedToElemPlatformDerivez AuthorizeRespAuthorizeLinkedToElemPlatform = "derivez"
+const AuthorizeRespAuthorizeLinkedToElemPlatformDtrade AuthorizeRespAuthorizeLinkedToElemPlatform = "dtrade"
+const AuthorizeRespAuthorizeLinkedToElemPlatformDwallet AuthorizeRespAuthorizeLinkedToElemPlatform = "dwallet"
+const AuthorizeRespAuthorizeLinkedToElemPlatformDxtrade AuthorizeRespAuthorizeLinkedToElemPlatform = "dxtrade"
+const AuthorizeRespAuthorizeLinkedToElemPlatformMt5 AuthorizeRespAuthorizeLinkedToElemPlatform = "mt5"
+
+// Currencies in client's residence country
+type AuthorizeRespAuthorizeLocalCurrencies map[string]interface{}
+
+// Echo of the request made.
+type AuthorizeRespEchoReq map[string]interface{}
+
+type AuthorizeRespMsgType string
+
+const AuthorizeRespMsgTypeAuthorize AuthorizeRespMsgType = "authorize"
+
+var enumValues_AuthorizeRespAuthorizeAccountListElemAccountCategory = []interface{}{
+	"trading",
+	"wallet",
+}
+var enumValues_AuthorizeRespAuthorizeAccountListElemIsDisabled = []interface{}{
+	1,
+	0,
+}
+var enumValues_AuthorizeRespAuthorizeAccountListElemIsVirtual = []interface{}{
+	1,
+	0,
+}
 var enumValues_AuthorizeRespAuthorizeAccountListElemLinkedToElemPlatform = []interface{}{
+	"ctrader",
+	"derivez",
+	"dtrade",
+	"dwallet",
+	"dxtrade",
+	"mt5",
+}
+var enumValues_AuthorizeRespAuthorizeIsVirtual = []interface{}{
+	0,
+	1,
+}
+var enumValues_AuthorizeRespAuthorizeLinkedToElemPlatform = []interface{}{
 	"ctrader",
 	"derivez",
 	"dtrade",
@@ -246,88 +224,65 @@ func (j *AuthorizeRespAuthorizeAccountListElemLinkedToElemPlatform) UnmarshalJSO
 	return nil
 }
 
-type AuthorizeRespAuthorizeIsVirtual int
-
-var enumValues_AuthorizeRespAuthorizeIsVirtual = []interface{}{
-	0,
-	1,
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *AuthorizeRespAuthorizeIsVirtual) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_AuthorizeRespAuthorizeIsVirtual {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AuthorizeRespAuthorizeIsVirtual, v)
-	}
-	*j = AuthorizeRespAuthorizeIsVirtual(v)
-	return nil
-}
-
-type AuthorizeRespAuthorizeLinkedToElem struct {
-	// Account ID.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// Account platform name.
-	Platform *AuthorizeRespAuthorizeLinkedToElemPlatform `json:"platform,omitempty"`
-}
-
-type AuthorizeRespAuthorizeLinkedToElemPlatform string
-
-const AuthorizeRespAuthorizeLinkedToElemPlatformCtrader AuthorizeRespAuthorizeLinkedToElemPlatform = "ctrader"
-const AuthorizeRespAuthorizeLinkedToElemPlatformDerivez AuthorizeRespAuthorizeLinkedToElemPlatform = "derivez"
-const AuthorizeRespAuthorizeLinkedToElemPlatformDtrade AuthorizeRespAuthorizeLinkedToElemPlatform = "dtrade"
-const AuthorizeRespAuthorizeLinkedToElemPlatformDwallet AuthorizeRespAuthorizeLinkedToElemPlatform = "dwallet"
-const AuthorizeRespAuthorizeLinkedToElemPlatformDxtrade AuthorizeRespAuthorizeLinkedToElemPlatform = "dxtrade"
-const AuthorizeRespAuthorizeLinkedToElemPlatformMt5 AuthorizeRespAuthorizeLinkedToElemPlatform = "mt5"
-
-var enumValues_AuthorizeRespAuthorizeLinkedToElemPlatform = []interface{}{
-	"ctrader",
-	"derivez",
-	"dtrade",
-	"dwallet",
-	"dxtrade",
-	"mt5",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *AuthorizeRespAuthorizeLinkedToElemPlatform) UnmarshalJSON(b []byte) error {
+func (j *AuthorizeRespAuthorizeAccountListElemAccountCategory) UnmarshalJSON(b []byte) error {
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_AuthorizeRespAuthorizeLinkedToElemPlatform {
+	for _, expected := range enumValues_AuthorizeRespAuthorizeAccountListElemAccountCategory {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AuthorizeRespAuthorizeLinkedToElemPlatform, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AuthorizeRespAuthorizeAccountListElemAccountCategory, v)
 	}
-	*j = AuthorizeRespAuthorizeLinkedToElemPlatform(v)
+	*j = AuthorizeRespAuthorizeAccountListElemAccountCategory(v)
 	return nil
 }
 
-// Currencies in client's residence country
-type AuthorizeRespAuthorizeLocalCurrencies map[string]interface{}
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *AuthorizeRespAuthorizeAccountListElemIsDisabled) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_AuthorizeRespAuthorizeAccountListElemIsDisabled {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AuthorizeRespAuthorizeAccountListElemIsDisabled, v)
+	}
+	*j = AuthorizeRespAuthorizeAccountListElemIsDisabled(v)
+	return nil
+}
 
-// Echo of the request made.
-type AuthorizeRespEchoReq map[string]interface{}
-
-type AuthorizeRespMsgType string
-
-const AuthorizeRespMsgTypeAuthorize AuthorizeRespMsgType = "authorize"
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *AuthorizeRespAuthorizeAccountListElemIsVirtual) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_AuthorizeRespAuthorizeAccountListElemIsVirtual {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AuthorizeRespAuthorizeAccountListElemIsVirtual, v)
+	}
+	*j = AuthorizeRespAuthorizeAccountListElemIsVirtual(v)
+	return nil
+}
 
 var enumValues_AuthorizeRespMsgType = []interface{}{
 	"authorize",
@@ -354,15 +309,55 @@ func (j *AuthorizeRespMsgType) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
+func (j *AuthorizeRespAuthorizeIsVirtual) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_AuthorizeRespAuthorizeIsVirtual {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AuthorizeRespAuthorizeIsVirtual, v)
+	}
+	*j = AuthorizeRespAuthorizeIsVirtual(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *AuthorizeRespAuthorizeLinkedToElemPlatform) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_AuthorizeRespAuthorizeLinkedToElemPlatform {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_AuthorizeRespAuthorizeLinkedToElemPlatform, v)
+	}
+	*j = AuthorizeRespAuthorizeLinkedToElemPlatform(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
 func (j *AuthorizeResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in AuthorizeResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in AuthorizeResp: required")
 	}
 	type Plain AuthorizeResp

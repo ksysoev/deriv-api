@@ -6,23 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Retrieves a list of active copiers and/or traders for Copy Trading
-type CopytradingList struct {
-	// Must be `1`
-	CopytradingList CopytradingListCopytradingList `json:"copytrading_list"`
-
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough CopytradingListPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 type CopytradingListCopytradingList int
 
 var enumValues_CopytradingListCopytradingList = []interface{}{
@@ -49,6 +32,23 @@ func (j *CopytradingListCopytradingList) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Retrieves a list of active copiers and/or traders for Copy Trading
+type CopytradingList struct {
+	// Must be `1`
+	CopytradingList CopytradingListCopytradingList `json:"copytrading_list"`
+
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough CopytradingListPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type CopytradingListPassthrough map[string]interface{}
@@ -59,7 +59,7 @@ func (j *CopytradingList) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["copytrading_list"]; raw != nil && !ok {
+	if v, ok := raw["copytrading_list"]; !ok || v == nil {
 		return fmt.Errorf("field copytrading_list in CopytradingList: required")
 	}
 	type Plain CopytradingList

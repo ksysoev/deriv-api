@@ -6,144 +6,44 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Set User Settings (this call should be used in conjunction with `get_settings`)
-type SetSettings struct {
-	// [Optional] Purpose and reason for requesting the account opening. Only
-	// applicable for real money account. Required for clients that have not set it
-	// yet. Can only be set once.
-	AccountOpeningReason *SetSettingsAccountOpeningReason `json:"account_opening_reason,omitempty"`
-
-	// [Optional] Note: not applicable for virtual account. Required field for real
-	// money account.
-	AddressCity *string `json:"address_city,omitempty"`
-
-	// [Optional] Note: not applicable for virtual account. Required field for real
-	// money account.
-	AddressLine1 *string `json:"address_line_1,omitempty"`
-
-	// [Optional] Note: not applicable for virtual account. Optional field for real
-	// money account.
-	AddressLine2 *string `json:"address_line_2,omitempty"`
-
-	// [Optional] Note: not applicable for virtual account. Optional field for real
-	// money account.
-	AddressPostcode *string `json:"address_postcode,omitempty"`
-
-	// [Optional] Note: not applicable for virtual account. Optional field for real
-	// money account.
-	AddressState *string `json:"address_state,omitempty"`
-
-	// [Optional] Boolean value 1 or 0, indicating permission to allow others to
-	// follow your trades. Note: not applicable for Virtual account. Only allow for
-	// real money account.
-	AllowCopiers *SetSettingsAllowCopiers `json:"allow_copiers,omitempty"`
-
-	// [Optional] Country of legal citizenship, 2-letter country code.
-	Citizen *string `json:"citizen,omitempty"`
-
-	// [Optional] Date of birth format: yyyy-mm-dd (can only be changed on
-	// unauthenticated svg accounts).
-	DateOfBirth *string `json:"date_of_birth,omitempty"`
-
-	// Boolean value 1 or 0, indicating if user email belong to dxtrade exception
-	// list.
-	DxtradeUserException *SetSettingsDxtradeUserException `json:"dxtrade_user_exception,omitempty"`
-
-	// [Optional] Boolean value 1 or 0, indicating permission to use email address for
-	// any contact which may include marketing
-	EmailConsent *SetSettingsEmailConsent `json:"email_consent,omitempty"`
-
-	// [Optional] Employment Status.
-	EmploymentStatus *SetSettingsEmploymentStatus `json:"employment_status,omitempty"`
-
-	// [Optional] Enable or disable one or multiple features.
-	FeatureFlag *SetSettingsFeatureFlag `json:"feature_flag,omitempty"`
-
-	// [Optional] Within 2-50 characters, use only letters, spaces, hyphens,
-	// full-stops or apostrophes (can only be changed on unauthenticated svg
-	// accounts).
-	FirstName *string `json:"first_name,omitempty"`
-
-	// [Optional] Within 2-50 characters, use only letters, spaces, hyphens,
-	// full-stops or apostrophes (can only be changed on unauthenticated svg
-	// accounts).
-	LastName *string `json:"last_name,omitempty"`
-
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Indicates client's self-declaration of not being a PEP/RCA
-	// (Politically Exposed Person/Relatives and Close Associates). Effective for real
-	// accounts only.
-	NonPepDeclaration *SetSettingsNonPepDeclaration `json:"non_pep_declaration,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough SetSettingsPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Note: not applicable for virtual account. Starting with `+` followed
-	// by 9-35 digits, hyphens or space.
-	Phone *string `json:"phone,omitempty"`
-
-	// [Optional] Place of birth, 2-letter country code.
-	PlaceOfBirth *string `json:"place_of_birth,omitempty"`
-
-	// [Optional] User's preferred language, ISO standard language code
-	PreferredLanguage *string `json:"preferred_language,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// [Optional] Required when client wants to be treated as professional. Applicable
-	// for financial accounts only.
-	RequestProfessionalStatus *SetSettingsRequestProfessionalStatus `json:"request_professional_status,omitempty"`
-
-	// [Optional] 2-letter country code. Note: not applicable for real money account.
-	// Only allow for Virtual account without residence set.
-	Residence *string `json:"residence,omitempty"`
-
-	// [Optional] Accept any value in enum list (can only be changed on
-	// unauthenticated svg accounts).
-	Salutation *SetSettingsSalutation `json:"salutation,omitempty"`
-
-	// [Optional] Answer to secret question, within 4-50 characters. Required for new
-	// account and existing client details will be used if client opens another
-	// account.
-	SecretAnswer *string `json:"secret_answer,omitempty"`
-
-	// [Optional] Accept any value in enum list. Required for new account and existing
-	// client details will be used if client opens another account.
-	SecretQuestion *SetSettingsSecretQuestion `json:"secret_question,omitempty"`
-
-	// Must be `1`
-	SetSettings SetSettingsSetSettings `json:"set_settings"`
-
-	// [Optional] Tax identification number. Only applicable for real money account.
-	// Required for maltainvest landing company.
-	TaxIdentificationNumber *string `json:"tax_identification_number,omitempty"`
-
-	// [Optional] Residence for tax purpose. Comma separated iso country code if
-	// multiple jurisdictions. Only applicable for real money account. Required for
-	// maltainvest landing company.
-	TaxResidence *string `json:"tax_residence,omitempty"`
-
-	// [Optional] Enable/Disable Trading Hub dashboard
-	TradingHub *SetSettingsTradingHub `json:"trading_hub,omitempty"`
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetSettingsNonPepDeclaration) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetSettingsNonPepDeclaration {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsNonPepDeclaration, v)
+	}
+	*j = SetSettingsNonPepDeclaration(v)
+	return nil
 }
 
-type SetSettingsAccountOpeningReason string
-
-const SetSettingsAccountOpeningReasonHedging SetSettingsAccountOpeningReason = "Hedging"
-const SetSettingsAccountOpeningReasonIncomeEarning SetSettingsAccountOpeningReason = "Income Earning"
-const SetSettingsAccountOpeningReasonPeerToPeerExchange SetSettingsAccountOpeningReason = "Peer-to-peer exchange"
-const SetSettingsAccountOpeningReasonSpeculative SetSettingsAccountOpeningReason = "Speculative"
-
-var enumValues_SetSettingsAccountOpeningReason = []interface{}{
-	"Speculative",
-	"Income Earning",
-	"Hedging",
-	"Peer-to-peer exchange",
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetSettingsTradingHub) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetSettingsTradingHub {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsTradingHub, v)
+	}
+	*j = SetSettingsTradingHub(v)
+	return nil
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -166,7 +66,12 @@ func (j *SetSettingsAccountOpeningReason) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SetSettingsAllowCopiers int
+const SetSettingsAccountOpeningReasonHedging SetSettingsAccountOpeningReason = "Hedging"
+const SetSettingsAccountOpeningReasonIncomeEarning SetSettingsAccountOpeningReason = "Income Earning"
+const SetSettingsAccountOpeningReasonPeerToPeerExchange SetSettingsAccountOpeningReason = "Peer-to-peer exchange"
+const SetSettingsAccountOpeningReasonSpeculative SetSettingsAccountOpeningReason = "Speculative"
+
+type SetSettingsAccountOpeningReason string
 
 var enumValues_SetSettingsAllowCopiers = []interface{}{
 	0,
@@ -249,12 +154,6 @@ func (j *SetSettingsEmailConsent) UnmarshalJSON(b []byte) error {
 
 type SetSettingsEmploymentStatus string
 
-const SetSettingsEmploymentStatusEmployed SetSettingsEmploymentStatus = "Employed"
-const SetSettingsEmploymentStatusPensioner SetSettingsEmploymentStatus = "Pensioner"
-const SetSettingsEmploymentStatusSelfEmployed SetSettingsEmploymentStatus = "Self-Employed"
-const SetSettingsEmploymentStatusStudent SetSettingsEmploymentStatus = "Student"
-const SetSettingsEmploymentStatusUnemployed SetSettingsEmploymentStatus = "Unemployed"
-
 var enumValues_SetSettingsEmploymentStatus = []interface{}{
 	"Employed",
 	"Pensioner",
@@ -283,12 +182,11 @@ func (j *SetSettingsEmploymentStatus) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// [Optional] Enable or disable one or multiple features.
-type SetSettingsFeatureFlag struct {
-	// [Optional] Boolean value 1 or 0 indicating whether to enable/disable this
-	// feature
-	Wallet *SetSettingsFeatureFlagWallet `json:"wallet,omitempty"`
-}
+const SetSettingsEmploymentStatusEmployed SetSettingsEmploymentStatus = "Employed"
+const SetSettingsEmploymentStatusPensioner SetSettingsEmploymentStatus = "Pensioner"
+const SetSettingsEmploymentStatusSelfEmployed SetSettingsEmploymentStatus = "Self-Employed"
+const SetSettingsEmploymentStatusStudent SetSettingsEmploymentStatus = "Student"
+const SetSettingsEmploymentStatusUnemployed SetSettingsEmploymentStatus = "Unemployed"
 
 type SetSettingsFeatureFlagWallet int
 
@@ -317,37 +215,29 @@ func (j *SetSettingsFeatureFlagWallet) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// [Optional] Enable or disable one or multiple features.
+type SetSettingsFeatureFlag struct {
+	// [Optional] Boolean value 1 or 0 indicating whether to enable/disable this
+	// feature
+	Wallet *SetSettingsFeatureFlagWallet `json:"wallet,omitempty"`
+}
+
 type SetSettingsNonPepDeclaration int
 
 var enumValues_SetSettingsNonPepDeclaration = []interface{}{
 	1,
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetSettingsNonPepDeclaration) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetSettingsNonPepDeclaration {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsNonPepDeclaration, v)
-	}
-	*j = SetSettingsNonPepDeclaration(v)
-	return nil
+type SetSettingsRequestProfessionalStatus int
+
+var enumValues_SetSettingsAccountOpeningReason = []interface{}{
+	"Speculative",
+	"Income Earning",
+	"Hedging",
+	"Peer-to-peer exchange",
 }
 
-// [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
-type SetSettingsPassthrough map[string]interface{}
-
-type SetSettingsRequestProfessionalStatus int
+type SetSettingsAllowCopiers int
 
 var enumValues_SetSettingsRequestProfessionalStatus = []interface{}{
 	1,
@@ -374,11 +264,6 @@ func (j *SetSettingsRequestProfessionalStatus) UnmarshalJSON(b []byte) error {
 }
 
 type SetSettingsSalutation string
-
-const SetSettingsSalutationMiss SetSettingsSalutation = "Miss"
-const SetSettingsSalutationMr SetSettingsSalutation = "Mr"
-const SetSettingsSalutationMrs SetSettingsSalutation = "Mrs"
-const SetSettingsSalutationMs SetSettingsSalutation = "Ms"
 
 var enumValues_SetSettingsSalutation = []interface{}{
 	"Mr",
@@ -407,16 +292,12 @@ func (j *SetSettingsSalutation) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SetSettingsSecretQuestion string
+const SetSettingsSalutationMiss SetSettingsSalutation = "Miss"
+const SetSettingsSalutationMr SetSettingsSalutation = "Mr"
+const SetSettingsSalutationMrs SetSettingsSalutation = "Mrs"
+const SetSettingsSalutationMs SetSettingsSalutation = "Ms"
 
-const SetSettingsSecretQuestionBrandOfFirstCar SetSettingsSecretQuestion = "Brand of first car"
-const SetSettingsSecretQuestionFavouriteArtist SetSettingsSecretQuestion = "Favourite artist"
-const SetSettingsSecretQuestionFavouriteDish SetSettingsSecretQuestion = "Favourite dish"
-const SetSettingsSecretQuestionMemorableDate SetSettingsSecretQuestion = "Memorable date"
-const SetSettingsSecretQuestionMemorableTownCity SetSettingsSecretQuestion = "Memorable town/city"
-const SetSettingsSecretQuestionMotherSMaidenName SetSettingsSecretQuestion = "Mother's maiden name"
-const SetSettingsSecretQuestionNameOfFirstLove SetSettingsSecretQuestion = "Name of first love"
-const SetSettingsSecretQuestionNameOfYourPet SetSettingsSecretQuestion = "Name of your pet"
+type SetSettingsSecretQuestion string
 
 var enumValues_SetSettingsSecretQuestion = []interface{}{
 	"Mother's maiden name",
@@ -448,6 +329,15 @@ func (j *SetSettingsSecretQuestion) UnmarshalJSON(b []byte) error {
 	*j = SetSettingsSecretQuestion(v)
 	return nil
 }
+
+const SetSettingsSecretQuestionMemorableTownCity SetSettingsSecretQuestion = "Memorable town/city"
+const SetSettingsSecretQuestionMotherSMaidenName SetSettingsSecretQuestion = "Mother's maiden name"
+const SetSettingsSecretQuestionMemorableDate SetSettingsSecretQuestion = "Memorable date"
+const SetSettingsSecretQuestionFavouriteDish SetSettingsSecretQuestion = "Favourite dish"
+const SetSettingsSecretQuestionBrandOfFirstCar SetSettingsSecretQuestion = "Brand of first car"
+const SetSettingsSecretQuestionFavouriteArtist SetSettingsSecretQuestion = "Favourite artist"
+const SetSettingsSecretQuestionNameOfFirstLove SetSettingsSecretQuestion = "Name of first love"
+const SetSettingsSecretQuestionNameOfYourPet SetSettingsSecretQuestion = "Name of your pet"
 
 type SetSettingsSetSettings int
 
@@ -482,24 +372,134 @@ var enumValues_SetSettingsTradingHub = []interface{}{
 	1,
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetSettingsTradingHub) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetSettingsTradingHub {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsTradingHub, v)
-	}
-	*j = SetSettingsTradingHub(v)
-	return nil
+// [Optional] Used to pass data through the websocket, which may be retrieved via
+// the `echo_req` output field.
+type SetSettingsPassthrough map[string]interface{}
+
+// Set User Settings (this call should be used in conjunction with `get_settings`)
+type SetSettings struct {
+	// [Optional] Purpose and reason for requesting the account opening. Only
+	// applicable for real money account. Required for clients that have not set it
+	// yet. Can only be set once.
+	AccountOpeningReason *SetSettingsAccountOpeningReason `json:"account_opening_reason,omitempty"`
+
+	// [Optional] Note: not applicable for virtual account. Required field for real
+	// money account.
+	AddressCity *string `json:"address_city,omitempty"`
+
+	// [Optional] Note: not applicable for virtual account. Required field for real
+	// money account.
+	AddressLine1 *string `json:"address_line_1,omitempty"`
+
+	// [Optional] Note: not applicable for virtual account. Optional field for real
+	// money account.
+	AddressLine2 *string `json:"address_line_2,omitempty"`
+
+	// [Optional] Note: not applicable for virtual account. Optional field for real
+	// money account.
+	AddressPostcode *string `json:"address_postcode,omitempty"`
+
+	// [Optional] Note: not applicable for virtual account. Optional field for real
+	// money account.
+	AddressState *string `json:"address_state,omitempty"`
+
+	// [Optional] Boolean value 1 or 0, indicating permission to allow others to
+	// follow your trades. Note: not applicable for Virtual account. Only allow for
+	// real money account.
+	AllowCopiers *SetSettingsAllowCopiers `json:"allow_copiers,omitempty"`
+
+	// [Optional] Country of legal citizenship, 2-letter country code.
+	Citizen *string `json:"citizen,omitempty"`
+
+	// [Optional] Date of birth format: yyyy-mm-dd (can only be changed on
+	// unauthenticated svg accounts).
+	DateOfBirth *string `json:"date_of_birth,omitempty"`
+
+	// Boolean value 1 or 0, indicating if user email belong to dxtrade exception
+	// list.
+	DxtradeUserException *SetSettingsDxtradeUserException `json:"dxtrade_user_exception,omitempty"`
+
+	// [Optional] Boolean value 1 or 0, indicating permission to use email address for
+	// any contact which may include marketing
+	EmailConsent *SetSettingsEmailConsent `json:"email_consent,omitempty"`
+
+	// [Optional] Employment Status.
+	EmploymentStatus *SetSettingsEmploymentStatus `json:"employment_status,omitempty"`
+
+	// [Optional] Enable or disable one or multiple features.
+	FeatureFlag *SetSettingsFeatureFlag `json:"feature_flag,omitempty"`
+
+	// [Optional] Within 1-50 characters, use only letters, spaces, hyphens,
+	// full-stops or apostrophes (can only be changed on unauthenticated svg
+	// accounts).
+	FirstName *string `json:"first_name,omitempty"`
+
+	// [Optional] Within 1-50 characters, use only letters, spaces, hyphens,
+	// full-stops or apostrophes (can only be changed on unauthenticated svg
+	// accounts).
+	LastName *string `json:"last_name,omitempty"`
+
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Indicates client's self-declaration of not being a PEP/RCA
+	// (Politically Exposed Person/Relatives and Close Associates). Effective for real
+	// accounts only.
+	NonPepDeclaration *SetSettingsNonPepDeclaration `json:"non_pep_declaration,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough SetSettingsPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Note: not applicable for virtual account. Starting with `+` followed
+	// by 9-35 digits, hyphens or space.
+	Phone *string `json:"phone,omitempty"`
+
+	// [Optional] Place of birth, 2-letter country code.
+	PlaceOfBirth *string `json:"place_of_birth,omitempty"`
+
+	// [Optional] User's preferred language, ISO standard language code
+	PreferredLanguage *string `json:"preferred_language,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// [Optional] Required when client wants to be treated as professional. Applicable
+	// for financial accounts only.
+	RequestProfessionalStatus *SetSettingsRequestProfessionalStatus `json:"request_professional_status,omitempty"`
+
+	// [Optional] 2-letter country code. Note: not applicable for real money account.
+	// Only allow for Virtual account without residence set.
+	Residence *string `json:"residence,omitempty"`
+
+	// [Optional] Accept any value in enum list (can only be changed on
+	// unauthenticated svg accounts).
+	Salutation *SetSettingsSalutation `json:"salutation,omitempty"`
+
+	// [Optional] Answer to secret question, within 4-50 characters. Required for new
+	// account and existing client details will be used if client opens another
+	// account.
+	SecretAnswer *string `json:"secret_answer,omitempty"`
+
+	// [Optional] Accept any value in enum list. Required for new account and existing
+	// client details will be used if client opens another account.
+	SecretQuestion *SetSettingsSecretQuestion `json:"secret_question,omitempty"`
+
+	// Must be `1`
+	SetSettings SetSettingsSetSettings `json:"set_settings"`
+
+	// [Optional] Tax identification number. Only applicable for real money account.
+	// Required for maltainvest landing company.
+	TaxIdentificationNumber *string `json:"tax_identification_number,omitempty"`
+
+	// [Optional] Residence for tax purpose. Comma separated iso country code if
+	// multiple jurisdictions. Only applicable for real money account. Required for
+	// maltainvest landing company.
+	TaxResidence *string `json:"tax_residence,omitempty"`
+
+	// [Optional] Enable/Disable Trading Hub dashboard
+	TradingHub *SetSettingsTradingHub `json:"trading_hub,omitempty"`
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -508,7 +508,7 @@ func (j *SetSettings) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["set_settings"]; raw != nil && !ok {
+	if v, ok := raw["set_settings"]; !ok || v == nil {
 		return fmt.Errorf("field set_settings in SetSettings: required")
 	}
 	type Plain SetSettings

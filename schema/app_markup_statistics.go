@@ -6,29 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Retrieve statistics of `app_markup`.
-type AppMarkupStatistics struct {
-	// Must be `1`
-	AppMarkupStatistics AppMarkupStatisticsAppMarkupStatistics `json:"app_markup_statistics"`
-
-	// Start date (epoch or YYYY-MM-DD HH:MM:SS). Results are inclusive of this time.
-	DateFrom string `json:"date_from"`
-
-	// End date (epoch or YYYY-MM-DD HH::MM::SS). Results are inclusive of this time.
-	DateTo string `json:"date_to"`
-
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough AppMarkupStatisticsPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 type AppMarkupStatisticsAppMarkupStatistics int
 
 var enumValues_AppMarkupStatisticsAppMarkupStatistics = []interface{}{
@@ -55,6 +32,29 @@ func (j *AppMarkupStatisticsAppMarkupStatistics) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Retrieve statistics of `app_markup`.
+type AppMarkupStatistics struct {
+	// Must be `1`
+	AppMarkupStatistics AppMarkupStatisticsAppMarkupStatistics `json:"app_markup_statistics"`
+
+	// Start date (epoch or YYYY-MM-DD HH:MM:SS). Results are inclusive of this time.
+	DateFrom string `json:"date_from"`
+
+	// End date (epoch or YYYY-MM-DD HH::MM::SS). Results are inclusive of this time.
+	DateTo string `json:"date_to"`
+
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough AppMarkupStatisticsPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type AppMarkupStatisticsPassthrough map[string]interface{}
@@ -65,13 +65,13 @@ func (j *AppMarkupStatistics) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["app_markup_statistics"]; raw != nil && !ok {
+	if v, ok := raw["app_markup_statistics"]; !ok || v == nil {
 		return fmt.Errorf("field app_markup_statistics in AppMarkupStatistics: required")
 	}
-	if _, ok := raw["date_from"]; raw != nil && !ok {
+	if v, ok := raw["date_from"]; !ok || v == nil {
 		return fmt.Errorf("field date_from in AppMarkupStatistics: required")
 	}
-	if _, ok := raw["date_to"]; raw != nil && !ok {
+	if v, ok := raw["date_to"]; !ok || v == nil {
 		return fmt.Errorf("field date_to in AppMarkupStatistics: required")
 	}
 	type Plain AppMarkupStatistics

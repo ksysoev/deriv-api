@@ -38,30 +38,6 @@ type ApiToken struct {
 
 type ApiTokenApiToken int
 
-var enumValues_ApiTokenApiToken = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ApiTokenApiToken) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ApiTokenApiToken {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ApiTokenApiToken, v)
-	}
-	*j = ApiTokenApiToken(v)
-	return nil
-}
-
 type ApiTokenNewTokenScopesElem string
 
 const ApiTokenNewTokenScopesElemAdmin ApiTokenNewTokenScopesElem = "admin"
@@ -70,13 +46,11 @@ const ApiTokenNewTokenScopesElemRead ApiTokenNewTokenScopesElem = "read"
 const ApiTokenNewTokenScopesElemTrade ApiTokenNewTokenScopesElem = "trade"
 const ApiTokenNewTokenScopesElemTradingInformation ApiTokenNewTokenScopesElem = "trading_information"
 
-var enumValues_ApiTokenNewTokenScopesElem = []interface{}{
-	"read",
-	"trade",
-	"trading_information",
-	"payments",
-	"admin",
-}
+// [Optional] Used to pass data through the websocket, which may be retrieved via
+// the `echo_req` output field.
+type ApiTokenPassthrough map[string]interface{}
+
+type ApiTokenValidForCurrentIpOnly int
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ApiTokenNewTokenScopesElem) UnmarshalJSON(b []byte) error {
@@ -98,11 +72,33 @@ func (j *ApiTokenNewTokenScopesElem) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
-type ApiTokenPassthrough map[string]interface{}
+var enumValues_ApiTokenNewTokenScopesElem = []interface{}{
+	"read",
+	"trade",
+	"trading_information",
+	"payments",
+	"admin",
+}
 
-type ApiTokenValidForCurrentIpOnly int
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ApiTokenApiToken) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ApiTokenApiToken {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ApiTokenApiToken, v)
+	}
+	*j = ApiTokenApiToken(v)
+	return nil
+}
 
 var enumValues_ApiTokenValidForCurrentIpOnly = []interface{}{
 	0,
@@ -129,13 +125,17 @@ func (j *ApiTokenValidForCurrentIpOnly) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+var enumValues_ApiTokenApiToken = []interface{}{
+	1,
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ApiToken) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["api_token"]; raw != nil && !ok {
+	if v, ok := raw["api_token"]; !ok || v == nil {
 		return fmt.Errorf("field api_token in ApiToken: required")
 	}
 	type Plain ApiToken

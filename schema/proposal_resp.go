@@ -32,30 +32,6 @@ type ProposalRespMsgType string
 
 const ProposalRespMsgTypeProposal ProposalRespMsgType = "proposal"
 
-var enumValues_ProposalRespMsgType = []interface{}{
-	"proposal",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ProposalRespMsgType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ProposalRespMsgType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalRespMsgType, v)
-	}
-	*j = ProposalRespMsgType(v)
-	return nil
-}
-
 // Latest price and other details for a given contract
 type ProposalRespProposal struct {
 	// The ask price.
@@ -236,33 +212,53 @@ type ProposalRespProposalLimitOrderTakeProfit struct {
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
+func (j *ProposalRespMsgType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ProposalRespMsgType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalRespMsgType, v)
+	}
+	*j = ProposalRespMsgType(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
 func (j *ProposalRespProposal) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["ask_price"]; raw != nil && !ok {
+	if v, ok := raw["ask_price"]; !ok || v == nil {
 		return fmt.Errorf("field ask_price in ProposalRespProposal: required")
 	}
-	if _, ok := raw["date_start"]; raw != nil && !ok {
+	if v, ok := raw["date_start"]; !ok || v == nil {
 		return fmt.Errorf("field date_start in ProposalRespProposal: required")
 	}
-	if _, ok := raw["display_value"]; raw != nil && !ok {
+	if v, ok := raw["display_value"]; !ok || v == nil {
 		return fmt.Errorf("field display_value in ProposalRespProposal: required")
 	}
-	if _, ok := raw["id"]; raw != nil && !ok {
+	if v, ok := raw["id"]; !ok || v == nil {
 		return fmt.Errorf("field id in ProposalRespProposal: required")
 	}
-	if _, ok := raw["longcode"]; raw != nil && !ok {
+	if v, ok := raw["longcode"]; !ok || v == nil {
 		return fmt.Errorf("field longcode in ProposalRespProposal: required")
 	}
-	if _, ok := raw["payout"]; raw != nil && !ok {
+	if v, ok := raw["payout"]; !ok || v == nil {
 		return fmt.Errorf("field payout in ProposalRespProposal: required")
 	}
-	if _, ok := raw["spot"]; raw != nil && !ok {
+	if v, ok := raw["spot"]; !ok || v == nil {
 		return fmt.Errorf("field spot in ProposalRespProposal: required")
 	}
-	if _, ok := raw["spot_time"]; raw != nil && !ok {
+	if v, ok := raw["spot_time"]; !ok || v == nil {
 		return fmt.Errorf("field spot_time in ProposalRespProposal: required")
 	}
 	type Plain ProposalRespProposal
@@ -287,7 +283,7 @@ func (j *ProposalRespSubscription) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["id"]; raw != nil && !ok {
+	if v, ok := raw["id"]; !ok || v == nil {
 		return fmt.Errorf("field id in ProposalRespSubscription: required")
 	}
 	type Plain ProposalRespSubscription
@@ -299,16 +295,20 @@ func (j *ProposalRespSubscription) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+var enumValues_ProposalRespMsgType = []interface{}{
+	"proposal",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ProposalResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in ProposalResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in ProposalResp: required")
 	}
 	type Plain ProposalResp
