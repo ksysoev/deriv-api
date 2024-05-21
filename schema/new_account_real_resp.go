@@ -61,6 +61,9 @@ type NewAccountRealRespNewAccountReal struct {
 	// Currency of an account
 	Currency *string `json:"currency,omitempty"`
 
+	// Currency type against the currency
+	CurrencyType *string `json:"currency_type,omitempty"`
+
 	// Landing company full name
 	LandingCompany string `json:"landing_company"`
 

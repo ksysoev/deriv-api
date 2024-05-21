@@ -64,6 +64,9 @@ type NewAccountVirtualRespNewAccountVirtual struct {
 	// Account currency
 	Currency string `json:"currency"`
 
+	// Currency type against the currency
+	CurrencyType *string `json:"currency_type,omitempty"`
+
 	// Email of the new virtual-money account
 	Email string `json:"email"`
 
