@@ -12,6 +12,9 @@ type ActiveSymbols struct {
 	// If you use `brief`, only a subset of fields will be returned.
 	ActiveSymbols ActiveSymbolsActiveSymbols `json:"active_symbols"`
 
+	// [Optional] Category of barrier.
+	BarrierCategory []ActiveSymbolsBarrierCategoryElem `json:"barrier_category,omitempty"`
+
 	// [Optional] The proposed contract type
 	ContractType []ActiveSymbolsContractTypeElem `json:"contract_type,omitempty"`
 
@@ -67,6 +70,46 @@ func (j *ActiveSymbolsActiveSymbols) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ActiveSymbolsActiveSymbols, v)
 	}
 	*j = ActiveSymbolsActiveSymbols(v)
+	return nil
+}
+
+type ActiveSymbolsBarrierCategoryElem string
+
+const ActiveSymbolsBarrierCategoryElemAmerican ActiveSymbolsBarrierCategoryElem = "american"
+const ActiveSymbolsBarrierCategoryElemAsian ActiveSymbolsBarrierCategoryElem = "asian"
+const ActiveSymbolsBarrierCategoryElemEuroAtm ActiveSymbolsBarrierCategoryElem = "euro_atm"
+const ActiveSymbolsBarrierCategoryElemEuroNonAtm ActiveSymbolsBarrierCategoryElem = "euro_non_atm"
+const ActiveSymbolsBarrierCategoryElemLookback ActiveSymbolsBarrierCategoryElem = "lookback"
+const ActiveSymbolsBarrierCategoryElemNonFinancial ActiveSymbolsBarrierCategoryElem = "non_financial"
+const ActiveSymbolsBarrierCategoryElemReset ActiveSymbolsBarrierCategoryElem = "reset"
+
+var enumValues_ActiveSymbolsBarrierCategoryElem = []interface{}{
+	"american",
+	"asian",
+	"euro_atm",
+	"euro_non_atm",
+	"non_financial",
+	"lookback",
+	"reset",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ActiveSymbolsBarrierCategoryElem) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ActiveSymbolsBarrierCategoryElem {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ActiveSymbolsBarrierCategoryElem, v)
+	}
+	*j = ActiveSymbolsBarrierCategoryElem(v)
 	return nil
 }
 
