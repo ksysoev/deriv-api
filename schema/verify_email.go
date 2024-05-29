@@ -42,6 +42,7 @@ const VerifyEmailTypeAccountVerification VerifyEmailType = "account_verification
 const VerifyEmailTypePartnerAccountOpening VerifyEmailType = "partner_account_opening"
 const VerifyEmailTypePaymentWithdraw VerifyEmailType = "payment_withdraw"
 const VerifyEmailTypePaymentagentWithdraw VerifyEmailType = "paymentagent_withdraw"
+const VerifyEmailTypePhoneNumberVerification VerifyEmailType = "phone_number_verification"
 const VerifyEmailTypeRequestEmail VerifyEmailType = "request_email"
 const VerifyEmailTypeResetPassword VerifyEmailType = "reset_password"
 const VerifyEmailTypeTradingPlatformDxtradePasswordReset VerifyEmailType = "trading_platform_dxtrade_password_reset"
@@ -59,6 +60,7 @@ var enumValues_VerifyEmailType = []interface{}{
 	"trading_platform_mt5_password_reset",
 	"trading_platform_investor_password_reset",
 	"request_email",
+	"phone_number_verification",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
