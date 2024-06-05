@@ -198,6 +198,10 @@ type P2PAdvertCreateRespP2PAdvertCreate struct {
 	Type P2PAdvertCreateRespP2PAdvertCreateType `json:"type"`
 
 	// Reasons why an advert is not visible. Possible values:
+	// - `advert_fixed_rate_disabled`: fixed rate adverts are no longer available in
+	// the advert's country.
+	// - `advert_float_rate_disabled`: floating rate adverts are no longer available
+	// in the advert's country.
 	// - `advert_inactive`: the advert is set inactive.
 	// - `advert_max_limit`: the minimum order amount exceeds the system maximum
 	// order.
@@ -205,6 +209,7 @@ type P2PAdvertCreateRespP2PAdvertCreate struct {
 	// advert list.
 	// - `advert_remaining`: the remaining amount of the advert is below the minimum
 	// order.
+	// - `advert_no_payment_methods`: the advert has no valid payment methods.
 	// - `advertiser_ads_paused`: the advertiser has paused all adverts.
 	// - `advertiser_approval`: the advertiser's proof of identity is not verified.
 	// - `advertiser_balance`: the advertiser's P2P balance is less than the minimum
@@ -505,9 +510,12 @@ func (j *P2PAdvertCreateRespP2PAdvertCreateType) UnmarshalJSON(b []byte) error {
 
 type P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElem string
 
+const P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElemAdvertFixedRateDisabled P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElem = "advert_fixed_rate_disabled"
+const P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElemAdvertFloatRateDisabled P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElem = "advert_float_rate_disabled"
 const P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElemAdvertInactive P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElem = "advert_inactive"
 const P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElemAdvertMaxLimit P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElem = "advert_max_limit"
 const P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElemAdvertMinLimit P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElem = "advert_min_limit"
+const P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElemAdvertNoPaymentMethods P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElem = "advert_no_payment_methods"
 const P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElemAdvertRemaining P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElem = "advert_remaining"
 const P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElemAdvertiserAdsPaused P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElem = "advertiser_ads_paused"
 const P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElemAdvertiserApproval P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElem = "advertiser_approval"
@@ -517,10 +525,13 @@ const P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElemAdvertiserDailyLimit
 const P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElemAdvertiserTempBan P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElem = "advertiser_temp_ban"
 
 var enumValues_P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElem = []interface{}{
+	"advert_fixed_rate_disabled",
+	"advert_float_rate_disabled",
 	"advert_inactive",
 	"advert_max_limit",
 	"advert_min_limit",
 	"advert_remaining",
+	"advert_no_payment_methods",
 	"advertiser_ads_paused",
 	"advertiser_approval",
 	"advertiser_balance",

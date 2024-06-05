@@ -220,8 +220,11 @@ type P2PAdvertListRespP2PAdvertListListElem struct {
 	// Whether this is a buy or a sell.
 	Type P2PAdvertListRespP2PAdvertListListElemType `json:"type"`
 
-	// Reasons why an advert is not visible, only visible to the advert owner.
-	// Possible values:
+	// Reasons why an advert is not visible. Possible values:
+	// - `advert_fixed_rate_disabled`: fixed rate adverts are no longer available in
+	// the advert's country.
+	// - `advert_float_rate_disabled`: floating rate adverts are no longer available
+	// in the advert's country.
 	// - `advert_inactive`: the advert is set inactive.
 	// - `advert_max_limit`: the minimum order amount exceeds the system maximum
 	// order.
@@ -229,6 +232,7 @@ type P2PAdvertListRespP2PAdvertListListElem struct {
 	// advert list.
 	// - `advert_remaining`: the remaining amount of the advert is below the minimum
 	// order.
+	// - `advert_no_payment_methods`: the advert has no valid payment methods.
 	// - `advertiser_ads_paused`: the advertiser has paused all adverts.
 	// - `advertiser_approval`: the advertiser's proof of identity is not verified.
 	// - `advertiser_balance`: the advertiser's P2P balance is less than the minimum
@@ -687,9 +691,12 @@ func (j *P2PAdvertListRespP2PAdvertListListElemType) UnmarshalJSON(b []byte) err
 
 type P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem string
 
+const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertFixedRateDisabled P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advert_fixed_rate_disabled"
+const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertFloatRateDisabled P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advert_float_rate_disabled"
 const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertInactive P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advert_inactive"
 const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertMaxLimit P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advert_max_limit"
 const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertMinLimit P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advert_min_limit"
+const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertNoPaymentMethods P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advert_no_payment_methods"
 const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertRemaining P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advert_remaining"
 const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertiserAdsPaused P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advertiser_ads_paused"
 const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertiserApproval P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advertiser_approval"
@@ -699,10 +706,13 @@ const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertiserDailyL
 const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertiserTempBan P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advertiser_temp_ban"
 
 var enumValues_P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = []interface{}{
+	"advert_fixed_rate_disabled",
+	"advert_float_rate_disabled",
 	"advert_inactive",
 	"advert_max_limit",
 	"advert_min_limit",
 	"advert_remaining",
+	"advert_no_payment_methods",
 	"advertiser_ads_paused",
 	"advertiser_approval",
 	"advertiser_balance",
