@@ -892,6 +892,14 @@ func (a *DerivAPI) TradingPlatformPasswordReset(r schema.TradingPlatformPassword
 	return
 }
 
+// TradingPlatformStatus Request trading platform status
+func (a *DerivAPI) TradingPlatformStatus(r schema.TradingPlatformStatus) (resp schema.TradingPlatformStatusResp, err error) {
+	id := a.getNextRequestID()
+	r.ReqId = &id
+	err = a.SendRequest(id, r, &resp)
+	return
+}
+
 // TradingServers Get the list of servers for a trading platform.
 func (a *DerivAPI) TradingServers(r schema.TradingServers) (resp schema.TradingServersResp, err error) {
 	id := a.getNextRequestID()
