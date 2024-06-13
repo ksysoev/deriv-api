@@ -172,6 +172,14 @@ func (a *DerivAPI) ContractsFor(r schema.ContractsFor) (resp schema.ContractsFor
 	return
 }
 
+// ContractsForCompany Get the list of currently available contracts for a given landing company.
+func (a *DerivAPI) ContractsForCompany(r schema.ContractsForCompany) (resp schema.ContractsForCompanyResp, err error) {
+	id := a.getNextRequestID()
+	r.ReqId = &id
+	err = a.SendRequest(id, r, &resp)
+	return
+}
+
 // CopyStart Start copy trader bets
 func (a *DerivAPI) CopyStart(r schema.CopyStart) (resp schema.CopyStartResp, err error) {
 	id := a.getNextRequestID()
