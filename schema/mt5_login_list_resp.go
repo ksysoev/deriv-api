@@ -115,10 +115,10 @@ type Mt5LoginListRespMt5LoginListElem struct {
 	// MT5 account status.
 	Status *string `json:"status,omitempty"`
 
-	// Sub account category
+	// Sub account category refer to the additional risk management
 	SubAccountCategory *Mt5LoginListRespMt5LoginListElemSubAccountCategory `json:"sub_account_category,omitempty"`
 
-	// Sub account type refer to classic MT5 account
+	// Sub account type refer to different offerings that we have for mt5
 	SubAccountType *Mt5LoginListRespMt5LoginListElemSubAccountType `json:"sub_account_type,omitempty"`
 
 	// MT5 webtrader url for each mt5 platform
@@ -542,8 +542,10 @@ type Mt5LoginListRespMt5LoginListElemServerInfoGeolocation struct {
 
 type Mt5LoginListRespMt5LoginListElemSubAccountCategory string
 
+const Mt5LoginListRespMt5LoginListElemSubAccountCategoryAb Mt5LoginListRespMt5LoginListElemSubAccountCategory = "ab"
+const Mt5LoginListRespMt5LoginListElemSubAccountCategoryBa Mt5LoginListRespMt5LoginListElemSubAccountCategory = "ba"
 const Mt5LoginListRespMt5LoginListElemSubAccountCategoryBlank Mt5LoginListRespMt5LoginListElemSubAccountCategory = ""
-const Mt5LoginListRespMt5LoginListElemSubAccountCategoryIbt Mt5LoginListRespMt5LoginListElemSubAccountCategory = "ibt"
+const Mt5LoginListRespMt5LoginListElemSubAccountCategoryHr Mt5LoginListRespMt5LoginListElemSubAccountCategory = "hr"
 const Mt5LoginListRespMt5LoginListElemSubAccountCategoryLim Mt5LoginListRespMt5LoginListElemSubAccountCategory = "lim"
 const Mt5LoginListRespMt5LoginListElemSubAccountCategoryStp Mt5LoginListRespMt5LoginListElemSubAccountCategory = "stp"
 const Mt5LoginListRespMt5LoginListElemSubAccountCategorySwapFree Mt5LoginListRespMt5LoginListElemSubAccountCategory = "swap_free"
@@ -553,9 +555,11 @@ var enumValues_Mt5LoginListRespMt5LoginListElemSubAccountCategory = []interface{
 	"",
 	"swap_free",
 	"swap_free_high_risk",
-	"ibt",
-	"stp",
 	"lim",
+	"hr",
+	"ab",
+	"ba",
+	"stp",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -582,14 +586,20 @@ type Mt5LoginListRespMt5LoginListElemSubAccountType string
 
 const Mt5LoginListRespMt5LoginListElemSubAccountTypeFinancial Mt5LoginListRespMt5LoginListElemSubAccountType = "financial"
 const Mt5LoginListRespMt5LoginListElemSubAccountTypeFinancialStp Mt5LoginListRespMt5LoginListElemSubAccountType = "financial_stp"
+const Mt5LoginListRespMt5LoginListElemSubAccountTypeIbt Mt5LoginListRespMt5LoginListElemSubAccountType = "ibt"
 const Mt5LoginListRespMt5LoginListElemSubAccountTypeStandard Mt5LoginListRespMt5LoginListElemSubAccountType = "standard"
+const Mt5LoginListRespMt5LoginListElemSubAccountTypeStp Mt5LoginListRespMt5LoginListElemSubAccountType = "stp"
 const Mt5LoginListRespMt5LoginListElemSubAccountTypeSwapFree Mt5LoginListRespMt5LoginListElemSubAccountType = "swap_free"
+const Mt5LoginListRespMt5LoginListElemSubAccountTypeZeroSpread Mt5LoginListRespMt5LoginListElemSubAccountType = "zero_spread"
 
 var enumValues_Mt5LoginListRespMt5LoginListElemSubAccountType = []interface{}{
 	"standard",
 	"financial",
 	"financial_stp",
 	"swap_free",
+	"ibt",
+	"stp",
+	"zero_spread",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.

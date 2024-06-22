@@ -96,9 +96,11 @@ type Mt5NewAccount struct {
 	// [Optional] User's state (region) of residence.
 	State *string `json:"state,omitempty"`
 
-	// [Optional] Indicate the sub account category that we have in the cfd group
-	// naming convention.
+	// [Optional] Indicate the additional risk management for each account
 	SubAccountCategory *Mt5NewAccountSubAccountCategory `json:"sub_account_category,omitempty"`
+
+	// [Optional] Indicate the different offerings for mt5 account
+	SubAccountType *Mt5NewAccountSubAccountType `json:"sub_account_type,omitempty"`
 
 	// [Optional] User's zip code.
 	ZipCode *string `json:"zipCode,omitempty"`
@@ -335,12 +337,20 @@ func (j *Mt5NewAccountServer) UnmarshalJSON(b []byte) error {
 
 type Mt5NewAccountSubAccountCategory string
 
+const Mt5NewAccountSubAccountCategoryAb Mt5NewAccountSubAccountCategory = "ab"
+const Mt5NewAccountSubAccountCategoryBa Mt5NewAccountSubAccountCategory = "ba"
+const Mt5NewAccountSubAccountCategoryBlank Mt5NewAccountSubAccountCategory = ""
+const Mt5NewAccountSubAccountCategoryHr Mt5NewAccountSubAccountCategory = "hr"
+const Mt5NewAccountSubAccountCategoryLim Mt5NewAccountSubAccountCategory = "lim"
 const Mt5NewAccountSubAccountCategorySwapFree Mt5NewAccountSubAccountCategory = "swap_free"
-const Mt5NewAccountSubAccountCategorySwapFreeHighRisk Mt5NewAccountSubAccountCategory = "swap_free_high_risk"
 
 var enumValues_Mt5NewAccountSubAccountCategory = []interface{}{
+	"",
 	"swap_free",
-	"swap_free_high_risk",
+	"ab",
+	"ba",
+	"lim",
+	"hr",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -360,6 +370,42 @@ func (j *Mt5NewAccountSubAccountCategory) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5NewAccountSubAccountCategory, v)
 	}
 	*j = Mt5NewAccountSubAccountCategory(v)
+	return nil
+}
+
+type Mt5NewAccountSubAccountType string
+
+const Mt5NewAccountSubAccountTypeIbt Mt5NewAccountSubAccountType = "ibt"
+const Mt5NewAccountSubAccountTypeStandard Mt5NewAccountSubAccountType = "standard"
+const Mt5NewAccountSubAccountTypeStp Mt5NewAccountSubAccountType = "stp"
+const Mt5NewAccountSubAccountTypeSwapFree Mt5NewAccountSubAccountType = "swap_free"
+const Mt5NewAccountSubAccountTypeZeroSpread Mt5NewAccountSubAccountType = "zero_spread"
+
+var enumValues_Mt5NewAccountSubAccountType = []interface{}{
+	"standard",
+	"stp",
+	"ibt",
+	"swap_free",
+	"zero_spread",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5NewAccountSubAccountType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5NewAccountSubAccountType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5NewAccountSubAccountType, v)
+	}
+	*j = Mt5NewAccountSubAccountType(v)
 	return nil
 }
 

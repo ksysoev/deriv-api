@@ -265,12 +265,14 @@ const TransferBetweenAccountsRespAccountsElemSubAccountTypeFinancial TransferBet
 const TransferBetweenAccountsRespAccountsElemSubAccountTypeFinancialStp TransferBetweenAccountsRespAccountsElemSubAccountType = "financial_stp"
 const TransferBetweenAccountsRespAccountsElemSubAccountTypeStandard TransferBetweenAccountsRespAccountsElemSubAccountType = "standard"
 const TransferBetweenAccountsRespAccountsElemSubAccountTypeSwapFree TransferBetweenAccountsRespAccountsElemSubAccountType = "swap_free"
+const TransferBetweenAccountsRespAccountsElemSubAccountTypeZeroSpread TransferBetweenAccountsRespAccountsElemSubAccountType = "zero_spread"
 
 var enumValues_TransferBetweenAccountsRespAccountsElemSubAccountType = []interface{}{
 	"financial",
 	"financial_stp",
 	"standard",
 	"swap_free",
+	"zero_spread",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.

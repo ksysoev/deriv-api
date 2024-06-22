@@ -84,6 +84,9 @@ type Mt5NewAccountRespMt5NewAccount struct {
 
 	// Product name that Deriv offer
 	Product *Mt5NewAccountRespMt5NewAccountProduct `json:"product,omitempty"`
+
+	// Indicate the different offerings for mt5 account.
+	SubAccountType *Mt5NewAccountRespMt5NewAccountSubAccountType `json:"sub_account_type,omitempty"`
 }
 
 type Mt5NewAccountRespMt5NewAccountAccountType string
@@ -219,6 +222,42 @@ func (j *Mt5NewAccountRespMt5NewAccountProduct) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5NewAccountRespMt5NewAccountProduct, v)
 	}
 	*j = Mt5NewAccountRespMt5NewAccountProduct(v)
+	return nil
+}
+
+type Mt5NewAccountRespMt5NewAccountSubAccountType string
+
+const Mt5NewAccountRespMt5NewAccountSubAccountTypeIbt Mt5NewAccountRespMt5NewAccountSubAccountType = "ibt"
+const Mt5NewAccountRespMt5NewAccountSubAccountTypeStandard Mt5NewAccountRespMt5NewAccountSubAccountType = "standard"
+const Mt5NewAccountRespMt5NewAccountSubAccountTypeStp Mt5NewAccountRespMt5NewAccountSubAccountType = "stp"
+const Mt5NewAccountRespMt5NewAccountSubAccountTypeSwapFree Mt5NewAccountRespMt5NewAccountSubAccountType = "swap_free"
+const Mt5NewAccountRespMt5NewAccountSubAccountTypeZeroSpread Mt5NewAccountRespMt5NewAccountSubAccountType = "zero_spread"
+
+var enumValues_Mt5NewAccountRespMt5NewAccountSubAccountType = []interface{}{
+	"standard",
+	"stp",
+	"ibt",
+	"swap_free",
+	"zero_spread",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5NewAccountRespMt5NewAccountSubAccountType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5NewAccountRespMt5NewAccountSubAccountType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5NewAccountRespMt5NewAccountSubAccountType, v)
+	}
+	*j = Mt5NewAccountRespMt5NewAccountSubAccountType(v)
 	return nil
 }
 
