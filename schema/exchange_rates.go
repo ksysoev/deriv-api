@@ -19,8 +19,8 @@ type ExchangeRates struct {
 	// available if target_currency is provided.
 	IncludeSpread *ExchangeRatesIncludeSpread `json:"include_spread,omitempty"`
 
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
 	Loginid *string `json:"loginid,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via

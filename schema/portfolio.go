@@ -11,8 +11,8 @@ type Portfolio struct {
 	// Return only contracts of the specified types
 	ContractType []PortfolioContractTypeElem `json:"contract_type,omitempty"`
 
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
 	Loginid *string `json:"loginid,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via

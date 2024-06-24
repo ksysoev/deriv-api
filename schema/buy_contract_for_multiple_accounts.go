@@ -14,8 +14,8 @@ type BuyContractForMultipleAccounts struct {
 	// contract buy parameters are passed in the `parameters` field.
 	BuyContractForMultipleAccounts string `json:"buy_contract_for_multiple_accounts"`
 
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
 	Loginid *string `json:"loginid,omitempty"`
 
 	// [Optional] Used to pass the parameters for contract buy.
