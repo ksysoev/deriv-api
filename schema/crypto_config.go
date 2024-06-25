@@ -15,8 +15,8 @@ type CryptoConfig struct {
 	// crypto config for the sent cryptocurrency code only.
 	CurrencyCode *string `json:"currency_code,omitempty"`
 
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
 	Loginid *string `json:"loginid,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via

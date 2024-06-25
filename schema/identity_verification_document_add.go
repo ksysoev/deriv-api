@@ -25,8 +25,8 @@ type IdentityVerificationDocumentAdd struct {
 	// 2-letter country code (can obtained from `residence_list` call).
 	IssuingCountry string `json:"issuing_country"`
 
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
 	Loginid *string `json:"loginid,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via

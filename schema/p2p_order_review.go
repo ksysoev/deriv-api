@@ -8,8 +8,8 @@ import "reflect"
 
 // Creates a review for the specified order.
 type P2POrderReview struct {
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
 	Loginid *string `json:"loginid,omitempty"`
 
 	// The order identification number.

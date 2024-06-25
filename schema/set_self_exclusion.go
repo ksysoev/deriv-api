@@ -14,8 +14,8 @@ type SetSelfExclusion struct {
 	// the company.
 	ExcludeUntil *string `json:"exclude_until,omitempty"`
 
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
 	Loginid *string `json:"loginid,omitempty"`
 
 	// [Optional] 7-day limit on deposits.

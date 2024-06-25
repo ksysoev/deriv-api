@@ -14,8 +14,8 @@ type P2PAdvertiserPaymentMethods struct {
 	// Contains payment methods to delete.
 	Delete []float64 `json:"delete,omitempty"`
 
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
 	Loginid *string `json:"loginid,omitempty"`
 
 	// Must be 1
@@ -105,14 +105,14 @@ func (j *P2PAdvertiserPaymentMethods) UnmarshalJSON(b []byte) error {
 	if plain.Create != nil && len(plain.Create) < 1 {
 		return fmt.Errorf("field %s length: must be >= %d", "create", 1)
 	}
-	if len(plain.Create) > 100 {
-		return fmt.Errorf("field %s length: must be <= %d", "create", 100)
+	if len(plain.Create) > 5 {
+		return fmt.Errorf("field %s length: must be <= %d", "create", 5)
 	}
 	if plain.Delete != nil && len(plain.Delete) < 1 {
 		return fmt.Errorf("field %s length: must be >= %d", "delete", 1)
 	}
-	if len(plain.Delete) > 100 {
-		return fmt.Errorf("field %s length: must be <= %d", "delete", 100)
+	if len(plain.Delete) > 5 {
+		return fmt.Errorf("field %s length: must be <= %d", "delete", 5)
 	}
 	*j = P2PAdvertiserPaymentMethods(plain)
 	return nil

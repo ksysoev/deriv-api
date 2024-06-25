@@ -45,8 +45,8 @@ type Mt5NewAccount struct {
 	// Client leverage (from 1 to 1000).
 	Leverage float64 `json:"leverage"`
 
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
 	Loginid *string `json:"loginid,omitempty"`
 
 	// The master password of the account. For validation (Accepts any printable ASCII

@@ -29,8 +29,8 @@ type P2PAdvertCreate struct {
 	// currency of client's residence by default.
 	LocalCurrency *string `json:"local_currency,omitempty"`
 
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
 	Loginid *string `json:"loginid,omitempty"`
 
 	// Maximum allowed amount for the orders of this advert, in advertiser's

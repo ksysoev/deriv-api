@@ -11,8 +11,8 @@ type P2PCountryList struct {
 	// [Optional] 2-letter country code. If not provided all countries are returned.
 	Country *string `json:"country,omitempty"`
 
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
 	Loginid *string `json:"loginid,omitempty"`
 
 	// Must be 1

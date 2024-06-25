@@ -9,8 +9,8 @@ import "reflect"
 // This call will try to sell any expired contracts and return the number of sold
 // contracts.
 type SellExpired struct {
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
 	Loginid *string `json:"loginid,omitempty"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via

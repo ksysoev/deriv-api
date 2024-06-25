@@ -11,8 +11,8 @@ type TradingPlatformInvestorPasswordReset struct {
 	// Trading account ID.
 	AccountId string `json:"account_id"`
 
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
+	// [Optional] The login id of the user. If left unspecified, it defaults to the
+	// initial authorized token's login id.
 	Loginid *string `json:"loginid,omitempty"`
 
 	// New password of the account. For validation (Accepts any printable ASCII
