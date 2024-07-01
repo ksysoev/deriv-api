@@ -97,8 +97,8 @@ type NewAccountMaltainvest struct {
 	// features such as stop loss. Stop loss allows you to
 	LeverageTradingHighRiskStopLoss *NewAccountMaltainvestLeverageTradingHighRiskStopLoss `json:"leverage_trading_high_risk_stop_loss,omitempty"`
 
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
 	Loginid *string `json:"loginid,omitempty"`
 
 	// Net Annual Income.

@@ -15,7 +15,8 @@ type Authorize struct {
 	AddToLoginHistory AuthorizeAddToLoginHistory `json:"add_to_login_history,omitempty"`
 
 	// Authentication token. May be retrieved from
-	// https://www.binary.com/en/user/security/api_tokenws.html
+	// https://www.binary.com/en/user/security/api_tokenws.html. Set to MULTI when
+	// using multiple tokens.
 	Authorize string `json:"authorize"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via
@@ -26,7 +27,7 @@ type Authorize struct {
 	ReqId *int `json:"req_id,omitempty"`
 
 	// Additional Authentication tokens of authorized user that may be used in this
-	// session. Upto 10 tokens.
+	// session. Upto 25 tokens.
 	Tokens []string `json:"tokens,omitempty"`
 }
 
@@ -78,8 +79,8 @@ func (j *Authorize) UnmarshalJSON(b []byte) error {
 	if v, ok := raw["add_to_login_history"]; !ok || v == nil {
 		plain.AddToLoginHistory = 0.0
 	}
-	if len(plain.Tokens) > 10 {
-		return fmt.Errorf("field %s length: must be <= %d", "tokens", 10)
+	if len(plain.Tokens) > 25 {
+		return fmt.Errorf("field %s length: must be <= %d", "tokens", 25)
 	}
 	*j = Authorize(plain)
 	return nil

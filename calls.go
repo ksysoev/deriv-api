@@ -860,6 +860,14 @@ func (a *DerivAPI) Time(r schema.Time) (resp schema.TimeResp, err error) {
 	return
 }
 
+// TinValidations Get the validations for Tax Identification Numbers (TIN)
+func (a *DerivAPI) TinValidations(r schema.TinValidations) (resp schema.TinValidationsResp, err error) {
+	id := a.getNextRequestID()
+	r.ReqId = &id
+	err = a.SendRequest(id, r, &resp)
+	return
+}
+
 // TncApproval To approve the latest version of terms and conditions.
 func (a *DerivAPI) TncApproval(r schema.TncApproval) (resp schema.TncApprovalResp, err error) {
 	id := a.getNextRequestID()

@@ -11,8 +11,8 @@ type Mt5GetSettings struct {
 	// MT5 user login
 	Login string `json:"login"`
 
-	// [Optional] The login id of the user. If left unspecified, it defaults to the
-	// initial authorized token's login id.
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
 	Loginid *string `json:"loginid,omitempty"`
 
 	// Must be `1`
