@@ -103,6 +103,9 @@ type Mt5LoginListRespMt5LoginListElem struct {
 	// Product name that Deriv offer
 	Product *Mt5LoginListRespMt5LoginListElemProduct `json:"product,omitempty"`
 
+	// Timestamp of the latest MT5 request.
+	RequestTimestamp *int `json:"request_timestamp,omitempty"`
+
 	// Rights assigned to the MT5 account.
 	Rights *Mt5LoginListRespMt5LoginListElemRights `json:"rights,omitempty"`
 
