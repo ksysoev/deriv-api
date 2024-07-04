@@ -8,7 +8,7 @@ import "reflect"
 
 // Create a new virtual-money account.
 type NewAccountVirtual struct {
-	// [Optional] Affiliate token, within 32 characters.
+	// [Optional] Affiliate token, within 100 characters.
 	AffiliateToken *string `json:"affiliate_token,omitempty"`
 
 	// Password (Accepts any printable ASCII character. Must be within 8-25
