@@ -77,6 +77,9 @@ type ResidenceListRespResidenceListElem struct {
 
 	// 2-letter country code
 	Value *string `json:"value,omitempty"`
+
+	// Flag which indicates whether wallet signup is available in this country
+	WalletSignup *ResidenceListRespResidenceListElemWalletSignup `json:"wallet_signup,omitempty"`
 }
 
 type ResidenceListRespResidenceListElemAccountOpeningSelfDeclarationRequired int
@@ -226,6 +229,32 @@ func (j *ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySuppor
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported, v)
 	}
 	*j = ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported(v)
+	return nil
+}
+
+type ResidenceListRespResidenceListElemWalletSignup int
+
+var enumValues_ResidenceListRespResidenceListElemWalletSignup = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ResidenceListRespResidenceListElemWalletSignup) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ResidenceListRespResidenceListElemWalletSignup {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ResidenceListRespResidenceListElemWalletSignup, v)
+	}
+	*j = ResidenceListRespResidenceListElemWalletSignup(v)
 	return nil
 }
 

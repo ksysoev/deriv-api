@@ -75,6 +75,10 @@ type Proposal struct {
 	// the `echo_req` output field.
 	Passthrough ProposalPassthrough `json:"passthrough,omitempty"`
 
+	// [Optional] Clients can provide payout_per_point directly, and the barrier will
+	// be calculated based on this payout_per_point value.
+	PayoutPerPoint *float64 `json:"payout_per_point,omitempty"`
+
 	// [Optional] The product type.
 	ProductType ProposalProductType `json:"product_type,omitempty"`
 

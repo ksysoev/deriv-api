@@ -95,6 +95,10 @@ type BuyParameters struct {
 	// [Optional] The multiplier for non-binary options. E.g. lookbacks.
 	Multiplier *float64 `json:"multiplier,omitempty"`
 
+	// [Optional] Clients can provide payout_per_point directly, and the barrier will
+	// be calculated based on this payout_per_point value.
+	PayoutPerPoint *float64 `json:"payout_per_point,omitempty"`
+
 	// [Optional] The product type.
 	ProductType BuyParametersProductType `json:"product_type,omitempty"`
 

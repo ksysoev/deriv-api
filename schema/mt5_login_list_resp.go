@@ -127,9 +127,6 @@ type Mt5LoginListRespMt5LoginListElem struct {
 	// MT5 webtrader url for each mt5 platform
 	WebtraderUrl *string `json:"webtrader_url,omitempty"`
 
-	// White label settings
-	WhiteLabel *Mt5LoginListRespMt5LoginListElemWhiteLabel `json:"white_label,omitempty"`
-
 	// Links to access MT5 application for different platforms.
 	WhiteLabelLinks *Mt5LoginListRespMt5LoginListElemWhiteLabelLinks `json:"white_label_links,omitempty"`
 }
@@ -623,28 +620,6 @@ func (j *Mt5LoginListRespMt5LoginListElemSubAccountType) UnmarshalJSON(b []byte)
 	}
 	*j = Mt5LoginListRespMt5LoginListElemSubAccountType(v)
 	return nil
-}
-
-// White label settings
-type Mt5LoginListRespMt5LoginListElemWhiteLabel struct {
-	// Links to download the MT5 application for different platforms.
-	DownloadLinks *Mt5LoginListRespMt5LoginListElemWhiteLabelDownloadLinks `json:"download_links,omitempty"`
-
-	// A flag indicating whether the white label notification feature is enabled or
-	// disabled.
-	Notification *bool `json:"notification,omitempty"`
-}
-
-// Links to download the MT5 application for different platforms.
-type Mt5LoginListRespMt5LoginListElemWhiteLabelDownloadLinks struct {
-	// Download link for Android.
-	Android *string `json:"android,omitempty"`
-
-	// Download link for iOS.
-	Ios *string `json:"ios,omitempty"`
-
-	// Download link for Windows.
-	Windows *string `json:"windows,omitempty"`
 }
 
 // Links to access MT5 application for different platforms.

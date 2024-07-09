@@ -80,6 +80,12 @@ type ContractsForRespContractsForAvailableElem struct {
 	// Type of contract.
 	ContractType string `json:"contract_type"`
 
+	// Default stake for the contract
+	DefaultStake *float64 `json:"default_stake,omitempty"`
+
+	// [Only for Turbos] Its selected payout per point
+	DisplayNumberOfContracts *float64 `json:"display_number_of_contracts,omitempty"`
+
 	// Name of exchange
 	ExchangeName string `json:"exchange_name"`
 
@@ -121,6 +127,9 @@ type ContractsForRespContractsForAvailableElem struct {
 
 	// Multiplier range.
 	MultiplierRange []interface{} `json:"multiplier_range,omitempty"`
+
+	// [Only for Turbos] Payout Choices
+	PayoutChoices []interface{} `json:"payout_choices,omitempty"`
 
 	// Maximum payout.
 	PayoutLimit *float64 `json:"payout_limit,omitempty"`

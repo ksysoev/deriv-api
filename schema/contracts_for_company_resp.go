@@ -47,6 +47,9 @@ type ContractsForCompanyRespContractsForCompanyAvailableElem struct {
 	// Type of contract.
 	ContractType string `json:"contract_type"`
 
+	// Default stake for the contract
+	DefaultStake *float64 `json:"default_stake,omitempty"`
+
 	// Type of sentiment.
 	Sentiment string `json:"sentiment"`
 }
