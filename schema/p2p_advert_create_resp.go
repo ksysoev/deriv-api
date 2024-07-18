@@ -214,6 +214,8 @@ type P2PAdvertCreateRespP2PAdvertCreate struct {
 	// - `advertiser_approval`: the advertiser's proof of identity is not verified.
 	// - `advertiser_balance`: the advertiser's P2P balance is less than the minimum
 	// order.
+	// - `advertiser_schedule`: the advertiser's schedule does not have availability
+	// between now and now + order_expiry_period.
 	// - `advertiser_block_trade_ineligible`: the advertiser is not currently eligible
 	// for block trading.
 	// - `advertiser_daily_limit`: the advertiser's remaining daily limit is less than
@@ -235,6 +237,10 @@ type P2PAdvertCreateRespP2PAdvertCreateAdvertiserDetails struct {
 
 	// Indicates if the advertiser is currently online.
 	IsOnline P2PAdvertCreateRespP2PAdvertCreateAdvertiserDetailsIsOnline `json:"is_online"`
+
+	// Inidcates whether the advertiser's schedule has availability between now and
+	// now + order_expiry_period.
+	IsScheduleAvailable P2PAdvertCreateRespP2PAdvertCreateAdvertiserDetailsIsScheduleAvailable `json:"is_schedule_available"`
 
 	// The advertiser's last name.
 	LastName *string `json:"last_name,omitempty"`
@@ -289,6 +295,33 @@ func (j *P2PAdvertCreateRespP2PAdvertCreateAdvertiserDetailsIsOnline) UnmarshalJ
 	return nil
 }
 
+type P2PAdvertCreateRespP2PAdvertCreateAdvertiserDetailsIsScheduleAvailable int
+
+var enumValues_P2PAdvertCreateRespP2PAdvertCreateAdvertiserDetailsIsScheduleAvailable = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertCreateRespP2PAdvertCreateAdvertiserDetailsIsScheduleAvailable) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertCreateRespP2PAdvertCreateAdvertiserDetailsIsScheduleAvailable {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertCreateRespP2PAdvertCreateAdvertiserDetailsIsScheduleAvailable, v)
+	}
+	*j = P2PAdvertCreateRespP2PAdvertCreateAdvertiserDetailsIsScheduleAvailable(v)
+	return nil
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PAdvertCreateRespP2PAdvertCreateAdvertiserDetails) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
@@ -303,6 +336,9 @@ func (j *P2PAdvertCreateRespP2PAdvertCreateAdvertiserDetails) UnmarshalJSON(b []
 	}
 	if _, ok := raw["is_online"]; raw != nil && !ok {
 		return fmt.Errorf("field is_online in P2PAdvertCreateRespP2PAdvertCreateAdvertiserDetails: required")
+	}
+	if _, ok := raw["is_schedule_available"]; raw != nil && !ok {
+		return fmt.Errorf("field is_schedule_available in P2PAdvertCreateRespP2PAdvertCreateAdvertiserDetails: required")
 	}
 	if _, ok := raw["last_online_time"]; raw != nil && !ok {
 		return fmt.Errorf("field last_online_time in P2PAdvertCreateRespP2PAdvertCreateAdvertiserDetails: required")
@@ -522,6 +558,7 @@ const P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElemAdvertiserApproval P
 const P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElemAdvertiserBalance P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElem = "advertiser_balance"
 const P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElemAdvertiserBlockTradeIneligible P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElem = "advertiser_block_trade_ineligible"
 const P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElemAdvertiserDailyLimit P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElem = "advertiser_daily_limit"
+const P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElemAdvertiserSchedule P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElem = "advertiser_schedule"
 const P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElemAdvertiserTempBan P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElem = "advertiser_temp_ban"
 
 var enumValues_P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElem = []interface{}{
@@ -537,6 +574,7 @@ var enumValues_P2PAdvertCreateRespP2PAdvertCreateVisibilityStatusElem = []interf
 	"advertiser_balance",
 	"advertiser_block_trade_ineligible",
 	"advertiser_daily_limit",
+	"advertiser_schedule",
 	"advertiser_temp_ban",
 }
 

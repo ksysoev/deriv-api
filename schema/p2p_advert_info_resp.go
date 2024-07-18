@@ -128,6 +128,10 @@ type P2PAdvertInfoRespP2PAdvertInfo struct {
 	// The activation status of the advert.
 	IsActive *P2PAdvertInfoRespP2PAdvertInfoIsActive `json:"is_active,omitempty"`
 
+	// Inidcates whether the current user's schedule has availability from now until
+	// now + order_expiry_period.
+	IsClientScheduleAvailable *P2PAdvertInfoRespP2PAdvertInfoIsClientScheduleAvailable `json:"is_client_schedule_available,omitempty"`
+
 	// Indicates that the current user meets the counterparty terms for placing orders
 	// against this advert.
 	IsEligible P2PAdvertInfoRespP2PAdvertInfoIsEligible `json:"is_eligible,omitempty"`
@@ -241,6 +245,8 @@ type P2PAdvertInfoRespP2PAdvertInfo struct {
 	// - `advertiser_approval`: the advertiser's proof of identity is not verified.
 	// - `advertiser_balance`: the advertiser's P2P balance is less than the minimum
 	// order.
+	// - `advertiser_schedule`: the advertiser's schedule does not have availability
+	// between now and now + order_expiry_period.
 	// - `advertiser_block_trade_ineligible`: the advertiser is not currently eligible
 	// for block trading.
 	// - `advertiser_daily_limit`: the advertiser's remaining daily limit is less than
@@ -272,6 +278,10 @@ type P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetails struct {
 	// Indicates that the advertiser was recommended in the most recent review by the
 	// current user.
 	IsRecommended *P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetailsIsRecommended `json:"is_recommended,omitempty"`
+
+	// Inidcates whether the advertiser's schedule has availability between now and
+	// now + order_expiry_period.
+	IsScheduleAvailable P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetailsIsScheduleAvailable `json:"is_schedule_available"`
 
 	// The advertiser's last name.
 	LastName *string `json:"last_name,omitempty"`
@@ -417,6 +427,33 @@ func (j *P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetailsIsRecommended) Unmarshal
 	return nil
 }
 
+type P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetailsIsScheduleAvailable int
+
+var enumValues_P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetailsIsScheduleAvailable = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetailsIsScheduleAvailable) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetailsIsScheduleAvailable {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetailsIsScheduleAvailable, v)
+	}
+	*j = P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetailsIsScheduleAvailable(v)
+	return nil
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetails) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
@@ -431,6 +468,9 @@ func (j *P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetails) UnmarshalJSON(b []byte
 	}
 	if _, ok := raw["is_online"]; raw != nil && !ok {
 		return fmt.Errorf("field is_online in P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetails: required")
+	}
+	if _, ok := raw["is_schedule_available"]; raw != nil && !ok {
+		return fmt.Errorf("field is_schedule_available in P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetails: required")
 	}
 	if _, ok := raw["last_online_time"]; raw != nil && !ok {
 		return fmt.Errorf("field last_online_time in P2PAdvertInfoRespP2PAdvertInfoAdvertiserDetails: required")
@@ -606,6 +646,33 @@ func (j *P2PAdvertInfoRespP2PAdvertInfoIsActive) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type P2PAdvertInfoRespP2PAdvertInfoIsClientScheduleAvailable int
+
+var enumValues_P2PAdvertInfoRespP2PAdvertInfoIsClientScheduleAvailable = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertInfoRespP2PAdvertInfoIsClientScheduleAvailable) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertInfoRespP2PAdvertInfoIsClientScheduleAvailable {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertInfoRespP2PAdvertInfoIsClientScheduleAvailable, v)
+	}
+	*j = P2PAdvertInfoRespP2PAdvertInfoIsClientScheduleAvailable(v)
+	return nil
+}
+
 type P2PAdvertInfoRespP2PAdvertInfoIsEligible int
 
 var enumValues_P2PAdvertInfoRespP2PAdvertInfoIsEligible = []interface{}{
@@ -737,6 +804,7 @@ const P2PAdvertInfoRespP2PAdvertInfoVisibilityStatusElemAdvertiserApproval P2PAd
 const P2PAdvertInfoRespP2PAdvertInfoVisibilityStatusElemAdvertiserBalance P2PAdvertInfoRespP2PAdvertInfoVisibilityStatusElem = "advertiser_balance"
 const P2PAdvertInfoRespP2PAdvertInfoVisibilityStatusElemAdvertiserBlockTradeIneligible P2PAdvertInfoRespP2PAdvertInfoVisibilityStatusElem = "advertiser_block_trade_ineligible"
 const P2PAdvertInfoRespP2PAdvertInfoVisibilityStatusElemAdvertiserDailyLimit P2PAdvertInfoRespP2PAdvertInfoVisibilityStatusElem = "advertiser_daily_limit"
+const P2PAdvertInfoRespP2PAdvertInfoVisibilityStatusElemAdvertiserSchedule P2PAdvertInfoRespP2PAdvertInfoVisibilityStatusElem = "advertiser_schedule"
 const P2PAdvertInfoRespP2PAdvertInfoVisibilityStatusElemAdvertiserTempBan P2PAdvertInfoRespP2PAdvertInfoVisibilityStatusElem = "advertiser_temp_ban"
 
 var enumValues_P2PAdvertInfoRespP2PAdvertInfoVisibilityStatusElem = []interface{}{
@@ -752,6 +820,7 @@ var enumValues_P2PAdvertInfoRespP2PAdvertInfoVisibilityStatusElem = []interface{
 	"advertiser_balance",
 	"advertiser_block_trade_ineligible",
 	"advertiser_daily_limit",
+	"advertiser_schedule",
 	"advertiser_temp_ban",
 }
 

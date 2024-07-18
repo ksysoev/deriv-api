@@ -139,6 +139,10 @@ type P2PAdvertiserCreateRespP2PAdvertiserCreate struct {
 	// Indicates if the advertiser is currently online.
 	IsOnline P2PAdvertiserCreateRespP2PAdvertiserCreateIsOnline `json:"is_online"`
 
+	// Inidcates whether the advertiser's schedule allows P2P transactions at the
+	// current time.
+	IsScheduleAvailable P2PAdvertiserCreateRespP2PAdvertiserCreateIsScheduleAvailable `json:"is_schedule_available"`
+
 	// Epoch of the latest time the advertiser was online, up to 6 months.
 	LastOnlineTime *int `json:"last_online_time"`
 
@@ -176,6 +180,10 @@ type P2PAdvertiserCreateRespP2PAdvertiserCreate struct {
 	// The average time in seconds taken to release funds as a seller within the past
 	// 30 days.
 	ReleaseTimeAvg *int `json:"release_time_avg"`
+
+	// [Optional] Weekly availability schedule. Ads are visible and orders can be
+	// created only during available periods.
+	Schedule []P2PAdvertiserCreateRespP2PAdvertiserCreateScheduleElem `json:"schedule,omitempty"`
 
 	// The percentage of completed orders out of total orders as a seller within the
 	// past 30 days.
@@ -339,6 +347,63 @@ func (j *P2PAdvertiserCreateRespP2PAdvertiserCreateIsOnline) UnmarshalJSON(b []b
 	return nil
 }
 
+type P2PAdvertiserCreateRespP2PAdvertiserCreateIsScheduleAvailable int
+
+var enumValues_P2PAdvertiserCreateRespP2PAdvertiserCreateIsScheduleAvailable = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertiserCreateRespP2PAdvertiserCreateIsScheduleAvailable) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertiserCreateRespP2PAdvertiserCreateIsScheduleAvailable {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserCreateRespP2PAdvertiserCreateIsScheduleAvailable, v)
+	}
+	*j = P2PAdvertiserCreateRespP2PAdvertiserCreateIsScheduleAvailable(v)
+	return nil
+}
+
+// Periods of availabily.
+type P2PAdvertiserCreateRespP2PAdvertiserCreateScheduleElem struct {
+	// Minute of week when availablility ends. Zero is Sunday 00:00 UST.
+	EndMin *int `json:"end_min"`
+
+	// Minute of week when availablility starts. Zero is Sunday 00:00 UST.
+	StartMin *int `json:"start_min"`
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertiserCreateRespP2PAdvertiserCreateScheduleElem) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if _, ok := raw["end_min"]; raw != nil && !ok {
+		return fmt.Errorf("field end_min in P2PAdvertiserCreateRespP2PAdvertiserCreateScheduleElem: required")
+	}
+	if _, ok := raw["start_min"]; raw != nil && !ok {
+		return fmt.Errorf("field start_min in P2PAdvertiserCreateRespP2PAdvertiserCreateScheduleElem: required")
+	}
+	type Plain P2PAdvertiserCreateRespP2PAdvertiserCreateScheduleElem
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = P2PAdvertiserCreateRespP2PAdvertiserCreateScheduleElem(plain)
+	return nil
+}
+
 type P2PAdvertiserCreateRespP2PAdvertiserCreateShowName int
 
 var enumValues_P2PAdvertiserCreateRespP2PAdvertiserCreateShowName = []interface{}{
@@ -431,6 +496,9 @@ func (j *P2PAdvertiserCreateRespP2PAdvertiserCreate) UnmarshalJSON(b []byte) err
 	}
 	if _, ok := raw["is_online"]; raw != nil && !ok {
 		return fmt.Errorf("field is_online in P2PAdvertiserCreateRespP2PAdvertiserCreate: required")
+	}
+	if _, ok := raw["is_schedule_available"]; raw != nil && !ok {
+		return fmt.Errorf("field is_schedule_available in P2PAdvertiserCreateRespP2PAdvertiserCreate: required")
 	}
 	if _, ok := raw["last_online_time"]; raw != nil && !ok {
 		return fmt.Errorf("field last_online_time in P2PAdvertiserCreateRespP2PAdvertiserCreate: required")

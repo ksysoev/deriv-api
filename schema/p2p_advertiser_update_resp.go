@@ -151,6 +151,10 @@ type P2PAdvertiserUpdateRespP2PAdvertiserUpdate struct {
 	// Indicates if the advertiser is currently online.
 	IsOnline P2PAdvertiserUpdateRespP2PAdvertiserUpdateIsOnline `json:"is_online"`
 
+	// Inidcates whether the advertiser's schedule allows P2P transactions at the
+	// current time.
+	IsScheduleAvailable P2PAdvertiserUpdateRespP2PAdvertiserUpdateIsScheduleAvailable `json:"is_schedule_available"`
+
 	// The advertiser's last name.
 	LastName *string `json:"last_name,omitempty"`
 
@@ -191,6 +195,10 @@ type P2PAdvertiserUpdateRespP2PAdvertiserUpdate struct {
 	// The average time in seconds taken to release funds as a seller within the past
 	// 30 days.
 	ReleaseTimeAvg *int `json:"release_time_avg"`
+
+	// [Optional] Weekly availability schedule. Ads are visible and orders can be
+	// created only during available periods.
+	Schedule []P2PAdvertiserUpdateRespP2PAdvertiserUpdateScheduleElem `json:"schedule,omitempty"`
 
 	// The percentage of completed orders out of total orders as a seller within the
 	// past 30 days.
@@ -387,6 +395,63 @@ func (j *P2PAdvertiserUpdateRespP2PAdvertiserUpdateIsOnline) UnmarshalJSON(b []b
 	return nil
 }
 
+type P2PAdvertiserUpdateRespP2PAdvertiserUpdateIsScheduleAvailable int
+
+var enumValues_P2PAdvertiserUpdateRespP2PAdvertiserUpdateIsScheduleAvailable = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertiserUpdateRespP2PAdvertiserUpdateIsScheduleAvailable) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertiserUpdateRespP2PAdvertiserUpdateIsScheduleAvailable {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserUpdateRespP2PAdvertiserUpdateIsScheduleAvailable, v)
+	}
+	*j = P2PAdvertiserUpdateRespP2PAdvertiserUpdateIsScheduleAvailable(v)
+	return nil
+}
+
+// Periods of availabily.
+type P2PAdvertiserUpdateRespP2PAdvertiserUpdateScheduleElem struct {
+	// Minute of week when availablility ends. Zero is Sunday 00:00 UST.
+	EndMin *int `json:"end_min"`
+
+	// Minute of week when availablility starts. Zero is Sunday 00:00 UST.
+	StartMin *int `json:"start_min"`
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertiserUpdateRespP2PAdvertiserUpdateScheduleElem) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if _, ok := raw["end_min"]; raw != nil && !ok {
+		return fmt.Errorf("field end_min in P2PAdvertiserUpdateRespP2PAdvertiserUpdateScheduleElem: required")
+	}
+	if _, ok := raw["start_min"]; raw != nil && !ok {
+		return fmt.Errorf("field start_min in P2PAdvertiserUpdateRespP2PAdvertiserUpdateScheduleElem: required")
+	}
+	type Plain P2PAdvertiserUpdateRespP2PAdvertiserUpdateScheduleElem
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = P2PAdvertiserUpdateRespP2PAdvertiserUpdateScheduleElem(plain)
+	return nil
+}
+
 type P2PAdvertiserUpdateRespP2PAdvertiserUpdateShowName int
 
 var enumValues_P2PAdvertiserUpdateRespP2PAdvertiserUpdateShowName = []interface{}{
@@ -539,6 +604,9 @@ func (j *P2PAdvertiserUpdateRespP2PAdvertiserUpdate) UnmarshalJSON(b []byte) err
 	}
 	if _, ok := raw["is_online"]; raw != nil && !ok {
 		return fmt.Errorf("field is_online in P2PAdvertiserUpdateRespP2PAdvertiserUpdate: required")
+	}
+	if _, ok := raw["is_schedule_available"]; raw != nil && !ok {
+		return fmt.Errorf("field is_schedule_available in P2PAdvertiserUpdateRespP2PAdvertiserUpdate: required")
 	}
 	if _, ok := raw["last_online_time"]; raw != nil && !ok {
 		return fmt.Errorf("field last_online_time in P2PAdvertiserUpdateRespP2PAdvertiserUpdate: required")

@@ -37,6 +37,10 @@ type P2PAdvertiserCreate struct {
 	// [Optional] Used to map request to response.
 	ReqId *int `json:"req_id,omitempty"`
 
+	// [Optional] Weekly availability schedule. Ads are visible and orders can be
+	// created only during available periods.
+	Schedule []P2PAdvertiserCreateScheduleElem `json:"schedule,omitempty"`
+
 	// [Optional] If set to 1, will send updates whenever there is an update to
 	// advertiser
 	Subscribe *P2PAdvertiserCreateSubscribe `json:"subscribe,omitempty"`
@@ -71,6 +75,36 @@ func (j *P2PAdvertiserCreateP2PAdvertiserCreate) UnmarshalJSON(b []byte) error {
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type P2PAdvertiserCreatePassthrough map[string]interface{}
+
+// Periods of availabily. A null value will clear the existing schedule.
+type P2PAdvertiserCreateScheduleElem struct {
+	// Minute of week when availablility ends. Zero is Sunday 00:00 UST.
+	EndMin *int `json:"end_min"`
+
+	// Minute of week when availablility starts. Zero is Sunday 00:00 UST.
+	StartMin *int `json:"start_min"`
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertiserCreateScheduleElem) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if _, ok := raw["end_min"]; raw != nil && !ok {
+		return fmt.Errorf("field end_min in P2PAdvertiserCreateScheduleElem: required")
+	}
+	if _, ok := raw["start_min"]; raw != nil && !ok {
+		return fmt.Errorf("field start_min in P2PAdvertiserCreateScheduleElem: required")
+	}
+	type Plain P2PAdvertiserCreateScheduleElem
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = P2PAdvertiserCreateScheduleElem(plain)
+	return nil
+}
 
 type P2PAdvertiserCreateSubscribe int
 
@@ -114,6 +148,9 @@ func (j *P2PAdvertiserCreate) UnmarshalJSON(b []byte) error {
 	var plain Plain
 	if err := json.Unmarshal(b, &plain); err != nil {
 		return err
+	}
+	if len(plain.Schedule) > 50 {
+		return fmt.Errorf("field %s length: must be <= %d", "schedule", 50)
 	}
 	*j = P2PAdvertiserCreate(plain)
 	return nil

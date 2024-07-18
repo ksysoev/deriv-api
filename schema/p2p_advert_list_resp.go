@@ -127,6 +127,10 @@ type P2PAdvertListRespP2PAdvertListListElem struct {
 	// The activation status of the advert.
 	IsActive P2PAdvertListRespP2PAdvertListListElemIsActive `json:"is_active"`
 
+	// Inidcates whether the current user's schedule has availability between now and
+	// now + order_expiry_period.
+	IsClientScheduleAvailable *P2PAdvertListRespP2PAdvertListListElemIsClientScheduleAvailable `json:"is_client_schedule_available,omitempty"`
+
 	// Indicates that the current user meets the counterparty terms for placing an
 	// order.
 	IsEligible P2PAdvertListRespP2PAdvertListListElemIsEligible `json:"is_eligible,omitempty"`
@@ -237,6 +241,8 @@ type P2PAdvertListRespP2PAdvertListListElem struct {
 	// - `advertiser_approval`: the advertiser's proof of identity is not verified.
 	// - `advertiser_balance`: the advertiser's P2P balance is less than the minimum
 	// order.
+	// - `advertiser_schedule`: the advertiser's schedule does not have availability
+	// between now and now + order_expiry_period.
 	// - `advertiser_block_trade_ineligible`: the advertiser is not currently eligible
 	// for block trading.
 	// - `advertiser_daily_limit`: the advertiser's remaining daily limit is less than
@@ -268,6 +274,10 @@ type P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails struct {
 	// Indicates that the advertiser was recommended in the most recent review by the
 	// current user.
 	IsRecommended *P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsRecommended `json:"is_recommended,omitempty"`
+
+	// Inidcates whether the advertiser's schedule has availability between now and
+	// now + order_expiry_period.
+	IsScheduleAvailable P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsScheduleAvailable `json:"is_schedule_available"`
 
 	// The advertiser's last name.
 	LastName *string `json:"last_name,omitempty"`
@@ -412,6 +422,33 @@ func (j *P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsRecommended) U
 	return nil
 }
 
+type P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsScheduleAvailable int
+
+var enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsScheduleAvailable = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsScheduleAvailable) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsScheduleAvailable {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsScheduleAvailable, v)
+	}
+	*j = P2PAdvertListRespP2PAdvertListListElemAdvertiserDetailsIsScheduleAvailable(v)
+	return nil
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
@@ -426,6 +463,9 @@ func (j *P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails) UnmarshalJSON(
 	}
 	if _, ok := raw["is_online"]; raw != nil && !ok {
 		return fmt.Errorf("field is_online in P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails: required")
+	}
+	if _, ok := raw["is_schedule_available"]; raw != nil && !ok {
+		return fmt.Errorf("field is_schedule_available in P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails: required")
 	}
 	if _, ok := raw["last_online_time"]; raw != nil && !ok {
 		return fmt.Errorf("field last_online_time in P2PAdvertListRespP2PAdvertListListElemAdvertiserDetails: required")
@@ -575,6 +615,33 @@ func (j *P2PAdvertListRespP2PAdvertListListElemIsActive) UnmarshalJSON(b []byte)
 	return nil
 }
 
+type P2PAdvertListRespP2PAdvertListListElemIsClientScheduleAvailable int
+
+var enumValues_P2PAdvertListRespP2PAdvertListListElemIsClientScheduleAvailable = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListRespP2PAdvertListListElemIsClientScheduleAvailable) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListRespP2PAdvertListListElemIsClientScheduleAvailable {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListRespP2PAdvertListListElemIsClientScheduleAvailable, v)
+	}
+	*j = P2PAdvertListRespP2PAdvertListListElemIsClientScheduleAvailable(v)
+	return nil
+}
+
 type P2PAdvertListRespP2PAdvertListListElemIsEligible int
 
 var enumValues_P2PAdvertListRespP2PAdvertListListElemIsEligible = []interface{}{
@@ -703,6 +770,7 @@ const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertiserApprov
 const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertiserBalance P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advertiser_balance"
 const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertiserBlockTradeIneligible P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advertiser_block_trade_ineligible"
 const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertiserDailyLimit P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advertiser_daily_limit"
+const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertiserSchedule P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advertiser_schedule"
 const P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElemAdvertiserTempBan P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = "advertiser_temp_ban"
 
 var enumValues_P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = []interface{}{
@@ -718,6 +786,7 @@ var enumValues_P2PAdvertListRespP2PAdvertListListElemVisibilityStatusElem = []in
 	"advertiser_balance",
 	"advertiser_block_trade_ineligible",
 	"advertiser_daily_limit",
+	"advertiser_schedule",
 	"advertiser_temp_ban",
 }
 

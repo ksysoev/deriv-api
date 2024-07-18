@@ -27,6 +27,11 @@ type P2PAdvertList struct {
 	// [Optional] Only show adverts from favourite advertisers. Default is 0.
 	FavouritesOnly *P2PAdvertListFavouritesOnly `json:"favourites_only,omitempty"`
 
+	// [Optional] If set to 1, adverts for which the current user's shcedule does not
+	// have availability from now until the full possible order expiry are not
+	// returned.
+	HideClientScheduleUnavailable P2PAdvertListHideClientScheduleUnavailable `json:"hide_client_schedule_unavailable,omitempty"`
+
 	// [Optional] If set to 1, adverts for which the current user does not meet
 	// counteryparty terms are not returned.
 	HideIneligible P2PAdvertListHideIneligible `json:"hide_ineligible,omitempty"`
@@ -147,6 +152,33 @@ func (j *P2PAdvertListFavouritesOnly) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListFavouritesOnly, v)
 	}
 	*j = P2PAdvertListFavouritesOnly(v)
+	return nil
+}
+
+type P2PAdvertListHideClientScheduleUnavailable int
+
+var enumValues_P2PAdvertListHideClientScheduleUnavailable = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertListHideClientScheduleUnavailable) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertListHideClientScheduleUnavailable {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertListHideClientScheduleUnavailable, v)
+	}
+	*j = P2PAdvertListHideClientScheduleUnavailable(v)
 	return nil
 }
 
@@ -284,6 +316,9 @@ func (j *P2PAdvertList) UnmarshalJSON(b []byte) error {
 	}
 	if v, ok := raw["block_trade"]; !ok || v == nil {
 		plain.BlockTrade = 0.0
+	}
+	if v, ok := raw["hide_client_schedule_unavailable"]; !ok || v == nil {
+		plain.HideClientScheduleUnavailable = 0.0
 	}
 	if v, ok := raw["hide_ineligible"]; !ok || v == nil {
 		plain.HideIneligible = 0.0

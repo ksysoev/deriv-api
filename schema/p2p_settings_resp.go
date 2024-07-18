@@ -68,6 +68,10 @@ type P2PSettingsRespP2PSettings struct {
 	// Block trading settings
 	BlockTrade P2PSettingsRespP2PSettingsBlockTrade `json:"block_trade"`
 
+	// Advertiser schedule start and end times must be exact multiples of this value,
+	// unless it is zero.
+	BusinessHoursMinutesInterval int `json:"business_hours_minutes_interval"`
+
 	// A buyer will be blocked for this duration after exceeding the cancellation
 	// limit, in hours.
 	CancellationBlockDuration int `json:"cancellation_block_duration"`
@@ -460,6 +464,9 @@ func (j *P2PSettingsRespP2PSettings) UnmarshalJSON(b []byte) error {
 	}
 	if _, ok := raw["block_trade"]; raw != nil && !ok {
 		return fmt.Errorf("field block_trade in P2PSettingsRespP2PSettings: required")
+	}
+	if _, ok := raw["business_hours_minutes_interval"]; raw != nil && !ok {
+		return fmt.Errorf("field business_hours_minutes_interval in P2PSettingsRespP2PSettings: required")
 	}
 	if _, ok := raw["cancellation_block_duration"]; raw != nil && !ok {
 		return fmt.Errorf("field cancellation_block_duration in P2PSettingsRespP2PSettings: required")
