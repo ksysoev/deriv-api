@@ -964,14 +964,6 @@ func (a *DerivAPI) VerifyEmail(r schema.VerifyEmail) (resp schema.VerifyEmailRes
 	return
 }
 
-// VerifyEmailCellxpert Verify an email address for Cellxpert. The system will send an email to the address containing a security code for verification.
-func (a *DerivAPI) VerifyEmailCellxpert(r schema.VerifyEmailCellxpert) (resp schema.VerifyEmailCellxpertResp, err error) {
-	id := a.getNextRequestID()
-	r.ReqId = &id
-	err = a.SendRequest(id, r, &resp)
-	return
-}
-
 // WebsiteConfig Request server config.
 func (a *DerivAPI) WebsiteConfig(r schema.WebsiteConfig) (resp schema.WebsiteConfigResp, err error) {
 	id := a.getNextRequestID()

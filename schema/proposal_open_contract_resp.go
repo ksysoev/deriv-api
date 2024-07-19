@@ -205,6 +205,10 @@ type ProposalOpenContractRespProposalOpenContract struct {
 	// Whether the contract can be sold back to the company.
 	IsValidToSell *ProposalOpenContractRespProposalOpenContractIsValidToSell `json:"is_valid_to_sell,omitempty"`
 
+	// [Optional] Indicator whether take profit, stop loss, and/or stop out is allowed
+	// to be updated.
+	IsValidToUpdate *ProposalOpenContractRespProposalOpenContractIsValidToUpdate `json:"is_valid_to_update,omitempty"`
+
 	// Orders are applicable to `MULTUP` and `MULTDOWN` contracts only.
 	LimitOrder *ProposalOpenContractRespProposalOpenContractLimitOrder `json:"limit_order,omitempty"`
 
@@ -590,6 +594,104 @@ func (j *ProposalOpenContractRespProposalOpenContractIsValidToSell) UnmarshalJSO
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalOpenContractRespProposalOpenContractIsValidToSell, v)
 	}
 	*j = ProposalOpenContractRespProposalOpenContractIsValidToSell(v)
+	return nil
+}
+
+// [Optional] Indicator whether take profit, stop loss, and/or stop out is allowed
+// to be updated.
+type ProposalOpenContractRespProposalOpenContractIsValidToUpdate struct {
+	// [Optional] 1 if stop loss is allowed to be updated and 0 if otherwise. This
+	// field is undefined if stop loss functionality is not supported by the contract.
+	StopLoss *ProposalOpenContractRespProposalOpenContractIsValidToUpdateStopLoss `json:"stop_loss,omitempty"`
+
+	// [Optional] 1 if stop out is allowed to be updated and 0 if otherwise. This
+	// field is undefined if stop out functionality is not supported by the contract.
+	StopOut *ProposalOpenContractRespProposalOpenContractIsValidToUpdateStopOut `json:"stop_out,omitempty"`
+
+	// [Optional] 1 if take profit is allowed to be updated and 0 if otherwise. This
+	// field is undefined if take profit functionality is not supported by the
+	// contract.
+	TakeProfit *ProposalOpenContractRespProposalOpenContractIsValidToUpdateTakeProfit `json:"take_profit,omitempty"`
+}
+
+type ProposalOpenContractRespProposalOpenContractIsValidToUpdateStopLoss float64
+
+var enumValues_ProposalOpenContractRespProposalOpenContractIsValidToUpdateStopLoss = []interface{}{
+	0.0,
+	1.0,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ProposalOpenContractRespProposalOpenContractIsValidToUpdateStopLoss) UnmarshalJSON(b []byte) error {
+	var v float64
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ProposalOpenContractRespProposalOpenContractIsValidToUpdateStopLoss {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalOpenContractRespProposalOpenContractIsValidToUpdateStopLoss, v)
+	}
+	*j = ProposalOpenContractRespProposalOpenContractIsValidToUpdateStopLoss(v)
+	return nil
+}
+
+type ProposalOpenContractRespProposalOpenContractIsValidToUpdateStopOut float64
+
+var enumValues_ProposalOpenContractRespProposalOpenContractIsValidToUpdateStopOut = []interface{}{
+	0.0,
+	1.0,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ProposalOpenContractRespProposalOpenContractIsValidToUpdateStopOut) UnmarshalJSON(b []byte) error {
+	var v float64
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ProposalOpenContractRespProposalOpenContractIsValidToUpdateStopOut {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalOpenContractRespProposalOpenContractIsValidToUpdateStopOut, v)
+	}
+	*j = ProposalOpenContractRespProposalOpenContractIsValidToUpdateStopOut(v)
+	return nil
+}
+
+type ProposalOpenContractRespProposalOpenContractIsValidToUpdateTakeProfit float64
+
+var enumValues_ProposalOpenContractRespProposalOpenContractIsValidToUpdateTakeProfit = []interface{}{
+	0.0,
+	1.0,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ProposalOpenContractRespProposalOpenContractIsValidToUpdateTakeProfit) UnmarshalJSON(b []byte) error {
+	var v float64
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ProposalOpenContractRespProposalOpenContractIsValidToUpdateTakeProfit {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalOpenContractRespProposalOpenContractIsValidToUpdateTakeProfit, v)
+	}
+	*j = ProposalOpenContractRespProposalOpenContractIsValidToUpdateTakeProfit(v)
 	return nil
 }
 
