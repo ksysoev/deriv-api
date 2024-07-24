@@ -304,6 +304,9 @@ type ProposalOpenContractRespProposalOpenContract struct {
 
 	// Error code if validation fails
 	ValidationErrorCode *string `json:"validation_error_code,omitempty"`
+
+	// Contains contract validation information.
+	ValidationParams *ProposalOpenContractRespProposalOpenContractValidationParams `json:"validation_params,omitempty"`
 }
 
 // Tick details around contract start and end time.
@@ -819,6 +822,55 @@ type ProposalOpenContractRespProposalOpenContractTransactionIds struct {
 	// Sell transaction ID for that contract, only present when contract is already
 	// sold.
 	Sell *int `json:"sell,omitempty"`
+}
+
+// Contains contract validation information.
+type ProposalOpenContractRespProposalOpenContractValidationParams struct {
+	// [Only for Accumulators] Maximum payout for the contract.
+	MaxPayout *string `json:"max_payout,omitempty"`
+
+	// [Only for Accumulators] Maximum ticks for the contract.
+	MaxTicks *int `json:"max_ticks,omitempty"`
+
+	// Contains information for minimum and maximum stake amount for the contract.
+	Stake *ProposalOpenContractRespProposalOpenContractValidationParamsStake `json:"stake,omitempty"`
+
+	// [Only for Multipliers] Contains information for minimum and maximum stop loss
+	// amount for the contract.
+	StopLoss *ProposalOpenContractRespProposalOpenContractValidationParamsStopLoss `json:"stop_loss,omitempty"`
+
+	// Contains information for minimum and maximum take profit amount for the
+	// contract.
+	TakeProfit *ProposalOpenContractRespProposalOpenContractValidationParamsTakeProfit `json:"take_profit,omitempty"`
+}
+
+// Contains information for minimum and maximum stake amount for the contract.
+type ProposalOpenContractRespProposalOpenContractValidationParamsStake struct {
+	// Maximum stakes allowed
+	Max *string `json:"max,omitempty"`
+
+	// Minimum stakes allowed
+	Min *string `json:"min,omitempty"`
+}
+
+// [Only for Multipliers] Contains information for minimum and maximum stop loss
+// amount for the contract.
+type ProposalOpenContractRespProposalOpenContractValidationParamsStopLoss struct {
+	// Maximum stop loss amount
+	Max *string `json:"max,omitempty"`
+
+	// Minimum stop loss amount
+	Min *string `json:"min,omitempty"`
+}
+
+// Contains information for minimum and maximum take profit amount for the
+// contract.
+type ProposalOpenContractRespProposalOpenContractValidationParamsTakeProfit struct {
+	// Maximum take profit amount
+	Max *string `json:"max,omitempty"`
+
+	// Minimum take profit amount
+	Min *string `json:"min,omitempty"`
 }
 
 // For subscription requests only.

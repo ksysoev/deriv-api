@@ -118,6 +118,9 @@ type ProposalRespProposal struct {
 
 	// The corresponding time of the spot value.
 	SpotTime int `json:"spot_time"`
+
+	// Contains contract validation information.
+	ValidationParams *ProposalRespProposalValidationParams `json:"validation_params,omitempty"`
 }
 
 // Contains information about contract cancellation option.
@@ -233,6 +236,55 @@ type ProposalRespProposalLimitOrderTakeProfit struct {
 
 	// Pip-sized barrier value
 	Value *string `json:"value,omitempty"`
+}
+
+// Contains contract validation information.
+type ProposalRespProposalValidationParams struct {
+	// [Only for Accumulators] Maximum payout for the contract.
+	MaxPayout *string `json:"max_payout,omitempty"`
+
+	// [Only for Accumulators] Maximum ticks for the contract.
+	MaxTicks *int `json:"max_ticks,omitempty"`
+
+	// Contains information for minimum and maximum stake amount for the contract.
+	Stake *ProposalRespProposalValidationParamsStake `json:"stake,omitempty"`
+
+	// [Only for Multipliers] Contains information for minimum and maximum stop loss
+	// amount for the contract.
+	StopLoss *ProposalRespProposalValidationParamsStopLoss `json:"stop_loss,omitempty"`
+
+	// Contains information for minimum and maximum take profit amount for the
+	// contract.
+	TakeProfit *ProposalRespProposalValidationParamsTakeProfit `json:"take_profit,omitempty"`
+}
+
+// Contains information for minimum and maximum stake amount for the contract.
+type ProposalRespProposalValidationParamsStake struct {
+	// Maximum stake allowed
+	Max *string `json:"max,omitempty"`
+
+	// Minimum stake allowed
+	Min *string `json:"min,omitempty"`
+}
+
+// [Only for Multipliers] Contains information for minimum and maximum stop loss
+// amount for the contract.
+type ProposalRespProposalValidationParamsStopLoss struct {
+	// Maximum stop loss amount
+	Max *string `json:"max,omitempty"`
+
+	// Minimum stop loss amount
+	Min *string `json:"min,omitempty"`
+}
+
+// Contains information for minimum and maximum take profit amount for the
+// contract.
+type ProposalRespProposalValidationParamsTakeProfit struct {
+	// Maximum take profit amount
+	Max *string `json:"max,omitempty"`
+
+	// Minimum take profit amount
+	Min *string `json:"min,omitempty"`
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
