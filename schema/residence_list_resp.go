@@ -63,6 +63,9 @@ type ResidenceListRespResidenceListElem struct {
 	// Information about identity options available
 	Identity *ResidenceListRespResidenceListElemIdentity `json:"identity,omitempty"`
 
+	// Flag which indicates whether partner signup is available in this country
+	PartnerSignup *ResidenceListRespResidenceListElemPartnerSignup `json:"partner_signup,omitempty"`
+
 	// IDD code of country
 	PhoneIdd *string `json:"phone_idd,omitempty"`
 
@@ -229,6 +232,33 @@ func (j *ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySuppor
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported, v)
 	}
 	*j = ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported(v)
+	return nil
+}
+
+type ResidenceListRespResidenceListElemPartnerSignup int
+
+var enumValues_ResidenceListRespResidenceListElemPartnerSignup = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ResidenceListRespResidenceListElemPartnerSignup) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ResidenceListRespResidenceListElemPartnerSignup {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ResidenceListRespResidenceListElemPartnerSignup, v)
+	}
+	*j = ResidenceListRespResidenceListElemPartnerSignup(v)
 	return nil
 }
 
