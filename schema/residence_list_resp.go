@@ -57,11 +57,17 @@ type ResidenceListRespResidenceListElem struct {
 	// Flag which indicates whether self declaration is required for account opening
 	AccountOpeningSelfDeclarationRequired *ResidenceListRespResidenceListElemAccountOpeningSelfDeclarationRequired `json:"account_opening_self_declaration_required,omitempty"`
 
+	// Common Reporting Standard
+	CommonReportingStandard *ResidenceListRespResidenceListElemCommonReportingStandard `json:"common_reporting_standard,omitempty"`
+
 	// Disabled.
 	Disabled *string `json:"disabled,omitempty"`
 
 	// Information about identity options available
 	Identity *ResidenceListRespResidenceListElemIdentity `json:"identity,omitempty"`
+
+	// Jurisdiction Risk Assessment
+	JurisdictionRiskAssessment *ResidenceListRespResidenceListElemJurisdictionRiskAssessment `json:"jurisdiction_risk_assessment,omitempty"`
 
 	// Flag which indicates whether partner signup is available in this country
 	PartnerSignup *ResidenceListRespResidenceListElemPartnerSignup `json:"partner_signup,omitempty"`
@@ -110,6 +116,51 @@ func (j *ResidenceListRespResidenceListElemAccountOpeningSelfDeclarationRequired
 	}
 	*j = ResidenceListRespResidenceListElemAccountOpeningSelfDeclarationRequired(v)
 	return nil
+}
+
+// Common Reporting Standard
+type ResidenceListRespResidenceListElemCommonReportingStandard struct {
+	// NPJ configuration
+	NonParticipatingJurisdictions *ResidenceListRespResidenceListElemCommonReportingStandardNonParticipatingJurisdictions `json:"non_participating_jurisdictions,omitempty"`
+
+	// Postcode configuration
+	Postcode *ResidenceListRespResidenceListElemCommonReportingStandardPostcode `json:"postcode,omitempty"`
+
+	// Tax configuration
+	Tax *ResidenceListRespResidenceListElemCommonReportingStandardTax `json:"tax,omitempty"`
+}
+
+// NPJ configuration
+type ResidenceListRespResidenceListElemCommonReportingStandardNonParticipatingJurisdictions struct {
+	// Default NPJ flag
+	Default *bool `json:"default,omitempty"`
+
+	// Flags for specific landing companies
+	LandingCompany ResidenceListRespResidenceListElemCommonReportingStandardNonParticipatingJurisdictionsLandingCompany `json:"landing_company,omitempty"`
+}
+
+// Flags for specific landing companies
+type ResidenceListRespResidenceListElemCommonReportingStandardNonParticipatingJurisdictionsLandingCompany map[string]interface{}
+
+// Postcode configuration
+type ResidenceListRespResidenceListElemCommonReportingStandardPostcode struct {
+	// Invalid regex patterns for postcode validation
+	InvalidPattern *string `json:"invalid_pattern,omitempty"`
+}
+
+// Tax configuration
+type ResidenceListRespResidenceListElemCommonReportingStandardTax struct {
+	// Mandatory TIN flag
+	Mandatory *bool `json:"mandatory,omitempty"`
+
+	// Cleanup regex
+	TinCleaner *string `json:"tin_cleaner,omitempty"`
+
+	// Country tax identifier format
+	TinFormat []string `json:"tin_format,omitempty"`
+
+	// Description of the TIN format
+	TinFormatDescription *string `json:"tin_format_description,omitempty"`
 }
 
 // Information about identity options available
@@ -233,6 +284,45 @@ func (j *ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySuppor
 	}
 	*j = ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported(v)
 	return nil
+}
+
+// Jurisdiction Risk Assessment
+type ResidenceListRespResidenceListElemJurisdictionRiskAssessment struct {
+	// Disclaimer configuration
+	Disclaimer *ResidenceListRespResidenceListElemJurisdictionRiskAssessmentDisclaimer `json:"disclaimer,omitempty"`
+
+	// Risk level configuration
+	RiskLevel *ResidenceListRespResidenceListElemJurisdictionRiskAssessmentRiskLevel `json:"risk_level,omitempty"`
+
+	// Turnover configuration
+	Turnover *ResidenceListRespResidenceListElemJurisdictionRiskAssessmentTurnover `json:"turnover,omitempty"`
+}
+
+// Disclaimer configuration
+type ResidenceListRespResidenceListElemJurisdictionRiskAssessmentDisclaimer struct {
+	// Disclaimer flag
+	Accept *bool `json:"accept,omitempty"`
+
+	// Disclaimer message
+	Message *string `json:"message,omitempty"`
+}
+
+// Risk level configuration
+type ResidenceListRespResidenceListElemJurisdictionRiskAssessmentRiskLevel struct {
+	// Default risk level flag
+	Default *string `json:"default,omitempty"`
+
+	// Flags for specific landing companies
+	LandingCompany ResidenceListRespResidenceListElemJurisdictionRiskAssessmentRiskLevelLandingCompany `json:"landing_company,omitempty"`
+}
+
+// Flags for specific landing companies
+type ResidenceListRespResidenceListElemJurisdictionRiskAssessmentRiskLevelLandingCompany map[string]interface{}
+
+// Turnover configuration
+type ResidenceListRespResidenceListElemJurisdictionRiskAssessmentTurnover struct {
+	// Max limit
+	MaxLimit *bool `json:"max_limit,omitempty"`
 }
 
 type ResidenceListRespResidenceListElemPartnerSignup int

@@ -134,6 +134,9 @@ type ProposalRespProposalCancellation struct {
 
 // Contains contract information.
 type ProposalRespProposalContractDetails struct {
+	// The markup amount charged on a client's stake amount
+	AppMarkupAmount *string `json:"app_markup_amount,omitempty"`
+
 	// Barrier of the contract.
 	Barrier *string `json:"barrier,omitempty"`
 

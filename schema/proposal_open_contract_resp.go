@@ -61,6 +61,9 @@ type ProposalOpenContractRespProposalOpenContract struct {
 	// Account Id
 	AccountId *float64 `json:"account_id,omitempty"`
 
+	// The markup amount charged on a client's stake amount
+	AppMarkupAmount *string `json:"app_markup_amount,omitempty"`
+
 	// Tick details around contract start and end time.
 	AuditDetails *ProposalOpenContractRespProposalOpenContractAuditDetails `json:"audit_details,omitempty"`
 
