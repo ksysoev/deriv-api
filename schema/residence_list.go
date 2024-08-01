@@ -13,6 +13,10 @@ type ResidenceList struct {
 	// the `echo_req` output field.
 	Passthrough ResidenceListPassthrough `json:"passthrough,omitempty"`
 
+	// [Optional] Specific keys from the response that you want. If not passed, it
+	// will return all the keys.
+	Query []ResidenceListQueryElem `json:"query,omitempty"`
+
 	// [Optional] Used to map request to response.
 	ReqId *int `json:"req_id,omitempty"`
 
@@ -23,6 +27,54 @@ type ResidenceList struct {
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type ResidenceListPassthrough map[string]interface{}
+
+type ResidenceListQueryElem string
+
+const ResidenceListQueryElemAccountOpeningSelfDeclarationRequired ResidenceListQueryElem = "account_opening_self_declaration_required"
+const ResidenceListQueryElemCommonReportingStandard ResidenceListQueryElem = "common_reporting_standard"
+const ResidenceListQueryElemDisabled ResidenceListQueryElem = "disabled"
+const ResidenceListQueryElemIdentity ResidenceListQueryElem = "identity"
+const ResidenceListQueryElemJurisdictionRiskAssessment ResidenceListQueryElem = "jurisdiction_risk_assessment"
+const ResidenceListQueryElemPhoneIdd ResidenceListQueryElem = "phone_idd"
+const ResidenceListQueryElemSelected ResidenceListQueryElem = "selected"
+const ResidenceListQueryElemText ResidenceListQueryElem = "text"
+const ResidenceListQueryElemTinFormat ResidenceListQueryElem = "tin_format"
+const ResidenceListQueryElemValue ResidenceListQueryElem = "value"
+const ResidenceListQueryElemWalletSignup ResidenceListQueryElem = "wallet_signup"
+
+var enumValues_ResidenceListQueryElem = []interface{}{
+	"account_opening_self_declaration_required",
+	"common_reporting_standard",
+	"disabled",
+	"identity",
+	"jurisdiction_risk_assessment",
+	"phone_idd",
+	"selected",
+	"text",
+	"tin_format",
+	"value",
+	"wallet_signup",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ResidenceListQueryElem) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ResidenceListQueryElem {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ResidenceListQueryElem, v)
+	}
+	*j = ResidenceListQueryElem(v)
+	return nil
+}
 
 type ResidenceListResidenceList int
 
