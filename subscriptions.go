@@ -35,10 +35,10 @@ type SubscriptionIDResponse struct {
 // returns it along with any error that occurs during the deserialization process.
 // If the response contains an error code, it returns a SubscriptionResponse
 // struct and an error that wraps the Error field of the struct.
-func parseSubsciption(rawResponse string) (SubscriptionResponse, error) {
+func parseSubsciption(rawResponse []byte) (SubscriptionResponse, error) {
 	var sub SubscriptionResponse
 
-	err := json.Unmarshal([]byte(rawResponse), &sub)
+	err := json.Unmarshal(rawResponse, &sub)
 	if err != nil {
 		return sub, err
 	}
@@ -134,7 +134,7 @@ func (s *Subsciption[initResp, Resp]) Start(reqID int, request any) (initResp, e
 			panic("Response object must implement ApiResponse interface")
 		}
 
-		err = apiResp.UnmarshalJSON([]byte(initResponse))
+		err = apiResp.UnmarshalJSON(initResponse)
 		if err != nil {
 			s.API.logDebugf("Failed to parse response for request %d: %s", reqID, err.Error())
 			s.API.closeRequestChannel(reqID)
@@ -151,7 +151,7 @@ func (s *Subsciption[initResp, Resp]) Start(reqID int, request any) (initResp, e
 }
 
 // messageHandler is a goroutine that handles subscription updates received on the channel passed to it.
-func (s *Subsciption[initResp, Resp]) messageHandler(inChan chan string) {
+func (s *Subsciption[initResp, Resp]) messageHandler(inChan chan []byte) {
 	defer func() {
 		s.statusLock.Lock()
 		if s.isActive {

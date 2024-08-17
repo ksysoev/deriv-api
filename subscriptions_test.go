@@ -13,7 +13,7 @@ import (
 )
 
 func TestParseSubscription_ValidInput(t *testing.T) {
-	input := `{"subscription": {"id": "123"}}`
+	input := []byte(`{"subscription": {"id": "123"}}`)
 	expected := SubscriptionResponse{Subscription: SubscriptionIDResponse{ID: "123"}}
 	result, err := parseSubsciption(input)
 	if err != nil {
@@ -25,7 +25,7 @@ func TestParseSubscription_ValidInput(t *testing.T) {
 }
 
 func TestParseSubscription_InvalidJSONInput(t *testing.T) {
-	input := `{"subscription": {"id": "123", "status": "active"`
+	input := []byte(`{"subscription": {"id": "123", "status": "active"`)
 	_, err := parseSubsciption(input)
 	if err == nil {
 		t.Errorf("Expected an error, but got nil")
@@ -33,7 +33,7 @@ func TestParseSubscription_InvalidJSONInput(t *testing.T) {
 }
 
 func TestParseSubscription_InvalidSubscriptionData(t *testing.T) {
-	input := `{"subscription": {"id": "123", "status": "active"}, "error": {"code": "invalid_subscription"}}`
+	input := []byte(`{"subscription": {"id": "123", "status": "active"}, "error": {"code": "invalid_subscription"}}`)
 	expectedErr := &APIError{Code: "invalid_subscription"}
 	_, err := parseSubsciption(input)
 	if err == nil {
@@ -45,14 +45,14 @@ func TestParseSubscription_InvalidSubscriptionData(t *testing.T) {
 }
 
 func TestParseSubscription_EmptyInput(t *testing.T) {
-	_, err := parseSubsciption("")
+	_, err := parseSubsciption([]byte(""))
 	if err == nil {
 		t.Errorf("Expected an error, but got nil")
 	}
 }
 
 func TestParseSubscription_EmptySubscriptionData(t *testing.T) {
-	input := `{}`
+	input := []byte(`{}`)
 	expectedErr := fmt.Errorf("subscription ID is empty")
 	_, err := parseSubsciption(input)
 	if err == nil {
