@@ -19,19 +19,24 @@ func TestNewDerivAPI(t *testing.T) {
 	origin := "https://example.com"
 	appID := 123
 	lang := "en"
+
 	api, err := NewDerivAPI(endpoint, appID, lang, origin)
 	if err != nil {
 		t.Errorf("Unexpected error: %v", err)
 	}
+
 	if api.Endpoint.String() != endpoint+"?app_id=123&l=en" {
 		t.Errorf("Unexpected endpoint: got %v, want %v", api.Endpoint.String(), endpoint)
 	}
+
 	if api.Origin.String() != origin {
 		t.Errorf("Unexpected origin: got %v, want %v", api.Origin.String(), origin)
 	}
+
 	if api.AppID != appID {
 		t.Errorf("Unexpected app ID: got %v, want %v", api.AppID, appID)
 	}
+
 	if api.Lang != lang {
 		t.Errorf("Unexpected language: got %v, want %v", api.Lang, lang)
 	}
@@ -41,8 +46,8 @@ func TestNewDerivAPI(t *testing.T) {
 	origin = "https://example.com"
 	appID = 123
 	lang = "en"
-	_, err = NewDerivAPI(endpoint, appID, lang, origin)
-	if err == nil {
+
+	if _, err = NewDerivAPI(endpoint, appID, lang, origin); err == nil {
 		t.Errorf("Expected error, got nil")
 	}
 
@@ -51,8 +56,8 @@ func TestNewDerivAPI(t *testing.T) {
 	origin = "https://example.com"
 	appID = -1
 	lang = "en"
-	_, err = NewDerivAPI(endpoint, appID, lang, origin)
-	if err == nil {
+
+	if _, err = NewDerivAPI(endpoint, appID, lang, origin); err == nil {
 		t.Errorf("Expected error, got nil")
 	}
 
@@ -61,8 +66,8 @@ func TestNewDerivAPI(t *testing.T) {
 	origin = "https://example.com"
 	appID = 123
 	lang = "eng"
-	_, err = NewDerivAPI(endpoint, appID, lang, origin)
-	if err == nil {
+
+	if _, err = NewDerivAPI(endpoint, appID, lang, origin); err == nil {
 		t.Errorf("Expected error, got nil")
 	}
 
@@ -71,8 +76,8 @@ func TestNewDerivAPI(t *testing.T) {
 	origin = "https://example.com"
 	appID = 123
 	lang = "en"
-	_, err = NewDerivAPI(endpoint, appID, lang, origin)
-	if err == nil {
+
+	if _, err = NewDerivAPI(endpoint, appID, lang, origin); err == nil {
 		t.Errorf("Expected error, got nil")
 	}
 
@@ -81,8 +86,8 @@ func TestNewDerivAPI(t *testing.T) {
 	origin = ":invalid:"
 	appID = 123
 	lang = "en"
-	_, err = NewDerivAPI(endpoint, appID, lang, origin)
-	if err == nil {
+
+	if _, err = NewDerivAPI(endpoint, appID, lang, origin); err == nil {
 		t.Errorf("Expected error, got nil")
 	}
 }
@@ -95,10 +100,13 @@ func TestGetNextRequestID(t *testing.T) {
 
 	for i := 0; i < numRequests; i++ {
 		requestID := api.getNextRequestID()
+
 		if _, ok := requestIDs[requestID]; ok {
 			t.Errorf("Request ID %d already used", requestID)
 		}
+
 		requestIDs[requestID] = true
+
 		orderedRequestIDs = append(orderedRequestIDs, requestID)
 	}
 
@@ -111,6 +119,7 @@ func TestGetNextRequestID(t *testing.T) {
 		if id <= lastID {
 			t.Errorf("Request IDs not increasing, lastID=%d currentID=%d", lastID, id)
 		}
+
 		lastID = id
 	}
 }
@@ -215,6 +224,7 @@ func TestSend(t *testing.T) {
 	}
 
 	msg := <-respChan
+
 	testMsg := "{\"req_id\":1}"
 	if string(msg) != testMsg {
 		t.Errorf("Expected message to be %s, but got %s", testMsg, msg)
@@ -275,7 +285,9 @@ func TestSendRequestTimeout(t *testing.T) {
 
 	reqID := 1
 	req := schema.Ping{Ping: 1, ReqId: &reqID}
+
 	var resp schema.PingResp
+
 	err := api.SendRequest(reqID, req, &resp)
 
 	if err != nil && err.Error() != "timeout" {
@@ -293,9 +305,10 @@ func TestSendRequestAndGotInvalidJSON(t *testing.T) {
 			}
 			time.Sleep(time.Second) // to keep the connection open
 		}))
-	url := "ws://" + server.Listener.Addr().String()
+
 	defer server.Close()
 
+	url := "ws://" + server.Listener.Addr().String()
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
 
 	_ = api.Connect()
@@ -334,6 +347,7 @@ func TestSendRequest(t *testing.T) {
 			}
 			time.Sleep(time.Second) // to keep the connection open
 		}))
+
 	defer server.Close()
 
 	url := "ws://" + server.Listener.Addr().String()
@@ -348,7 +362,9 @@ func TestSendRequest(t *testing.T) {
 
 	reqID := 1
 	req := schema.Ping{Ping: 1, ReqId: &reqID}
+
 	var resp schema.PingResp
+
 	err = api.SendRequest(reqID, req, &resp)
 
 	if err != nil {
@@ -376,7 +392,9 @@ func TestSendRequestFailed(t *testing.T) {
 
 	reqID := 1
 	req := schema.Ping{Ping: 1, ReqId: &reqID}
+
 	var resp schema.PingResp
+
 	err := api.SendRequest(reqID, req, &resp)
 
 	if err == nil {
@@ -440,13 +458,14 @@ func TestDebugLogs(t *testing.T) {
 	if err != nil {
 		t.Errorf("Failed to create pipe: %v", err)
 	}
-	defer reader.Close()
-	log.SetOutput(writer)
-	scanner := bufio.NewScanner(reader)
 
+	defer reader.Close()
+
+	log.SetOutput(writer)
+
+	scanner := bufio.NewScanner(reader)
 	server := newMockWSServer(echoHandler)
 	url := "ws://" + server.Listener.Addr().String()
-
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com", Debug)
 
 	_ = api.Connect()

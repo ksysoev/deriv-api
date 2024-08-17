@@ -24,7 +24,7 @@ const (
 
 // DerivAPI is the main struct for the DerivAPI client.
 type DerivAPI struct {
-	reqChan               chan ApiReqest
+	reqChan               chan APIReqest
 	Endpoint              *url.URL
 	keepAliveOnDisconnect chan bool
 	Origin                *url.URL
@@ -40,8 +40,8 @@ type DerivAPI struct {
 	debugEnabled          bool
 }
 
-// ApiReqest is an interface for all API requests.
-type ApiReqest struct {
+// APIReqest is an interface for all API requests.
+type APIReqest struct {
 	respChan chan []byte
 	msg      []byte
 	id       int
@@ -173,7 +173,7 @@ func (api *DerivAPI) Connect() error {
 
 	api.ws = ws
 
-	api.reqChan = make(chan ApiReqest)
+	api.reqChan = make(chan APIReqest)
 	respChan := make(chan []byte)
 	outputChan := make(chan []byte)
 
@@ -195,7 +195,6 @@ func (api *DerivAPI) Connect() error {
 				case <-onDisconnect:
 					return
 				}
-
 			}
 		}(api.keepAliveInterval, api.keepAliveOnDisconnect)
 	}
@@ -235,11 +234,10 @@ func (api *DerivAPI) requestSender(wsConn *websocket.Conn, reqChan chan []byte) 
 	for req := range reqChan {
 		api.logDebugf("Sending request: %s", req)
 
-		err := wsConn.Write(context.TODO(), websocket.MessageText, req)
-
-		if err != nil {
+		if err := wsConn.Write(context.TODO(), websocket.MessageText, req); err != nil {
 			api.logDebugf("Failed to send request: %s", err.Error())
 			api.Disconnect()
+
 			return
 		}
 	}
@@ -283,7 +281,7 @@ func (api *DerivAPI) handleResponses(wsConn *websocket.Conn, respChan chan []byt
 
 // requestMapper forward requests to the Deriv API server and
 // responses from the WebSocket server to the appropriate channels.
-func (api *DerivAPI) requestMapper(respChan chan []byte, outputChan chan []byte, reqChan chan ApiReqest, closingChan chan int) {
+func (api *DerivAPI) requestMapper(respChan chan []byte, outputChan chan []byte, reqChan chan APIReqest, closingChan chan int) {
 	responseMap := make(map[int]chan []byte)
 
 	defer func() {
@@ -297,29 +295,26 @@ func (api *DerivAPI) requestMapper(respChan chan []byte, outputChan chan []byte,
 		select {
 		case rawResp := <-respChan:
 			var response APIResponseReqID
-			err := json.Unmarshal(rawResp, &response)
-			if err != nil {
+
+			if err := json.Unmarshal(rawResp, &response); err != nil {
 				continue
 			}
-			channel, ok := responseMap[response.ReqID]
 
-			if ok {
+			if channel, ok := responseMap[response.ReqID]; ok {
 				channel <- rawResp
 			}
 		case req, ok := <-reqChan:
 			if !ok {
 				return
 			}
+
 			responseMap[req.id] = req.respChan
 			outputChan <- req.msg
 		case reqID := <-closingChan:
-			channel, okGet := responseMap[reqID]
-
-			if okGet {
+			if channel, ok := responseMap[reqID]; ok {
 				close(channel)
 				delete(responseMap, reqID)
 			}
-
 		}
 	}
 }
@@ -339,13 +334,13 @@ func (api *DerivAPI) Send(reqID int, request any) (chan []byte, error) {
 
 	respChan := make(chan []byte)
 
-	ApiReqest := ApiReqest{
+	req := APIReqest{
 		id:       reqID,
 		msg:      msg,
 		respChan: respChan,
 	}
 
-	api.reqChan <- ApiReqest
+	api.reqChan <- req
 
 	return respChan, nil
 }
@@ -381,7 +376,6 @@ func (api *DerivAPI) SendRequest(reqID int, request any, response any) (err erro
 		}
 
 		return nil
-
 	}
 }
 

@@ -16,9 +16,11 @@ func TestParseSubscription_ValidInput(t *testing.T) {
 	input := []byte(`{"subscription": {"id": "123"}}`)
 	expected := SubscriptionResponse{Subscription: SubscriptionIDResponse{ID: "123"}}
 	result, err := parseSubsciption(input)
+
 	if err != nil {
 		t.Errorf("Unexpected error: %v", err)
 	}
+
 	if !reflect.DeepEqual(result, expected) {
 		t.Errorf("Expected %+v, but got %+v", expected, result)
 	}
@@ -26,8 +28,8 @@ func TestParseSubscription_ValidInput(t *testing.T) {
 
 func TestParseSubscription_InvalidJSONInput(t *testing.T) {
 	input := []byte(`{"subscription": {"id": "123", "status": "active"`)
-	_, err := parseSubsciption(input)
-	if err == nil {
+
+	if _, err := parseSubsciption(input); err == nil {
 		t.Errorf("Expected an error, but got nil")
 	}
 }
@@ -36,9 +38,11 @@ func TestParseSubscription_InvalidSubscriptionData(t *testing.T) {
 	input := []byte(`{"subscription": {"id": "123", "status": "active"}, "error": {"code": "invalid_subscription"}}`)
 	expectedErr := &APIError{Code: "invalid_subscription"}
 	_, err := parseSubsciption(input)
+
 	if err == nil {
 		t.Errorf("Expected an error, but got nil")
 	}
+
 	if !reflect.DeepEqual(err, expectedErr) {
 		t.Errorf("Expected %+v, but got %+v", expectedErr, err)
 	}
@@ -54,10 +58,12 @@ func TestParseSubscription_EmptyInput(t *testing.T) {
 func TestParseSubscription_EmptySubscriptionData(t *testing.T) {
 	input := []byte(`{}`)
 	expectedErr := fmt.Errorf("subscription ID is empty")
+
 	_, err := parseSubsciption(input)
 	if err == nil {
 		t.Errorf("Expected an error, but got nil")
 	}
+
 	if errors.Is(err, expectedErr) {
 		t.Errorf("Expected %+v, but got %+v", expectedErr, err)
 	}
@@ -66,6 +72,7 @@ func TestParseSubscription_EmptySubscriptionData(t *testing.T) {
 func TestNewNewSubcription(t *testing.T) {
 	api, _ := NewDerivAPI("ws://example.com", 123, "en", "http://example.com")
 	sub := NewSubcription[schema.TicksResp, schema.TicksResp](api)
+
 	if sub == nil {
 		t.Errorf("Expected a subscription, but got nil")
 	}
@@ -98,12 +105,13 @@ func TestStart(t *testing.T) {
 			ws.Write(context.Background(), websocket.MessageText, []byte(testResp))
 			time.Sleep(time.Second) // to keep the connection open
 		}))
-	url := "ws://" + server.Listener.Addr().String()
 
 	defer server.Close()
+
+	url := "ws://" + server.Listener.Addr().String()
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
-	err := api.Connect()
-	if err != nil {
+
+	if err := api.Connect(); err != nil {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
@@ -114,7 +122,9 @@ func TestStart(t *testing.T) {
 	}
 
 	reqID := 1
+
 	var f schema.TicksSubscribe = 1
+
 	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
 	initResp, err := sub.Start(reqID, req)
 
@@ -141,6 +151,7 @@ func TestStart(t *testing.T) {
 	}
 
 	sub.Start(reqID, req)
+
 	if sub.IsActive() == false {
 		t.Errorf("Expected subscription to be active, but got inactive")
 	}
@@ -152,14 +163,18 @@ func TestStartFailed(t *testing.T) {
 			ws.Write(context.Background(), websocket.MessageText, []byte(""))
 			time.Sleep(time.Second) // to keep the connection open
 		}))
-	url := "ws://" + server.Listener.Addr().String()
+
 	server.Close()
+
+	url := "ws://" + server.Listener.Addr().String()
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
 
 	sub := NewSubcription[schema.TicksResp, schema.TicksResp](api)
 
 	reqID := 1
+
 	var f schema.TicksSubscribe = 1
+
 	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
 	_, err := sub.Start(reqID, req)
 
@@ -194,19 +209,20 @@ func TestForget(t *testing.T) {
 
 	server := newMockWSServer(
 		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
-
 			for resp := range responses {
 				ws.Write(context.Background(), websocket.MessageText, []byte(resp))
 			}
 
 			time.Sleep(time.Second) // to keep the connection open
 		}))
-	url := "ws://" + server.Listener.Addr().String()
+
 	defer server.Close()
 
+	url := "ws://" + server.Listener.Addr().String()
+
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
-	err := api.Connect()
-	if err != nil {
+
+	if err := api.Connect(); err != nil {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
@@ -217,11 +233,12 @@ func TestForget(t *testing.T) {
 	}
 
 	reqID := api.getNextRequestID()
-	var f schema.TicksSubscribe = 1
-	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
-	_, err = sub.Start(reqID, req)
 
-	if err != nil {
+	var f schema.TicksSubscribe = 1
+
+	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
+
+	if _, err := sub.Start(reqID, req); err != nil {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
@@ -283,19 +300,19 @@ func TestForgetFailed(t *testing.T) {
 
 	server := newMockWSServer(
 		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
-
 			for resp := range responses {
 				ws.Write(context.Background(), websocket.MessageText, []byte(resp))
 			}
 
 			time.Sleep(time.Second) // to keep the connection open
 		}))
-	url := "ws://" + server.Listener.Addr().String()
+
 	defer server.Close()
 
+	url := "ws://" + server.Listener.Addr().String()
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
-	err := api.Connect()
-	if err != nil {
+
+	if err := api.Connect(); err != nil {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
@@ -306,9 +323,11 @@ func TestForgetFailed(t *testing.T) {
 	}
 
 	reqID := api.getNextRequestID()
+
 	var f schema.TicksSubscribe = 1
+
 	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
-	_, err = sub.Start(reqID, req)
+	_, err := sub.Start(reqID, req)
 
 	if err != nil {
 		t.Errorf("Unexpected error: %v", err)
@@ -336,9 +355,8 @@ func TestForgetFailed(t *testing.T) {
 			}
 		  }`
 	}()
-	err = sub.Forget()
 
-	if err == nil {
+	if err = sub.Forget(); err == nil {
 		t.Errorf("Expected error, but got nil")
 	}
 
@@ -366,11 +384,13 @@ func TestStartAPIError(t *testing.T) {
 			ws.Write(context.Background(), websocket.MessageText, []byte(testResp))
 			time.Sleep(time.Second) // to keep the connection open
 		}))
-	url := "ws://" + server.Listener.Addr().String()
+
 	defer server.Close()
+
+	url := "ws://" + server.Listener.Addr().String()
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
-	err := api.Connect()
-	if err != nil {
+
+	if err := api.Connect(); err != nil {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
@@ -381,11 +401,12 @@ func TestStartAPIError(t *testing.T) {
 	}
 
 	reqID := 1
-	var f schema.TicksSubscribe = 1
-	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
-	_, err = sub.Start(reqID, req)
 
-	if err == nil {
+	var f schema.TicksSubscribe = 1
+
+	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
+
+	if _, err := sub.Start(reqID, req); err == nil {
 		t.Errorf("Expected an error, but got nil")
 	}
 }
@@ -405,11 +426,12 @@ func TestStartInvalidResponse(t *testing.T) {
 			time.Sleep(time.Second) // to keep the connection open
 		}))
 
-	url := "ws://" + server.Listener.Addr().String()
 	defer server.Close()
+
+	url := "ws://" + server.Listener.Addr().String()
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
-	err := api.Connect()
-	if err != nil {
+
+	if err := api.Connect(); err != nil {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
@@ -420,11 +442,12 @@ func TestStartInvalidResponse(t *testing.T) {
 	}
 
 	reqID := 1
-	var f schema.TicksSubscribe = 1
-	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
-	_, err = sub.Start(reqID, req)
 
-	if err == nil {
+	var f schema.TicksSubscribe = 1
+
+	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
+
+	if _, err := sub.Start(reqID, req); err == nil {
 		t.Errorf("Expected an error, but got nil")
 	}
 }
@@ -454,18 +477,19 @@ func TestStartInvalidResponseInSubscription(t *testing.T) {
 
 	server := newMockWSServer(
 		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
-
 			for _, resp := range responses {
 				ws.Write(context.Background(), websocket.MessageText, []byte(resp))
 			}
 
 			time.Sleep(time.Second) // to keep the connection open
 		}))
-	url := "ws://" + server.Listener.Addr().String()
+
 	defer server.Close()
+
+	url := "ws://" + server.Listener.Addr().String()
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
-	err := api.Connect()
-	if err != nil {
+
+	if err := api.Connect(); err != nil {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
@@ -476,7 +500,9 @@ func TestStartInvalidResponseInSubscription(t *testing.T) {
 	}
 
 	reqID := 1
+
 	var f schema.TicksSubscribe = 1
+
 	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
 	initResp, err := sub.Start(reqID, req)
 
@@ -497,7 +523,6 @@ func TestStartInvalidResponseInSubscription(t *testing.T) {
 		}
 	case <-time.After(time.Millisecond):
 	}
-
 }
 
 func TestStartAPIErrorInSubscription(t *testing.T) {
@@ -536,18 +561,19 @@ func TestStartAPIErrorInSubscription(t *testing.T) {
 
 	server := newMockWSServer(
 		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
-
 			for _, resp := range responses {
 				ws.Write(context.Background(), websocket.MessageText, []byte(resp))
 			}
 
 			time.Sleep(time.Second) // to keep the connection open
 		}))
-	url := "ws://" + server.Listener.Addr().String()
+
 	defer server.Close()
+
+	url := "ws://" + server.Listener.Addr().String()
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
-	err := api.Connect()
-	if err != nil {
+
+	if err := api.Connect(); err != nil {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
@@ -558,7 +584,9 @@ func TestStartAPIErrorInSubscription(t *testing.T) {
 	}
 
 	reqID := 1
+
 	var f schema.TicksSubscribe = 1
+
 	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
 	initResp, err := sub.Start(reqID, req)
 
@@ -579,7 +607,6 @@ func TestStartAPIErrorInSubscription(t *testing.T) {
 		}
 	case <-time.After(time.Millisecond):
 	}
-
 }
 
 func TestStartTimeout(t *testing.T) {
@@ -596,7 +623,9 @@ func TestStartTimeout(t *testing.T) {
 	sub := NewSubcription[schema.TicksResp, schema.TicksResp](api)
 
 	reqID := 1
+
 	var f schema.TicksSubscribe = 1
+
 	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
 	_, err := sub.Start(reqID, req)
 

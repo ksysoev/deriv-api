@@ -116,23 +116,29 @@ func (s *Subsciption[initResp, Resp]) Start(reqID int, request any) (initResp, e
 	select {
 	case <-time.After(s.API.TimeOut):
 		s.API.logDebugf("Timeout waiting for response for request %d", reqID)
+
 		return resp, fmt.Errorf("timeout")
 	case initResponse, ok := <-inChan:
 		if !ok {
 			s.API.logDebugf("Connection closed while waiting for response for request %d", reqID)
+
 			return resp, fmt.Errorf("connection closed")
 		}
+
 		subResp, err := parseSubsciption(initResponse)
 		if err != nil {
 			s.API.closeRequestChannel(reqID)
+
 			return resp, err
 		}
+
 		s.SubsciptionID = subResp.Subscription.ID
 
 		err = json.Unmarshal(initResponse, &resp)
 		if err != nil {
 			s.API.logDebugf("Failed to parse response for request %d: %s", reqID, err.Error())
 			s.API.closeRequestChannel(reqID)
+
 			return resp, err
 		}
 
@@ -155,20 +161,20 @@ func (s *Subsciption[initResp, Resp]) messageHandler(inChan chan []byte) {
 		}
 		s.statusLock.Unlock()
 	}()
+
 	for rawResponse := range inChan {
-		err := parseError(rawResponse)
-		if err != nil {
+		if err := parseError(rawResponse); err != nil {
 			s.API.logDebugf("Error in subsciption message: %v", err)
 			continue
 		}
 
 		var response Resp
 
-		err = json.Unmarshal(rawResponse, &response)
-		if err != nil {
+		if err := json.Unmarshal(rawResponse, &response); err != nil {
 			s.API.logDebugf("Failed to parse response in subscription: %s", err.Error())
 			continue
 		}
+
 		s.statusLock.Lock()
 		s.Stream <- response
 		s.statusLock.Unlock()
@@ -184,5 +190,6 @@ func (s *Subsciption[initResp, Resp]) GetStream() chan Resp {
 func (s *Subsciption[initResp, Resp]) IsActive() bool {
 	s.statusLock.Lock()
 	defer s.statusLock.Unlock()
+
 	return s.isActive
 }

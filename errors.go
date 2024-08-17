@@ -29,7 +29,7 @@ type APIErrorResponse struct {
 func parseError(rawResponse []byte) error {
 	var errorResponse APIErrorResponse
 
-	err := json.Unmarshal([]byte(rawResponse), &errorResponse)
+	err := json.Unmarshal(rawResponse, &errorResponse)
 	if err != nil {
 		return err
 	}
