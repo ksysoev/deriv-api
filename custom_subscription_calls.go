@@ -3,6 +3,8 @@ package deriv
 import "github.com/ksysoev/deriv-api/schema"
 
 // SubscribeTicksHistory Get historic tick data for a given symbol.
+//
+//nolint:gocritic // don't want to break backward compatibility for now
 func (api *DerivAPI) SubscribeTicksHistory(r schema.TicksHistory) (rsp schema.TicksHistoryResp, s *Subsciption[schema.TicksHistoryResp, schema.TicksResp], err error) {
 	var f schema.TicksHistorySubscribe = 1
 
@@ -17,6 +19,8 @@ func (api *DerivAPI) SubscribeTicksHistory(r schema.TicksHistory) (rsp schema.Ti
 }
 
 // SubscribeTicksHistory Get historic candles data for a given symbol.
+//
+//nolint:gocritic // don't want to break backward compatibility for now
 func (api *DerivAPI) SubscribeCandlesHistory(r schema.TicksHistory) (rsp schema.TicksHistoryResp, s *Subsciption[schema.TicksHistoryResp, schema.TicksHistoryResp], err error) {
 	var f schema.TicksHistorySubscribe = 1
 

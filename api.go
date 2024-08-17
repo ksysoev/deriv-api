@@ -23,7 +23,7 @@ const (
 )
 
 // DerivAPI is the main struct for the DerivAPI client.
-type DerivAPI struct {
+type DerivAPI struct { //nolint:revive // don't want to change the name for now
 	reqChan               chan APIReqest
 	Endpoint              *url.URL
 	keepAliveOnDisconnect chan bool
