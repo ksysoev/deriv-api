@@ -217,7 +217,7 @@ func TestSend(t *testing.T) {
 
 	msg := <-respChan
 	testMsg := "{\"req_id\":1}"
-	if msg != testMsg {
+	if string(msg) != testMsg {
 		t.Errorf("Expected message to be %s, but got %s", testMsg, msg)
 	}
 }

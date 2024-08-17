@@ -10,7 +10,7 @@ import (
 const ApiToken = "YOUR_API_TOKEN_HERE" // Replace with your API token
 
 func main() {
-	api, err := deriv.NewDerivAPI("wss://ws.binaryws.com/websockets/v3", 1089, "en", "https://localhost/")
+	api, err := deriv.NewDerivAPI("wss://ws.derivws.com/websockets/v3", 1089, "en", "https://localhost/")
 
 	if err != nil {
 		log.Fatal(err)

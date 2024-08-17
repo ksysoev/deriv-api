@@ -29,7 +29,7 @@ type APIErrorResponse struct {
 // If the response is not a valid JSON-encoded APIErrorResponse, an error is returned.
 // If the APIErrorResponse contains a non-empty APIError, it is returned as an error.
 // Otherwise, nil is returned.
-func parseError(rawResponse string) error {
+func parseError(rawResponse []byte) error {
 	var errorResponse APIErrorResponse
 
 	err := json.Unmarshal([]byte(rawResponse), &errorResponse)

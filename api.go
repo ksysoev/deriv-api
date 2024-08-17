@@ -1,6 +1,7 @@
 package deriv
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -10,8 +11,8 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/coder/websocket"
 	"github.com/ksysoev/deriv-api/schema"
-	"golang.org/x/net/websocket"
 )
 
 // DerivAPI is the main struct for the DerivAPI client.
@@ -36,7 +37,7 @@ type DerivAPI struct {
 type ApiReqest struct {
 	id       int
 	msg      []byte
-	respChan chan string
+	respChan chan []byte
 }
 
 // ApiObjectRequest is an interface for all API requests that return an object.
@@ -152,17 +153,18 @@ func (api *DerivAPI) Connect() error {
 
 	api.logDebugf("Connecting to %s", api.Endpoint.String())
 
-	ws, err := websocket.Dial(api.Endpoint.String(), "", api.Origin.String())
+	ws, _, err := websocket.Dial(context.TODO(), api.Endpoint.String(), nil)
 	if err != nil {
 		api.logDebugf("Failed to establish WS connection: %s", err.Error())
 		return err
 	}
+
 	api.logDebugf("Connected to %s", api.Endpoint.String())
 
 	api.ws = ws
 
 	api.reqChan = make(chan ApiReqest)
-	respChan := make(chan string)
+	respChan := make(chan []byte)
 	outputChan := make(chan []byte)
 
 	go api.handleResponses(ws, respChan)
@@ -212,7 +214,7 @@ func (api *DerivAPI) Disconnect() {
 		close(api.keepAliveOnDisconnect)
 	}
 
-	api.ws.Close()
+	api.ws.Close(websocket.StatusNormalClosure, "disconnecting")
 	api.ws = nil
 }
 
@@ -222,7 +224,8 @@ func (api *DerivAPI) Disconnect() {
 func (api *DerivAPI) requestSender(wsConn *websocket.Conn, reqChan chan []byte) {
 	for req := range reqChan {
 		api.logDebugf("Sending request: %s", req)
-		err := websocket.Message.Send(wsConn, req)
+
+		err := wsConn.Write(context.TODO(), websocket.MessageText, req)
 
 		if err != nil {
 			api.logDebugf("Failed to send request: %s", err.Error())
@@ -236,17 +239,27 @@ func (api *DerivAPI) requestSender(wsConn *websocket.Conn, reqChan chan []byte) 
 // It reads responses using the websocket.Message.Receive method and sends them to the respChan channel.
 // If an error occurs while receiving a response, it calls the Disconnect method to gracefully disconnect from the WebSocket server.
 // The function returns when the WebSocket connection is closed or when an error occurs.
-func (api *DerivAPI) handleResponses(wsConn *websocket.Conn, respChan chan string) {
+func (api *DerivAPI) handleResponses(wsConn *websocket.Conn, respChan chan []byte) {
 	defer close(respChan)
 
 	for {
-		var msg string
-		err := websocket.Message.Receive(wsConn, &msg)
+
+		msgType, reader, err := wsConn.Reader(context.TODO())
+
 		if err != nil {
 			api.logDebugf("Failed to receive response: %s", err.Error())
 			api.Disconnect()
 			return
 		}
+
+		if msgType != websocket.MessageText {
+			api.logDebugf("Unexpected message type: %d", msgType)
+			api.Disconnect()
+			continue
+		}
+
+		var msg []byte
+		_, err = reader.Read(msg)
 
 		api.logDebugf("Received response: %s", msg)
 		respChan <- msg
@@ -255,8 +268,8 @@ func (api *DerivAPI) handleResponses(wsConn *websocket.Conn, respChan chan strin
 
 // requestMapper forward requests to the Deriv API server and
 // responses from the WebSocket server to the appropriate channels.
-func (api *DerivAPI) requestMapper(respChan chan string, outputChan chan []byte, reqChan chan ApiReqest, closingChan chan int) {
-	responseMap := make(map[int]chan string)
+func (api *DerivAPI) requestMapper(respChan chan []byte, outputChan chan []byte, reqChan chan ApiReqest, closingChan chan int) {
+	responseMap := make(map[int]chan []byte)
 
 	defer func() {
 		for reqID, channel := range responseMap {
@@ -269,7 +282,7 @@ func (api *DerivAPI) requestMapper(respChan chan string, outputChan chan []byte,
 		select {
 		case rawResp := <-respChan:
 			var response APIResponseReqID
-			err := json.Unmarshal([]byte(rawResp), &response)
+			err := json.Unmarshal(rawResp, &response)
 			if err != nil {
 				continue
 			}
@@ -297,7 +310,7 @@ func (api *DerivAPI) requestMapper(respChan chan string, outputChan chan []byte,
 }
 
 // Send sends a request to the Deriv API and returns a channel that will receive the response
-func (api *DerivAPI) Send(reqID int, request any) (chan string, error) {
+func (api *DerivAPI) Send(reqID int, request any) (chan []byte, error) {
 	err := api.Connect()
 
 	if err != nil {
@@ -309,7 +322,7 @@ func (api *DerivAPI) Send(reqID int, request any) (chan string, error) {
 		return nil, err
 	}
 
-	respChan := make(chan string)
+	respChan := make(chan []byte)
 
 	ApiReqest := ApiReqest{
 		id:       reqID,
