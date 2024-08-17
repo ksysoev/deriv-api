@@ -3,25 +3,27 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"strings"
+
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 const (
 	// API_CALLS is the file name for the api calls
-	API_CALLS = "./calls.go"
+	APICalls = "./calls.go"
 
 	// SUBSCRIPTION_CALLS is the file name for the subscription calls
-	SUBSCRIPTION_CALLS = "./subscription_calls.go"
+	SubscriptionCalls = "./subscription_calls.go"
 
 	// SCHEMA_PATH is the path to the schema files
-	SCHEMA_PATH = "./deriv-api-docs/config/v3/"
+	SchemaPath = "./deriv-api-docs/config/v3/"
 )
 
 func main() {
-	files, err := ioutil.ReadDir(SCHEMA_PATH)
+	files, err := os.ReadDir(SchemaPath)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -32,6 +34,7 @@ func main() {
 	for _, file := range files {
 		name := file.Name()
 		request, err := os.ReadFile("deriv-api-docs/config/v3/" + name + "/send.json")
+
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -47,15 +50,15 @@ func main() {
 
 		description, _ := requestSchema["description"].(string)
 
-		apiCalls += CreateApiCallFunction(title, description)
+		apiCalls += CreateAPICallFunction(title, description)
 
 		if HasSubscribe(requestSchema) {
 			subcriptionCalls += CreateSubscriptionCallFunction(title, description)
 		}
 	}
 
-	os.WriteFile(API_CALLS, []byte(apiCalls), 0644)
-	os.WriteFile(SUBSCRIPTION_CALLS, []byte(subcriptionCalls), 0644)
+	os.WriteFile(APICalls, []byte(apiCalls), 0644)
+	os.WriteFile(SubscriptionCalls, []byte(subcriptionCalls), 0644)
 }
 
 func HasSubscribe(r map[string]any) bool {
@@ -68,6 +71,7 @@ func HasSubscribe(r map[string]any) bool {
 	if !ok {
 		return false
 	}
+
 	_, ok = properties["subscribe"]
 
 	return ok
@@ -75,30 +79,32 @@ func HasSubscribe(r map[string]any) bool {
 
 func CreateTitle(name string) string {
 	var title string
+
 	for _, s := range strings.Split(name, "_") {
 		if s == "p2p" {
 			s = "P2P"
 		}
-		title = title + strings.Title(s)
+
+		title += cases.Title(language.Tag{}).String(s)
 	}
 
 	return title
 }
 
-func CreateApiCallFunction(title string, description string) string {
+func CreateAPICallFunction(title, description string) string {
 	signature := fmt.Sprintf("// %s %s\nfunc (api *DerivAPI) %s(r schema.%s) (resp schema.%sResp, err error)", title, description, title, title, title)
 
-	body := fmt.Sprintf(
-		`id := api.getNextRequestID()
+	body := `id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(id, r, &resp)
-	return`)
+	return`
 
 	return fmt.Sprintf("%s {\n\t%s\n}\n\n", signature, body)
 }
 
-func CreateSubscriptionCallFunction(title string, description string) string {
+func CreateSubscriptionCallFunction(title, description string) string {
 	initResp := title + "Resp"
+
 	var Resp string
 
 	switch title {
