@@ -154,7 +154,11 @@ func (api *DerivAPI) Connect() error {
 
 	api.logDebugf("Connecting to %s", api.Endpoint.String())
 
-	ws, resp, err := websocket.Dial(context.TODO(), api.Endpoint.String(), nil)
+	ws, resp, err := websocket.Dial(context.TODO(), api.Endpoint.String(), &websocket.DialOptions{
+		HTTPHeader: map[string][]string{
+			"Origin": {api.Origin.String()},
+		},
+	})
 	if err != nil {
 		api.logDebugf("Failed to establish WS connection: %s", err.Error())
 		return err
