@@ -16,6 +16,12 @@ import (
 	"github.com/ksysoev/deriv-api/schema"
 )
 
+const (
+	// DefaultKeepAliveInterval is the default interval for sending ping requests to keep the connection alive.
+	keepAliveInterval = 25 * time.Second
+	defaultTimeout    = 30 * time.Second
+)
+
 // DerivAPI is the main struct for the DerivAPI client.
 type DerivAPI struct {
 	reqChan               chan ApiReqest
@@ -106,10 +112,10 @@ func NewDerivAPI(endpoint string, appID int, lang string, origin string, opts ..
 		AppID:             appID,
 		Lang:              lang,
 		lastRequestID:     0,
-		TimeOut:           30 * time.Second,
+		TimeOut:           defaultTimeout,
 		connectionLock:    sync.Mutex{},
 		closingChan:       make(chan int),
-		keepAliveInterval: 25 * time.Second,
+		keepAliveInterval: keepAliveInterval,
 	}
 
 	for _, opt := range opts {
