@@ -4,4 +4,7 @@ go 1.20
 
 require golang.org/x/net v0.24.0
 
-require github.com/coder/websocket v1.8.12 // indirect
+require (
+	github.com/coder/websocket v1.8.12 // indirect
+	nhooyr.io/websocket v1.8.17 // indirect
+)

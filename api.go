@@ -1,6 +1,7 @@
 package deriv
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -153,10 +154,14 @@ func (api *DerivAPI) Connect() error {
 
 	api.logDebugf("Connecting to %s", api.Endpoint.String())
 
-	ws, _, err := websocket.Dial(context.TODO(), api.Endpoint.String(), nil)
+	ws, resp, err := websocket.Dial(context.TODO(), api.Endpoint.String(), nil)
 	if err != nil {
 		api.logDebugf("Failed to establish WS connection: %s", err.Error())
 		return err
+	}
+
+	if resp.Body != nil {
+		defer resp.Body.Close()
 	}
 
 	api.logDebugf("Connected to %s", api.Endpoint.String())
@@ -240,29 +245,34 @@ func (api *DerivAPI) requestSender(wsConn *websocket.Conn, reqChan chan []byte) 
 // If an error occurs while receiving a response, it calls the Disconnect method to gracefully disconnect from the WebSocket server.
 // The function returns when the WebSocket connection is closed or when an error occurs.
 func (api *DerivAPI) handleResponses(wsConn *websocket.Conn, respChan chan []byte) {
-	defer close(respChan)
+	defer func() {
+		close(respChan)
+
+		api.Disconnect()
+	}()
 
 	for {
-
 		msgType, reader, err := wsConn.Reader(context.TODO())
-
 		if err != nil {
 			api.logDebugf("Failed to receive response: %s", err.Error())
-			api.Disconnect()
 			return
 		}
 
 		if msgType != websocket.MessageText {
 			api.logDebugf("Unexpected message type: %d", msgType)
-			api.Disconnect()
 			continue
 		}
 
-		var msg []byte
-		_, err = reader.Read(msg)
+		buffer := bytes.NewBuffer(make([]byte, 0))
+		_, err = buffer.ReadFrom(reader)
 
-		api.logDebugf("Received response: %s", msg)
-		respChan <- msg
+		if err != nil {
+			api.logDebugf("Failed to read response: %s", err.Error())
+			return
+		}
+
+		api.logDebugf("Received response: %s", buffer.String())
+		respChan <- buffer.Bytes()
 	}
 }
 
