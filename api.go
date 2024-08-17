@@ -24,20 +24,21 @@ const (
 
 // DerivAPI is the main struct for the DerivAPI client.
 type DerivAPI struct { //nolint:revive // don't want to change the name for now
-	reqChan               chan APIReqest
-	Endpoint              *url.URL
-	keepAliveOnDisconnect chan bool
-	Origin                *url.URL
-	ws                    *websocket.Conn
-	closingChan           chan int
-	Lang                  string
-	TimeOut               time.Duration
-	lastRequestID         int64
-	AppID                 int
-	keepAliveInterval     time.Duration
-	connectionLock        sync.Mutex
-	keepAlive             bool
-	debugEnabled          bool
+	reqChan           chan APIReqest
+	Endpoint          *url.URL
+	Origin            *url.URL
+	ws                *websocket.Conn
+	closingChan       chan int
+	Lang              string
+	TimeOut           time.Duration
+	lastRequestID     int64
+	AppID             int
+	keepAliveInterval time.Duration
+	connectionLock    sync.Mutex
+	keepAlive         bool
+	debugEnabled      bool
+	ctx               context.Context
+	cancel            context.CancelFunc
 }
 
 // APIReqest is an interface for all API requests.
@@ -116,11 +117,14 @@ func NewDerivAPI(endpoint string, appID int, lang, origin string, opts ...APIOpt
 		connectionLock:    sync.Mutex{},
 		closingChan:       make(chan int),
 		keepAliveInterval: keepAliveInterval,
+		ctx:               context.Background(),
 	}
 
 	for _, opt := range opts {
 		opt(&api)
 	}
+
+	api.ctx, api.cancel = context.WithCancel(api.ctx)
 
 	return &api, nil
 }
@@ -182,9 +186,8 @@ func (api *DerivAPI) Connect() error {
 	go api.requestMapper(respChan, outputChan, api.reqChan, api.closingChan)
 
 	if api.keepAlive {
-		api.keepAliveOnDisconnect = make(chan bool, 1)
 
-		go func(interval time.Duration, onDisconnect chan bool) {
+		go func(interval time.Duration) {
 			for {
 				select {
 				case <-time.After(interval):
@@ -192,11 +195,11 @@ func (api *DerivAPI) Connect() error {
 					if err != nil {
 						return
 					}
-				case <-onDisconnect:
+				case <-api.ctx.Done():
 					return
 				}
 			}
-		}(api.keepAliveInterval, api.keepAliveOnDisconnect)
+		}(api.keepAliveInterval)
 	}
 
 	return nil
@@ -216,12 +219,9 @@ func (api *DerivAPI) Disconnect() {
 
 	api.logDebugf("Disconnecting from %s", api.Endpoint.String())
 
-	close(api.reqChan)
+	api.cancel()
 
-	if api.keepAlive {
-		api.keepAliveOnDisconnect <- true
-		close(api.keepAliveOnDisconnect)
-	}
+	close(api.reqChan)
 
 	api.ws.Close(websocket.StatusNormalClosure, "disconnecting")
 	api.ws = nil
@@ -254,8 +254,8 @@ func (api *DerivAPI) handleResponses(wsConn *websocket.Conn, respChan chan []byt
 		api.Disconnect()
 	}()
 
-	for {
-		msgType, reader, err := wsConn.Reader(context.TODO())
+	for api.ctx.Err() == nil {
+		msgType, reader, err := wsConn.Reader(api.ctx)
 		if err != nil {
 			api.logDebugf("Failed to receive response: %s", err.Error())
 			return
