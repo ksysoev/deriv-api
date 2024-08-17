@@ -51,7 +51,7 @@ type APIResponseReqID struct {
 	ReqID int `json:"req_id"`
 }
 
-type DerivApiOption func(api *DerivAPI)
+type APIOption func(api *DerivAPI)
 
 // NewDerivAPI creates a new instance of DerivAPI by parsing and validating the given
 // endpoint URL, appID, language, and origin URL. It returns a pointer to a DerivAPI object
@@ -62,9 +62,9 @@ type DerivApiOption func(api *DerivAPI)
 // - appID: int - The app ID for the DerivAPI server
 // - lang: string - The language code (ISO 639-1) for the DerivAPI server
 // - origin: string - The origin URL for the DerivAPI server
-// - opts: DerivApiOption - A variadic list of DerivApiOption functions to configure the DerivAPI object (optional)
-//   - KeepAlive: A DerivApiOption function to keep the connection alive by sending ping requests.
-//   - Debug: A DerivApiOption function to enable debug messages.
+// - opts: APIOption - A variadic list of APIOption functions to configure the DerivAPI object (optional)
+//   - KeepAlive: A APIOption function to keep the connection alive by sending ping requests.
+//   - Debug: A APIOption function to enable debug messages.
 //
 // Returns:
 //   - *DerivAPI: A pointer to a new instance of DerivAPI with the validated endpoint, appID,
@@ -77,7 +77,7 @@ type DerivApiOption func(api *DerivAPI)
 //	if err != nil {
 //		log.Fatal(err)
 //	}
-func NewDerivAPI(endpoint string, appID int, lang string, origin string, opts ...DerivApiOption) (*DerivAPI, error) {
+func NewDerivAPI(endpoint string, appID int, lang, origin string, opts ...APIOption) (*DerivAPI, error) {
 	urlEnpoint, err := url.Parse(endpoint)
 	if err != nil {
 		return nil, err
@@ -281,7 +281,7 @@ func (api *DerivAPI) handleResponses(wsConn *websocket.Conn, respChan chan []byt
 
 // requestMapper forward requests to the Deriv API server and
 // responses from the WebSocket server to the appropriate channels.
-func (api *DerivAPI) requestMapper(respChan chan []byte, outputChan chan []byte, reqChan chan APIReqest, closingChan chan int) {
+func (api *DerivAPI) requestMapper(respChan, outputChan chan []byte, reqChan chan APIReqest, closingChan chan int) {
 	responseMap := make(map[int]chan []byte)
 
 	defer func() {
@@ -346,7 +346,7 @@ func (api *DerivAPI) Send(reqID int, request any) (chan []byte, error) {
 }
 
 // SendRequest sends a request to the Deriv API and returns the response
-func (api *DerivAPI) SendRequest(reqID int, request any, response any) (err error) {
+func (api *DerivAPI) SendRequest(reqID int, request, response any) error {
 	respChan, err := api.Send(reqID, request)
 
 	if err != nil {
@@ -365,12 +365,11 @@ func (api *DerivAPI) SendRequest(reqID int, request any, response any) (err erro
 			return fmt.Errorf("connection closed")
 		}
 
-		if err = parseError(responseJSON); err != nil {
+		if err := parseError(responseJSON); err != nil {
 			return err
 		}
 
-		err = json.Unmarshal(responseJSON, response)
-		if err != nil {
+		if err := json.Unmarshal(responseJSON, response); err != nil {
 			api.logDebugf("Failed to parse response for request %d: %s", reqID, err.Error())
 			return err
 		}

@@ -101,8 +101,13 @@ func TestStart(t *testing.T) {
 	  }`
 	server := newMockWSServer(
 		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
-			ws.Write(context.Background(), websocket.MessageText, []byte(testResp))
-			ws.Write(context.Background(), websocket.MessageText, []byte(testResp))
+			if err := ws.Write(context.Background(), websocket.MessageText, []byte(testResp)); err != nil {
+				t.Errorf("Unexpected error: %v", err)
+			}
+
+			if err := ws.Write(context.Background(), websocket.MessageText, []byte(testResp)); err != nil {
+				t.Errorf("Unexpected error: %v", err)
+			}
 			time.Sleep(time.Second) // to keep the connection open
 		}))
 
@@ -150,7 +155,9 @@ func TestStart(t *testing.T) {
 		t.Errorf("Expected to get a response, but got nothing")
 	}
 
-	sub.Start(reqID, req)
+	if _, err := sub.Start(reqID, req); err != nil {
+		t.Errorf("Unexpected error: %v", err)
+	}
 
 	if sub.IsActive() == false {
 		t.Errorf("Expected subscription to be active, but got inactive")
@@ -160,7 +167,9 @@ func TestStart(t *testing.T) {
 func TestStartFailed(t *testing.T) {
 	server := newMockWSServer(
 		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
-			ws.Write(context.Background(), websocket.MessageText, []byte(""))
+			if err := ws.Write(context.Background(), websocket.MessageText, []byte("")); err != nil {
+				t.Errorf("Unexpected error: %v", err)
+			}
 			time.Sleep(time.Second) // to keep the connection open
 		}))
 
@@ -210,7 +219,9 @@ func TestForget(t *testing.T) {
 	server := newMockWSServer(
 		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
 			for resp := range responses {
-				ws.Write(context.Background(), websocket.MessageText, []byte(resp))
+				if err := ws.Write(context.Background(), websocket.MessageText, []byte(resp)); err != nil {
+					t.Errorf("Unexpected error: %v", err)
+				}
 			}
 
 			time.Sleep(time.Second) // to keep the connection open
@@ -261,13 +272,18 @@ func TestForget(t *testing.T) {
 			"msg_type": "forget"
 		  }`
 	}()
-	sub.Forget()
+
+	if err := sub.Forget(); err != nil {
+		t.Errorf("Unexpected error: %v", err)
+	}
 
 	if sub.IsActive() == true {
 		t.Errorf("Expected subscription to be deactivated, but got true")
 	}
 
-	sub.Forget()
+	if err := sub.Forget(); err != nil {
+		t.Errorf("Unexpected error: %v", err)
+	}
 
 	if sub.IsActive() == true {
 		t.Errorf("Expected subscription to be deactivated, but got true")
@@ -301,7 +317,9 @@ func TestForgetFailed(t *testing.T) {
 	server := newMockWSServer(
 		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
 			for resp := range responses {
-				ws.Write(context.Background(), websocket.MessageText, []byte(resp))
+				if err := ws.Write(context.Background(), websocket.MessageText, []byte(resp)); err != nil {
+					t.Errorf("Unexpected error: %v", err)
+				}
 			}
 
 			time.Sleep(time.Second) // to keep the connection open
@@ -381,7 +399,10 @@ func TestStartAPIError(t *testing.T) {
 
 	server := newMockWSServer(
 		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
-			ws.Write(context.Background(), websocket.MessageText, []byte(testResp))
+			if err := ws.Write(context.Background(), websocket.MessageText, []byte(testResp)); err != nil {
+				t.Errorf("Unexpected error: %v", err)
+			}
+
 			time.Sleep(time.Second) // to keep the connection open
 		}))
 
@@ -422,7 +443,10 @@ func TestStartInvalidResponse(t *testing.T) {
 	  }`
 	server := newMockWSServer(
 		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
-			ws.Write(context.Background(), websocket.MessageText, []byte(testResp))
+			if err := ws.Write(context.Background(), websocket.MessageText, []byte(testResp)); err != nil {
+				t.Errorf("Unexpected error: %v", err)
+			}
+
 			time.Sleep(time.Second) // to keep the connection open
 		}))
 
@@ -478,7 +502,9 @@ func TestStartInvalidResponseInSubscription(t *testing.T) {
 	server := newMockWSServer(
 		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
 			for _, resp := range responses {
-				ws.Write(context.Background(), websocket.MessageText, []byte(resp))
+				if err := ws.Write(context.Background(), websocket.MessageText, []byte(resp)); err != nil {
+					t.Errorf("Unexpected error: %v", err)
+				}
 			}
 
 			time.Sleep(time.Second) // to keep the connection open
@@ -562,7 +588,9 @@ func TestStartAPIErrorInSubscription(t *testing.T) {
 	server := newMockWSServer(
 		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
 			for _, resp := range responses {
-				ws.Write(context.Background(), websocket.MessageText, []byte(resp))
+				if err := ws.Write(context.Background(), websocket.MessageText, []byte(resp)); err != nil {
+					t.Errorf("Unexpected error: %v", err)
+				}
 			}
 
 			time.Sleep(time.Second) // to keep the connection open

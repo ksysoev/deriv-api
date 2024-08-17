@@ -20,6 +20,8 @@ const (
 
 	// SCHEMA_PATH is the path to the schema files
 	SchemaPath = "./deriv-api-docs/config/v3/"
+
+	fileMode = 0o600
 )
 
 func main() {
@@ -57,8 +59,13 @@ func main() {
 		}
 	}
 
-	os.WriteFile(APICalls, []byte(apiCalls), 0644)
-	os.WriteFile(SubscriptionCalls, []byte(subcriptionCalls), 0644)
+	if err := os.WriteFile(APICalls, []byte(apiCalls), fileMode); err != nil {
+		log.Fatal(err)
+	}
+
+	if err := os.WriteFile(SubscriptionCalls, []byte(subcriptionCalls), fileMode); err != nil {
+		log.Fatal(err)
+	}
 }
 
 func HasSubscribe(r map[string]any) bool {
@@ -82,7 +89,8 @@ func CreateTitle(name string) string {
 
 	for _, s := range strings.Split(name, "_") {
 		if s == "p2p" {
-			s = "P2P"
+			title += "P2P"
+			continue
 		}
 
 		title += cases.Title(language.Tag{}).String(s)

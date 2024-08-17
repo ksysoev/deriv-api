@@ -430,7 +430,11 @@ func TestKeepConnectionAlive(t *testing.T) {
 
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com", KeepAlive)
 	api.keepAliveInterval = time.Millisecond
-	api.Connect()
+
+	if err := api.Connect(); err != nil {
+		t.Errorf("Failed to connect to mocked WebSocket server: %v", err)
+	}
+
 	select {
 	case msg := <-resChan:
 		if msg == "" {
@@ -442,7 +446,10 @@ func TestKeepConnectionAlive(t *testing.T) {
 
 	api.Disconnect()
 	api.keepAlive = false
-	api.Connect()
+
+	if err := api.Connect(); err != nil {
+		t.Errorf("Failed to connect to mocked WebSocket server: %v", err)
+	}
 
 	select {
 	case msg, ok := <-resChan:

@@ -57,11 +57,10 @@ func TestParseError_InvalidResponse(t *testing.T) {
 func TestParseError_EmptyErrorResponse(t *testing.T) {
 	rawResponse := []byte("{}")
 
-	expected := (error)(nil)
 	actual := parseError(rawResponse)
 
-	if actual != expected {
-		t.Errorf("parseError() returned %v, expected %v", actual, expected)
+	if actual != nil {
+		t.Errorf("parseError() returned %v, expected %v", actual, nil)
 	}
 }
 
@@ -75,10 +74,9 @@ func TestParseError_EmptyAPIError(t *testing.T) {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
-	expected := (error)(nil)
 	actual := parseError(rawResponse)
 
-	if actual != expected {
-		t.Errorf("parseError() returned %v, expected %v", actual, expected)
+	if actual != nil {
+		t.Errorf("parseError() returned %v, expected %v", actual, nil)
 	}
 }

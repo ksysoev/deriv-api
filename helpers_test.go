@@ -18,7 +18,7 @@ func newMockWSServer(cb func(ws *websocket.Conn)) *httptest.Server {
 		if err != nil {
 			return
 		}
-		defer c.CloseNow()
+		defer func() { _ = c.CloseNow() }()
 
 		cb(c)
 
@@ -29,8 +29,6 @@ func newMockWSServer(cb func(ws *websocket.Conn)) *httptest.Server {
 }
 
 func echoHandler(ws *websocket.Conn) {
-	defer ws.CloseNow()
-
 	for {
 		msgType, reader, err := ws.Reader(context.TODO())
 		if err != nil {
