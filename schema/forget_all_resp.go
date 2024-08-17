@@ -6,28 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// The result of forget all request made.
-type ForgetAllResp struct {
-	// Echo of the request made.
-	EchoReq ForgetAllRespEchoReq `json:"echo_req"`
-
-	// IDs of the cancelled streams
-	ForgetAll []interface{} `json:"forget_all,omitempty"`
-
-	// Action name of the request made.
-	MsgType ForgetAllRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Echo of the request made.
 type ForgetAllRespEchoReq map[string]interface{}
 
 type ForgetAllRespMsgType string
-
-const ForgetAllRespMsgTypeForgetAll ForgetAllRespMsgType = "forget_all"
 
 var enumValues_ForgetAllRespMsgType = []interface{}{
 	"forget_all",
@@ -53,16 +35,34 @@ func (j *ForgetAllRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// The result of forget all request made.
+type ForgetAllResp struct {
+	// Echo of the request made.
+	EchoReq ForgetAllRespEchoReq `json:"echo_req"`
+
+	// IDs of the cancelled streams
+	ForgetAll []interface{} `json:"forget_all,omitempty"`
+
+	// Action name of the request made.
+	MsgType ForgetAllRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const ForgetAllRespMsgTypeForgetAll ForgetAllRespMsgType = "forget_all"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ForgetAllResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in ForgetAllResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in ForgetAllResp: required")
 	}
 	type Plain ForgetAllResp

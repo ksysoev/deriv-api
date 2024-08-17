@@ -6,34 +6,46 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// All config related settings.
-type WebsiteConfigResp struct {
-	// Echo of the request made.
-	EchoReq WebsiteConfigRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType WebsiteConfigRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// For subscription requests only.
-	Subscription *WebsiteConfigRespSubscription `json:"subscription,omitempty"`
-
-	// Server status and other information regarding general settings
-	WebsiteConfig *WebsiteConfigRespWebsiteConfig `json:"website_config,omitempty"`
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *WebsiteConfigRespSubscription) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if v, ok := raw["id"]; !ok || v == nil {
+		return fmt.Errorf("field id in WebsiteConfigRespSubscription: required")
+	}
+	type Plain WebsiteConfigRespSubscription
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = WebsiteConfigRespSubscription(plain)
+	return nil
 }
 
-// Echo of the request made.
-type WebsiteConfigRespEchoReq map[string]interface{}
+// Initial deposit requirement per country.
+type WebsiteConfigRespWebsiteConfigPaymentAgentsInitialDepositPerCountry map[string]interface{}
 
-type WebsiteConfigRespMsgType string
-
-const WebsiteConfigRespMsgTypeWebsiteConfig WebsiteConfigRespMsgType = "website_config"
-
-var enumValues_WebsiteConfigRespMsgType = []interface{}{
-	"website_config",
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *WebsiteConfigResp) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if v, ok := raw["echo_req"]; !ok || v == nil {
+		return fmt.Errorf("field echo_req in WebsiteConfigResp: required")
+	}
+	if v, ok := raw["msg_type"]; !ok || v == nil {
+		return fmt.Errorf("field msg_type in WebsiteConfigResp: required")
+	}
+	type Plain WebsiteConfigResp
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = WebsiteConfigResp(plain)
+	return nil
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -56,6 +68,8 @@ func (j *WebsiteConfigRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+const WebsiteConfigRespMsgTypeWebsiteConfig WebsiteConfigRespMsgType = "website_config"
+
 // For subscription requests only.
 type WebsiteConfigRespSubscription struct {
 	// A per-connection unique identifier. Can be passed to the `forget` API call to
@@ -63,21 +77,35 @@ type WebsiteConfigRespSubscription struct {
 	Id string `json:"id"`
 }
 
+type WebsiteConfigRespMsgType string
+
+// Available currencies and their information
+type WebsiteConfigRespWebsiteConfigCurrenciesConfig map[string]interface{}
+
+// Echo of the request made.
+type WebsiteConfigRespEchoReq map[string]interface{}
+
+// Payments Agents system settings.
+type WebsiteConfigRespWebsiteConfigPaymentAgents struct {
+	// Initial deposit requirement per country.
+	InitialDepositPerCountry WebsiteConfigRespWebsiteConfigPaymentAgentsInitialDepositPerCountry `json:"initial_deposit_per_country"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *WebsiteConfigRespSubscription) UnmarshalJSON(b []byte) error {
+func (j *WebsiteConfigRespWebsiteConfigPaymentAgents) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["id"]; raw != nil && !ok {
-		return fmt.Errorf("field id in WebsiteConfigRespSubscription: required")
+	if v, ok := raw["initial_deposit_per_country"]; !ok || v == nil {
+		return fmt.Errorf("field initial_deposit_per_country in WebsiteConfigRespWebsiteConfigPaymentAgents: required")
 	}
-	type Plain WebsiteConfigRespSubscription
+	type Plain WebsiteConfigRespWebsiteConfigPaymentAgents
 	var plain Plain
 	if err := json.Unmarshal(b, &plain); err != nil {
 		return err
 	}
-	*j = WebsiteConfigRespSubscription(plain)
+	*j = WebsiteConfigRespWebsiteConfigPaymentAgents(plain)
 	return nil
 }
 
@@ -101,43 +129,13 @@ type WebsiteConfigRespWebsiteConfig struct {
 	TermsConditionsVersion *string `json:"terms_conditions_version,omitempty"`
 }
 
-// Available currencies and their information
-type WebsiteConfigRespWebsiteConfigCurrenciesConfig map[string]interface{}
-
-// Payments Agents system settings.
-type WebsiteConfigRespWebsiteConfigPaymentAgents struct {
-	// Initial deposit requirement per country.
-	InitialDepositPerCountry WebsiteConfigRespWebsiteConfigPaymentAgentsInitialDepositPerCountry `json:"initial_deposit_per_country"`
-}
-
-// Initial deposit requirement per country.
-type WebsiteConfigRespWebsiteConfigPaymentAgentsInitialDepositPerCountry map[string]interface{}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *WebsiteConfigRespWebsiteConfigPaymentAgents) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if _, ok := raw["initial_deposit_per_country"]; raw != nil && !ok {
-		return fmt.Errorf("field initial_deposit_per_country in WebsiteConfigRespWebsiteConfigPaymentAgents: required")
-	}
-	type Plain WebsiteConfigRespWebsiteConfigPaymentAgents
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = WebsiteConfigRespWebsiteConfigPaymentAgents(plain)
-	return nil
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *WebsiteConfigRespWebsiteConfig) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["currencies_config"]; raw != nil && !ok {
+	if v, ok := raw["currencies_config"]; !ok || v == nil {
 		return fmt.Errorf("field currencies_config in WebsiteConfigRespWebsiteConfig: required")
 	}
 	type Plain WebsiteConfigRespWebsiteConfig
@@ -149,23 +147,25 @@ func (j *WebsiteConfigRespWebsiteConfig) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *WebsiteConfigResp) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
-		return fmt.Errorf("field echo_req in WebsiteConfigResp: required")
-	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
-		return fmt.Errorf("field msg_type in WebsiteConfigResp: required")
-	}
-	type Plain WebsiteConfigResp
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = WebsiteConfigResp(plain)
-	return nil
+// All config related settings.
+type WebsiteConfigResp struct {
+	// Echo of the request made.
+	EchoReq WebsiteConfigRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType WebsiteConfigRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// For subscription requests only.
+	Subscription *WebsiteConfigRespSubscription `json:"subscription,omitempty"`
+
+	// Server status and other information regarding general settings
+	WebsiteConfig *WebsiteConfigRespWebsiteConfig `json:"website_config,omitempty"`
+}
+
+var enumValues_WebsiteConfigRespMsgType = []interface{}{
+	"website_config",
 }

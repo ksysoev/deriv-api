@@ -6,28 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// The result of payment agent withdrawal justification request made.
-type PaymentagentWithdrawJustificationResp struct {
-	// Echo of the request made.
-	EchoReq PaymentagentWithdrawJustificationRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType PaymentagentWithdrawJustificationRespMsgType `json:"msg_type"`
-
-	// 1 on success
-	PaymentagentWithdrawJustification *int `json:"paymentagent_withdraw_justification,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Echo of the request made.
 type PaymentagentWithdrawJustificationRespEchoReq map[string]interface{}
 
 type PaymentagentWithdrawJustificationRespMsgType string
-
-const PaymentagentWithdrawJustificationRespMsgTypePaymentagentWithdrawJustification PaymentagentWithdrawJustificationRespMsgType = "paymentagent_withdraw_justification"
 
 var enumValues_PaymentagentWithdrawJustificationRespMsgType = []interface{}{
 	"paymentagent_withdraw_justification",
@@ -53,16 +35,34 @@ func (j *PaymentagentWithdrawJustificationRespMsgType) UnmarshalJSON(b []byte) e
 	return nil
 }
 
+// The result of payment agent withdrawal justification request made.
+type PaymentagentWithdrawJustificationResp struct {
+	// Echo of the request made.
+	EchoReq PaymentagentWithdrawJustificationRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType PaymentagentWithdrawJustificationRespMsgType `json:"msg_type"`
+
+	// 1 on success
+	PaymentagentWithdrawJustification *int `json:"paymentagent_withdraw_justification,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const PaymentagentWithdrawJustificationRespMsgTypePaymentagentWithdrawJustification PaymentagentWithdrawJustificationRespMsgType = "paymentagent_withdraw_justification"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *PaymentagentWithdrawJustificationResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in PaymentagentWithdrawJustificationResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in PaymentagentWithdrawJustificationResp: required")
 	}
 	type Plain PaymentagentWithdrawJustificationResp

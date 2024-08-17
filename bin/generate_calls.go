@@ -86,12 +86,12 @@ func CreateTitle(name string) string {
 }
 
 func CreateApiCallFunction(title string, description string) string {
-	signature := fmt.Sprintf("// %s %s\nfunc (a *DerivAPI) %s(r schema.%s) (resp schema.%sResp, err error)", title, description, title, title, title)
+	signature := fmt.Sprintf("// %s %s\nfunc (api *DerivAPI) %s(r schema.%s) (resp schema.%sResp, err error)", title, description, title, title, title)
 
 	body := fmt.Sprintf(
-		`id := a.getNextRequestID()
+		`id := api.getNextRequestID()
 	r.ReqId = &id
-	err = a.SendRequest(id, r, &resp)
+	err = api.SendRequest(id, r, &resp)
 	return`)
 
 	return fmt.Sprintf("%s {\n\t%s\n}\n\n", signature, body)
@@ -116,14 +116,14 @@ func CreateSubscriptionCallFunction(title string, description string) string {
 		Resp = initResp
 	}
 
-	signature := fmt.Sprintf("// Subscribe%s %s\nfunc (a *DerivAPI) Subscribe%s(r schema.%s) (rsp schema.%s, s *Subsciption[schema.%s, schema.%s], err error)", title, description, title, title, initResp, initResp, Resp)
+	signature := fmt.Sprintf("// Subscribe%s %s\nfunc (api *DerivAPI) Subscribe%s(r schema.%s) (rsp schema.%s, s *Subsciption[schema.%s, schema.%s], err error)", title, description, title, title, initResp, initResp, Resp)
 
 	body := fmt.Sprintf(
-		`id := a.getNextRequestID()
+		`id := api.getNextRequestID()
 	var f schema.%sSubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
-	s = NewSubcription[schema.%s, schema.%s](a)
+	s = NewSubcription[schema.%s, schema.%s](api)
 	rsp, err = s.Start(id, r)
 	return`, title, initResp, Resp)
 

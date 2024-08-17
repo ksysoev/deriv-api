@@ -46,15 +46,7 @@ const TradingDurationsLandingCompanyShortMaltainvest TradingDurationsLandingComp
 const TradingDurationsLandingCompanyShortSvg TradingDurationsLandingCompanyShort = "svg"
 const TradingDurationsLandingCompanyShortVanuatu TradingDurationsLandingCompanyShort = "vanuatu"
 const TradingDurationsLandingCompanyShortVirtual TradingDurationsLandingCompanyShort = "virtual"
-
-var enumValues_TradingDurationsLandingCompanyShort = []interface{}{
-	"iom",
-	"malta",
-	"maltainvest",
-	"svg",
-	"virtual",
-	"vanuatu",
-}
+const TradingDurationsLandingCompanySvg TradingDurationsLandingCompany = "svg"
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TradingDurationsLandingCompanyShort) UnmarshalJSON(b []byte) error {
@@ -76,11 +68,10 @@ func (j *TradingDurationsLandingCompanyShort) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-const TradingDurationsLandingCompanySvg TradingDurationsLandingCompany = "svg"
 const TradingDurationsLandingCompanyVanuatu TradingDurationsLandingCompany = "vanuatu"
 const TradingDurationsLandingCompanyVirtual TradingDurationsLandingCompany = "virtual"
 
-var enumValues_TradingDurationsLandingCompany = []interface{}{
+var enumValues_TradingDurationsLandingCompanyShort = []interface{}{
 	"iom",
 	"malta",
 	"maltainvest",
@@ -139,13 +130,22 @@ func (j *TradingDurationsTradingDurations) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+var enumValues_TradingDurationsLandingCompany = []interface{}{
+	"iom",
+	"malta",
+	"maltainvest",
+	"svg",
+	"virtual",
+	"vanuatu",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TradingDurations) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["trading_durations"]; raw != nil && !ok {
+	if v, ok := raw["trading_durations"]; !ok || v == nil {
 		return fmt.Errorf("field trading_durations in TradingDurations: required")
 	}
 	type Plain TradingDurations

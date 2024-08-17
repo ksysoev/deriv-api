@@ -6,28 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// The result of virtual money top up
-type TopupVirtualResp struct {
-	// Echo of the request made.
-	EchoReq TopupVirtualRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType TopupVirtualRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// The information regarding a successful top up for a virtual money account
-	TopupVirtual *TopupVirtualRespTopupVirtual `json:"topup_virtual,omitempty"`
-}
-
 // Echo of the request made.
 type TopupVirtualRespEchoReq map[string]interface{}
 
 type TopupVirtualRespMsgType string
-
-const TopupVirtualRespMsgTypeTopupVirtual TopupVirtualRespMsgType = "topup_virtual"
 
 var enumValues_TopupVirtualRespMsgType = []interface{}{
 	"topup_virtual",
@@ -53,6 +35,24 @@ func (j *TopupVirtualRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// The result of virtual money top up
+type TopupVirtualResp struct {
+	// Echo of the request made.
+	EchoReq TopupVirtualRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType TopupVirtualRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// The information regarding a successful top up for a virtual money account
+	TopupVirtual *TopupVirtualRespTopupVirtual `json:"topup_virtual,omitempty"`
+}
+
+const TopupVirtualRespMsgTypeTopupVirtual TopupVirtualRespMsgType = "topup_virtual"
+
 // The information regarding a successful top up for a virtual money account
 type TopupVirtualRespTopupVirtual struct {
 	// Top up amount
@@ -68,10 +68,10 @@ func (j *TopupVirtualResp) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in TopupVirtualResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in TopupVirtualResp: required")
 	}
 	type Plain TopupVirtualResp

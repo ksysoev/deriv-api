@@ -6,37 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// The result of transfer request made.
-type PaymentagentTransferResp struct {
-	// The `transfer_to` client full name
-	ClientToFullName *string `json:"client_to_full_name,omitempty"`
-
-	// The `transfer_to` client loginid
-	ClientToLoginid *string `json:"client_to_loginid,omitempty"`
-
-	// Echo of the request made.
-	EchoReq PaymentagentTransferRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType PaymentagentTransferRespMsgType `json:"msg_type"`
-
-	// If set to `1`, transfer success. If set to `2`, dry-run success.
-	PaymentagentTransfer *PaymentagentTransferRespPaymentagentTransfer `json:"paymentagent_transfer,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// Reference ID of transfer performed
-	TransactionId *int `json:"transaction_id,omitempty"`
-}
-
 // Echo of the request made.
 type PaymentagentTransferRespEchoReq map[string]interface{}
 
 type PaymentagentTransferRespMsgType string
-
-const PaymentagentTransferRespMsgTypePaymentagentTransfer PaymentagentTransferRespMsgType = "paymentagent_transfer"
 
 var enumValues_PaymentagentTransferRespMsgType = []interface{}{
 	"paymentagent_transfer",
@@ -61,6 +34,8 @@ func (j *PaymentagentTransferRespMsgType) UnmarshalJSON(b []byte) error {
 	*j = PaymentagentTransferRespMsgType(v)
 	return nil
 }
+
+const PaymentagentTransferRespMsgTypePaymentagentTransfer PaymentagentTransferRespMsgType = "paymentagent_transfer"
 
 type PaymentagentTransferRespPaymentagentTransfer int
 
@@ -89,16 +64,41 @@ func (j *PaymentagentTransferRespPaymentagentTransfer) UnmarshalJSON(b []byte) e
 	return nil
 }
 
+// The result of transfer request made.
+type PaymentagentTransferResp struct {
+	// The `transfer_to` client full name
+	ClientToFullName *string `json:"client_to_full_name,omitempty"`
+
+	// The `transfer_to` client loginid
+	ClientToLoginid *string `json:"client_to_loginid,omitempty"`
+
+	// Echo of the request made.
+	EchoReq PaymentagentTransferRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType PaymentagentTransferRespMsgType `json:"msg_type"`
+
+	// If set to `1`, transfer success. If set to `2`, dry-run success.
+	PaymentagentTransfer *PaymentagentTransferRespPaymentagentTransfer `json:"paymentagent_transfer,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// Reference ID of transfer performed
+	TransactionId *int `json:"transaction_id,omitempty"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *PaymentagentTransferResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in PaymentagentTransferResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in PaymentagentTransferResp: required")
 	}
 	type Plain PaymentagentTransferResp

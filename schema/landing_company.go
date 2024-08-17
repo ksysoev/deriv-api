@@ -32,7 +32,7 @@ func (j *LandingCompany) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["landing_company"]; raw != nil && !ok {
+	if v, ok := raw["landing_company"]; !ok || v == nil {
 		return fmt.Errorf("field landing_company in LandingCompany: required")
 	}
 	type Plain LandingCompany

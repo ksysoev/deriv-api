@@ -6,23 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// A message with KYC Authentication Status.
-type KycAuthStatusResp struct {
-	// Echo of the request made.
-	EchoReq KycAuthStatusRespEchoReq `json:"echo_req"`
-
-	// Proof of Identity (POI) and Proof of Address (POA) authentication status
-	// details.
-	KycAuthStatus KycAuthStatusRespKycAuthStatus `json:"kyc_auth_status,omitempty"`
-
-	// Action name of the request made.
-	MsgType KycAuthStatusRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Echo of the request made.
 type KycAuthStatusRespEchoReq map[string]interface{}
 
@@ -31,8 +14,6 @@ type KycAuthStatusRespEchoReq map[string]interface{}
 type KycAuthStatusRespKycAuthStatus map[string]interface{}
 
 type KycAuthStatusRespMsgType string
-
-const KycAuthStatusRespMsgTypeKycAuthStatus KycAuthStatusRespMsgType = "kyc_auth_status"
 
 var enumValues_KycAuthStatusRespMsgType = []interface{}{
 	"kyc_auth_status",
@@ -58,16 +39,35 @@ func (j *KycAuthStatusRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// A message with KYC Authentication Status.
+type KycAuthStatusResp struct {
+	// Echo of the request made.
+	EchoReq KycAuthStatusRespEchoReq `json:"echo_req"`
+
+	// Proof of Identity (POI) and Proof of Address (POA) authentication status
+	// details.
+	KycAuthStatus KycAuthStatusRespKycAuthStatus `json:"kyc_auth_status,omitempty"`
+
+	// Action name of the request made.
+	MsgType KycAuthStatusRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const KycAuthStatusRespMsgTypeKycAuthStatus KycAuthStatusRespMsgType = "kyc_auth_status"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *KycAuthStatusResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in KycAuthStatusResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in KycAuthStatusResp: required")
 	}
 	type Plain KycAuthStatusResp

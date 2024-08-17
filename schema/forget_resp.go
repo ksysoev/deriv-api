@@ -6,22 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// The result of forget request made.
-type ForgetResp struct {
-	// Echo of the request made.
-	EchoReq ForgetRespEchoReq `json:"echo_req"`
-
-	// If set to 1, stream exited and stopped. If set to 0, stream did not exist.
-	Forget *ForgetRespForget `json:"forget,omitempty"`
-
-	// Action name of the request made.
-	MsgType ForgetRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Echo of the request made.
 type ForgetRespEchoReq map[string]interface{}
 
@@ -54,8 +38,6 @@ func (j *ForgetRespForget) UnmarshalJSON(b []byte) error {
 
 type ForgetRespMsgType string
 
-const ForgetRespMsgTypeForget ForgetRespMsgType = "forget"
-
 var enumValues_ForgetRespMsgType = []interface{}{
 	"forget",
 }
@@ -80,16 +62,34 @@ func (j *ForgetRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// The result of forget request made.
+type ForgetResp struct {
+	// Echo of the request made.
+	EchoReq ForgetRespEchoReq `json:"echo_req"`
+
+	// If set to 1, stream exited and stopped. If set to 0, stream did not exist.
+	Forget *ForgetRespForget `json:"forget,omitempty"`
+
+	// Action name of the request made.
+	MsgType ForgetRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const ForgetRespMsgTypeForget ForgetRespMsgType = "forget"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ForgetResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in ForgetResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in ForgetResp: required")
 	}
 	type Plain ForgetResp

@@ -6,23 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Adds document information such as issuing country, id and type for identity
-// verification processes.
-type IdentityVerificationDocumentAddResp struct {
-	// Echo of the request made.
-	EchoReq IdentityVerificationDocumentAddRespEchoReq `json:"echo_req"`
-
-	// 1 on success
-	IdentityVerificationDocumentAdd *IdentityVerificationDocumentAddRespIdentityVerificationDocumentAdd `json:"identity_verification_document_add,omitempty"`
-
-	// Action name of the request made.
-	MsgType IdentityVerificationDocumentAddRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Echo of the request made.
 type IdentityVerificationDocumentAddRespEchoReq map[string]interface{}
 
@@ -54,8 +37,6 @@ func (j *IdentityVerificationDocumentAddRespIdentityVerificationDocumentAdd) Unm
 
 type IdentityVerificationDocumentAddRespMsgType string
 
-const IdentityVerificationDocumentAddRespMsgTypeIdentityVerificationDocumentAdd IdentityVerificationDocumentAddRespMsgType = "identity_verification_document_add"
-
 var enumValues_IdentityVerificationDocumentAddRespMsgType = []interface{}{
 	"identity_verification_document_add",
 }
@@ -80,16 +61,35 @@ func (j *IdentityVerificationDocumentAddRespMsgType) UnmarshalJSON(b []byte) err
 	return nil
 }
 
+// Adds document information such as issuing country, id and type for identity
+// verification processes.
+type IdentityVerificationDocumentAddResp struct {
+	// Echo of the request made.
+	EchoReq IdentityVerificationDocumentAddRespEchoReq `json:"echo_req"`
+
+	// 1 on success
+	IdentityVerificationDocumentAdd *IdentityVerificationDocumentAddRespIdentityVerificationDocumentAdd `json:"identity_verification_document_add,omitempty"`
+
+	// Action name of the request made.
+	MsgType IdentityVerificationDocumentAddRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const IdentityVerificationDocumentAddRespMsgTypeIdentityVerificationDocumentAdd IdentityVerificationDocumentAddRespMsgType = "identity_verification_document_add"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *IdentityVerificationDocumentAddResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in IdentityVerificationDocumentAddResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in IdentityVerificationDocumentAddResp: required")
 	}
 	type Plain IdentityVerificationDocumentAddResp

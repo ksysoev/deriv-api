@@ -6,29 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// List of available payout currencies.
-type PayoutCurrenciesResp struct {
-	// Echo of the request made.
-	EchoReq PayoutCurrenciesRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType PayoutCurrenciesRespMsgType `json:"msg_type"`
-
-	// Available payout currencies. Note: if a user is logged in, only the currency
-	// available for the account will be returned.
-	PayoutCurrencies []string `json:"payout_currencies,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Echo of the request made.
 type PayoutCurrenciesRespEchoReq map[string]interface{}
 
 type PayoutCurrenciesRespMsgType string
-
-const PayoutCurrenciesRespMsgTypePayoutCurrencies PayoutCurrenciesRespMsgType = "payout_currencies"
 
 var enumValues_PayoutCurrenciesRespMsgType = []interface{}{
 	"payout_currencies",
@@ -54,16 +35,35 @@ func (j *PayoutCurrenciesRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// List of available payout currencies.
+type PayoutCurrenciesResp struct {
+	// Echo of the request made.
+	EchoReq PayoutCurrenciesRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType PayoutCurrenciesRespMsgType `json:"msg_type"`
+
+	// Available payout currencies. Note: if a user is logged in, only the currency
+	// available for the account will be returned.
+	PayoutCurrencies []string `json:"payout_currencies,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const PayoutCurrenciesRespMsgTypePayoutCurrencies PayoutCurrenciesRespMsgType = "payout_currencies"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *PayoutCurrenciesResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in PayoutCurrenciesResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in PayoutCurrenciesResp: required")
 	}
 	type Plain PayoutCurrenciesResp

@@ -6,24 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// This call will try to sell any expired contracts and return the number of sold
-// contracts.
-type SellExpired struct {
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough SellExpiredPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// Must be `1`
-	SellExpired SellExpiredSellExpired `json:"sell_expired"`
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type SellExpiredPassthrough map[string]interface{}
@@ -54,13 +36,31 @@ func (j *SellExpiredSellExpired) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// This call will try to sell any expired contracts and return the number of sold
+// contracts.
+type SellExpired struct {
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough SellExpiredPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// Must be `1`
+	SellExpired SellExpiredSellExpired `json:"sell_expired"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *SellExpired) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["sell_expired"]; raw != nil && !ok {
+	if v, ok := raw["sell_expired"]; !ok || v == nil {
 		return fmt.Errorf("field sell_expired in SellExpired: required")
 	}
 	type Plain SellExpired

@@ -6,31 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Get the list of currently available contracts for a given landing company.
-type ContractsForCompanyResp struct {
-	// List of available contracts for a given landing company.
-	ContractsForCompany *ContractsForCompanyRespContractsForCompany `json:"contracts_for_company,omitempty"`
-
-	// Echo of the request made.
-	EchoReq ContractsForCompanyRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType ContractsForCompanyRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
-// List of available contracts for a given landing company.
-type ContractsForCompanyRespContractsForCompany struct {
-	// List of available contracts.
-	Available []ContractsForCompanyRespContractsForCompanyAvailableElem `json:"available"`
-
-	// Count of contracts available
-	HitCount float64 `json:"hit_count"`
-}
-
 type ContractsForCompanyRespContractsForCompanyAvailableElem struct {
 	// Category of contract barrier.
 	BarrierCategory string `json:"barrier_category"`
@@ -60,22 +35,22 @@ func (j *ContractsForCompanyRespContractsForCompanyAvailableElem) UnmarshalJSON(
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["barrier_category"]; raw != nil && !ok {
+	if v, ok := raw["barrier_category"]; !ok || v == nil {
 		return fmt.Errorf("field barrier_category in ContractsForCompanyRespContractsForCompanyAvailableElem: required")
 	}
-	if _, ok := raw["contract_category"]; raw != nil && !ok {
+	if v, ok := raw["contract_category"]; !ok || v == nil {
 		return fmt.Errorf("field contract_category in ContractsForCompanyRespContractsForCompanyAvailableElem: required")
 	}
-	if _, ok := raw["contract_category_display"]; raw != nil && !ok {
+	if v, ok := raw["contract_category_display"]; !ok || v == nil {
 		return fmt.Errorf("field contract_category_display in ContractsForCompanyRespContractsForCompanyAvailableElem: required")
 	}
-	if _, ok := raw["contract_display"]; raw != nil && !ok {
+	if v, ok := raw["contract_display"]; !ok || v == nil {
 		return fmt.Errorf("field contract_display in ContractsForCompanyRespContractsForCompanyAvailableElem: required")
 	}
-	if _, ok := raw["contract_type"]; raw != nil && !ok {
+	if v, ok := raw["contract_type"]; !ok || v == nil {
 		return fmt.Errorf("field contract_type in ContractsForCompanyRespContractsForCompanyAvailableElem: required")
 	}
-	if _, ok := raw["sentiment"]; raw != nil && !ok {
+	if v, ok := raw["sentiment"]; !ok || v == nil {
 		return fmt.Errorf("field sentiment in ContractsForCompanyRespContractsForCompanyAvailableElem: required")
 	}
 	type Plain ContractsForCompanyRespContractsForCompanyAvailableElem
@@ -87,16 +62,25 @@ func (j *ContractsForCompanyRespContractsForCompanyAvailableElem) UnmarshalJSON(
 	return nil
 }
 
+// List of available contracts for a given landing company.
+type ContractsForCompanyRespContractsForCompany struct {
+	// List of available contracts.
+	Available []ContractsForCompanyRespContractsForCompanyAvailableElem `json:"available"`
+
+	// Count of contracts available
+	HitCount float64 `json:"hit_count"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ContractsForCompanyRespContractsForCompany) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["available"]; raw != nil && !ok {
+	if v, ok := raw["available"]; !ok || v == nil {
 		return fmt.Errorf("field available in ContractsForCompanyRespContractsForCompany: required")
 	}
-	if _, ok := raw["hit_count"]; raw != nil && !ok {
+	if v, ok := raw["hit_count"]; !ok || v == nil {
 		return fmt.Errorf("field hit_count in ContractsForCompanyRespContractsForCompany: required")
 	}
 	type Plain ContractsForCompanyRespContractsForCompany
@@ -115,8 +99,6 @@ func (j *ContractsForCompanyRespContractsForCompany) UnmarshalJSON(b []byte) err
 type ContractsForCompanyRespEchoReq map[string]interface{}
 
 type ContractsForCompanyRespMsgType string
-
-const ContractsForCompanyRespMsgTypeContractsForCompany ContractsForCompanyRespMsgType = "contracts_for_company"
 
 var enumValues_ContractsForCompanyRespMsgType = []interface{}{
 	"contracts_for_company",
@@ -142,16 +124,34 @@ func (j *ContractsForCompanyRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Get the list of currently available contracts for a given landing company.
+type ContractsForCompanyResp struct {
+	// List of available contracts for a given landing company.
+	ContractsForCompany *ContractsForCompanyRespContractsForCompany `json:"contracts_for_company,omitempty"`
+
+	// Echo of the request made.
+	EchoReq ContractsForCompanyRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType ContractsForCompanyRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const ContractsForCompanyRespMsgTypeContractsForCompany ContractsForCompanyRespMsgType = "contracts_for_company"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ContractsForCompanyResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in ContractsForCompanyResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in ContractsForCompanyResp: required")
 	}
 	type Plain ContractsForCompanyResp

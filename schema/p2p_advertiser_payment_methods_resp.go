@@ -6,28 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// List P2P advertiser payment methods.
-type P2PAdvertiserPaymentMethodsResp struct {
-	// Echo of the request made.
-	EchoReq P2PAdvertiserPaymentMethodsRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType P2PAdvertiserPaymentMethodsRespMsgType `json:"msg_type"`
-
-	// List of current methods.
-	P2PAdvertiserPaymentMethods P2PAdvertiserPaymentMethodsRespP2PAdvertiserPaymentMethods `json:"p2p_advertiser_payment_methods,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Echo of the request made.
 type P2PAdvertiserPaymentMethodsRespEchoReq map[string]interface{}
 
 type P2PAdvertiserPaymentMethodsRespMsgType string
-
-const P2PAdvertiserPaymentMethodsRespMsgTypeP2PAdvertiserPaymentMethods P2PAdvertiserPaymentMethodsRespMsgType = "p2p_advertiser_payment_methods"
 
 var enumValues_P2PAdvertiserPaymentMethodsRespMsgType = []interface{}{
 	"p2p_advertiser_payment_methods",
@@ -53,6 +35,24 @@ func (j *P2PAdvertiserPaymentMethodsRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// List P2P advertiser payment methods.
+type P2PAdvertiserPaymentMethodsResp struct {
+	// Echo of the request made.
+	EchoReq P2PAdvertiserPaymentMethodsRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType P2PAdvertiserPaymentMethodsRespMsgType `json:"msg_type"`
+
+	// List of current methods.
+	P2PAdvertiserPaymentMethods P2PAdvertiserPaymentMethodsRespP2PAdvertiserPaymentMethods `json:"p2p_advertiser_payment_methods,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const P2PAdvertiserPaymentMethodsRespMsgTypeP2PAdvertiserPaymentMethods P2PAdvertiserPaymentMethodsRespMsgType = "p2p_advertiser_payment_methods"
+
 // List of current methods.
 type P2PAdvertiserPaymentMethodsRespP2PAdvertiserPaymentMethods map[string]interface{}
 
@@ -62,10 +62,10 @@ func (j *P2PAdvertiserPaymentMethodsResp) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in P2PAdvertiserPaymentMethodsResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in P2PAdvertiserPaymentMethodsResp: required")
 	}
 	type Plain P2PAdvertiserPaymentMethodsResp

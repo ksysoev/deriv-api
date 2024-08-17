@@ -29,30 +29,6 @@ type NewAccountVirtualRespMsgType string
 
 const NewAccountVirtualRespMsgTypeNewAccountVirtual NewAccountVirtualRespMsgType = "new_account_virtual"
 
-var enumValues_NewAccountVirtualRespMsgType = []interface{}{
-	"new_account_virtual",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountVirtualRespMsgType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_NewAccountVirtualRespMsgType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountVirtualRespMsgType, v)
-	}
-	*j = NewAccountVirtualRespMsgType(v)
-	return nil
-}
-
 // New virtual-money account details
 type NewAccountVirtualRespNewAccountVirtual struct {
 	// Account balance
@@ -86,11 +62,6 @@ type NewAccountVirtualRespNewAccountVirtualType string
 const NewAccountVirtualRespNewAccountVirtualTypeTrading NewAccountVirtualRespNewAccountVirtualType = "trading"
 const NewAccountVirtualRespNewAccountVirtualTypeWallet NewAccountVirtualRespNewAccountVirtualType = "wallet"
 
-var enumValues_NewAccountVirtualRespNewAccountVirtualType = []interface{}{
-	"trading",
-	"wallet",
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *NewAccountVirtualRespNewAccountVirtualType) UnmarshalJSON(b []byte) error {
 	var v string
@@ -111,25 +82,50 @@ func (j *NewAccountVirtualRespNewAccountVirtualType) UnmarshalJSON(b []byte) err
 	return nil
 }
 
+var enumValues_NewAccountVirtualRespNewAccountVirtualType = []interface{}{
+	"trading",
+	"wallet",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountVirtualRespMsgType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountVirtualRespMsgType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountVirtualRespMsgType, v)
+	}
+	*j = NewAccountVirtualRespMsgType(v)
+	return nil
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *NewAccountVirtualRespNewAccountVirtual) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["balance"]; raw != nil && !ok {
+	if v, ok := raw["balance"]; !ok || v == nil {
 		return fmt.Errorf("field balance in NewAccountVirtualRespNewAccountVirtual: required")
 	}
-	if _, ok := raw["client_id"]; raw != nil && !ok {
+	if v, ok := raw["client_id"]; !ok || v == nil {
 		return fmt.Errorf("field client_id in NewAccountVirtualRespNewAccountVirtual: required")
 	}
-	if _, ok := raw["currency"]; raw != nil && !ok {
+	if v, ok := raw["currency"]; !ok || v == nil {
 		return fmt.Errorf("field currency in NewAccountVirtualRespNewAccountVirtual: required")
 	}
-	if _, ok := raw["email"]; raw != nil && !ok {
+	if v, ok := raw["email"]; !ok || v == nil {
 		return fmt.Errorf("field email in NewAccountVirtualRespNewAccountVirtual: required")
 	}
-	if _, ok := raw["oauth_token"]; raw != nil && !ok {
+	if v, ok := raw["oauth_token"]; !ok || v == nil {
 		return fmt.Errorf("field oauth_token in NewAccountVirtualRespNewAccountVirtual: required")
 	}
 	type Plain NewAccountVirtualRespNewAccountVirtual
@@ -141,16 +137,20 @@ func (j *NewAccountVirtualRespNewAccountVirtual) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+var enumValues_NewAccountVirtualRespMsgType = []interface{}{
+	"new_account_virtual",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *NewAccountVirtualResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in NewAccountVirtualResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in NewAccountVirtualResp: required")
 	}
 	type Plain NewAccountVirtualResp

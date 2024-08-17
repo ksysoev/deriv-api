@@ -6,22 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Per application reporting of app_markup
-type AppMarkupStatisticsResp struct {
-	// App Markup transaction statistics
-	AppMarkupStatistics *AppMarkupStatisticsRespAppMarkupStatistics `json:"app_markup_statistics,omitempty"`
-
-	// Echo of the request made.
-	EchoReq AppMarkupStatisticsRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType AppMarkupStatisticsRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // App Markup transaction statistics
 type AppMarkupStatisticsRespAppMarkupStatistics struct {
 	// Array of summed app markups grouped by app_id
@@ -56,8 +40,6 @@ type AppMarkupStatisticsRespEchoReq map[string]interface{}
 
 type AppMarkupStatisticsRespMsgType string
 
-const AppMarkupStatisticsRespMsgTypeAppMarkupStatistics AppMarkupStatisticsRespMsgType = "app_markup_statistics"
-
 var enumValues_AppMarkupStatisticsRespMsgType = []interface{}{
 	"app_markup_statistics",
 }
@@ -82,16 +64,34 @@ func (j *AppMarkupStatisticsRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Per application reporting of app_markup
+type AppMarkupStatisticsResp struct {
+	// App Markup transaction statistics
+	AppMarkupStatistics *AppMarkupStatisticsRespAppMarkupStatistics `json:"app_markup_statistics,omitempty"`
+
+	// Echo of the request made.
+	EchoReq AppMarkupStatisticsRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType AppMarkupStatisticsRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const AppMarkupStatisticsRespMsgTypeAppMarkupStatistics AppMarkupStatisticsRespMsgType = "app_markup_statistics"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *AppMarkupStatisticsResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in AppMarkupStatisticsResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in AppMarkupStatisticsResp: required")
 	}
 	type Plain AppMarkupStatisticsResp

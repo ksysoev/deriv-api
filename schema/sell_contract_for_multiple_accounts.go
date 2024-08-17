@@ -6,6 +6,36 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// [Optional] Used to pass data through the websocket, which may be retrieved via
+// the `echo_req` output field.
+type SellContractForMultipleAccountsPassthrough map[string]interface{}
+
+type SellContractForMultipleAccountsSellContractForMultipleAccounts int
+
+var enumValues_SellContractForMultipleAccountsSellContractForMultipleAccounts = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SellContractForMultipleAccountsSellContractForMultipleAccounts) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SellContractForMultipleAccountsSellContractForMultipleAccounts {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SellContractForMultipleAccountsSellContractForMultipleAccounts, v)
+	}
+	*j = SellContractForMultipleAccountsSellContractForMultipleAccounts(v)
+	return nil
+}
+
 // Sell contracts for multiple accounts simultaneously. Uses the shortcode response
 // from `buy_contract_for_multiple_accounts` to identify the contract, and
 // authorisation tokens to select which accounts to sell those contracts on. Note
@@ -39,52 +69,22 @@ type SellContractForMultipleAccounts struct {
 	Tokens []string `json:"tokens"`
 }
 
-// [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
-type SellContractForMultipleAccountsPassthrough map[string]interface{}
-
-type SellContractForMultipleAccountsSellContractForMultipleAccounts int
-
-var enumValues_SellContractForMultipleAccountsSellContractForMultipleAccounts = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SellContractForMultipleAccountsSellContractForMultipleAccounts) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SellContractForMultipleAccountsSellContractForMultipleAccounts {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SellContractForMultipleAccountsSellContractForMultipleAccounts, v)
-	}
-	*j = SellContractForMultipleAccountsSellContractForMultipleAccounts(v)
-	return nil
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *SellContractForMultipleAccounts) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["price"]; raw != nil && !ok {
+	if v, ok := raw["price"]; !ok || v == nil {
 		return fmt.Errorf("field price in SellContractForMultipleAccounts: required")
 	}
-	if _, ok := raw["sell_contract_for_multiple_accounts"]; raw != nil && !ok {
+	if v, ok := raw["sell_contract_for_multiple_accounts"]; !ok || v == nil {
 		return fmt.Errorf("field sell_contract_for_multiple_accounts in SellContractForMultipleAccounts: required")
 	}
-	if _, ok := raw["shortcode"]; raw != nil && !ok {
+	if v, ok := raw["shortcode"]; !ok || v == nil {
 		return fmt.Errorf("field shortcode in SellContractForMultipleAccounts: required")
 	}
-	if _, ok := raw["tokens"]; raw != nil && !ok {
+	if v, ok := raw["tokens"]; !ok || v == nil {
 		return fmt.Errorf("field tokens in SellContractForMultipleAccounts: required")
 	}
 	type Plain SellContractForMultipleAccounts

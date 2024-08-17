@@ -6,28 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// A message with used applications
-type OauthAppsResp struct {
-	// Echo of the request made.
-	EchoReq OauthAppsRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType OauthAppsRespMsgType `json:"msg_type"`
-
-	// List of 3rd party OAuth applications that used for the authorized account.
-	OauthApps []OauthAppsRespOauthAppsElem `json:"oauth_apps,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Echo of the request made.
 type OauthAppsRespEchoReq map[string]interface{}
 
 type OauthAppsRespMsgType string
-
-const OauthAppsRespMsgTypeOauthApps OauthAppsRespMsgType = "oauth_apps"
 
 var enumValues_OauthAppsRespMsgType = []interface{}{
 	"oauth_apps",
@@ -53,26 +35,7 @@ func (j *OauthAppsRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type OauthAppsRespOauthAppsElem struct {
-	// Application ID.
-	AppId int `json:"app_id"`
-
-	// Markup added to contract prices (as a percentage of contract payout)
-	AppMarkupPercentage float64 `json:"app_markup_percentage"`
-
-	// The last date which the application has been used.
-	LastUsed *string `json:"last_used"`
-
-	// Application name
-	Name string `json:"name"`
-
-	// Boolean value: 1 or 0, indicating 1 if app is an official app and 0 incase of
-	// unofficial app
-	Official OauthAppsRespOauthAppsElemOfficial `json:"official"`
-
-	// The list of permission scopes grant for each app.
-	Scopes []string `json:"scopes"`
-}
+const OauthAppsRespMsgTypeOauthApps OauthAppsRespMsgType = "oauth_apps"
 
 type OauthAppsRespOauthAppsElemOfficial int
 
@@ -101,28 +64,49 @@ func (j *OauthAppsRespOauthAppsElemOfficial) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type OauthAppsRespOauthAppsElem struct {
+	// Application ID.
+	AppId int `json:"app_id"`
+
+	// Markup added to contract prices (as a percentage of contract payout)
+	AppMarkupPercentage float64 `json:"app_markup_percentage"`
+
+	// The last date which the application has been used.
+	LastUsed *string `json:"last_used"`
+
+	// Application name
+	Name string `json:"name"`
+
+	// Boolean value: 1 or 0, indicating 1 if app is an official app and 0 incase of
+	// unofficial app
+	Official OauthAppsRespOauthAppsElemOfficial `json:"official"`
+
+	// The list of permission scopes grant for each app.
+	Scopes []string `json:"scopes"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *OauthAppsRespOauthAppsElem) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["app_id"]; raw != nil && !ok {
+	if v, ok := raw["app_id"]; !ok || v == nil {
 		return fmt.Errorf("field app_id in OauthAppsRespOauthAppsElem: required")
 	}
-	if _, ok := raw["app_markup_percentage"]; raw != nil && !ok {
+	if v, ok := raw["app_markup_percentage"]; !ok || v == nil {
 		return fmt.Errorf("field app_markup_percentage in OauthAppsRespOauthAppsElem: required")
 	}
-	if _, ok := raw["last_used"]; raw != nil && !ok {
+	if v, ok := raw["last_used"]; !ok || v == nil {
 		return fmt.Errorf("field last_used in OauthAppsRespOauthAppsElem: required")
 	}
-	if _, ok := raw["name"]; raw != nil && !ok {
+	if v, ok := raw["name"]; !ok || v == nil {
 		return fmt.Errorf("field name in OauthAppsRespOauthAppsElem: required")
 	}
-	if _, ok := raw["official"]; raw != nil && !ok {
+	if v, ok := raw["official"]; !ok || v == nil {
 		return fmt.Errorf("field official in OauthAppsRespOauthAppsElem: required")
 	}
-	if _, ok := raw["scopes"]; raw != nil && !ok {
+	if v, ok := raw["scopes"]; !ok || v == nil {
 		return fmt.Errorf("field scopes in OauthAppsRespOauthAppsElem: required")
 	}
 	type Plain OauthAppsRespOauthAppsElem
@@ -134,16 +118,32 @@ func (j *OauthAppsRespOauthAppsElem) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// A message with used applications
+type OauthAppsResp struct {
+	// Echo of the request made.
+	EchoReq OauthAppsRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType OauthAppsRespMsgType `json:"msg_type"`
+
+	// List of 3rd party OAuth applications that used for the authorized account.
+	OauthApps []OauthAppsRespOauthAppsElem `json:"oauth_apps,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *OauthAppsResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in OauthAppsResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in OauthAppsResp: required")
 	}
 	type Plain OauthAppsResp

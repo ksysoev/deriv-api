@@ -6,28 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Create real account Receive
-type NewAccountRealResp struct {
-	// Echo of the request made.
-	EchoReq NewAccountRealRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType NewAccountRealRespMsgType `json:"msg_type"`
-
-	// New real money account details
-	NewAccountReal *NewAccountRealRespNewAccountReal `json:"new_account_real,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Echo of the request made.
 type NewAccountRealRespEchoReq map[string]interface{}
 
 type NewAccountRealRespMsgType string
-
-const NewAccountRealRespMsgTypeNewAccountReal NewAccountRealRespMsgType = "new_account_real"
 
 var enumValues_NewAccountRealRespMsgType = []interface{}{
 	"new_account_real",
@@ -52,6 +34,8 @@ func (j *NewAccountRealRespMsgType) UnmarshalJSON(b []byte) error {
 	*j = NewAccountRealRespMsgType(v)
 	return nil
 }
+
+const NewAccountRealRespMsgTypeNewAccountReal NewAccountRealRespMsgType = "new_account_real"
 
 // New real money account details
 type NewAccountRealRespNewAccountReal struct {
@@ -83,13 +67,13 @@ func (j *NewAccountRealRespNewAccountReal) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["client_id"]; raw != nil && !ok {
+	if v, ok := raw["client_id"]; !ok || v == nil {
 		return fmt.Errorf("field client_id in NewAccountRealRespNewAccountReal: required")
 	}
-	if _, ok := raw["landing_company"]; raw != nil && !ok {
+	if v, ok := raw["landing_company"]; !ok || v == nil {
 		return fmt.Errorf("field landing_company in NewAccountRealRespNewAccountReal: required")
 	}
-	if _, ok := raw["oauth_token"]; raw != nil && !ok {
+	if v, ok := raw["oauth_token"]; !ok || v == nil {
 		return fmt.Errorf("field oauth_token in NewAccountRealRespNewAccountReal: required")
 	}
 	type Plain NewAccountRealRespNewAccountReal
@@ -101,16 +85,32 @@ func (j *NewAccountRealRespNewAccountReal) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Create real account Receive
+type NewAccountRealResp struct {
+	// Echo of the request made.
+	EchoReq NewAccountRealRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType NewAccountRealRespMsgType `json:"msg_type"`
+
+	// New real money account details
+	NewAccountReal *NewAccountRealRespNewAccountReal `json:"new_account_real,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *NewAccountRealResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in NewAccountRealResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in NewAccountRealResp: required")
 	}
 	type Plain NewAccountRealResp

@@ -29,30 +29,6 @@ type P2POrderCancelRespMsgType string
 
 const P2POrderCancelRespMsgTypeP2POrderCancel P2POrderCancelRespMsgType = "p2p_order_cancel"
 
-var enumValues_P2POrderCancelRespMsgType = []interface{}{
-	"p2p_order_cancel",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2POrderCancelRespMsgType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2POrderCancelRespMsgType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderCancelRespMsgType, v)
-	}
-	*j = P2POrderCancelRespMsgType(v)
-	return nil
-}
-
 // Cancellation details
 type P2POrderCancelRespP2POrderCancel struct {
 	// The unique identifier for the order.
@@ -63,8 +39,6 @@ type P2POrderCancelRespP2POrderCancel struct {
 }
 
 type P2POrderCancelRespP2POrderCancelStatus string
-
-const P2POrderCancelRespP2POrderCancelStatusCancelled P2POrderCancelRespP2POrderCancelStatus = "cancelled"
 
 var enumValues_P2POrderCancelRespP2POrderCancelStatus = []interface{}{
 	"cancelled",
@@ -90,16 +64,38 @@ func (j *P2POrderCancelRespP2POrderCancelStatus) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+const P2POrderCancelRespP2POrderCancelStatusCancelled P2POrderCancelRespP2POrderCancelStatus = "cancelled"
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2POrderCancelRespMsgType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2POrderCancelRespMsgType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderCancelRespMsgType, v)
+	}
+	*j = P2POrderCancelRespMsgType(v)
+	return nil
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2POrderCancelRespP2POrderCancel) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["id"]; raw != nil && !ok {
+	if v, ok := raw["id"]; !ok || v == nil {
 		return fmt.Errorf("field id in P2POrderCancelRespP2POrderCancel: required")
 	}
-	if _, ok := raw["status"]; raw != nil && !ok {
+	if v, ok := raw["status"]; !ok || v == nil {
 		return fmt.Errorf("field status in P2POrderCancelRespP2POrderCancel: required")
 	}
 	type Plain P2POrderCancelRespP2POrderCancel
@@ -111,16 +107,20 @@ func (j *P2POrderCancelRespP2POrderCancel) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+var enumValues_P2POrderCancelRespMsgType = []interface{}{
+	"p2p_order_cancel",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2POrderCancelResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in P2POrderCancelResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in P2POrderCancelResp: required")
 	}
 	type Plain P2POrderCancelResp

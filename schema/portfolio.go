@@ -67,47 +67,6 @@ const PortfolioContractTypeElemUPORDOWN PortfolioContractTypeElem = "UPORDOWN"
 const PortfolioContractTypeElemVANILLALONGCALL PortfolioContractTypeElem = "VANILLALONGCALL"
 const PortfolioContractTypeElemVANILLALONGPUT PortfolioContractTypeElem = "VANILLALONGPUT"
 
-var enumValues_PortfolioContractTypeElem = []interface{}{
-	"ACCU",
-	"ASIAND",
-	"ASIANU",
-	"CALL",
-	"CALLE",
-	"CALLSPREAD",
-	"DIGITDIFF",
-	"DIGITEVEN",
-	"DIGITMATCH",
-	"DIGITODD",
-	"DIGITOVER",
-	"DIGITUNDER",
-	"EXPIRYMISSE",
-	"EXPIRYMISS",
-	"EXPIRYRANGE",
-	"EXPIRYRANGEE",
-	"LBFLOATCALL",
-	"LBFLOATPUT",
-	"LBHIGHLOW",
-	"MULTDOWN",
-	"MULTUP",
-	"NOTOUCH",
-	"ONETOUCH",
-	"PUT",
-	"PUTE",
-	"PUTSPREAD",
-	"RANGE",
-	"RESETCALL",
-	"RESETPUT",
-	"RUNHIGH",
-	"RUNLOW",
-	"TICKHIGH",
-	"TICKLOW",
-	"UPORDOWN",
-	"VANILLALONGCALL",
-	"VANILLALONGPUT",
-	"TURBOSLONG",
-	"TURBOSSHORT",
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *PortfolioContractTypeElem) UnmarshalJSON(b []byte) error {
 	var v string
@@ -158,13 +117,54 @@ func (j *PortfolioPortfolio) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+var enumValues_PortfolioContractTypeElem = []interface{}{
+	"ACCU",
+	"ASIAND",
+	"ASIANU",
+	"CALL",
+	"CALLE",
+	"CALLSPREAD",
+	"DIGITDIFF",
+	"DIGITEVEN",
+	"DIGITMATCH",
+	"DIGITODD",
+	"DIGITOVER",
+	"DIGITUNDER",
+	"EXPIRYMISSE",
+	"EXPIRYMISS",
+	"EXPIRYRANGE",
+	"EXPIRYRANGEE",
+	"LBFLOATCALL",
+	"LBFLOATPUT",
+	"LBHIGHLOW",
+	"MULTDOWN",
+	"MULTUP",
+	"NOTOUCH",
+	"ONETOUCH",
+	"PUT",
+	"PUTE",
+	"PUTSPREAD",
+	"RANGE",
+	"RESETCALL",
+	"RESETPUT",
+	"RUNHIGH",
+	"RUNLOW",
+	"TICKHIGH",
+	"TICKLOW",
+	"UPORDOWN",
+	"VANILLALONGCALL",
+	"VANILLALONGPUT",
+	"TURBOSLONG",
+	"TURBOSSHORT",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *Portfolio) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["portfolio"]; raw != nil && !ok {
+	if v, ok := raw["portfolio"]; !ok || v == nil {
 		return fmt.Errorf("field portfolio in Portfolio: required")
 	}
 	type Plain Portfolio

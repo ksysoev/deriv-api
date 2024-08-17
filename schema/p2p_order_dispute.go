@@ -37,14 +37,6 @@ const P2POrderDisputeDisputeReasonBuyerThirdPartyPaymentMethod P2POrderDisputeDi
 const P2POrderDisputeDisputeReasonBuyerUnderpaid P2POrderDisputeDisputeReason = "buyer_underpaid"
 const P2POrderDisputeDisputeReasonSellerNotReleased P2POrderDisputeDisputeReason = "seller_not_released"
 
-var enumValues_P2POrderDisputeDisputeReason = []interface{}{
-	"seller_not_released",
-	"buyer_underpaid",
-	"buyer_overpaid",
-	"buyer_not_paid",
-	"buyer_third_party_payment_method",
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2POrderDisputeDisputeReason) UnmarshalJSON(b []byte) error {
 	var v string
@@ -95,19 +87,27 @@ func (j *P2POrderDisputeP2POrderDispute) UnmarshalJSON(b []byte) error {
 // the `echo_req` output field.
 type P2POrderDisputePassthrough map[string]interface{}
 
+var enumValues_P2POrderDisputeDisputeReason = []interface{}{
+	"seller_not_released",
+	"buyer_underpaid",
+	"buyer_overpaid",
+	"buyer_not_paid",
+	"buyer_third_party_payment_method",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2POrderDispute) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["dispute_reason"]; raw != nil && !ok {
+	if v, ok := raw["dispute_reason"]; !ok || v == nil {
 		return fmt.Errorf("field dispute_reason in P2POrderDispute: required")
 	}
-	if _, ok := raw["id"]; raw != nil && !ok {
+	if v, ok := raw["id"]; !ok || v == nil {
 		return fmt.Errorf("field id in P2POrderDispute: required")
 	}
-	if _, ok := raw["p2p_order_dispute"]; raw != nil && !ok {
+	if v, ok := raw["p2p_order_dispute"]; !ok || v == nil {
 		return fmt.Errorf("field p2p_order_dispute in P2POrderDispute: required")
 	}
 	type Plain P2POrderDispute

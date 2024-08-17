@@ -6,22 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Contract update history status
-type ContractUpdateHistoryResp struct {
-	// Contains the historical and the most recent update status of the contract
-	ContractUpdateHistory []ContractUpdateHistoryRespContractUpdateHistoryElem `json:"contract_update_history,omitempty"`
-
-	// Echo of the request made.
-	EchoReq ContractUpdateHistoryRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType ContractUpdateHistoryRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Contains the changed parameter.
 type ContractUpdateHistoryRespContractUpdateHistoryElem struct {
 	// Display name of the changed parameter.
@@ -44,8 +28,6 @@ type ContractUpdateHistoryRespContractUpdateHistoryElem struct {
 type ContractUpdateHistoryRespEchoReq map[string]interface{}
 
 type ContractUpdateHistoryRespMsgType string
-
-const ContractUpdateHistoryRespMsgTypeContractUpdateHistory ContractUpdateHistoryRespMsgType = "contract_update_history"
 
 var enumValues_ContractUpdateHistoryRespMsgType = []interface{}{
 	"contract_update_history",
@@ -71,16 +53,34 @@ func (j *ContractUpdateHistoryRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Contract update history status
+type ContractUpdateHistoryResp struct {
+	// Contains the historical and the most recent update status of the contract
+	ContractUpdateHistory []ContractUpdateHistoryRespContractUpdateHistoryElem `json:"contract_update_history,omitempty"`
+
+	// Echo of the request made.
+	EchoReq ContractUpdateHistoryRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType ContractUpdateHistoryRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const ContractUpdateHistoryRespMsgTypeContractUpdateHistory ContractUpdateHistoryRespMsgType = "contract_update_history"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ContractUpdateHistoryResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in ContractUpdateHistoryResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in ContractUpdateHistoryResp: required")
 	}
 	type Plain ContractUpdateHistoryResp

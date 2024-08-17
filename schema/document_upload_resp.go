@@ -6,22 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Receive details of uploaded authentication documents
-type DocumentUploadResp struct {
-	// Details of the uploaded documents.
-	DocumentUpload *DocumentUploadRespDocumentUpload `json:"document_upload,omitempty"`
-
-	// Echo of the request made.
-	EchoReq DocumentUploadRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType DocumentUploadRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Details of the uploaded documents.
 type DocumentUploadRespDocumentUpload struct {
 	// Current call type, add this to your binary payload metadata
@@ -49,10 +33,10 @@ func (j *DocumentUploadRespDocumentUpload) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["call_type"]; raw != nil && !ok {
+	if v, ok := raw["call_type"]; !ok || v == nil {
 		return fmt.Errorf("field call_type in DocumentUploadRespDocumentUpload: required")
 	}
-	if _, ok := raw["upload_id"]; raw != nil && !ok {
+	if v, ok := raw["upload_id"]; !ok || v == nil {
 		return fmt.Errorf("field upload_id in DocumentUploadRespDocumentUpload: required")
 	}
 	type Plain DocumentUploadRespDocumentUpload
@@ -68,8 +52,6 @@ func (j *DocumentUploadRespDocumentUpload) UnmarshalJSON(b []byte) error {
 type DocumentUploadRespEchoReq map[string]interface{}
 
 type DocumentUploadRespMsgType string
-
-const DocumentUploadRespMsgTypeDocumentUpload DocumentUploadRespMsgType = "document_upload"
 
 var enumValues_DocumentUploadRespMsgType = []interface{}{
 	"document_upload",
@@ -95,16 +77,34 @@ func (j *DocumentUploadRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Receive details of uploaded authentication documents
+type DocumentUploadResp struct {
+	// Details of the uploaded documents.
+	DocumentUpload *DocumentUploadRespDocumentUpload `json:"document_upload,omitempty"`
+
+	// Echo of the request made.
+	EchoReq DocumentUploadRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType DocumentUploadRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const DocumentUploadRespMsgTypeDocumentUpload DocumentUploadRespMsgType = "document_upload"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *DocumentUploadResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in DocumentUploadResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in DocumentUploadResp: required")
 	}
 	type Plain DocumentUploadResp

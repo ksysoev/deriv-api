@@ -6,6 +6,110 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertUpdateP2PAdvertUpdate) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertUpdateP2PAdvertUpdate {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertUpdateP2PAdvertUpdate, v)
+	}
+	*j = P2PAdvertUpdateP2PAdvertUpdate(v)
+	return nil
+}
+
+const P2PAdvertUpdateRateTypeFixed P2PAdvertUpdateRateType = "fixed"
+
+type P2PAdvertUpdateDelete int
+
+type P2PAdvertUpdateIsActive int
+
+// [Optional] Used to pass data through the websocket, which may be retrieved via
+// the `echo_req` output field.
+type P2PAdvertUpdatePassthrough map[string]interface{}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertUpdateIsActive) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertUpdateIsActive {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertUpdateIsActive, v)
+	}
+	*j = P2PAdvertUpdateIsActive(v)
+	return nil
+}
+
+type P2PAdvertUpdateP2PAdvertUpdate int
+
+type P2PAdvertUpdateRateType string
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertUpdateDelete) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertUpdateDelete {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertUpdateDelete, v)
+	}
+	*j = P2PAdvertUpdateDelete(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertUpdate) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if v, ok := raw["id"]; !ok || v == nil {
+		return fmt.Errorf("field id in P2PAdvertUpdate: required")
+	}
+	if v, ok := raw["p2p_advert_update"]; !ok || v == nil {
+		return fmt.Errorf("field p2p_advert_update in P2PAdvertUpdate: required")
+	}
+	type Plain P2PAdvertUpdate
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	if len(plain.EligibleCountries) > 250 {
+		return fmt.Errorf("field %s length: must be <= %d", "eligible_countries", 250)
+	}
+	if len(plain.PaymentMethodIds) > 3 {
+		return fmt.Errorf("field %s length: must be <= %d", "payment_method_ids", 3)
+	}
+	if len(plain.PaymentMethodNames) > 3 {
+		return fmt.Errorf("field %s length: must be <= %d", "payment_method_names", 3)
+	}
+	*j = P2PAdvertUpdate(plain)
+	return nil
+}
+
 // Updates a P2P advert. Can only be used by the advertiser.
 type P2PAdvertUpdate struct {
 	// [Optional] Advertiser contact information.
@@ -98,100 +202,6 @@ type P2PAdvertUpdate struct {
 	ReqId *int `json:"req_id,omitempty"`
 }
 
-type P2PAdvertUpdateDelete int
-
-var enumValues_P2PAdvertUpdateDelete = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertUpdateDelete) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertUpdateDelete {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertUpdateDelete, v)
-	}
-	*j = P2PAdvertUpdateDelete(v)
-	return nil
-}
-
-type P2PAdvertUpdateIsActive int
-
-var enumValues_P2PAdvertUpdateIsActive = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertUpdateIsActive) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertUpdateIsActive {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertUpdateIsActive, v)
-	}
-	*j = P2PAdvertUpdateIsActive(v)
-	return nil
-}
-
-type P2PAdvertUpdateP2PAdvertUpdate int
-
-var enumValues_P2PAdvertUpdateP2PAdvertUpdate = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertUpdateP2PAdvertUpdate) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertUpdateP2PAdvertUpdate {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertUpdateP2PAdvertUpdate, v)
-	}
-	*j = P2PAdvertUpdateP2PAdvertUpdate(v)
-	return nil
-}
-
-// [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
-type P2PAdvertUpdatePassthrough map[string]interface{}
-
-type P2PAdvertUpdateRateType string
-
-const P2PAdvertUpdateRateTypeFixed P2PAdvertUpdateRateType = "fixed"
-const P2PAdvertUpdateRateTypeFloat P2PAdvertUpdateRateType = "float"
-
-var enumValues_P2PAdvertUpdateRateType = []interface{}{
-	"fixed",
-	"float",
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PAdvertUpdateRateType) UnmarshalJSON(b []byte) error {
 	var v string
@@ -212,32 +222,20 @@ func (j *P2PAdvertUpdateRateType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertUpdate) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if _, ok := raw["id"]; raw != nil && !ok {
-		return fmt.Errorf("field id in P2PAdvertUpdate: required")
-	}
-	if _, ok := raw["p2p_advert_update"]; raw != nil && !ok {
-		return fmt.Errorf("field p2p_advert_update in P2PAdvertUpdate: required")
-	}
-	type Plain P2PAdvertUpdate
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	if len(plain.EligibleCountries) > 250 {
-		return fmt.Errorf("field %s length: must be <= %d", "eligible_countries", 250)
-	}
-	if len(plain.PaymentMethodIds) > 3 {
-		return fmt.Errorf("field %s length: must be <= %d", "payment_method_ids", 3)
-	}
-	if len(plain.PaymentMethodNames) > 3 {
-		return fmt.Errorf("field %s length: must be <= %d", "payment_method_names", 3)
-	}
-	*j = P2PAdvertUpdate(plain)
-	return nil
+const P2PAdvertUpdateRateTypeFloat P2PAdvertUpdateRateType = "float"
+
+var enumValues_P2PAdvertUpdateDelete = []interface{}{
+	0,
+	1,
+}
+var enumValues_P2PAdvertUpdateIsActive = []interface{}{
+	0,
+	1,
+}
+var enumValues_P2PAdvertUpdateP2PAdvertUpdate = []interface{}{
+	1,
+}
+var enumValues_P2PAdvertUpdateRateType = []interface{}{
+	"fixed",
+	"float",
 }

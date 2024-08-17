@@ -6,22 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Contract update status
-type ContractUpdateResp struct {
-	// Contains the update status of the request
-	ContractUpdate *ContractUpdateRespContractUpdate `json:"contract_update,omitempty"`
-
-	// Echo of the request made.
-	EchoReq ContractUpdateRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType ContractUpdateRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Contains the update status of the request
 type ContractUpdateRespContractUpdate struct {
 	// The target spot price where the contract will be closed automatically at the
@@ -70,8 +54,6 @@ type ContractUpdateRespEchoReq map[string]interface{}
 
 type ContractUpdateRespMsgType string
 
-const ContractUpdateRespMsgTypeContractUpdate ContractUpdateRespMsgType = "contract_update"
-
 var enumValues_ContractUpdateRespMsgType = []interface{}{
 	"contract_update",
 }
@@ -96,16 +78,34 @@ func (j *ContractUpdateRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Contract update status
+type ContractUpdateResp struct {
+	// Contains the update status of the request
+	ContractUpdate *ContractUpdateRespContractUpdate `json:"contract_update,omitempty"`
+
+	// Echo of the request made.
+	EchoReq ContractUpdateRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType ContractUpdateRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const ContractUpdateRespMsgTypeContractUpdate ContractUpdateRespMsgType = "contract_update"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ContractUpdateResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in ContractUpdateResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in ContractUpdateResp: required")
 	}
 	type Plain ContractUpdateResp

@@ -6,71 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Returns available adverts for use with `p2p_order_create` .
-type P2PAdvertList struct {
-	// [Optional] ID of the advertiser to list adverts for.
-	AdvertiserId *string `json:"advertiser_id,omitempty"`
-
-	// [Optional] Search for advertiser by name. Partial matches will be returned.
-	AdvertiserName *string `json:"advertiser_name,omitempty"`
-
-	// [Optional] How much to buy or sell, used to calculate prices.
-	Amount *float64 `json:"amount,omitempty"`
-
-	// [Optional] Return block trade adverts when 1, non-block trade adverts when 0
-	// (default).
-	BlockTrade P2PAdvertListBlockTrade `json:"block_trade,omitempty"`
-
-	// [Optional] Filter the adverts by `counterparty_type`.
-	CounterpartyType *P2PAdvertListCounterpartyType `json:"counterparty_type,omitempty"`
-
-	// [Optional] Only show adverts from favourite advertisers. Default is 0.
-	FavouritesOnly *P2PAdvertListFavouritesOnly `json:"favourites_only,omitempty"`
-
-	// [Optional] If set to 1, adverts for which the current user's shcedule does not
-	// have availability from now until the full possible order expiry are not
-	// returned.
-	HideClientScheduleUnavailable P2PAdvertListHideClientScheduleUnavailable `json:"hide_client_schedule_unavailable,omitempty"`
-
-	// [Optional] If set to 1, adverts for which the current user does not meet
-	// counteryparty terms are not returned.
-	HideIneligible P2PAdvertListHideIneligible `json:"hide_ineligible,omitempty"`
-
-	// [Optional] Used for paging.
-	Limit int `json:"limit,omitempty"`
-
-	// [Optional] Currency to conduct payment transaction in. If not provided, only
-	// ads from country of residence will be returned.
-	LocalCurrency *string `json:"local_currency,omitempty"`
-
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used for paging.
-	Offset int `json:"offset,omitempty"`
-
-	// Must be 1
-	P2PAdvertList P2PAdvertListP2PAdvertList `json:"p2p_advert_list"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough P2PAdvertListPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Search by supported payment methods.
-	PaymentMethod []string `json:"payment_method,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// [Optional] How the results are sorted.
-	SortBy P2PAdvertListSortBy `json:"sort_by,omitempty"`
-
-	// [Optional] If set to 1, ads that exceed this account's balance or turnover
-	// limits will not be shown.
-	UseClientLimits P2PAdvertListUseClientLimits `json:"use_client_limits,omitempty"`
-}
-
 type P2PAdvertListBlockTrade int
 
 var enumValues_P2PAdvertListBlockTrade = []interface{}{
@@ -100,9 +35,6 @@ func (j *P2PAdvertListBlockTrade) UnmarshalJSON(b []byte) error {
 
 type P2PAdvertListCounterpartyType string
 
-const P2PAdvertListCounterpartyTypeBuy P2PAdvertListCounterpartyType = "buy"
-const P2PAdvertListCounterpartyTypeSell P2PAdvertListCounterpartyType = "sell"
-
 var enumValues_P2PAdvertListCounterpartyType = []interface{}{
 	"buy",
 	"sell",
@@ -127,6 +59,9 @@ func (j *P2PAdvertListCounterpartyType) UnmarshalJSON(b []byte) error {
 	*j = P2PAdvertListCounterpartyType(v)
 	return nil
 }
+
+const P2PAdvertListCounterpartyTypeBuy P2PAdvertListCounterpartyType = "buy"
+const P2PAdvertListCounterpartyTypeSell P2PAdvertListCounterpartyType = "sell"
 
 type P2PAdvertListFavouritesOnly int
 
@@ -241,11 +176,6 @@ type P2PAdvertListPassthrough map[string]interface{}
 
 type P2PAdvertListSortBy string
 
-const P2PAdvertListSortByCompletion P2PAdvertListSortBy = "completion"
-const P2PAdvertListSortByRate P2PAdvertListSortBy = "rate"
-const P2PAdvertListSortByRating P2PAdvertListSortBy = "rating"
-const P2PAdvertListSortByRecommended P2PAdvertListSortBy = "recommended"
-
 var enumValues_P2PAdvertListSortBy = []interface{}{
 	"completion",
 	"rate",
@@ -272,6 +202,11 @@ func (j *P2PAdvertListSortBy) UnmarshalJSON(b []byte) error {
 	*j = P2PAdvertListSortBy(v)
 	return nil
 }
+
+const P2PAdvertListSortByCompletion P2PAdvertListSortBy = "completion"
+const P2PAdvertListSortByRate P2PAdvertListSortBy = "rate"
+const P2PAdvertListSortByRating P2PAdvertListSortBy = "rating"
+const P2PAdvertListSortByRecommended P2PAdvertListSortBy = "recommended"
 
 type P2PAdvertListUseClientLimits int
 
@@ -300,13 +235,78 @@ func (j *P2PAdvertListUseClientLimits) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Returns available adverts for use with `p2p_order_create` .
+type P2PAdvertList struct {
+	// [Optional] ID of the advertiser to list adverts for.
+	AdvertiserId *string `json:"advertiser_id,omitempty"`
+
+	// [Optional] Search for advertiser by name. Partial matches will be returned.
+	AdvertiserName *string `json:"advertiser_name,omitempty"`
+
+	// [Optional] How much to buy or sell, used to calculate prices.
+	Amount *float64 `json:"amount,omitempty"`
+
+	// [Optional] Return block trade adverts when 1, non-block trade adverts when 0
+	// (default).
+	BlockTrade P2PAdvertListBlockTrade `json:"block_trade,omitempty"`
+
+	// [Optional] Filter the adverts by `counterparty_type`.
+	CounterpartyType *P2PAdvertListCounterpartyType `json:"counterparty_type,omitempty"`
+
+	// [Optional] Only show adverts from favourite advertisers. Default is 0.
+	FavouritesOnly *P2PAdvertListFavouritesOnly `json:"favourites_only,omitempty"`
+
+	// [Optional] If set to 1, adverts for which the current user's shcedule does not
+	// have availability from now until the full possible order expiry are not
+	// returned.
+	HideClientScheduleUnavailable P2PAdvertListHideClientScheduleUnavailable `json:"hide_client_schedule_unavailable,omitempty"`
+
+	// [Optional] If set to 1, adverts for which the current user does not meet
+	// counteryparty terms are not returned.
+	HideIneligible P2PAdvertListHideIneligible `json:"hide_ineligible,omitempty"`
+
+	// [Optional] Used for paging.
+	Limit int `json:"limit,omitempty"`
+
+	// [Optional] Currency to conduct payment transaction in. If not provided, only
+	// ads from country of residence will be returned.
+	LocalCurrency *string `json:"local_currency,omitempty"`
+
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used for paging.
+	Offset int `json:"offset,omitempty"`
+
+	// Must be 1
+	P2PAdvertList P2PAdvertListP2PAdvertList `json:"p2p_advert_list"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough P2PAdvertListPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Search by supported payment methods.
+	PaymentMethod []string `json:"payment_method,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// [Optional] How the results are sorted.
+	SortBy P2PAdvertListSortBy `json:"sort_by,omitempty"`
+
+	// [Optional] If set to 1, ads that exceed this account's balance or turnover
+	// limits will not be shown.
+	UseClientLimits P2PAdvertListUseClientLimits `json:"use_client_limits,omitempty"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PAdvertList) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["p2p_advert_list"]; raw != nil && !ok {
+	if v, ok := raw["p2p_advert_list"]; !ok || v == nil {
 		return fmt.Errorf("field p2p_advert_list in P2PAdvertList: required")
 	}
 	type Plain P2PAdvertList

@@ -6,6 +6,376 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetSettingsNonPepDeclaration) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetSettingsNonPepDeclaration {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsNonPepDeclaration, v)
+	}
+	*j = SetSettingsNonPepDeclaration(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetSettingsTradingHub) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetSettingsTradingHub {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsTradingHub, v)
+	}
+	*j = SetSettingsTradingHub(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetSettingsAccountOpeningReason) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetSettingsAccountOpeningReason {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsAccountOpeningReason, v)
+	}
+	*j = SetSettingsAccountOpeningReason(v)
+	return nil
+}
+
+const SetSettingsAccountOpeningReasonHedging SetSettingsAccountOpeningReason = "Hedging"
+const SetSettingsAccountOpeningReasonIncomeEarning SetSettingsAccountOpeningReason = "Income Earning"
+const SetSettingsAccountOpeningReasonPeerToPeerExchange SetSettingsAccountOpeningReason = "Peer-to-peer exchange"
+const SetSettingsAccountOpeningReasonSpeculative SetSettingsAccountOpeningReason = "Speculative"
+
+type SetSettingsAccountOpeningReason string
+
+var enumValues_SetSettingsAllowCopiers = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetSettingsAllowCopiers) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetSettingsAllowCopiers {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsAllowCopiers, v)
+	}
+	*j = SetSettingsAllowCopiers(v)
+	return nil
+}
+
+type SetSettingsDxtradeUserException int
+
+var enumValues_SetSettingsDxtradeUserException = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetSettingsDxtradeUserException) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetSettingsDxtradeUserException {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsDxtradeUserException, v)
+	}
+	*j = SetSettingsDxtradeUserException(v)
+	return nil
+}
+
+type SetSettingsEmailConsent int
+
+var enumValues_SetSettingsEmailConsent = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetSettingsEmailConsent) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetSettingsEmailConsent {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsEmailConsent, v)
+	}
+	*j = SetSettingsEmailConsent(v)
+	return nil
+}
+
+type SetSettingsEmploymentStatus string
+
+var enumValues_SetSettingsEmploymentStatus = []interface{}{
+	"Employed",
+	"Pensioner",
+	"Self-Employed",
+	"Student",
+	"Unemployed",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetSettingsEmploymentStatus) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetSettingsEmploymentStatus {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsEmploymentStatus, v)
+	}
+	*j = SetSettingsEmploymentStatus(v)
+	return nil
+}
+
+const SetSettingsEmploymentStatusEmployed SetSettingsEmploymentStatus = "Employed"
+const SetSettingsEmploymentStatusPensioner SetSettingsEmploymentStatus = "Pensioner"
+const SetSettingsEmploymentStatusSelfEmployed SetSettingsEmploymentStatus = "Self-Employed"
+const SetSettingsEmploymentStatusStudent SetSettingsEmploymentStatus = "Student"
+const SetSettingsEmploymentStatusUnemployed SetSettingsEmploymentStatus = "Unemployed"
+
+type SetSettingsFeatureFlagWallet int
+
+var enumValues_SetSettingsFeatureFlagWallet = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetSettingsFeatureFlagWallet) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetSettingsFeatureFlagWallet {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsFeatureFlagWallet, v)
+	}
+	*j = SetSettingsFeatureFlagWallet(v)
+	return nil
+}
+
+// [Optional] Enable or disable one or multiple features.
+type SetSettingsFeatureFlag struct {
+	// [Optional] Boolean value 1 or 0 indicating whether to enable/disable this
+	// feature
+	Wallet *SetSettingsFeatureFlagWallet `json:"wallet,omitempty"`
+}
+
+type SetSettingsNonPepDeclaration int
+
+var enumValues_SetSettingsNonPepDeclaration = []interface{}{
+	1,
+}
+
+type SetSettingsRequestProfessionalStatus int
+
+var enumValues_SetSettingsAccountOpeningReason = []interface{}{
+	"Speculative",
+	"Income Earning",
+	"Hedging",
+	"Peer-to-peer exchange",
+}
+
+type SetSettingsAllowCopiers int
+
+var enumValues_SetSettingsRequestProfessionalStatus = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetSettingsRequestProfessionalStatus) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetSettingsRequestProfessionalStatus {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsRequestProfessionalStatus, v)
+	}
+	*j = SetSettingsRequestProfessionalStatus(v)
+	return nil
+}
+
+type SetSettingsSalutation string
+
+var enumValues_SetSettingsSalutation = []interface{}{
+	"Mr",
+	"Ms",
+	"Miss",
+	"Mrs",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetSettingsSalutation) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetSettingsSalutation {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsSalutation, v)
+	}
+	*j = SetSettingsSalutation(v)
+	return nil
+}
+
+const SetSettingsSalutationMiss SetSettingsSalutation = "Miss"
+const SetSettingsSalutationMr SetSettingsSalutation = "Mr"
+const SetSettingsSalutationMrs SetSettingsSalutation = "Mrs"
+const SetSettingsSalutationMs SetSettingsSalutation = "Ms"
+
+type SetSettingsSecretQuestion string
+
+var enumValues_SetSettingsSecretQuestion = []interface{}{
+	"Mother's maiden name",
+	"Name of your pet",
+	"Name of first love",
+	"Memorable town/city",
+	"Memorable date",
+	"Favourite dish",
+	"Brand of first car",
+	"Favourite artist",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetSettingsSecretQuestion) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetSettingsSecretQuestion {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsSecretQuestion, v)
+	}
+	*j = SetSettingsSecretQuestion(v)
+	return nil
+}
+
+const SetSettingsSecretQuestionMemorableTownCity SetSettingsSecretQuestion = "Memorable town/city"
+const SetSettingsSecretQuestionMotherSMaidenName SetSettingsSecretQuestion = "Mother's maiden name"
+const SetSettingsSecretQuestionMemorableDate SetSettingsSecretQuestion = "Memorable date"
+const SetSettingsSecretQuestionFavouriteDish SetSettingsSecretQuestion = "Favourite dish"
+const SetSettingsSecretQuestionBrandOfFirstCar SetSettingsSecretQuestion = "Brand of first car"
+const SetSettingsSecretQuestionFavouriteArtist SetSettingsSecretQuestion = "Favourite artist"
+const SetSettingsSecretQuestionNameOfFirstLove SetSettingsSecretQuestion = "Name of first love"
+const SetSettingsSecretQuestionNameOfYourPet SetSettingsSecretQuestion = "Name of your pet"
+
+type SetSettingsSetSettings int
+
+var enumValues_SetSettingsSetSettings = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetSettingsSetSettings) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetSettingsSetSettings {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsSetSettings, v)
+	}
+	*j = SetSettingsSetSettings(v)
+	return nil
+}
+
+type SetSettingsTradingHub int
+
+var enumValues_SetSettingsTradingHub = []interface{}{
+	0,
+	1,
+}
+
+// [Optional] Used to pass data through the websocket, which may be retrieved via
+// the `echo_req` output field.
+type SetSettingsPassthrough map[string]interface{}
+
 // Set User Settings (this call should be used in conjunction with `get_settings`)
 type SetSettings struct {
 	// [Optional] Purpose and reason for requesting the account opening. Only
@@ -132,383 +502,13 @@ type SetSettings struct {
 	TradingHub *SetSettingsTradingHub `json:"trading_hub,omitempty"`
 }
 
-type SetSettingsAccountOpeningReason string
-
-const SetSettingsAccountOpeningReasonHedging SetSettingsAccountOpeningReason = "Hedging"
-const SetSettingsAccountOpeningReasonIncomeEarning SetSettingsAccountOpeningReason = "Income Earning"
-const SetSettingsAccountOpeningReasonPeerToPeerExchange SetSettingsAccountOpeningReason = "Peer-to-peer exchange"
-const SetSettingsAccountOpeningReasonSpeculative SetSettingsAccountOpeningReason = "Speculative"
-
-var enumValues_SetSettingsAccountOpeningReason = []interface{}{
-	"Speculative",
-	"Income Earning",
-	"Hedging",
-	"Peer-to-peer exchange",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetSettingsAccountOpeningReason) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetSettingsAccountOpeningReason {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsAccountOpeningReason, v)
-	}
-	*j = SetSettingsAccountOpeningReason(v)
-	return nil
-}
-
-type SetSettingsAllowCopiers int
-
-var enumValues_SetSettingsAllowCopiers = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetSettingsAllowCopiers) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetSettingsAllowCopiers {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsAllowCopiers, v)
-	}
-	*j = SetSettingsAllowCopiers(v)
-	return nil
-}
-
-type SetSettingsDxtradeUserException int
-
-var enumValues_SetSettingsDxtradeUserException = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetSettingsDxtradeUserException) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetSettingsDxtradeUserException {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsDxtradeUserException, v)
-	}
-	*j = SetSettingsDxtradeUserException(v)
-	return nil
-}
-
-type SetSettingsEmailConsent int
-
-var enumValues_SetSettingsEmailConsent = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetSettingsEmailConsent) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetSettingsEmailConsent {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsEmailConsent, v)
-	}
-	*j = SetSettingsEmailConsent(v)
-	return nil
-}
-
-type SetSettingsEmploymentStatus string
-
-const SetSettingsEmploymentStatusEmployed SetSettingsEmploymentStatus = "Employed"
-const SetSettingsEmploymentStatusPensioner SetSettingsEmploymentStatus = "Pensioner"
-const SetSettingsEmploymentStatusSelfEmployed SetSettingsEmploymentStatus = "Self-Employed"
-const SetSettingsEmploymentStatusStudent SetSettingsEmploymentStatus = "Student"
-const SetSettingsEmploymentStatusUnemployed SetSettingsEmploymentStatus = "Unemployed"
-
-var enumValues_SetSettingsEmploymentStatus = []interface{}{
-	"Employed",
-	"Pensioner",
-	"Self-Employed",
-	"Student",
-	"Unemployed",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetSettingsEmploymentStatus) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetSettingsEmploymentStatus {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsEmploymentStatus, v)
-	}
-	*j = SetSettingsEmploymentStatus(v)
-	return nil
-}
-
-// [Optional] Enable or disable one or multiple features.
-type SetSettingsFeatureFlag struct {
-	// [Optional] Boolean value 1 or 0 indicating whether to enable/disable this
-	// feature
-	Wallet *SetSettingsFeatureFlagWallet `json:"wallet,omitempty"`
-}
-
-type SetSettingsFeatureFlagWallet int
-
-var enumValues_SetSettingsFeatureFlagWallet = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetSettingsFeatureFlagWallet) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetSettingsFeatureFlagWallet {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsFeatureFlagWallet, v)
-	}
-	*j = SetSettingsFeatureFlagWallet(v)
-	return nil
-}
-
-type SetSettingsNonPepDeclaration int
-
-var enumValues_SetSettingsNonPepDeclaration = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetSettingsNonPepDeclaration) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetSettingsNonPepDeclaration {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsNonPepDeclaration, v)
-	}
-	*j = SetSettingsNonPepDeclaration(v)
-	return nil
-}
-
-// [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
-type SetSettingsPassthrough map[string]interface{}
-
-type SetSettingsRequestProfessionalStatus int
-
-var enumValues_SetSettingsRequestProfessionalStatus = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetSettingsRequestProfessionalStatus) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetSettingsRequestProfessionalStatus {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsRequestProfessionalStatus, v)
-	}
-	*j = SetSettingsRequestProfessionalStatus(v)
-	return nil
-}
-
-type SetSettingsSalutation string
-
-const SetSettingsSalutationMiss SetSettingsSalutation = "Miss"
-const SetSettingsSalutationMr SetSettingsSalutation = "Mr"
-const SetSettingsSalutationMrs SetSettingsSalutation = "Mrs"
-const SetSettingsSalutationMs SetSettingsSalutation = "Ms"
-
-var enumValues_SetSettingsSalutation = []interface{}{
-	"Mr",
-	"Ms",
-	"Miss",
-	"Mrs",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetSettingsSalutation) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetSettingsSalutation {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsSalutation, v)
-	}
-	*j = SetSettingsSalutation(v)
-	return nil
-}
-
-type SetSettingsSecretQuestion string
-
-const SetSettingsSecretQuestionBrandOfFirstCar SetSettingsSecretQuestion = "Brand of first car"
-const SetSettingsSecretQuestionFavouriteArtist SetSettingsSecretQuestion = "Favourite artist"
-const SetSettingsSecretQuestionFavouriteDish SetSettingsSecretQuestion = "Favourite dish"
-const SetSettingsSecretQuestionMemorableDate SetSettingsSecretQuestion = "Memorable date"
-const SetSettingsSecretQuestionMemorableTownCity SetSettingsSecretQuestion = "Memorable town/city"
-const SetSettingsSecretQuestionMotherSMaidenName SetSettingsSecretQuestion = "Mother's maiden name"
-const SetSettingsSecretQuestionNameOfFirstLove SetSettingsSecretQuestion = "Name of first love"
-const SetSettingsSecretQuestionNameOfYourPet SetSettingsSecretQuestion = "Name of your pet"
-
-var enumValues_SetSettingsSecretQuestion = []interface{}{
-	"Mother's maiden name",
-	"Name of your pet",
-	"Name of first love",
-	"Memorable town/city",
-	"Memorable date",
-	"Favourite dish",
-	"Brand of first car",
-	"Favourite artist",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetSettingsSecretQuestion) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetSettingsSecretQuestion {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsSecretQuestion, v)
-	}
-	*j = SetSettingsSecretQuestion(v)
-	return nil
-}
-
-type SetSettingsSetSettings int
-
-var enumValues_SetSettingsSetSettings = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetSettingsSetSettings) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetSettingsSetSettings {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsSetSettings, v)
-	}
-	*j = SetSettingsSetSettings(v)
-	return nil
-}
-
-type SetSettingsTradingHub int
-
-var enumValues_SetSettingsTradingHub = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetSettingsTradingHub) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetSettingsTradingHub {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsTradingHub, v)
-	}
-	*j = SetSettingsTradingHub(v)
-	return nil
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *SetSettings) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["set_settings"]; raw != nil && !ok {
+	if v, ok := raw["set_settings"]; !ok || v == nil {
 		return fmt.Errorf("field set_settings in SetSettings: required")
 	}
 	type Plain SetSettings

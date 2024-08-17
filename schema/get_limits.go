@@ -6,23 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Trading and Withdrawal Limits for a given user
-type GetLimits struct {
-	// Must be `1`
-	GetLimits GetLimitsGetLimits `json:"get_limits"`
-
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough GetLimitsPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 type GetLimitsGetLimits int
 
 var enumValues_GetLimitsGetLimits = []interface{}{
@@ -49,6 +32,23 @@ func (j *GetLimitsGetLimits) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Trading and Withdrawal Limits for a given user
+type GetLimits struct {
+	// Must be `1`
+	GetLimits GetLimitsGetLimits `json:"get_limits"`
+
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough GetLimitsPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type GetLimitsPassthrough map[string]interface{}
@@ -59,7 +59,7 @@ func (j *GetLimits) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["get_limits"]; raw != nil && !ok {
+	if v, ok := raw["get_limits"]; !ok || v == nil {
 		return fmt.Errorf("field get_limits in GetLimits: required")
 	}
 	type Plain GetLimits

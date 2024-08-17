@@ -6,28 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// A message with results is received
-type CopyStartResp struct {
-	// Copy start confirmation. Returns 1 is success.
-	CopyStart *int `json:"copy_start,omitempty"`
-
-	// Echo of the request made.
-	EchoReq CopyStartRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType CopyStartRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Echo of the request made.
 type CopyStartRespEchoReq map[string]interface{}
 
 type CopyStartRespMsgType string
-
-const CopyStartRespMsgTypeCopyStart CopyStartRespMsgType = "copy_start"
 
 var enumValues_CopyStartRespMsgType = []interface{}{
 	"copy_start",
@@ -53,16 +35,34 @@ func (j *CopyStartRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// A message with results is received
+type CopyStartResp struct {
+	// Copy start confirmation. Returns 1 is success.
+	CopyStart *int `json:"copy_start,omitempty"`
+
+	// Echo of the request made.
+	EchoReq CopyStartRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType CopyStartRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const CopyStartRespMsgTypeCopyStart CopyStartRespMsgType = "copy_start"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *CopyStartResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in CopyStartResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in CopyStartResp: required")
 	}
 	type Plain CopyStartResp

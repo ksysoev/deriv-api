@@ -6,19 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Request trading platform status
-type TradingPlatformStatus struct {
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough TradingPlatformStatusPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// Must be `1`
-	TradingPlatformStatus TradingPlatformStatusTradingPlatformStatus `json:"trading_platform_status"`
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type TradingPlatformStatusPassthrough map[string]interface{}
@@ -49,13 +36,26 @@ func (j *TradingPlatformStatusTradingPlatformStatus) UnmarshalJSON(b []byte) err
 	return nil
 }
 
+// Request trading platform status
+type TradingPlatformStatus struct {
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough TradingPlatformStatusPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// Must be `1`
+	TradingPlatformStatus TradingPlatformStatusTradingPlatformStatus `json:"trading_platform_status"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TradingPlatformStatus) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["trading_platform_status"]; raw != nil && !ok {
+	if v, ok := raw["trading_platform_status"]; !ok || v == nil {
 		return fmt.Errorf("field trading_platform_status in TradingPlatformStatus: required")
 	}
 	type Plain TradingPlatformStatus

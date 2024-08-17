@@ -132,31 +132,6 @@ type LandingCompanyDetailsRespLandingCompanyDetailsCurrencyConfigSyntheticIndex 
 
 type LandingCompanyDetailsRespLandingCompanyDetailsHasRealityCheck int
 
-var enumValues_LandingCompanyDetailsRespLandingCompanyDetailsHasRealityCheck = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyDetailsRespLandingCompanyDetailsHasRealityCheck) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_LandingCompanyDetailsRespLandingCompanyDetailsHasRealityCheck {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyDetailsRespLandingCompanyDetailsHasRealityCheck, v)
-	}
-	*j = LandingCompanyDetailsRespLandingCompanyDetailsHasRealityCheck(v)
-	return nil
-}
-
 // Legal requirements for the given Landing Company.
 type LandingCompanyDetailsRespLandingCompanyDetailsRequirements struct {
 	// After first deposit requirements
@@ -241,9 +216,27 @@ func (j *LandingCompanyDetailsRespLandingCompanyDetailsTinNotMandatory) Unmarsha
 	return nil
 }
 
-type LandingCompanyDetailsRespMsgType string
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *LandingCompanyDetailsRespLandingCompanyDetailsHasRealityCheck) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_LandingCompanyDetailsRespLandingCompanyDetailsHasRealityCheck {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyDetailsRespLandingCompanyDetailsHasRealityCheck, v)
+	}
+	*j = LandingCompanyDetailsRespLandingCompanyDetailsHasRealityCheck(v)
+	return nil
+}
 
-const LandingCompanyDetailsRespMsgTypeLandingCompanyDetails LandingCompanyDetailsRespMsgType = "landing_company_details"
+type LandingCompanyDetailsRespMsgType string
 
 var enumValues_LandingCompanyDetailsRespMsgType = []interface{}{
 	"landing_company_details",
@@ -269,16 +262,23 @@ func (j *LandingCompanyDetailsRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+const LandingCompanyDetailsRespMsgTypeLandingCompanyDetails LandingCompanyDetailsRespMsgType = "landing_company_details"
+
+var enumValues_LandingCompanyDetailsRespLandingCompanyDetailsHasRealityCheck = []interface{}{
+	0,
+	1,
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *LandingCompanyDetailsResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in LandingCompanyDetailsResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in LandingCompanyDetailsResp: required")
 	}
 	type Plain LandingCompanyDetailsResp

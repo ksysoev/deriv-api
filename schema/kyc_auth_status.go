@@ -32,30 +32,6 @@ type KycAuthStatus struct {
 
 type KycAuthStatusKycAuthStatus int
 
-var enumValues_KycAuthStatusKycAuthStatus = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *KycAuthStatusKycAuthStatus) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_KycAuthStatusKycAuthStatus {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_KycAuthStatusKycAuthStatus, v)
-	}
-	*j = KycAuthStatusKycAuthStatus(v)
-	return nil
-}
-
 type KycAuthStatusLandingCompaniesElem string
 
 const KycAuthStatusLandingCompaniesElemBvi KycAuthStatusLandingCompaniesElem = "bvi"
@@ -85,6 +61,26 @@ var enumValues_KycAuthStatusLandingCompaniesElem = []interface{}{
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
+func (j *KycAuthStatusKycAuthStatus) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_KycAuthStatusKycAuthStatus {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_KycAuthStatusKycAuthStatus, v)
+	}
+	*j = KycAuthStatusKycAuthStatus(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
 func (j *KycAuthStatusLandingCompaniesElem) UnmarshalJSON(b []byte) error {
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
@@ -108,13 +104,17 @@ func (j *KycAuthStatusLandingCompaniesElem) UnmarshalJSON(b []byte) error {
 // the `echo_req` output field.
 type KycAuthStatusPassthrough map[string]interface{}
 
+var enumValues_KycAuthStatusKycAuthStatus = []interface{}{
+	1,
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *KycAuthStatus) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["kyc_auth_status"]; raw != nil && !ok {
+	if v, ok := raw["kyc_auth_status"]; !ok || v == nil {
 		return fmt.Errorf("field kyc_auth_status in KycAuthStatus: required")
 	}
 	type Plain KycAuthStatus

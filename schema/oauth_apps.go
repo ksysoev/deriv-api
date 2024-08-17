@@ -6,23 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// List all my used OAuth applications.
-type OauthApps struct {
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// Must be `1`
-	OauthApps OauthAppsOauthApps `json:"oauth_apps"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough OauthAppsPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 type OauthAppsOauthApps int
 
 var enumValues_OauthAppsOauthApps = []interface{}{
@@ -49,6 +32,23 @@ func (j *OauthAppsOauthApps) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// List all my used OAuth applications.
+type OauthApps struct {
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// Must be `1`
+	OauthApps OauthAppsOauthApps `json:"oauth_apps"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough OauthAppsPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type OauthAppsPassthrough map[string]interface{}
@@ -59,7 +59,7 @@ func (j *OauthApps) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["oauth_apps"]; raw != nil && !ok {
+	if v, ok := raw["oauth_apps"]; !ok || v == nil {
 		return fmt.Errorf("field oauth_apps in OauthApps: required")
 	}
 	type Plain OauthApps

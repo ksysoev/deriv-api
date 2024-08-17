@@ -6,25 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Latest cryptocurrency estimations.
-type CryptoEstimationsResp struct {
-	// Cryptocurrency estimations. E.g. Withdrawal fee estimations.
-	CryptoEstimations CryptoEstimationsRespCryptoEstimations `json:"crypto_estimations,omitempty"`
-
-	// Echo of the request made.
-	EchoReq CryptoEstimationsRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType CryptoEstimationsRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// For subscription requests only.
-	Subscription *CryptoEstimationsRespSubscription `json:"subscription,omitempty"`
-}
-
 // Cryptocurrency estimations. E.g. Withdrawal fee estimations.
 type CryptoEstimationsRespCryptoEstimations map[string]interface{}
 
@@ -32,8 +13,6 @@ type CryptoEstimationsRespCryptoEstimations map[string]interface{}
 type CryptoEstimationsRespEchoReq map[string]interface{}
 
 type CryptoEstimationsRespMsgType string
-
-const CryptoEstimationsRespMsgTypeCryptoEstimations CryptoEstimationsRespMsgType = "crypto_estimations"
 
 var enumValues_CryptoEstimationsRespMsgType = []interface{}{
 	"crypto_estimations",
@@ -59,6 +38,8 @@ func (j *CryptoEstimationsRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+const CryptoEstimationsRespMsgTypeCryptoEstimations CryptoEstimationsRespMsgType = "crypto_estimations"
+
 // For subscription requests only.
 type CryptoEstimationsRespSubscription struct {
 	// A per-connection unique identifier. Can be passed to the `forget` API call to
@@ -72,7 +53,7 @@ func (j *CryptoEstimationsRespSubscription) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["id"]; raw != nil && !ok {
+	if v, ok := raw["id"]; !ok || v == nil {
 		return fmt.Errorf("field id in CryptoEstimationsRespSubscription: required")
 	}
 	type Plain CryptoEstimationsRespSubscription
@@ -84,16 +65,35 @@ func (j *CryptoEstimationsRespSubscription) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Latest cryptocurrency estimations.
+type CryptoEstimationsResp struct {
+	// Cryptocurrency estimations. E.g. Withdrawal fee estimations.
+	CryptoEstimations CryptoEstimationsRespCryptoEstimations `json:"crypto_estimations,omitempty"`
+
+	// Echo of the request made.
+	EchoReq CryptoEstimationsRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType CryptoEstimationsRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// For subscription requests only.
+	Subscription *CryptoEstimationsRespSubscription `json:"subscription,omitempty"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *CryptoEstimationsResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in CryptoEstimationsResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in CryptoEstimationsResp: required")
 	}
 	type Plain CryptoEstimationsResp

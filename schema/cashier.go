@@ -55,57 +55,7 @@ type CashierCashier string
 const CashierCashierDeposit CashierCashier = "deposit"
 const CashierCashierWithdraw CashierCashier = "withdraw"
 
-var enumValues_CashierCashier = []interface{}{
-	"deposit",
-	"withdraw",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *CashierCashier) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_CashierCashier {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_CashierCashier, v)
-	}
-	*j = CashierCashier(v)
-	return nil
-}
-
 type CashierDryRun int
-
-var enumValues_CashierDryRun = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *CashierDryRun) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_CashierDryRun {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_CashierDryRun, v)
-	}
-	*j = CashierDryRun(v)
-	return nil
-}
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
@@ -116,36 +66,23 @@ type CashierProvider string
 const CashierProviderCrypto CashierProvider = "crypto"
 const CashierProviderDoughflow CashierProvider = "doughflow"
 
-var enumValues_CashierProvider = []interface{}{
-	"doughflow",
-	"crypto",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *CashierProvider) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_CashierProvider {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_CashierProvider, v)
-	}
-	*j = CashierProvider(v)
-	return nil
-}
-
 type CashierType string
 
 const CashierTypeApi CashierType = "api"
 const CashierTypeUrl CashierType = "url"
 
+var enumValues_CashierCashier = []interface{}{
+	"deposit",
+	"withdraw",
+}
+var enumValues_CashierDryRun = []interface{}{
+	0,
+	1,
+}
+var enumValues_CashierProvider = []interface{}{
+	"doughflow",
+	"crypto",
+}
 var enumValues_CashierType = []interface{}{
 	"url",
 	"api",
@@ -168,6 +105,66 @@ func (j *CashierType) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_CashierType, v)
 	}
 	*j = CashierType(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *CashierProvider) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_CashierProvider {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_CashierProvider, v)
+	}
+	*j = CashierProvider(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *CashierDryRun) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_CashierDryRun {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_CashierDryRun, v)
+	}
+	*j = CashierDryRun(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *CashierCashier) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_CashierCashier {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_CashierCashier, v)
+	}
+	*j = CashierCashier(v)
 	return nil
 }
 

@@ -6,6 +6,36 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// [Optional] Used to pass data through the websocket, which may be retrieved via
+// the `echo_req` output field.
+type SetSelfExclusionPassthrough map[string]interface{}
+
+type SetSelfExclusionSetSelfExclusion int
+
+var enumValues_SetSelfExclusionSetSelfExclusion = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetSelfExclusionSetSelfExclusion) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetSelfExclusionSetSelfExclusion {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSelfExclusionSetSelfExclusion, v)
+	}
+	*j = SetSelfExclusionSetSelfExclusion(v)
+	return nil
+}
+
 // Set Self-Exclusion (this call should be used in conjunction with
 // `get_self_exclusion`)
 type SetSelfExclusion struct {
@@ -70,43 +100,13 @@ type SetSelfExclusion struct {
 	TimeoutUntil *int `json:"timeout_until,omitempty"`
 }
 
-// [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
-type SetSelfExclusionPassthrough map[string]interface{}
-
-type SetSelfExclusionSetSelfExclusion int
-
-var enumValues_SetSelfExclusionSetSelfExclusion = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetSelfExclusionSetSelfExclusion) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetSelfExclusionSetSelfExclusion {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSelfExclusionSetSelfExclusion, v)
-	}
-	*j = SetSelfExclusionSetSelfExclusion(v)
-	return nil
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *SetSelfExclusion) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["set_self_exclusion"]; raw != nil && !ok {
+	if v, ok := raw["set_self_exclusion"]; !ok || v == nil {
 		return fmt.Errorf("field set_self_exclusion in SetSelfExclusion: required")
 	}
 	type Plain SetSelfExclusion

@@ -35,10 +35,10 @@ func (j *Sell) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["price"]; raw != nil && !ok {
+	if v, ok := raw["price"]; !ok || v == nil {
 		return fmt.Errorf("field price in Sell: required")
 	}
-	if _, ok := raw["sell"]; raw != nil && !ok {
+	if v, ok := raw["sell"]; !ok || v == nil {
 		return fmt.Errorf("field sell in Sell: required")
 	}
 	type Plain Sell

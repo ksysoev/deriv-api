@@ -6,28 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// A message with States List
-type StatesListResp struct {
-	// Echo of the request made.
-	EchoReq StatesListRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType StatesListRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// List of states.
-	StatesList []StatesListRespStatesListElem `json:"states_list,omitempty"`
-}
-
 // Echo of the request made.
 type StatesListRespEchoReq map[string]interface{}
 
 type StatesListRespMsgType string
-
-const StatesListRespMsgTypeStatesList StatesListRespMsgType = "states_list"
 
 var enumValues_StatesListRespMsgType = []interface{}{
 	"states_list",
@@ -53,6 +35,24 @@ func (j *StatesListRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// A message with States List
+type StatesListResp struct {
+	// Echo of the request made.
+	EchoReq StatesListRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType StatesListRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// List of states.
+	StatesList []StatesListRespStatesListElem `json:"states_list,omitempty"`
+}
+
+const StatesListRespMsgTypeStatesList StatesListRespMsgType = "states_list"
+
 type StatesListRespStatesListElem struct {
 	// The state name.
 	Text *string `json:"text,omitempty"`
@@ -67,10 +67,10 @@ func (j *StatesListResp) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in StatesListResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in StatesListResp: required")
 	}
 	type Plain StatesListResp

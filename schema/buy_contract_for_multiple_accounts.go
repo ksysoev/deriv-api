@@ -99,31 +99,6 @@ type BuyContractForMultipleAccountsParametersBasis string
 const BuyContractForMultipleAccountsParametersBasisPayout BuyContractForMultipleAccountsParametersBasis = "payout"
 const BuyContractForMultipleAccountsParametersBasisStake BuyContractForMultipleAccountsParametersBasis = "stake"
 
-var enumValues_BuyContractForMultipleAccountsParametersBasis = []interface{}{
-	"payout",
-	"stake",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *BuyContractForMultipleAccountsParametersBasis) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_BuyContractForMultipleAccountsParametersBasis {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_BuyContractForMultipleAccountsParametersBasis, v)
-	}
-	*j = BuyContractForMultipleAccountsParametersBasis(v)
-	return nil
-}
-
 type BuyContractForMultipleAccountsParametersContractType string
 
 const BuyContractForMultipleAccountsParametersContractTypeASIAND BuyContractForMultipleAccountsParametersContractType = "ASIAND"
@@ -163,6 +138,63 @@ const BuyContractForMultipleAccountsParametersContractTypeTURBOSSHORT BuyContrac
 const BuyContractForMultipleAccountsParametersContractTypeUPORDOWN BuyContractForMultipleAccountsParametersContractType = "UPORDOWN"
 const BuyContractForMultipleAccountsParametersContractTypeVANILLALONGCALL BuyContractForMultipleAccountsParametersContractType = "VANILLALONGCALL"
 const BuyContractForMultipleAccountsParametersContractTypeVANILLALONGPUT BuyContractForMultipleAccountsParametersContractType = "VANILLALONGPUT"
+
+type BuyContractForMultipleAccountsParametersDurationUnit string
+
+const BuyContractForMultipleAccountsParametersDurationUnitD BuyContractForMultipleAccountsParametersDurationUnit = "d"
+const BuyContractForMultipleAccountsParametersDurationUnitH BuyContractForMultipleAccountsParametersDurationUnit = "h"
+
+var enumValues_BuyContractForMultipleAccountsParametersDurationUnit = []interface{}{
+	"d",
+	"m",
+	"s",
+	"h",
+	"t",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *BuyContractForMultipleAccountsParametersDurationUnit) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_BuyContractForMultipleAccountsParametersDurationUnit {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_BuyContractForMultipleAccountsParametersDurationUnit, v)
+	}
+	*j = BuyContractForMultipleAccountsParametersDurationUnit(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *BuyContractForMultipleAccountsParametersContractType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_BuyContractForMultipleAccountsParametersContractType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_BuyContractForMultipleAccountsParametersContractType, v)
+	}
+	*j = BuyContractForMultipleAccountsParametersContractType(v)
+	return nil
+}
+
+const BuyContractForMultipleAccountsParametersDurationUnitM BuyContractForMultipleAccountsParametersDurationUnit = "m"
+const BuyContractForMultipleAccountsParametersDurationUnitS BuyContractForMultipleAccountsParametersDurationUnit = "s"
+const BuyContractForMultipleAccountsParametersDurationUnitT BuyContractForMultipleAccountsParametersDurationUnit = "t"
 
 var enumValues_BuyContractForMultipleAccountsParametersContractType = []interface{}{
 	"MULTUP",
@@ -205,58 +237,22 @@ var enumValues_BuyContractForMultipleAccountsParametersContractType = []interfac
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *BuyContractForMultipleAccountsParametersContractType) UnmarshalJSON(b []byte) error {
+func (j *BuyContractForMultipleAccountsParametersBasis) UnmarshalJSON(b []byte) error {
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_BuyContractForMultipleAccountsParametersContractType {
+	for _, expected := range enumValues_BuyContractForMultipleAccountsParametersBasis {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_BuyContractForMultipleAccountsParametersContractType, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_BuyContractForMultipleAccountsParametersBasis, v)
 	}
-	*j = BuyContractForMultipleAccountsParametersContractType(v)
-	return nil
-}
-
-type BuyContractForMultipleAccountsParametersDurationUnit string
-
-const BuyContractForMultipleAccountsParametersDurationUnitD BuyContractForMultipleAccountsParametersDurationUnit = "d"
-const BuyContractForMultipleAccountsParametersDurationUnitH BuyContractForMultipleAccountsParametersDurationUnit = "h"
-const BuyContractForMultipleAccountsParametersDurationUnitM BuyContractForMultipleAccountsParametersDurationUnit = "m"
-const BuyContractForMultipleAccountsParametersDurationUnitS BuyContractForMultipleAccountsParametersDurationUnit = "s"
-const BuyContractForMultipleAccountsParametersDurationUnitT BuyContractForMultipleAccountsParametersDurationUnit = "t"
-
-var enumValues_BuyContractForMultipleAccountsParametersDurationUnit = []interface{}{
-	"d",
-	"m",
-	"s",
-	"h",
-	"t",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *BuyContractForMultipleAccountsParametersDurationUnit) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_BuyContractForMultipleAccountsParametersDurationUnit {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_BuyContractForMultipleAccountsParametersDurationUnit, v)
-	}
-	*j = BuyContractForMultipleAccountsParametersDurationUnit(v)
+	*j = BuyContractForMultipleAccountsParametersBasis(v)
 	return nil
 }
 
@@ -266,13 +262,13 @@ func (j *BuyContractForMultipleAccountsParameters) UnmarshalJSON(b []byte) error
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["contract_type"]; raw != nil && !ok {
+	if v, ok := raw["contract_type"]; !ok || v == nil {
 		return fmt.Errorf("field contract_type in BuyContractForMultipleAccountsParameters: required")
 	}
-	if _, ok := raw["currency"]; raw != nil && !ok {
+	if v, ok := raw["currency"]; !ok || v == nil {
 		return fmt.Errorf("field currency in BuyContractForMultipleAccountsParameters: required")
 	}
-	if _, ok := raw["symbol"]; raw != nil && !ok {
+	if v, ok := raw["symbol"]; !ok || v == nil {
 		return fmt.Errorf("field symbol in BuyContractForMultipleAccountsParameters: required")
 	}
 	type Plain BuyContractForMultipleAccountsParameters
@@ -288,19 +284,24 @@ func (j *BuyContractForMultipleAccountsParameters) UnmarshalJSON(b []byte) error
 // the `echo_req` output field.
 type BuyContractForMultipleAccountsPassthrough map[string]interface{}
 
+var enumValues_BuyContractForMultipleAccountsParametersBasis = []interface{}{
+	"payout",
+	"stake",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *BuyContractForMultipleAccounts) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["buy_contract_for_multiple_accounts"]; raw != nil && !ok {
+	if v, ok := raw["buy_contract_for_multiple_accounts"]; !ok || v == nil {
 		return fmt.Errorf("field buy_contract_for_multiple_accounts in BuyContractForMultipleAccounts: required")
 	}
-	if _, ok := raw["price"]; raw != nil && !ok {
+	if v, ok := raw["price"]; !ok || v == nil {
 		return fmt.Errorf("field price in BuyContractForMultipleAccounts: required")
 	}
-	if _, ok := raw["tokens"]; raw != nil && !ok {
+	if v, ok := raw["tokens"]; !ok || v == nil {
 		return fmt.Errorf("field tokens in BuyContractForMultipleAccounts: required")
 	}
 	type Plain BuyContractForMultipleAccounts

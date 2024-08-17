@@ -6,29 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Update a contract condition.
-type ContractUpdate struct {
-	// Internal unique contract identifier.
-	ContractId int `json:"contract_id"`
-
-	// Must be `1`
-	ContractUpdate ContractUpdateContractUpdate `json:"contract_update"`
-
-	// Specify limit order to update.
-	LimitOrder ContractUpdateLimitOrder `json:"limit_order"`
-
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough ContractUpdatePassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 type ContractUpdateContractUpdate int
 
 var enumValues_ContractUpdateContractUpdate = []interface{}{
@@ -55,6 +32,29 @@ func (j *ContractUpdateContractUpdate) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Update a contract condition.
+type ContractUpdate struct {
+	// Internal unique contract identifier.
+	ContractId int `json:"contract_id"`
+
+	// Must be `1`
+	ContractUpdate ContractUpdateContractUpdate `json:"contract_update"`
+
+	// Specify limit order to update.
+	LimitOrder ContractUpdateLimitOrder `json:"limit_order"`
+
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough ContractUpdatePassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // Specify limit order to update.
 type ContractUpdateLimitOrder struct {
 	// New stop loss value for a contract. To cancel, pass `null`.
@@ -74,13 +74,13 @@ func (j *ContractUpdate) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["contract_id"]; raw != nil && !ok {
+	if v, ok := raw["contract_id"]; !ok || v == nil {
 		return fmt.Errorf("field contract_id in ContractUpdate: required")
 	}
-	if _, ok := raw["contract_update"]; raw != nil && !ok {
+	if v, ok := raw["contract_update"]; !ok || v == nil {
 		return fmt.Errorf("field contract_update in ContractUpdate: required")
 	}
-	if _, ok := raw["limit_order"]; raw != nil && !ok {
+	if v, ok := raw["limit_order"]; !ok || v == nil {
 		return fmt.Errorf("field limit_order in ContractUpdate: required")
 	}
 	type Plain ContractUpdate

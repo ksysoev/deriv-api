@@ -6,26 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Creates a P2P chat for the specified order.
-type P2PChatCreate struct {
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// The unique identifier for the order to create the chat for.
-	OrderId string `json:"order_id"`
-
-	// Must be 1
-	P2PChatCreate P2PChatCreateP2PChatCreate `json:"p2p_chat_create"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough P2PChatCreatePassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 type P2PChatCreateP2PChatCreate int
 
 var enumValues_P2PChatCreateP2PChatCreate = []interface{}{
@@ -52,6 +32,26 @@ func (j *P2PChatCreateP2PChatCreate) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Creates a P2P chat for the specified order.
+type P2PChatCreate struct {
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// The unique identifier for the order to create the chat for.
+	OrderId string `json:"order_id"`
+
+	// Must be 1
+	P2PChatCreate P2PChatCreateP2PChatCreate `json:"p2p_chat_create"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough P2PChatCreatePassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type P2PChatCreatePassthrough map[string]interface{}
@@ -62,10 +62,10 @@ func (j *P2PChatCreate) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["order_id"]; raw != nil && !ok {
+	if v, ok := raw["order_id"]; !ok || v == nil {
 		return fmt.Errorf("field order_id in P2PChatCreate: required")
 	}
-	if _, ok := raw["p2p_chat_create"]; raw != nil && !ok {
+	if v, ok := raw["p2p_chat_create"]; !ok || v == nil {
 		return fmt.Errorf("field p2p_chat_create in P2PChatCreate: required")
 	}
 	type Plain P2PChatCreate

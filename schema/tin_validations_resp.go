@@ -6,28 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// A message with validations for Tax Identification Numbers (TIN)
-type TinValidationsResp struct {
-	// Echo of the request made.
-	EchoReq TinValidationsRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType TinValidationsRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// Validations for Tax Identification Numbers (TIN)
-	TinValidations *TinValidationsRespTinValidations `json:"tin_validations,omitempty"`
-}
-
 // Echo of the request made.
 type TinValidationsRespEchoReq map[string]interface{}
 
 type TinValidationsRespMsgType string
-
-const TinValidationsRespMsgTypeTinValidations TinValidationsRespMsgType = "tin_validations"
 
 var enumValues_TinValidationsRespMsgType = []interface{}{
 	"tin_validations",
@@ -53,21 +35,7 @@ func (j *TinValidationsRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Validations for Tax Identification Numbers (TIN)
-type TinValidationsRespTinValidations struct {
-	// Invalid regex patterns for tin validation
-	InvalidPatterns []string `json:"invalid_patterns,omitempty"`
-
-	// Whether the TIN is mandatory for the selected country
-	IsTinMandatory *TinValidationsRespTinValidationsIsTinMandatory `json:"is_tin_mandatory,omitempty"`
-
-	// List of employment statuses that bypass TIN requirements for the selected
-	// country
-	TinEmploymentStatusBypass []string `json:"tin_employment_status_bypass,omitempty"`
-
-	// Country tax identifier formats.
-	TinFormat []string `json:"tin_format,omitempty"`
-}
+const TinValidationsRespMsgTypeTinValidations TinValidationsRespMsgType = "tin_validations"
 
 type TinValidationsRespTinValidationsIsTinMandatory int
 
@@ -96,16 +64,48 @@ func (j *TinValidationsRespTinValidationsIsTinMandatory) UnmarshalJSON(b []byte)
 	return nil
 }
 
+// A message with validations for Tax Identification Numbers (TIN)
+type TinValidationsResp struct {
+	// Echo of the request made.
+	EchoReq TinValidationsRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType TinValidationsRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// Validations for Tax Identification Numbers (TIN)
+	TinValidations *TinValidationsRespTinValidations `json:"tin_validations,omitempty"`
+}
+
+// Validations for Tax Identification Numbers (TIN)
+type TinValidationsRespTinValidations struct {
+	// Invalid regex patterns for tin validation
+	InvalidPatterns []string `json:"invalid_patterns,omitempty"`
+
+	// Whether the TIN is mandatory for the selected country
+	IsTinMandatory *TinValidationsRespTinValidationsIsTinMandatory `json:"is_tin_mandatory,omitempty"`
+
+	// List of employment statuses that bypass TIN requirements for the selected
+	// country
+	TinEmploymentStatusBypass []string `json:"tin_employment_status_bypass,omitempty"`
+
+	// Country tax identifier formats.
+	TinFormat []string `json:"tin_format,omitempty"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TinValidationsResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in TinValidationsResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in TinValidationsResp: required")
 	}
 	type Plain TinValidationsResp

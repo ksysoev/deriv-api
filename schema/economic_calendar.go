@@ -6,30 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Specify a currency to receive a list of events related to that specific
-// currency. For example, specifying USD will return a list of USD-related events.
-// If the currency is omitted, you will receive a list for all currencies.
-type EconomicCalendar struct {
-	// [Optional] Currency symbol.
-	Currency *string `json:"currency,omitempty"`
-
-	// Must be `1`
-	EconomicCalendar EconomicCalendarEconomicCalendar `json:"economic_calendar"`
-
-	// [Optional] End date.
-	EndDate *int `json:"end_date,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough EconomicCalendarPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// [Optional] Start date.
-	StartDate *int `json:"start_date,omitempty"`
-}
-
 type EconomicCalendarEconomicCalendar int
 
 var enumValues_EconomicCalendarEconomicCalendar = []interface{}{
@@ -56,6 +32,30 @@ func (j *EconomicCalendarEconomicCalendar) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Specify a currency to receive a list of events related to that specific
+// currency. For example, specifying USD will return a list of USD-related events.
+// If the currency is omitted, you will receive a list for all currencies.
+type EconomicCalendar struct {
+	// [Optional] Currency symbol.
+	Currency *string `json:"currency,omitempty"`
+
+	// Must be `1`
+	EconomicCalendar EconomicCalendarEconomicCalendar `json:"economic_calendar"`
+
+	// [Optional] End date.
+	EndDate *int `json:"end_date,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough EconomicCalendarPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// [Optional] Start date.
+	StartDate *int `json:"start_date,omitempty"`
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type EconomicCalendarPassthrough map[string]interface{}
@@ -66,7 +66,7 @@ func (j *EconomicCalendar) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["economic_calendar"]; raw != nil && !ok {
+	if v, ok := raw["economic_calendar"]; !ok || v == nil {
 		return fmt.Errorf("field economic_calendar in EconomicCalendar: required")
 	}
 	type Plain EconomicCalendar

@@ -85,10 +85,45 @@ type TransferBetweenAccountsRespAccountsElemAccountCategory string
 const TransferBetweenAccountsRespAccountsElemAccountCategoryTrading TransferBetweenAccountsRespAccountsElemAccountCategory = "trading"
 const TransferBetweenAccountsRespAccountsElemAccountCategoryWallet TransferBetweenAccountsRespAccountsElemAccountCategory = "wallet"
 
-var enumValues_TransferBetweenAccountsRespAccountsElemAccountCategory = []interface{}{
-	"trading",
-	"wallet",
-}
+type TransferBetweenAccountsRespAccountsElemAccountType string
+
+const TransferBetweenAccountsRespAccountsElemAccountTypeBinary TransferBetweenAccountsRespAccountsElemAccountType = "binary"
+const TransferBetweenAccountsRespAccountsElemAccountTypeCrypto TransferBetweenAccountsRespAccountsElemAccountType = "crypto"
+const TransferBetweenAccountsRespAccountsElemAccountTypeCtrader TransferBetweenAccountsRespAccountsElemAccountType = "ctrader"
+const TransferBetweenAccountsRespAccountsElemAccountTypeDerivez TransferBetweenAccountsRespAccountsElemAccountType = "derivez"
+const TransferBetweenAccountsRespAccountsElemAccountTypeDoughflow TransferBetweenAccountsRespAccountsElemAccountType = "doughflow"
+const TransferBetweenAccountsRespAccountsElemAccountTypeDxtrade TransferBetweenAccountsRespAccountsElemAccountType = "dxtrade"
+const TransferBetweenAccountsRespAccountsElemAccountTypeMt5 TransferBetweenAccountsRespAccountsElemAccountType = "mt5"
+const TransferBetweenAccountsRespAccountsElemAccountTypeP2P TransferBetweenAccountsRespAccountsElemAccountType = "p2p"
+const TransferBetweenAccountsRespAccountsElemAccountTypePaymentagent TransferBetweenAccountsRespAccountsElemAccountType = "paymentagent"
+const TransferBetweenAccountsRespAccountsElemAccountTypePaymentagentClient TransferBetweenAccountsRespAccountsElemAccountType = "paymentagent_client"
+const TransferBetweenAccountsRespAccountsElemAccountTypeStandard TransferBetweenAccountsRespAccountsElemAccountType = "standard"
+const TransferBetweenAccountsRespAccountsElemAccountTypeVirtual TransferBetweenAccountsRespAccountsElemAccountType = "virtual"
+
+type TransferBetweenAccountsRespAccountsElemDemoAccount int
+
+type TransferBetweenAccountsRespAccountsElemMarketType string
+
+const TransferBetweenAccountsRespAccountsElemMarketTypeAll TransferBetweenAccountsRespAccountsElemMarketType = "all"
+const TransferBetweenAccountsRespAccountsElemMarketTypeFinancial TransferBetweenAccountsRespAccountsElemMarketType = "financial"
+const TransferBetweenAccountsRespAccountsElemMarketTypeSynthetic TransferBetweenAccountsRespAccountsElemMarketType = "synthetic"
+
+type TransferBetweenAccountsRespAccountsElemProduct string
+
+const TransferBetweenAccountsRespAccountsElemProductBlank TransferBetweenAccountsRespAccountsElemProduct = ""
+const TransferBetweenAccountsRespAccountsElemProductFinancial TransferBetweenAccountsRespAccountsElemProduct = "financial"
+const TransferBetweenAccountsRespAccountsElemProductStandard TransferBetweenAccountsRespAccountsElemProduct = "standard"
+const TransferBetweenAccountsRespAccountsElemProductStp TransferBetweenAccountsRespAccountsElemProduct = "stp"
+const TransferBetweenAccountsRespAccountsElemProductSwapFree TransferBetweenAccountsRespAccountsElemProduct = "swap_free"
+const TransferBetweenAccountsRespAccountsElemProductSynthetic TransferBetweenAccountsRespAccountsElemProduct = "synthetic"
+const TransferBetweenAccountsRespAccountsElemProductZeroSpread TransferBetweenAccountsRespAccountsElemProduct = "zero_spread"
+
+type TransferBetweenAccountsRespAccountsElemSubAccountType string
+
+const TransferBetweenAccountsRespAccountsElemSubAccountTypeFinancial TransferBetweenAccountsRespAccountsElemSubAccountType = "financial"
+const TransferBetweenAccountsRespAccountsElemSubAccountTypeFinancialStp TransferBetweenAccountsRespAccountsElemSubAccountType = "financial_stp"
+const TransferBetweenAccountsRespAccountsElemSubAccountTypeStandard TransferBetweenAccountsRespAccountsElemSubAccountType = "standard"
+const TransferBetweenAccountsRespAccountsElemSubAccountTypeSwapFree TransferBetweenAccountsRespAccountsElemSubAccountType = "swap_free"
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TransferBetweenAccountsRespAccountsElemAccountCategory) UnmarshalJSON(b []byte) error {
@@ -108,135 +143,6 @@ func (j *TransferBetweenAccountsRespAccountsElemAccountCategory) UnmarshalJSON(b
 	}
 	*j = TransferBetweenAccountsRespAccountsElemAccountCategory(v)
 	return nil
-}
-
-type TransferBetweenAccountsRespAccountsElemAccountType string
-
-const TransferBetweenAccountsRespAccountsElemAccountTypeBinary TransferBetweenAccountsRespAccountsElemAccountType = "binary"
-const TransferBetweenAccountsRespAccountsElemAccountTypeCrypto TransferBetweenAccountsRespAccountsElemAccountType = "crypto"
-const TransferBetweenAccountsRespAccountsElemAccountTypeCtrader TransferBetweenAccountsRespAccountsElemAccountType = "ctrader"
-const TransferBetweenAccountsRespAccountsElemAccountTypeDerivez TransferBetweenAccountsRespAccountsElemAccountType = "derivez"
-const TransferBetweenAccountsRespAccountsElemAccountTypeDoughflow TransferBetweenAccountsRespAccountsElemAccountType = "doughflow"
-const TransferBetweenAccountsRespAccountsElemAccountTypeDxtrade TransferBetweenAccountsRespAccountsElemAccountType = "dxtrade"
-const TransferBetweenAccountsRespAccountsElemAccountTypeMt5 TransferBetweenAccountsRespAccountsElemAccountType = "mt5"
-const TransferBetweenAccountsRespAccountsElemAccountTypeP2P TransferBetweenAccountsRespAccountsElemAccountType = "p2p"
-const TransferBetweenAccountsRespAccountsElemAccountTypePaymentagent TransferBetweenAccountsRespAccountsElemAccountType = "paymentagent"
-const TransferBetweenAccountsRespAccountsElemAccountTypePaymentagentClient TransferBetweenAccountsRespAccountsElemAccountType = "paymentagent_client"
-const TransferBetweenAccountsRespAccountsElemAccountTypeStandard TransferBetweenAccountsRespAccountsElemAccountType = "standard"
-const TransferBetweenAccountsRespAccountsElemAccountTypeVirtual TransferBetweenAccountsRespAccountsElemAccountType = "virtual"
-
-var enumValues_TransferBetweenAccountsRespAccountsElemAccountType = []interface{}{
-	"binary",
-	"crypto",
-	"ctrader",
-	"doughflow",
-	"dxtrade",
-	"derivez",
-	"mt5",
-	"p2p",
-	"paymentagent",
-	"paymentagent_client",
-	"standard",
-	"virtual",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *TransferBetweenAccountsRespAccountsElemAccountType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_TransferBetweenAccountsRespAccountsElemAccountType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TransferBetweenAccountsRespAccountsElemAccountType, v)
-	}
-	*j = TransferBetweenAccountsRespAccountsElemAccountType(v)
-	return nil
-}
-
-type TransferBetweenAccountsRespAccountsElemDemoAccount int
-
-var enumValues_TransferBetweenAccountsRespAccountsElemDemoAccount = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *TransferBetweenAccountsRespAccountsElemDemoAccount) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_TransferBetweenAccountsRespAccountsElemDemoAccount {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TransferBetweenAccountsRespAccountsElemDemoAccount, v)
-	}
-	*j = TransferBetweenAccountsRespAccountsElemDemoAccount(v)
-	return nil
-}
-
-type TransferBetweenAccountsRespAccountsElemMarketType string
-
-const TransferBetweenAccountsRespAccountsElemMarketTypeAll TransferBetweenAccountsRespAccountsElemMarketType = "all"
-const TransferBetweenAccountsRespAccountsElemMarketTypeFinancial TransferBetweenAccountsRespAccountsElemMarketType = "financial"
-const TransferBetweenAccountsRespAccountsElemMarketTypeSynthetic TransferBetweenAccountsRespAccountsElemMarketType = "synthetic"
-
-var enumValues_TransferBetweenAccountsRespAccountsElemMarketType = []interface{}{
-	"all",
-	"financial",
-	"synthetic",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *TransferBetweenAccountsRespAccountsElemMarketType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_TransferBetweenAccountsRespAccountsElemMarketType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TransferBetweenAccountsRespAccountsElemMarketType, v)
-	}
-	*j = TransferBetweenAccountsRespAccountsElemMarketType(v)
-	return nil
-}
-
-type TransferBetweenAccountsRespAccountsElemProduct string
-
-const TransferBetweenAccountsRespAccountsElemProductBlank TransferBetweenAccountsRespAccountsElemProduct = ""
-const TransferBetweenAccountsRespAccountsElemProductFinancial TransferBetweenAccountsRespAccountsElemProduct = "financial"
-const TransferBetweenAccountsRespAccountsElemProductStandard TransferBetweenAccountsRespAccountsElemProduct = "standard"
-const TransferBetweenAccountsRespAccountsElemProductStp TransferBetweenAccountsRespAccountsElemProduct = "stp"
-const TransferBetweenAccountsRespAccountsElemProductSwapFree TransferBetweenAccountsRespAccountsElemProduct = "swap_free"
-const TransferBetweenAccountsRespAccountsElemProductSynthetic TransferBetweenAccountsRespAccountsElemProduct = "synthetic"
-const TransferBetweenAccountsRespAccountsElemProductZeroSpread TransferBetweenAccountsRespAccountsElemProduct = "zero_spread"
-
-var enumValues_TransferBetweenAccountsRespAccountsElemProduct = []interface{}{
-	"",
-	"synthetic",
-	"financial",
-	"swap_free",
-	"zero_spread",
-	"standard",
-	"stp",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -259,13 +165,35 @@ func (j *TransferBetweenAccountsRespAccountsElemProduct) UnmarshalJSON(b []byte)
 	return nil
 }
 
-type TransferBetweenAccountsRespAccountsElemSubAccountType string
+var enumValues_TransferBetweenAccountsRespAccountsElemProduct = []interface{}{
+	"",
+	"synthetic",
+	"financial",
+	"swap_free",
+	"zero_spread",
+	"standard",
+	"stp",
+}
 
-const TransferBetweenAccountsRespAccountsElemSubAccountTypeFinancial TransferBetweenAccountsRespAccountsElemSubAccountType = "financial"
-const TransferBetweenAccountsRespAccountsElemSubAccountTypeFinancialStp TransferBetweenAccountsRespAccountsElemSubAccountType = "financial_stp"
-const TransferBetweenAccountsRespAccountsElemSubAccountTypeStandard TransferBetweenAccountsRespAccountsElemSubAccountType = "standard"
-const TransferBetweenAccountsRespAccountsElemSubAccountTypeSwapFree TransferBetweenAccountsRespAccountsElemSubAccountType = "swap_free"
-const TransferBetweenAccountsRespAccountsElemSubAccountTypeZeroSpread TransferBetweenAccountsRespAccountsElemSubAccountType = "zero_spread"
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *TransferBetweenAccountsRespAccountsElemAccountType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_TransferBetweenAccountsRespAccountsElemAccountType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TransferBetweenAccountsRespAccountsElemAccountType, v)
+	}
+	*j = TransferBetweenAccountsRespAccountsElemAccountType(v)
+	return nil
+}
 
 var enumValues_TransferBetweenAccountsRespAccountsElemSubAccountType = []interface{}{
 	"financial",
@@ -295,12 +223,60 @@ func (j *TransferBetweenAccountsRespAccountsElemSubAccountType) UnmarshalJSON(b 
 	return nil
 }
 
-type TransferBetweenAccountsRespAccountsElemTransfers string
+var enumValues_TransferBetweenAccountsRespAccountsElemDemoAccount = []interface{}{
+	0,
+	1,
+}
 
-const TransferBetweenAccountsRespAccountsElemTransfersAll TransferBetweenAccountsRespAccountsElemTransfers = "all"
-const TransferBetweenAccountsRespAccountsElemTransfersDeposit TransferBetweenAccountsRespAccountsElemTransfers = "deposit"
-const TransferBetweenAccountsRespAccountsElemTransfersNone TransferBetweenAccountsRespAccountsElemTransfers = "none"
-const TransferBetweenAccountsRespAccountsElemTransfersWithdrawal TransferBetweenAccountsRespAccountsElemTransfers = "withdrawal"
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *TransferBetweenAccountsRespAccountsElemDemoAccount) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_TransferBetweenAccountsRespAccountsElemDemoAccount {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TransferBetweenAccountsRespAccountsElemDemoAccount, v)
+	}
+	*j = TransferBetweenAccountsRespAccountsElemDemoAccount(v)
+	return nil
+}
+
+var enumValues_TransferBetweenAccountsRespAccountsElemMarketType = []interface{}{
+	"all",
+	"financial",
+	"synthetic",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *TransferBetweenAccountsRespAccountsElemMarketType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_TransferBetweenAccountsRespAccountsElemMarketType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TransferBetweenAccountsRespAccountsElemMarketType, v)
+	}
+	*j = TransferBetweenAccountsRespAccountsElemMarketType(v)
+	return nil
+}
+
+const TransferBetweenAccountsRespAccountsElemSubAccountTypeZeroSpread TransferBetweenAccountsRespAccountsElemSubAccountType = "zero_spread"
+
+type TransferBetweenAccountsRespAccountsElemTransfers string
 
 var enumValues_TransferBetweenAccountsRespAccountsElemTransfers = []interface{}{
 	"all",
@@ -329,12 +305,30 @@ func (j *TransferBetweenAccountsRespAccountsElemTransfers) UnmarshalJSON(b []byt
 	return nil
 }
 
+var enumValues_TransferBetweenAccountsRespAccountsElemAccountType = []interface{}{
+	"binary",
+	"crypto",
+	"ctrader",
+	"doughflow",
+	"dxtrade",
+	"derivez",
+	"mt5",
+	"p2p",
+	"paymentagent",
+	"paymentagent_client",
+	"standard",
+	"virtual",
+}
+
+const TransferBetweenAccountsRespAccountsElemTransfersAll TransferBetweenAccountsRespAccountsElemTransfers = "all"
+const TransferBetweenAccountsRespAccountsElemTransfersDeposit TransferBetweenAccountsRespAccountsElemTransfers = "deposit"
+const TransferBetweenAccountsRespAccountsElemTransfersNone TransferBetweenAccountsRespAccountsElemTransfers = "none"
+const TransferBetweenAccountsRespAccountsElemTransfersWithdrawal TransferBetweenAccountsRespAccountsElemTransfers = "withdrawal"
+
 // Echo of the request made.
 type TransferBetweenAccountsRespEchoReq map[string]interface{}
 
 type TransferBetweenAccountsRespMsgType string
-
-const TransferBetweenAccountsRespMsgTypeTransferBetweenAccounts TransferBetweenAccountsRespMsgType = "transfer_between_accounts"
 
 var enumValues_TransferBetweenAccountsRespMsgType = []interface{}{
 	"transfer_between_accounts",
@@ -359,6 +353,8 @@ func (j *TransferBetweenAccountsRespMsgType) UnmarshalJSON(b []byte) error {
 	*j = TransferBetweenAccountsRespMsgType(v)
 	return nil
 }
+
+const TransferBetweenAccountsRespMsgTypeTransferBetweenAccounts TransferBetweenAccountsRespMsgType = "transfer_between_accounts"
 
 type TransferBetweenAccountsRespTransferBetweenAccounts int
 
@@ -387,16 +383,21 @@ func (j *TransferBetweenAccountsRespTransferBetweenAccounts) UnmarshalJSON(b []b
 	return nil
 }
 
+var enumValues_TransferBetweenAccountsRespAccountsElemAccountCategory = []interface{}{
+	"trading",
+	"wallet",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TransferBetweenAccountsResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in TransferBetweenAccountsResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in TransferBetweenAccountsResp: required")
 	}
 	type Plain TransferBetweenAccountsResp

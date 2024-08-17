@@ -29,30 +29,6 @@ type TradingServersRespMsgType string
 
 const TradingServersRespMsgTypeTradingServers TradingServersRespMsgType = "trading_servers"
 
-var enumValues_TradingServersRespMsgType = []interface{}{
-	"trading_servers",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *TradingServersRespMsgType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_TradingServersRespMsgType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingServersRespMsgType, v)
-	}
-	*j = TradingServersRespMsgType(v)
-	return nil
-}
-
 type TradingServersRespTradingServersElem struct {
 	// Supported trading account type.
 	AccountType *TradingServersRespTradingServersElemAccountType `json:"account_type,omitempty"`
@@ -89,64 +65,33 @@ type TradingServersRespTradingServersElemAccountType string
 const TradingServersRespTradingServersElemAccountTypeDemo TradingServersRespTradingServersElemAccountType = "demo"
 const TradingServersRespTradingServersElemAccountTypeReal TradingServersRespTradingServersElemAccountType = "real"
 
-var enumValues_TradingServersRespTradingServersElemAccountType = []interface{}{
-	"demo",
-	"real",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *TradingServersRespTradingServersElemAccountType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_TradingServersRespTradingServersElemAccountType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingServersRespTradingServersElemAccountType, v)
-	}
-	*j = TradingServersRespTradingServersElemAccountType(v)
-	return nil
-}
-
 type TradingServersRespTradingServersElemDisabled int
-
-var enumValues_TradingServersRespTradingServersElemDisabled = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *TradingServersRespTradingServersElemDisabled) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_TradingServersRespTradingServersElemDisabled {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingServersRespTradingServersElemDisabled, v)
-	}
-	*j = TradingServersRespTradingServersElemDisabled(v)
-	return nil
-}
 
 type TradingServersRespTradingServersElemEnvironment string
 
 const TradingServersRespTradingServersElemEnvironmentDerivDemo TradingServersRespTradingServersElemEnvironment = "Deriv-Demo"
 const TradingServersRespTradingServersElemEnvironmentDerivServer TradingServersRespTradingServersElemEnvironment = "Deriv-Server"
 const TradingServersRespTradingServersElemEnvironmentDerivServer02 TradingServersRespTradingServersElemEnvironment = "Deriv-Server-02"
-const TradingServersRespTradingServersElemEnvironmentDerivServer03 TradingServersRespTradingServersElemEnvironment = "Deriv-Server-03"
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *TradingServersRespTradingServersElemId) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_TradingServersRespTradingServersElemId {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingServersRespTradingServersElemId, v)
+	}
+	*j = TradingServersRespTradingServersElemId(v)
+	return nil
+}
 
 var enumValues_TradingServersRespTradingServersElemEnvironment = []interface{}{
 	"Deriv-Demo",
@@ -175,6 +120,38 @@ func (j *TradingServersRespTradingServersElemEnvironment) UnmarshalJSON(b []byte
 	return nil
 }
 
+var enumValues_TradingServersRespTradingServersElemDisabled = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *TradingServersRespTradingServersElemAccountType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_TradingServersRespTradingServersElemAccountType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingServersRespTradingServersElemAccountType, v)
+	}
+	*j = TradingServersRespTradingServersElemAccountType(v)
+	return nil
+}
+
+var enumValues_TradingServersRespTradingServersElemAccountType = []interface{}{
+	"demo",
+	"real",
+}
+
+const TradingServersRespTradingServersElemEnvironmentDerivServer03 TradingServersRespTradingServersElemEnvironment = "Deriv-Server-03"
+
 // Object containing geolocation information of the server.
 type TradingServersRespTradingServersElemGeolocation struct {
 	// Internal server grouping.
@@ -192,13 +169,6 @@ type TradingServersRespTradingServersElemGeolocation struct {
 
 type TradingServersRespTradingServersElemId string
 
-const TradingServersRespTradingServersElemIdP01Ts01 TradingServersRespTradingServersElemId = "p01_ts01"
-const TradingServersRespTradingServersElemIdP01Ts02 TradingServersRespTradingServersElemId = "p01_ts02"
-const TradingServersRespTradingServersElemIdP01Ts03 TradingServersRespTradingServersElemId = "p01_ts03"
-const TradingServersRespTradingServersElemIdP01Ts04 TradingServersRespTradingServersElemId = "p01_ts04"
-const TradingServersRespTradingServersElemIdP02Ts02 TradingServersRespTradingServersElemId = "p02_ts02"
-const TradingServersRespTradingServersElemIdP03Ts01 TradingServersRespTradingServersElemId = "p03_ts01"
-
 var enumValues_TradingServersRespTradingServersElemId = []interface{}{
 	"p01_ts01",
 	"p01_ts02",
@@ -209,24 +179,31 @@ var enumValues_TradingServersRespTradingServersElemId = []interface{}{
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *TradingServersRespTradingServersElemId) UnmarshalJSON(b []byte) error {
-	var v string
+func (j *TradingServersRespTradingServersElemDisabled) UnmarshalJSON(b []byte) error {
+	var v int
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_TradingServersRespTradingServersElemId {
+	for _, expected := range enumValues_TradingServersRespTradingServersElemDisabled {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingServersRespTradingServersElemId, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingServersRespTradingServersElemDisabled, v)
 	}
-	*j = TradingServersRespTradingServersElemId(v)
+	*j = TradingServersRespTradingServersElemDisabled(v)
 	return nil
 }
+
+const TradingServersRespTradingServersElemIdP01Ts01 TradingServersRespTradingServersElemId = "p01_ts01"
+const TradingServersRespTradingServersElemIdP01Ts02 TradingServersRespTradingServersElemId = "p01_ts02"
+const TradingServersRespTradingServersElemIdP01Ts03 TradingServersRespTradingServersElemId = "p01_ts03"
+const TradingServersRespTradingServersElemIdP01Ts04 TradingServersRespTradingServersElemId = "p01_ts04"
+const TradingServersRespTradingServersElemIdP02Ts02 TradingServersRespTradingServersElemId = "p02_ts02"
+const TradingServersRespTradingServersElemIdP03Ts01 TradingServersRespTradingServersElemId = "p03_ts01"
 
 type TradingServersRespTradingServersElemRecommended int
 
@@ -256,15 +233,39 @@ func (j *TradingServersRespTradingServersElemRecommended) UnmarshalJSON(b []byte
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
+func (j *TradingServersRespMsgType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_TradingServersRespMsgType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingServersRespMsgType, v)
+	}
+	*j = TradingServersRespMsgType(v)
+	return nil
+}
+
+var enumValues_TradingServersRespMsgType = []interface{}{
+	"trading_servers",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
 func (j *TradingServersResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in TradingServersResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in TradingServersResp: required")
 	}
 	type Plain TradingServersResp

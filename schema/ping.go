@@ -6,20 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// To send the ping request to the server. Mostly used to test the connection or to
-// keep it alive.
-type Ping struct {
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough PingPassthrough `json:"passthrough,omitempty"`
-
-	// Must be `1`
-	Ping PingPing `json:"ping"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type PingPassthrough map[string]interface{}
@@ -50,13 +36,27 @@ func (j *PingPing) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// To send the ping request to the server. Mostly used to test the connection or to
+// keep it alive.
+type Ping struct {
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough PingPassthrough `json:"passthrough,omitempty"`
+
+	// Must be `1`
+	Ping PingPing `json:"ping"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *Ping) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["ping"]; raw != nil && !ok {
+	if v, ok := raw["ping"]; !ok || v == nil {
 		return fmt.Errorf("field ping in Ping: required")
 	}
 	type Plain Ping

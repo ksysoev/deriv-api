@@ -6,38 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// To change passwords of the MT5 account.
-type Mt5PasswordChange struct {
-	// MT5 user login
-	Login string `json:"login"`
-
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// Must be `1`
-	Mt5PasswordChange Mt5PasswordChangeMt5PasswordChange `json:"mt5_password_change"`
-
-	// New password of the account. For validation (Accepts any printable ASCII
-	// character. Must be within 8-25 characters, and include numbers, lowercase and
-	// uppercase letters. Must not be the same as the user's email address).
-	NewPassword string `json:"new_password"`
-
-	// Old password for validation (non-empty string, accepts any printable ASCII
-	// character)
-	OldPassword string `json:"old_password"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough Mt5PasswordChangePassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Type of the password to change.
-	PasswordType Mt5PasswordChangePasswordType `json:"password_type,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 type Mt5PasswordChangeMt5PasswordChange int
 
 var enumValues_Mt5PasswordChangeMt5PasswordChange = []interface{}{
@@ -70,9 +38,6 @@ type Mt5PasswordChangePassthrough map[string]interface{}
 
 type Mt5PasswordChangePasswordType string
 
-const Mt5PasswordChangePasswordTypeInvestor Mt5PasswordChangePasswordType = "investor"
-const Mt5PasswordChangePasswordTypeMain Mt5PasswordChangePasswordType = "main"
-
 var enumValues_Mt5PasswordChangePasswordType = []interface{}{
 	"main",
 	"investor",
@@ -98,22 +63,57 @@ func (j *Mt5PasswordChangePasswordType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// To change passwords of the MT5 account.
+type Mt5PasswordChange struct {
+	// MT5 user login
+	Login string `json:"login"`
+
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// Must be `1`
+	Mt5PasswordChange Mt5PasswordChangeMt5PasswordChange `json:"mt5_password_change"`
+
+	// New password of the account. For validation (Accepts any printable ASCII
+	// character. Must be within 8-25 characters, and include numbers, lowercase and
+	// uppercase letters. Must not be the same as the user's email address).
+	NewPassword string `json:"new_password"`
+
+	// Old password for validation (non-empty string, accepts any printable ASCII
+	// character)
+	OldPassword string `json:"old_password"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough Mt5PasswordChangePassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Type of the password to change.
+	PasswordType Mt5PasswordChangePasswordType `json:"password_type,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const Mt5PasswordChangePasswordTypeInvestor Mt5PasswordChangePasswordType = "investor"
+const Mt5PasswordChangePasswordTypeMain Mt5PasswordChangePasswordType = "main"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *Mt5PasswordChange) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["login"]; raw != nil && !ok {
+	if v, ok := raw["login"]; !ok || v == nil {
 		return fmt.Errorf("field login in Mt5PasswordChange: required")
 	}
-	if _, ok := raw["mt5_password_change"]; raw != nil && !ok {
+	if v, ok := raw["mt5_password_change"]; !ok || v == nil {
 		return fmt.Errorf("field mt5_password_change in Mt5PasswordChange: required")
 	}
-	if _, ok := raw["new_password"]; raw != nil && !ok {
+	if v, ok := raw["new_password"]; !ok || v == nil {
 		return fmt.Errorf("field new_password in Mt5PasswordChange: required")
 	}
-	if _, ok := raw["old_password"]; raw != nil && !ok {
+	if v, ok := raw["old_password"]; !ok || v == nil {
 		return fmt.Errorf("field old_password in Mt5PasswordChange: required")
 	}
 	type Plain Mt5PasswordChange
