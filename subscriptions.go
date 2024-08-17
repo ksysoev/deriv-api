@@ -15,10 +15,10 @@ import (
 type Subsciption[initResp any, Resp any] struct {
 	API           *DerivAPI
 	Stream        chan Resp
-	reqID         int
-	isActive      bool
 	SubsciptionID string
+	reqID         int
 	statusLock    sync.Mutex
+	isActive      bool
 }
 
 type SubscriptionResponse struct {

@@ -6,12 +6,9 @@ import (
 
 // APIError represents an error returned by the Deriv API service.
 type APIError struct {
-	// Code is a string representing the error code returned by the Deriv API service.
-	Code string `json:"code"`
-	// Message is a human-readable string describing the error.
-	Message string `json:"message"`
-	// Details is a map of additional error details.
 	Details map[string]interface{} `json:"details"`
+	Code    string                 `json:"code"`
+	Message string                 `json:"message"`
 }
 
 // Error returns the error message associated with the APIError.

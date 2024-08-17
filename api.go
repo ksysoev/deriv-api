@@ -18,27 +18,27 @@ import (
 
 // DerivAPI is the main struct for the DerivAPI client.
 type DerivAPI struct {
-	Origin                *url.URL        // The origin URL for the DerivAPI server
-	Endpoint              *url.URL        // The WebSocket endpoint URL for the DerivAPI server
-	AppID                 int             // The app ID for the DerivAPI server
-	Lang                  string          // The language code (ISO 639-1) for the DerivAPI server
-	ws                    *websocket.Conn // The WebSocket connection to the DerivAPI server
-	lastRequestID         int64           // The last request ID used for the DerivAPI server
-	TimeOut               time.Duration   // The timeout duration for the DerivAPI server api calls
-	connectionLock        sync.Mutex      // A lock for the DerivAPI server connection
-	reqChan               chan ApiReqest  // A channel for sending requests to the DerivAPI server
-	closingChan           chan int        // A channel for closing the DerivAPI server connection
-	keepAlive             bool            // A flag to keep the connection alive
-	keepAliveOnDisconnect chan bool       // A channel to keep the connection alive
-	keepAliveInterval     time.Duration   // The interval to send ping requests
-	debugEnabled          bool            // A flag to print debug messages
+	reqChan               chan ApiReqest
+	Endpoint              *url.URL
+	keepAliveOnDisconnect chan bool
+	Origin                *url.URL
+	ws                    *websocket.Conn
+	closingChan           chan int
+	Lang                  string
+	TimeOut               time.Duration
+	lastRequestID         int64
+	AppID                 int
+	keepAliveInterval     time.Duration
+	connectionLock        sync.Mutex
+	keepAlive             bool
+	debugEnabled          bool
 }
 
 // ApiReqest is an interface for all API requests.
 type ApiReqest struct {
-	id       int
-	msg      []byte
 	respChan chan []byte
+	msg      []byte
+	id       int
 }
 
 type APIResponseReqID struct {
