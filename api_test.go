@@ -2,16 +2,15 @@ package deriv
 
 import (
 	"bufio"
-	"io"
+	"context"
 	"log"
-	"net/http/httptest"
 	"os"
 	"strings"
 	"testing"
 	"time"
 
+	"github.com/coder/websocket"
 	"github.com/ksysoev/deriv-api/schema"
-	"golang.org/x/net/websocket"
 )
 
 func TestNewDerivAPI(t *testing.T) {
@@ -117,7 +116,7 @@ func TestGetNextRequestID(t *testing.T) {
 }
 
 func TestConnect(t *testing.T) {
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) { io.Copy(ws, ws) }))
+	server := newMockWSServer(echoHandler)
 	url := "ws://" + server.Listener.Addr().String()
 
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
@@ -158,7 +157,7 @@ func TestConnect(t *testing.T) {
 }
 
 func TestDisconnect(t *testing.T) {
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) { io.Copy(ws, ws) }))
+	server := newMockWSServer(echoHandler)
 	url := "ws://" + server.Listener.Addr().String()
 
 	defer server.Close()
@@ -188,7 +187,7 @@ func TestDisconnect(t *testing.T) {
 }
 
 func TestSend(t *testing.T) {
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) { io.Copy(ws, ws) }))
+	server := newMockWSServer(echoHandler)
 	url := "ws://" + server.Listener.Addr().String()
 
 	defer server.Close()
@@ -223,7 +222,7 @@ func TestSend(t *testing.T) {
 }
 
 func TestSendToDisconnectedConnection(t *testing.T) {
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) { io.Copy(ws, ws) }))
+	server := newMockWSServer(echoHandler)
 	url := "ws://" + server.Listener.Addr().String()
 	server.Close()
 
@@ -243,7 +242,7 @@ func TestSendToDisconnectedConnection(t *testing.T) {
 }
 
 func TestSendReqWhichNobodyWaits(t *testing.T) {
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) { io.Copy(ws, ws) }))
+	server := newMockWSServer(echoHandler)
 	url := "ws://" + server.Listener.Addr().String()
 
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
@@ -263,11 +262,11 @@ func TestSendReqWhichNobodyWaits(t *testing.T) {
 }
 
 func TestSendRequestTimeout(t *testing.T) {
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
-		var msg string
-		_ = websocket.Message.Receive(ws, &msg) // wait for request
-		time.Sleep(time.Second)                 // to keep the connection open
-	}))
+	server := newMockWSServer(
+		onMessageHanler(func(_ *websocket.Conn, _ websocket.MessageType, _ []byte) {
+			time.Sleep(time.Second)
+		}),
+	)
 	defer server.Close()
 	url := "ws://" + server.Listener.Addr().String()
 
@@ -286,12 +285,14 @@ func TestSendRequestTimeout(t *testing.T) {
 
 func TestSendRequestAndGotInvalidJSON(t *testing.T) {
 	testResp := `{Corrupted JSON}`
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
-		var msg string
-		_ = websocket.Message.Receive(ws, &msg) // wait for request
-		ws.Write([]byte(testResp))
-		time.Sleep(time.Second) // to keep the connection open
-	}))
+	server := newMockWSServer(
+		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
+			err := ws.Write(context.Background(), websocket.MessageText, []byte(testResp))
+			if err != nil {
+				return
+			}
+			time.Sleep(time.Second) // to keep the connection open
+		}))
 	url := "ws://" + server.Listener.Addr().String()
 	defer server.Close()
 
@@ -325,12 +326,14 @@ func TestSendRequest(t *testing.T) {
 		"ping": "pong",
 		"req_id": 1
 	  }`
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
-		var msg string
-		_ = websocket.Message.Receive(ws, &msg) // wait for request
-		ws.Write([]byte(testResp))
-		time.Sleep(time.Second) // to keep the connection open
-	}))
+	server := newMockWSServer(
+		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
+			err := ws.Write(context.Background(), websocket.MessageText, []byte(testResp))
+			if err != nil {
+				return
+			}
+			time.Sleep(time.Second) // to keep the connection open
+		}))
 	defer server.Close()
 
 	url := "ws://" + server.Listener.Addr().String()
@@ -358,12 +361,14 @@ func TestSendRequest(t *testing.T) {
 }
 
 func TestSendRequestFailed(t *testing.T) {
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
-		var msg string
-		_ = websocket.Message.Receive(ws, &msg) // wait for request
-		ws.Write([]byte(""))
-		time.Sleep(time.Second) // to keep the connection open
-	}))
+	server := newMockWSServer(
+		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
+			err := ws.Write(context.Background(), websocket.MessageText, []byte(""))
+			if err != nil {
+				return
+			}
+			time.Sleep(time.Second) // to keep the connection open
+		}))
 	url := "ws://" + server.Listener.Addr().String()
 	server.Close()
 
@@ -381,11 +386,7 @@ func TestSendRequestFailed(t *testing.T) {
 
 func TestKeepConnectionAlive(t *testing.T) {
 	resChan := make(chan string)
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
-		var msg string
-		_ = websocket.Message.Receive(ws, &msg) // wait for request
-		resChan <- msg
-		ws.Write([]byte(`{
+	testResp := `{
 			"echo_req": {
 			  "ping": 1,
 			  "req_id": 1
@@ -393,9 +394,18 @@ func TestKeepConnectionAlive(t *testing.T) {
 			"msg_type": "ping",
 			"ping": "pong",
 			"req_id": 1
-		  }`))
-		time.Sleep(time.Second) // to keep the connection open
-	}))
+		  }`
+
+	server := newMockWSServer(
+		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, msg []byte) {
+			resChan <- string(msg)
+
+			err := ws.Write(context.Background(), websocket.MessageText, []byte(testResp))
+			if err != nil {
+				return
+			}
+			time.Sleep(time.Second) // to keep the connection open
+		}))
 
 	url := "ws://" + server.Listener.Addr().String()
 	defer server.Close()
@@ -434,7 +444,7 @@ func TestDebugLogs(t *testing.T) {
 	log.SetOutput(writer)
 	scanner := bufio.NewScanner(reader)
 
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) { io.Copy(ws, ws) }))
+	server := newMockWSServer(echoHandler)
 	url := "ws://" + server.Listener.Addr().String()
 
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com", Debug)

@@ -1,15 +1,15 @@
 package deriv
 
 import (
+	"context"
 	"errors"
 	"fmt"
-	"net/http/httptest"
 	"reflect"
 	"testing"
 	"time"
 
+	"github.com/coder/websocket"
 	"github.com/ksysoev/deriv-api/schema"
-	"golang.org/x/net/websocket"
 )
 
 func TestParseSubscription_ValidInput(t *testing.T) {
@@ -92,13 +92,12 @@ func TestStart(t *testing.T) {
 		  "symbol": "R_50"
 		}
 	  }`
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
-		var msg string
-		_ = websocket.Message.Receive(ws, &msg) // wait for request
-		ws.Write([]byte(testResp))
-		ws.Write([]byte(testResp))
-		time.Sleep(time.Second) // to keep the connection open
-	}))
+	server := newMockWSServer(
+		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
+			ws.Write(context.Background(), websocket.MessageText, []byte(testResp))
+			ws.Write(context.Background(), websocket.MessageText, []byte(testResp))
+			time.Sleep(time.Second) // to keep the connection open
+		}))
 	url := "ws://" + server.Listener.Addr().String()
 
 	defer server.Close()
@@ -148,12 +147,11 @@ func TestStart(t *testing.T) {
 }
 
 func TestStartFailed(t *testing.T) {
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
-		var msg string
-		_ = websocket.Message.Receive(ws, &msg) // wait for request
-		ws.Write([]byte(""))
-		time.Sleep(time.Second) // to keep the connection open
-	}))
+	server := newMockWSServer(
+		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
+			ws.Write(context.Background(), websocket.MessageText, []byte(""))
+			time.Sleep(time.Second) // to keep the connection open
+		}))
 	url := "ws://" + server.Listener.Addr().String()
 	server.Close()
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
@@ -193,14 +191,16 @@ func TestForget(t *testing.T) {
 		  "symbol": "R_50"
 		}
 	  }`
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
-		var msg string
-		_ = websocket.Message.Receive(ws, &msg) // wait for request
-		for resp := range responses {
-			ws.Write([]byte(resp))
-		}
-		time.Sleep(time.Second) // to keep the connection open
-	}))
+
+	server := newMockWSServer(
+		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
+
+			for resp := range responses {
+				ws.Write(context.Background(), websocket.MessageText, []byte(resp))
+			}
+
+			time.Sleep(time.Second) // to keep the connection open
+		}))
 	url := "ws://" + server.Listener.Addr().String()
 	defer server.Close()
 
@@ -280,14 +280,16 @@ func TestForgetFailed(t *testing.T) {
 		  "symbol": "R_50"
 		}
 	  }`
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
-		var msg string
-		_ = websocket.Message.Receive(ws, &msg) // wait for request
-		for resp := range responses {
-			ws.Write([]byte(resp))
-		}
-		time.Sleep(time.Second) // to keep the connection open
-	}))
+
+	server := newMockWSServer(
+		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
+
+			for resp := range responses {
+				ws.Write(context.Background(), websocket.MessageText, []byte(resp))
+			}
+
+			time.Sleep(time.Second) // to keep the connection open
+		}))
 	url := "ws://" + server.Listener.Addr().String()
 	defer server.Close()
 
@@ -358,12 +360,12 @@ func TestStartAPIError(t *testing.T) {
 			"message": "Invalid request"
 		}
 	  }`
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
-		var msg string
-		_ = websocket.Message.Receive(ws, &msg) // wait for request
-		ws.Write([]byte(testResp))
-		time.Sleep(time.Second) // to keep the connection open
-	}))
+
+	server := newMockWSServer(
+		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
+			ws.Write(context.Background(), websocket.MessageText, []byte(testResp))
+			time.Sleep(time.Second) // to keep the connection open
+		}))
 	url := "ws://" + server.Listener.Addr().String()
 	defer server.Close()
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
@@ -397,12 +399,12 @@ func TestStartInvalidResponse(t *testing.T) {
 		},
 		"tick": 1
 	  }`
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
-		var msg string
-		_ = websocket.Message.Receive(ws, &msg) // wait for request
-		ws.Write([]byte(testResp))
-		time.Sleep(time.Second) // to keep the connection open
-	}))
+	server := newMockWSServer(
+		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
+			ws.Write(context.Background(), websocket.MessageText, []byte(testResp))
+			time.Sleep(time.Second) // to keep the connection open
+		}))
+
 	url := "ws://" + server.Listener.Addr().String()
 	defer server.Close()
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
@@ -450,14 +452,15 @@ func TestStartInvalidResponseInSubscription(t *testing.T) {
 	  }`,
 		`{ "req_id": 1 }`}
 
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
-		var msg string
-		_ = websocket.Message.Receive(ws, &msg) // wait for request
-		for _, resp := range responses {
-			ws.Write([]byte(resp))
-		}
-		time.Sleep(time.Second) // to keep the connection open
-	}))
+	server := newMockWSServer(
+		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
+
+			for _, resp := range responses {
+				ws.Write(context.Background(), websocket.MessageText, []byte(resp))
+			}
+
+			time.Sleep(time.Second) // to keep the connection open
+		}))
 	url := "ws://" + server.Listener.Addr().String()
 	defer server.Close()
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
@@ -531,14 +534,15 @@ func TestStartAPIErrorInSubscription(t *testing.T) {
 			}
 		}`}
 
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
-		var msg string
-		_ = websocket.Message.Receive(ws, &msg) // wait for request
-		for _, resp := range responses {
-			ws.Write([]byte(resp))
-		}
-		time.Sleep(time.Second) // to keep the connection open
-	}))
+	server := newMockWSServer(
+		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
+
+			for _, resp := range responses {
+				ws.Write(context.Background(), websocket.MessageText, []byte(resp))
+			}
+
+			time.Sleep(time.Second) // to keep the connection open
+		}))
 	url := "ws://" + server.Listener.Addr().String()
 	defer server.Close()
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
@@ -579,11 +583,10 @@ func TestStartAPIErrorInSubscription(t *testing.T) {
 }
 
 func TestStartTimeout(t *testing.T) {
-	server := httptest.NewServer(websocket.Handler(func(ws *websocket.Conn) {
-		var msg string
-		_ = websocket.Message.Receive(ws, &msg) // wait for request
-		time.Sleep(time.Second)                 // to keep the connection open
-	}))
+	server := newMockWSServer(
+		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
+			time.Sleep(time.Second) // to keep the connection open
+		}))
 	defer server.Close()
 	url := "ws://" + server.Listener.Addr().String()
 
