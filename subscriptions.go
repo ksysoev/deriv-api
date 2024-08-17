@@ -96,7 +96,7 @@ func (s *Subsciption[initResp, Resp]) Forget() error {
 // the method returns the error. If deserialization is successful, the SubsciptionID field of the Subscription instance
 // is set to the subscription ID returned by the API, and the IsActive field is set to true. The method then sends the
 // initial subscription update to the Stream channel, and starts a new goroutine to handle subsequent updates received
-// on the channel. If the response object does not implement the ApiResponse interface, the method returns an error
+// on the channel.
 func (s *Subsciption[initResp, Resp]) Start(reqID int, request any) (initResp, error) {
 	var resp initResp
 
@@ -129,12 +129,7 @@ func (s *Subsciption[initResp, Resp]) Start(reqID int, request any) (initResp, e
 		}
 		s.SubsciptionID = subResp.Subscription.ID
 
-		apiResp, ok := any(&resp).(ApiResponse)
-		if !ok {
-			panic("Response object must implement ApiResponse interface")
-		}
-
-		err = apiResp.UnmarshalJSON(initResponse)
+		err = json.Unmarshal(initResponse, &resp)
 		if err != nil {
 			s.API.logDebugf("Failed to parse response for request %d: %s", reqID, err.Error())
 			s.API.closeRequestChannel(reqID)
@@ -168,12 +163,8 @@ func (s *Subsciption[initResp, Resp]) messageHandler(inChan chan []byte) {
 		}
 
 		var response Resp
-		apiResp, ok := any(&response).(ApiResponse)
-		if !ok {
-			panic("Response object must implement ApiResponse interface")
-		}
 
-		err = apiResp.UnmarshalJSON([]byte(rawResponse))
+		err = json.Unmarshal(rawResponse, &response)
 		if err != nil {
 			s.API.logDebugf("Failed to parse response in subscription: %s", err.Error())
 			continue

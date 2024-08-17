@@ -41,11 +41,6 @@ type ApiReqest struct {
 	respChan chan []byte
 }
 
-// ApiObjectRequest is an interface for all API requests that return an object.
-type ApiResponse interface {
-	UnmarshalJSON([]byte) error
-}
-
 type APIResponseReqID struct {
 	ReqID int `json:"req_id"`
 }
@@ -350,7 +345,7 @@ func (api *DerivAPI) Send(reqID int, request any) (chan []byte, error) {
 }
 
 // SendRequest sends a request to the Deriv API and returns the response
-func (api *DerivAPI) SendRequest(reqID int, request any, response ApiResponse) (err error) {
+func (api *DerivAPI) SendRequest(reqID int, request any, response any) (err error) {
 	respChan, err := api.Send(reqID, request)
 
 	if err != nil {
@@ -373,7 +368,7 @@ func (api *DerivAPI) SendRequest(reqID int, request any, response ApiResponse) (
 			return err
 		}
 
-		err = response.UnmarshalJSON([]byte(responseJSON))
+		err = json.Unmarshal(responseJSON, response)
 		if err != nil {
 			api.logDebugf("Failed to parse response for request %d: %s", reqID, err.Error())
 			return err
