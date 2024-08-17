@@ -213,7 +213,7 @@ func TestForget(t *testing.T) {
 	sub := NewSubcription[schema.TicksResp, schema.TicksResp](api)
 
 	if sub == nil {
-		t.Errorf("Expected a subscription, but got nil")
+		t.Fatal("Expected a subscription, but got nil")
 	}
 
 	reqID := api.getNextRequestID()
@@ -226,7 +226,7 @@ func TestForget(t *testing.T) {
 	}
 
 	if sub.Stream == nil {
-		t.Errorf("Expected a stream, but got nil")
+		t.Fatal("Expected a stream, but got nil")
 	}
 
 	if sub.IsActive() != true {
@@ -302,7 +302,7 @@ func TestForgetFailed(t *testing.T) {
 	sub := NewSubcription[schema.TicksResp, schema.TicksResp](api)
 
 	if sub == nil {
-		t.Errorf("Expected a subscription, but got nil")
+		t.Fatal("Expected a subscription, but got nil")
 	}
 
 	reqID := api.getNextRequestID()
@@ -315,7 +315,7 @@ func TestForgetFailed(t *testing.T) {
 	}
 
 	if sub.Stream == nil {
-		t.Errorf("Expected a stream, but got nil")
+		t.Fatal("Expected a stream, but got nil")
 	}
 
 	if sub.IsActive() != true {

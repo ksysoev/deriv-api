@@ -91,7 +91,7 @@ func NewDerivAPI(endpoint string, appID int, lang string, origin string, opts ..
 	}
 
 	if lang == "" || len(lang) != 2 {
-		return nil, fmt.Errorf("Invalid language")
+		return nil, fmt.Errorf("invalid language")
 	}
 
 	query := urlEnpoint.Query()
