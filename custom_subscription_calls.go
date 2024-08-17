@@ -16,7 +16,7 @@ func (api *DerivAPI) SubscribeTicksHistory(r schema.TicksHistory) (rsp schema.Ti
 
 // SubscribeTicksHistory Get historic candles data for a given symbol.
 func (api *DerivAPI) SubscribeCandlesHistory(r schema.TicksHistory) (rsp schema.TicksHistoryResp, s *Subsciption[schema.TicksHistoryResp, schema.TicksHistoryResp], err error) {
-	id := a.getNextRequestID()
+	id := api.getNextRequestID()
 	var f schema.TicksHistorySubscribe = 1
 	r.ReqId = &id
 	r.Subscribe = &f
