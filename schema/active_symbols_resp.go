@@ -6,20 +6,44 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// A message containing the list of active symbols.
-type ActiveSymbolsResp struct {
-	// List of active symbols.
-	ActiveSymbols []ActiveSymbolsRespActiveSymbolsElem `json:"active_symbols,omitempty"`
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ActiveSymbolsRespActiveSymbolsElemIsTradingSuspended) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ActiveSymbolsRespActiveSymbolsElemIsTradingSuspended {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ActiveSymbolsRespActiveSymbolsElemIsTradingSuspended, v)
+	}
+	*j = ActiveSymbolsRespActiveSymbolsElemIsTradingSuspended(v)
+	return nil
+}
 
-	// Echo of the request made.
-	EchoReq ActiveSymbolsRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType ActiveSymbolsRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ActiveSymbolsRespActiveSymbolsElemAllowForwardStarting) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ActiveSymbolsRespActiveSymbolsElemAllowForwardStarting {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ActiveSymbolsRespActiveSymbolsElemAllowForwardStarting, v)
+	}
+	*j = ActiveSymbolsRespActiveSymbolsElemAllowForwardStarting(v)
+	return nil
 }
 
 // The information about each symbol.
@@ -96,34 +120,59 @@ type ActiveSymbolsRespActiveSymbolsElem struct {
 	SymbolType string `json:"symbol_type"`
 }
 
-type ActiveSymbolsRespActiveSymbolsElemAllowForwardStarting int
-
-var enumValues_ActiveSymbolsRespActiveSymbolsElemAllowForwardStarting = []interface{}{
-	0,
-	1,
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *ActiveSymbolsRespActiveSymbolsElemAllowForwardStarting) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
+func (j *ActiveSymbolsRespActiveSymbolsElem) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	var ok bool
-	for _, expected := range enumValues_ActiveSymbolsRespActiveSymbolsElemAllowForwardStarting {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
+	if v, ok := raw["display_name"]; !ok || v == nil {
+		return fmt.Errorf("field display_name in ActiveSymbolsRespActiveSymbolsElem: required")
 	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ActiveSymbolsRespActiveSymbolsElemAllowForwardStarting, v)
+	if v, ok := raw["display_order"]; !ok || v == nil {
+		return fmt.Errorf("field display_order in ActiveSymbolsRespActiveSymbolsElem: required")
 	}
-	*j = ActiveSymbolsRespActiveSymbolsElemAllowForwardStarting(v)
+	if v, ok := raw["exchange_is_open"]; !ok || v == nil {
+		return fmt.Errorf("field exchange_is_open in ActiveSymbolsRespActiveSymbolsElem: required")
+	}
+	if v, ok := raw["is_trading_suspended"]; !ok || v == nil {
+		return fmt.Errorf("field is_trading_suspended in ActiveSymbolsRespActiveSymbolsElem: required")
+	}
+	if v, ok := raw["market"]; !ok || v == nil {
+		return fmt.Errorf("field market in ActiveSymbolsRespActiveSymbolsElem: required")
+	}
+	if v, ok := raw["market_display_name"]; !ok || v == nil {
+		return fmt.Errorf("field market_display_name in ActiveSymbolsRespActiveSymbolsElem: required")
+	}
+	if v, ok := raw["pip"]; !ok || v == nil {
+		return fmt.Errorf("field pip in ActiveSymbolsRespActiveSymbolsElem: required")
+	}
+	if v, ok := raw["subgroup"]; !ok || v == nil {
+		return fmt.Errorf("field subgroup in ActiveSymbolsRespActiveSymbolsElem: required")
+	}
+	if v, ok := raw["subgroup_display_name"]; !ok || v == nil {
+		return fmt.Errorf("field subgroup_display_name in ActiveSymbolsRespActiveSymbolsElem: required")
+	}
+	if v, ok := raw["submarket"]; !ok || v == nil {
+		return fmt.Errorf("field submarket in ActiveSymbolsRespActiveSymbolsElem: required")
+	}
+	if v, ok := raw["submarket_display_name"]; !ok || v == nil {
+		return fmt.Errorf("field submarket_display_name in ActiveSymbolsRespActiveSymbolsElem: required")
+	}
+	if v, ok := raw["symbol"]; !ok || v == nil {
+		return fmt.Errorf("field symbol in ActiveSymbolsRespActiveSymbolsElem: required")
+	}
+	if v, ok := raw["symbol_type"]; !ok || v == nil {
+		return fmt.Errorf("field symbol_type in ActiveSymbolsRespActiveSymbolsElem: required")
+	}
+	type Plain ActiveSymbolsRespActiveSymbolsElem
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = ActiveSymbolsRespActiveSymbolsElem(plain)
 	return nil
 }
-
-type ActiveSymbolsRespActiveSymbolsElemExchangeIsOpen int
 
 var enumValues_ActiveSymbolsRespActiveSymbolsElemExchangeIsOpen = []interface{}{
 	0,
@@ -158,85 +207,37 @@ var enumValues_ActiveSymbolsRespActiveSymbolsElemIsTradingSuspended = []interfac
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *ActiveSymbolsRespActiveSymbolsElemIsTradingSuspended) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ActiveSymbolsRespActiveSymbolsElemIsTradingSuspended {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ActiveSymbolsRespActiveSymbolsElemIsTradingSuspended, v)
-	}
-	*j = ActiveSymbolsRespActiveSymbolsElemIsTradingSuspended(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ActiveSymbolsRespActiveSymbolsElem) UnmarshalJSON(b []byte) error {
+func (j *ActiveSymbolsResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["display_name"]; raw != nil && !ok {
-		return fmt.Errorf("field display_name in ActiveSymbolsRespActiveSymbolsElem: required")
+	if v, ok := raw["echo_req"]; !ok || v == nil {
+		return fmt.Errorf("field echo_req in ActiveSymbolsResp: required")
 	}
-	if _, ok := raw["display_order"]; raw != nil && !ok {
-		return fmt.Errorf("field display_order in ActiveSymbolsRespActiveSymbolsElem: required")
+	if v, ok := raw["msg_type"]; !ok || v == nil {
+		return fmt.Errorf("field msg_type in ActiveSymbolsResp: required")
 	}
-	if _, ok := raw["exchange_is_open"]; raw != nil && !ok {
-		return fmt.Errorf("field exchange_is_open in ActiveSymbolsRespActiveSymbolsElem: required")
-	}
-	if _, ok := raw["is_trading_suspended"]; raw != nil && !ok {
-		return fmt.Errorf("field is_trading_suspended in ActiveSymbolsRespActiveSymbolsElem: required")
-	}
-	if _, ok := raw["market"]; raw != nil && !ok {
-		return fmt.Errorf("field market in ActiveSymbolsRespActiveSymbolsElem: required")
-	}
-	if _, ok := raw["market_display_name"]; raw != nil && !ok {
-		return fmt.Errorf("field market_display_name in ActiveSymbolsRespActiveSymbolsElem: required")
-	}
-	if _, ok := raw["pip"]; raw != nil && !ok {
-		return fmt.Errorf("field pip in ActiveSymbolsRespActiveSymbolsElem: required")
-	}
-	if _, ok := raw["subgroup"]; raw != nil && !ok {
-		return fmt.Errorf("field subgroup in ActiveSymbolsRespActiveSymbolsElem: required")
-	}
-	if _, ok := raw["subgroup_display_name"]; raw != nil && !ok {
-		return fmt.Errorf("field subgroup_display_name in ActiveSymbolsRespActiveSymbolsElem: required")
-	}
-	if _, ok := raw["submarket"]; raw != nil && !ok {
-		return fmt.Errorf("field submarket in ActiveSymbolsRespActiveSymbolsElem: required")
-	}
-	if _, ok := raw["submarket_display_name"]; raw != nil && !ok {
-		return fmt.Errorf("field submarket_display_name in ActiveSymbolsRespActiveSymbolsElem: required")
-	}
-	if _, ok := raw["symbol"]; raw != nil && !ok {
-		return fmt.Errorf("field symbol in ActiveSymbolsRespActiveSymbolsElem: required")
-	}
-	if _, ok := raw["symbol_type"]; raw != nil && !ok {
-		return fmt.Errorf("field symbol_type in ActiveSymbolsRespActiveSymbolsElem: required")
-	}
-	type Plain ActiveSymbolsRespActiveSymbolsElem
+	type Plain ActiveSymbolsResp
 	var plain Plain
 	if err := json.Unmarshal(b, &plain); err != nil {
 		return err
 	}
-	*j = ActiveSymbolsRespActiveSymbolsElem(plain)
+	*j = ActiveSymbolsResp(plain)
 	return nil
 }
+
+var enumValues_ActiveSymbolsRespActiveSymbolsElemAllowForwardStarting = []interface{}{
+	0,
+	1,
+}
+
+type ActiveSymbolsRespActiveSymbolsElemExchangeIsOpen int
 
 // Echo of the request made.
 type ActiveSymbolsRespEchoReq map[string]interface{}
 
 type ActiveSymbolsRespMsgType string
-
-const ActiveSymbolsRespMsgTypeActiveSymbols ActiveSymbolsRespMsgType = "active_symbols"
 
 var enumValues_ActiveSymbolsRespMsgType = []interface{}{
 	"active_symbols",
@@ -262,23 +263,22 @@ func (j *ActiveSymbolsRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ActiveSymbolsResp) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
-		return fmt.Errorf("field echo_req in ActiveSymbolsResp: required")
-	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
-		return fmt.Errorf("field msg_type in ActiveSymbolsResp: required")
-	}
-	type Plain ActiveSymbolsResp
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = ActiveSymbolsResp(plain)
-	return nil
+const ActiveSymbolsRespMsgTypeActiveSymbols ActiveSymbolsRespMsgType = "active_symbols"
+
+// A message containing the list of active symbols.
+type ActiveSymbolsResp struct {
+	// List of active symbols.
+	ActiveSymbols []ActiveSymbolsRespActiveSymbolsElem `json:"active_symbols,omitempty"`
+
+	// Echo of the request made.
+	EchoReq ActiveSymbolsRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType ActiveSymbolsRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
 }
+
+type ActiveSymbolsRespActiveSymbolsElemAllowForwardStarting int

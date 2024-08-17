@@ -6,22 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// A message with transaction results is received
-type BuyContractForMultipleAccountsResp struct {
-	// Receipt confirmation for the purchase
-	BuyContractForMultipleAccounts *BuyContractForMultipleAccountsRespBuyContractForMultipleAccounts `json:"buy_contract_for_multiple_accounts,omitempty"`
-
-	// Echo of the request made.
-	EchoReq BuyContractForMultipleAccountsRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType BuyContractForMultipleAccountsRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Receipt confirmation for the purchase
 type BuyContractForMultipleAccountsRespBuyContractForMultipleAccounts struct {
 	// List of results containing transactions and/or errors for the bought contracts.
@@ -34,7 +18,7 @@ func (j *BuyContractForMultipleAccountsRespBuyContractForMultipleAccounts) Unmar
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["result"]; raw != nil && !ok {
+	if v, ok := raw["result"]; !ok || v == nil {
 		return fmt.Errorf("field result in BuyContractForMultipleAccountsRespBuyContractForMultipleAccounts: required")
 	}
 	type Plain BuyContractForMultipleAccountsRespBuyContractForMultipleAccounts
@@ -50,8 +34,6 @@ func (j *BuyContractForMultipleAccountsRespBuyContractForMultipleAccounts) Unmar
 type BuyContractForMultipleAccountsRespEchoReq map[string]interface{}
 
 type BuyContractForMultipleAccountsRespMsgType string
-
-const BuyContractForMultipleAccountsRespMsgTypeBuyContractForMultipleAccounts BuyContractForMultipleAccountsRespMsgType = "buy_contract_for_multiple_accounts"
 
 var enumValues_BuyContractForMultipleAccountsRespMsgType = []interface{}{
 	"buy_contract_for_multiple_accounts",
@@ -77,16 +59,34 @@ func (j *BuyContractForMultipleAccountsRespMsgType) UnmarshalJSON(b []byte) erro
 	return nil
 }
 
+// A message with transaction results is received
+type BuyContractForMultipleAccountsResp struct {
+	// Receipt confirmation for the purchase
+	BuyContractForMultipleAccounts *BuyContractForMultipleAccountsRespBuyContractForMultipleAccounts `json:"buy_contract_for_multiple_accounts,omitempty"`
+
+	// Echo of the request made.
+	EchoReq BuyContractForMultipleAccountsRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType BuyContractForMultipleAccountsRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const BuyContractForMultipleAccountsRespMsgTypeBuyContractForMultipleAccounts BuyContractForMultipleAccountsRespMsgType = "buy_contract_for_multiple_accounts"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *BuyContractForMultipleAccountsResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in BuyContractForMultipleAccountsResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in BuyContractForMultipleAccountsResp: required")
 	}
 	type Plain BuyContractForMultipleAccountsResp

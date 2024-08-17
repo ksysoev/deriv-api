@@ -6,47 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// List active orders.
-type P2POrderList struct {
-	// [Optional] Should be 1 to list active, 0 to list inactive (historical).
-	Active *P2POrderListActive `json:"active,omitempty"`
-
-	// [Optional] If present, lists orders applying to a specific advert.
-	AdvertId *string `json:"advert_id,omitempty"`
-
-	// [Optional] Filter the orders created after this date(included) format(epoch or
-	// YYYY-MM-DD)
-	DateFrom *string `json:"date_from,omitempty"`
-
-	// [Optional] Filter the orders created before this date(included) format(epoch or
-	// YYYY-MM-DD)
-	DateTo *string `json:"date_to,omitempty"`
-
-	// [Optional] Used for paging.
-	Limit int `json:"limit,omitempty"`
-
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used for paging.
-	Offset int `json:"offset,omitempty"`
-
-	// Must be 1
-	P2POrderList P2POrderListP2POrderList `json:"p2p_order_list"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough P2POrderListPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// [Optional] If set to 1, will send updates whenever there is a change to any
-	// order belonging to you.
-	Subscribe *P2POrderListSubscribe `json:"subscribe,omitempty"`
-}
-
 type P2POrderListActive float64
 
 var enumValues_P2POrderListActive = []interface{}{
@@ -130,13 +89,54 @@ func (j *P2POrderListSubscribe) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// List active orders.
+type P2POrderList struct {
+	// [Optional] Should be 1 to list active, 0 to list inactive (historical).
+	Active *P2POrderListActive `json:"active,omitempty"`
+
+	// [Optional] If present, lists orders applying to a specific advert.
+	AdvertId *string `json:"advert_id,omitempty"`
+
+	// [Optional] Filter the orders created after this date(included) format(epoch or
+	// YYYY-MM-DD)
+	DateFrom *string `json:"date_from,omitempty"`
+
+	// [Optional] Filter the orders created before this date(included) format(epoch or
+	// YYYY-MM-DD)
+	DateTo *string `json:"date_to,omitempty"`
+
+	// [Optional] Used for paging.
+	Limit int `json:"limit,omitempty"`
+
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used for paging.
+	Offset int `json:"offset,omitempty"`
+
+	// Must be 1
+	P2POrderList P2POrderListP2POrderList `json:"p2p_order_list"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough P2POrderListPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// [Optional] If set to 1, will send updates whenever there is a change to any
+	// order belonging to you.
+	Subscribe *P2POrderListSubscribe `json:"subscribe,omitempty"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2POrderList) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["p2p_order_list"]; raw != nil && !ok {
+	if v, ok := raw["p2p_order_list"]; !ok || v == nil {
 		return fmt.Errorf("field p2p_order_list in P2POrderList: required")
 	}
 	type Plain P2POrderList

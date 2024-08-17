@@ -6,34 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// The result of payment agent withdrawal request made.
-type PaymentagentWithdrawResp struct {
-	// Echo of the request made.
-	EchoReq PaymentagentWithdrawRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType PaymentagentWithdrawRespMsgType `json:"msg_type"`
-
-	// Payment agent name.
-	PaymentagentName *string `json:"paymentagent_name,omitempty"`
-
-	// If set to `1`, withdrawal success. If set to `2`, dry-run success.
-	PaymentagentWithdraw *PaymentagentWithdrawRespPaymentagentWithdraw `json:"paymentagent_withdraw,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// Reference ID of withdrawal performed.
-	TransactionId *int `json:"transaction_id,omitempty"`
-}
-
 // Echo of the request made.
 type PaymentagentWithdrawRespEchoReq map[string]interface{}
 
 type PaymentagentWithdrawRespMsgType string
-
-const PaymentagentWithdrawRespMsgTypePaymentagentWithdraw PaymentagentWithdrawRespMsgType = "paymentagent_withdraw"
 
 var enumValues_PaymentagentWithdrawRespMsgType = []interface{}{
 	"paymentagent_withdraw",
@@ -58,6 +34,8 @@ func (j *PaymentagentWithdrawRespMsgType) UnmarshalJSON(b []byte) error {
 	*j = PaymentagentWithdrawRespMsgType(v)
 	return nil
 }
+
+const PaymentagentWithdrawRespMsgTypePaymentagentWithdraw PaymentagentWithdrawRespMsgType = "paymentagent_withdraw"
 
 type PaymentagentWithdrawRespPaymentagentWithdraw int
 
@@ -86,16 +64,38 @@ func (j *PaymentagentWithdrawRespPaymentagentWithdraw) UnmarshalJSON(b []byte) e
 	return nil
 }
 
+// The result of payment agent withdrawal request made.
+type PaymentagentWithdrawResp struct {
+	// Echo of the request made.
+	EchoReq PaymentagentWithdrawRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType PaymentagentWithdrawRespMsgType `json:"msg_type"`
+
+	// Payment agent name.
+	PaymentagentName *string `json:"paymentagent_name,omitempty"`
+
+	// If set to `1`, withdrawal success. If set to `2`, dry-run success.
+	PaymentagentWithdraw *PaymentagentWithdrawRespPaymentagentWithdraw `json:"paymentagent_withdraw,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// Reference ID of withdrawal performed.
+	TransactionId *int `json:"transaction_id,omitempty"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *PaymentagentWithdrawResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in PaymentagentWithdrawResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in PaymentagentWithdrawResp: required")
 	}
 	type Plain PaymentagentWithdrawResp

@@ -6,26 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Cancel a P2P order.
-type P2POrderCancel struct {
-	// The unique identifier for this order.
-	Id string `json:"id"`
-
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// Must be 1
-	P2POrderCancel P2POrderCancelP2POrderCancel `json:"p2p_order_cancel"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough P2POrderCancelPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 type P2POrderCancelP2POrderCancel int
 
 var enumValues_P2POrderCancelP2POrderCancel = []interface{}{
@@ -52,6 +32,26 @@ func (j *P2POrderCancelP2POrderCancel) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Cancel a P2P order.
+type P2POrderCancel struct {
+	// The unique identifier for this order.
+	Id string `json:"id"`
+
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// Must be 1
+	P2POrderCancel P2POrderCancelP2POrderCancel `json:"p2p_order_cancel"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough P2POrderCancelPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type P2POrderCancelPassthrough map[string]interface{}
@@ -62,10 +62,10 @@ func (j *P2POrderCancel) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["id"]; raw != nil && !ok {
+	if v, ok := raw["id"]; !ok || v == nil {
 		return fmt.Errorf("field id in P2POrderCancel: required")
 	}
-	if _, ok := raw["p2p_order_cancel"]; raw != nil && !ok {
+	if v, ok := raw["p2p_order_cancel"]; !ok || v == nil {
 		return fmt.Errorf("field p2p_order_cancel in P2POrderCancel: required")
 	}
 	type Plain P2POrderCancel

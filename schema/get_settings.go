@@ -6,23 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Get User Settings (email, date of birth, address etc)
-type GetSettings struct {
-	// Must be `1`
-	GetSettings GetSettingsGetSettings `json:"get_settings"`
-
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough GetSettingsPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 type GetSettingsGetSettings int
 
 var enumValues_GetSettingsGetSettings = []interface{}{
@@ -49,6 +32,23 @@ func (j *GetSettingsGetSettings) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Get User Settings (email, date of birth, address etc)
+type GetSettings struct {
+	// Must be `1`
+	GetSettings GetSettingsGetSettings `json:"get_settings"`
+
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough GetSettingsPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type GetSettingsPassthrough map[string]interface{}
@@ -59,7 +59,7 @@ func (j *GetSettings) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["get_settings"]; raw != nil && !ok {
+	if v, ok := raw["get_settings"]; !ok || v == nil {
 		return fmt.Errorf("field get_settings in GetSettings: required")
 	}
 	type Plain GetSettings

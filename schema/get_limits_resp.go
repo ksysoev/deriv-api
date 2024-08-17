@@ -150,10 +150,6 @@ type GetLimitsRespGetLimitsPayoutPerSymbolNonAtm struct {
 	MoreThanSevenDays *float64 `json:"more_than_seven_days,omitempty"`
 }
 
-type GetLimitsRespMsgType string
-
-const GetLimitsRespMsgTypeGetLimits GetLimitsRespMsgType = "get_limits"
-
 var enumValues_GetLimitsRespMsgType = []interface{}{
 	"get_limits",
 }
@@ -178,16 +174,20 @@ func (j *GetLimitsRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type GetLimitsRespMsgType string
+
+const GetLimitsRespMsgTypeGetLimits GetLimitsRespMsgType = "get_limits"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *GetLimitsResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in GetLimitsResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in GetLimitsResp: required")
 	}
 	type Plain GetLimitsResp

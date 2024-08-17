@@ -6,28 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// MT5 user password reset receive
-type Mt5PasswordResetResp struct {
-	// Echo of the request made.
-	EchoReq Mt5PasswordResetRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType Mt5PasswordResetRespMsgType `json:"msg_type"`
-
-	// `1` on success
-	Mt5PasswordReset *int `json:"mt5_password_reset,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Echo of the request made.
 type Mt5PasswordResetRespEchoReq map[string]interface{}
 
 type Mt5PasswordResetRespMsgType string
-
-const Mt5PasswordResetRespMsgTypeMt5PasswordReset Mt5PasswordResetRespMsgType = "mt5_password_reset"
 
 var enumValues_Mt5PasswordResetRespMsgType = []interface{}{
 	"mt5_password_reset",
@@ -53,16 +35,34 @@ func (j *Mt5PasswordResetRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// MT5 user password reset receive
+type Mt5PasswordResetResp struct {
+	// Echo of the request made.
+	EchoReq Mt5PasswordResetRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType Mt5PasswordResetRespMsgType `json:"msg_type"`
+
+	// `1` on success
+	Mt5PasswordReset *int `json:"mt5_password_reset,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const Mt5PasswordResetRespMsgTypeMt5PasswordReset Mt5PasswordResetRespMsgType = "mt5_password_reset"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *Mt5PasswordResetResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in Mt5PasswordResetResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in Mt5PasswordResetResp: required")
 	}
 	type Plain Mt5PasswordResetResp

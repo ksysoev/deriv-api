@@ -6,32 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Confirm a P2P order.
-type P2POrderConfirm struct {
-	// [Optional] If set to `1`, only validation is performed.
-	DryRun P2POrderConfirmDryRun `json:"dry_run,omitempty"`
-
-	// The unique identifier for this order.
-	Id string `json:"id"`
-
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// Must be 1
-	P2POrderConfirm P2POrderConfirmP2POrderConfirm `json:"p2p_order_confirm"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough P2POrderConfirmPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// [Optional] Verification code received from email.
-	VerificationCode *string `json:"verification_code,omitempty"`
-}
-
 type P2POrderConfirmDryRun int
 
 var enumValues_P2POrderConfirmDryRun = []interface{}{
@@ -85,6 +59,32 @@ func (j *P2POrderConfirmP2POrderConfirm) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Confirm a P2P order.
+type P2POrderConfirm struct {
+	// [Optional] If set to `1`, only validation is performed.
+	DryRun P2POrderConfirmDryRun `json:"dry_run,omitempty"`
+
+	// The unique identifier for this order.
+	Id string `json:"id"`
+
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// Must be 1
+	P2POrderConfirm P2POrderConfirmP2POrderConfirm `json:"p2p_order_confirm"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough P2POrderConfirmPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// [Optional] Verification code received from email.
+	VerificationCode *string `json:"verification_code,omitempty"`
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type P2POrderConfirmPassthrough map[string]interface{}
@@ -95,10 +95,10 @@ func (j *P2POrderConfirm) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["id"]; raw != nil && !ok {
+	if v, ok := raw["id"]; !ok || v == nil {
 		return fmt.Errorf("field id in P2POrderConfirm: required")
 	}
-	if _, ok := raw["p2p_order_confirm"]; raw != nil && !ok {
+	if v, ok := raw["p2p_order_confirm"]; !ok || v == nil {
 		return fmt.Errorf("field p2p_order_confirm in P2POrderConfirm: required")
 	}
 	type Plain P2POrderConfirm

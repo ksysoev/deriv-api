@@ -6,31 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// The result of MT5 withdrawal request made.
-type Mt5WithdrawalResp struct {
-	// Deposit reference ID of Binary account.
-	BinaryTransactionId *int `json:"binary_transaction_id,omitempty"`
-
-	// Echo of the request made.
-	EchoReq Mt5WithdrawalRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType Mt5WithdrawalRespMsgType `json:"msg_type"`
-
-	// `1` on success
-	Mt5Withdrawal *int `json:"mt5_withdrawal,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Echo of the request made.
 type Mt5WithdrawalRespEchoReq map[string]interface{}
 
 type Mt5WithdrawalRespMsgType string
-
-const Mt5WithdrawalRespMsgTypeMt5Withdrawal Mt5WithdrawalRespMsgType = "mt5_withdrawal"
 
 var enumValues_Mt5WithdrawalRespMsgType = []interface{}{
 	"mt5_withdrawal",
@@ -56,16 +35,37 @@ func (j *Mt5WithdrawalRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// The result of MT5 withdrawal request made.
+type Mt5WithdrawalResp struct {
+	// Deposit reference ID of Binary account.
+	BinaryTransactionId *int `json:"binary_transaction_id,omitempty"`
+
+	// Echo of the request made.
+	EchoReq Mt5WithdrawalRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType Mt5WithdrawalRespMsgType `json:"msg_type"`
+
+	// `1` on success
+	Mt5Withdrawal *int `json:"mt5_withdrawal,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const Mt5WithdrawalRespMsgTypeMt5Withdrawal Mt5WithdrawalRespMsgType = "mt5_withdrawal"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *Mt5WithdrawalResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in Mt5WithdrawalResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in Mt5WithdrawalResp: required")
 	}
 	type Plain Mt5WithdrawalResp

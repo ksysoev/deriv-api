@@ -6,22 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Retrieve performance, trading, risk and copiers statistics of trader.
-type CopytradingStatistics struct {
-	// Must be `1`
-	CopytradingStatistics CopytradingStatisticsCopytradingStatistics `json:"copytrading_statistics"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough CopytradingStatisticsPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// The ID of the target trader.
-	TraderId string `json:"trader_id"`
-}
-
 type CopytradingStatisticsCopytradingStatistics int
 
 var enumValues_CopytradingStatisticsCopytradingStatistics = []interface{}{
@@ -48,6 +32,22 @@ func (j *CopytradingStatisticsCopytradingStatistics) UnmarshalJSON(b []byte) err
 	return nil
 }
 
+// Retrieve performance, trading, risk and copiers statistics of trader.
+type CopytradingStatistics struct {
+	// Must be `1`
+	CopytradingStatistics CopytradingStatisticsCopytradingStatistics `json:"copytrading_statistics"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough CopytradingStatisticsPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// The ID of the target trader.
+	TraderId string `json:"trader_id"`
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type CopytradingStatisticsPassthrough map[string]interface{}
@@ -58,10 +58,10 @@ func (j *CopytradingStatistics) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["copytrading_statistics"]; raw != nil && !ok {
+	if v, ok := raw["copytrading_statistics"]; !ok || v == nil {
 		return fmt.Errorf("field copytrading_statistics in CopytradingStatistics: required")
 	}
-	if _, ok := raw["trader_id"]; raw != nil && !ok {
+	if v, ok := raw["trader_id"]; !ok || v == nil {
 		return fmt.Errorf("field trader_id in CopytradingStatistics: required")
 	}
 	type Plain CopytradingStatistics

@@ -31,3 +31,6 @@ coverage:
 	cat coverage.out | grep -v "/calls.go" | grep -v "custom_subscription_calls.go" | grep -v "subscription_calls.go" > coverage.final.out
 	go tool cover -func=coverage.final.out
 	rm coverage.out coverage.final.out
+
+lint:
+	golangci-lint run

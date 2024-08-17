@@ -6,28 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// A message with revoking a used application
-type RevokeOauthAppResp struct {
-	// Echo of the request made.
-	EchoReq RevokeOauthAppRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType RevokeOauthAppRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// `1` on success
-	RevokeOauthApp *int `json:"revoke_oauth_app,omitempty"`
-}
-
 // Echo of the request made.
 type RevokeOauthAppRespEchoReq map[string]interface{}
 
 type RevokeOauthAppRespMsgType string
-
-const RevokeOauthAppRespMsgTypeRevokeOauthApp RevokeOauthAppRespMsgType = "revoke_oauth_app"
 
 var enumValues_RevokeOauthAppRespMsgType = []interface{}{
 	"revoke_oauth_app",
@@ -53,16 +35,34 @@ func (j *RevokeOauthAppRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// A message with revoking a used application
+type RevokeOauthAppResp struct {
+	// Echo of the request made.
+	EchoReq RevokeOauthAppRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType RevokeOauthAppRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// `1` on success
+	RevokeOauthApp *int `json:"revoke_oauth_app,omitempty"`
+}
+
+const RevokeOauthAppRespMsgTypeRevokeOauthApp RevokeOauthAppRespMsgType = "revoke_oauth_app"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *RevokeOauthAppResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in RevokeOauthAppResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in RevokeOauthAppResp: required")
 	}
 	type Plain RevokeOauthAppResp

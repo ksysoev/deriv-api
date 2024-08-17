@@ -16,36 +16,42 @@ import (
 	"github.com/ksysoev/deriv-api/schema"
 )
 
+const (
+	// DefaultKeepAliveInterval is the default interval for sending ping requests to keep the connection alive.
+	keepAliveInterval = 25 * time.Second
+	defaultTimeout    = 30 * time.Second
+)
+
 // DerivAPI is the main struct for the DerivAPI client.
-type DerivAPI struct {
-	Origin                *url.URL        // The origin URL for the DerivAPI server
-	Endpoint              *url.URL        // The WebSocket endpoint URL for the DerivAPI server
-	AppID                 int             // The app ID for the DerivAPI server
-	Lang                  string          // The language code (ISO 639-1) for the DerivAPI server
-	ws                    *websocket.Conn // The WebSocket connection to the DerivAPI server
-	lastRequestID         int64           // The last request ID used for the DerivAPI server
-	TimeOut               time.Duration   // The timeout duration for the DerivAPI server api calls
-	connectionLock        sync.Mutex      // A lock for the DerivAPI server connection
-	reqChan               chan ApiReqest  // A channel for sending requests to the DerivAPI server
-	closingChan           chan int        // A channel for closing the DerivAPI server connection
-	keepAlive             bool            // A flag to keep the connection alive
-	keepAliveOnDisconnect chan bool       // A channel to keep the connection alive
-	keepAliveInterval     time.Duration   // The interval to send ping requests
-	debugEnabled          bool            // A flag to print debug messages
+type DerivAPI struct { //nolint:revive // don't want to change the name for now
+	reqChan               chan APIReqest
+	Endpoint              *url.URL
+	keepAliveOnDisconnect chan bool
+	Origin                *url.URL
+	ws                    *websocket.Conn
+	closingChan           chan int
+	Lang                  string
+	TimeOut               time.Duration
+	lastRequestID         int64
+	AppID                 int
+	keepAliveInterval     time.Duration
+	connectionLock        sync.Mutex
+	keepAlive             bool
+	debugEnabled          bool
 }
 
-// ApiReqest is an interface for all API requests.
-type ApiReqest struct {
-	id       int
-	msg      []byte
+// APIReqest is an interface for all API requests.
+type APIReqest struct {
 	respChan chan []byte
+	msg      []byte
+	id       int
 }
 
 type APIResponseReqID struct {
 	ReqID int `json:"req_id"`
 }
 
-type DerivApiOption func(api *DerivAPI)
+type APIOption func(api *DerivAPI)
 
 // NewDerivAPI creates a new instance of DerivAPI by parsing and validating the given
 // endpoint URL, appID, language, and origin URL. It returns a pointer to a DerivAPI object
@@ -56,9 +62,9 @@ type DerivApiOption func(api *DerivAPI)
 // - appID: int - The app ID for the DerivAPI server
 // - lang: string - The language code (ISO 639-1) for the DerivAPI server
 // - origin: string - The origin URL for the DerivAPI server
-// - opts: DerivApiOption - A variadic list of DerivApiOption functions to configure the DerivAPI object (optional)
-//   - KeepAlive: A DerivApiOption function to keep the connection alive by sending ping requests.
-//   - Debug: A DerivApiOption function to enable debug messages.
+// - opts: APIOption - A variadic list of APIOption functions to configure the DerivAPI object (optional)
+//   - KeepAlive: A APIOption function to keep the connection alive by sending ping requests.
+//   - Debug: A APIOption function to enable debug messages.
 //
 // Returns:
 //   - *DerivAPI: A pointer to a new instance of DerivAPI with the validated endpoint, appID,
@@ -71,7 +77,7 @@ type DerivApiOption func(api *DerivAPI)
 //	if err != nil {
 //		log.Fatal(err)
 //	}
-func NewDerivAPI(endpoint string, appID int, lang string, origin string, opts ...DerivApiOption) (*DerivAPI, error) {
+func NewDerivAPI(endpoint string, appID int, lang, origin string, opts ...APIOption) (*DerivAPI, error) {
 	urlEnpoint, err := url.Parse(endpoint)
 	if err != nil {
 		return nil, err
@@ -91,7 +97,7 @@ func NewDerivAPI(endpoint string, appID int, lang string, origin string, opts ..
 	}
 
 	if lang == "" || len(lang) != 2 {
-		return nil, fmt.Errorf("Invalid language")
+		return nil, fmt.Errorf("invalid language")
 	}
 
 	query := urlEnpoint.Query()
@@ -106,10 +112,10 @@ func NewDerivAPI(endpoint string, appID int, lang string, origin string, opts ..
 		AppID:             appID,
 		Lang:              lang,
 		lastRequestID:     0,
-		TimeOut:           30 * time.Second,
+		TimeOut:           defaultTimeout,
 		connectionLock:    sync.Mutex{},
 		closingChan:       make(chan int),
-		keepAliveInterval: 25 * time.Second,
+		keepAliveInterval: keepAliveInterval,
 	}
 
 	for _, opt := range opts {
@@ -167,7 +173,7 @@ func (api *DerivAPI) Connect() error {
 
 	api.ws = ws
 
-	api.reqChan = make(chan ApiReqest)
+	api.reqChan = make(chan APIReqest)
 	respChan := make(chan []byte)
 	outputChan := make(chan []byte)
 
@@ -189,7 +195,6 @@ func (api *DerivAPI) Connect() error {
 				case <-onDisconnect:
 					return
 				}
-
 			}
 		}(api.keepAliveInterval, api.keepAliveOnDisconnect)
 	}
@@ -229,11 +234,10 @@ func (api *DerivAPI) requestSender(wsConn *websocket.Conn, reqChan chan []byte) 
 	for req := range reqChan {
 		api.logDebugf("Sending request: %s", req)
 
-		err := wsConn.Write(context.TODO(), websocket.MessageText, req)
-
-		if err != nil {
+		if err := wsConn.Write(context.TODO(), websocket.MessageText, req); err != nil {
 			api.logDebugf("Failed to send request: %s", err.Error())
 			api.Disconnect()
+
 			return
 		}
 	}
@@ -277,7 +281,7 @@ func (api *DerivAPI) handleResponses(wsConn *websocket.Conn, respChan chan []byt
 
 // requestMapper forward requests to the Deriv API server and
 // responses from the WebSocket server to the appropriate channels.
-func (api *DerivAPI) requestMapper(respChan chan []byte, outputChan chan []byte, reqChan chan ApiReqest, closingChan chan int) {
+func (api *DerivAPI) requestMapper(respChan, outputChan chan []byte, reqChan chan APIReqest, closingChan chan int) {
 	responseMap := make(map[int]chan []byte)
 
 	defer func() {
@@ -291,29 +295,26 @@ func (api *DerivAPI) requestMapper(respChan chan []byte, outputChan chan []byte,
 		select {
 		case rawResp := <-respChan:
 			var response APIResponseReqID
-			err := json.Unmarshal(rawResp, &response)
-			if err != nil {
+
+			if err := json.Unmarshal(rawResp, &response); err != nil {
 				continue
 			}
-			channel, ok := responseMap[response.ReqID]
 
-			if ok {
+			if channel, ok := responseMap[response.ReqID]; ok {
 				channel <- rawResp
 			}
 		case req, ok := <-reqChan:
 			if !ok {
 				return
 			}
+
 			responseMap[req.id] = req.respChan
 			outputChan <- req.msg
 		case reqID := <-closingChan:
-			channel, okGet := responseMap[reqID]
-
-			if okGet {
+			if channel, ok := responseMap[reqID]; ok {
 				close(channel)
 				delete(responseMap, reqID)
 			}
-
 		}
 	}
 }
@@ -333,19 +334,19 @@ func (api *DerivAPI) Send(reqID int, request any) (chan []byte, error) {
 
 	respChan := make(chan []byte)
 
-	ApiReqest := ApiReqest{
+	req := APIReqest{
 		id:       reqID,
 		msg:      msg,
 		respChan: respChan,
 	}
 
-	api.reqChan <- ApiReqest
+	api.reqChan <- req
 
 	return respChan, nil
 }
 
 // SendRequest sends a request to the Deriv API and returns the response
-func (api *DerivAPI) SendRequest(reqID int, request any, response any) (err error) {
+func (api *DerivAPI) SendRequest(reqID int, request, response any) error {
 	respChan, err := api.Send(reqID, request)
 
 	if err != nil {
@@ -364,18 +365,16 @@ func (api *DerivAPI) SendRequest(reqID int, request any, response any) (err erro
 			return fmt.Errorf("connection closed")
 		}
 
-		if err = parseError(responseJSON); err != nil {
+		if err := parseError(responseJSON); err != nil {
 			return err
 		}
 
-		err = json.Unmarshal(responseJSON, response)
-		if err != nil {
+		if err := json.Unmarshal(responseJSON, response); err != nil {
 			api.logDebugf("Failed to parse response for request %d: %s", reqID, err.Error())
 			return err
 		}
 
 		return nil
-
 	}
 }
 

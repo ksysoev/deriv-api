@@ -6,22 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// A message with User Self-Exclusion
-type GetSelfExclusionResp struct {
-	// Echo of the request made.
-	EchoReq GetSelfExclusionRespEchoReq `json:"echo_req"`
-
-	// List of values set for self exclusion.
-	GetSelfExclusion *GetSelfExclusionRespGetSelfExclusion `json:"get_self_exclusion,omitempty"`
-
-	// Action name of the request made.
-	MsgType GetSelfExclusionRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Echo of the request made.
 type GetSelfExclusionRespEchoReq map[string]interface{}
 
@@ -75,8 +59,6 @@ type GetSelfExclusionRespGetSelfExclusion struct {
 
 type GetSelfExclusionRespMsgType string
 
-const GetSelfExclusionRespMsgTypeGetSelfExclusion GetSelfExclusionRespMsgType = "get_self_exclusion"
-
 var enumValues_GetSelfExclusionRespMsgType = []interface{}{
 	"get_self_exclusion",
 }
@@ -101,16 +83,34 @@ func (j *GetSelfExclusionRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// A message with User Self-Exclusion
+type GetSelfExclusionResp struct {
+	// Echo of the request made.
+	EchoReq GetSelfExclusionRespEchoReq `json:"echo_req"`
+
+	// List of values set for self exclusion.
+	GetSelfExclusion *GetSelfExclusionRespGetSelfExclusion `json:"get_self_exclusion,omitempty"`
+
+	// Action name of the request made.
+	MsgType GetSelfExclusionRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const GetSelfExclusionRespMsgTypeGetSelfExclusion GetSelfExclusionRespMsgType = "get_self_exclusion"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *GetSelfExclusionResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in GetSelfExclusionResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in GetSelfExclusionResp: required")
 	}
 	type Plain GetSelfExclusionResp

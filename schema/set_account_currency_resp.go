@@ -6,28 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Status of set account currency call
-type SetAccountCurrencyResp struct {
-	// Echo of the request made.
-	EchoReq SetAccountCurrencyRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType SetAccountCurrencyRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// `1`: success, `0`: no change
-	SetAccountCurrency *SetAccountCurrencyRespSetAccountCurrency `json:"set_account_currency,omitempty"`
-}
-
 // Echo of the request made.
 type SetAccountCurrencyRespEchoReq map[string]interface{}
 
 type SetAccountCurrencyRespMsgType string
-
-const SetAccountCurrencyRespMsgTypeSetAccountCurrency SetAccountCurrencyRespMsgType = "set_account_currency"
 
 var enumValues_SetAccountCurrencyRespMsgType = []interface{}{
 	"set_account_currency",
@@ -52,6 +34,8 @@ func (j *SetAccountCurrencyRespMsgType) UnmarshalJSON(b []byte) error {
 	*j = SetAccountCurrencyRespMsgType(v)
 	return nil
 }
+
+const SetAccountCurrencyRespMsgTypeSetAccountCurrency SetAccountCurrencyRespMsgType = "set_account_currency"
 
 type SetAccountCurrencyRespSetAccountCurrency int
 
@@ -80,16 +64,32 @@ func (j *SetAccountCurrencyRespSetAccountCurrency) UnmarshalJSON(b []byte) error
 	return nil
 }
 
+// Status of set account currency call
+type SetAccountCurrencyResp struct {
+	// Echo of the request made.
+	EchoReq SetAccountCurrencyRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType SetAccountCurrencyRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// `1`: success, `0`: no change
+	SetAccountCurrency *SetAccountCurrencyRespSetAccountCurrency `json:"set_account_currency,omitempty"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *SetAccountCurrencyResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in SetAccountCurrencyResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in SetAccountCurrencyResp: required")
 	}
 	type Plain SetAccountCurrencyResp

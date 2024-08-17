@@ -6,6 +6,32 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+type Mt5DepositMt5Deposit int
+
+var enumValues_Mt5DepositMt5Deposit = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5DepositMt5Deposit) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5DepositMt5Deposit {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5DepositMt5Deposit, v)
+	}
+	*j = Mt5DepositMt5Deposit(v)
+	return nil
+}
+
 // This call allows deposit into MT5 account from Binary account.
 type Mt5Deposit struct {
 	// Amount to deposit (in the currency of from_binary); min = $1 or an equivalent
@@ -33,32 +59,6 @@ type Mt5Deposit struct {
 	ToMt5 string `json:"to_mt5"`
 }
 
-type Mt5DepositMt5Deposit int
-
-var enumValues_Mt5DepositMt5Deposit = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *Mt5DepositMt5Deposit) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_Mt5DepositMt5Deposit {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5DepositMt5Deposit, v)
-	}
-	*j = Mt5DepositMt5Deposit(v)
-	return nil
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type Mt5DepositPassthrough map[string]interface{}
@@ -69,10 +69,10 @@ func (j *Mt5Deposit) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["mt5_deposit"]; raw != nil && !ok {
+	if v, ok := raw["mt5_deposit"]; !ok || v == nil {
 		return fmt.Errorf("field mt5_deposit in Mt5Deposit: required")
 	}
-	if _, ok := raw["to_mt5"]; raw != nil && !ok {
+	if v, ok := raw["to_mt5"]; !ok || v == nil {
 		return fmt.Errorf("field to_mt5 in Mt5Deposit: required")
 	}
 	type Plain Mt5Deposit

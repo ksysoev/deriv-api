@@ -6,28 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Provides current suspension status of trading platforms
-type TradingPlatformStatusResp struct {
-	// Echo of the request made.
-	EchoReq TradingPlatformStatusRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType TradingPlatformStatusRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// Availability status of the trading platforms
-	TradingPlatformStatus []interface{} `json:"trading_platform_status"`
-}
-
 // Echo of the request made.
 type TradingPlatformStatusRespEchoReq map[string]interface{}
 
 type TradingPlatformStatusRespMsgType string
-
-const TradingPlatformStatusRespMsgTypeTradingPlatformStatus TradingPlatformStatusRespMsgType = "trading_platform_status"
 
 var enumValues_TradingPlatformStatusRespMsgType = []interface{}{
 	"trading_platform_status",
@@ -53,19 +35,37 @@ func (j *TradingPlatformStatusRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Provides current suspension status of trading platforms
+type TradingPlatformStatusResp struct {
+	// Echo of the request made.
+	EchoReq TradingPlatformStatusRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType TradingPlatformStatusRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// Availability status of the trading platforms
+	TradingPlatformStatus []interface{} `json:"trading_platform_status"`
+}
+
+const TradingPlatformStatusRespMsgTypeTradingPlatformStatus TradingPlatformStatusRespMsgType = "trading_platform_status"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TradingPlatformStatusResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in TradingPlatformStatusResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in TradingPlatformStatusResp: required")
 	}
-	if _, ok := raw["trading_platform_status"]; raw != nil && !ok {
+	if v, ok := raw["trading_platform_status"]; !ok || v == nil {
 		return fmt.Errorf("field trading_platform_status in TradingPlatformStatusResp: required")
 	}
 	type Plain TradingPlatformStatusResp

@@ -6,22 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// The statistics of the trader.
-type CopytradingStatisticsResp struct {
-	// Statistics of the trader
-	CopytradingStatistics *CopytradingStatisticsRespCopytradingStatistics `json:"copytrading_statistics,omitempty"`
-
-	// Echo of the request made.
-	EchoReq CopytradingStatisticsRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType CopytradingStatisticsRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Statistics of the trader
 type CopytradingStatisticsRespCopytradingStatistics struct {
 	// This is the epoch the investor started trading.
@@ -76,37 +60,37 @@ func (j *CopytradingStatisticsRespCopytradingStatistics) UnmarshalJSON(b []byte)
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["active_since"]; raw != nil && !ok {
+	if v, ok := raw["active_since"]; !ok || v == nil {
 		return fmt.Errorf("field active_since in CopytradingStatisticsRespCopytradingStatistics: required")
 	}
-	if _, ok := raw["avg_duration"]; raw != nil && !ok {
+	if v, ok := raw["avg_duration"]; !ok || v == nil {
 		return fmt.Errorf("field avg_duration in CopytradingStatisticsRespCopytradingStatistics: required")
 	}
-	if _, ok := raw["avg_loss"]; raw != nil && !ok {
+	if v, ok := raw["avg_loss"]; !ok || v == nil {
 		return fmt.Errorf("field avg_loss in CopytradingStatisticsRespCopytradingStatistics: required")
 	}
-	if _, ok := raw["avg_profit"]; raw != nil && !ok {
+	if v, ok := raw["avg_profit"]; !ok || v == nil {
 		return fmt.Errorf("field avg_profit in CopytradingStatisticsRespCopytradingStatistics: required")
 	}
-	if _, ok := raw["copiers"]; raw != nil && !ok {
+	if v, ok := raw["copiers"]; !ok || v == nil {
 		return fmt.Errorf("field copiers in CopytradingStatisticsRespCopytradingStatistics: required")
 	}
-	if _, ok := raw["last_12months_profitable_trades"]; raw != nil && !ok {
+	if v, ok := raw["last_12months_profitable_trades"]; !ok || v == nil {
 		return fmt.Errorf("field last_12months_profitable_trades in CopytradingStatisticsRespCopytradingStatistics: required")
 	}
-	if _, ok := raw["monthly_profitable_trades"]; raw != nil && !ok {
+	if v, ok := raw["monthly_profitable_trades"]; !ok || v == nil {
 		return fmt.Errorf("field monthly_profitable_trades in CopytradingStatisticsRespCopytradingStatistics: required")
 	}
-	if _, ok := raw["performance_probability"]; raw != nil && !ok {
+	if v, ok := raw["performance_probability"]; !ok || v == nil {
 		return fmt.Errorf("field performance_probability in CopytradingStatisticsRespCopytradingStatistics: required")
 	}
-	if _, ok := raw["total_trades"]; raw != nil && !ok {
+	if v, ok := raw["total_trades"]; !ok || v == nil {
 		return fmt.Errorf("field total_trades in CopytradingStatisticsRespCopytradingStatistics: required")
 	}
-	if _, ok := raw["trades_breakdown"]; raw != nil && !ok {
+	if v, ok := raw["trades_breakdown"]; !ok || v == nil {
 		return fmt.Errorf("field trades_breakdown in CopytradingStatisticsRespCopytradingStatistics: required")
 	}
-	if _, ok := raw["trades_profitable"]; raw != nil && !ok {
+	if v, ok := raw["trades_profitable"]; !ok || v == nil {
 		return fmt.Errorf("field trades_profitable in CopytradingStatisticsRespCopytradingStatistics: required")
 	}
 	type Plain CopytradingStatisticsRespCopytradingStatistics
@@ -122,8 +106,6 @@ func (j *CopytradingStatisticsRespCopytradingStatistics) UnmarshalJSON(b []byte)
 type CopytradingStatisticsRespEchoReq map[string]interface{}
 
 type CopytradingStatisticsRespMsgType string
-
-const CopytradingStatisticsRespMsgTypeCopytradingStatistics CopytradingStatisticsRespMsgType = "copytrading_statistics"
 
 var enumValues_CopytradingStatisticsRespMsgType = []interface{}{
 	"copytrading_statistics",
@@ -149,16 +131,34 @@ func (j *CopytradingStatisticsRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// The statistics of the trader.
+type CopytradingStatisticsResp struct {
+	// Statistics of the trader
+	CopytradingStatistics *CopytradingStatisticsRespCopytradingStatistics `json:"copytrading_statistics,omitempty"`
+
+	// Echo of the request made.
+	EchoReq CopytradingStatisticsRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType CopytradingStatisticsRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const CopytradingStatisticsRespMsgTypeCopytradingStatistics CopytradingStatisticsRespMsgType = "copytrading_statistics"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *CopytradingStatisticsResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in CopytradingStatisticsResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in CopytradingStatisticsResp: required")
 	}
 	type Plain CopytradingStatisticsResp

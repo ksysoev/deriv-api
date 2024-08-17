@@ -6,24 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Retrieve a list of available option payout currencies. If a user is logged in,
-// only the currencies available for the account will be returned.
-type PayoutCurrencies struct {
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough PayoutCurrenciesPassthrough `json:"passthrough,omitempty"`
-
-	// Must be `1`
-	PayoutCurrencies PayoutCurrenciesPayoutCurrencies `json:"payout_currencies"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type PayoutCurrenciesPassthrough map[string]interface{}
@@ -54,13 +36,31 @@ func (j *PayoutCurrenciesPayoutCurrencies) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Retrieve a list of available option payout currencies. If a user is logged in,
+// only the currencies available for the account will be returned.
+type PayoutCurrencies struct {
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough PayoutCurrenciesPassthrough `json:"passthrough,omitempty"`
+
+	// Must be `1`
+	PayoutCurrencies PayoutCurrenciesPayoutCurrencies `json:"payout_currencies"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *PayoutCurrencies) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["payout_currencies"]; raw != nil && !ok {
+	if v, ok := raw["payout_currencies"]; !ok || v == nil {
 		return fmt.Errorf("field payout_currencies in PayoutCurrencies: required")
 	}
 	type Plain PayoutCurrencies

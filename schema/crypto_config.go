@@ -6,27 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// The request for cryptocurrencies configuration.
-type CryptoConfig struct {
-	// Must be `1`
-	CryptoConfig CryptoConfigCryptoConfig `json:"crypto_config"`
-
-	// [Optional] Cryptocurrency code. Sending request with currency_code provides
-	// crypto config for the sent cryptocurrency code only.
-	CurrencyCode *string `json:"currency_code,omitempty"`
-
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough CryptoConfigPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 type CryptoConfigCryptoConfig int
 
 var enumValues_CryptoConfigCryptoConfig = []interface{}{
@@ -53,6 +32,27 @@ func (j *CryptoConfigCryptoConfig) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// The request for cryptocurrencies configuration.
+type CryptoConfig struct {
+	// Must be `1`
+	CryptoConfig CryptoConfigCryptoConfig `json:"crypto_config"`
+
+	// [Optional] Cryptocurrency code. Sending request with currency_code provides
+	// crypto config for the sent cryptocurrency code only.
+	CurrencyCode *string `json:"currency_code,omitempty"`
+
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough CryptoConfigPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type CryptoConfigPassthrough map[string]interface{}
@@ -63,7 +63,7 @@ func (j *CryptoConfig) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["crypto_config"]; raw != nil && !ok {
+	if v, ok := raw["crypto_config"]; !ok || v == nil {
 		return fmt.Errorf("field crypto_config in CryptoConfig: required")
 	}
 	type Plain CryptoConfig

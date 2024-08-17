@@ -6,28 +6,10 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Set Financial Assessment Receive
-type SetFinancialAssessmentResp struct {
-	// Echo of the request made.
-	EchoReq SetFinancialAssessmentRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType SetFinancialAssessmentRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// The financial assessment score assigned to the submitted financial assessment
-	SetFinancialAssessment *SetFinancialAssessmentRespSetFinancialAssessment `json:"set_financial_assessment,omitempty"`
-}
-
 // Echo of the request made.
 type SetFinancialAssessmentRespEchoReq map[string]interface{}
 
 type SetFinancialAssessmentRespMsgType string
-
-const SetFinancialAssessmentRespMsgTypeSetFinancialAssessment SetFinancialAssessmentRespMsgType = "set_financial_assessment"
 
 var enumValues_SetFinancialAssessmentRespMsgType = []interface{}{
 	"set_financial_assessment",
@@ -53,6 +35,24 @@ func (j *SetFinancialAssessmentRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Set Financial Assessment Receive
+type SetFinancialAssessmentResp struct {
+	// Echo of the request made.
+	EchoReq SetFinancialAssessmentRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType SetFinancialAssessmentRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// The financial assessment score assigned to the submitted financial assessment
+	SetFinancialAssessment *SetFinancialAssessmentRespSetFinancialAssessment `json:"set_financial_assessment,omitempty"`
+}
+
+const SetFinancialAssessmentRespMsgTypeSetFinancialAssessment SetFinancialAssessmentRespMsgType = "set_financial_assessment"
+
 // The financial assessment score assigned to the submitted financial assessment
 type SetFinancialAssessmentRespSetFinancialAssessment struct {
 	// CFD score based on answers
@@ -74,10 +74,10 @@ func (j *SetFinancialAssessmentResp) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in SetFinancialAssessmentResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in SetFinancialAssessmentResp: required")
 	}
 	type Plain SetFinancialAssessmentResp

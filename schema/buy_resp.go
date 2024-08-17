@@ -6,25 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// A message with transaction results is received
-type BuyResp struct {
-	// Receipt confirmation for the purchase
-	Buy *BuyRespBuy `json:"buy,omitempty"`
-
-	// Echo of the request made.
-	EchoReq BuyRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType BuyRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// For subscription requests only.
-	Subscription *BuyRespSubscription `json:"subscription,omitempty"`
-}
-
 // Receipt confirmation for the purchase
 type BuyRespBuy struct {
 	// The new account balance after completion of the purchase
@@ -61,31 +42,31 @@ func (j *BuyRespBuy) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["balance_after"]; raw != nil && !ok {
+	if v, ok := raw["balance_after"]; !ok || v == nil {
 		return fmt.Errorf("field balance_after in BuyRespBuy: required")
 	}
-	if _, ok := raw["buy_price"]; raw != nil && !ok {
+	if v, ok := raw["buy_price"]; !ok || v == nil {
 		return fmt.Errorf("field buy_price in BuyRespBuy: required")
 	}
-	if _, ok := raw["contract_id"]; raw != nil && !ok {
+	if v, ok := raw["contract_id"]; !ok || v == nil {
 		return fmt.Errorf("field contract_id in BuyRespBuy: required")
 	}
-	if _, ok := raw["longcode"]; raw != nil && !ok {
+	if v, ok := raw["longcode"]; !ok || v == nil {
 		return fmt.Errorf("field longcode in BuyRespBuy: required")
 	}
-	if _, ok := raw["payout"]; raw != nil && !ok {
+	if v, ok := raw["payout"]; !ok || v == nil {
 		return fmt.Errorf("field payout in BuyRespBuy: required")
 	}
-	if _, ok := raw["purchase_time"]; raw != nil && !ok {
+	if v, ok := raw["purchase_time"]; !ok || v == nil {
 		return fmt.Errorf("field purchase_time in BuyRespBuy: required")
 	}
-	if _, ok := raw["shortcode"]; raw != nil && !ok {
+	if v, ok := raw["shortcode"]; !ok || v == nil {
 		return fmt.Errorf("field shortcode in BuyRespBuy: required")
 	}
-	if _, ok := raw["start_time"]; raw != nil && !ok {
+	if v, ok := raw["start_time"]; !ok || v == nil {
 		return fmt.Errorf("field start_time in BuyRespBuy: required")
 	}
-	if _, ok := raw["transaction_id"]; raw != nil && !ok {
+	if v, ok := raw["transaction_id"]; !ok || v == nil {
 		return fmt.Errorf("field transaction_id in BuyRespBuy: required")
 	}
 	type Plain BuyRespBuy
@@ -101,8 +82,6 @@ func (j *BuyRespBuy) UnmarshalJSON(b []byte) error {
 type BuyRespEchoReq map[string]interface{}
 
 type BuyRespMsgType string
-
-const BuyRespMsgTypeBuy BuyRespMsgType = "buy"
 
 var enumValues_BuyRespMsgType = []interface{}{
 	"buy",
@@ -128,6 +107,8 @@ func (j *BuyRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+const BuyRespMsgTypeBuy BuyRespMsgType = "buy"
+
 // For subscription requests only.
 type BuyRespSubscription struct {
 	// A per-connection unique identifier. Can be passed to the `forget` API call to
@@ -141,7 +122,7 @@ func (j *BuyRespSubscription) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["id"]; raw != nil && !ok {
+	if v, ok := raw["id"]; !ok || v == nil {
 		return fmt.Errorf("field id in BuyRespSubscription: required")
 	}
 	type Plain BuyRespSubscription
@@ -153,16 +134,35 @@ func (j *BuyRespSubscription) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// A message with transaction results is received
+type BuyResp struct {
+	// Receipt confirmation for the purchase
+	Buy *BuyRespBuy `json:"buy,omitempty"`
+
+	// Echo of the request made.
+	EchoReq BuyRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType BuyRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// For subscription requests only.
+	Subscription *BuyRespSubscription `json:"subscription,omitempty"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *BuyResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in BuyResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in BuyResp: required")
 	}
 	type Plain BuyResp

@@ -6,38 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// To reset the password of MT5 account.
-type Mt5PasswordReset struct {
-	// MT5 user login
-	Login string `json:"login"`
-
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// Must be `1`
-	Mt5PasswordReset Mt5PasswordResetMt5PasswordReset `json:"mt5_password_reset"`
-
-	// New password of the account. For validation (Accepts any printable ASCII
-	// character. Must be within 8-25 characters, and include numbers, lowercase and
-	// uppercase letters. Must not be the same as the user's email address).
-	NewPassword string `json:"new_password"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough Mt5PasswordResetPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Type of the password to reset.
-	PasswordType Mt5PasswordResetPasswordType `json:"password_type,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// Email verification code (received from a `verify_email` call, which must be
-	// done first)
-	VerificationCode string `json:"verification_code"`
-}
-
 type Mt5PasswordResetMt5PasswordReset int
 
 var enumValues_Mt5PasswordResetMt5PasswordReset = []interface{}{
@@ -70,9 +38,6 @@ type Mt5PasswordResetPassthrough map[string]interface{}
 
 type Mt5PasswordResetPasswordType string
 
-const Mt5PasswordResetPasswordTypeInvestor Mt5PasswordResetPasswordType = "investor"
-const Mt5PasswordResetPasswordTypeMain Mt5PasswordResetPasswordType = "main"
-
 var enumValues_Mt5PasswordResetPasswordType = []interface{}{
 	"main",
 	"investor",
@@ -98,22 +63,57 @@ func (j *Mt5PasswordResetPasswordType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// To reset the password of MT5 account.
+type Mt5PasswordReset struct {
+	// MT5 user login
+	Login string `json:"login"`
+
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// Must be `1`
+	Mt5PasswordReset Mt5PasswordResetMt5PasswordReset `json:"mt5_password_reset"`
+
+	// New password of the account. For validation (Accepts any printable ASCII
+	// character. Must be within 8-25 characters, and include numbers, lowercase and
+	// uppercase letters. Must not be the same as the user's email address).
+	NewPassword string `json:"new_password"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough Mt5PasswordResetPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Type of the password to reset.
+	PasswordType Mt5PasswordResetPasswordType `json:"password_type,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// Email verification code (received from a `verify_email` call, which must be
+	// done first)
+	VerificationCode string `json:"verification_code"`
+}
+
+const Mt5PasswordResetPasswordTypeInvestor Mt5PasswordResetPasswordType = "investor"
+const Mt5PasswordResetPasswordTypeMain Mt5PasswordResetPasswordType = "main"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *Mt5PasswordReset) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["login"]; raw != nil && !ok {
+	if v, ok := raw["login"]; !ok || v == nil {
 		return fmt.Errorf("field login in Mt5PasswordReset: required")
 	}
-	if _, ok := raw["mt5_password_reset"]; raw != nil && !ok {
+	if v, ok := raw["mt5_password_reset"]; !ok || v == nil {
 		return fmt.Errorf("field mt5_password_reset in Mt5PasswordReset: required")
 	}
-	if _, ok := raw["new_password"]; raw != nil && !ok {
+	if v, ok := raw["new_password"]; !ok || v == nil {
 		return fmt.Errorf("field new_password in Mt5PasswordReset: required")
 	}
-	if _, ok := raw["verification_code"]; raw != nil && !ok {
+	if v, ok := raw["verification_code"]; !ok || v == nil {
 		return fmt.Errorf("field verification_code in Mt5PasswordReset: required")
 	}
 	type Plain Mt5PasswordReset

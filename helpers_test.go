@@ -18,7 +18,7 @@ func newMockWSServer(cb func(ws *websocket.Conn)) *httptest.Server {
 		if err != nil {
 			return
 		}
-		defer c.CloseNow()
+		defer func() { _ = c.CloseNow() }()
 
 		cb(c)
 
@@ -29,8 +29,6 @@ func newMockWSServer(cb func(ws *websocket.Conn)) *httptest.Server {
 }
 
 func echoHandler(ws *websocket.Conn) {
-	defer ws.CloseNow()
-
 	for {
 		msgType, reader, err := ws.Reader(context.TODO())
 		if err != nil {
@@ -42,13 +40,12 @@ func echoHandler(ws *websocket.Conn) {
 		}
 
 		buffer := bytes.NewBuffer(make([]byte, 0))
-		_, err = buffer.ReadFrom(reader)
-		if err != nil {
+
+		if _, err = buffer.ReadFrom(reader); err != nil {
 			return
 		}
 
-		err = ws.Write(context.Background(), msgType, buffer.Bytes())
-		if err != nil {
+		if err = ws.Write(context.Background(), msgType, buffer.Bytes()); err != nil {
 			return
 		}
 	}
@@ -66,18 +63,20 @@ func onMessageHanler(cb func(ws *websocket.Conn, msgType websocket.MessageType, 
 			}
 
 			buffer := bytes.NewBuffer(make([]byte, 0))
-			_, err = buffer.ReadFrom(reader)
-			if err != nil {
+
+			if _, err = buffer.ReadFrom(reader); err != nil {
 				return
 			}
 
 			msg := buffer.Bytes()
+
 			wg.Add(1)
+
 			go func() {
+				defer wg.Done()
+
 				cb(ws, msgType, msg)
-				wg.Done()
 			}()
 		}
-
 	}
 }

@@ -6,22 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// A message with created application
-type AppUpdateResp struct {
-	// Information of the updated application.
-	AppUpdate *AppUpdateRespAppUpdate `json:"app_update,omitempty"`
-
-	// Echo of the request made.
-	EchoReq AppUpdateRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType AppUpdateRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // Information of the updated application.
 type AppUpdateRespAppUpdate struct {
 	// Active.
@@ -65,8 +49,6 @@ type AppUpdateRespEchoReq map[string]interface{}
 
 type AppUpdateRespMsgType string
 
-const AppUpdateRespMsgTypeAppUpdate AppUpdateRespMsgType = "app_update"
-
 var enumValues_AppUpdateRespMsgType = []interface{}{
 	"app_update",
 }
@@ -91,16 +73,34 @@ func (j *AppUpdateRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// A message with created application
+type AppUpdateResp struct {
+	// Information of the updated application.
+	AppUpdate *AppUpdateRespAppUpdate `json:"app_update,omitempty"`
+
+	// Echo of the request made.
+	EchoReq AppUpdateRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType AppUpdateRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const AppUpdateRespMsgTypeAppUpdate AppUpdateRespMsgType = "app_update"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *AppUpdateResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in AppUpdateResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in AppUpdateResp: required")
 	}
 	type Plain AppUpdateResp

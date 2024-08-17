@@ -6,22 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// A message with created applications
-type AppListResp struct {
-	// List of created applications for the authorized account.
-	AppList []AppListRespAppListElem `json:"app_list,omitempty"`
-
-	// Echo of the request made.
-	EchoReq AppListRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType AppListRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 type AppListRespAppListElem struct {
 	// Active.
 	Active *int `json:"active,omitempty"`
@@ -65,31 +49,31 @@ func (j *AppListRespAppListElem) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["app_id"]; raw != nil && !ok {
+	if v, ok := raw["app_id"]; !ok || v == nil {
 		return fmt.Errorf("field app_id in AppListRespAppListElem: required")
 	}
-	if _, ok := raw["app_markup_percentage"]; raw != nil && !ok {
+	if v, ok := raw["app_markup_percentage"]; !ok || v == nil {
 		return fmt.Errorf("field app_markup_percentage in AppListRespAppListElem: required")
 	}
-	if _, ok := raw["appstore"]; raw != nil && !ok {
+	if v, ok := raw["appstore"]; !ok || v == nil {
 		return fmt.Errorf("field appstore in AppListRespAppListElem: required")
 	}
-	if _, ok := raw["github"]; raw != nil && !ok {
+	if v, ok := raw["github"]; !ok || v == nil {
 		return fmt.Errorf("field github in AppListRespAppListElem: required")
 	}
-	if _, ok := raw["googleplay"]; raw != nil && !ok {
+	if v, ok := raw["googleplay"]; !ok || v == nil {
 		return fmt.Errorf("field googleplay in AppListRespAppListElem: required")
 	}
-	if _, ok := raw["homepage"]; raw != nil && !ok {
+	if v, ok := raw["homepage"]; !ok || v == nil {
 		return fmt.Errorf("field homepage in AppListRespAppListElem: required")
 	}
-	if _, ok := raw["name"]; raw != nil && !ok {
+	if v, ok := raw["name"]; !ok || v == nil {
 		return fmt.Errorf("field name in AppListRespAppListElem: required")
 	}
-	if _, ok := raw["redirect_uri"]; raw != nil && !ok {
+	if v, ok := raw["redirect_uri"]; !ok || v == nil {
 		return fmt.Errorf("field redirect_uri in AppListRespAppListElem: required")
 	}
-	if _, ok := raw["verification_uri"]; raw != nil && !ok {
+	if v, ok := raw["verification_uri"]; !ok || v == nil {
 		return fmt.Errorf("field verification_uri in AppListRespAppListElem: required")
 	}
 	type Plain AppListRespAppListElem
@@ -105,8 +89,6 @@ func (j *AppListRespAppListElem) UnmarshalJSON(b []byte) error {
 type AppListRespEchoReq map[string]interface{}
 
 type AppListRespMsgType string
-
-const AppListRespMsgTypeAppList AppListRespMsgType = "app_list"
 
 var enumValues_AppListRespMsgType = []interface{}{
 	"app_list",
@@ -132,16 +114,34 @@ func (j *AppListRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// A message with created applications
+type AppListResp struct {
+	// List of created applications for the authorized account.
+	AppList []AppListRespAppListElem `json:"app_list,omitempty"`
+
+	// Echo of the request made.
+	EchoReq AppListRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType AppListRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
+const AppListRespMsgTypeAppList AppListRespMsgType = "app_list"
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *AppListResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["echo_req"]; raw != nil && !ok {
+	if v, ok := raw["echo_req"]; !ok || v == nil {
 		return fmt.Errorf("field echo_req in AppListResp: required")
 	}
-	if _, ok := raw["msg_type"]; raw != nil && !ok {
+	if v, ok := raw["msg_type"]; !ok || v == nil {
 		return fmt.Errorf("field msg_type in AppListResp: required")
 	}
 	type Plain AppListResp

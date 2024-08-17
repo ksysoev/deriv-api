@@ -6,19 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Request back-end server epoch time.
-type Time struct {
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough TimePassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// Must be `1`
-	Time TimeTime `json:"time"`
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type TimePassthrough map[string]interface{}
@@ -49,13 +36,26 @@ func (j *TimeTime) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Request back-end server epoch time.
+type Time struct {
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough TimePassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// Must be `1`
+	Time TimeTime `json:"time"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *Time) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["time"]; raw != nil && !ok {
+	if v, ok := raw["time"]; !ok || v == nil {
 		return fmt.Errorf("field time in Time: required")
 	}
 	type Plain Time

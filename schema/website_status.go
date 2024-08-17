@@ -6,22 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Request server status.
-type WebsiteStatus struct {
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough WebsiteStatusPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// [Optional] `1` to stream the server/website status updates.
-	Subscribe *WebsiteStatusSubscribe `json:"subscribe,omitempty"`
-
-	// Must be `1`
-	WebsiteStatus WebsiteStatusWebsiteStatus `json:"website_status"`
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type WebsiteStatusPassthrough map[string]interface{}
@@ -79,13 +63,29 @@ func (j *WebsiteStatusWebsiteStatus) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Request server status.
+type WebsiteStatus struct {
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough WebsiteStatusPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// [Optional] `1` to stream the server/website status updates.
+	Subscribe *WebsiteStatusSubscribe `json:"subscribe,omitempty"`
+
+	// Must be `1`
+	WebsiteStatus WebsiteStatusWebsiteStatus `json:"website_status"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *WebsiteStatus) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["website_status"]; raw != nil && !ok {
+	if v, ok := raw["website_status"]; !ok || v == nil {
 		return fmt.Errorf("field website_status in WebsiteStatus: required")
 	}
 	type Plain WebsiteStatus

@@ -6,52 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Update the information of the P2P advertiser for the current account. Can only
-// be used by an approved P2P advertiser.
-type P2PAdvertiserUpdate struct {
-	// [Optional] Advertiser's contact information, to be used as a default for new
-	// sell adverts.
-	ContactInfo *string `json:"contact_info,omitempty"`
-
-	// [Optional] Default description that can be used every time an advert is
-	// created.
-	DefaultAdvertDescription *string `json:"default_advert_description,omitempty"`
-
-	// [Optional] Used to set if the advertiser's adverts could be listed. When `0`,
-	// adverts won't be listed regardless of they are active or not. This doesn't
-	// change the `is_active` of each individual advert.
-	IsListed *P2PAdvertiserUpdateIsListed `json:"is_listed,omitempty"`
-
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// Must be 1
-	P2PAdvertiserUpdate P2PAdvertiserUpdateP2PAdvertiserUpdate `json:"p2p_advertiser_update"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough P2PAdvertiserUpdatePassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Advertiser's payment information, to be used as a default for new
-	// sell adverts.
-	PaymentInfo *string `json:"payment_info,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// [Optional] Weekly availability schedule. Ads are visible and orders can be
-	// created only during available periods.
-	Schedule []P2PAdvertiserUpdateScheduleElem `json:"schedule,omitempty"`
-
-	// [Optional] When `1`, the advertiser's real name will be displayed on to other
-	// users on adverts and orders.
-	ShowName *P2PAdvertiserUpdateShowName `json:"show_name,omitempty"`
-
-	// [Optional] Used to upgrade daily limits of eligible advertiser.
-	UpgradeLimits *P2PAdvertiserUpdateUpgradeLimits `json:"upgrade_limits,omitempty"`
-}
-
 type P2PAdvertiserUpdateIsListed int
 
 var enumValues_P2PAdvertiserUpdateIsListed = []interface{}{
@@ -124,10 +78,10 @@ func (j *P2PAdvertiserUpdateScheduleElem) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["end_min"]; raw != nil && !ok {
+	if v, ok := raw["end_min"]; !ok || v == nil {
 		return fmt.Errorf("field end_min in P2PAdvertiserUpdateScheduleElem: required")
 	}
-	if _, ok := raw["start_min"]; raw != nil && !ok {
+	if v, ok := raw["start_min"]; !ok || v == nil {
 		return fmt.Errorf("field start_min in P2PAdvertiserUpdateScheduleElem: required")
 	}
 	type Plain P2PAdvertiserUpdateScheduleElem
@@ -192,13 +146,59 @@ func (j *P2PAdvertiserUpdateUpgradeLimits) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Update the information of the P2P advertiser for the current account. Can only
+// be used by an approved P2P advertiser.
+type P2PAdvertiserUpdate struct {
+	// [Optional] Advertiser's contact information, to be used as a default for new
+	// sell adverts.
+	ContactInfo *string `json:"contact_info,omitempty"`
+
+	// [Optional] Default description that can be used every time an advert is
+	// created.
+	DefaultAdvertDescription *string `json:"default_advert_description,omitempty"`
+
+	// [Optional] Used to set if the advertiser's adverts could be listed. When `0`,
+	// adverts won't be listed regardless of they are active or not. This doesn't
+	// change the `is_active` of each individual advert.
+	IsListed *P2PAdvertiserUpdateIsListed `json:"is_listed,omitempty"`
+
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// Must be 1
+	P2PAdvertiserUpdate P2PAdvertiserUpdateP2PAdvertiserUpdate `json:"p2p_advertiser_update"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough P2PAdvertiserUpdatePassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Advertiser's payment information, to be used as a default for new
+	// sell adverts.
+	PaymentInfo *string `json:"payment_info,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// [Optional] Weekly availability schedule. Ads are visible and orders can be
+	// created only during available periods.
+	Schedule []P2PAdvertiserUpdateScheduleElem `json:"schedule,omitempty"`
+
+	// [Optional] When `1`, the advertiser's real name will be displayed on to other
+	// users on adverts and orders.
+	ShowName *P2PAdvertiserUpdateShowName `json:"show_name,omitempty"`
+
+	// [Optional] Used to upgrade daily limits of eligible advertiser.
+	UpgradeLimits *P2PAdvertiserUpdateUpgradeLimits `json:"upgrade_limits,omitempty"`
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PAdvertiserUpdate) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["p2p_advertiser_update"]; raw != nil && !ok {
+	if v, ok := raw["p2p_advertiser_update"]; !ok || v == nil {
 		return fmt.Errorf("field p2p_advertiser_update in P2PAdvertiserUpdate: required")
 	}
 	type Plain P2PAdvertiserUpdate

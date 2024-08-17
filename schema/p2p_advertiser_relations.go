@@ -6,6 +6,32 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+type P2PAdvertiserRelationsP2PAdvertiserRelations int
+
+var enumValues_P2PAdvertiserRelationsP2PAdvertiserRelations = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertiserRelationsP2PAdvertiserRelations) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertiserRelationsP2PAdvertiserRelations {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserRelationsP2PAdvertiserRelations, v)
+	}
+	*j = P2PAdvertiserRelationsP2PAdvertiserRelations(v)
+	return nil
+}
+
 // Updates and returns favourite and blocked advertisers of the current user.
 type P2PAdvertiserRelations struct {
 	// IDs of advertisers to block.
@@ -35,32 +61,6 @@ type P2PAdvertiserRelations struct {
 	ReqId *int `json:"req_id,omitempty"`
 }
 
-type P2PAdvertiserRelationsP2PAdvertiserRelations int
-
-var enumValues_P2PAdvertiserRelationsP2PAdvertiserRelations = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertiserRelationsP2PAdvertiserRelations) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertiserRelationsP2PAdvertiserRelations {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserRelationsP2PAdvertiserRelations, v)
-	}
-	*j = P2PAdvertiserRelationsP2PAdvertiserRelations(v)
-	return nil
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type P2PAdvertiserRelationsPassthrough map[string]interface{}
@@ -71,7 +71,7 @@ func (j *P2PAdvertiserRelations) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["p2p_advertiser_relations"]; raw != nil && !ok {
+	if v, ok := raw["p2p_advertiser_relations"]; !ok || v == nil {
 		return fmt.Errorf("field p2p_advertiser_relations in P2PAdvertiserRelations: required")
 	}
 	type Plain P2PAdvertiserRelations

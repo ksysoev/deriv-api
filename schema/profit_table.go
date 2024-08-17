@@ -85,6 +85,113 @@ const ProfitTableContractTypeElemUPORDOWN ProfitTableContractTypeElem = "UPORDOW
 const ProfitTableContractTypeElemVANILLALONGCALL ProfitTableContractTypeElem = "VANILLALONGCALL"
 const ProfitTableContractTypeElemVANILLALONGPUT ProfitTableContractTypeElem = "VANILLALONGPUT"
 
+type ProfitTableDescription int
+
+// [Optional] Used to pass data through the websocket, which may be retrieved via
+// the `echo_req` output field.
+type ProfitTablePassthrough map[string]interface{}
+
+type ProfitTableProfitTable int
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ProfitTableDescription) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ProfitTableDescription {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProfitTableDescription, v)
+	}
+	*j = ProfitTableDescription(v)
+	return nil
+}
+
+var enumValues_ProfitTableDescription = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ProfitTableContractTypeElem) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ProfitTableContractTypeElem {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProfitTableContractTypeElem, v)
+	}
+	*j = ProfitTableContractTypeElem(v)
+	return nil
+}
+
+var enumValues_ProfitTableProfitTable = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ProfitTableProfitTable) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ProfitTableProfitTable {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProfitTableProfitTable, v)
+	}
+	*j = ProfitTableProfitTable(v)
+	return nil
+}
+
+type ProfitTableSort string
+
+var enumValues_ProfitTableSort = []interface{}{
+	"ASC",
+	"DESC",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ProfitTableSort) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ProfitTableSort {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProfitTableSort, v)
+	}
+	*j = ProfitTableSort(v)
+	return nil
+}
+
+const ProfitTableSortASC ProfitTableSort = "ASC"
+const ProfitTableSortDESC ProfitTableSort = "DESC"
+
 var enumValues_ProfitTableContractTypeElem = []interface{}{
 	"ACCU",
 	"ASIAND",
@@ -127,119 +234,12 @@ var enumValues_ProfitTableContractTypeElem = []interface{}{
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *ProfitTableContractTypeElem) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ProfitTableContractTypeElem {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProfitTableContractTypeElem, v)
-	}
-	*j = ProfitTableContractTypeElem(v)
-	return nil
-}
-
-type ProfitTableDescription int
-
-var enumValues_ProfitTableDescription = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ProfitTableDescription) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ProfitTableDescription {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProfitTableDescription, v)
-	}
-	*j = ProfitTableDescription(v)
-	return nil
-}
-
-// [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
-type ProfitTablePassthrough map[string]interface{}
-
-type ProfitTableProfitTable int
-
-var enumValues_ProfitTableProfitTable = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ProfitTableProfitTable) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ProfitTableProfitTable {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProfitTableProfitTable, v)
-	}
-	*j = ProfitTableProfitTable(v)
-	return nil
-}
-
-type ProfitTableSort string
-
-const ProfitTableSortASC ProfitTableSort = "ASC"
-const ProfitTableSortDESC ProfitTableSort = "DESC"
-
-var enumValues_ProfitTableSort = []interface{}{
-	"ASC",
-	"DESC",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ProfitTableSort) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ProfitTableSort {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProfitTableSort, v)
-	}
-	*j = ProfitTableSort(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
 func (j *ProfitTable) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if _, ok := raw["profit_table"]; raw != nil && !ok {
+	if v, ok := raw["profit_table"]; !ok || v == nil {
 		return fmt.Errorf("field profit_table in ProfitTable: required")
 	}
 	type Plain ProfitTable
