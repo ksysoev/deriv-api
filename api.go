@@ -23,22 +23,22 @@ const (
 )
 
 // DerivAPI is the main struct for the DerivAPI client.
-type DerivAPI struct { //nolint:revive // don't want to change the name for now
-	reqChan           chan APIReqest
+type DerivAPI struct {
+	ctx               context.Context
 	Endpoint          *url.URL
 	Origin            *url.URL
 	ws                *websocket.Conn
 	closingChan       chan int
+	reqChan           chan APIReqest
+	cancel            context.CancelFunc
 	Lang              string
 	TimeOut           time.Duration
-	lastRequestID     int64
-	AppID             int
 	keepAliveInterval time.Duration
+	AppID             int
+	lastRequestID     int64
 	connectionLock    sync.Mutex
 	keepAlive         bool
 	debugEnabled      bool
-	ctx               context.Context
-	cancel            context.CancelFunc
 }
 
 // APIReqest is an interface for all API requests.
@@ -186,7 +186,6 @@ func (api *DerivAPI) Connect() error {
 	go api.requestMapper(respChan, outputChan, api.reqChan, api.closingChan)
 
 	if api.keepAlive {
-
 		go func(interval time.Duration) {
 			for {
 				select {
@@ -231,14 +230,26 @@ func (api *DerivAPI) Disconnect() {
 // It reads requests from the reqChan channel and sends them using the websocket.Message.Send method.
 // If an error occurs while sending a request, it calls the Disconnect method to gracefully disconnect from the WebSocket server.
 func (api *DerivAPI) requestSender(wsConn *websocket.Conn, reqChan chan []byte) {
-	for req := range reqChan {
-		api.logDebugf("Sending request: %s", req)
+	defer func() {
+		api.Disconnect()
+	}()
 
-		if err := wsConn.Write(context.TODO(), websocket.MessageText, req); err != nil {
-			api.logDebugf("Failed to send request: %s", err.Error())
-			api.Disconnect()
-
+	for {
+		select {
+		case <-api.ctx.Done():
 			return
+		case req, ok := <-reqChan:
+			if !ok {
+				return
+			}
+
+			api.logDebugf("Sending request: %s", req)
+
+			err := wsConn.Write(api.ctx, websocket.MessageText, req)
+			if err != nil {
+				api.logDebugf("Failed to send request: %s", err.Error())
+				return
+			}
 		}
 	}
 }
@@ -275,7 +286,12 @@ func (api *DerivAPI) handleResponses(wsConn *websocket.Conn, respChan chan []byt
 		}
 
 		api.logDebugf("Received response: %s", buffer.String())
-		respChan <- buffer.Bytes()
+
+		select {
+		case <-api.ctx.Done():
+			return
+		case respChan <- buffer.Bytes():
+		}
 	}
 }
 
