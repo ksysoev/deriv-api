@@ -18,6 +18,7 @@ func newMockWSServer(cb func(ws *websocket.Conn)) *httptest.Server {
 		if err != nil {
 			return
 		}
+
 		defer func() { _ = c.CloseNow() }()
 
 		cb(c)

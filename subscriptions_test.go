@@ -108,6 +108,7 @@ func TestStart(t *testing.T) {
 			if err := ws.Write(context.Background(), websocket.MessageText, []byte(testResp)); err != nil {
 				t.Errorf("Unexpected error: %v", err)
 			}
+
 			time.Sleep(time.Second) // to keep the connection open
 		}))
 
@@ -170,6 +171,7 @@ func TestStartFailed(t *testing.T) {
 			if err := ws.Write(context.Background(), websocket.MessageText, []byte("")); err != nil {
 				t.Errorf("Unexpected error: %v", err)
 			}
+
 			time.Sleep(time.Second) // to keep the connection open
 		}))
 
@@ -541,7 +543,7 @@ func TestStartAPIErrorInSubscription(t *testing.T) {
 
 func TestStartTimeout(t *testing.T) {
 	server := newMockWSServer(
-		onMessageHanler(func(ws *websocket.Conn, _ websocket.MessageType, _ []byte) {
+		onMessageHanler(func(_ *websocket.Conn, _ websocket.MessageType, _ []byte) {
 			time.Sleep(time.Second) // to keep the connection open
 		}))
 	defer server.Close()
