@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"log"
 	"os"
 	"strings"
@@ -19,9 +20,9 @@ const (
 	SubscriptionCalls = "./subscription_calls.go"
 
 	// SCHEMA_PATH is the path to the schema files
-	SchemaPath = "./deriv-api-docs/config/v3/"
+	DefaultSchemaPath = "./deriv-api-docs/config/v3/"
 
-	SchemaPackage = "github.com/ksysoev/deriv-api/schema"
+	DefaultSchemaPackage = "github.com/ksysoev/deriv-api/schema"
 
 	fileMode = 0o600
 )
@@ -76,15 +77,19 @@ type subscriptionCallData struct {
 }
 
 var tmplHeader, tmplAPICall, tmplSubscriptionCall *template.Template
+var schemaPath, schemaPackage string
 
 func init() {
 	tmplHeader = template.Must(template.New("header").Parse(headerRawTemplate))
 	tmplAPICall = template.Must(template.New("api_call").Parse(apiCallRawTemplate))
 	tmplSubscriptionCall = template.Must(template.New("subscription_call").Parse(subscriptionCallRawTemplate))
+
+	flag.StringVar(&schemaPath, "path", DefaultSchemaPath, "path to the schema files")
+	flag.StringVar(&schemaPackage, "package", DefaultSchemaPackage, "package name for the schema types")
 }
 
 func main() {
-	files, err := os.ReadDir(SchemaPath)
+	files, err := os.ReadDir(schemaPath)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -92,7 +97,7 @@ func main() {
 	var apiCalls, subcriptionCalls string
 
 	var buf strings.Builder
-	if err := tmplHeader.Execute(&buf, headerData{SchemaPackage: SchemaPackage}); err != nil {
+	if err := tmplHeader.Execute(&buf, headerData{SchemaPackage: schemaPackage}); err != nil {
 		log.Fatal(err)
 	}
 
@@ -101,7 +106,7 @@ func main() {
 
 	for _, file := range files {
 		name := file.Name()
-		request, err := os.ReadFile(SchemaPath + name + "/send.json")
+		request, err := os.ReadFile(schemaPath + name + "/send.json")
 
 		if err != nil {
 			log.Fatal(err)
