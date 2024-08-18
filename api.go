@@ -192,7 +192,11 @@ func (api *DerivAPI) Connect() error {
 			for {
 				select {
 				case <-time.After(interval):
-					_, err := api.Ping(schema.Ping{Ping: 1})
+					ctx, cancel := context.WithTimeout(api.ctx, defaultTimeout)
+
+					defer cancel()
+
+					_, err := api.Ping(ctx, schema.Ping{Ping: 1})
 					if err != nil {
 						return
 					}
@@ -338,7 +342,7 @@ func (api *DerivAPI) requestMapper(respChan, outputChan chan []byte, reqChan cha
 }
 
 // Send sends a request to the Deriv API and returns a channel that will receive the response
-func (api *DerivAPI) Send(reqID int, request any) (chan []byte, error) {
+func (api *DerivAPI) Send(ctx context.Context, reqID int, request any) (chan []byte, error) {
 	err := api.Connect()
 
 	if err != nil {
@@ -358,14 +362,19 @@ func (api *DerivAPI) Send(reqID int, request any) (chan []byte, error) {
 		respChan: respChan,
 	}
 
-	api.reqChan <- req
-
-	return respChan, nil
+	select {
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	case <-api.ctx.Done():
+		return nil, fmt.Errorf("connection closed")
+	case api.reqChan <- req:
+		return respChan, nil
+	}
 }
 
 // SendRequest sends a request to the Deriv API and returns the response
-func (api *DerivAPI) SendRequest(reqID int, request, response any) error {
-	respChan, err := api.Send(reqID, request)
+func (api *DerivAPI) SendRequest(ctx context.Context, reqID int, request, response any) error {
+	respChan, err := api.Send(ctx, reqID, request)
 
 	if err != nil {
 		return err
@@ -376,9 +385,8 @@ func (api *DerivAPI) SendRequest(reqID int, request, response any) error {
 	select {
 	case <-api.ctx.Done():
 		return fmt.Errorf("connection closed")
-	case <-time.After(api.TimeOut):
-		api.logDebugf("Timeout waiting for response for request %d", reqID)
-		return fmt.Errorf("timeout")
+	case <-ctx.Done():
+		return ctx.Err()
 	case responseJSON, ok := <-respChan:
 		if !ok {
 			api.logDebugf("Connection closed while waiting for response for request %d", reqID)
