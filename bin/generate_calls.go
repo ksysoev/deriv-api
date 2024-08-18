@@ -89,6 +89,8 @@ func init() {
 }
 
 func main() {
+	flag.Parse()
+
 	files, err := os.ReadDir(schemaPath)
 	if err != nil {
 		log.Fatal(err)
