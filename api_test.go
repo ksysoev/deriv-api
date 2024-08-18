@@ -451,7 +451,6 @@ func TestKeepConnectionAlive(t *testing.T) {
 	}
 
 	api.Disconnect()
-	api.keepAlive = false
 
 	if err := api.Connect(); err != nil {
 		t.Errorf("Failed to connect to mocked WebSocket server: %v", err)

@@ -18,8 +18,8 @@ import (
 
 const (
 	// DefaultKeepAliveInterval is the default interval for sending ping requests to keep the connection alive.
-	keepAliveInterval = 25 * time.Second
-	defaultTimeout    = 30 * time.Second
+	defaultKeepAliveInterval = 25 * time.Second
+	defaultTimeout           = 30 * time.Second
 )
 
 // DerivAPI is the main struct for the DerivAPI client
@@ -31,11 +31,9 @@ type Client struct {
 	closingChan       chan int
 	reqChan           chan APIReqest
 	cancel            context.CancelFunc
-	TimeOut           time.Duration
 	keepAliveInterval time.Duration
 	lastRequestID     int64
 	connectionLock    sync.Mutex
-	keepAlive         bool
 	debugEnabled      bool
 }
 
@@ -109,10 +107,9 @@ func NewDerivAPI(endpoint string, appID int, lang, origin string, opts ...APIOpt
 		Origin:            urlOrigin,
 		Endpoint:          urlEnpoint,
 		lastRequestID:     0,
-		TimeOut:           defaultTimeout,
 		connectionLock:    sync.Mutex{},
 		closingChan:       make(chan int),
-		keepAliveInterval: keepAliveInterval,
+		keepAliveInterval: 0,
 		ctx:               context.Background(),
 	}
 
@@ -128,7 +125,7 @@ func NewDerivAPI(endpoint string, appID int, lang, origin string, opts ...APIOpt
 // KeepAlive option which keeps the connection alive by sending ping requests.
 // By default the websocket connection is closed after 30 seconds of inactivity.
 func KeepAlive(api *Client) {
-	api.keepAlive = true
+	api.keepAliveInterval = defaultKeepAliveInterval
 }
 
 // Debug option which enables debug messages.
@@ -181,11 +178,11 @@ func (api *Client) Connect() error {
 	go api.requestSender(ws, outputChan)
 	go api.requestMapper(respChan, outputChan, api.reqChan, api.closingChan)
 
-	if api.keepAlive {
-		go func(interval time.Duration) {
+	if api.keepAliveInterval > 0 {
+		go func() {
 			for {
 				select {
-				case <-time.After(interval):
+				case <-time.After(api.keepAliveInterval):
 					ctx, cancel := context.WithTimeout(api.ctx, defaultTimeout)
 					_, err := api.Ping(ctx, schema.Ping{Ping: 1})
 
@@ -198,7 +195,7 @@ func (api *Client) Connect() error {
 					return
 				}
 			}
-		}(api.keepAliveInterval)
+		}()
 	}
 
 	return nil
