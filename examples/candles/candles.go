@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 
@@ -9,6 +10,7 @@ import (
 )
 
 func main() {
+	ctx := context.Background()
 	api, err := deriv.NewDerivAPI("wss://ws.derivws.com/websockets/v3", 1089, "en", "https://localhost/")
 
 	if err != nil {
@@ -19,7 +21,7 @@ func main() {
 
 	var startTime schema.TicksHistoryAdjustStartTime = 1
 	start := 1
-	resp, sub, err := api.SubscribeCandlesHistory(schema.TicksHistory{
+	resp, sub, err := api.SubscribeCandlesHistory(ctx, schema.TicksHistory{
 		TicksHistory:    "R_50",
 		AdjustStartTime: &startTime,
 		End:             "latest",
