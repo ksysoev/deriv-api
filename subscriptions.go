@@ -3,10 +3,10 @@ package deriv
 // This package provides functionality for working with subscriptions using the Deriv API.
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"sync"
-	"time"
 
 	"github.com/ksysoev/deriv-api/schema"
 )
@@ -19,6 +19,7 @@ type Subsciption[initResp any, Resp any] struct {
 	reqID         int
 	statusLock    sync.Mutex
 	isActive      bool
+	ctx           context.Context
 }
 
 type SubscriptionResponse struct {
@@ -57,11 +58,12 @@ func parseSubsciption(rawResponse []byte) (SubscriptionResponse, error) {
 // NewSubscription creates and returns a new Subscription instance with the given DerivAPI client.
 // The Subscription instance has a Stream channel that will receive subscription updates, and an
 // IsActive boolean that is set to false initially.
-func NewSubcription[initResp any, Resp any](api *DerivAPI) *Subsciption[initResp, Resp] {
+func NewSubcription[initResp any, Resp any](ctx context.Context, api *DerivAPI) *Subsciption[initResp, Resp] {
 	return &Subsciption[initResp, Resp]{
 		API:      api,
 		Stream:   make(chan Resp, 1),
 		isActive: false,
+		ctx:      ctx,
 	}
 }
 
@@ -73,7 +75,7 @@ func (s *Subsciption[initResp, Resp]) Forget() error {
 	defer s.statusLock.Unlock()
 
 	if s.isActive {
-		_, err := s.API.Forget(schema.Forget{Forget: s.SubsciptionID})
+		_, err := s.API.Forget(s.ctx, schema.Forget{Forget: s.SubsciptionID})
 
 		if err != nil {
 			return err
@@ -107,17 +109,17 @@ func (s *Subsciption[initResp, Resp]) Start(reqID int, request any) (initResp, e
 		return resp, nil
 	}
 
-	inChan, err := s.API.Send(reqID, request)
+	inChan, err := s.API.Send(s.ctx, reqID, request)
 
 	if err != nil {
 		return resp, err
 	}
 
 	select {
-	case <-time.After(s.API.TimeOut):
+	case <-s.ctx.Done():
 		s.API.logDebugf("Timeout waiting for response for request %d", reqID)
 
-		return resp, fmt.Errorf("timeout")
+		return resp, s.ctx.Err()
 	case initResponse, ok := <-inChan:
 		if !ok {
 			s.API.logDebugf("Connection closed while waiting for response for request %d", reqID)
