@@ -294,7 +294,7 @@ func TestSendRequestTimeout(t *testing.T) {
 
 	err := api.SendRequest(ctx, reqID, req, &resp)
 
-	if err != nil && err.Error() != "timeout" {
+	if err != context.DeadlineExceeded {
 		t.Errorf("Expected timeout error, got %v", err)
 	}
 }

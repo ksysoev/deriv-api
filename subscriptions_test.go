@@ -568,7 +568,7 @@ func TestStartTimeout(t *testing.T) {
 	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
 	_, err := sub.Start(reqID, req)
 
-	if err != nil && err.Error() != "timeout" {
+	if err != context.DeadlineExceeded {
 		t.Errorf("Expected timeout error, got %v", err)
 	}
 }
