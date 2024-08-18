@@ -7,7 +7,7 @@ clone:
 	git clone https://github.com/deriv-com/deriv-api-docs.git
 
 generate-calls: 
-	go run bin/generate_calls.go
+	go run bin/generate_calls.go -path ./deriv-api-docs/config/v3/ -package github.com/ksysoev/deriv-api/schema
 
 prepare-schema:
 	cd deriv-api-docs/ && \
