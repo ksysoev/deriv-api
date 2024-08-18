@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 
@@ -9,6 +10,8 @@ import (
 )
 
 func main() {
+	ctx := context.Background()
+
 	api, err := deriv.NewDerivAPI("wss://ws.derivws.com/websockets/v3", 36544, "en", "https://localhost/", deriv.Debug)
 
 	if err != nil {
@@ -17,7 +20,7 @@ func main() {
 
 	defer api.Disconnect()
 
-	resp, sub, err := api.SubscribeTicks(schema.Ticks{Ticks: "R_50"})
+	resp, sub, err := api.SubscribeTicks(ctx, schema.Ticks{Ticks: "R_50"})
 
 	if err != nil {
 		log.Fatal(err)

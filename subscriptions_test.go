@@ -71,7 +71,8 @@ func TestParseSubscription_EmptySubscriptionData(t *testing.T) {
 
 func TestNewNewSubcription(t *testing.T) {
 	api, _ := NewDerivAPI("ws://example.com", 123, "en", "http://example.com")
-	sub := NewSubcription[schema.TicksResp, schema.TicksResp](api)
+	ctx := context.Background()
+	sub := NewSubcription[schema.TicksResp, schema.TicksResp](ctx, api)
 
 	if sub == nil {
 		t.Errorf("Expected a subscription, but got nil")
@@ -121,7 +122,8 @@ func TestStart(t *testing.T) {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
-	sub := NewSubcription[schema.TicksResp, schema.TicksResp](api)
+	ctx := context.Background()
+	sub := NewSubcription[schema.TicksResp, schema.TicksResp](ctx, api)
 
 	if sub == nil {
 		t.Errorf("Expected a subscription, but got nil")
@@ -179,8 +181,8 @@ func TestStartFailed(t *testing.T) {
 
 	url := "ws://" + server.Listener.Addr().String()
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
-
-	sub := NewSubcription[schema.TicksResp, schema.TicksResp](api)
+	ctx := context.Background()
+	sub := NewSubcription[schema.TicksResp, schema.TicksResp](ctx, api)
 
 	reqID := 1
 
@@ -239,7 +241,8 @@ func TestForget(t *testing.T) {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
-	sub := NewSubcription[schema.TicksResp, schema.TicksResp](api)
+	ctx := context.Background()
+	sub := NewSubcription[schema.TicksResp, schema.TicksResp](ctx, api)
 
 	if sub == nil {
 		t.Fatal("Expected a subscription, but got nil")
@@ -336,7 +339,8 @@ func TestForgetFailed(t *testing.T) {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
-	sub := NewSubcription[schema.TicksResp, schema.TicksResp](api)
+	ctx := context.Background()
+	sub := NewSubcription[schema.TicksResp, schema.TicksResp](ctx, api)
 
 	if sub == nil {
 		t.Fatal("Expected a subscription, but got nil")
@@ -435,7 +439,8 @@ func TestStartInvalidResponses(t *testing.T) {
 				t.Errorf("Unexpected error: %v", err)
 			}
 
-			sub := NewSubcription[schema.TicksResp, schema.TicksResp](api)
+			ctx := context.Background()
+			sub := NewSubcription[schema.TicksResp, schema.TicksResp](ctx, api)
 
 			if sub == nil {
 				t.Errorf("Expected a subscription, but got nil")
@@ -509,7 +514,8 @@ func TestStartAPIErrorInSubscription(t *testing.T) {
 		t.Errorf("Unexpected error: %v", err)
 	}
 
-	sub := NewSubcription[schema.TicksResp, schema.TicksResp](api)
+	ctx := context.Background()
+	sub := NewSubcription[schema.TicksResp, schema.TicksResp](ctx, api)
 
 	if sub == nil {
 		t.Errorf("Expected a subscription, but got nil")
@@ -550,9 +556,10 @@ func TestStartTimeout(t *testing.T) {
 	url := "ws://" + server.Listener.Addr().String()
 
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
-	api.TimeOut = time.Millisecond
+	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond)
+	sub := NewSubcription[schema.TicksResp, schema.TicksResp](ctx, api)
 
-	sub := NewSubcription[schema.TicksResp, schema.TicksResp](api)
+	defer cancel()
 
 	reqID := 1
 
@@ -561,7 +568,7 @@ func TestStartTimeout(t *testing.T) {
 	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
 	_, err := sub.Start(reqID, req)
 
-	if err != nil && err.Error() != "timeout" {
+	if err != context.DeadlineExceeded {
 		t.Errorf("Expected timeout error, got %v", err)
 	}
 }

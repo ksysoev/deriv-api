@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"log"
 
 	"github.com/ksysoev/deriv-api"
@@ -10,6 +11,7 @@ import (
 const ApiToken = "YOUR_API_TOKEN_HERE" // Replace with your API token
 
 func main() {
+	ctx := context.Background()
 	api, err := deriv.NewDerivAPI("wss://ws.binaryws.com/websockets/v3", 1089, "en", "https://localhost/")
 
 	if err != nil {
@@ -20,7 +22,7 @@ func main() {
 
 	// First, we need to authorize the connection
 	reqAuth := schema.Authorize{Authorize: ApiToken}
-	_, err = api.Authorize(reqAuth)
+	_, err = api.Authorize(ctx, reqAuth)
 
 	if err != nil {
 		log.Fatal(err)
@@ -44,7 +46,7 @@ func main() {
 	}
 
 	// Send a proposal request
-	proposal, err := api.Proposal(reqProp)
+	proposal, err := api.Proposal(ctx, reqProp)
 
 	if err != nil {
 		log.Fatal(err)
@@ -55,7 +57,7 @@ func main() {
 		Price: 100.0,
 	}
 
-	_, buySub, err := api.SubscribeBuy(buyReq)
+	_, buySub, err := api.SubscribeBuy(ctx, buyReq)
 
 	if err != nil {
 		log.Fatal(err)

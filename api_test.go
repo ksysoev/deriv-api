@@ -201,6 +201,7 @@ func TestSend(t *testing.T) {
 
 	defer server.Close()
 
+	ctx := context.Background()
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
 
 	err := api.Connect()
@@ -212,7 +213,7 @@ func TestSend(t *testing.T) {
 		t.Errorf("WebSocket connection not established")
 	}
 
-	respChan, err := api.Send(1, struct {
+	respChan, err := api.Send(ctx, 1, struct {
 		ReqID int `json:"req_id"`
 	}{1})
 	if err != nil {
@@ -237,8 +238,9 @@ func TestSendToDisconnectedConnection(t *testing.T) {
 	server.Close()
 
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
+	ctx := context.Background()
 
-	respChan, err := api.Send(1, struct {
+	respChan, err := api.Send(ctx, 1, struct {
 		ReqID int `json:"req_id"`
 	}{1})
 
@@ -256,8 +258,9 @@ func TestSendReqWhichNobodyWaits(t *testing.T) {
 	url := "ws://" + server.Listener.Addr().String()
 
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
+	ctx := context.Background()
 
-	respChan, err := api.Send(2, struct {
+	respChan, err := api.Send(ctx, 2, struct {
 		ReqID int `json:"req_id"`
 	}{1})
 
@@ -281,16 +284,17 @@ func TestSendRequestTimeout(t *testing.T) {
 	url := "ws://" + server.Listener.Addr().String()
 
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
-	api.TimeOut = time.Millisecond
-
+	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond)
 	reqID := 1
 	req := schema.Ping{Ping: 1, ReqId: &reqID}
 
+	defer cancel()
+
 	var resp schema.PingResp
 
-	err := api.SendRequest(reqID, req, &resp)
+	err := api.SendRequest(ctx, reqID, req, &resp)
 
-	if err != nil && err.Error() != "timeout" {
+	if err != context.DeadlineExceeded {
 		t.Errorf("Expected timeout error, got %v", err)
 	}
 }
@@ -312,9 +316,13 @@ func TestSendRequestAndGotInvalidJSON(t *testing.T) {
 	url := "ws://" + server.Listener.Addr().String()
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
 
-	_ = api.Connect()
+	err := api.Connect()
+	if err != nil {
+		t.Errorf("Failed to connect to mocked WebSocket server: %v", err)
+	}
 
-	respChan, err := api.Send(2, struct {
+	ctx := context.Background()
+	respChan, err := api.Send(ctx, 2, struct {
 		ReqID int `json:"req_id"`
 	}{1})
 
@@ -364,10 +372,11 @@ func TestSendRequest(t *testing.T) {
 
 	reqID := 1
 	req := schema.Ping{Ping: 1, ReqId: &reqID}
+	ctx := context.Background()
 
 	var resp schema.PingResp
 
-	err = api.SendRequest(reqID, req, &resp)
+	err = api.SendRequest(ctx, reqID, req, &resp)
 
 	if err != nil {
 		t.Errorf("Failed to send message: %v", err)
@@ -395,10 +404,11 @@ func TestSendRequestFailed(t *testing.T) {
 
 	reqID := 1
 	req := schema.Ping{Ping: 1, ReqId: &reqID}
+	ctx := context.Background()
 
 	var resp schema.PingResp
 
-	err := api.SendRequest(reqID, req, &resp)
+	err := api.SendRequest(ctx, reqID, req, &resp)
 
 	if err == nil {
 		t.Errorf("Expected error, got nil")

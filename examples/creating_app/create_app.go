@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"log"
 
 	"github.com/ksysoev/deriv-api"
@@ -10,6 +11,7 @@ import (
 const ApiToken = "YOUR_API_TOKEN_HERE" // Replace with your API token
 
 func main() {
+	ctx := context.Background()
 	api, err := deriv.NewDerivAPI("wss://ws.derivws.com/websockets/v3", 1089, "en", "https://localhost/")
 
 	if err != nil {
@@ -20,7 +22,7 @@ func main() {
 
 	// First, we need to authorize the connection
 	reqAuth := schema.Authorize{Authorize: ApiToken}
-	_, err = api.Authorize(reqAuth)
+	_, err = api.Authorize(ctx, reqAuth)
 
 	if err != nil {
 		log.Fatal(err)
@@ -77,7 +79,7 @@ func main() {
 	// github := "https://github.com/example/example"
 	// reqAppReg.Github = &github
 
-	resp, err := api.AppRegister(reqAppReg)
+	resp, err := api.AppRegister(ctx, reqAppReg)
 
 	if err != nil {
 		log.Fatal(err)
