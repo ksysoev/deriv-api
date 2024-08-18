@@ -303,6 +303,7 @@ func TestSendRequestAndGotInvalidJSON(t *testing.T) {
 			if err != nil {
 				return
 			}
+
 			time.Sleep(time.Second) // to keep the connection open
 		}))
 
@@ -345,6 +346,7 @@ func TestSendRequest(t *testing.T) {
 			if err != nil {
 				return
 			}
+
 			time.Sleep(time.Second) // to keep the connection open
 		}))
 
@@ -383,6 +385,7 @@ func TestSendRequestFailed(t *testing.T) {
 			if err != nil {
 				return
 			}
+
 			time.Sleep(time.Second) // to keep the connection open
 		}))
 	url := "ws://" + server.Listener.Addr().String()
@@ -422,6 +425,7 @@ func TestKeepConnectionAlive(t *testing.T) {
 			if err != nil {
 				return
 			}
+
 			time.Sleep(time.Second) // to keep the connection open
 		}))
 
