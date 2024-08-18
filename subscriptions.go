@@ -118,6 +118,7 @@ func (s *Subsciption[initResp, Resp]) Start(reqID int, request any) (initResp, e
 	select {
 	case <-s.ctx.Done():
 		s.API.logDebugf("Timeout waiting for response for request %d", reqID)
+		s.API.closeRequestChannel(reqID)
 
 		return resp, s.ctx.Err()
 	case initResponse, ok := <-inChan:
@@ -156,6 +157,8 @@ func (s *Subsciption[initResp, Resp]) Start(reqID int, request any) (initResp, e
 // messageHandler is a goroutine that handles subscription updates received on the channel passed to it.
 func (s *Subsciption[initResp, Resp]) messageHandler(inChan chan []byte) {
 	defer func() {
+		s.API.closeRequestChannel(s.reqID)
+
 		s.statusLock.Lock()
 		if s.isActive {
 			s.isActive = false
@@ -164,22 +167,36 @@ func (s *Subsciption[initResp, Resp]) messageHandler(inChan chan []byte) {
 		s.statusLock.Unlock()
 	}()
 
-	for rawResponse := range inChan {
-		if err := parseError(rawResponse); err != nil {
-			s.API.logDebugf("Error in subsciption message: %v", err)
-			continue
+	for {
+		select {
+		case <-s.ctx.Done():
+			s.API.logDebugf("Subscription %s closed", s.SubsciptionID)
+			return
+		case rawResponse, ok := <-inChan:
+			if !ok {
+				s.API.logDebugf("Connection closed while waiting for response for request %d", s.reqID)
+				return
+			}
+
+			if err := parseError(rawResponse); err != nil {
+				s.API.logDebugf("Error in subsciption message: %v", err)
+				continue
+			}
+
+			var response Resp
+
+			if err := json.Unmarshal(rawResponse, &response); err != nil {
+				s.API.logDebugf("Failed to parse response in subscription: %s", err.Error())
+				continue
+			}
+
+			s.statusLock.Lock()
+			select {
+			case <-s.ctx.Done():
+			case s.Stream <- response:
+			}
+			s.statusLock.Unlock()
 		}
-
-		var response Resp
-
-		if err := json.Unmarshal(rawResponse, &response); err != nil {
-			s.API.logDebugf("Failed to parse response in subscription: %s", err.Error())
-			continue
-		}
-
-		s.statusLock.Lock()
-		s.Stream <- response
-		s.statusLock.Unlock()
 	}
 }
 
