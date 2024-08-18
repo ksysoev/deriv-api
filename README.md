@@ -28,8 +28,10 @@ Here's an example of how to use DerivAPI to connect to the Deriv API and subscri
 
 ```golang
 import (
+    "context"
 	"fmt"
 	"log"
+    "time"
 
 	"github.com/ksysoev/deriv-api"
 	"github.com/ksysoev/deriv-api/schema"
@@ -44,7 +46,10 @@ if err != nil {
 
 defer api.Disconnect()
 
-resp, sub, err := api.SubscribeTicks(schema.Ticks{Ticks: "R_50"})
+ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+defer cancel()
+
+resp, sub, err := api.SubscribeTicks(ctx, schema.Ticks{Ticks: "R_50"})
 
 if err != nil {
     log.Fatal(err)
@@ -64,7 +69,9 @@ Here's another example of how to use DerivAPI to buy contract and listen for upd
 
 ```golang
 import (
+    "context"
 	"log"
+    "time"
 
 	"github.com/ksysoev/deriv-api"
 	"github.com/ksysoev/deriv-api/schema"
@@ -79,9 +86,12 @@ if err != nil {
 
 defer api.Disconnect()
 
+ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+defer cancel()
+
 // First, we need to authorize the connection
 reqAuth := schema.Authorize{Authorize: apiToken}
-_, err = api.Authorize(reqAuth)
+_, err = api.Authorize(ctx, reqAuth)
 
 if err != nil {
     log.Fatal(err)
@@ -105,7 +115,7 @@ reqProp := schema.Proposal{
 }
 
 // Send a proposal request
-proposal, err := api.Proposal(reqProp)
+proposal, err := api.Proposal(ctx, reqProp)
 
 if err != nil {
     log.Fatal(err)
@@ -116,7 +126,7 @@ buyReq := schema.Buy{
     Price: 100.0,
 }
 
-_, buySub, err := api.SubscribeBuy(buyReq)
+_, buySub, err := api.SubscribeBuy(context.Background(), buyReq)
 
 if err != nil {
     log.Fatal(err)
