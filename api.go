@@ -22,7 +22,9 @@ const (
 	defaultTimeout    = 30 * time.Second
 )
 
-// DerivAPI is the main struct for the DerivAPI client.
+// DerivAPI is the main struct for the DerivAPI client
+//
+//nolint:revive // don't want to break backward compatibility for now
 type DerivAPI struct {
 	ctx               context.Context
 	Endpoint          *url.URL
