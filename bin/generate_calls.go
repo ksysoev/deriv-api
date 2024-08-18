@@ -39,7 +39,7 @@ import (
 `
 
 var apiCallRawTemplate = `// {{.Title}} {{.Description}}
-func (api *DerivAPI) {{.Title}}(ctx context.Context, r schema.{{.Title}}) (resp schema.{{.Title}}Resp, err error) {
+func (api *Client) {{.Title}}(ctx context.Context, r schema.{{.Title}}) (resp schema.{{.Title}}Resp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -49,7 +49,7 @@ func (api *DerivAPI) {{.Title}}(ctx context.Context, r schema.{{.Title}}) (resp 
 `
 
 var subscriptionCallRawTemplate = `// Subscribe{{.Title}} {{.Description}}
-func (api *DerivAPI) Subscribe{{.Title}}(ctx context.Context, r schema.{{.Title}}) (rsp schema.{{.Title}}Resp, s *Subsciption[schema.{{.Title}}Resp, schema.{{.Resp}}], err error) {
+func (api *Client) Subscribe{{.Title}}(ctx context.Context, r schema.{{.Title}}) (rsp schema.{{.Title}}Resp, s *Subsciption[schema.{{.Title}}Resp, schema.{{.Resp}}], err error) {
 	id := api.getNextRequestID()
 	var f schema.{{.Title}}Subscribe = 1
 	r.ReqId = &id

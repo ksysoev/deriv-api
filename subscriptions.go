@@ -14,7 +14,7 @@ import (
 // Subscription represents a subscription instance.
 type Subsciption[initResp any, Resp any] struct {
 	ctx           context.Context
-	API           *DerivAPI
+	API           *Client
 	Stream        chan Resp
 	SubsciptionID string
 	reqID         int
@@ -58,7 +58,7 @@ func parseSubsciption(rawResponse []byte) (SubscriptionResponse, error) {
 // NewSubscription creates and returns a new Subscription instance with the given DerivAPI client.
 // The Subscription instance has a Stream channel that will receive subscription updates, and an
 // IsActive boolean that is set to false initially.
-func NewSubcription[initResp any, Resp any](ctx context.Context, api *DerivAPI) *Subsciption[initResp, Resp] {
+func NewSubcription[initResp any, Resp any](ctx context.Context, api *Client) *Subsciption[initResp, Resp] {
 	return &Subsciption[initResp, Resp]{
 		API:      api,
 		Stream:   make(chan Resp, 1),

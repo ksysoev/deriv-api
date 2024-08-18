@@ -8,7 +8,7 @@ import (
 )
 
 // AccountList Returns all accounts belonging to the authorized user.
-func (api *DerivAPI) AccountList(ctx context.Context, r schema.AccountList) (resp schema.AccountListResp, err error) {
+func (api *Client) AccountList(ctx context.Context, r schema.AccountList) (resp schema.AccountListResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -16,7 +16,7 @@ func (api *DerivAPI) AccountList(ctx context.Context, r schema.AccountList) (res
 }
 
 // ActiveSymbols Retrieve a list of all currently active symbols (underlying markets upon which contracts are available for trading).
-func (api *DerivAPI) ActiveSymbols(ctx context.Context, r schema.ActiveSymbols) (resp schema.ActiveSymbolsResp, err error) {
+func (api *Client) ActiveSymbols(ctx context.Context, r schema.ActiveSymbols) (resp schema.ActiveSymbolsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -24,7 +24,7 @@ func (api *DerivAPI) ActiveSymbols(ctx context.Context, r schema.ActiveSymbols) 
 }
 
 // ApiToken This call manages API tokens
-func (api *DerivAPI) ApiToken(ctx context.Context, r schema.ApiToken) (resp schema.ApiTokenResp, err error) {
+func (api *Client) ApiToken(ctx context.Context, r schema.ApiToken) (resp schema.ApiTokenResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -32,7 +32,7 @@ func (api *DerivAPI) ApiToken(ctx context.Context, r schema.ApiToken) (resp sche
 }
 
 // AppDelete The request for deleting an application.
-func (api *DerivAPI) AppDelete(ctx context.Context, r schema.AppDelete) (resp schema.AppDeleteResp, err error) {
+func (api *Client) AppDelete(ctx context.Context, r schema.AppDelete) (resp schema.AppDeleteResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -40,7 +40,7 @@ func (api *DerivAPI) AppDelete(ctx context.Context, r schema.AppDelete) (resp sc
 }
 
 // AppGet To get the information of the OAuth application specified by 'app_id'
-func (api *DerivAPI) AppGet(ctx context.Context, r schema.AppGet) (resp schema.AppGetResp, err error) {
+func (api *Client) AppGet(ctx context.Context, r schema.AppGet) (resp schema.AppGetResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -48,7 +48,7 @@ func (api *DerivAPI) AppGet(ctx context.Context, r schema.AppGet) (resp schema.A
 }
 
 // AppList List all of the account's OAuth applications
-func (api *DerivAPI) AppList(ctx context.Context, r schema.AppList) (resp schema.AppListResp, err error) {
+func (api *Client) AppList(ctx context.Context, r schema.AppList) (resp schema.AppListResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -56,7 +56,7 @@ func (api *DerivAPI) AppList(ctx context.Context, r schema.AppList) (resp schema
 }
 
 // AppMarkupDetails Retrieve details of `app_markup` according to criteria specified.
-func (api *DerivAPI) AppMarkupDetails(ctx context.Context, r schema.AppMarkupDetails) (resp schema.AppMarkupDetailsResp, err error) {
+func (api *Client) AppMarkupDetails(ctx context.Context, r schema.AppMarkupDetails) (resp schema.AppMarkupDetailsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -64,7 +64,7 @@ func (api *DerivAPI) AppMarkupDetails(ctx context.Context, r schema.AppMarkupDet
 }
 
 // AppMarkupStatistics Retrieve statistics of `app_markup`.
-func (api *DerivAPI) AppMarkupStatistics(ctx context.Context, r schema.AppMarkupStatistics) (resp schema.AppMarkupStatisticsResp, err error) {
+func (api *Client) AppMarkupStatistics(ctx context.Context, r schema.AppMarkupStatistics) (resp schema.AppMarkupStatisticsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -72,7 +72,7 @@ func (api *DerivAPI) AppMarkupStatistics(ctx context.Context, r schema.AppMarkup
 }
 
 // AppRegister Register a new OAuth application
-func (api *DerivAPI) AppRegister(ctx context.Context, r schema.AppRegister) (resp schema.AppRegisterResp, err error) {
+func (api *Client) AppRegister(ctx context.Context, r schema.AppRegister) (resp schema.AppRegisterResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -80,7 +80,7 @@ func (api *DerivAPI) AppRegister(ctx context.Context, r schema.AppRegister) (res
 }
 
 // AppUpdate Update a new OAuth application
-func (api *DerivAPI) AppUpdate(ctx context.Context, r schema.AppUpdate) (resp schema.AppUpdateResp, err error) {
+func (api *Client) AppUpdate(ctx context.Context, r schema.AppUpdate) (resp schema.AppUpdateResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -88,7 +88,7 @@ func (api *DerivAPI) AppUpdate(ctx context.Context, r schema.AppUpdate) (resp sc
 }
 
 // AssetIndex Retrieve a list of all available underlyings and the corresponding contract types and duration boundaries. If the user is logged in, only the assets available for that user's landing company will be returned.
-func (api *DerivAPI) AssetIndex(ctx context.Context, r schema.AssetIndex) (resp schema.AssetIndexResp, err error) {
+func (api *Client) AssetIndex(ctx context.Context, r schema.AssetIndex) (resp schema.AssetIndexResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -96,7 +96,7 @@ func (api *DerivAPI) AssetIndex(ctx context.Context, r schema.AssetIndex) (resp 
 }
 
 // Authorize Authorize current WebSocket session to act on behalf of the owner of a given token. Must precede requests that need to access client account, for example purchasing and selling contracts or viewing portfolio.
-func (api *DerivAPI) Authorize(ctx context.Context, r schema.Authorize) (resp schema.AuthorizeResp, err error) {
+func (api *Client) Authorize(ctx context.Context, r schema.Authorize) (resp schema.AuthorizeResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -104,7 +104,7 @@ func (api *DerivAPI) Authorize(ctx context.Context, r schema.Authorize) (resp sc
 }
 
 // Balance Get user account balance
-func (api *DerivAPI) Balance(ctx context.Context, r schema.Balance) (resp schema.BalanceResp, err error) {
+func (api *Client) Balance(ctx context.Context, r schema.Balance) (resp schema.BalanceResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -112,7 +112,7 @@ func (api *DerivAPI) Balance(ctx context.Context, r schema.Balance) (resp schema
 }
 
 // Buy Buy a Contract
-func (api *DerivAPI) Buy(ctx context.Context, r schema.Buy) (resp schema.BuyResp, err error) {
+func (api *Client) Buy(ctx context.Context, r schema.Buy) (resp schema.BuyResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -120,7 +120,7 @@ func (api *DerivAPI) Buy(ctx context.Context, r schema.Buy) (resp schema.BuyResp
 }
 
 // BuyContractForMultipleAccounts Buy a Contract for multiple Accounts specified by the `tokens` parameter. Note, although this is an authorized call, the contract is not bought for the authorized account.
-func (api *DerivAPI) BuyContractForMultipleAccounts(ctx context.Context, r schema.BuyContractForMultipleAccounts) (resp schema.BuyContractForMultipleAccountsResp, err error) {
+func (api *Client) BuyContractForMultipleAccounts(ctx context.Context, r schema.BuyContractForMultipleAccounts) (resp schema.BuyContractForMultipleAccountsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -128,7 +128,7 @@ func (api *DerivAPI) BuyContractForMultipleAccounts(ctx context.Context, r schem
 }
 
 // Cancel Cancel contract with contract id
-func (api *DerivAPI) Cancel(ctx context.Context, r schema.Cancel) (resp schema.CancelResp, err error) {
+func (api *Client) Cancel(ctx context.Context, r schema.Cancel) (resp schema.CancelResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -136,7 +136,7 @@ func (api *DerivAPI) Cancel(ctx context.Context, r schema.Cancel) (resp schema.C
 }
 
 // Cashier Request the cashier info for the specified type.
-func (api *DerivAPI) Cashier(ctx context.Context, r schema.Cashier) (resp schema.CashierResp, err error) {
+func (api *Client) Cashier(ctx context.Context, r schema.Cashier) (resp schema.CashierResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -144,7 +144,7 @@ func (api *DerivAPI) Cashier(ctx context.Context, r schema.Cashier) (resp schema
 }
 
 // ConfirmEmail Verifies the email for the user using verification code passed in the request object
-func (api *DerivAPI) ConfirmEmail(ctx context.Context, r schema.ConfirmEmail) (resp schema.ConfirmEmailResp, err error) {
+func (api *Client) ConfirmEmail(ctx context.Context, r schema.ConfirmEmail) (resp schema.ConfirmEmailResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -152,7 +152,7 @@ func (api *DerivAPI) ConfirmEmail(ctx context.Context, r schema.ConfirmEmail) (r
 }
 
 // ContractUpdate Update a contract condition.
-func (api *DerivAPI) ContractUpdate(ctx context.Context, r schema.ContractUpdate) (resp schema.ContractUpdateResp, err error) {
+func (api *Client) ContractUpdate(ctx context.Context, r schema.ContractUpdate) (resp schema.ContractUpdateResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -160,7 +160,7 @@ func (api *DerivAPI) ContractUpdate(ctx context.Context, r schema.ContractUpdate
 }
 
 // ContractUpdateHistory Request for contract update history.
-func (api *DerivAPI) ContractUpdateHistory(ctx context.Context, r schema.ContractUpdateHistory) (resp schema.ContractUpdateHistoryResp, err error) {
+func (api *Client) ContractUpdateHistory(ctx context.Context, r schema.ContractUpdateHistory) (resp schema.ContractUpdateHistoryResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -168,7 +168,7 @@ func (api *DerivAPI) ContractUpdateHistory(ctx context.Context, r schema.Contrac
 }
 
 // ContractsFor For a given symbol, get the list of currently available contracts, and the latest barrier and duration limits for each contract.
-func (api *DerivAPI) ContractsFor(ctx context.Context, r schema.ContractsFor) (resp schema.ContractsForResp, err error) {
+func (api *Client) ContractsFor(ctx context.Context, r schema.ContractsFor) (resp schema.ContractsForResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -176,7 +176,7 @@ func (api *DerivAPI) ContractsFor(ctx context.Context, r schema.ContractsFor) (r
 }
 
 // ContractsForCompany Get the list of currently available contracts for a given landing company.
-func (api *DerivAPI) ContractsForCompany(ctx context.Context, r schema.ContractsForCompany) (resp schema.ContractsForCompanyResp, err error) {
+func (api *Client) ContractsForCompany(ctx context.Context, r schema.ContractsForCompany) (resp schema.ContractsForCompanyResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -184,7 +184,7 @@ func (api *DerivAPI) ContractsForCompany(ctx context.Context, r schema.Contracts
 }
 
 // CopyStart Start copy trader bets
-func (api *DerivAPI) CopyStart(ctx context.Context, r schema.CopyStart) (resp schema.CopyStartResp, err error) {
+func (api *Client) CopyStart(ctx context.Context, r schema.CopyStart) (resp schema.CopyStartResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -192,7 +192,7 @@ func (api *DerivAPI) CopyStart(ctx context.Context, r schema.CopyStart) (resp sc
 }
 
 // CopyStop Stop copy trader bets
-func (api *DerivAPI) CopyStop(ctx context.Context, r schema.CopyStop) (resp schema.CopyStopResp, err error) {
+func (api *Client) CopyStop(ctx context.Context, r schema.CopyStop) (resp schema.CopyStopResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -200,7 +200,7 @@ func (api *DerivAPI) CopyStop(ctx context.Context, r schema.CopyStop) (resp sche
 }
 
 // CopytradingList Retrieves a list of active copiers and/or traders for Copy Trading
-func (api *DerivAPI) CopytradingList(ctx context.Context, r schema.CopytradingList) (resp schema.CopytradingListResp, err error) {
+func (api *Client) CopytradingList(ctx context.Context, r schema.CopytradingList) (resp schema.CopytradingListResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -208,7 +208,7 @@ func (api *DerivAPI) CopytradingList(ctx context.Context, r schema.CopytradingLi
 }
 
 // CopytradingStatistics Retrieve performance, trading, risk and copiers statistics of trader.
-func (api *DerivAPI) CopytradingStatistics(ctx context.Context, r schema.CopytradingStatistics) (resp schema.CopytradingStatisticsResp, err error) {
+func (api *Client) CopytradingStatistics(ctx context.Context, r schema.CopytradingStatistics) (resp schema.CopytradingStatisticsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -216,7 +216,7 @@ func (api *DerivAPI) CopytradingStatistics(ctx context.Context, r schema.Copytra
 }
 
 // CryptoConfig The request for cryptocurrencies configuration.
-func (api *DerivAPI) CryptoConfig(ctx context.Context, r schema.CryptoConfig) (resp schema.CryptoConfigResp, err error) {
+func (api *Client) CryptoConfig(ctx context.Context, r schema.CryptoConfig) (resp schema.CryptoConfigResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -224,7 +224,7 @@ func (api *DerivAPI) CryptoConfig(ctx context.Context, r schema.CryptoConfig) (r
 }
 
 // CryptoEstimations Get the current estimations for cryptocurrencies. E.g. Withdrawal fee.
-func (api *DerivAPI) CryptoEstimations(ctx context.Context, r schema.CryptoEstimations) (resp schema.CryptoEstimationsResp, err error) {
+func (api *Client) CryptoEstimations(ctx context.Context, r schema.CryptoEstimations) (resp schema.CryptoEstimationsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -232,7 +232,7 @@ func (api *DerivAPI) CryptoEstimations(ctx context.Context, r schema.CryptoEstim
 }
 
 // DocumentUpload Request KYC information from client
-func (api *DerivAPI) DocumentUpload(ctx context.Context, r schema.DocumentUpload) (resp schema.DocumentUploadResp, err error) {
+func (api *Client) DocumentUpload(ctx context.Context, r schema.DocumentUpload) (resp schema.DocumentUploadResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -240,7 +240,7 @@ func (api *DerivAPI) DocumentUpload(ctx context.Context, r schema.DocumentUpload
 }
 
 // EconomicCalendar Specify a currency to receive a list of events related to that specific currency. For example, specifying USD will return a list of USD-related events. If the currency is omitted, you will receive a list for all currencies.
-func (api *DerivAPI) EconomicCalendar(ctx context.Context, r schema.EconomicCalendar) (resp schema.EconomicCalendarResp, err error) {
+func (api *Client) EconomicCalendar(ctx context.Context, r schema.EconomicCalendar) (resp schema.EconomicCalendarResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -248,7 +248,7 @@ func (api *DerivAPI) EconomicCalendar(ctx context.Context, r schema.EconomicCale
 }
 
 // ExchangeRates Retrieves the exchange rate from a base currency to a target currency supported by the system.
-func (api *DerivAPI) ExchangeRates(ctx context.Context, r schema.ExchangeRates) (resp schema.ExchangeRatesResp, err error) {
+func (api *Client) ExchangeRates(ctx context.Context, r schema.ExchangeRates) (resp schema.ExchangeRatesResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -256,7 +256,7 @@ func (api *DerivAPI) ExchangeRates(ctx context.Context, r schema.ExchangeRates) 
 }
 
 // Forget Immediately cancel the real-time stream of messages with a specific ID.
-func (api *DerivAPI) Forget(ctx context.Context, r schema.Forget) (resp schema.ForgetResp, err error) {
+func (api *Client) Forget(ctx context.Context, r schema.Forget) (resp schema.ForgetResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -264,7 +264,7 @@ func (api *DerivAPI) Forget(ctx context.Context, r schema.Forget) (resp schema.F
 }
 
 // ForgetAll Immediately cancel the real-time streams of messages of given type.
-func (api *DerivAPI) ForgetAll(ctx context.Context, r schema.ForgetAll) (resp schema.ForgetAllResp, err error) {
+func (api *Client) ForgetAll(ctx context.Context, r schema.ForgetAll) (resp schema.ForgetAllResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -272,7 +272,7 @@ func (api *DerivAPI) ForgetAll(ctx context.Context, r schema.ForgetAll) (resp sc
 }
 
 // GetAccountStatus Get Account Status
-func (api *DerivAPI) GetAccountStatus(ctx context.Context, r schema.GetAccountStatus) (resp schema.GetAccountStatusResp, err error) {
+func (api *Client) GetAccountStatus(ctx context.Context, r schema.GetAccountStatus) (resp schema.GetAccountStatusResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -280,7 +280,7 @@ func (api *DerivAPI) GetAccountStatus(ctx context.Context, r schema.GetAccountSt
 }
 
 // GetFinancialAssessment This call gets the financial assessment details. The 'financial assessment' is a questionnaire that clients of certain Landing Companies need to complete, due to regulatory and KYC (know your client) requirements.
-func (api *DerivAPI) GetFinancialAssessment(ctx context.Context, r schema.GetFinancialAssessment) (resp schema.GetFinancialAssessmentResp, err error) {
+func (api *Client) GetFinancialAssessment(ctx context.Context, r schema.GetFinancialAssessment) (resp schema.GetFinancialAssessmentResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -288,7 +288,7 @@ func (api *DerivAPI) GetFinancialAssessment(ctx context.Context, r schema.GetFin
 }
 
 // GetLimits Trading and Withdrawal Limits for a given user
-func (api *DerivAPI) GetLimits(ctx context.Context, r schema.GetLimits) (resp schema.GetLimitsResp, err error) {
+func (api *Client) GetLimits(ctx context.Context, r schema.GetLimits) (resp schema.GetLimitsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -296,7 +296,7 @@ func (api *DerivAPI) GetLimits(ctx context.Context, r schema.GetLimits) (resp sc
 }
 
 // GetSelfExclusion Allows users to exclude themselves from the website for certain periods of time, or to set limits on their trading activities. This facility is a regulatory requirement for certain Landing Companies.
-func (api *DerivAPI) GetSelfExclusion(ctx context.Context, r schema.GetSelfExclusion) (resp schema.GetSelfExclusionResp, err error) {
+func (api *Client) GetSelfExclusion(ctx context.Context, r schema.GetSelfExclusion) (resp schema.GetSelfExclusionResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -304,7 +304,7 @@ func (api *DerivAPI) GetSelfExclusion(ctx context.Context, r schema.GetSelfExclu
 }
 
 // GetSettings Get User Settings (email, date of birth, address etc)
-func (api *DerivAPI) GetSettings(ctx context.Context, r schema.GetSettings) (resp schema.GetSettingsResp, err error) {
+func (api *Client) GetSettings(ctx context.Context, r schema.GetSettings) (resp schema.GetSettingsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -312,7 +312,7 @@ func (api *DerivAPI) GetSettings(ctx context.Context, r schema.GetSettings) (res
 }
 
 // IdentityVerificationDocumentAdd Adds document information such as issuing country, id and type for identity verification processes.
-func (api *DerivAPI) IdentityVerificationDocumentAdd(ctx context.Context, r schema.IdentityVerificationDocumentAdd) (resp schema.IdentityVerificationDocumentAddResp, err error) {
+func (api *Client) IdentityVerificationDocumentAdd(ctx context.Context, r schema.IdentityVerificationDocumentAdd) (resp schema.IdentityVerificationDocumentAddResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -320,7 +320,7 @@ func (api *DerivAPI) IdentityVerificationDocumentAdd(ctx context.Context, r sche
 }
 
 // KycAuthStatus Get KYC Authentication Status
-func (api *DerivAPI) KycAuthStatus(ctx context.Context, r schema.KycAuthStatus) (resp schema.KycAuthStatusResp, err error) {
+func (api *Client) KycAuthStatus(ctx context.Context, r schema.KycAuthStatus) (resp schema.KycAuthStatusResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -328,7 +328,7 @@ func (api *DerivAPI) KycAuthStatus(ctx context.Context, r schema.KycAuthStatus) 
 }
 
 // LandingCompany The company has a number of licensed subsidiaries in various jurisdictions, which are called Landing Companies. This call will return the appropriate Landing Company for clients of a given country. The landing company may differ for derived contracts (Synthetic Indices) and Financial contracts (Forex, Stock Indices, Commodities).
-func (api *DerivAPI) LandingCompany(ctx context.Context, r schema.LandingCompany) (resp schema.LandingCompanyResp, err error) {
+func (api *Client) LandingCompany(ctx context.Context, r schema.LandingCompany) (resp schema.LandingCompanyResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -336,7 +336,7 @@ func (api *DerivAPI) LandingCompany(ctx context.Context, r schema.LandingCompany
 }
 
 // LandingCompanyDetails The company has a number of licensed subsidiaries in various jurisdictions, which are called Landing Companies (and which are wholly owned subsidiaries of the Deriv Group). This call provides information about each Landing Company.
-func (api *DerivAPI) LandingCompanyDetails(ctx context.Context, r schema.LandingCompanyDetails) (resp schema.LandingCompanyDetailsResp, err error) {
+func (api *Client) LandingCompanyDetails(ctx context.Context, r schema.LandingCompanyDetails) (resp schema.LandingCompanyDetailsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -344,7 +344,7 @@ func (api *DerivAPI) LandingCompanyDetails(ctx context.Context, r schema.Landing
 }
 
 // LoginHistory Retrieve a summary of login history for user.
-func (api *DerivAPI) LoginHistory(ctx context.Context, r schema.LoginHistory) (resp schema.LoginHistoryResp, err error) {
+func (api *Client) LoginHistory(ctx context.Context, r schema.LoginHistory) (resp schema.LoginHistoryResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -352,7 +352,7 @@ func (api *DerivAPI) LoginHistory(ctx context.Context, r schema.LoginHistory) (r
 }
 
 // Logout Logout the session
-func (api *DerivAPI) Logout(ctx context.Context, r schema.Logout) (resp schema.LogoutResp, err error) {
+func (api *Client) Logout(ctx context.Context, r schema.Logout) (resp schema.LogoutResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -360,7 +360,7 @@ func (api *DerivAPI) Logout(ctx context.Context, r schema.Logout) (resp schema.L
 }
 
 // Mt5Deposit This call allows deposit into MT5 account from Binary account.
-func (api *DerivAPI) Mt5Deposit(ctx context.Context, r schema.Mt5Deposit) (resp schema.Mt5DepositResp, err error) {
+func (api *Client) Mt5Deposit(ctx context.Context, r schema.Mt5Deposit) (resp schema.Mt5DepositResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -368,7 +368,7 @@ func (api *DerivAPI) Mt5Deposit(ctx context.Context, r schema.Mt5Deposit) (resp 
 }
 
 // Mt5GetSettings Get MT5 user account settings
-func (api *DerivAPI) Mt5GetSettings(ctx context.Context, r schema.Mt5GetSettings) (resp schema.Mt5GetSettingsResp, err error) {
+func (api *Client) Mt5GetSettings(ctx context.Context, r schema.Mt5GetSettings) (resp schema.Mt5GetSettingsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -376,7 +376,7 @@ func (api *DerivAPI) Mt5GetSettings(ctx context.Context, r schema.Mt5GetSettings
 }
 
 // Mt5LoginList Get list of MT5 accounts for client
-func (api *DerivAPI) Mt5LoginList(ctx context.Context, r schema.Mt5LoginList) (resp schema.Mt5LoginListResp, err error) {
+func (api *Client) Mt5LoginList(ctx context.Context, r schema.Mt5LoginList) (resp schema.Mt5LoginListResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -384,7 +384,7 @@ func (api *DerivAPI) Mt5LoginList(ctx context.Context, r schema.Mt5LoginList) (r
 }
 
 // Mt5NewAccount This call creates new MT5 user, either demo or real money user.
-func (api *DerivAPI) Mt5NewAccount(ctx context.Context, r schema.Mt5NewAccount) (resp schema.Mt5NewAccountResp, err error) {
+func (api *Client) Mt5NewAccount(ctx context.Context, r schema.Mt5NewAccount) (resp schema.Mt5NewAccountResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -392,7 +392,7 @@ func (api *DerivAPI) Mt5NewAccount(ctx context.Context, r schema.Mt5NewAccount) 
 }
 
 // Mt5PasswordChange To change passwords of the MT5 account.
-func (api *DerivAPI) Mt5PasswordChange(ctx context.Context, r schema.Mt5PasswordChange) (resp schema.Mt5PasswordChangeResp, err error) {
+func (api *Client) Mt5PasswordChange(ctx context.Context, r schema.Mt5PasswordChange) (resp schema.Mt5PasswordChangeResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -400,7 +400,7 @@ func (api *DerivAPI) Mt5PasswordChange(ctx context.Context, r schema.Mt5Password
 }
 
 // Mt5PasswordCheck This call validates the main password for the MT5 user
-func (api *DerivAPI) Mt5PasswordCheck(ctx context.Context, r schema.Mt5PasswordCheck) (resp schema.Mt5PasswordCheckResp, err error) {
+func (api *Client) Mt5PasswordCheck(ctx context.Context, r schema.Mt5PasswordCheck) (resp schema.Mt5PasswordCheckResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -408,7 +408,7 @@ func (api *DerivAPI) Mt5PasswordCheck(ctx context.Context, r schema.Mt5PasswordC
 }
 
 // Mt5PasswordReset To reset the password of MT5 account.
-func (api *DerivAPI) Mt5PasswordReset(ctx context.Context, r schema.Mt5PasswordReset) (resp schema.Mt5PasswordResetResp, err error) {
+func (api *Client) Mt5PasswordReset(ctx context.Context, r schema.Mt5PasswordReset) (resp schema.Mt5PasswordResetResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -416,7 +416,7 @@ func (api *DerivAPI) Mt5PasswordReset(ctx context.Context, r schema.Mt5PasswordR
 }
 
 // Mt5Withdrawal This call allows withdrawal from MT5 account to Binary account.
-func (api *DerivAPI) Mt5Withdrawal(ctx context.Context, r schema.Mt5Withdrawal) (resp schema.Mt5WithdrawalResp, err error) {
+func (api *Client) Mt5Withdrawal(ctx context.Context, r schema.Mt5Withdrawal) (resp schema.Mt5WithdrawalResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -424,7 +424,7 @@ func (api *DerivAPI) Mt5Withdrawal(ctx context.Context, r schema.Mt5Withdrawal) 
 }
 
 // NewAccountMaltainvest This call opens a new real-money account with the `maltainvest` Landing Company. This call can be made from a virtual-money account or real-money account at Deriv (Europe) Limited. If it is the latter, client information fields in this call will be ignored and data from your existing real-money account will be used.
-func (api *DerivAPI) NewAccountMaltainvest(ctx context.Context, r schema.NewAccountMaltainvest) (resp schema.NewAccountMaltainvestResp, err error) {
+func (api *Client) NewAccountMaltainvest(ctx context.Context, r schema.NewAccountMaltainvest) (resp schema.NewAccountMaltainvestResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -432,7 +432,7 @@ func (api *DerivAPI) NewAccountMaltainvest(ctx context.Context, r schema.NewAcco
 }
 
 // NewAccountReal This call opens a new real-money account. This call can be made from a virtual-money or a real-money account. If it is the latter, client information fields in this call will be ignored and data from your existing real-money account will be used.
-func (api *DerivAPI) NewAccountReal(ctx context.Context, r schema.NewAccountReal) (resp schema.NewAccountRealResp, err error) {
+func (api *Client) NewAccountReal(ctx context.Context, r schema.NewAccountReal) (resp schema.NewAccountRealResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -440,7 +440,7 @@ func (api *DerivAPI) NewAccountReal(ctx context.Context, r schema.NewAccountReal
 }
 
 // NewAccountVirtual Create a new virtual-money account.
-func (api *DerivAPI) NewAccountVirtual(ctx context.Context, r schema.NewAccountVirtual) (resp schema.NewAccountVirtualResp, err error) {
+func (api *Client) NewAccountVirtual(ctx context.Context, r schema.NewAccountVirtual) (resp schema.NewAccountVirtualResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -448,7 +448,7 @@ func (api *DerivAPI) NewAccountVirtual(ctx context.Context, r schema.NewAccountV
 }
 
 // OauthApps List all my used OAuth applications.
-func (api *DerivAPI) OauthApps(ctx context.Context, r schema.OauthApps) (resp schema.OauthAppsResp, err error) {
+func (api *Client) OauthApps(ctx context.Context, r schema.OauthApps) (resp schema.OauthAppsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -456,7 +456,7 @@ func (api *DerivAPI) OauthApps(ctx context.Context, r schema.OauthApps) (resp sc
 }
 
 // P2PAdvertCreate Creates a P2P (Peer to Peer) advert. Can only be used by an approved P2P advertiser.
-func (api *DerivAPI) P2PAdvertCreate(ctx context.Context, r schema.P2PAdvertCreate) (resp schema.P2PAdvertCreateResp, err error) {
+func (api *Client) P2PAdvertCreate(ctx context.Context, r schema.P2PAdvertCreate) (resp schema.P2PAdvertCreateResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -464,7 +464,7 @@ func (api *DerivAPI) P2PAdvertCreate(ctx context.Context, r schema.P2PAdvertCrea
 }
 
 // P2PAdvertInfo Retrieve information about a P2P advert.
-func (api *DerivAPI) P2PAdvertInfo(ctx context.Context, r schema.P2PAdvertInfo) (resp schema.P2PAdvertInfoResp, err error) {
+func (api *Client) P2PAdvertInfo(ctx context.Context, r schema.P2PAdvertInfo) (resp schema.P2PAdvertInfoResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -472,7 +472,7 @@ func (api *DerivAPI) P2PAdvertInfo(ctx context.Context, r schema.P2PAdvertInfo) 
 }
 
 // P2PAdvertList Returns available adverts for use with `p2p_order_create` .
-func (api *DerivAPI) P2PAdvertList(ctx context.Context, r schema.P2PAdvertList) (resp schema.P2PAdvertListResp, err error) {
+func (api *Client) P2PAdvertList(ctx context.Context, r schema.P2PAdvertList) (resp schema.P2PAdvertListResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -480,7 +480,7 @@ func (api *DerivAPI) P2PAdvertList(ctx context.Context, r schema.P2PAdvertList) 
 }
 
 // P2PAdvertUpdate Updates a P2P advert. Can only be used by the advertiser.
-func (api *DerivAPI) P2PAdvertUpdate(ctx context.Context, r schema.P2PAdvertUpdate) (resp schema.P2PAdvertUpdateResp, err error) {
+func (api *Client) P2PAdvertUpdate(ctx context.Context, r schema.P2PAdvertUpdate) (resp schema.P2PAdvertUpdateResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -488,7 +488,7 @@ func (api *DerivAPI) P2PAdvertUpdate(ctx context.Context, r schema.P2PAdvertUpda
 }
 
 // P2PAdvertiserAdverts Returns all P2P adverts created by the authorized client. Can only be used by a registered P2P advertiser.
-func (api *DerivAPI) P2PAdvertiserAdverts(ctx context.Context, r schema.P2PAdvertiserAdverts) (resp schema.P2PAdvertiserAdvertsResp, err error) {
+func (api *Client) P2PAdvertiserAdverts(ctx context.Context, r schema.P2PAdvertiserAdverts) (resp schema.P2PAdvertiserAdvertsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -496,7 +496,7 @@ func (api *DerivAPI) P2PAdvertiserAdverts(ctx context.Context, r schema.P2PAdver
 }
 
 // P2PAdvertiserCreate Registers the client as a P2P advertiser.
-func (api *DerivAPI) P2PAdvertiserCreate(ctx context.Context, r schema.P2PAdvertiserCreate) (resp schema.P2PAdvertiserCreateResp, err error) {
+func (api *Client) P2PAdvertiserCreate(ctx context.Context, r schema.P2PAdvertiserCreate) (resp schema.P2PAdvertiserCreateResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -504,7 +504,7 @@ func (api *DerivAPI) P2PAdvertiserCreate(ctx context.Context, r schema.P2PAdvert
 }
 
 // P2PAdvertiserInfo Retrieve information about a P2P advertiser.
-func (api *DerivAPI) P2PAdvertiserInfo(ctx context.Context, r schema.P2PAdvertiserInfo) (resp schema.P2PAdvertiserInfoResp, err error) {
+func (api *Client) P2PAdvertiserInfo(ctx context.Context, r schema.P2PAdvertiserInfo) (resp schema.P2PAdvertiserInfoResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -512,7 +512,7 @@ func (api *DerivAPI) P2PAdvertiserInfo(ctx context.Context, r schema.P2PAdvertis
 }
 
 // P2PAdvertiserList Retrieve advertisers has/had trade with the current advertiser.
-func (api *DerivAPI) P2PAdvertiserList(ctx context.Context, r schema.P2PAdvertiserList) (resp schema.P2PAdvertiserListResp, err error) {
+func (api *Client) P2PAdvertiserList(ctx context.Context, r schema.P2PAdvertiserList) (resp schema.P2PAdvertiserListResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -520,7 +520,7 @@ func (api *DerivAPI) P2PAdvertiserList(ctx context.Context, r schema.P2PAdvertis
 }
 
 // P2PAdvertiserPaymentMethods Manage or list P2P advertiser payment methods.
-func (api *DerivAPI) P2PAdvertiserPaymentMethods(ctx context.Context, r schema.P2PAdvertiserPaymentMethods) (resp schema.P2PAdvertiserPaymentMethodsResp, err error) {
+func (api *Client) P2PAdvertiserPaymentMethods(ctx context.Context, r schema.P2PAdvertiserPaymentMethods) (resp schema.P2PAdvertiserPaymentMethodsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -528,7 +528,7 @@ func (api *DerivAPI) P2PAdvertiserPaymentMethods(ctx context.Context, r schema.P
 }
 
 // P2PAdvertiserRelations Updates and returns favourite and blocked advertisers of the current user.
-func (api *DerivAPI) P2PAdvertiserRelations(ctx context.Context, r schema.P2PAdvertiserRelations) (resp schema.P2PAdvertiserRelationsResp, err error) {
+func (api *Client) P2PAdvertiserRelations(ctx context.Context, r schema.P2PAdvertiserRelations) (resp schema.P2PAdvertiserRelationsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -536,7 +536,7 @@ func (api *DerivAPI) P2PAdvertiserRelations(ctx context.Context, r schema.P2PAdv
 }
 
 // P2PAdvertiserUpdate Update the information of the P2P advertiser for the current account. Can only be used by an approved P2P advertiser.
-func (api *DerivAPI) P2PAdvertiserUpdate(ctx context.Context, r schema.P2PAdvertiserUpdate) (resp schema.P2PAdvertiserUpdateResp, err error) {
+func (api *Client) P2PAdvertiserUpdate(ctx context.Context, r schema.P2PAdvertiserUpdate) (resp schema.P2PAdvertiserUpdateResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -544,7 +544,7 @@ func (api *DerivAPI) P2PAdvertiserUpdate(ctx context.Context, r schema.P2PAdvert
 }
 
 // P2PChatCreate Creates a P2P chat for the specified order.
-func (api *DerivAPI) P2PChatCreate(ctx context.Context, r schema.P2PChatCreate) (resp schema.P2PChatCreateResp, err error) {
+func (api *Client) P2PChatCreate(ctx context.Context, r schema.P2PChatCreate) (resp schema.P2PChatCreateResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -552,7 +552,7 @@ func (api *DerivAPI) P2PChatCreate(ctx context.Context, r schema.P2PChatCreate) 
 }
 
 // P2PCountryList List all or specific country and its payment methods.
-func (api *DerivAPI) P2PCountryList(ctx context.Context, r schema.P2PCountryList) (resp schema.P2PCountryListResp, err error) {
+func (api *Client) P2PCountryList(ctx context.Context, r schema.P2PCountryList) (resp schema.P2PCountryListResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -560,7 +560,7 @@ func (api *DerivAPI) P2PCountryList(ctx context.Context, r schema.P2PCountryList
 }
 
 // P2POrderCancel Cancel a P2P order.
-func (api *DerivAPI) P2POrderCancel(ctx context.Context, r schema.P2POrderCancel) (resp schema.P2POrderCancelResp, err error) {
+func (api *Client) P2POrderCancel(ctx context.Context, r schema.P2POrderCancel) (resp schema.P2POrderCancelResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -568,7 +568,7 @@ func (api *DerivAPI) P2POrderCancel(ctx context.Context, r schema.P2POrderCancel
 }
 
 // P2POrderConfirm Confirm a P2P order.
-func (api *DerivAPI) P2POrderConfirm(ctx context.Context, r schema.P2POrderConfirm) (resp schema.P2POrderConfirmResp, err error) {
+func (api *Client) P2POrderConfirm(ctx context.Context, r schema.P2POrderConfirm) (resp schema.P2POrderConfirmResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -576,7 +576,7 @@ func (api *DerivAPI) P2POrderConfirm(ctx context.Context, r schema.P2POrderConfi
 }
 
 // P2POrderCreate Creates a P2P order for the specified advert.
-func (api *DerivAPI) P2POrderCreate(ctx context.Context, r schema.P2POrderCreate) (resp schema.P2POrderCreateResp, err error) {
+func (api *Client) P2POrderCreate(ctx context.Context, r schema.P2POrderCreate) (resp schema.P2POrderCreateResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -584,7 +584,7 @@ func (api *DerivAPI) P2POrderCreate(ctx context.Context, r schema.P2POrderCreate
 }
 
 // P2POrderDispute Dispute a P2P order.
-func (api *DerivAPI) P2POrderDispute(ctx context.Context, r schema.P2POrderDispute) (resp schema.P2POrderDisputeResp, err error) {
+func (api *Client) P2POrderDispute(ctx context.Context, r schema.P2POrderDispute) (resp schema.P2POrderDisputeResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -592,7 +592,7 @@ func (api *DerivAPI) P2POrderDispute(ctx context.Context, r schema.P2POrderDispu
 }
 
 // P2POrderInfo Retrieves the information about a P2P order.
-func (api *DerivAPI) P2POrderInfo(ctx context.Context, r schema.P2POrderInfo) (resp schema.P2POrderInfoResp, err error) {
+func (api *Client) P2POrderInfo(ctx context.Context, r schema.P2POrderInfo) (resp schema.P2POrderInfoResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -600,7 +600,7 @@ func (api *DerivAPI) P2POrderInfo(ctx context.Context, r schema.P2POrderInfo) (r
 }
 
 // P2POrderList List active orders.
-func (api *DerivAPI) P2POrderList(ctx context.Context, r schema.P2POrderList) (resp schema.P2POrderListResp, err error) {
+func (api *Client) P2POrderList(ctx context.Context, r schema.P2POrderList) (resp schema.P2POrderListResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -608,7 +608,7 @@ func (api *DerivAPI) P2POrderList(ctx context.Context, r schema.P2POrderList) (r
 }
 
 // P2POrderReview Creates a review for the specified order.
-func (api *DerivAPI) P2POrderReview(ctx context.Context, r schema.P2POrderReview) (resp schema.P2POrderReviewResp, err error) {
+func (api *Client) P2POrderReview(ctx context.Context, r schema.P2POrderReview) (resp schema.P2POrderReviewResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -616,7 +616,7 @@ func (api *DerivAPI) P2POrderReview(ctx context.Context, r schema.P2POrderReview
 }
 
 // P2PPaymentMethods List all P2P payment methods.
-func (api *DerivAPI) P2PPaymentMethods(ctx context.Context, r schema.P2PPaymentMethods) (resp schema.P2PPaymentMethodsResp, err error) {
+func (api *Client) P2PPaymentMethods(ctx context.Context, r schema.P2PPaymentMethods) (resp schema.P2PPaymentMethodsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -624,7 +624,7 @@ func (api *DerivAPI) P2PPaymentMethods(ctx context.Context, r schema.P2PPaymentM
 }
 
 // P2PPing Keeps the connection alive and updates the P2P advertiser's online status. The advertiser will be considered offline 60 seconds after a call is made.
-func (api *DerivAPI) P2PPing(ctx context.Context, r schema.P2PPing) (resp schema.P2PPingResp, err error) {
+func (api *Client) P2PPing(ctx context.Context, r schema.P2PPing) (resp schema.P2PPingResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -632,7 +632,7 @@ func (api *DerivAPI) P2PPing(ctx context.Context, r schema.P2PPing) (resp schema
 }
 
 // P2PSettings Request P2P Settings information.
-func (api *DerivAPI) P2PSettings(ctx context.Context, r schema.P2PSettings) (resp schema.P2PSettingsResp, err error) {
+func (api *Client) P2PSettings(ctx context.Context, r schema.P2PSettings) (resp schema.P2PSettingsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -640,7 +640,7 @@ func (api *DerivAPI) P2PSettings(ctx context.Context, r schema.P2PSettings) (res
 }
 
 // PaymentMethods Will return a list payment methods available for the given country. If the request is authenticated the client's residence country will be used.
-func (api *DerivAPI) PaymentMethods(ctx context.Context, r schema.PaymentMethods) (resp schema.PaymentMethodsResp, err error) {
+func (api *Client) PaymentMethods(ctx context.Context, r schema.PaymentMethods) (resp schema.PaymentMethodsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -648,7 +648,7 @@ func (api *DerivAPI) PaymentMethods(ctx context.Context, r schema.PaymentMethods
 }
 
 // PaymentagentCreate Saves client's payment agent details.
-func (api *DerivAPI) PaymentagentCreate(ctx context.Context, r schema.PaymentagentCreate) (resp schema.PaymentagentCreateResp, err error) {
+func (api *Client) PaymentagentCreate(ctx context.Context, r schema.PaymentagentCreate) (resp schema.PaymentagentCreateResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -656,7 +656,7 @@ func (api *DerivAPI) PaymentagentCreate(ctx context.Context, r schema.Paymentage
 }
 
 // PaymentagentDetails Gets client's payment agent details.
-func (api *DerivAPI) PaymentagentDetails(ctx context.Context, r schema.PaymentagentDetails) (resp schema.PaymentagentDetailsResp, err error) {
+func (api *Client) PaymentagentDetails(ctx context.Context, r schema.PaymentagentDetails) (resp schema.PaymentagentDetailsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -664,7 +664,7 @@ func (api *DerivAPI) PaymentagentDetails(ctx context.Context, r schema.Paymentag
 }
 
 // PaymentagentList Will return a list of Payment Agents for a given country for a given currency. Payment agents allow users to deposit and withdraw funds using local payment methods that might not be available via the main website's cashier system.
-func (api *DerivAPI) PaymentagentList(ctx context.Context, r schema.PaymentagentList) (resp schema.PaymentagentListResp, err error) {
+func (api *Client) PaymentagentList(ctx context.Context, r schema.PaymentagentList) (resp schema.PaymentagentListResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -672,7 +672,7 @@ func (api *DerivAPI) PaymentagentList(ctx context.Context, r schema.Paymentagent
 }
 
 // PaymentagentTransfer Payment Agent Transfer - this call is available only to accounts that are approved Payment Agents.
-func (api *DerivAPI) PaymentagentTransfer(ctx context.Context, r schema.PaymentagentTransfer) (resp schema.PaymentagentTransferResp, err error) {
+func (api *Client) PaymentagentTransfer(ctx context.Context, r schema.PaymentagentTransfer) (resp schema.PaymentagentTransferResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -680,7 +680,7 @@ func (api *DerivAPI) PaymentagentTransfer(ctx context.Context, r schema.Paymenta
 }
 
 // PaymentagentWithdraw Initiate a withdrawal to an approved Payment Agent.
-func (api *DerivAPI) PaymentagentWithdraw(ctx context.Context, r schema.PaymentagentWithdraw) (resp schema.PaymentagentWithdrawResp, err error) {
+func (api *Client) PaymentagentWithdraw(ctx context.Context, r schema.PaymentagentWithdraw) (resp schema.PaymentagentWithdrawResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -688,7 +688,7 @@ func (api *DerivAPI) PaymentagentWithdraw(ctx context.Context, r schema.Paymenta
 }
 
 // PaymentagentWithdrawJustification Provide justification to perform withdrawal using a Payment Agent.
-func (api *DerivAPI) PaymentagentWithdrawJustification(ctx context.Context, r schema.PaymentagentWithdrawJustification) (resp schema.PaymentagentWithdrawJustificationResp, err error) {
+func (api *Client) PaymentagentWithdrawJustification(ctx context.Context, r schema.PaymentagentWithdrawJustification) (resp schema.PaymentagentWithdrawJustificationResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -696,7 +696,7 @@ func (api *DerivAPI) PaymentagentWithdrawJustification(ctx context.Context, r sc
 }
 
 // PayoutCurrencies Retrieve a list of available option payout currencies. If a user is logged in, only the currencies available for the account will be returned.
-func (api *DerivAPI) PayoutCurrencies(ctx context.Context, r schema.PayoutCurrencies) (resp schema.PayoutCurrenciesResp, err error) {
+func (api *Client) PayoutCurrencies(ctx context.Context, r schema.PayoutCurrencies) (resp schema.PayoutCurrenciesResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -704,7 +704,7 @@ func (api *DerivAPI) PayoutCurrencies(ctx context.Context, r schema.PayoutCurren
 }
 
 // Ping To send the ping request to the server. Mostly used to test the connection or to keep it alive.
-func (api *DerivAPI) Ping(ctx context.Context, r schema.Ping) (resp schema.PingResp, err error) {
+func (api *Client) Ping(ctx context.Context, r schema.Ping) (resp schema.PingResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -712,7 +712,7 @@ func (api *DerivAPI) Ping(ctx context.Context, r schema.Ping) (resp schema.PingR
 }
 
 // Portfolio Receive information about my current portfolio of outstanding options
-func (api *DerivAPI) Portfolio(ctx context.Context, r schema.Portfolio) (resp schema.PortfolioResp, err error) {
+func (api *Client) Portfolio(ctx context.Context, r schema.Portfolio) (resp schema.PortfolioResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -720,7 +720,7 @@ func (api *DerivAPI) Portfolio(ctx context.Context, r schema.Portfolio) (resp sc
 }
 
 // ProfitTable Retrieve a summary of account Profit Table, according to given search criteria
-func (api *DerivAPI) ProfitTable(ctx context.Context, r schema.ProfitTable) (resp schema.ProfitTableResp, err error) {
+func (api *Client) ProfitTable(ctx context.Context, r schema.ProfitTable) (resp schema.ProfitTableResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -728,7 +728,7 @@ func (api *DerivAPI) ProfitTable(ctx context.Context, r schema.ProfitTable) (res
 }
 
 // Proposal Gets latest price for a specific contract.
-func (api *DerivAPI) Proposal(ctx context.Context, r schema.Proposal) (resp schema.ProposalResp, err error) {
+func (api *Client) Proposal(ctx context.Context, r schema.Proposal) (resp schema.ProposalResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -736,7 +736,7 @@ func (api *DerivAPI) Proposal(ctx context.Context, r schema.Proposal) (resp sche
 }
 
 // ProposalOpenContract Get latest price (and other information) for a contract in the user's portfolio
-func (api *DerivAPI) ProposalOpenContract(ctx context.Context, r schema.ProposalOpenContract) (resp schema.ProposalOpenContractResp, err error) {
+func (api *Client) ProposalOpenContract(ctx context.Context, r schema.ProposalOpenContract) (resp schema.ProposalOpenContractResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -744,7 +744,7 @@ func (api *DerivAPI) ProposalOpenContract(ctx context.Context, r schema.Proposal
 }
 
 // RealityCheck Retrieve summary of client's trades and account for the Reality Check facility. A 'reality check' means a display of time elapsed since the session began, and associated client profit/loss. The Reality Check facility is a regulatory requirement for certain landing companies.
-func (api *DerivAPI) RealityCheck(ctx context.Context, r schema.RealityCheck) (resp schema.RealityCheckResp, err error) {
+func (api *Client) RealityCheck(ctx context.Context, r schema.RealityCheck) (resp schema.RealityCheckResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -752,7 +752,7 @@ func (api *DerivAPI) RealityCheck(ctx context.Context, r schema.RealityCheck) (r
 }
 
 // ResidenceList This call returns a list of countries and 2-letter country codes, suitable for populating the account opening form.
-func (api *DerivAPI) ResidenceList(ctx context.Context, r schema.ResidenceList) (resp schema.ResidenceListResp, err error) {
+func (api *Client) ResidenceList(ctx context.Context, r schema.ResidenceList) (resp schema.ResidenceListResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -760,7 +760,7 @@ func (api *DerivAPI) ResidenceList(ctx context.Context, r schema.ResidenceList) 
 }
 
 // RevokeOauthApp Used for revoking access of particular app.
-func (api *DerivAPI) RevokeOauthApp(ctx context.Context, r schema.RevokeOauthApp) (resp schema.RevokeOauthAppResp, err error) {
+func (api *Client) RevokeOauthApp(ctx context.Context, r schema.RevokeOauthApp) (resp schema.RevokeOauthAppResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -768,7 +768,7 @@ func (api *DerivAPI) RevokeOauthApp(ctx context.Context, r schema.RevokeOauthApp
 }
 
 // Sell Sell a Contract as identified from a previous `portfolio` call.
-func (api *DerivAPI) Sell(ctx context.Context, r schema.Sell) (resp schema.SellResp, err error) {
+func (api *Client) Sell(ctx context.Context, r schema.Sell) (resp schema.SellResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -776,7 +776,7 @@ func (api *DerivAPI) Sell(ctx context.Context, r schema.Sell) (resp schema.SellR
 }
 
 // SellContractForMultipleAccounts Sell contracts for multiple accounts simultaneously. Uses the shortcode response from `buy_contract_for_multiple_accounts` to identify the contract, and authorisation tokens to select which accounts to sell those contracts on. Note that only the accounts identified by the tokens will be affected. This will not sell the contract on the currently-authorised account unless you include the token for the current account.
-func (api *DerivAPI) SellContractForMultipleAccounts(ctx context.Context, r schema.SellContractForMultipleAccounts) (resp schema.SellContractForMultipleAccountsResp, err error) {
+func (api *Client) SellContractForMultipleAccounts(ctx context.Context, r schema.SellContractForMultipleAccounts) (resp schema.SellContractForMultipleAccountsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -784,7 +784,7 @@ func (api *DerivAPI) SellContractForMultipleAccounts(ctx context.Context, r sche
 }
 
 // SellExpired This call will try to sell any expired contracts and return the number of sold contracts.
-func (api *DerivAPI) SellExpired(ctx context.Context, r schema.SellExpired) (resp schema.SellExpiredResp, err error) {
+func (api *Client) SellExpired(ctx context.Context, r schema.SellExpired) (resp schema.SellExpiredResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -792,7 +792,7 @@ func (api *DerivAPI) SellExpired(ctx context.Context, r schema.SellExpired) (res
 }
 
 // SetAccountCurrency Set account currency, this will be default currency for your account i.e currency for trading, deposit. Please note that account currency can only be set once, and then can never be changed.
-func (api *DerivAPI) SetAccountCurrency(ctx context.Context, r schema.SetAccountCurrency) (resp schema.SetAccountCurrencyResp, err error) {
+func (api *Client) SetAccountCurrency(ctx context.Context, r schema.SetAccountCurrency) (resp schema.SetAccountCurrencyResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -800,7 +800,7 @@ func (api *DerivAPI) SetAccountCurrency(ctx context.Context, r schema.SetAccount
 }
 
 // SetFinancialAssessment This call sets the financial assessment details based on the client's answers to analyze whether they possess the experience and knowledge to understand the risks involved with binary options trading.
-func (api *DerivAPI) SetFinancialAssessment(ctx context.Context, r schema.SetFinancialAssessment) (resp schema.SetFinancialAssessmentResp, err error) {
+func (api *Client) SetFinancialAssessment(ctx context.Context, r schema.SetFinancialAssessment) (resp schema.SetFinancialAssessmentResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -808,7 +808,7 @@ func (api *DerivAPI) SetFinancialAssessment(ctx context.Context, r schema.SetFin
 }
 
 // SetSelfExclusion Set Self-Exclusion (this call should be used in conjunction with `get_self_exclusion`)
-func (api *DerivAPI) SetSelfExclusion(ctx context.Context, r schema.SetSelfExclusion) (resp schema.SetSelfExclusionResp, err error) {
+func (api *Client) SetSelfExclusion(ctx context.Context, r schema.SetSelfExclusion) (resp schema.SetSelfExclusionResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -816,7 +816,7 @@ func (api *DerivAPI) SetSelfExclusion(ctx context.Context, r schema.SetSelfExclu
 }
 
 // SetSettings Set User Settings (this call should be used in conjunction with `get_settings`)
-func (api *DerivAPI) SetSettings(ctx context.Context, r schema.SetSettings) (resp schema.SetSettingsResp, err error) {
+func (api *Client) SetSettings(ctx context.Context, r schema.SetSettings) (resp schema.SetSettingsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -824,7 +824,7 @@ func (api *DerivAPI) SetSettings(ctx context.Context, r schema.SetSettings) (res
 }
 
 // Statement Retrieve a summary of account transactions, according to given search criteria
-func (api *DerivAPI) Statement(ctx context.Context, r schema.Statement) (resp schema.StatementResp, err error) {
+func (api *Client) Statement(ctx context.Context, r schema.Statement) (resp schema.StatementResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -832,7 +832,7 @@ func (api *DerivAPI) Statement(ctx context.Context, r schema.Statement) (resp sc
 }
 
 // StatesList For a given country, returns a list of States of that country. This is useful to populate the account opening form.
-func (api *DerivAPI) StatesList(ctx context.Context, r schema.StatesList) (resp schema.StatesListResp, err error) {
+func (api *Client) StatesList(ctx context.Context, r schema.StatesList) (resp schema.StatesListResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -840,7 +840,7 @@ func (api *DerivAPI) StatesList(ctx context.Context, r schema.StatesList) (resp 
 }
 
 // Ticks Initiate a continuous stream of spot price updates for a given symbol.
-func (api *DerivAPI) Ticks(ctx context.Context, r schema.Ticks) (resp schema.TicksResp, err error) {
+func (api *Client) Ticks(ctx context.Context, r schema.Ticks) (resp schema.TicksResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -848,7 +848,7 @@ func (api *DerivAPI) Ticks(ctx context.Context, r schema.Ticks) (resp schema.Tic
 }
 
 // TicksHistory Get historic tick data for a given symbol.
-func (api *DerivAPI) TicksHistory(ctx context.Context, r schema.TicksHistory) (resp schema.TicksHistoryResp, err error) {
+func (api *Client) TicksHistory(ctx context.Context, r schema.TicksHistory) (resp schema.TicksHistoryResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -856,7 +856,7 @@ func (api *DerivAPI) TicksHistory(ctx context.Context, r schema.TicksHistory) (r
 }
 
 // Time Request back-end server epoch time.
-func (api *DerivAPI) Time(ctx context.Context, r schema.Time) (resp schema.TimeResp, err error) {
+func (api *Client) Time(ctx context.Context, r schema.Time) (resp schema.TimeResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -864,7 +864,7 @@ func (api *DerivAPI) Time(ctx context.Context, r schema.Time) (resp schema.TimeR
 }
 
 // TinValidations Get the validations for Tax Identification Numbers (TIN)
-func (api *DerivAPI) TinValidations(ctx context.Context, r schema.TinValidations) (resp schema.TinValidationsResp, err error) {
+func (api *Client) TinValidations(ctx context.Context, r schema.TinValidations) (resp schema.TinValidationsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -872,7 +872,7 @@ func (api *DerivAPI) TinValidations(ctx context.Context, r schema.TinValidations
 }
 
 // TncApproval To approve the latest version of terms and conditions.
-func (api *DerivAPI) TncApproval(ctx context.Context, r schema.TncApproval) (resp schema.TncApprovalResp, err error) {
+func (api *Client) TncApproval(ctx context.Context, r schema.TncApproval) (resp schema.TncApprovalResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -880,7 +880,7 @@ func (api *DerivAPI) TncApproval(ctx context.Context, r schema.TncApproval) (res
 }
 
 // TopupVirtual When a virtual-money's account balance becomes low, it can be topped up using this call.
-func (api *DerivAPI) TopupVirtual(ctx context.Context, r schema.TopupVirtual) (resp schema.TopupVirtualResp, err error) {
+func (api *Client) TopupVirtual(ctx context.Context, r schema.TopupVirtual) (resp schema.TopupVirtualResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -888,7 +888,7 @@ func (api *DerivAPI) TopupVirtual(ctx context.Context, r schema.TopupVirtual) (r
 }
 
 // TradingDurations Retrieve a list of all available underlyings and the corresponding contract types and trading duration boundaries. If the user is logged in, only the assets available for that user's landing company will be returned.
-func (api *DerivAPI) TradingDurations(ctx context.Context, r schema.TradingDurations) (resp schema.TradingDurationsResp, err error) {
+func (api *Client) TradingDurations(ctx context.Context, r schema.TradingDurations) (resp schema.TradingDurationsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -896,7 +896,7 @@ func (api *DerivAPI) TradingDurations(ctx context.Context, r schema.TradingDurat
 }
 
 // TradingPlatformInvestorPasswordReset Reset the investor password of a Trading Platform Account
-func (api *DerivAPI) TradingPlatformInvestorPasswordReset(ctx context.Context, r schema.TradingPlatformInvestorPasswordReset) (resp schema.TradingPlatformInvestorPasswordResetResp, err error) {
+func (api *Client) TradingPlatformInvestorPasswordReset(ctx context.Context, r schema.TradingPlatformInvestorPasswordReset) (resp schema.TradingPlatformInvestorPasswordResetResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -904,7 +904,7 @@ func (api *DerivAPI) TradingPlatformInvestorPasswordReset(ctx context.Context, r
 }
 
 // TradingPlatformPasswordReset Reset the password of a Trading Platform Account
-func (api *DerivAPI) TradingPlatformPasswordReset(ctx context.Context, r schema.TradingPlatformPasswordReset) (resp schema.TradingPlatformPasswordResetResp, err error) {
+func (api *Client) TradingPlatformPasswordReset(ctx context.Context, r schema.TradingPlatformPasswordReset) (resp schema.TradingPlatformPasswordResetResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -912,7 +912,7 @@ func (api *DerivAPI) TradingPlatformPasswordReset(ctx context.Context, r schema.
 }
 
 // TradingPlatformStatus Request trading platform status
-func (api *DerivAPI) TradingPlatformStatus(ctx context.Context, r schema.TradingPlatformStatus) (resp schema.TradingPlatformStatusResp, err error) {
+func (api *Client) TradingPlatformStatus(ctx context.Context, r schema.TradingPlatformStatus) (resp schema.TradingPlatformStatusResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -920,7 +920,7 @@ func (api *DerivAPI) TradingPlatformStatus(ctx context.Context, r schema.Trading
 }
 
 // TradingServers Get the list of servers for a trading platform.
-func (api *DerivAPI) TradingServers(ctx context.Context, r schema.TradingServers) (resp schema.TradingServersResp, err error) {
+func (api *Client) TradingServers(ctx context.Context, r schema.TradingServers) (resp schema.TradingServersResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -928,7 +928,7 @@ func (api *DerivAPI) TradingServers(ctx context.Context, r schema.TradingServers
 }
 
 // TradingTimes Receive a list of market opening times for a given date.
-func (api *DerivAPI) TradingTimes(ctx context.Context, r schema.TradingTimes) (resp schema.TradingTimesResp, err error) {
+func (api *Client) TradingTimes(ctx context.Context, r schema.TradingTimes) (resp schema.TradingTimesResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -936,7 +936,7 @@ func (api *DerivAPI) TradingTimes(ctx context.Context, r schema.TradingTimes) (r
 }
 
 // Transaction Subscribe to transaction notifications
-func (api *DerivAPI) Transaction(ctx context.Context, r schema.Transaction) (resp schema.TransactionResp, err error) {
+func (api *Client) Transaction(ctx context.Context, r schema.Transaction) (resp schema.TransactionResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -944,7 +944,7 @@ func (api *DerivAPI) Transaction(ctx context.Context, r schema.Transaction) (res
 }
 
 // TransferBetweenAccounts This call allows transfers between accounts held by a given user. Transfer funds between your fiat and cryptocurrency accounts (for a fee). Please note that account_from should be same as current authorized account.
-func (api *DerivAPI) TransferBetweenAccounts(ctx context.Context, r schema.TransferBetweenAccounts) (resp schema.TransferBetweenAccountsResp, err error) {
+func (api *Client) TransferBetweenAccounts(ctx context.Context, r schema.TransferBetweenAccounts) (resp schema.TransferBetweenAccountsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -952,7 +952,7 @@ func (api *DerivAPI) TransferBetweenAccounts(ctx context.Context, r schema.Trans
 }
 
 // UnsubscribeEmail It unsubscribe user from the email subscription.
-func (api *DerivAPI) UnsubscribeEmail(ctx context.Context, r schema.UnsubscribeEmail) (resp schema.UnsubscribeEmailResp, err error) {
+func (api *Client) UnsubscribeEmail(ctx context.Context, r schema.UnsubscribeEmail) (resp schema.UnsubscribeEmailResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -960,7 +960,7 @@ func (api *DerivAPI) UnsubscribeEmail(ctx context.Context, r schema.UnsubscribeE
 }
 
 // VerifyEmail Verify an email address for various purposes. The system will send an email to the address containing a security code for verification.
-func (api *DerivAPI) VerifyEmail(ctx context.Context, r schema.VerifyEmail) (resp schema.VerifyEmailResp, err error) {
+func (api *Client) VerifyEmail(ctx context.Context, r schema.VerifyEmail) (resp schema.VerifyEmailResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -968,7 +968,7 @@ func (api *DerivAPI) VerifyEmail(ctx context.Context, r schema.VerifyEmail) (res
 }
 
 // WebsiteConfig Request server config.
-func (api *DerivAPI) WebsiteConfig(ctx context.Context, r schema.WebsiteConfig) (resp schema.WebsiteConfigResp, err error) {
+func (api *Client) WebsiteConfig(ctx context.Context, r schema.WebsiteConfig) (resp schema.WebsiteConfigResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
@@ -976,7 +976,7 @@ func (api *DerivAPI) WebsiteConfig(ctx context.Context, r schema.WebsiteConfig) 
 }
 
 // WebsiteStatus Request server status.
-func (api *DerivAPI) WebsiteStatus(ctx context.Context, r schema.WebsiteStatus) (resp schema.WebsiteStatusResp, err error) {
+func (api *Client) WebsiteStatus(ctx context.Context, r schema.WebsiteStatus) (resp schema.WebsiteStatusResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
