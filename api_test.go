@@ -33,14 +33,6 @@ func TestNewDerivAPI(t *testing.T) {
 		t.Errorf("Unexpected origin: got %v, want %v", api.Origin.String(), origin)
 	}
 
-	if api.AppID != appID {
-		t.Errorf("Unexpected app ID: got %v, want %v", api.AppID, appID)
-	}
-
-	if api.Lang != lang {
-		t.Errorf("Unexpected language: got %v, want %v", api.Lang, lang)
-	}
-
 	// Invalid endpoint scheme
 	endpoint = "https://example.com/ws"
 	origin = "https://example.com"
@@ -93,7 +85,7 @@ func TestNewDerivAPI(t *testing.T) {
 }
 
 func TestGetNextRequestID(t *testing.T) {
-	api := &DerivAPI{lastRequestID: 0}
+	api := &Client{lastRequestID: 0}
 	requestIDs := make(map[int]bool)
 	orderedRequestIDs := make([]int, 0)
 	numRequests := 5
@@ -459,7 +451,6 @@ func TestKeepConnectionAlive(t *testing.T) {
 	}
 
 	api.Disconnect()
-	api.keepAlive = false
 
 	if err := api.Connect(); err != nil {
 		t.Errorf("Failed to connect to mocked WebSocket server: %v", err)

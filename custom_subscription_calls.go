@@ -9,7 +9,7 @@ import (
 // SubscribeTicksHistory Get historic tick data for a given symbol.
 //
 //nolint:gocritic // don't want to break backward compatibility for now
-func (api *DerivAPI) SubscribeTicksHistory(ctx context.Context, r schema.TicksHistory) (rsp schema.TicksHistoryResp, s *Subsciption[schema.TicksHistoryResp, schema.TicksResp], err error) {
+func (api *Client) SubscribeTicksHistory(ctx context.Context, r schema.TicksHistory) (rsp schema.TicksHistoryResp, s *Subsciption[schema.TicksHistoryResp, schema.TicksResp], err error) {
 	var f schema.TicksHistorySubscribe = 1
 
 	id := api.getNextRequestID()
@@ -25,7 +25,7 @@ func (api *DerivAPI) SubscribeTicksHistory(ctx context.Context, r schema.TicksHi
 // SubscribeTicksHistory Get historic candles data for a given symbol.
 //
 //nolint:gocritic // don't want to break backward compatibility for now
-func (api *DerivAPI) SubscribeCandlesHistory(ctx context.Context, r schema.TicksHistory) (rsp schema.TicksHistoryResp, s *Subsciption[schema.TicksHistoryResp, schema.TicksHistoryResp], err error) {
+func (api *Client) SubscribeCandlesHistory(ctx context.Context, r schema.TicksHistory) (rsp schema.TicksHistoryResp, s *Subsciption[schema.TicksHistoryResp, schema.TicksHistoryResp], err error) {
 	var f schema.TicksHistorySubscribe = 1
 
 	id := api.getNextRequestID()
@@ -39,7 +39,7 @@ func (api *DerivAPI) SubscribeCandlesHistory(ctx context.Context, r schema.Ticks
 }
 
 // SubscribeTransaction Subscribe to transaction notifications
-func (api *DerivAPI) SubscribeTransaction(ctx context.Context, r schema.Transaction) (rsp schema.TransactionResp, s *Subsciption[schema.TransactionResp, schema.TransactionResp], err error) {
+func (api *Client) SubscribeTransaction(ctx context.Context, r schema.Transaction) (rsp schema.TransactionResp, s *Subsciption[schema.TransactionResp, schema.TransactionResp], err error) {
 	var f schema.TransactionSubscribe = 1
 
 	id := api.getNextRequestID()

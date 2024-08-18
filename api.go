@@ -18,14 +18,12 @@ import (
 
 const (
 	// DefaultKeepAliveInterval is the default interval for sending ping requests to keep the connection alive.
-	keepAliveInterval = 25 * time.Second
-	defaultTimeout    = 30 * time.Second
+	defaultKeepAliveInterval = 25 * time.Second
+	defaultTimeout           = 30 * time.Second
 )
 
 // DerivAPI is the main struct for the DerivAPI client
-//
-//nolint:revive // don't want to break backward compatibility for now
-type DerivAPI struct {
+type Client struct {
 	ctx               context.Context
 	Endpoint          *url.URL
 	Origin            *url.URL
@@ -33,13 +31,9 @@ type DerivAPI struct {
 	closingChan       chan int
 	reqChan           chan APIReqest
 	cancel            context.CancelFunc
-	Lang              string
-	TimeOut           time.Duration
 	keepAliveInterval time.Duration
-	AppID             int
 	lastRequestID     int64
 	connectionLock    sync.Mutex
-	keepAlive         bool
 	debugEnabled      bool
 }
 
@@ -54,7 +48,7 @@ type APIResponseReqID struct {
 	ReqID int `json:"req_id"`
 }
 
-type APIOption func(api *DerivAPI)
+type APIOption func(api *Client)
 
 // NewDerivAPI creates a new instance of DerivAPI by parsing and validating the given
 // endpoint URL, appID, language, and origin URL. It returns a pointer to a DerivAPI object
@@ -70,7 +64,7 @@ type APIOption func(api *DerivAPI)
 //   - Debug: A APIOption function to enable debug messages.
 //
 // Returns:
-//   - *DerivAPI: A pointer to a new instance of DerivAPI with the validated endpoint, appID,
+//   - *Client: A pointer to a new instance of DerivAPI with the validated endpoint, appID,
 //     language, and origin values.
 //   - error: An error if any of the validation checks fail.
 //
@@ -80,7 +74,7 @@ type APIOption func(api *DerivAPI)
 //	if err != nil {
 //		log.Fatal(err)
 //	}
-func NewDerivAPI(endpoint string, appID int, lang, origin string, opts ...APIOption) (*DerivAPI, error) {
+func NewDerivAPI(endpoint string, appID int, lang, origin string, opts ...APIOption) (*Client, error) {
 	urlEnpoint, err := url.Parse(endpoint)
 	if err != nil {
 		return nil, err
@@ -109,16 +103,13 @@ func NewDerivAPI(endpoint string, appID int, lang, origin string, opts ...APIOpt
 
 	urlEnpoint.RawQuery = query.Encode()
 
-	api := DerivAPI{
+	api := Client{
 		Origin:            urlOrigin,
 		Endpoint:          urlEnpoint,
-		AppID:             appID,
-		Lang:              lang,
 		lastRequestID:     0,
-		TimeOut:           defaultTimeout,
 		connectionLock:    sync.Mutex{},
 		closingChan:       make(chan int),
-		keepAliveInterval: keepAliveInterval,
+		keepAliveInterval: 0,
 		ctx:               context.Background(),
 	}
 
@@ -133,17 +124,17 @@ func NewDerivAPI(endpoint string, appID int, lang, origin string, opts ...APIOpt
 
 // KeepAlive option which keeps the connection alive by sending ping requests.
 // By default the websocket connection is closed after 30 seconds of inactivity.
-func KeepAlive(api *DerivAPI) {
-	api.keepAlive = true
+func KeepAlive(api *Client) {
+	api.keepAliveInterval = defaultKeepAliveInterval
 }
 
 // Debug option which enables debug messages.
-func Debug(api *DerivAPI) {
+func Debug(api *Client) {
 	api.debugEnabled = true
 }
 
 // logDebugf prints a debug message if debug is enabled.
-func (api *DerivAPI) logDebugf(format string, v ...interface{}) {
+func (api *Client) logDebugf(format string, v ...interface{}) {
 	if api.debugEnabled {
 		log.Printf(format, v...)
 	}
@@ -151,7 +142,7 @@ func (api *DerivAPI) logDebugf(format string, v ...interface{}) {
 
 // Connect establishes a WebSocket connection with the Deriv API endpoint.
 // Returns an error if it fails to connect to WebSoket server.
-func (api *DerivAPI) Connect() error {
+func (api *Client) Connect() error {
 	api.connectionLock.Lock()
 	defer api.connectionLock.Unlock()
 
@@ -187,11 +178,11 @@ func (api *DerivAPI) Connect() error {
 	go api.requestSender(ws, outputChan)
 	go api.requestMapper(respChan, outputChan, api.reqChan, api.closingChan)
 
-	if api.keepAlive {
-		go func(interval time.Duration) {
+	if api.keepAliveInterval > 0 {
+		go func() {
 			for {
 				select {
-				case <-time.After(interval):
+				case <-time.After(api.keepAliveInterval):
 					ctx, cancel := context.WithTimeout(api.ctx, defaultTimeout)
 					_, err := api.Ping(ctx, schema.Ping{Ping: 1})
 
@@ -204,7 +195,7 @@ func (api *DerivAPI) Connect() error {
 					return
 				}
 			}
-		}(api.keepAliveInterval)
+		}()
 	}
 
 	return nil
@@ -214,7 +205,7 @@ func (api *DerivAPI) Connect() error {
 // and cleans up any resources associated with the connection.
 // This function should only be called after
 // the WebSocket connection has been established using the Connect method.
-func (api *DerivAPI) Disconnect() {
+func (api *Client) Disconnect() {
 	api.connectionLock.Lock()
 	defer api.connectionLock.Unlock()
 
@@ -233,7 +224,7 @@ func (api *DerivAPI) Disconnect() {
 // requestSender sends requests to the Deriv API WebSocket server over the provided WebSocket connection.
 // It reads requests from the reqChan channel and sends them using the websocket.Message.Send method.
 // If an error occurs while sending a request, it calls the Disconnect method to gracefully disconnect from the WebSocket server.
-func (api *DerivAPI) requestSender(wsConn *websocket.Conn, reqChan chan []byte) {
+func (api *Client) requestSender(wsConn *websocket.Conn, reqChan chan []byte) {
 	defer func() {
 		api.Disconnect()
 	}()
@@ -262,7 +253,7 @@ func (api *DerivAPI) requestSender(wsConn *websocket.Conn, reqChan chan []byte) 
 // It reads responses using the websocket.Message.Receive method and sends them to the respChan channel.
 // If an error occurs while receiving a response, it calls the Disconnect method to gracefully disconnect from the WebSocket server.
 // The function returns when the WebSocket connection is closed or when an error occurs.
-func (api *DerivAPI) handleResponses(wsConn *websocket.Conn, respChan chan []byte) {
+func (api *Client) handleResponses(wsConn *websocket.Conn, respChan chan []byte) {
 	defer func() {
 		close(respChan)
 
@@ -301,7 +292,7 @@ func (api *DerivAPI) handleResponses(wsConn *websocket.Conn, respChan chan []byt
 
 // requestMapper forward requests to the Deriv API server and
 // responses from the WebSocket server to the appropriate channels.
-func (api *DerivAPI) requestMapper(respChan, outputChan chan []byte, reqChan chan APIReqest, closingChan chan int) {
+func (api *Client) requestMapper(respChan, outputChan chan []byte, reqChan chan APIReqest, closingChan chan int) {
 	responseMap := make(map[int]chan []byte)
 
 	defer func() {
@@ -342,7 +333,7 @@ func (api *DerivAPI) requestMapper(respChan, outputChan chan []byte, reqChan cha
 }
 
 // Send sends a request to the Deriv API and returns a channel that will receive the response
-func (api *DerivAPI) Send(ctx context.Context, reqID int, request any) (chan []byte, error) {
+func (api *Client) Send(ctx context.Context, reqID int, request any) (chan []byte, error) {
 	err := api.Connect()
 
 	if err != nil {
@@ -373,7 +364,7 @@ func (api *DerivAPI) Send(ctx context.Context, reqID int, request any) (chan []b
 }
 
 // SendRequest sends a request to the Deriv API and returns the response
-func (api *DerivAPI) SendRequest(ctx context.Context, reqID int, request, response any) error {
+func (api *Client) SendRequest(ctx context.Context, reqID int, request, response any) error {
 	respChan, err := api.Send(ctx, reqID, request)
 
 	if err != nil {
@@ -407,12 +398,12 @@ func (api *DerivAPI) SendRequest(ctx context.Context, reqID int, request, respon
 }
 
 // getNextRequestID returns the next request ID
-func (api *DerivAPI) getNextRequestID() int {
+func (api *Client) getNextRequestID() int {
 	return int(atomic.AddInt64(&api.lastRequestID, 1))
 }
 
 // closeRequestChannel closes the channel that receives the response for a request
-func (api *DerivAPI) closeRequestChannel(reqID int) {
+func (api *Client) closeRequestChannel(reqID int) {
 	select {
 	case api.closingChan <- reqID:
 	case <-api.ctx.Done():
