@@ -13,13 +13,13 @@ import (
 
 // Subscription represents a subscription instance.
 type Subsciption[initResp any, Resp any] struct {
+	ctx           context.Context
 	API           *DerivAPI
 	Stream        chan Resp
 	SubsciptionID string
 	reqID         int
 	statusLock    sync.Mutex
 	isActive      bool
-	ctx           context.Context
 }
 
 type SubscriptionResponse struct {

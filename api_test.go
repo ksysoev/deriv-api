@@ -285,10 +285,10 @@ func TestSendRequestTimeout(t *testing.T) {
 
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
 	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond)
-	defer cancel()
-
 	reqID := 1
 	req := schema.Ping{Ping: 1, ReqId: &reqID}
+
+	defer cancel()
 
 	var resp schema.PingResp
 

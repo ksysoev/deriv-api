@@ -193,10 +193,10 @@ func (api *DerivAPI) Connect() error {
 				select {
 				case <-time.After(interval):
 					ctx, cancel := context.WithTimeout(api.ctx, defaultTimeout)
-
-					defer cancel()
-
 					_, err := api.Ping(ctx, schema.Ping{Ping: 1})
+
+					cancel()
+
 					if err != nil {
 						return
 					}
