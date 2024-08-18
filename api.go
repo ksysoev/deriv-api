@@ -222,8 +222,6 @@ func (api *DerivAPI) Disconnect() {
 
 	api.cancel()
 
-	close(api.reqChan)
-
 	api.ws.Close(websocket.StatusNormalClosure, "disconnecting")
 	api.ws = nil
 }
@@ -333,6 +331,8 @@ func (api *DerivAPI) requestMapper(respChan, outputChan chan []byte, reqChan cha
 				close(channel)
 				delete(responseMap, reqID)
 			}
+		case <-api.ctx.Done():
+			return
 		}
 	}
 }
@@ -374,6 +374,8 @@ func (api *DerivAPI) SendRequest(reqID int, request, response any) error {
 	defer api.closeRequestChannel(reqID)
 
 	select {
+	case <-api.ctx.Done():
+		return fmt.Errorf("connection closed")
 	case <-time.After(api.TimeOut):
 		api.logDebugf("Timeout waiting for response for request %d", reqID)
 		return fmt.Errorf("timeout")
@@ -403,5 +405,8 @@ func (api *DerivAPI) getNextRequestID() int {
 
 // closeRequestChannel closes the channel that receives the response for a request
 func (api *DerivAPI) closeRequestChannel(reqID int) {
-	api.closingChan <- reqID
+	select {
+	case api.closingChan <- reqID:
+	case <-api.ctx.Done():
+	}
 }
