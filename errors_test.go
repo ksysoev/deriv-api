@@ -24,7 +24,7 @@ func TestAPIError_Error(t *testing.T) {
 }
 
 func TestParseError_ValidResponse(t *testing.T) {
-	errorResponse := APIErrorResponse{
+	errorResponse := apiErrorResponse{
 		Error: APIError{
 			Code:    "test-code",
 			Message: "test-message",
@@ -67,7 +67,7 @@ func TestParseError_EmptyErrorResponse(t *testing.T) {
 }
 
 func TestParseError_EmptyAPIError(t *testing.T) {
-	errorResponse := APIErrorResponse{
+	errorResponse := apiErrorResponse{
 		Error: APIError{},
 	}
 

@@ -34,18 +34,18 @@ func (e *APIError) ParseDetails(v any) error {
 	return json.Unmarshal(*e.Details, v)
 }
 
-// APIErrorResponse represents an error response returned by the Deriv API service.
-type APIErrorResponse struct {
+// apiErrorResponse represents an error response returned by the Deriv API service.
+type apiErrorResponse struct {
 	// Error is the APIError associated with the response.
 	Error APIError `json:"error"`
 }
 
 // parseError parses a JSON error response from the Deriv API service into an error.
-// If the response is not a valid JSON-encoded APIErrorResponse, an error is returned.
-// If the APIErrorResponse contains a non-empty APIError, it is returned as an error.
+// If the response is not a valid JSON-encoded apiErrorResponse, an error is returned.
+// If the apiErrorResponse contains a non-empty APIError, it is returned as an error.
 // Otherwise, nil is returned.
 func parseError(rawResponse []byte) error {
-	var errorResponse APIErrorResponse
+	var errorResponse apiErrorResponse
 
 	err := json.Unmarshal(rawResponse, &errorResponse)
 	if err != nil {
