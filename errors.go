@@ -2,6 +2,11 @@ package deriv
 
 import (
 	"encoding/json"
+	"fmt"
+)
+
+var (
+	ErrConnectionClosed = fmt.Errorf("connection closed")
 )
 
 // APIError represents an error returned by the Deriv API service.

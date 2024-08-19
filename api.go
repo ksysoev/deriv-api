@@ -357,7 +357,7 @@ func (api *Client) Send(ctx context.Context, reqID int, request any) (chan []byt
 	case <-ctx.Done():
 		return nil, ctx.Err()
 	case <-api.ctx.Done():
-		return nil, fmt.Errorf("connection closed")
+		return nil, ErrConnectionClosed
 	case api.reqChan <- req:
 		return respChan, nil
 	}
@@ -375,13 +375,13 @@ func (api *Client) SendRequest(ctx context.Context, reqID int, request, response
 
 	select {
 	case <-api.ctx.Done():
-		return fmt.Errorf("connection closed")
+		return ErrConnectionClosed
 	case <-ctx.Done():
 		return ctx.Err()
 	case responseJSON, ok := <-respChan:
 		if !ok {
 			api.logDebugf("Connection closed while waiting for response for request %d", reqID)
-			return fmt.Errorf("connection closed")
+			return ErrConnectionClosed
 		}
 
 		if err := parseError(responseJSON); err != nil {

@@ -125,7 +125,7 @@ func (s *Subsciption[initResp, Resp]) Start(reqID int, request any) (initResp, e
 		if !ok {
 			s.API.logDebugf("Connection closed while waiting for response for request %d", reqID)
 
-			return resp, fmt.Errorf("connection closed")
+			return resp, ErrConnectionClosed
 		}
 
 		subResp, err := parseSubsciption(initResponse)
