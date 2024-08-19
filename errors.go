@@ -15,14 +15,23 @@ var (
 
 // APIError represents an error returned by the Deriv API service.
 type APIError struct {
-	Details map[string]interface{} `json:"details"`
-	Code    string                 `json:"code"`
-	Message string                 `json:"message"`
+	Details *json.RawMessage `json:"details"`
+	Code    string           `json:"code"`
+	Message string           `json:"message"`
 }
 
 // Error returns the error message associated with the APIError.
 func (e *APIError) Error() string {
 	return e.Message
+}
+
+// ParseDetails parses the details field of the APIError into the provided value.
+func (e *APIError) ParseDetails(v any) error {
+	if e.Details == nil {
+		return nil
+	}
+
+	return json.Unmarshal(*e.Details, v)
 }
 
 // APIErrorResponse represents an error response returned by the Deriv API service.
