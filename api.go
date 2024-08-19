@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/url"
 	"strconv"
@@ -86,15 +85,15 @@ func NewDerivAPI(endpoint string, appID int, lang, origin string, opts ...APIOpt
 	}
 
 	if urlEnpoint.Scheme != "wss" && urlEnpoint.Scheme != "ws" {
-		return nil, fmt.Errorf("invalid endpoint scheme")
+		return nil, ErrInvalidSchema
 	}
 
 	if appID < 1 {
-		return nil, fmt.Errorf("invalid app id")
+		return nil, ErrInvalidAppID
 	}
 
 	if lang == "" || len(lang) != 2 {
-		return nil, fmt.Errorf("invalid language")
+		return nil, ErrInvalidLanguage
 	}
 
 	query := urlEnpoint.Query()

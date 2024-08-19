@@ -6,7 +6,11 @@ import (
 )
 
 var (
-	ErrConnectionClosed = fmt.Errorf("connection closed")
+	ErrConnectionClosed    = fmt.Errorf("connection closed")
+	ErrEmptySubscriptionID = fmt.Errorf("subscription ID is empty")
+	ErrInvalidSchema       = fmt.Errorf("invalid endpoint scheme")
+	ErrInvalidAppID        = fmt.Errorf("invalid app ID")
+	ErrInvalidLanguage     = fmt.Errorf("invalid language")
 )
 
 // APIError represents an error returned by the Deriv API service.

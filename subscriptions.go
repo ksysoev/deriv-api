@@ -5,7 +5,6 @@ package deriv
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"sync"
 
 	"github.com/ksysoev/deriv-api/schema"
@@ -49,7 +48,7 @@ func parseSubsciption(rawResponse []byte) (SubscriptionResponse, error) {
 	}
 
 	if sub.Subscription.ID == "" {
-		return sub, fmt.Errorf("subscription ID is empty")
+		return sub, ErrEmptySubscriptionID
 	}
 
 	return sub, nil

@@ -3,7 +3,6 @@ package deriv
 import (
 	"context"
 	"errors"
-	"fmt"
 	"reflect"
 	"testing"
 	"time"
@@ -57,7 +56,7 @@ func TestParseSubscription_EmptyInput(t *testing.T) {
 
 func TestParseSubscription_EmptySubscriptionData(t *testing.T) {
 	input := []byte(`{}`)
-	expectedErr := fmt.Errorf("subscription ID is empty")
+	expectedErr := ErrEmptySubscriptionID
 
 	_, err := parseSubsciption(input)
 	if err == nil {
