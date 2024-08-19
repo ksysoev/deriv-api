@@ -6,6 +6,27 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Will return a list payment methods available for the given country. If the
+// request is authenticated the client's residence country will be used.
+type PaymentMethods struct {
+	// [Optional] 2-letter country code (ISO standard).
+	Country *string `json:"country,omitempty"`
+
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough PaymentMethodsPassthrough `json:"passthrough,omitempty"`
+
+	// Must be `1`
+	PaymentMethods PaymentMethodsPaymentMethods `json:"payment_methods"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type PaymentMethodsPassthrough map[string]interface{}
@@ -36,34 +57,13 @@ func (j *PaymentMethodsPaymentMethods) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Will return a list payment methods available for the given country. If the
-// request is authenticated the client's residence country will be used.
-type PaymentMethods struct {
-	// [Optional] 2-letter country code (ISO standard).
-	Country *string `json:"country,omitempty"`
-
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough PaymentMethodsPassthrough `json:"passthrough,omitempty"`
-
-	// Must be `1`
-	PaymentMethods PaymentMethodsPaymentMethods `json:"payment_methods"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *PaymentMethods) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["payment_methods"]; !ok || v == nil {
+	if _, ok := raw["payment_methods"]; raw != nil && !ok {
 		return fmt.Errorf("field payment_methods in PaymentMethods: required")
 	}
 	type Plain PaymentMethods

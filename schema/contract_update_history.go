@@ -6,6 +6,29 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Request for contract update history.
+type ContractUpdateHistory struct {
+	// Internal unique contract identifier.
+	ContractId int `json:"contract_id"`
+
+	// Must be `1`
+	ContractUpdateHistory ContractUpdateHistoryContractUpdateHistory `json:"contract_update_history"`
+
+	// [Optional] Maximum number of historical updates to receive.
+	Limit float64 `json:"limit,omitempty"`
+
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough ContractUpdateHistoryPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 type ContractUpdateHistoryContractUpdateHistory int
 
 var enumValues_ContractUpdateHistoryContractUpdateHistory = []interface{}{
@@ -32,29 +55,6 @@ func (j *ContractUpdateHistoryContractUpdateHistory) UnmarshalJSON(b []byte) err
 	return nil
 }
 
-// Request for contract update history.
-type ContractUpdateHistory struct {
-	// Internal unique contract identifier.
-	ContractId int `json:"contract_id"`
-
-	// Must be `1`
-	ContractUpdateHistory ContractUpdateHistoryContractUpdateHistory `json:"contract_update_history"`
-
-	// [Optional] Maximum number of historical updates to receive.
-	Limit float64 `json:"limit,omitempty"`
-
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough ContractUpdateHistoryPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type ContractUpdateHistoryPassthrough map[string]interface{}
@@ -65,10 +65,10 @@ func (j *ContractUpdateHistory) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["contract_id"]; !ok || v == nil {
+	if _, ok := raw["contract_id"]; raw != nil && !ok {
 		return fmt.Errorf("field contract_id in ContractUpdateHistory: required")
 	}
-	if v, ok := raw["contract_update_history"]; !ok || v == nil {
+	if _, ok := raw["contract_update_history"]; raw != nil && !ok {
 		return fmt.Errorf("field contract_update_history in ContractUpdateHistory: required")
 	}
 	type Plain ContractUpdateHistory

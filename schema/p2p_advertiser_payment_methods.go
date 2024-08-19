@@ -6,6 +6,32 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Manage or list P2P advertiser payment methods.
+type P2PAdvertiserPaymentMethods struct {
+	// Contains new payment method entries.
+	Create []P2PAdvertiserPaymentMethodsCreateElem `json:"create,omitempty"`
+
+	// Contains payment methods to delete.
+	Delete []float64 `json:"delete,omitempty"`
+
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// Must be 1
+	P2PAdvertiserPaymentMethods P2PAdvertiserPaymentMethodsP2PAdvertiserPaymentMethods `json:"p2p_advertiser_payment_methods"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough P2PAdvertiserPaymentMethodsPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// Contains payment methods to update.
+	Update P2PAdvertiserPaymentMethodsUpdate `json:"update,omitempty"`
+}
+
 type P2PAdvertiserPaymentMethodsCreateElem struct {
 	// Payment method identifer.
 	Method string `json:"method"`
@@ -17,7 +43,7 @@ func (j *P2PAdvertiserPaymentMethodsCreateElem) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["method"]; !ok || v == nil {
+	if _, ok := raw["method"]; raw != nil && !ok {
 		return fmt.Errorf("field method in P2PAdvertiserPaymentMethodsCreateElem: required")
 	}
 	type Plain P2PAdvertiserPaymentMethodsCreateElem
@@ -55,32 +81,6 @@ func (j *P2PAdvertiserPaymentMethodsP2PAdvertiserPaymentMethods) UnmarshalJSON(b
 	return nil
 }
 
-// Manage or list P2P advertiser payment methods.
-type P2PAdvertiserPaymentMethods struct {
-	// Contains new payment method entries.
-	Create []P2PAdvertiserPaymentMethodsCreateElem `json:"create,omitempty"`
-
-	// Contains payment methods to delete.
-	Delete []float64 `json:"delete,omitempty"`
-
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// Must be 1
-	P2PAdvertiserPaymentMethods P2PAdvertiserPaymentMethodsP2PAdvertiserPaymentMethods `json:"p2p_advertiser_payment_methods"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough P2PAdvertiserPaymentMethodsPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// Contains payment methods to update.
-	Update P2PAdvertiserPaymentMethodsUpdate `json:"update,omitempty"`
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type P2PAdvertiserPaymentMethodsPassthrough map[string]interface{}
@@ -94,7 +94,7 @@ func (j *P2PAdvertiserPaymentMethods) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["p2p_advertiser_payment_methods"]; !ok || v == nil {
+	if _, ok := raw["p2p_advertiser_payment_methods"]; raw != nil && !ok {
 		return fmt.Errorf("field p2p_advertiser_payment_methods in P2PAdvertiserPaymentMethods: required")
 	}
 	type Plain P2PAdvertiserPaymentMethods

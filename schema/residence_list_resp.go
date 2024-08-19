@@ -29,6 +29,30 @@ type ResidenceListRespMsgType string
 
 const ResidenceListRespMsgTypeResidenceList ResidenceListRespMsgType = "residence_list"
 
+var enumValues_ResidenceListRespMsgType = []interface{}{
+	"residence_list",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ResidenceListRespMsgType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ResidenceListRespMsgType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ResidenceListRespMsgType, v)
+	}
+	*j = ResidenceListRespMsgType(v)
+	return nil
+}
+
 type ResidenceListRespResidenceListElem struct {
 	// Flag which indicates whether self declaration is required for account opening
 	AccountOpeningSelfDeclarationRequired *ResidenceListRespResidenceListElemAccountOpeningSelfDeclarationRequired `json:"account_opening_self_declaration_required,omitempty"`
@@ -68,6 +92,31 @@ type ResidenceListRespResidenceListElem struct {
 }
 
 type ResidenceListRespResidenceListElemAccountOpeningSelfDeclarationRequired int
+
+var enumValues_ResidenceListRespResidenceListElemAccountOpeningSelfDeclarationRequired = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ResidenceListRespResidenceListElemAccountOpeningSelfDeclarationRequired) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ResidenceListRespResidenceListElemAccountOpeningSelfDeclarationRequired {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ResidenceListRespResidenceListElemAccountOpeningSelfDeclarationRequired, v)
+	}
+	*j = ResidenceListRespResidenceListElemAccountOpeningSelfDeclarationRequired(v)
+	return nil
+}
 
 // Common Reporting Standard
 type ResidenceListRespResidenceListElemCommonReportingStandard struct {
@@ -146,7 +195,57 @@ type ResidenceListRespResidenceListElemIdentityServicesIdvDocumentsSupported map
 
 type ResidenceListRespResidenceListElemIdentityServicesIdvHasVisualSample int
 
+var enumValues_ResidenceListRespResidenceListElemIdentityServicesIdvHasVisualSample = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ResidenceListRespResidenceListElemIdentityServicesIdvHasVisualSample) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ResidenceListRespResidenceListElemIdentityServicesIdvHasVisualSample {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ResidenceListRespResidenceListElemIdentityServicesIdvHasVisualSample, v)
+	}
+	*j = ResidenceListRespResidenceListElemIdentityServicesIdvHasVisualSample(v)
+	return nil
+}
+
 type ResidenceListRespResidenceListElemIdentityServicesIdvIsCountrySupported int
+
+var enumValues_ResidenceListRespResidenceListElemIdentityServicesIdvIsCountrySupported = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ResidenceListRespResidenceListElemIdentityServicesIdvIsCountrySupported) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ResidenceListRespResidenceListElemIdentityServicesIdvIsCountrySupported {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ResidenceListRespResidenceListElemIdentityServicesIdvIsCountrySupported, v)
+	}
+	*j = ResidenceListRespResidenceListElemIdentityServicesIdvIsCountrySupported(v)
+	return nil
+}
 
 // Onfido configuration
 type ResidenceListRespResidenceListElemIdentityServicesOnfido struct {
@@ -161,6 +260,31 @@ type ResidenceListRespResidenceListElemIdentityServicesOnfido struct {
 type ResidenceListRespResidenceListElemIdentityServicesOnfidoDocumentsSupported map[string]interface{}
 
 type ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported int
+
+var enumValues_ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported, v)
+	}
+	*j = ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported(v)
+	return nil
+}
 
 // Jurisdiction Risk Assessment
 type ResidenceListRespResidenceListElemJurisdictionRiskAssessment struct {
@@ -203,84 +327,6 @@ type ResidenceListRespResidenceListElemJurisdictionRiskAssessmentTurnover struct
 
 type ResidenceListRespResidenceListElemPartnerSignup int
 
-type ResidenceListRespResidenceListElemWalletSignup int
-
-var enumValues_ResidenceListRespMsgType = []interface{}{
-	"residence_list",
-}
-var enumValues_ResidenceListRespResidenceListElemAccountOpeningSelfDeclarationRequired = []interface{}{
-	0,
-	1,
-}
-var enumValues_ResidenceListRespResidenceListElemIdentityServicesIdvHasVisualSample = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ResidenceListRespResidenceListElemIdentityServicesIdvHasVisualSample) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ResidenceListRespResidenceListElemIdentityServicesIdvHasVisualSample {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ResidenceListRespResidenceListElemIdentityServicesIdvHasVisualSample, v)
-	}
-	*j = ResidenceListRespResidenceListElemIdentityServicesIdvHasVisualSample(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ResidenceListRespResidenceListElemAccountOpeningSelfDeclarationRequired) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ResidenceListRespResidenceListElemAccountOpeningSelfDeclarationRequired {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ResidenceListRespResidenceListElemAccountOpeningSelfDeclarationRequired, v)
-	}
-	*j = ResidenceListRespResidenceListElemAccountOpeningSelfDeclarationRequired(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ResidenceListRespResidenceListElemIdentityServicesIdvIsCountrySupported) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ResidenceListRespResidenceListElemIdentityServicesIdvIsCountrySupported {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ResidenceListRespResidenceListElemIdentityServicesIdvIsCountrySupported, v)
-	}
-	*j = ResidenceListRespResidenceListElemIdentityServicesIdvIsCountrySupported(v)
-	return nil
-}
-
-var enumValues_ResidenceListRespResidenceListElemIdentityServicesIdvIsCountrySupported = []interface{}{
-	0,
-	1,
-}
 var enumValues_ResidenceListRespResidenceListElemPartnerSignup = []interface{}{
 	0,
 	1,
@@ -306,25 +352,7 @@ func (j *ResidenceListRespResidenceListElemPartnerSignup) UnmarshalJSON(b []byte
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported, v)
-	}
-	*j = ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported(v)
-	return nil
-}
+type ResidenceListRespResidenceListElemWalletSignup int
 
 var enumValues_ResidenceListRespResidenceListElemWalletSignup = []interface{}{
 	1,
@@ -351,40 +379,15 @@ func (j *ResidenceListRespResidenceListElemWalletSignup) UnmarshalJSON(b []byte)
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *ResidenceListRespMsgType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ResidenceListRespMsgType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ResidenceListRespMsgType, v)
-	}
-	*j = ResidenceListRespMsgType(v)
-	return nil
-}
-
-var enumValues_ResidenceListRespResidenceListElemIdentityServicesOnfidoIsCountrySupported = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
 func (j *ResidenceListResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in ResidenceListResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in ResidenceListResp: required")
 	}
 	type Plain ResidenceListResp

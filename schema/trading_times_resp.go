@@ -30,6 +30,30 @@ type TradingTimesRespMsgType string
 
 const TradingTimesRespMsgTypeTradingTimes TradingTimesRespMsgType = "trading_times"
 
+var enumValues_TradingTimesRespMsgType = []interface{}{
+	"trading_times",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *TradingTimesRespMsgType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_TradingTimesRespMsgType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingTimesRespMsgType, v)
+	}
+	*j = TradingTimesRespMsgType(v)
+	return nil
+}
+
 // The trading times structure is a hierarchy as follows: Market -> SubMarket ->
 // Underlyings
 type TradingTimesRespTradingTimes struct {
@@ -75,6 +99,24 @@ type TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTimes map[s
 
 type TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElem string
 
+const TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElemFri TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElem = "Fri"
+const TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElemMon TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElem = "Mon"
+const TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElemSat TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElem = "Sat"
+const TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElemSun TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElem = "Sun"
+const TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElemThu TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElem = "Thu"
+const TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElemTue TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElem = "Tue"
+const TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElemWed TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElem = "Wed"
+
+var enumValues_TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElem = []interface{}{
+	"Sun",
+	"Mon",
+	"Tue",
+	"Wed",
+	"Thu",
+	"Fri",
+	"Sat",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElem) UnmarshalJSON(b []byte) error {
 	var v string
@@ -95,23 +137,16 @@ func (j *TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTrading
 	return nil
 }
 
-const TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElemTue TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElem = "Tue"
-const TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElemWed TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElem = "Wed"
-const TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElemThu TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElem = "Thu"
-const TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElemFri TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElem = "Fri"
-const TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElemSat TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElem = "Sat"
-const TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElemSun TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElem = "Sun"
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElem) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["name"]; !ok || v == nil {
+	if _, ok := raw["name"]; raw != nil && !ok {
 		return fmt.Errorf("field name in TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElem: required")
 	}
-	if v, ok := raw["symbol"]; !ok || v == nil {
+	if _, ok := raw["symbol"]; raw != nil && !ok {
 		return fmt.Errorf("field symbol in TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElem: required")
 	}
 	type Plain TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElem
@@ -123,18 +158,16 @@ func (j *TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElem) Unmar
 	return nil
 }
 
-const TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElemMon TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElem = "Mon"
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TradingTimesRespTradingTimesMarketsElemSubmarketsElem) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["name"]; !ok || v == nil {
+	if _, ok := raw["name"]; raw != nil && !ok {
 		return fmt.Errorf("field name in TradingTimesRespTradingTimesMarketsElemSubmarketsElem: required")
 	}
-	if v, ok := raw["symbols"]; !ok || v == nil {
+	if _, ok := raw["symbols"]; raw != nil && !ok {
 		return fmt.Errorf("field symbols in TradingTimesRespTradingTimesMarketsElemSubmarketsElem: required")
 	}
 	type Plain TradingTimesRespTradingTimesMarketsElemSubmarketsElem
@@ -146,23 +179,13 @@ func (j *TradingTimesRespTradingTimesMarketsElemSubmarketsElem) UnmarshalJSON(b 
 	return nil
 }
 
-var enumValues_TradingTimesRespTradingTimesMarketsElemSubmarketsElemSymbolsElemTradingDaysElem = []interface{}{
-	"Sun",
-	"Mon",
-	"Tue",
-	"Wed",
-	"Thu",
-	"Fri",
-	"Sat",
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TradingTimesRespTradingTimesMarketsElem) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["name"]; !ok || v == nil {
+	if _, ok := raw["name"]; raw != nil && !ok {
 		return fmt.Errorf("field name in TradingTimesRespTradingTimesMarketsElem: required")
 	}
 	type Plain TradingTimesRespTradingTimesMarketsElem
@@ -175,32 +198,12 @@ func (j *TradingTimesRespTradingTimesMarketsElem) UnmarshalJSON(b []byte) error 
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *TradingTimesRespMsgType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_TradingTimesRespMsgType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingTimesRespMsgType, v)
-	}
-	*j = TradingTimesRespMsgType(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
 func (j *TradingTimesRespTradingTimes) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["markets"]; !ok || v == nil {
+	if _, ok := raw["markets"]; raw != nil && !ok {
 		return fmt.Errorf("field markets in TradingTimesRespTradingTimes: required")
 	}
 	type Plain TradingTimesRespTradingTimes
@@ -212,20 +215,16 @@ func (j *TradingTimesRespTradingTimes) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-var enumValues_TradingTimesRespMsgType = []interface{}{
-	"trading_times",
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TradingTimesResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in TradingTimesResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in TradingTimesResp: required")
 	}
 	type Plain TradingTimesResp

@@ -6,6 +6,30 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Get latest price (and other information) for a contract in the user's portfolio
+type ProposalOpenContract struct {
+	// [Optional] Contract ID received from a `portfolio` request. If not set, you
+	// will receive stream of all open contracts.
+	ContractId *int `json:"contract_id,omitempty"`
+
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough ProposalOpenContractPassthrough `json:"passthrough,omitempty"`
+
+	// Must be `1`
+	ProposalOpenContract ProposalOpenContractProposalOpenContract `json:"proposal_open_contract"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// [Optional] `1` to stream.
+	Subscribe *ProposalOpenContractSubscribe `json:"subscribe,omitempty"`
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type ProposalOpenContractPassthrough map[string]interface{}
@@ -62,37 +86,13 @@ func (j *ProposalOpenContractSubscribe) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Get latest price (and other information) for a contract in the user's portfolio
-type ProposalOpenContract struct {
-	// [Optional] Contract ID received from a `portfolio` request. If not set, you
-	// will receive stream of all open contracts.
-	ContractId *int `json:"contract_id,omitempty"`
-
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough ProposalOpenContractPassthrough `json:"passthrough,omitempty"`
-
-	// Must be `1`
-	ProposalOpenContract ProposalOpenContractProposalOpenContract `json:"proposal_open_contract"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// [Optional] `1` to stream.
-	Subscribe *ProposalOpenContractSubscribe `json:"subscribe,omitempty"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ProposalOpenContract) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["proposal_open_contract"]; !ok || v == nil {
+	if _, ok := raw["proposal_open_contract"]; raw != nil && !ok {
 		return fmt.Errorf("field proposal_open_contract in ProposalOpenContract: required")
 	}
 	type Plain ProposalOpenContract

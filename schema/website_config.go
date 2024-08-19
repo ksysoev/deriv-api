@@ -6,6 +6,19 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Request server config.
+type WebsiteConfig struct {
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough WebsiteConfigPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// Must be `1`
+	WebsiteConfig WebsiteConfigWebsiteConfig `json:"website_config"`
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type WebsiteConfigPassthrough map[string]interface{}
@@ -36,26 +49,13 @@ func (j *WebsiteConfigWebsiteConfig) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Request server config.
-type WebsiteConfig struct {
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough WebsiteConfigPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// Must be `1`
-	WebsiteConfig WebsiteConfigWebsiteConfig `json:"website_config"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *WebsiteConfig) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["website_config"]; !ok || v == nil {
+	if _, ok := raw["website_config"]; raw != nil && !ok {
 		return fmt.Errorf("field website_config in WebsiteConfig: required")
 	}
 	type Plain WebsiteConfig

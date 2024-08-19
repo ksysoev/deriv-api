@@ -6,6 +6,39 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Retrieves the exchange rate from a base currency to a target currency supported
+// by the system.
+type ExchangeRates struct {
+	// Base currency (can be obtained from `payout_currencies` call)
+	BaseCurrency string `json:"base_currency"`
+
+	// Must be `1`
+	ExchangeRates ExchangeRatesExchangeRates `json:"exchange_rates"`
+
+	// [Optional] 1 - Request for ask and bid rates along with the spot rate. Only
+	// available if target_currency is provided.
+	IncludeSpread *ExchangeRatesIncludeSpread `json:"include_spread,omitempty"`
+
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough ExchangeRatesPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// [Optional] 1 - to initiate a realtime stream of exchange rates relative to base
+	// currency.
+	Subscribe *ExchangeRatesSubscribe `json:"subscribe,omitempty"`
+
+	// [Optional] Target currency for the exchange rate. If subscribe is set,
+	// target_currency must be specified as well.
+	TargetCurrency *string `json:"target_currency,omitempty"`
+}
+
 type ExchangeRatesExchangeRates int
 
 var enumValues_ExchangeRatesExchangeRates = []interface{}{
@@ -88,49 +121,16 @@ func (j *ExchangeRatesSubscribe) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Retrieves the exchange rate from a base currency to a target currency supported
-// by the system.
-type ExchangeRates struct {
-	// Base currency (can be obtained from `payout_currencies` call)
-	BaseCurrency string `json:"base_currency"`
-
-	// Must be `1`
-	ExchangeRates ExchangeRatesExchangeRates `json:"exchange_rates"`
-
-	// [Optional] 1 - Request for ask and bid rates along with the spot rate. Only
-	// available if target_currency is provided.
-	IncludeSpread *ExchangeRatesIncludeSpread `json:"include_spread,omitempty"`
-
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough ExchangeRatesPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// [Optional] 1 - to initiate a realtime stream of exchange rates relative to base
-	// currency.
-	Subscribe *ExchangeRatesSubscribe `json:"subscribe,omitempty"`
-
-	// [Optional] Target currency for the exchange rate. If subscribe is set,
-	// target_currency must be specified as well.
-	TargetCurrency *string `json:"target_currency,omitempty"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ExchangeRates) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["base_currency"]; !ok || v == nil {
+	if _, ok := raw["base_currency"]; raw != nil && !ok {
 		return fmt.Errorf("field base_currency in ExchangeRates: required")
 	}
-	if v, ok := raw["exchange_rates"]; !ok || v == nil {
+	if _, ok := raw["exchange_rates"]; raw != nil && !ok {
 		return fmt.Errorf("field exchange_rates in ExchangeRates: required")
 	}
 	type Plain ExchangeRates

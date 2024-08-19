@@ -6,6 +6,28 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Verifies the email for the user using verification code passed in the request
+// object
+type ConfirmEmail struct {
+	// Must be `1`
+	ConfirmEmail ConfirmEmailConfirmEmail `json:"confirm_email"`
+
+	// Boolean value: 1 or 0, indicating whether the client has given consent for
+	// marketing emails.
+	EmailConsent ConfirmEmailEmailConsent `json:"email_consent"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough ConfirmEmailPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// Email verification code (received from a `verify_email` call, which must be
+	// done first).
+	VerificationCode string `json:"verification_code"`
+}
+
 type ConfirmEmailConfirmEmail int
 
 var enumValues_ConfirmEmailConfirmEmail = []interface{}{
@@ -59,28 +81,6 @@ func (j *ConfirmEmailEmailConsent) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Verifies the email for the user using verification code passed in the request
-// object
-type ConfirmEmail struct {
-	// Must be `1`
-	ConfirmEmail ConfirmEmailConfirmEmail `json:"confirm_email"`
-
-	// Boolean value: 1 or 0, indicating whether the client has given consent for
-	// marketing emails.
-	EmailConsent ConfirmEmailEmailConsent `json:"email_consent"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough ConfirmEmailPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// Email verification code (received from a `verify_email` call, which must be
-	// done first).
-	VerificationCode string `json:"verification_code"`
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type ConfirmEmailPassthrough map[string]interface{}
@@ -91,13 +91,13 @@ func (j *ConfirmEmail) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["confirm_email"]; !ok || v == nil {
+	if _, ok := raw["confirm_email"]; raw != nil && !ok {
 		return fmt.Errorf("field confirm_email in ConfirmEmail: required")
 	}
-	if v, ok := raw["email_consent"]; !ok || v == nil {
+	if _, ok := raw["email_consent"]; raw != nil && !ok {
 		return fmt.Errorf("field email_consent in ConfirmEmail: required")
 	}
-	if v, ok := raw["verification_code"]; !ok || v == nil {
+	if _, ok := raw["verification_code"]; raw != nil && !ok {
 		return fmt.Errorf("field verification_code in ConfirmEmail: required")
 	}
 	type Plain ConfirmEmail

@@ -6,6 +6,23 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Logout the session
+type Logout struct {
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// Must be `1`
+	Logout LogoutLogout `json:"logout"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough LogoutPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 type LogoutLogout int
 
 var enumValues_LogoutLogout = []interface{}{
@@ -32,23 +49,6 @@ func (j *LogoutLogout) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Logout the session
-type Logout struct {
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// Must be `1`
-	Logout LogoutLogout `json:"logout"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough LogoutPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type LogoutPassthrough map[string]interface{}
@@ -59,7 +59,7 @@ func (j *Logout) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["logout"]; !ok || v == nil {
+	if _, ok := raw["logout"]; raw != nil && !ok {
 		return fmt.Errorf("field logout in Logout: required")
 	}
 	type Plain Logout

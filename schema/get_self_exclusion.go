@@ -6,6 +6,25 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Allows users to exclude themselves from the website for certain periods of time,
+// or to set limits on their trading activities. This facility is a regulatory
+// requirement for certain Landing Companies.
+type GetSelfExclusion struct {
+	// Must be `1`
+	GetSelfExclusion GetSelfExclusionGetSelfExclusion `json:"get_self_exclusion"`
+
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough GetSelfExclusionPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 type GetSelfExclusionGetSelfExclusion int
 
 var enumValues_GetSelfExclusionGetSelfExclusion = []interface{}{
@@ -32,25 +51,6 @@ func (j *GetSelfExclusionGetSelfExclusion) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Allows users to exclude themselves from the website for certain periods of time,
-// or to set limits on their trading activities. This facility is a regulatory
-// requirement for certain Landing Companies.
-type GetSelfExclusion struct {
-	// Must be `1`
-	GetSelfExclusion GetSelfExclusionGetSelfExclusion `json:"get_self_exclusion"`
-
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough GetSelfExclusionPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type GetSelfExclusionPassthrough map[string]interface{}
@@ -61,7 +61,7 @@ func (j *GetSelfExclusion) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["get_self_exclusion"]; !ok || v == nil {
+	if _, ok := raw["get_self_exclusion"]; raw != nil && !ok {
 		return fmt.Errorf("field get_self_exclusion in GetSelfExclusion: required")
 	}
 	type Plain GetSelfExclusion

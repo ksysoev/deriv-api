@@ -41,6 +41,31 @@ type TradingServersAccountType string
 const TradingServersAccountTypeDemo TradingServersAccountType = "demo"
 const TradingServersAccountTypeReal TradingServersAccountType = "real"
 
+var enumValues_TradingServersAccountType = []interface{}{
+	"demo",
+	"real",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *TradingServersAccountType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_TradingServersAccountType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingServersAccountType, v)
+	}
+	*j = TradingServersAccountType(v)
+	return nil
+}
+
 type TradingServersEnvironment string
 
 const TradingServersEnvironmentAll TradingServersEnvironment = "all"
@@ -49,27 +74,6 @@ const TradingServersEnvironmentDerivServer TradingServersEnvironment = "Deriv-Se
 const TradingServersEnvironmentDerivServer02 TradingServersEnvironment = "Deriv-Server-02"
 const TradingServersEnvironmentDerivServer03 TradingServersEnvironment = "Deriv-Server-03"
 
-type TradingServersMarketType string
-
-const TradingServersMarketTypeAll TradingServersMarketType = "all"
-const TradingServersMarketTypeFinancial TradingServersMarketType = "financial"
-const TradingServersMarketTypeSynthetic TradingServersMarketType = "synthetic"
-
-// [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
-type TradingServersPassthrough map[string]interface{}
-
-type TradingServersPlatform string
-
-const TradingServersPlatformDxtrade TradingServersPlatform = "dxtrade"
-const TradingServersPlatformMt5 TradingServersPlatform = "mt5"
-
-type TradingServersTradingServers int
-
-var enumValues_TradingServersAccountType = []interface{}{
-	"demo",
-	"real",
-}
 var enumValues_TradingServersEnvironment = []interface{}{
 	"all",
 	"Deriv-Demo",
@@ -77,35 +81,37 @@ var enumValues_TradingServersEnvironment = []interface{}{
 	"Deriv-Server-02",
 	"Deriv-Server-03",
 }
-var enumValues_TradingServersMarketType = []interface{}{
-	"all",
-	"financial",
-	"synthetic",
-}
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *TradingServersPlatform) UnmarshalJSON(b []byte) error {
+func (j *TradingServersEnvironment) UnmarshalJSON(b []byte) error {
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_TradingServersPlatform {
+	for _, expected := range enumValues_TradingServersEnvironment {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingServersPlatform, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingServersEnvironment, v)
 	}
-	*j = TradingServersPlatform(v)
+	*j = TradingServersEnvironment(v)
 	return nil
 }
 
-var enumValues_TradingServersPlatform = []interface{}{
-	"mt5",
-	"dxtrade",
+type TradingServersMarketType string
+
+const TradingServersMarketTypeAll TradingServersMarketType = "all"
+const TradingServersMarketTypeFinancial TradingServersMarketType = "financial"
+const TradingServersMarketTypeSynthetic TradingServersMarketType = "synthetic"
+
+var enumValues_TradingServersMarketType = []interface{}{
+	"all",
+	"financial",
+	"synthetic",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -128,25 +134,41 @@ func (j *TradingServersMarketType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// [Optional] Used to pass data through the websocket, which may be retrieved via
+// the `echo_req` output field.
+type TradingServersPassthrough map[string]interface{}
+
+type TradingServersPlatform string
+
+const TradingServersPlatformDxtrade TradingServersPlatform = "dxtrade"
+const TradingServersPlatformMt5 TradingServersPlatform = "mt5"
+
+var enumValues_TradingServersPlatform = []interface{}{
+	"mt5",
+	"dxtrade",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *TradingServersEnvironment) UnmarshalJSON(b []byte) error {
+func (j *TradingServersPlatform) UnmarshalJSON(b []byte) error {
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_TradingServersEnvironment {
+	for _, expected := range enumValues_TradingServersPlatform {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingServersEnvironment, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingServersPlatform, v)
 	}
-	*j = TradingServersEnvironment(v)
+	*j = TradingServersPlatform(v)
 	return nil
 }
+
+type TradingServersTradingServers int
 
 var enumValues_TradingServersTradingServers = []interface{}{
 	1,
@@ -173,32 +195,12 @@ func (j *TradingServersTradingServers) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *TradingServersAccountType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_TradingServersAccountType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingServersAccountType, v)
-	}
-	*j = TradingServersAccountType(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
 func (j *TradingServers) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["trading_servers"]; !ok || v == nil {
+	if _, ok := raw["trading_servers"]; raw != nil && !ok {
 		return fmt.Errorf("field trading_servers in TradingServers: required")
 	}
 	type Plain TradingServers

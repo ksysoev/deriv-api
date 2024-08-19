@@ -6,6 +6,26 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// List all or specific country and its payment methods.
+type P2PCountryList struct {
+	// [Optional] 2-letter country code. If not provided all countries are returned.
+	Country *string `json:"country,omitempty"`
+
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// Must be 1
+	P2PCountryList P2PCountryListP2PCountryList `json:"p2p_country_list"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough P2PCountryListPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 type P2PCountryListP2PCountryList int
 
 var enumValues_P2PCountryListP2PCountryList = []interface{}{
@@ -32,26 +52,6 @@ func (j *P2PCountryListP2PCountryList) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// List all or specific country and its payment methods.
-type P2PCountryList struct {
-	// [Optional] 2-letter country code. If not provided all countries are returned.
-	Country *string `json:"country,omitempty"`
-
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// Must be 1
-	P2PCountryList P2PCountryListP2PCountryList `json:"p2p_country_list"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough P2PCountryListPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type P2PCountryListPassthrough map[string]interface{}
@@ -62,7 +62,7 @@ func (j *P2PCountryList) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["p2p_country_list"]; !ok || v == nil {
+	if _, ok := raw["p2p_country_list"]; raw != nil && !ok {
 		return fmt.Errorf("field p2p_country_list in P2PCountryList: required")
 	}
 	type Plain P2PCountryList

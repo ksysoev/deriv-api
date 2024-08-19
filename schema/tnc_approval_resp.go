@@ -6,10 +6,28 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// The result of T&C approval request.
+type TncApprovalResp struct {
+	// Echo of the request made.
+	EchoReq TncApprovalRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType TncApprovalRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// Set terms and conditions 1: success
+	TncApproval *TncApprovalRespTncApproval `json:"tnc_approval,omitempty"`
+}
+
 // Echo of the request made.
 type TncApprovalRespEchoReq map[string]interface{}
 
 type TncApprovalRespMsgType string
+
+const TncApprovalRespMsgTypeTncApproval TncApprovalRespMsgType = "tnc_approval"
 
 var enumValues_TncApprovalRespMsgType = []interface{}{
 	"tnc_approval",
@@ -34,8 +52,6 @@ func (j *TncApprovalRespMsgType) UnmarshalJSON(b []byte) error {
 	*j = TncApprovalRespMsgType(v)
 	return nil
 }
-
-const TncApprovalRespMsgTypeTncApproval TncApprovalRespMsgType = "tnc_approval"
 
 type TncApprovalRespTncApproval int
 
@@ -63,32 +79,16 @@ func (j *TncApprovalRespTncApproval) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// The result of T&C approval request.
-type TncApprovalResp struct {
-	// Echo of the request made.
-	EchoReq TncApprovalRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType TncApprovalRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// Set terms and conditions 1: success
-	TncApproval *TncApprovalRespTncApproval `json:"tnc_approval,omitempty"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TncApprovalResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in TncApprovalResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in TncApprovalResp: required")
 	}
 	type Plain TncApprovalResp

@@ -6,66 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-type TransferBetweenAccountsAccounts string
-
-var enumValues_TransferBetweenAccountsAccounts = []interface{}{
-	"all",
-	"brief",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *TransferBetweenAccountsAccounts) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_TransferBetweenAccountsAccounts {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TransferBetweenAccountsAccounts, v)
-	}
-	*j = TransferBetweenAccountsAccounts(v)
-	return nil
-}
-
-const TransferBetweenAccountsAccountsAll TransferBetweenAccountsAccounts = "all"
-const TransferBetweenAccountsAccountsBrief TransferBetweenAccountsAccounts = "brief"
-
-// [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
-type TransferBetweenAccountsPassthrough map[string]interface{}
-
-type TransferBetweenAccountsTransferBetweenAccounts int
-
-var enumValues_TransferBetweenAccountsTransferBetweenAccounts = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *TransferBetweenAccountsTransferBetweenAccounts) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_TransferBetweenAccountsTransferBetweenAccounts {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TransferBetweenAccountsTransferBetweenAccounts, v)
-	}
-	*j = TransferBetweenAccountsTransferBetweenAccounts(v)
-	return nil
-}
-
 // This call allows transfers between accounts held by a given user. Transfer funds
 // between your fiat and cryptocurrency accounts (for a fee). Please note that
 // account_from should be same as current authorized account.
@@ -104,13 +44,73 @@ type TransferBetweenAccounts struct {
 	TransferBetweenAccounts TransferBetweenAccountsTransferBetweenAccounts `json:"transfer_between_accounts"`
 }
 
+type TransferBetweenAccountsAccounts string
+
+const TransferBetweenAccountsAccountsAll TransferBetweenAccountsAccounts = "all"
+const TransferBetweenAccountsAccountsBrief TransferBetweenAccountsAccounts = "brief"
+
+var enumValues_TransferBetweenAccountsAccounts = []interface{}{
+	"all",
+	"brief",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *TransferBetweenAccountsAccounts) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_TransferBetweenAccountsAccounts {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TransferBetweenAccountsAccounts, v)
+	}
+	*j = TransferBetweenAccountsAccounts(v)
+	return nil
+}
+
+// [Optional] Used to pass data through the websocket, which may be retrieved via
+// the `echo_req` output field.
+type TransferBetweenAccountsPassthrough map[string]interface{}
+
+type TransferBetweenAccountsTransferBetweenAccounts int
+
+var enumValues_TransferBetweenAccountsTransferBetweenAccounts = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *TransferBetweenAccountsTransferBetweenAccounts) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_TransferBetweenAccountsTransferBetweenAccounts {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TransferBetweenAccountsTransferBetweenAccounts, v)
+	}
+	*j = TransferBetweenAccountsTransferBetweenAccounts(v)
+	return nil
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TransferBetweenAccounts) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["transfer_between_accounts"]; !ok || v == nil {
+	if _, ok := raw["transfer_between_accounts"]; raw != nil && !ok {
 		return fmt.Errorf("field transfer_between_accounts in TransferBetweenAccounts: required")
 	}
 	type Plain TransferBetweenAccounts

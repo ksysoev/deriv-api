@@ -6,6 +6,26 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Get MT5 user account settings
+type Mt5GetSettings struct {
+	// MT5 user login
+	Login string `json:"login"`
+
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// Must be `1`
+	Mt5GetSettings Mt5GetSettingsMt5GetSettings `json:"mt5_get_settings"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough Mt5GetSettingsPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 type Mt5GetSettingsMt5GetSettings int
 
 var enumValues_Mt5GetSettingsMt5GetSettings = []interface{}{
@@ -32,26 +52,6 @@ func (j *Mt5GetSettingsMt5GetSettings) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Get MT5 user account settings
-type Mt5GetSettings struct {
-	// MT5 user login
-	Login string `json:"login"`
-
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// Must be `1`
-	Mt5GetSettings Mt5GetSettingsMt5GetSettings `json:"mt5_get_settings"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough Mt5GetSettingsPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type Mt5GetSettingsPassthrough map[string]interface{}
@@ -62,10 +62,10 @@ func (j *Mt5GetSettings) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["login"]; !ok || v == nil {
+	if _, ok := raw["login"]; raw != nil && !ok {
 		return fmt.Errorf("field login in Mt5GetSettings: required")
 	}
-	if v, ok := raw["mt5_get_settings"]; !ok || v == nil {
+	if _, ok := raw["mt5_get_settings"]; raw != nil && !ok {
 		return fmt.Errorf("field mt5_get_settings in Mt5GetSettings: required")
 	}
 	type Plain Mt5GetSettings

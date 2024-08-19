@@ -6,10 +6,28 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// The response of ping request.
+type PingResp struct {
+	// Echo of the request made.
+	EchoReq PingRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType PingRespMsgType `json:"msg_type"`
+
+	// Will return 'pong'
+	Ping *PingRespPing `json:"ping,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // Echo of the request made.
 type PingRespEchoReq map[string]interface{}
 
 type PingRespMsgType string
+
+const PingRespMsgTypePing PingRespMsgType = "ping"
 
 var enumValues_PingRespMsgType = []interface{}{
 	"ping",
@@ -35,9 +53,9 @@ func (j *PingRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-const PingRespMsgTypePing PingRespMsgType = "ping"
-
 type PingRespPing string
+
+const PingRespPingPong PingRespPing = "pong"
 
 var enumValues_PingRespPing = []interface{}{
 	"pong",
@@ -63,34 +81,16 @@ func (j *PingRespPing) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// The response of ping request.
-type PingResp struct {
-	// Echo of the request made.
-	EchoReq PingRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType PingRespMsgType `json:"msg_type"`
-
-	// Will return 'pong'
-	Ping *PingRespPing `json:"ping,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
-const PingRespPingPong PingRespPing = "pong"
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *PingResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in PingResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in PingResp: required")
 	}
 	type Plain PingResp

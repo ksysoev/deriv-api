@@ -6,10 +6,28 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// A message with User Settings
+type SetSettingsResp struct {
+	// Echo of the request made.
+	EchoReq SetSettingsRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType SetSettingsRespMsgType `json:"msg_type"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// 1 on success
+	SetSettings *int `json:"set_settings,omitempty"`
+}
+
 // Echo of the request made.
 type SetSettingsRespEchoReq map[string]interface{}
 
 type SetSettingsRespMsgType string
+
+const SetSettingsRespMsgTypeSetSettings SetSettingsRespMsgType = "set_settings"
 
 var enumValues_SetSettingsRespMsgType = []interface{}{
 	"set_settings",
@@ -35,34 +53,16 @@ func (j *SetSettingsRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// A message with User Settings
-type SetSettingsResp struct {
-	// Echo of the request made.
-	EchoReq SetSettingsRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType SetSettingsRespMsgType `json:"msg_type"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// 1 on success
-	SetSettings *int `json:"set_settings,omitempty"`
-}
-
-const SetSettingsRespMsgTypeSetSettings SetSettingsRespMsgType = "set_settings"
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *SetSettingsResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in SetSettingsResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in SetSettingsResp: required")
 	}
 	type Plain SetSettingsResp

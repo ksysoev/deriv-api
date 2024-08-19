@@ -6,63 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-type Mt5PasswordResetMt5PasswordReset int
-
-var enumValues_Mt5PasswordResetMt5PasswordReset = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *Mt5PasswordResetMt5PasswordReset) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_Mt5PasswordResetMt5PasswordReset {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5PasswordResetMt5PasswordReset, v)
-	}
-	*j = Mt5PasswordResetMt5PasswordReset(v)
-	return nil
-}
-
-// [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
-type Mt5PasswordResetPassthrough map[string]interface{}
-
-type Mt5PasswordResetPasswordType string
-
-var enumValues_Mt5PasswordResetPasswordType = []interface{}{
-	"main",
-	"investor",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *Mt5PasswordResetPasswordType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_Mt5PasswordResetPasswordType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5PasswordResetPasswordType, v)
-	}
-	*j = Mt5PasswordResetPasswordType(v)
-	return nil
-}
-
 // To reset the password of MT5 account.
 type Mt5PasswordReset struct {
 	// MT5 user login
@@ -95,8 +38,65 @@ type Mt5PasswordReset struct {
 	VerificationCode string `json:"verification_code"`
 }
 
+type Mt5PasswordResetMt5PasswordReset int
+
+var enumValues_Mt5PasswordResetMt5PasswordReset = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5PasswordResetMt5PasswordReset) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5PasswordResetMt5PasswordReset {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5PasswordResetMt5PasswordReset, v)
+	}
+	*j = Mt5PasswordResetMt5PasswordReset(v)
+	return nil
+}
+
+// [Optional] Used to pass data through the websocket, which may be retrieved via
+// the `echo_req` output field.
+type Mt5PasswordResetPassthrough map[string]interface{}
+
+type Mt5PasswordResetPasswordType string
+
 const Mt5PasswordResetPasswordTypeInvestor Mt5PasswordResetPasswordType = "investor"
 const Mt5PasswordResetPasswordTypeMain Mt5PasswordResetPasswordType = "main"
+
+var enumValues_Mt5PasswordResetPasswordType = []interface{}{
+	"main",
+	"investor",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5PasswordResetPasswordType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5PasswordResetPasswordType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5PasswordResetPasswordType, v)
+	}
+	*j = Mt5PasswordResetPasswordType(v)
+	return nil
+}
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *Mt5PasswordReset) UnmarshalJSON(b []byte) error {
@@ -104,16 +104,16 @@ func (j *Mt5PasswordReset) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["login"]; !ok || v == nil {
+	if _, ok := raw["login"]; raw != nil && !ok {
 		return fmt.Errorf("field login in Mt5PasswordReset: required")
 	}
-	if v, ok := raw["mt5_password_reset"]; !ok || v == nil {
+	if _, ok := raw["mt5_password_reset"]; raw != nil && !ok {
 		return fmt.Errorf("field mt5_password_reset in Mt5PasswordReset: required")
 	}
-	if v, ok := raw["new_password"]; !ok || v == nil {
+	if _, ok := raw["new_password"]; raw != nil && !ok {
 		return fmt.Errorf("field new_password in Mt5PasswordReset: required")
 	}
-	if v, ok := raw["verification_code"]; !ok || v == nil {
+	if _, ok := raw["verification_code"]; raw != nil && !ok {
 		return fmt.Errorf("field verification_code in Mt5PasswordReset: required")
 	}
 	type Plain Mt5PasswordReset

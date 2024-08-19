@@ -6,6 +6,23 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Gets client's payment agent details.
+type PaymentagentDetails struct {
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough PaymentagentDetailsPassthrough `json:"passthrough,omitempty"`
+
+	// Must be 1
+	PaymentagentDetails PaymentagentDetailsPaymentagentDetails `json:"paymentagent_details"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type PaymentagentDetailsPassthrough map[string]interface{}
@@ -36,30 +53,13 @@ func (j *PaymentagentDetailsPaymentagentDetails) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Gets client's payment agent details.
-type PaymentagentDetails struct {
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough PaymentagentDetailsPassthrough `json:"passthrough,omitempty"`
-
-	// Must be 1
-	PaymentagentDetails PaymentagentDetailsPaymentagentDetails `json:"paymentagent_details"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *PaymentagentDetails) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["paymentagent_details"]; !ok || v == nil {
+	if _, ok := raw["paymentagent_details"]; raw != nil && !ok {
 		return fmt.Errorf("field paymentagent_details in PaymentagentDetails: required")
 	}
 	type Plain PaymentagentDetails

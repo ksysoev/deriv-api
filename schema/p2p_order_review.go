@@ -6,6 +6,32 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Creates a review for the specified order.
+type P2POrderReview struct {
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// The order identification number.
+	OrderId string `json:"order_id"`
+
+	// Must be 1
+	P2POrderReview P2POrderReviewP2POrderReview `json:"p2p_order_review"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough P2POrderReviewPassthrough `json:"passthrough,omitempty"`
+
+	// Rating for the transaction, 1 to 5.
+	Rating int `json:"rating"`
+
+	// [Optional] `1` if the counterparty is recommendable to others, otherwise `0`.
+	Recommended *P2POrderReviewRecommended `json:"recommended,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 type P2POrderReviewP2POrderReview int
 
 var enumValues_P2POrderReviewP2POrderReview = []interface{}{
@@ -40,15 +66,15 @@ type P2POrderReviewRecommended struct {
 	Value interface{}
 }
 
+// MarshalJSON implements json.Marshaler.
+func (j *P2POrderReviewRecommended) MarshalJSON() ([]byte, error) {
+	return json.Marshal(j.Value)
+}
+
 var enumValues_P2POrderReviewRecommended = []interface{}{
 	nil,
 	0.0,
 	1.0,
-}
-
-// MarshalJSON implements json.Marshaler.
-func (j *P2POrderReviewRecommended) MarshalJSON() ([]byte, error) {
-	return json.Marshal(j.Value)
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -73,45 +99,19 @@ func (j *P2POrderReviewRecommended) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Creates a review for the specified order.
-type P2POrderReview struct {
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// The order identification number.
-	OrderId string `json:"order_id"`
-
-	// Must be 1
-	P2POrderReview P2POrderReviewP2POrderReview `json:"p2p_order_review"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough P2POrderReviewPassthrough `json:"passthrough,omitempty"`
-
-	// Rating for the transaction, 1 to 5.
-	Rating int `json:"rating"`
-
-	// [Optional] `1` if the counterparty is recommendable to others, otherwise `0`.
-	Recommended *P2POrderReviewRecommended `json:"recommended,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2POrderReview) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["order_id"]; !ok || v == nil {
+	if _, ok := raw["order_id"]; raw != nil && !ok {
 		return fmt.Errorf("field order_id in P2POrderReview: required")
 	}
-	if v, ok := raw["p2p_order_review"]; !ok || v == nil {
+	if _, ok := raw["p2p_order_review"]; raw != nil && !ok {
 		return fmt.Errorf("field p2p_order_review in P2POrderReview: required")
 	}
-	if v, ok := raw["rating"]; !ok || v == nil {
+	if _, ok := raw["rating"]; raw != nil && !ok {
 		return fmt.Errorf("field rating in P2POrderReview: required")
 	}
 	type Plain P2POrderReview

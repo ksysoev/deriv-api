@@ -6,6 +6,22 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Get the validations for Tax Identification Numbers (TIN)
+type TinValidations struct {
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough TinValidationsPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// The tax residence selected by the client.
+	TaxResidence string `json:"tax_residence"`
+
+	// Must be `1`
+	TinValidations TinValidationsTinValidations `json:"tin_validations"`
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type TinValidationsPassthrough map[string]interface{}
@@ -36,32 +52,16 @@ func (j *TinValidationsTinValidations) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Get the validations for Tax Identification Numbers (TIN)
-type TinValidations struct {
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough TinValidationsPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// The tax residence selected by the client.
-	TaxResidence string `json:"tax_residence"`
-
-	// Must be `1`
-	TinValidations TinValidationsTinValidations `json:"tin_validations"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TinValidations) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["tax_residence"]; !ok || v == nil {
+	if _, ok := raw["tax_residence"]; raw != nil && !ok {
 		return fmt.Errorf("field tax_residence in TinValidations: required")
 	}
-	if v, ok := raw["tin_validations"]; !ok || v == nil {
+	if _, ok := raw["tin_validations"]; raw != nil && !ok {
 		return fmt.Errorf("field tin_validations in TinValidations: required")
 	}
 	type Plain TinValidations

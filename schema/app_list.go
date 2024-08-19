@@ -6,6 +6,23 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// List all of the account's OAuth applications
+type AppList struct {
+	// Must be `1`
+	AppList AppListAppList `json:"app_list"`
+
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough AppListPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 type AppListAppList int
 
 var enumValues_AppListAppList = []interface{}{
@@ -32,23 +49,6 @@ func (j *AppListAppList) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// List all of the account's OAuth applications
-type AppList struct {
-	// Must be `1`
-	AppList AppListAppList `json:"app_list"`
-
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough AppListPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type AppListPassthrough map[string]interface{}
@@ -59,7 +59,7 @@ func (j *AppList) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["app_list"]; !ok || v == nil {
+	if _, ok := raw["app_list"]; raw != nil && !ok {
 		return fmt.Errorf("field app_list in AppList: required")
 	}
 	type Plain AppList

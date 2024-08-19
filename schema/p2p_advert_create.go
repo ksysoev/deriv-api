@@ -95,7 +95,56 @@ type P2PAdvertCreate struct {
 
 type P2PAdvertCreateBlockTrade int
 
+var enumValues_P2PAdvertCreateBlockTrade = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertCreateBlockTrade) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertCreateBlockTrade {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertCreateBlockTrade, v)
+	}
+	*j = P2PAdvertCreateBlockTrade(v)
+	return nil
+}
+
 type P2PAdvertCreateP2PAdvertCreate int
+
+var enumValues_P2PAdvertCreateP2PAdvertCreate = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertCreateP2PAdvertCreate) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertCreateP2PAdvertCreate {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertCreateP2PAdvertCreate, v)
+	}
+	*j = P2PAdvertCreateP2PAdvertCreate(v)
+	return nil
+}
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
@@ -106,17 +155,9 @@ type P2PAdvertCreateRateType string
 const P2PAdvertCreateRateTypeFixed P2PAdvertCreateRateType = "fixed"
 const P2PAdvertCreateRateTypeFloat P2PAdvertCreateRateType = "float"
 
-type P2PAdvertCreateType string
-
-const P2PAdvertCreateTypeBuy P2PAdvertCreateType = "buy"
-const P2PAdvertCreateTypeSell P2PAdvertCreateType = "sell"
-
-var enumValues_P2PAdvertCreateBlockTrade = []interface{}{
-	0,
-	1,
-}
-var enumValues_P2PAdvertCreateP2PAdvertCreate = []interface{}{
-	1,
+var enumValues_P2PAdvertCreateRateType = []interface{}{
+	"fixed",
+	"float",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -138,6 +179,11 @@ func (j *P2PAdvertCreateRateType) UnmarshalJSON(b []byte) error {
 	*j = P2PAdvertCreateRateType(v)
 	return nil
 }
+
+type P2PAdvertCreateType string
+
+const P2PAdvertCreateTypeBuy P2PAdvertCreateType = "buy"
+const P2PAdvertCreateTypeSell P2PAdvertCreateType = "sell"
 
 var enumValues_P2PAdvertCreateType = []interface{}{
 	"buy",
@@ -164,73 +210,28 @@ func (j *P2PAdvertCreateType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-var enumValues_P2PAdvertCreateRateType = []interface{}{
-	"fixed",
-	"float",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertCreateP2PAdvertCreate) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertCreateP2PAdvertCreate {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertCreateP2PAdvertCreate, v)
-	}
-	*j = P2PAdvertCreateP2PAdvertCreate(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PAdvertCreateBlockTrade) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PAdvertCreateBlockTrade {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertCreateBlockTrade, v)
-	}
-	*j = P2PAdvertCreateBlockTrade(v)
-	return nil
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PAdvertCreate) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["amount"]; !ok || v == nil {
+	if _, ok := raw["amount"]; raw != nil && !ok {
 		return fmt.Errorf("field amount in P2PAdvertCreate: required")
 	}
-	if v, ok := raw["max_order_amount"]; !ok || v == nil {
+	if _, ok := raw["max_order_amount"]; raw != nil && !ok {
 		return fmt.Errorf("field max_order_amount in P2PAdvertCreate: required")
 	}
-	if v, ok := raw["min_order_amount"]; !ok || v == nil {
+	if _, ok := raw["min_order_amount"]; raw != nil && !ok {
 		return fmt.Errorf("field min_order_amount in P2PAdvertCreate: required")
 	}
-	if v, ok := raw["p2p_advert_create"]; !ok || v == nil {
+	if _, ok := raw["p2p_advert_create"]; raw != nil && !ok {
 		return fmt.Errorf("field p2p_advert_create in P2PAdvertCreate: required")
 	}
-	if v, ok := raw["rate"]; !ok || v == nil {
+	if _, ok := raw["rate"]; raw != nil && !ok {
 		return fmt.Errorf("field rate in P2PAdvertCreate: required")
 	}
-	if v, ok := raw["type"]; !ok || v == nil {
+	if _, ok := raw["type"]; raw != nil && !ok {
 		return fmt.Errorf("field type in P2PAdvertCreate: required")
 	}
 	type Plain P2PAdvertCreate

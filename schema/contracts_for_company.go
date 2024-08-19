@@ -29,9 +29,38 @@ type ContractsForCompany struct {
 
 type ContractsForCompanyContractsForCompany int
 
+var enumValues_ContractsForCompanyContractsForCompany = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ContractsForCompanyContractsForCompany) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ContractsForCompanyContractsForCompany {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ContractsForCompanyContractsForCompany, v)
+	}
+	*j = ContractsForCompanyContractsForCompany(v)
+	return nil
+}
+
 type ContractsForCompanyLandingCompany string
 
 const ContractsForCompanyLandingCompanyIom ContractsForCompanyLandingCompany = "iom"
+const ContractsForCompanyLandingCompanyMalta ContractsForCompanyLandingCompany = "malta"
+const ContractsForCompanyLandingCompanyMaltainvest ContractsForCompanyLandingCompany = "maltainvest"
+const ContractsForCompanyLandingCompanySvg ContractsForCompanyLandingCompany = "svg"
+const ContractsForCompanyLandingCompanyVanuatu ContractsForCompanyLandingCompany = "vanuatu"
+const ContractsForCompanyLandingCompanyVirtual ContractsForCompanyLandingCompany = "virtual"
 
 var enumValues_ContractsForCompanyLandingCompany = []interface{}{
 	"iom",
@@ -62,39 +91,9 @@ func (j *ContractsForCompanyLandingCompany) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *ContractsForCompanyContractsForCompany) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_ContractsForCompanyContractsForCompany {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ContractsForCompanyContractsForCompany, v)
-	}
-	*j = ContractsForCompanyContractsForCompany(v)
-	return nil
-}
-
-const ContractsForCompanyLandingCompanyMalta ContractsForCompanyLandingCompany = "malta"
-const ContractsForCompanyLandingCompanyMaltainvest ContractsForCompanyLandingCompany = "maltainvest"
-const ContractsForCompanyLandingCompanySvg ContractsForCompanyLandingCompany = "svg"
-const ContractsForCompanyLandingCompanyVanuatu ContractsForCompanyLandingCompany = "vanuatu"
-const ContractsForCompanyLandingCompanyVirtual ContractsForCompanyLandingCompany = "virtual"
-
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type ContractsForCompanyPassthrough map[string]interface{}
-
-var enumValues_ContractsForCompanyContractsForCompany = []interface{}{
-	1,
-}
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ContractsForCompany) UnmarshalJSON(b []byte) error {
@@ -102,7 +101,7 @@ func (j *ContractsForCompany) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["contracts_for_company"]; !ok || v == nil {
+	if _, ok := raw["contracts_for_company"]; raw != nil && !ok {
 		return fmt.Errorf("field contracts_for_company in ContractsForCompany: required")
 	}
 	type Plain ContractsForCompany

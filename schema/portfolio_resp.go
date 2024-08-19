@@ -6,10 +6,28 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Receive a list of outstanding options in the user's portfolio
+type PortfolioResp struct {
+	// Echo of the request made.
+	EchoReq PortfolioRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType PortfolioRespMsgType `json:"msg_type"`
+
+	// Current account's open positions.
+	Portfolio *PortfolioRespPortfolio `json:"portfolio,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+}
+
 // Echo of the request made.
 type PortfolioRespEchoReq map[string]interface{}
 
 type PortfolioRespMsgType string
+
+const PortfolioRespMsgTypePortfolio PortfolioRespMsgType = "portfolio"
 
 var enumValues_PortfolioRespMsgType = []interface{}{
 	"portfolio",
@@ -34,8 +52,6 @@ func (j *PortfolioRespMsgType) UnmarshalJSON(b []byte) error {
 	*j = PortfolioRespMsgType(v)
 	return nil
 }
-
-const PortfolioRespMsgTypePortfolio PortfolioRespMsgType = "portfolio"
 
 // Current account's open positions.
 type PortfolioRespPortfolio struct {
@@ -93,7 +109,7 @@ func (j *PortfolioRespPortfolio) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["contracts"]; !ok || v == nil {
+	if _, ok := raw["contracts"]; raw != nil && !ok {
 		return fmt.Errorf("field contracts in PortfolioRespPortfolio: required")
 	}
 	type Plain PortfolioRespPortfolio
@@ -105,32 +121,16 @@ func (j *PortfolioRespPortfolio) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Receive a list of outstanding options in the user's portfolio
-type PortfolioResp struct {
-	// Echo of the request made.
-	EchoReq PortfolioRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType PortfolioRespMsgType `json:"msg_type"`
-
-	// Current account's open positions.
-	Portfolio *PortfolioRespPortfolio `json:"portfolio,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *PortfolioResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in PortfolioResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in PortfolioResp: required")
 	}
 	type Plain PortfolioResp

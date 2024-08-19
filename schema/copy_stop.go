@@ -32,7 +32,7 @@ func (j *CopyStop) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["copy_stop"]; !ok || v == nil {
+	if _, ok := raw["copy_stop"]; raw != nil && !ok {
 		return fmt.Errorf("field copy_stop in CopyStop: required")
 	}
 	type Plain CopyStop

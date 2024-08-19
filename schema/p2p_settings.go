@@ -6,6 +6,27 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Request P2P Settings information.
+type P2PSettings struct {
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// Must be `1`
+	P2PSettings P2PSettingsP2PSettings `json:"p2p_settings"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough P2PSettingsPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// [Optional] If set to `1`, will send updates whenever there is an update to P2P
+	// settings.
+	Subscribe *P2PSettingsSubscribe `json:"subscribe,omitempty"`
+}
+
 type P2PSettingsP2PSettings int
 
 var enumValues_P2PSettingsP2PSettings = []interface{}{
@@ -62,34 +83,13 @@ func (j *P2PSettingsSubscribe) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Request P2P Settings information.
-type P2PSettings struct {
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// Must be `1`
-	P2PSettings P2PSettingsP2PSettings `json:"p2p_settings"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough P2PSettingsPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// [Optional] If set to `1`, will send updates whenever there is an update to P2P
-	// settings.
-	Subscribe *P2PSettingsSubscribe `json:"subscribe,omitempty"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PSettings) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["p2p_settings"]; !ok || v == nil {
+	if _, ok := raw["p2p_settings"]; raw != nil && !ok {
 		return fmt.Errorf("field p2p_settings in P2PSettings: required")
 	}
 	type Plain P2PSettings

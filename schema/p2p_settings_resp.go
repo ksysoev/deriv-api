@@ -6,10 +6,31 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Information of the P2P settings.
+type P2PSettingsResp struct {
+	// Echo of the request made.
+	EchoReq P2PSettingsRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType P2PSettingsRespMsgType `json:"msg_type"`
+
+	// Peer-to-peer payment system settings.
+	P2PSettings *P2PSettingsRespP2PSettings `json:"p2p_settings,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// For subscription requests only.
+	Subscription *P2PSettingsRespSubscription `json:"subscription,omitempty"`
+}
+
 // Echo of the request made.
 type P2PSettingsRespEchoReq map[string]interface{}
 
 type P2PSettingsRespMsgType string
+
+const P2PSettingsRespMsgTypeP2PSettings P2PSettingsRespMsgType = "p2p_settings"
 
 var enumValues_P2PSettingsRespMsgType = []interface{}{
 	"p2p_settings",
@@ -32,317 +53,6 @@ func (j *P2PSettingsRespMsgType) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespMsgType, v)
 	}
 	*j = P2PSettingsRespMsgType(v)
-	return nil
-}
-
-const P2PSettingsRespMsgTypeP2PSettings P2PSettingsRespMsgType = "p2p_settings"
-
-type P2PSettingsRespP2PSettingsBlockTradeDisabled int
-
-var enumValues_P2PSettingsRespP2PSettingsBlockTradeDisabled = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PSettingsRespP2PSettingsBlockTradeDisabled) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PSettingsRespP2PSettingsBlockTradeDisabled {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsBlockTradeDisabled, v)
-	}
-	*j = P2PSettingsRespP2PSettingsBlockTradeDisabled(v)
-	return nil
-}
-
-// Block trading settings
-type P2PSettingsRespP2PSettingsBlockTrade struct {
-	// When 1, Block trading is unavailable.
-	Disabled *P2PSettingsRespP2PSettingsBlockTradeDisabled `json:"disabled,omitempty"`
-
-	// Maximum amount of a block trade advert, in USD.
-	MaximumAdvertAmount *float64 `json:"maximum_advert_amount,omitempty"`
-}
-
-// Recommended step values for choosing advert counterparty terms.
-type P2PSettingsRespP2PSettingsCounterpartyTermSteps struct {
-	// Values for minimum 30 day completion rate.
-	CompletionRate []float64 `json:"completion_rate"`
-
-	// Values for minimum joined days.
-	JoinDays []int `json:"join_days"`
-
-	// Values for minimum average rating.
-	Rating []float64 `json:"rating"`
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PSettingsRespP2PSettingsCounterpartyTermSteps) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if v, ok := raw["completion_rate"]; !ok || v == nil {
-		return fmt.Errorf("field completion_rate in P2PSettingsRespP2PSettingsCounterpartyTermSteps: required")
-	}
-	if v, ok := raw["join_days"]; !ok || v == nil {
-		return fmt.Errorf("field join_days in P2PSettingsRespP2PSettingsCounterpartyTermSteps: required")
-	}
-	if v, ok := raw["rating"]; !ok || v == nil {
-		return fmt.Errorf("field rating in P2PSettingsRespP2PSettingsCounterpartyTermSteps: required")
-	}
-	type Plain P2PSettingsRespP2PSettingsCounterpartyTermSteps
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = P2PSettingsRespP2PSettingsCounterpartyTermSteps(plain)
-	return nil
-}
-
-type P2PSettingsRespP2PSettingsCrossBorderAdsEnabled int
-
-var enumValues_P2PSettingsRespP2PSettingsCrossBorderAdsEnabled = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PSettingsRespP2PSettingsCrossBorderAdsEnabled) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PSettingsRespP2PSettingsCrossBorderAdsEnabled {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsCrossBorderAdsEnabled, v)
-	}
-	*j = P2PSettingsRespP2PSettingsCrossBorderAdsEnabled(v)
-	return nil
-}
-
-type P2PSettingsRespP2PSettingsDisabled int
-
-var enumValues_P2PSettingsRespP2PSettingsDisabled = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PSettingsRespP2PSettingsDisabled) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PSettingsRespP2PSettingsDisabled {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsDisabled, v)
-	}
-	*j = P2PSettingsRespP2PSettingsDisabled(v)
-	return nil
-}
-
-type P2PSettingsRespP2PSettingsFixedRateAdverts string
-
-var enumValues_P2PSettingsRespP2PSettingsFixedRateAdverts = []interface{}{
-	"disabled",
-	"enabled",
-	"list_only",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PSettingsRespP2PSettingsFixedRateAdverts) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PSettingsRespP2PSettingsFixedRateAdverts {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsFixedRateAdverts, v)
-	}
-	*j = P2PSettingsRespP2PSettingsFixedRateAdverts(v)
-	return nil
-}
-
-const P2PSettingsRespP2PSettingsFixedRateAdvertsDisabled P2PSettingsRespP2PSettingsFixedRateAdverts = "disabled"
-const P2PSettingsRespP2PSettingsFixedRateAdvertsEnabled P2PSettingsRespP2PSettingsFixedRateAdverts = "enabled"
-const P2PSettingsRespP2PSettingsFixedRateAdvertsListOnly P2PSettingsRespP2PSettingsFixedRateAdverts = "list_only"
-
-type P2PSettingsRespP2PSettingsFloatRateAdverts string
-
-var enumValues_P2PSettingsRespP2PSettingsFloatRateAdverts = []interface{}{
-	"disabled",
-	"enabled",
-	"list_only",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PSettingsRespP2PSettingsFloatRateAdverts) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PSettingsRespP2PSettingsFloatRateAdverts {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsFloatRateAdverts, v)
-	}
-	*j = P2PSettingsRespP2PSettingsFloatRateAdverts(v)
-	return nil
-}
-
-const P2PSettingsRespP2PSettingsFloatRateAdvertsDisabled P2PSettingsRespP2PSettingsFloatRateAdverts = "disabled"
-const P2PSettingsRespP2PSettingsFloatRateAdvertsEnabled P2PSettingsRespP2PSettingsFloatRateAdverts = "enabled"
-const P2PSettingsRespP2PSettingsFloatRateAdvertsListOnly P2PSettingsRespP2PSettingsFloatRateAdverts = "list_only"
-
-type P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts int
-
-var enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts, v)
-	}
-	*j = P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts(v)
-	return nil
-}
-
-type P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault int
-
-var enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault, v)
-	}
-	*j = P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault(v)
-	return nil
-}
-
-// Local currency details.
-type P2PSettingsRespP2PSettingsLocalCurrenciesElem struct {
-	// Local currency name
-	DisplayName string `json:"display_name"`
-
-	// Indicates that there are adverts available for this currency.
-	HasAdverts P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts `json:"has_adverts"`
-
-	// Indicates that this is local currency for the current country.
-	IsDefault *P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault `json:"is_default,omitempty"`
-
-	// Local currency symbol
-	Symbol string `json:"symbol"`
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PSettingsRespP2PSettingsLocalCurrenciesElem) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
-		return err
-	}
-	if v, ok := raw["display_name"]; !ok || v == nil {
-		return fmt.Errorf("field display_name in P2PSettingsRespP2PSettingsLocalCurrenciesElem: required")
-	}
-	if v, ok := raw["has_adverts"]; !ok || v == nil {
-		return fmt.Errorf("field has_adverts in P2PSettingsRespP2PSettingsLocalCurrenciesElem: required")
-	}
-	if v, ok := raw["symbol"]; !ok || v == nil {
-		return fmt.Errorf("field symbol in P2PSettingsRespP2PSettingsLocalCurrenciesElem: required")
-	}
-	type Plain P2PSettingsRespP2PSettingsLocalCurrenciesElem
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = P2PSettingsRespP2PSettingsLocalCurrenciesElem(plain)
-	return nil
-}
-
-type P2PSettingsRespP2PSettingsPaymentMethodsEnabled int
-
-var enumValues_P2PSettingsRespP2PSettingsPaymentMethodsEnabled = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *P2PSettingsRespP2PSettingsPaymentMethodsEnabled) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_P2PSettingsRespP2PSettingsPaymentMethodsEnabled {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsPaymentMethodsEnabled, v)
-	}
-	*j = P2PSettingsRespP2PSettingsPaymentMethodsEnabled(v)
 	return nil
 }
 
@@ -434,76 +144,385 @@ type P2PSettingsRespP2PSettings struct {
 	SupportedCurrencies []string `json:"supported_currencies"`
 }
 
+// Block trading settings
+type P2PSettingsRespP2PSettingsBlockTrade struct {
+	// When 1, Block trading is unavailable.
+	Disabled *P2PSettingsRespP2PSettingsBlockTradeDisabled `json:"disabled,omitempty"`
+
+	// Maximum amount of a block trade advert, in USD.
+	MaximumAdvertAmount *float64 `json:"maximum_advert_amount,omitempty"`
+}
+
+type P2PSettingsRespP2PSettingsBlockTradeDisabled int
+
+var enumValues_P2PSettingsRespP2PSettingsBlockTradeDisabled = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PSettingsRespP2PSettingsBlockTradeDisabled) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PSettingsRespP2PSettingsBlockTradeDisabled {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsBlockTradeDisabled, v)
+	}
+	*j = P2PSettingsRespP2PSettingsBlockTradeDisabled(v)
+	return nil
+}
+
+// Recommended step values for choosing advert counterparty terms.
+type P2PSettingsRespP2PSettingsCounterpartyTermSteps struct {
+	// Values for minimum 30 day completion rate.
+	CompletionRate []float64 `json:"completion_rate"`
+
+	// Values for minimum joined days.
+	JoinDays []int `json:"join_days"`
+
+	// Values for minimum average rating.
+	Rating []float64 `json:"rating"`
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PSettingsRespP2PSettingsCounterpartyTermSteps) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if _, ok := raw["completion_rate"]; raw != nil && !ok {
+		return fmt.Errorf("field completion_rate in P2PSettingsRespP2PSettingsCounterpartyTermSteps: required")
+	}
+	if _, ok := raw["join_days"]; raw != nil && !ok {
+		return fmt.Errorf("field join_days in P2PSettingsRespP2PSettingsCounterpartyTermSteps: required")
+	}
+	if _, ok := raw["rating"]; raw != nil && !ok {
+		return fmt.Errorf("field rating in P2PSettingsRespP2PSettingsCounterpartyTermSteps: required")
+	}
+	type Plain P2PSettingsRespP2PSettingsCounterpartyTermSteps
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = P2PSettingsRespP2PSettingsCounterpartyTermSteps(plain)
+	return nil
+}
+
+type P2PSettingsRespP2PSettingsCrossBorderAdsEnabled int
+
+var enumValues_P2PSettingsRespP2PSettingsCrossBorderAdsEnabled = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PSettingsRespP2PSettingsCrossBorderAdsEnabled) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PSettingsRespP2PSettingsCrossBorderAdsEnabled {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsCrossBorderAdsEnabled, v)
+	}
+	*j = P2PSettingsRespP2PSettingsCrossBorderAdsEnabled(v)
+	return nil
+}
+
+type P2PSettingsRespP2PSettingsDisabled int
+
+var enumValues_P2PSettingsRespP2PSettingsDisabled = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PSettingsRespP2PSettingsDisabled) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PSettingsRespP2PSettingsDisabled {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsDisabled, v)
+	}
+	*j = P2PSettingsRespP2PSettingsDisabled(v)
+	return nil
+}
+
+type P2PSettingsRespP2PSettingsFixedRateAdverts string
+
+const P2PSettingsRespP2PSettingsFixedRateAdvertsDisabled P2PSettingsRespP2PSettingsFixedRateAdverts = "disabled"
+const P2PSettingsRespP2PSettingsFixedRateAdvertsEnabled P2PSettingsRespP2PSettingsFixedRateAdverts = "enabled"
+const P2PSettingsRespP2PSettingsFixedRateAdvertsListOnly P2PSettingsRespP2PSettingsFixedRateAdverts = "list_only"
+
+var enumValues_P2PSettingsRespP2PSettingsFixedRateAdverts = []interface{}{
+	"disabled",
+	"enabled",
+	"list_only",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PSettingsRespP2PSettingsFixedRateAdverts) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PSettingsRespP2PSettingsFixedRateAdverts {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsFixedRateAdverts, v)
+	}
+	*j = P2PSettingsRespP2PSettingsFixedRateAdverts(v)
+	return nil
+}
+
+type P2PSettingsRespP2PSettingsFloatRateAdverts string
+
+const P2PSettingsRespP2PSettingsFloatRateAdvertsDisabled P2PSettingsRespP2PSettingsFloatRateAdverts = "disabled"
+const P2PSettingsRespP2PSettingsFloatRateAdvertsEnabled P2PSettingsRespP2PSettingsFloatRateAdverts = "enabled"
+const P2PSettingsRespP2PSettingsFloatRateAdvertsListOnly P2PSettingsRespP2PSettingsFloatRateAdverts = "list_only"
+
+var enumValues_P2PSettingsRespP2PSettingsFloatRateAdverts = []interface{}{
+	"disabled",
+	"enabled",
+	"list_only",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PSettingsRespP2PSettingsFloatRateAdverts) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PSettingsRespP2PSettingsFloatRateAdverts {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsFloatRateAdverts, v)
+	}
+	*j = P2PSettingsRespP2PSettingsFloatRateAdverts(v)
+	return nil
+}
+
+// Local currency details.
+type P2PSettingsRespP2PSettingsLocalCurrenciesElem struct {
+	// Local currency name
+	DisplayName string `json:"display_name"`
+
+	// Indicates that there are adverts available for this currency.
+	HasAdverts P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts `json:"has_adverts"`
+
+	// Indicates that this is local currency for the current country.
+	IsDefault *P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault `json:"is_default,omitempty"`
+
+	// Local currency symbol
+	Symbol string `json:"symbol"`
+}
+
+type P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts int
+
+var enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts, v)
+	}
+	*j = P2PSettingsRespP2PSettingsLocalCurrenciesElemHasAdverts(v)
+	return nil
+}
+
+type P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault int
+
+var enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault, v)
+	}
+	*j = P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault(v)
+	return nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PSettingsRespP2PSettingsLocalCurrenciesElem) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
+	}
+	if _, ok := raw["display_name"]; raw != nil && !ok {
+		return fmt.Errorf("field display_name in P2PSettingsRespP2PSettingsLocalCurrenciesElem: required")
+	}
+	if _, ok := raw["has_adverts"]; raw != nil && !ok {
+		return fmt.Errorf("field has_adverts in P2PSettingsRespP2PSettingsLocalCurrenciesElem: required")
+	}
+	if _, ok := raw["symbol"]; raw != nil && !ok {
+		return fmt.Errorf("field symbol in P2PSettingsRespP2PSettingsLocalCurrenciesElem: required")
+	}
+	type Plain P2PSettingsRespP2PSettingsLocalCurrenciesElem
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
+	}
+	*j = P2PSettingsRespP2PSettingsLocalCurrenciesElem(plain)
+	return nil
+}
+
+type P2PSettingsRespP2PSettingsPaymentMethodsEnabled int
+
+var enumValues_P2PSettingsRespP2PSettingsPaymentMethodsEnabled = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PSettingsRespP2PSettingsPaymentMethodsEnabled) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PSettingsRespP2PSettingsPaymentMethodsEnabled {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsPaymentMethodsEnabled, v)
+	}
+	*j = P2PSettingsRespP2PSettingsPaymentMethodsEnabled(v)
+	return nil
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PSettingsRespP2PSettings) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["adverts_active_limit"]; !ok || v == nil {
+	if _, ok := raw["adverts_active_limit"]; raw != nil && !ok {
 		return fmt.Errorf("field adverts_active_limit in P2PSettingsRespP2PSettings: required")
 	}
-	if v, ok := raw["block_trade"]; !ok || v == nil {
+	if _, ok := raw["block_trade"]; raw != nil && !ok {
 		return fmt.Errorf("field block_trade in P2PSettingsRespP2PSettings: required")
 	}
-	if v, ok := raw["business_hours_minutes_interval"]; !ok || v == nil {
+	if _, ok := raw["business_hours_minutes_interval"]; raw != nil && !ok {
 		return fmt.Errorf("field business_hours_minutes_interval in P2PSettingsRespP2PSettings: required")
 	}
-	if v, ok := raw["cancellation_block_duration"]; !ok || v == nil {
+	if _, ok := raw["cancellation_block_duration"]; raw != nil && !ok {
 		return fmt.Errorf("field cancellation_block_duration in P2PSettingsRespP2PSettings: required")
 	}
-	if v, ok := raw["cancellation_count_period"]; !ok || v == nil {
+	if _, ok := raw["cancellation_count_period"]; raw != nil && !ok {
 		return fmt.Errorf("field cancellation_count_period in P2PSettingsRespP2PSettings: required")
 	}
-	if v, ok := raw["cancellation_grace_period"]; !ok || v == nil {
+	if _, ok := raw["cancellation_grace_period"]; raw != nil && !ok {
 		return fmt.Errorf("field cancellation_grace_period in P2PSettingsRespP2PSettings: required")
 	}
-	if v, ok := raw["cancellation_limit"]; !ok || v == nil {
+	if _, ok := raw["cancellation_limit"]; raw != nil && !ok {
 		return fmt.Errorf("field cancellation_limit in P2PSettingsRespP2PSettings: required")
 	}
-	if v, ok := raw["cross_border_ads_enabled"]; !ok || v == nil {
+	if _, ok := raw["cross_border_ads_enabled"]; raw != nil && !ok {
 		return fmt.Errorf("field cross_border_ads_enabled in P2PSettingsRespP2PSettings: required")
 	}
-	if v, ok := raw["disabled"]; !ok || v == nil {
+	if _, ok := raw["disabled"]; raw != nil && !ok {
 		return fmt.Errorf("field disabled in P2PSettingsRespP2PSettings: required")
 	}
-	if v, ok := raw["feature_level"]; !ok || v == nil {
+	if _, ok := raw["feature_level"]; raw != nil && !ok {
 		return fmt.Errorf("field feature_level in P2PSettingsRespP2PSettings: required")
 	}
-	if v, ok := raw["fixed_rate_adverts"]; !ok || v == nil {
+	if _, ok := raw["fixed_rate_adverts"]; raw != nil && !ok {
 		return fmt.Errorf("field fixed_rate_adverts in P2PSettingsRespP2PSettings: required")
 	}
-	if v, ok := raw["float_rate_adverts"]; !ok || v == nil {
+	if _, ok := raw["float_rate_adverts"]; raw != nil && !ok {
 		return fmt.Errorf("field float_rate_adverts in P2PSettingsRespP2PSettings: required")
 	}
-	if v, ok := raw["float_rate_offset_limit"]; !ok || v == nil {
+	if _, ok := raw["float_rate_offset_limit"]; raw != nil && !ok {
 		return fmt.Errorf("field float_rate_offset_limit in P2PSettingsRespP2PSettings: required")
 	}
-	if v, ok := raw["local_currencies"]; !ok || v == nil {
+	if _, ok := raw["local_currencies"]; raw != nil && !ok {
 		return fmt.Errorf("field local_currencies in P2PSettingsRespP2PSettings: required")
 	}
-	if v, ok := raw["maximum_advert_amount"]; !ok || v == nil {
+	if _, ok := raw["maximum_advert_amount"]; raw != nil && !ok {
 		return fmt.Errorf("field maximum_advert_amount in P2PSettingsRespP2PSettings: required")
 	}
-	if v, ok := raw["maximum_order_amount"]; !ok || v == nil {
+	if _, ok := raw["maximum_order_amount"]; raw != nil && !ok {
 		return fmt.Errorf("field maximum_order_amount in P2PSettingsRespP2PSettings: required")
 	}
-	if v, ok := raw["order_daily_limit"]; !ok || v == nil {
+	if _, ok := raw["order_daily_limit"]; raw != nil && !ok {
 		return fmt.Errorf("field order_daily_limit in P2PSettingsRespP2PSettings: required")
 	}
-	if v, ok := raw["order_expiry_options"]; !ok || v == nil {
+	if _, ok := raw["order_expiry_options"]; raw != nil && !ok {
 		return fmt.Errorf("field order_expiry_options in P2PSettingsRespP2PSettings: required")
 	}
-	if v, ok := raw["order_payment_period"]; !ok || v == nil {
+	if _, ok := raw["order_payment_period"]; raw != nil && !ok {
 		return fmt.Errorf("field order_payment_period in P2PSettingsRespP2PSettings: required")
 	}
-	if v, ok := raw["payment_methods_enabled"]; !ok || v == nil {
+	if _, ok := raw["payment_methods_enabled"]; raw != nil && !ok {
 		return fmt.Errorf("field payment_methods_enabled in P2PSettingsRespP2PSettings: required")
 	}
-	if v, ok := raw["review_period"]; !ok || v == nil {
+	if _, ok := raw["review_period"]; raw != nil && !ok {
 		return fmt.Errorf("field review_period in P2PSettingsRespP2PSettings: required")
 	}
-	if v, ok := raw["supported_currencies"]; !ok || v == nil {
+	if _, ok := raw["supported_currencies"]; raw != nil && !ok {
 		return fmt.Errorf("field supported_currencies in P2PSettingsRespP2PSettings: required")
 	}
 	type Plain P2PSettingsRespP2PSettings
@@ -528,7 +547,7 @@ func (j *P2PSettingsRespSubscription) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["id"]; !ok || v == nil {
+	if _, ok := raw["id"]; raw != nil && !ok {
 		return fmt.Errorf("field id in P2PSettingsRespSubscription: required")
 	}
 	type Plain P2PSettingsRespSubscription
@@ -540,35 +559,16 @@ func (j *P2PSettingsRespSubscription) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Information of the P2P settings.
-type P2PSettingsResp struct {
-	// Echo of the request made.
-	EchoReq P2PSettingsRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType P2PSettingsRespMsgType `json:"msg_type"`
-
-	// Peer-to-peer payment system settings.
-	P2PSettings *P2PSettingsRespP2PSettings `json:"p2p_settings,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// For subscription requests only.
-	Subscription *P2PSettingsRespSubscription `json:"subscription,omitempty"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PSettingsResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in P2PSettingsResp: required")
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
 		return fmt.Errorf("field msg_type in P2PSettingsResp: required")
 	}
 	type Plain P2PSettingsResp

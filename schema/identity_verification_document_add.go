@@ -6,32 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-type IdentityVerificationDocumentAddIdentityVerificationDocumentAdd int
-
-var enumValues_IdentityVerificationDocumentAddIdentityVerificationDocumentAdd = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *IdentityVerificationDocumentAddIdentityVerificationDocumentAdd) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_IdentityVerificationDocumentAddIdentityVerificationDocumentAdd {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_IdentityVerificationDocumentAddIdentityVerificationDocumentAdd, v)
-	}
-	*j = IdentityVerificationDocumentAddIdentityVerificationDocumentAdd(v)
-	return nil
-}
-
 // Adds document information such as issuing country, id and type for identity
 // verification processes.
 type IdentityVerificationDocumentAdd struct {
@@ -63,6 +37,32 @@ type IdentityVerificationDocumentAdd struct {
 	ReqId *int `json:"req_id,omitempty"`
 }
 
+type IdentityVerificationDocumentAddIdentityVerificationDocumentAdd int
+
+var enumValues_IdentityVerificationDocumentAddIdentityVerificationDocumentAdd = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *IdentityVerificationDocumentAddIdentityVerificationDocumentAdd) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_IdentityVerificationDocumentAddIdentityVerificationDocumentAdd {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_IdentityVerificationDocumentAddIdentityVerificationDocumentAdd, v)
+	}
+	*j = IdentityVerificationDocumentAddIdentityVerificationDocumentAdd(v)
+	return nil
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type IdentityVerificationDocumentAddPassthrough map[string]interface{}
@@ -73,16 +73,16 @@ func (j *IdentityVerificationDocumentAdd) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["document_number"]; !ok || v == nil {
+	if _, ok := raw["document_number"]; raw != nil && !ok {
 		return fmt.Errorf("field document_number in IdentityVerificationDocumentAdd: required")
 	}
-	if v, ok := raw["document_type"]; !ok || v == nil {
+	if _, ok := raw["document_type"]; raw != nil && !ok {
 		return fmt.Errorf("field document_type in IdentityVerificationDocumentAdd: required")
 	}
-	if v, ok := raw["identity_verification_document_add"]; !ok || v == nil {
+	if _, ok := raw["identity_verification_document_add"]; raw != nil && !ok {
 		return fmt.Errorf("field identity_verification_document_add in IdentityVerificationDocumentAdd: required")
 	}
-	if v, ok := raw["issuing_country"]; !ok || v == nil {
+	if _, ok := raw["issuing_country"]; raw != nil && !ok {
 		return fmt.Errorf("field issuing_country in IdentityVerificationDocumentAdd: required")
 	}
 	type Plain IdentityVerificationDocumentAdd

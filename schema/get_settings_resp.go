@@ -152,9 +152,84 @@ type GetSettingsRespGetSettings struct {
 
 type GetSettingsRespGetSettingsAllowCopiers int
 
+var enumValues_GetSettingsRespGetSettingsAllowCopiers = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetSettingsRespGetSettingsAllowCopiers) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetSettingsRespGetSettingsAllowCopiers {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetSettingsRespGetSettingsAllowCopiers, v)
+	}
+	*j = GetSettingsRespGetSettingsAllowCopiers(v)
+	return nil
+}
+
 type GetSettingsRespGetSettingsDxtradeUserException int
 
+var enumValues_GetSettingsRespGetSettingsDxtradeUserException = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetSettingsRespGetSettingsDxtradeUserException) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetSettingsRespGetSettingsDxtradeUserException {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetSettingsRespGetSettingsDxtradeUserException, v)
+	}
+	*j = GetSettingsRespGetSettingsDxtradeUserException(v)
+	return nil
+}
+
 type GetSettingsRespGetSettingsEmailConsent int
+
+var enumValues_GetSettingsRespGetSettingsEmailConsent = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetSettingsRespGetSettingsEmailConsent) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetSettingsRespGetSettingsEmailConsent {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetSettingsRespGetSettingsEmailConsent, v)
+	}
+	*j = GetSettingsRespGetSettingsEmailConsent(v)
+	return nil
+}
 
 type GetSettingsRespGetSettingsEmploymentStatus string
 
@@ -164,6 +239,34 @@ const GetSettingsRespGetSettingsEmploymentStatusSelfEmployed GetSettingsRespGetS
 const GetSettingsRespGetSettingsEmploymentStatusStudent GetSettingsRespGetSettingsEmploymentStatus = "Student"
 const GetSettingsRespGetSettingsEmploymentStatusUnemployed GetSettingsRespGetSettingsEmploymentStatus = "Unemployed"
 
+var enumValues_GetSettingsRespGetSettingsEmploymentStatus = []interface{}{
+	"Employed",
+	"Pensioner",
+	"Self-Employed",
+	"Student",
+	"Unemployed",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetSettingsRespGetSettingsEmploymentStatus) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetSettingsRespGetSettingsEmploymentStatus {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetSettingsRespGetSettingsEmploymentStatus, v)
+	}
+	*j = GetSettingsRespGetSettingsEmploymentStatus(v)
+	return nil
+}
+
 // Contains features that are enabled or disabled for this user
 type GetSettingsRespGetSettingsFeatureFlag struct {
 	// Boolean value 1 or 0 indicating whether his feature this enabled or not
@@ -172,104 +275,90 @@ type GetSettingsRespGetSettingsFeatureFlag struct {
 
 type GetSettingsRespGetSettingsFeatureFlagWallet int
 
-type GetSettingsRespGetSettingsHasSecretAnswer int
-
-type GetSettingsRespGetSettingsIsAuthenticatedPaymentAgent int
-
-type GetSettingsRespGetSettingsNonPepDeclaration int
-
-// The status of the Phone Number Verification.
-type GetSettingsRespGetSettingsPhoneNumberVerification struct {
-	// A list of available carriers (if empty assume Phone Number Verification is not
-	// available at the moment)
-	Carriers []interface{} `json:"carriers,omitempty"`
-
-	// (Optional) Indicates the timestamp for the next verification attempt
-	NextAttempt *int `json:"next_attempt,omitempty"`
-
-	// (Optional) Indicates the timestamp for the next email verification attempt
-	NextEmailAttempt *int `json:"next_email_attempt,omitempty"`
-
-	// (Optional) Indicates the timestamp for the next verify attempt
-	NextVerifyAttempt *int `json:"next_verify_attempt,omitempty"`
-
-	// Indicates the verification status of the client's phone number.
-	Verified GetSettingsRespGetSettingsPhoneNumberVerificationVerified `json:"verified"`
-}
-
-type GetSettingsRespGetSettingsPhoneNumberVerificationVerified int
-
-type GetSettingsRespGetSettingsRequestProfessionalStatus int
-
-type GetSettingsRespMsgType string
-
-const GetSettingsRespMsgTypeGetSettings GetSettingsRespMsgType = "get_settings"
-
-var enumValues_GetSettingsRespGetSettingsAllowCopiers = []interface{}{
-	0,
-	1,
-}
-var enumValues_GetSettingsRespGetSettingsDxtradeUserException = []interface{}{
-	0,
-	1,
-}
-var enumValues_GetSettingsRespGetSettingsEmailConsent = []interface{}{
-	0,
-	1,
-}
-var enumValues_GetSettingsRespGetSettingsEmploymentStatus = []interface{}{
-	"Employed",
-	"Pensioner",
-	"Self-Employed",
-	"Student",
-	"Unemployed",
-}
 var enumValues_GetSettingsRespGetSettingsFeatureFlagWallet = []interface{}{
 	0,
 	1,
 }
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetSettingsRespGetSettingsFeatureFlagWallet) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetSettingsRespGetSettingsFeatureFlagWallet {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetSettingsRespGetSettingsFeatureFlagWallet, v)
+	}
+	*j = GetSettingsRespGetSettingsFeatureFlagWallet(v)
+	return nil
+}
+
+type GetSettingsRespGetSettingsHasSecretAnswer int
+
 var enumValues_GetSettingsRespGetSettingsHasSecretAnswer = []interface{}{
 	0,
 	1,
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *GetSettingsResp) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
+func (j *GetSettingsRespGetSettingsHasSecretAnswer) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
-		return fmt.Errorf("field echo_req in GetSettingsResp: required")
+	var ok bool
+	for _, expected := range enumValues_GetSettingsRespGetSettingsHasSecretAnswer {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
 	}
-	if v, ok := raw["msg_type"]; !ok || v == nil {
-		return fmt.Errorf("field msg_type in GetSettingsResp: required")
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetSettingsRespGetSettingsHasSecretAnswer, v)
 	}
-	type Plain GetSettingsResp
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
-	}
-	*j = GetSettingsResp(plain)
+	*j = GetSettingsRespGetSettingsHasSecretAnswer(v)
 	return nil
 }
 
+type GetSettingsRespGetSettingsIsAuthenticatedPaymentAgent int
+
+var enumValues_GetSettingsRespGetSettingsIsAuthenticatedPaymentAgent = []interface{}{
+	0,
+	1,
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *GetSettingsRespGetSettingsPhoneNumberVerification) UnmarshalJSON(b []byte) error {
-	var raw map[string]interface{}
-	if err := json.Unmarshal(b, &raw); err != nil {
+func (j *GetSettingsRespGetSettingsIsAuthenticatedPaymentAgent) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
-	if v, ok := raw["verified"]; !ok || v == nil {
-		return fmt.Errorf("field verified in GetSettingsRespGetSettingsPhoneNumberVerification: required")
+	var ok bool
+	for _, expected := range enumValues_GetSettingsRespGetSettingsIsAuthenticatedPaymentAgent {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
 	}
-	type Plain GetSettingsRespGetSettingsPhoneNumberVerification
-	var plain Plain
-	if err := json.Unmarshal(b, &plain); err != nil {
-		return err
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetSettingsRespGetSettingsIsAuthenticatedPaymentAgent, v)
 	}
-	*j = GetSettingsRespGetSettingsPhoneNumberVerification(plain)
+	*j = GetSettingsRespGetSettingsIsAuthenticatedPaymentAgent(v)
 	return nil
+}
+
+type GetSettingsRespGetSettingsNonPepDeclaration int
+
+var enumValues_GetSettingsRespGetSettingsNonPepDeclaration = []interface{}{
+	0,
+	1,
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -292,10 +381,27 @@ func (j *GetSettingsRespGetSettingsNonPepDeclaration) UnmarshalJSON(b []byte) er
 	return nil
 }
 
-var enumValues_GetSettingsRespGetSettingsIsAuthenticatedPaymentAgent = []interface{}{
-	0,
-	1,
+// The status of the Phone Number Verification.
+type GetSettingsRespGetSettingsPhoneNumberVerification struct {
+	// A list of available carriers (if empty assume Phone Number Verification is not
+	// available at the moment)
+	Carriers []interface{} `json:"carriers,omitempty"`
+
+	// (Optional) Indicates the timestamp for the next verification attempt
+	NextAttempt *int `json:"next_attempt,omitempty"`
+
+	// (Optional) Indicates the timestamp for the next email verification attempt
+	NextEmailAttempt *int `json:"next_email_attempt,omitempty"`
+
+	// (Optional) Indicates the timestamp for the next verify attempt
+	NextVerifyAttempt *int `json:"next_verify_attempt,omitempty"`
+
+	// Indicates the verification status of the client's phone number.
+	Verified GetSettingsRespGetSettingsPhoneNumberVerificationVerified `json:"verified"`
 }
+
+type GetSettingsRespGetSettingsPhoneNumberVerificationVerified int
+
 var enumValues_GetSettingsRespGetSettingsPhoneNumberVerificationVerified = []interface{}{
 	0,
 	1,
@@ -322,48 +428,28 @@ func (j *GetSettingsRespGetSettingsPhoneNumberVerificationVerified) UnmarshalJSO
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *GetSettingsRespGetSettingsFeatureFlagWallet) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
+func (j *GetSettingsRespGetSettingsPhoneNumberVerification) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	var ok bool
-	for _, expected := range enumValues_GetSettingsRespGetSettingsFeatureFlagWallet {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
+	if _, ok := raw["verified"]; raw != nil && !ok {
+		return fmt.Errorf("field verified in GetSettingsRespGetSettingsPhoneNumberVerification: required")
 	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetSettingsRespGetSettingsFeatureFlagWallet, v)
+	type Plain GetSettingsRespGetSettingsPhoneNumberVerification
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
+		return err
 	}
-	*j = GetSettingsRespGetSettingsFeatureFlagWallet(v)
+	*j = GetSettingsRespGetSettingsPhoneNumberVerification(plain)
 	return nil
 }
 
-var enumValues_GetSettingsRespGetSettingsNonPepDeclaration = []interface{}{
+type GetSettingsRespGetSettingsRequestProfessionalStatus int
+
+var enumValues_GetSettingsRespGetSettingsRequestProfessionalStatus = []interface{}{
 	0,
 	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *GetSettingsRespGetSettingsHasSecretAnswer) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_GetSettingsRespGetSettingsHasSecretAnswer {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetSettingsRespGetSettingsHasSecretAnswer, v)
-	}
-	*j = GetSettingsRespGetSettingsHasSecretAnswer(v)
-	return nil
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -386,50 +472,9 @@ func (j *GetSettingsRespGetSettingsRequestProfessionalStatus) UnmarshalJSON(b []
 	return nil
 }
 
-var enumValues_GetSettingsRespGetSettingsRequestProfessionalStatus = []interface{}{
-	0,
-	1,
-}
+type GetSettingsRespMsgType string
 
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *GetSettingsRespGetSettingsEmploymentStatus) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_GetSettingsRespGetSettingsEmploymentStatus {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetSettingsRespGetSettingsEmploymentStatus, v)
-	}
-	*j = GetSettingsRespGetSettingsEmploymentStatus(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *GetSettingsRespGetSettingsEmailConsent) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_GetSettingsRespGetSettingsEmailConsent {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetSettingsRespGetSettingsEmailConsent, v)
-	}
-	*j = GetSettingsRespGetSettingsEmailConsent(v)
-	return nil
-}
+const GetSettingsRespMsgTypeGetSettings GetSettingsRespMsgType = "get_settings"
 
 var enumValues_GetSettingsRespMsgType = []interface{}{
 	"get_settings",
@@ -456,61 +501,22 @@ func (j *GetSettingsRespMsgType) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *GetSettingsRespGetSettingsDxtradeUserException) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
+func (j *GetSettingsResp) UnmarshalJSON(b []byte) error {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	var ok bool
-	for _, expected := range enumValues_GetSettingsRespGetSettingsDxtradeUserException {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
+		return fmt.Errorf("field echo_req in GetSettingsResp: required")
 	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetSettingsRespGetSettingsDxtradeUserException, v)
+	if _, ok := raw["msg_type"]; raw != nil && !ok {
+		return fmt.Errorf("field msg_type in GetSettingsResp: required")
 	}
-	*j = GetSettingsRespGetSettingsDxtradeUserException(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *GetSettingsRespGetSettingsAllowCopiers) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
+	type Plain GetSettingsResp
+	var plain Plain
+	if err := json.Unmarshal(b, &plain); err != nil {
 		return err
 	}
-	var ok bool
-	for _, expected := range enumValues_GetSettingsRespGetSettingsAllowCopiers {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetSettingsRespGetSettingsAllowCopiers, v)
-	}
-	*j = GetSettingsRespGetSettingsAllowCopiers(v)
-	return nil
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *GetSettingsRespGetSettingsIsAuthenticatedPaymentAgent) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_GetSettingsRespGetSettingsIsAuthenticatedPaymentAgent {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetSettingsRespGetSettingsIsAuthenticatedPaymentAgent, v)
-	}
-	*j = GetSettingsRespGetSettingsIsAuthenticatedPaymentAgent(v)
+	*j = GetSettingsResp(plain)
 	return nil
 }

@@ -29,7 +29,7 @@ func (j *StatesList) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["states_list"]; !ok || v == nil {
+	if _, ok := raw["states_list"]; raw != nil && !ok {
 		return fmt.Errorf("field states_list in StatesList: required")
 	}
 	type Plain StatesList

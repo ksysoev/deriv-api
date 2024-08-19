@@ -6,6 +6,46 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Creates a P2P order for the specified advert.
+type P2POrderCreate struct {
+	// The unique identifier for the advert to create an order against.
+	AdvertId string `json:"advert_id"`
+
+	// The amount of currency to be bought or sold.
+	Amount float64 `json:"amount"`
+
+	// [Optional] Seller contact information. Only applicable for 'sell orders'.
+	ContactInfo *string `json:"contact_info,omitempty"`
+
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// Must be 1
+	P2POrderCreate P2POrderCreateP2POrderCreate `json:"p2p_order_create"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough P2POrderCreatePassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Payment instructions, only applicable for sell orders.
+	PaymentInfo *string `json:"payment_info,omitempty"`
+
+	// IDs of payment methods, only applicable for sell orders.
+	PaymentMethodIds []int `json:"payment_method_ids,omitempty"`
+
+	// [Optional] Conversion rate from account currency to local currency, only
+	// applicable for floating rate adverts.
+	Rate *float64 `json:"rate,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// [Optional] If set to 1, will send updates whenever there is an update to the
+	// order.
+	Subscribe *P2POrderCreateSubscribe `json:"subscribe,omitempty"`
+}
+
 type P2POrderCreateP2POrderCreate int
 
 var enumValues_P2POrderCreateP2POrderCreate = []interface{}{
@@ -62,59 +102,19 @@ func (j *P2POrderCreateSubscribe) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Creates a P2P order for the specified advert.
-type P2POrderCreate struct {
-	// The unique identifier for the advert to create an order against.
-	AdvertId string `json:"advert_id"`
-
-	// The amount of currency to be bought or sold.
-	Amount float64 `json:"amount"`
-
-	// [Optional] Seller contact information. Only applicable for 'sell orders'.
-	ContactInfo *string `json:"contact_info,omitempty"`
-
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// Must be 1
-	P2POrderCreate P2POrderCreateP2POrderCreate `json:"p2p_order_create"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough P2POrderCreatePassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Payment instructions, only applicable for sell orders.
-	PaymentInfo *string `json:"payment_info,omitempty"`
-
-	// IDs of payment methods, only applicable for sell orders.
-	PaymentMethodIds []int `json:"payment_method_ids,omitempty"`
-
-	// [Optional] Conversion rate from account currency to local currency, only
-	// applicable for floating rate adverts.
-	Rate *float64 `json:"rate,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// [Optional] If set to 1, will send updates whenever there is an update to the
-	// order.
-	Subscribe *P2POrderCreateSubscribe `json:"subscribe,omitempty"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2POrderCreate) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["advert_id"]; !ok || v == nil {
+	if _, ok := raw["advert_id"]; raw != nil && !ok {
 		return fmt.Errorf("field advert_id in P2POrderCreate: required")
 	}
-	if v, ok := raw["amount"]; !ok || v == nil {
+	if _, ok := raw["amount"]; raw != nil && !ok {
 		return fmt.Errorf("field amount in P2POrderCreate: required")
 	}
-	if v, ok := raw["p2p_order_create"]; !ok || v == nil {
+	if _, ok := raw["p2p_order_create"]; raw != nil && !ok {
 		return fmt.Errorf("field p2p_order_create in P2POrderCreate: required")
 	}
 	type Plain P2POrderCreate

@@ -6,6 +6,24 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// When a virtual-money's account balance becomes low, it can be topped up using
+// this call.
+type TopupVirtual struct {
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough TopupVirtualPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// Must be `1`
+	TopupVirtual TopupVirtualTopupVirtual `json:"topup_virtual"`
+}
+
 // [Optional] Used to pass data through the websocket, which may be retrieved via
 // the `echo_req` output field.
 type TopupVirtualPassthrough map[string]interface{}
@@ -36,31 +54,13 @@ func (j *TopupVirtualTopupVirtual) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// When a virtual-money's account balance becomes low, it can be topped up using
-// this call.
-type TopupVirtual struct {
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough TopupVirtualPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// Must be `1`
-	TopupVirtual TopupVirtualTopupVirtual `json:"topup_virtual"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TopupVirtual) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["topup_virtual"]; !ok || v == nil {
+	if _, ok := raw["topup_virtual"]; raw != nil && !ok {
 		return fmt.Errorf("field topup_virtual in TopupVirtual: required")
 	}
 	type Plain TopupVirtual

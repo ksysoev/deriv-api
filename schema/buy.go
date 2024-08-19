@@ -119,10 +119,61 @@ const BuyParametersBarrierRangeMiddle BuyParametersBarrierRange = "middle"
 const BuyParametersBarrierRangeTight BuyParametersBarrierRange = "tight"
 const BuyParametersBarrierRangeWide BuyParametersBarrierRange = "wide"
 
+var enumValues_BuyParametersBarrierRange = []interface{}{
+	"tight",
+	"middle",
+	"wide",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *BuyParametersBarrierRange) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_BuyParametersBarrierRange {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_BuyParametersBarrierRange, v)
+	}
+	*j = BuyParametersBarrierRange(v)
+	return nil
+}
+
 type BuyParametersBasis string
 
 const BuyParametersBasisPayout BuyParametersBasis = "payout"
 const BuyParametersBasisStake BuyParametersBasis = "stake"
+
+var enumValues_BuyParametersBasis = []interface{}{
+	"payout",
+	"stake",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *BuyParametersBasis) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_BuyParametersBasis {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_BuyParametersBasis, v)
+	}
+	*j = BuyParametersBasis(v)
+	return nil
+}
 
 type BuyParametersContractType string
 
@@ -164,74 +215,6 @@ const BuyParametersContractTypeTURBOSSHORT BuyParametersContractType = "TURBOSSH
 const BuyParametersContractTypeUPORDOWN BuyParametersContractType = "UPORDOWN"
 const BuyParametersContractTypeVANILLALONGCALL BuyParametersContractType = "VANILLALONGCALL"
 const BuyParametersContractTypeVANILLALONGPUT BuyParametersContractType = "VANILLALONGPUT"
-
-type BuyParametersDurationUnit string
-
-const BuyParametersDurationUnitD BuyParametersDurationUnit = "d"
-const BuyParametersDurationUnitH BuyParametersDurationUnit = "h"
-const BuyParametersDurationUnitM BuyParametersDurationUnit = "m"
-const BuyParametersDurationUnitS BuyParametersDurationUnit = "s"
-const BuyParametersDurationUnitT BuyParametersDurationUnit = "t"
-
-// Add an order to close the contract once the order condition is met (only for
-// `MULTUP` and `MULTDOWN` and `ACCU` contracts).
-type BuyParametersLimitOrder struct {
-	// Contract will be automatically closed when the value of the contract reaches a
-	// specific loss.
-	StopLoss *float64 `json:"stop_loss,omitempty"`
-
-	// Contract will be automatically closed when the value of the contract reaches a
-	// specific profit.
-	TakeProfit *float64 `json:"take_profit,omitempty"`
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *BuyParametersProductType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_BuyParametersProductType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_BuyParametersProductType, v)
-	}
-	*j = BuyParametersProductType(v)
-	return nil
-}
-
-var enumValues_BuyParametersDurationUnit = []interface{}{
-	"d",
-	"m",
-	"s",
-	"h",
-	"t",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *BuyParametersContractType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_BuyParametersContractType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_BuyParametersContractType, v)
-	}
-	*j = BuyParametersContractType(v)
-	return nil
-}
 
 var enumValues_BuyParametersContractType = []interface{}{
 	"MULTUP",
@@ -275,34 +258,39 @@ var enumValues_BuyParametersContractType = []interface{}{
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *BuyParametersBasis) UnmarshalJSON(b []byte) error {
+func (j *BuyParametersContractType) UnmarshalJSON(b []byte) error {
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_BuyParametersBasis {
+	for _, expected := range enumValues_BuyParametersContractType {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_BuyParametersBasis, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_BuyParametersContractType, v)
 	}
-	*j = BuyParametersBasis(v)
+	*j = BuyParametersContractType(v)
 	return nil
 }
 
-var enumValues_BuyParametersBasis = []interface{}{
-	"payout",
-	"stake",
-}
+type BuyParametersDurationUnit string
 
-type BuyParametersProductType string
+const BuyParametersDurationUnitD BuyParametersDurationUnit = "d"
+const BuyParametersDurationUnitH BuyParametersDurationUnit = "h"
+const BuyParametersDurationUnitM BuyParametersDurationUnit = "m"
+const BuyParametersDurationUnitS BuyParametersDurationUnit = "s"
+const BuyParametersDurationUnitT BuyParametersDurationUnit = "t"
 
-var enumValues_BuyParametersProductType = []interface{}{
-	"basic",
+var enumValues_BuyParametersDurationUnit = []interface{}{
+	"d",
+	"m",
+	"s",
+	"h",
+	"t",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -325,25 +313,43 @@ func (j *BuyParametersDurationUnit) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+// Add an order to close the contract once the order condition is met (only for
+// `MULTUP` and `MULTDOWN` and `ACCU` contracts).
+type BuyParametersLimitOrder struct {
+	// Contract will be automatically closed when the value of the contract reaches a
+	// specific loss.
+	StopLoss *float64 `json:"stop_loss,omitempty"`
+
+	// Contract will be automatically closed when the value of the contract reaches a
+	// specific profit.
+	TakeProfit *float64 `json:"take_profit,omitempty"`
+}
+
+type BuyParametersProductType string
+
 const BuyParametersProductTypeBasic BuyParametersProductType = "basic"
 
+var enumValues_BuyParametersProductType = []interface{}{
+	"basic",
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
-func (j *BuyParametersBarrierRange) UnmarshalJSON(b []byte) error {
+func (j *BuyParametersProductType) UnmarshalJSON(b []byte) error {
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	var ok bool
-	for _, expected := range enumValues_BuyParametersBarrierRange {
+	for _, expected := range enumValues_BuyParametersProductType {
 		if reflect.DeepEqual(v, expected) {
 			ok = true
 			break
 		}
 	}
 	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_BuyParametersBarrierRange, v)
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_BuyParametersProductType, v)
 	}
-	*j = BuyParametersBarrierRange(v)
+	*j = BuyParametersProductType(v)
 	return nil
 }
 
@@ -353,13 +359,13 @@ func (j *BuyParameters) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["contract_type"]; !ok || v == nil {
+	if _, ok := raw["contract_type"]; raw != nil && !ok {
 		return fmt.Errorf("field contract_type in BuyParameters: required")
 	}
-	if v, ok := raw["currency"]; !ok || v == nil {
+	if _, ok := raw["currency"]; raw != nil && !ok {
 		return fmt.Errorf("field currency in BuyParameters: required")
 	}
-	if v, ok := raw["symbol"]; !ok || v == nil {
+	if _, ok := raw["symbol"]; raw != nil && !ok {
 		return fmt.Errorf("field symbol in BuyParameters: required")
 	}
 	type Plain BuyParameters
@@ -404,22 +410,16 @@ func (j *BuySubscribe) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-var enumValues_BuyParametersBarrierRange = []interface{}{
-	"tight",
-	"middle",
-	"wide",
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *Buy) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["buy"]; !ok || v == nil {
+	if _, ok := raw["buy"]; raw != nil && !ok {
 		return fmt.Errorf("field buy in Buy: required")
 	}
-	if v, ok := raw["price"]; !ok || v == nil {
+	if _, ok := raw["price"]; raw != nil && !ok {
 		return fmt.Errorf("field price in Buy: required")
 	}
 	type Plain Buy

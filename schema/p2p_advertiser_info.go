@@ -6,6 +6,31 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Retrieve information about a P2P advertiser.
+type P2PAdvertiserInfo struct {
+	// [Optional] The unique identifier for this advertiser. If not provided, returns
+	// advertiser information about the current account.
+	Id *string `json:"id,omitempty"`
+
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// Must be 1
+	P2PAdvertiserInfo P2PAdvertiserInfoP2PAdvertiserInfo `json:"p2p_advertiser_info"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough P2PAdvertiserInfoPassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// [Optional] If set to 1, will send updates whenever there is an update to
+	// advertiser
+	Subscribe *P2PAdvertiserInfoSubscribe `json:"subscribe,omitempty"`
+}
+
 type P2PAdvertiserInfoP2PAdvertiserInfo int
 
 var enumValues_P2PAdvertiserInfoP2PAdvertiserInfo = []interface{}{
@@ -62,38 +87,13 @@ func (j *P2PAdvertiserInfoSubscribe) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Retrieve information about a P2P advertiser.
-type P2PAdvertiserInfo struct {
-	// [Optional] The unique identifier for this advertiser. If not provided, returns
-	// advertiser information about the current account.
-	Id *string `json:"id,omitempty"`
-
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// Must be 1
-	P2PAdvertiserInfo P2PAdvertiserInfoP2PAdvertiserInfo `json:"p2p_advertiser_info"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough P2PAdvertiserInfoPassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// [Optional] If set to 1, will send updates whenever there is an update to
-	// advertiser
-	Subscribe *P2PAdvertiserInfoSubscribe `json:"subscribe,omitempty"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PAdvertiserInfo) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["p2p_advertiser_info"]; !ok || v == nil {
+	if _, ok := raw["p2p_advertiser_info"]; raw != nil && !ok {
 		return fmt.Errorf("field p2p_advertiser_info in P2PAdvertiserInfo: required")
 	}
 	type Plain P2PAdvertiserInfo

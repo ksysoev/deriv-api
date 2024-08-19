@@ -6,6 +6,31 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Get user account balance
+type Balance struct {
+	// [Optional] If set to `all`, return the balances of all accounts one by one; if
+	// set to `current`, return the balance of current account; if set as an account
+	// id, return the balance of that account.
+	Account string `json:"account,omitempty"`
+
+	// Must be `1`
+	Balance BalanceBalance `json:"balance"`
+
+	// [Optional] The login id of the user. Mandatory when multiple tokens were
+	// provided during authorize.
+	Loginid *string `json:"loginid,omitempty"`
+
+	// [Optional] Used to pass data through the websocket, which may be retrieved via
+	// the `echo_req` output field.
+	Passthrough BalancePassthrough `json:"passthrough,omitempty"`
+
+	// [Optional] Used to map request to response.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// [Optional] If set to 1, will send updates whenever the balance changes.
+	Subscribe *BalanceSubscribe `json:"subscribe,omitempty"`
+}
+
 type BalanceBalance int
 
 var enumValues_BalanceBalance = []interface{}{
@@ -63,38 +88,13 @@ func (j *BalanceSubscribe) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Get user account balance
-type Balance struct {
-	// [Optional] If set to `all`, return the balances of all accounts one by one; if
-	// set to `current`, return the balance of current account; if set as an account
-	// id, return the balance of that account.
-	Account string `json:"account,omitempty"`
-
-	// Must be `1`
-	Balance BalanceBalance `json:"balance"`
-
-	// [Optional] The login id of the user. Mandatory when multiple tokens were
-	// provided during authorize.
-	Loginid *string `json:"loginid,omitempty"`
-
-	// [Optional] Used to pass data through the websocket, which may be retrieved via
-	// the `echo_req` output field.
-	Passthrough BalancePassthrough `json:"passthrough,omitempty"`
-
-	// [Optional] Used to map request to response.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// [Optional] If set to 1, will send updates whenever the balance changes.
-	Subscribe *BalanceSubscribe `json:"subscribe,omitempty"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *Balance) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["balance"]; !ok || v == nil {
+	if _, ok := raw["balance"]; raw != nil && !ok {
 		return fmt.Errorf("field balance in Balance: required")
 	}
 	type Plain Balance

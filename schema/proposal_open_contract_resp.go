@@ -6,10 +6,31 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
+// Latest price and other details for an open contract in the user's portfolio
+type ProposalOpenContractResp struct {
+	// Echo of the request made.
+	EchoReq ProposalOpenContractRespEchoReq `json:"echo_req"`
+
+	// Action name of the request made.
+	MsgType *ProposalOpenContractRespMsgType `json:"msg_type,omitempty"`
+
+	// Latest price and other details for an open contract
+	ProposalOpenContract *ProposalOpenContractRespProposalOpenContract `json:"proposal_open_contract,omitempty"`
+
+	// Optional field sent in request to map to response, present only when request
+	// contains `req_id`.
+	ReqId *int `json:"req_id,omitempty"`
+
+	// For subscription requests only.
+	Subscription *ProposalOpenContractRespSubscription `json:"subscription,omitempty"`
+}
+
 // Echo of the request made.
 type ProposalOpenContractRespEchoReq map[string]interface{}
 
 type ProposalOpenContractRespMsgType string
+
+const ProposalOpenContractRespMsgTypeProposalOpenContract ProposalOpenContractRespMsgType = "proposal_open_contract"
 
 var enumValues_ProposalOpenContractRespMsgType = []interface{}{
 	"proposal_open_contract",
@@ -35,7 +56,261 @@ func (j *ProposalOpenContractRespMsgType) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-const ProposalOpenContractRespMsgTypeProposalOpenContract ProposalOpenContractRespMsgType = "proposal_open_contract"
+// Latest price and other details for an open contract
+type ProposalOpenContractRespProposalOpenContract struct {
+	// Account Id
+	AccountId *float64 `json:"account_id,omitempty"`
+
+	// The markup amount charged on a client's stake amount
+	AppMarkupAmount *string `json:"app_markup_amount,omitempty"`
+
+	// Tick details around contract start and end time.
+	AuditDetails *ProposalOpenContractRespProposalOpenContractAuditDetails `json:"audit_details,omitempty"`
+
+	// Barrier of the contract (if any).
+	Barrier *string `json:"barrier,omitempty"`
+
+	// The number of barriers a contract has.
+	BarrierCount *float64 `json:"barrier_count,omitempty"`
+
+	// [Only for accumulator] Absolute difference between high/low barrier and spot
+	BarrierSpotDistance *string `json:"barrier_spot_distance,omitempty"`
+
+	// Price at which the contract could be sold back to the company.
+	BidPrice *float64 `json:"bid_price,omitempty"`
+
+	// Price at which contract was purchased
+	BuyPrice *float64 `json:"buy_price,omitempty"`
+
+	// Contains information about contract cancellation option.
+	Cancellation *ProposalOpenContractRespProposalOpenContractCancellation `json:"cancellation,omitempty"`
+
+	// Commission in payout currency amount.
+	Commision *float64 `json:"commision,omitempty"`
+
+	// Commission in payout currency amount.
+	Commission *float64 `json:"commission,omitempty"`
+
+	// The internal contract identifier
+	ContractId *int `json:"contract_id,omitempty"`
+
+	// Contract type.
+	ContractType *string `json:"contract_type,omitempty"`
+
+	// The currency code of the contract.
+	Currency *string `json:"currency,omitempty"`
+
+	// Spot value if we have license to stream this symbol.
+	CurrentSpot *float64 `json:"current_spot,omitempty"`
+
+	// Spot value with the correct precision if we have license to stream this symbol.
+	CurrentSpotDisplayValue *string `json:"current_spot_display_value,omitempty"`
+
+	// [Applicable for accumulator] High barrier based on current spot.
+	CurrentSpotHighBarrier *string `json:"current_spot_high_barrier,omitempty"`
+
+	// [Applicable for accumulator] Low barrier based on current spot.
+	CurrentSpotLowBarrier *string `json:"current_spot_low_barrier,omitempty"`
+
+	// The corresponding time of the current spot.
+	CurrentSpotTime *int `json:"current_spot_time,omitempty"`
+
+	// Expiry date (epoch) of the Contract. Please note that it is not applicable for
+	// tick trade contracts.
+	DateExpiry *int `json:"date_expiry,omitempty"`
+
+	// Settlement date (epoch) of the contract.
+	DateSettlement *int `json:"date_settlement,omitempty"`
+
+	// Start date (epoch) of the contract.
+	DateStart *int `json:"date_start,omitempty"`
+
+	// Display name of underlying
+	DisplayName *string `json:"display_name,omitempty"`
+
+	// [Only for vanilla or turbos options] The implied number of contracts
+	DisplayNumberOfContracts *string `json:"display_number_of_contracts,omitempty"`
+
+	// The `bid_price` with the correct precision
+	DisplayValue *string `json:"display_value,omitempty"`
+
+	// Same as `entry_tick`. For backwards compatibility.
+	EntrySpot *float64 `json:"entry_spot,omitempty"`
+
+	// Same as `entry_tick_display_value`. For backwards compatibility.
+	EntrySpotDisplayValue *string `json:"entry_spot_display_value,omitempty"`
+
+	// This is the entry spot of the contract. For contracts starting immediately it
+	// is the next tick after the start time. For forward-starting contracts it is the
+	// spot at the start time.
+	EntryTick *float64 `json:"entry_tick,omitempty"`
+
+	// This is the entry spot with the correct precision of the contract. For
+	// contracts starting immediately it is the next tick after the start time. For
+	// forward-starting contracts it is the spot at the start time.
+	EntryTickDisplayValue *string `json:"entry_tick_display_value,omitempty"`
+
+	// This is the epoch time of the entry tick.
+	EntryTickTime *int `json:"entry_tick_time,omitempty"`
+
+	// Exit tick can refer to the latest tick at the end time, the tick that fulfils
+	// the contract's winning or losing condition for path dependent contracts
+	// (Touch/No Touch and Stays Between/Goes Outside) or the tick at which the
+	// contract is sold before expiry.
+	ExitTick *float64 `json:"exit_tick,omitempty"`
+
+	// Exit tick can refer to the latest tick at the end time, the tick that fulfils
+	// the contract's winning or losing condition for path dependent contracts
+	// (Touch/No Touch and Stays Between/Goes Outside) or the tick at which the
+	// contract is sold before expiry.
+	ExitTickDisplayValue *string `json:"exit_tick_display_value,omitempty"`
+
+	// This is the epoch time of the exit tick. Note that since certain instruments
+	// don't tick every second, the exit tick time may be a few seconds before the end
+	// time.
+	ExitTickTime *int `json:"exit_tick_time,omitempty"`
+
+	// This is the expiry time.
+	ExpiryTime *int `json:"expiry_time,omitempty"`
+
+	// [Only for accumulator] Growth rate of an accumulator contract.
+	GrowthRate *float64 `json:"growth_rate,omitempty"`
+
+	// High barrier of the contract (if any).
+	HighBarrier *string `json:"high_barrier,omitempty"`
+
+	// A per-connection unique identifier. Can be passed to the `forget` API call to
+	// unsubscribe.
+	Id *string `json:"id,omitempty"`
+
+	// Whether the contract is expired or not.
+	IsExpired *ProposalOpenContractRespProposalOpenContractIsExpired `json:"is_expired,omitempty"`
+
+	// Whether the contract is forward-starting or not.
+	IsForwardStarting *ProposalOpenContractRespProposalOpenContractIsForwardStarting `json:"is_forward_starting,omitempty"`
+
+	// Whether the contract is an intraday contract.
+	IsIntraday *ProposalOpenContractRespProposalOpenContractIsIntraday `json:"is_intraday,omitempty"`
+
+	// Whether the contract expiry price will depend on the path of the market (e.g.
+	// One Touch contract).
+	IsPathDependent *ProposalOpenContractRespProposalOpenContractIsPathDependent `json:"is_path_dependent,omitempty"`
+
+	// Whether the contract is settleable or not.
+	IsSettleable *ProposalOpenContractRespProposalOpenContractIsSettleable `json:"is_settleable,omitempty"`
+
+	// Whether the contract is sold or not.
+	IsSold *ProposalOpenContractRespProposalOpenContractIsSold `json:"is_sold,omitempty"`
+
+	// Whether the contract can be cancelled.
+	IsValidToCancel *ProposalOpenContractRespProposalOpenContractIsValidToCancel `json:"is_valid_to_cancel,omitempty"`
+
+	// Whether the contract can be sold back to the company.
+	IsValidToSell *ProposalOpenContractRespProposalOpenContractIsValidToSell `json:"is_valid_to_sell,omitempty"`
+
+	// [Optional] Indicator whether take profit, stop loss, and/or stop out is allowed
+	// to be updated.
+	IsValidToUpdate *ProposalOpenContractRespProposalOpenContractIsValidToUpdate `json:"is_valid_to_update,omitempty"`
+
+	// Orders are applicable to `MULTUP` and `MULTDOWN` contracts only.
+	LimitOrder *ProposalOpenContractRespProposalOpenContractLimitOrder `json:"limit_order,omitempty"`
+
+	// Text description of the contract purchased, Example: Win payout if Volatility
+	// 100 Index is strictly higher than entry spot at 10 minutes after contract start
+	// time.
+	Longcode *string `json:"longcode,omitempty"`
+
+	// Low barrier of the contract (if any).
+	LowBarrier *string `json:"low_barrier,omitempty"`
+
+	// [Only for lookback trades] Multiplier applies when calculating the final payoff
+	// for each type of lookback. e.g. (Exit spot - Lowest historical price) *
+	// multiplier = Payout
+	Multiplier *float64 `json:"multiplier,omitempty"`
+
+	// Payout value of the contract.
+	Payout *float64 `json:"payout,omitempty"`
+
+	// The latest bid price minus buy price.
+	Profit *float64 `json:"profit,omitempty"`
+
+	// Profit in percentage.
+	ProfitPercentage *float64 `json:"profit_percentage,omitempty"`
+
+	// Epoch of purchase time, will be same as `date_start` for all contracts except
+	// forward starting contracts.
+	PurchaseTime *int `json:"purchase_time,omitempty"`
+
+	// [Only for reset trades i.e. RESETCALL and RESETPUT] Reset barrier of the
+	// contract.
+	ResetBarrier *string `json:"reset_barrier,omitempty"`
+
+	// [Only for reset trades i.e. RESETCALL and RESETPUT] The epoch time of a barrier
+	// reset.
+	ResetTime *int `json:"reset_time,omitempty"`
+
+	// Spot value at the selected tick for the contract.
+	SelectedSpot *float64 `json:"selected_spot,omitempty"`
+
+	// [Only for highlowticks trades i.e. TICKHIGH and TICKLOW] Selected tick for the
+	// contract.
+	SelectedTick *int `json:"selected_tick,omitempty"`
+
+	// Price at which contract was sold, only available when contract has been sold.
+	SellPrice *float64 `json:"sell_price,omitempty"`
+
+	// Latest spot value at the sell time. (only present for contracts already sold).
+	// Will no longer be supported in the next API release.
+	SellSpot *float64 `json:"sell_spot,omitempty"`
+
+	// Latest spot value with the correct precision at the sell time. (only present
+	// for contracts already sold). Will no longer be supported in the next API
+	// release.
+	SellSpotDisplayValue *string `json:"sell_spot_display_value,omitempty"`
+
+	// Epoch time of the sell spot. Note that since certain underlyings don't tick
+	// every second, the sell spot time may be a few seconds before the sell time.
+	// (only present for contracts already sold). Will no longer be supported in the
+	// next API release.
+	SellSpotTime *int `json:"sell_spot_time,omitempty"`
+
+	// Epoch time of when the contract was sold (only present for contracts already
+	// sold)
+	SellTime *int `json:"sell_time,omitempty"`
+
+	// Coded description of the contract purchased.
+	Shortcode *string `json:"shortcode,omitempty"`
+
+	// Contract status. Will be `sold` if the contract was sold back before expiry,
+	// `won` if won and `lost` if lost at expiry. Otherwise will be `open`
+	Status *ProposalOpenContractRespProposalOpenContractStatus `json:"status,omitempty"`
+
+	// Only for tick trades, number of ticks
+	TickCount *int `json:"tick_count,omitempty"`
+
+	// [Only for accumulator] Number of ticks passed since entry_tick
+	TickPassed *int `json:"tick_passed,omitempty"`
+
+	// Tick stream from entry to end time.
+	TickStream []ProposalOpenContractRespProposalOpenContractTickStreamElem `json:"tick_stream,omitempty"`
+
+	// Every contract has buy and sell transaction ids, i.e. when you purchase a
+	// contract we associate it with buy transaction id, and if contract is already
+	// sold we associate that with sell transaction id.
+	TransactionIds *ProposalOpenContractRespProposalOpenContractTransactionIds `json:"transaction_ids,omitempty"`
+
+	// The underlying symbol code.
+	Underlying *string `json:"underlying,omitempty"`
+
+	// Error message if validation fails
+	ValidationError *string `json:"validation_error,omitempty"`
+
+	// Error code if validation fails
+	ValidationErrorCode *string `json:"validation_error_code,omitempty"`
+
+	// Contains contract validation information.
+	ValidationParams *ProposalOpenContractRespProposalOpenContractValidationParams `json:"validation_params,omitempty"`
+}
 
 // Tick details around contract start and end time.
 type ProposalOpenContractRespProposalOpenContractAuditDetails struct {
@@ -328,6 +603,23 @@ func (j *ProposalOpenContractRespProposalOpenContractIsValidToSell) UnmarshalJSO
 	return nil
 }
 
+// [Optional] Indicator whether take profit, stop loss, and/or stop out is allowed
+// to be updated.
+type ProposalOpenContractRespProposalOpenContractIsValidToUpdate struct {
+	// [Optional] 1 if stop loss is allowed to be updated and 0 if otherwise. This
+	// field is undefined if stop loss functionality is not supported by the contract.
+	StopLoss *ProposalOpenContractRespProposalOpenContractIsValidToUpdateStopLoss `json:"stop_loss,omitempty"`
+
+	// [Optional] 1 if stop out is allowed to be updated and 0 if otherwise. This
+	// field is undefined if stop out functionality is not supported by the contract.
+	StopOut *ProposalOpenContractRespProposalOpenContractIsValidToUpdateStopOut `json:"stop_out,omitempty"`
+
+	// [Optional] 1 if take profit is allowed to be updated and 0 if otherwise. This
+	// field is undefined if take profit functionality is not supported by the
+	// contract.
+	TakeProfit *ProposalOpenContractRespProposalOpenContractIsValidToUpdateTakeProfit `json:"take_profit,omitempty"`
+}
+
 type ProposalOpenContractRespProposalOpenContractIsValidToUpdateStopLoss float64
 
 var enumValues_ProposalOpenContractRespProposalOpenContractIsValidToUpdateStopLoss = []interface{}{
@@ -409,23 +701,6 @@ func (j *ProposalOpenContractRespProposalOpenContractIsValidToUpdateTakeProfit) 
 	return nil
 }
 
-// [Optional] Indicator whether take profit, stop loss, and/or stop out is allowed
-// to be updated.
-type ProposalOpenContractRespProposalOpenContractIsValidToUpdate struct {
-	// [Optional] 1 if stop loss is allowed to be updated and 0 if otherwise. This
-	// field is undefined if stop loss functionality is not supported by the contract.
-	StopLoss *ProposalOpenContractRespProposalOpenContractIsValidToUpdateStopLoss `json:"stop_loss,omitempty"`
-
-	// [Optional] 1 if stop out is allowed to be updated and 0 if otherwise. This
-	// field is undefined if stop out functionality is not supported by the contract.
-	StopOut *ProposalOpenContractRespProposalOpenContractIsValidToUpdateStopOut `json:"stop_out,omitempty"`
-
-	// [Optional] 1 if take profit is allowed to be updated and 0 if otherwise. This
-	// field is undefined if take profit functionality is not supported by the
-	// contract.
-	TakeProfit *ProposalOpenContractRespProposalOpenContractIsValidToUpdateTakeProfit `json:"take_profit,omitempty"`
-}
-
 // Orders are applicable to `MULTUP` and `MULTDOWN` contracts only.
 type ProposalOpenContractRespProposalOpenContractLimitOrder struct {
 	// Contains information where the contract will be closed automatically at the
@@ -493,6 +768,11 @@ type ProposalOpenContractRespProposalOpenContractStatus struct {
 	Value interface{}
 }
 
+// MarshalJSON implements json.Marshaler.
+func (j *ProposalOpenContractRespProposalOpenContractStatus) MarshalJSON() ([]byte, error) {
+	return json.Marshal(j.Value)
+}
+
 var enumValues_ProposalOpenContractRespProposalOpenContractStatus = []interface{}{
 	"open",
 	"sold",
@@ -500,11 +780,6 @@ var enumValues_ProposalOpenContractRespProposalOpenContractStatus = []interface{
 	"lost",
 	"cancelled",
 	nil,
-}
-
-// MarshalJSON implements json.Marshaler.
-func (j *ProposalOpenContractRespProposalOpenContractStatus) MarshalJSON() ([]byte, error) {
-	return json.Marshal(j.Value)
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -527,262 +802,6 @@ func (j *ProposalOpenContractRespProposalOpenContractStatus) UnmarshalJSON(b []b
 	}
 	*j = ProposalOpenContractRespProposalOpenContractStatus(v)
 	return nil
-}
-
-// Latest price and other details for an open contract
-type ProposalOpenContractRespProposalOpenContract struct {
-	// Account Id
-	AccountId *float64 `json:"account_id,omitempty"`
-
-	// The markup amount charged on a client's stake amount
-	AppMarkupAmount *string `json:"app_markup_amount,omitempty"`
-
-	// Tick details around contract start and end time.
-	AuditDetails *ProposalOpenContractRespProposalOpenContractAuditDetails `json:"audit_details,omitempty"`
-
-	// Barrier of the contract (if any).
-	Barrier *string `json:"barrier,omitempty"`
-
-	// The number of barriers a contract has.
-	BarrierCount *float64 `json:"barrier_count,omitempty"`
-
-	// [Only for accumulator] Absolute difference between high/low barrier and spot
-	BarrierSpotDistance *string `json:"barrier_spot_distance,omitempty"`
-
-	// Price at which the contract could be sold back to the company.
-	BidPrice *float64 `json:"bid_price,omitempty"`
-
-	// Price at which contract was purchased
-	BuyPrice *float64 `json:"buy_price,omitempty"`
-
-	// Contains information about contract cancellation option.
-	Cancellation *ProposalOpenContractRespProposalOpenContractCancellation `json:"cancellation,omitempty"`
-
-	// Commission in payout currency amount.
-	Commision *float64 `json:"commision,omitempty"`
-
-	// Commission in payout currency amount.
-	Commission *float64 `json:"commission,omitempty"`
-
-	// The internal contract identifier
-	ContractId *int `json:"contract_id,omitempty"`
-
-	// Contract type.
-	ContractType *string `json:"contract_type,omitempty"`
-
-	// The currency code of the contract.
-	Currency *string `json:"currency,omitempty"`
-
-	// Spot value if we have license to stream this symbol.
-	CurrentSpot *float64 `json:"current_spot,omitempty"`
-
-	// Spot value with the correct precision if we have license to stream this symbol.
-	CurrentSpotDisplayValue *string `json:"current_spot_display_value,omitempty"`
-
-	// [Applicable for accumulator] High barrier based on current spot.
-	CurrentSpotHighBarrier *string `json:"current_spot_high_barrier,omitempty"`
-
-	// [Applicable for accumulator] Low barrier based on current spot.
-	CurrentSpotLowBarrier *string `json:"current_spot_low_barrier,omitempty"`
-
-	// The corresponding time of the current spot.
-	CurrentSpotTime *int `json:"current_spot_time,omitempty"`
-
-	// Expiry date (epoch) of the Contract. Please note that it is not applicable for
-	// tick trade contracts.
-	DateExpiry *int `json:"date_expiry,omitempty"`
-
-	// Settlement date (epoch) of the contract.
-	DateSettlement *int `json:"date_settlement,omitempty"`
-
-	// Start date (epoch) of the contract.
-	DateStart *int `json:"date_start,omitempty"`
-
-	// Display name of underlying
-	DisplayName *string `json:"display_name,omitempty"`
-
-	// [Only for vanilla or turbos options] The implied number of contracts
-	DisplayNumberOfContracts *string `json:"display_number_of_contracts,omitempty"`
-
-	// The `bid_price` with the correct precision
-	DisplayValue *string `json:"display_value,omitempty"`
-
-	// Same as `entry_tick`. For backwards compatibility.
-	EntrySpot *float64 `json:"entry_spot,omitempty"`
-
-	// Same as `entry_tick_display_value`. For backwards compatibility.
-	EntrySpotDisplayValue *string `json:"entry_spot_display_value,omitempty"`
-
-	// This is the entry spot of the contract. For contracts starting immediately it
-	// is the next tick after the start time. For forward-starting contracts it is the
-	// spot at the start time.
-	EntryTick *float64 `json:"entry_tick,omitempty"`
-
-	// This is the entry spot with the correct precision of the contract. For
-	// contracts starting immediately it is the next tick after the start time. For
-	// forward-starting contracts it is the spot at the start time.
-	EntryTickDisplayValue *string `json:"entry_tick_display_value,omitempty"`
-
-	// This is the epoch time of the entry tick.
-	EntryTickTime *int `json:"entry_tick_time,omitempty"`
-
-	// Exit tick can refer to the latest tick at the end time, the tick that fulfils
-	// the contract's winning or losing condition for path dependent contracts
-	// (Touch/No Touch and Stays Between/Goes Outside) or the tick at which the
-	// contract is sold before expiry.
-	ExitTick *float64 `json:"exit_tick,omitempty"`
-
-	// Exit tick can refer to the latest tick at the end time, the tick that fulfils
-	// the contract's winning or losing condition for path dependent contracts
-	// (Touch/No Touch and Stays Between/Goes Outside) or the tick at which the
-	// contract is sold before expiry.
-	ExitTickDisplayValue *string `json:"exit_tick_display_value,omitempty"`
-
-	// This is the epoch time of the exit tick. Note that since certain instruments
-	// don't tick every second, the exit tick time may be a few seconds before the end
-	// time.
-	ExitTickTime *int `json:"exit_tick_time,omitempty"`
-
-	// This is the expiry time.
-	ExpiryTime *int `json:"expiry_time,omitempty"`
-
-	// [Only for accumulator] Growth rate of an accumulator contract.
-	GrowthRate *float64 `json:"growth_rate,omitempty"`
-
-	// High barrier of the contract (if any).
-	HighBarrier *string `json:"high_barrier,omitempty"`
-
-	// A per-connection unique identifier. Can be passed to the `forget` API call to
-	// unsubscribe.
-	Id *string `json:"id,omitempty"`
-
-	// Whether the contract is expired or not.
-	IsExpired *ProposalOpenContractRespProposalOpenContractIsExpired `json:"is_expired,omitempty"`
-
-	// Whether the contract is forward-starting or not.
-	IsForwardStarting *ProposalOpenContractRespProposalOpenContractIsForwardStarting `json:"is_forward_starting,omitempty"`
-
-	// Whether the contract is an intraday contract.
-	IsIntraday *ProposalOpenContractRespProposalOpenContractIsIntraday `json:"is_intraday,omitempty"`
-
-	// Whether the contract expiry price will depend on the path of the market (e.g.
-	// One Touch contract).
-	IsPathDependent *ProposalOpenContractRespProposalOpenContractIsPathDependent `json:"is_path_dependent,omitempty"`
-
-	// Whether the contract is settleable or not.
-	IsSettleable *ProposalOpenContractRespProposalOpenContractIsSettleable `json:"is_settleable,omitempty"`
-
-	// Whether the contract is sold or not.
-	IsSold *ProposalOpenContractRespProposalOpenContractIsSold `json:"is_sold,omitempty"`
-
-	// Whether the contract can be cancelled.
-	IsValidToCancel *ProposalOpenContractRespProposalOpenContractIsValidToCancel `json:"is_valid_to_cancel,omitempty"`
-
-	// Whether the contract can be sold back to the company.
-	IsValidToSell *ProposalOpenContractRespProposalOpenContractIsValidToSell `json:"is_valid_to_sell,omitempty"`
-
-	// [Optional] Indicator whether take profit, stop loss, and/or stop out is allowed
-	// to be updated.
-	IsValidToUpdate *ProposalOpenContractRespProposalOpenContractIsValidToUpdate `json:"is_valid_to_update,omitempty"`
-
-	// Orders are applicable to `MULTUP` and `MULTDOWN` contracts only.
-	LimitOrder *ProposalOpenContractRespProposalOpenContractLimitOrder `json:"limit_order,omitempty"`
-
-	// Text description of the contract purchased, Example: Win payout if Volatility
-	// 100 Index is strictly higher than entry spot at 10 minutes after contract start
-	// time.
-	Longcode *string `json:"longcode,omitempty"`
-
-	// Low barrier of the contract (if any).
-	LowBarrier *string `json:"low_barrier,omitempty"`
-
-	// [Only for lookback trades] Multiplier applies when calculating the final payoff
-	// for each type of lookback. e.g. (Exit spot - Lowest historical price) *
-	// multiplier = Payout
-	Multiplier *float64 `json:"multiplier,omitempty"`
-
-	// Payout value of the contract.
-	Payout *float64 `json:"payout,omitempty"`
-
-	// The latest bid price minus buy price.
-	Profit *float64 `json:"profit,omitempty"`
-
-	// Profit in percentage.
-	ProfitPercentage *float64 `json:"profit_percentage,omitempty"`
-
-	// Epoch of purchase time, will be same as `date_start` for all contracts except
-	// forward starting contracts.
-	PurchaseTime *int `json:"purchase_time,omitempty"`
-
-	// [Only for reset trades i.e. RESETCALL and RESETPUT] Reset barrier of the
-	// contract.
-	ResetBarrier *string `json:"reset_barrier,omitempty"`
-
-	// [Only for reset trades i.e. RESETCALL and RESETPUT] The epoch time of a barrier
-	// reset.
-	ResetTime *int `json:"reset_time,omitempty"`
-
-	// Spot value at the selected tick for the contract.
-	SelectedSpot *float64 `json:"selected_spot,omitempty"`
-
-	// [Only for highlowticks trades i.e. TICKHIGH and TICKLOW] Selected tick for the
-	// contract.
-	SelectedTick *int `json:"selected_tick,omitempty"`
-
-	// Price at which contract was sold, only available when contract has been sold.
-	SellPrice *float64 `json:"sell_price,omitempty"`
-
-	// Latest spot value at the sell time. (only present for contracts already sold).
-	// Will no longer be supported in the next API release.
-	SellSpot *float64 `json:"sell_spot,omitempty"`
-
-	// Latest spot value with the correct precision at the sell time. (only present
-	// for contracts already sold). Will no longer be supported in the next API
-	// release.
-	SellSpotDisplayValue *string `json:"sell_spot_display_value,omitempty"`
-
-	// Epoch time of the sell spot. Note that since certain underlyings don't tick
-	// every second, the sell spot time may be a few seconds before the sell time.
-	// (only present for contracts already sold). Will no longer be supported in the
-	// next API release.
-	SellSpotTime *int `json:"sell_spot_time,omitempty"`
-
-	// Epoch time of when the contract was sold (only present for contracts already
-	// sold)
-	SellTime *int `json:"sell_time,omitempty"`
-
-	// Coded description of the contract purchased.
-	Shortcode *string `json:"shortcode,omitempty"`
-
-	// Contract status. Will be `sold` if the contract was sold back before expiry,
-	// `won` if won and `lost` if lost at expiry. Otherwise will be `open`
-	Status *ProposalOpenContractRespProposalOpenContractStatus `json:"status,omitempty"`
-
-	// Only for tick trades, number of ticks
-	TickCount *int `json:"tick_count,omitempty"`
-
-	// [Only for accumulator] Number of ticks passed since entry_tick
-	TickPassed *int `json:"tick_passed,omitempty"`
-
-	// Tick stream from entry to end time.
-	TickStream []ProposalOpenContractRespProposalOpenContractTickStreamElem `json:"tick_stream,omitempty"`
-
-	// Every contract has buy and sell transaction ids, i.e. when you purchase a
-	// contract we associate it with buy transaction id, and if contract is already
-	// sold we associate that with sell transaction id.
-	TransactionIds *ProposalOpenContractRespProposalOpenContractTransactionIds `json:"transaction_ids,omitempty"`
-
-	// The underlying symbol code.
-	Underlying *string `json:"underlying,omitempty"`
-
-	// Error message if validation fails
-	ValidationError *string `json:"validation_error,omitempty"`
-
-	// Error code if validation fails
-	ValidationErrorCode *string `json:"validation_error_code,omitempty"`
-
-	// Contains contract validation information.
-	ValidationParams *ProposalOpenContractRespProposalOpenContractValidationParams `json:"validation_params,omitempty"`
 }
 
 type ProposalOpenContractRespProposalOpenContractTickStreamElem struct {
@@ -870,7 +889,7 @@ func (j *ProposalOpenContractRespSubscription) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["id"]; !ok || v == nil {
+	if _, ok := raw["id"]; raw != nil && !ok {
 		return fmt.Errorf("field id in ProposalOpenContractRespSubscription: required")
 	}
 	type Plain ProposalOpenContractRespSubscription
@@ -882,32 +901,13 @@ func (j *ProposalOpenContractRespSubscription) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Latest price and other details for an open contract in the user's portfolio
-type ProposalOpenContractResp struct {
-	// Echo of the request made.
-	EchoReq ProposalOpenContractRespEchoReq `json:"echo_req"`
-
-	// Action name of the request made.
-	MsgType *ProposalOpenContractRespMsgType `json:"msg_type,omitempty"`
-
-	// Latest price and other details for an open contract
-	ProposalOpenContract *ProposalOpenContractRespProposalOpenContract `json:"proposal_open_contract,omitempty"`
-
-	// Optional field sent in request to map to response, present only when request
-	// contains `req_id`.
-	ReqId *int `json:"req_id,omitempty"`
-
-	// For subscription requests only.
-	Subscription *ProposalOpenContractRespSubscription `json:"subscription,omitempty"`
-}
-
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *ProposalOpenContractResp) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["echo_req"]; !ok || v == nil {
+	if _, ok := raw["echo_req"]; raw != nil && !ok {
 		return fmt.Errorf("field echo_req in ProposalOpenContractResp: required")
 	}
 	type Plain ProposalOpenContractResp

@@ -6,64 +6,6 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// [Optional] Used to pass data through the websocket, which may be retrieved via
-// the `echo_req` output field.
-type TradingPlatformInvestorPasswordResetPassthrough map[string]interface{}
-
-type TradingPlatformInvestorPasswordResetPlatform string
-
-var enumValues_TradingPlatformInvestorPasswordResetPlatform = []interface{}{
-	"mt5",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *TradingPlatformInvestorPasswordResetPlatform) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_TradingPlatformInvestorPasswordResetPlatform {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingPlatformInvestorPasswordResetPlatform, v)
-	}
-	*j = TradingPlatformInvestorPasswordResetPlatform(v)
-	return nil
-}
-
-const TradingPlatformInvestorPasswordResetPlatformMt5 TradingPlatformInvestorPasswordResetPlatform = "mt5"
-
-type TradingPlatformInvestorPasswordResetTradingPlatformInvestorPasswordReset int
-
-var enumValues_TradingPlatformInvestorPasswordResetTradingPlatformInvestorPasswordReset = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *TradingPlatformInvestorPasswordResetTradingPlatformInvestorPasswordReset) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_TradingPlatformInvestorPasswordResetTradingPlatformInvestorPasswordReset {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingPlatformInvestorPasswordResetTradingPlatformInvestorPasswordReset, v)
-	}
-	*j = TradingPlatformInvestorPasswordResetTradingPlatformInvestorPasswordReset(v)
-	return nil
-}
-
 // Reset the investor password of a Trading Platform Account
 type TradingPlatformInvestorPasswordReset struct {
 	// Trading account ID.
@@ -97,25 +39,83 @@ type TradingPlatformInvestorPasswordReset struct {
 	VerificationCode string `json:"verification_code"`
 }
 
+// [Optional] Used to pass data through the websocket, which may be retrieved via
+// the `echo_req` output field.
+type TradingPlatformInvestorPasswordResetPassthrough map[string]interface{}
+
+type TradingPlatformInvestorPasswordResetPlatform string
+
+const TradingPlatformInvestorPasswordResetPlatformMt5 TradingPlatformInvestorPasswordResetPlatform = "mt5"
+
+var enumValues_TradingPlatformInvestorPasswordResetPlatform = []interface{}{
+	"mt5",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *TradingPlatformInvestorPasswordResetPlatform) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_TradingPlatformInvestorPasswordResetPlatform {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingPlatformInvestorPasswordResetPlatform, v)
+	}
+	*j = TradingPlatformInvestorPasswordResetPlatform(v)
+	return nil
+}
+
+type TradingPlatformInvestorPasswordResetTradingPlatformInvestorPasswordReset int
+
+var enumValues_TradingPlatformInvestorPasswordResetTradingPlatformInvestorPasswordReset = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *TradingPlatformInvestorPasswordResetTradingPlatformInvestorPasswordReset) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_TradingPlatformInvestorPasswordResetTradingPlatformInvestorPasswordReset {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TradingPlatformInvestorPasswordResetTradingPlatformInvestorPasswordReset, v)
+	}
+	*j = TradingPlatformInvestorPasswordResetTradingPlatformInvestorPasswordReset(v)
+	return nil
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *TradingPlatformInvestorPasswordReset) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	if v, ok := raw["account_id"]; !ok || v == nil {
+	if _, ok := raw["account_id"]; raw != nil && !ok {
 		return fmt.Errorf("field account_id in TradingPlatformInvestorPasswordReset: required")
 	}
-	if v, ok := raw["new_password"]; !ok || v == nil {
+	if _, ok := raw["new_password"]; raw != nil && !ok {
 		return fmt.Errorf("field new_password in TradingPlatformInvestorPasswordReset: required")
 	}
-	if v, ok := raw["platform"]; !ok || v == nil {
+	if _, ok := raw["platform"]; raw != nil && !ok {
 		return fmt.Errorf("field platform in TradingPlatformInvestorPasswordReset: required")
 	}
-	if v, ok := raw["trading_platform_investor_password_reset"]; !ok || v == nil {
+	if _, ok := raw["trading_platform_investor_password_reset"]; raw != nil && !ok {
 		return fmt.Errorf("field trading_platform_investor_password_reset in TradingPlatformInvestorPasswordReset: required")
 	}
-	if v, ok := raw["verification_code"]; !ok || v == nil {
+	if _, ok := raw["verification_code"]; raw != nil && !ok {
 		return fmt.Errorf("field verification_code in TradingPlatformInvestorPasswordReset: required")
 	}
 	type Plain TradingPlatformInvestorPasswordReset
