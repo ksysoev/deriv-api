@@ -263,9 +263,6 @@ type LandingCompanyRespLandingCompany struct {
 	// Flag to indicate whether to skip deposit verifcation or not.
 	SkipDepositVerification *LandingCompanyRespLandingCompanySkipDepositVerification `json:"skip_deposit_verification,omitempty"`
 
-	// Flag to indicate ukgc funds protection setting.
-	UkgcFundsProtection *LandingCompanyRespLandingCompanyUkgcFundsProtection `json:"ukgc_funds_protection,omitempty"`
-
 	// Virtual Company
 	VirtualCompany *string `json:"virtual_company,omitempty"`
 }
@@ -2055,33 +2052,6 @@ func (j *LandingCompanyRespLandingCompanySkipDepositVerification) UnmarshalJSON(
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanySkipDepositVerification, v)
 	}
 	*j = LandingCompanyRespLandingCompanySkipDepositVerification(v)
-	return nil
-}
-
-type LandingCompanyRespLandingCompanyUkgcFundsProtection int
-
-var enumValues_LandingCompanyRespLandingCompanyUkgcFundsProtection = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespLandingCompanyUkgcFundsProtection) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespLandingCompanyUkgcFundsProtection {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyUkgcFundsProtection, v)
-	}
-	*j = LandingCompanyRespLandingCompanyUkgcFundsProtection(v)
 	return nil
 }
 

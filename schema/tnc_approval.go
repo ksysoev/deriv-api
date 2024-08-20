@@ -24,9 +24,6 @@ type TncApproval struct {
 
 	// Must be `1`
 	TncApproval TncApprovalTncApproval `json:"tnc_approval"`
-
-	// [Optional] For `ASK_UK_FUNDS_PROTECTION` in `cashier`.
-	UkgcFundsProtection *TncApprovalUkgcFundsProtection `json:"ukgc_funds_protection,omitempty"`
 }
 
 type TncApprovalAffiliateCocAgreement int
@@ -82,32 +79,6 @@ func (j *TncApprovalTncApproval) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TncApprovalTncApproval, v)
 	}
 	*j = TncApprovalTncApproval(v)
-	return nil
-}
-
-type TncApprovalUkgcFundsProtection int
-
-var enumValues_TncApprovalUkgcFundsProtection = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *TncApprovalUkgcFundsProtection) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_TncApprovalUkgcFundsProtection {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TncApprovalUkgcFundsProtection, v)
-	}
-	*j = TncApprovalUkgcFundsProtection(v)
 	return nil
 }
 
