@@ -27,7 +27,7 @@ func main() {
 		End:             "latest",
 		Start:           &start,
 		Style:           "ticks",
-		Count:           10})
+		Count:           5000})
 
 	if err != nil {
 		log.Fatal(err)

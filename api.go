@@ -19,6 +19,7 @@ const (
 	// DefaultKeepAliveInterval is the default interval for sending ping requests to keep the connection alive.
 	defaultKeepAliveInterval = 25 * time.Second
 	defaultTimeout           = 30 * time.Second
+	defaultMaxMessageSize    = 1024 * 1024
 )
 
 // DerivAPI is the main struct for the DerivAPI client
@@ -160,6 +161,8 @@ func (api *Client) Connect() error {
 		api.logDebugf("Failed to establish WS connection: %s", err.Error())
 		return err
 	}
+
+	ws.SetReadLimit(defaultMaxMessageSize)
 
 	if resp.Body != nil {
 		defer resp.Body.Close()
