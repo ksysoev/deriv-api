@@ -639,6 +639,22 @@ func (api *Client) P2PSettings(ctx context.Context, r schema.P2PSettings) (resp 
 	return
 }
 
+// PartnerSettings Get Partner Settings (Partner Type, Company Details etc)
+func (api *Client) PartnerSettings(ctx context.Context, r schema.PartnerSettings) (resp schema.PartnerSettingsResp, err error) {
+	id := api.getNextRequestID()
+	r.ReqId = &id
+	err = api.SendRequest(ctx, id, r, &resp)
+	return
+}
+
+// PartnerSettingsUpdate A message with Partner Settings
+func (api *Client) PartnerSettingsUpdate(ctx context.Context, r schema.PartnerSettingsUpdate) (resp schema.PartnerSettingsUpdateResp, err error) {
+	id := api.getNextRequestID()
+	r.ReqId = &id
+	err = api.SendRequest(ctx, id, r, &resp)
+	return
+}
+
 // PaymentMethods Will return a list payment methods available for the given country. If the request is authenticated the client's residence country will be used.
 func (api *Client) PaymentMethods(ctx context.Context, r schema.PaymentMethods) (resp schema.PaymentMethodsResp, err error) {
 	id := api.getNextRequestID()

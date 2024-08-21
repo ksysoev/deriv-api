@@ -396,6 +396,9 @@ type GetSettingsRespGetSettingsPhoneNumberVerification struct {
 	// (Optional) Indicates the timestamp for the next verify attempt
 	NextVerifyAttempt *int `json:"next_verify_attempt,omitempty"`
 
+	// (Optional) Indicates the timestamp for the current's session email code expiry
+	SessionTimestamp *int `json:"session_timestamp,omitempty"`
+
 	// Indicates the verification status of the client's phone number.
 	Verified GetSettingsRespGetSettingsPhoneNumberVerificationVerified `json:"verified"`
 }
