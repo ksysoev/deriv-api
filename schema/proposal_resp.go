@@ -65,6 +65,9 @@ type ProposalRespProposal struct {
 	// choose
 	BarrierChoices []interface{} `json:"barrier_choices,omitempty"`
 
+	// [Only for Turbos] The relative distance between current spot and the barrier.
+	BarrierSpotDistance *string `json:"barrier_spot_distance,omitempty"`
+
 	// Contains information about contract cancellation option.
 	Cancellation *ProposalRespProposalCancellation `json:"cancellation,omitempty"`
 
@@ -111,6 +114,10 @@ type ProposalRespProposal struct {
 
 	// The payout amount of the contract.
 	Payout float64 `json:"payout"`
+
+	// [Only for Turbos] The choices of predefined payout per point for client to
+	// choose
+	PayoutChoices []float64 `json:"payout_choices,omitempty"`
 
 	// Spot value (if there are no Exchange data-feed licensing restrictions for the
 	// underlying symbol).
