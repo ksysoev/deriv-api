@@ -305,6 +305,7 @@ const Mt5NewAccountServerP01Ts03 Mt5NewAccountServer = "p01_ts03"
 const Mt5NewAccountServerP01Ts04 Mt5NewAccountServer = "p01_ts04"
 const Mt5NewAccountServerP02Ts02 Mt5NewAccountServer = "p02_ts02"
 const Mt5NewAccountServerP03Ts01 Mt5NewAccountServer = "p03_ts01"
+const Mt5NewAccountServerP03Ts02 Mt5NewAccountServer = "p03_ts02"
 
 var enumValues_Mt5NewAccountServer = []interface{}{
 	"p01_ts01",
@@ -313,6 +314,7 @@ var enumValues_Mt5NewAccountServer = []interface{}{
 	"p01_ts04",
 	"p02_ts02",
 	"p03_ts01",
+	"p03_ts02",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.

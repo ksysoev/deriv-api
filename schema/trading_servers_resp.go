@@ -198,6 +198,7 @@ const TradingServersRespTradingServersElemIdP01Ts03 TradingServersRespTradingSer
 const TradingServersRespTradingServersElemIdP01Ts04 TradingServersRespTradingServersElemId = "p01_ts04"
 const TradingServersRespTradingServersElemIdP02Ts02 TradingServersRespTradingServersElemId = "p02_ts02"
 const TradingServersRespTradingServersElemIdP03Ts01 TradingServersRespTradingServersElemId = "p03_ts01"
+const TradingServersRespTradingServersElemIdP03Ts02 TradingServersRespTradingServersElemId = "p03_ts02"
 
 var enumValues_TradingServersRespTradingServersElemId = []interface{}{
 	"p01_ts01",
@@ -206,6 +207,7 @@ var enumValues_TradingServersRespTradingServersElemId = []interface{}{
 	"p01_ts04",
 	"p02_ts02",
 	"p03_ts01",
+	"p03_ts02",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
