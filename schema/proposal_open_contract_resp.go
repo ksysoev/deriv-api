@@ -722,7 +722,10 @@ type ProposalOpenContractRespProposalOpenContractLimitOrderStopLoss struct {
 	// Localized display name
 	DisplayName *string `json:"display_name,omitempty"`
 
-	// Stop loss amount
+	// Stop loss amount for display purpose.
+	DisplayOrderAmount *string `json:"display_order_amount,omitempty"`
+
+	// Stop loss amount. Will be deprecated soon. Please use [display_order_amount].
 	OrderAmount *float64 `json:"order_amount,omitempty"`
 
 	// Stop loss order epoch
@@ -738,7 +741,10 @@ type ProposalOpenContractRespProposalOpenContractLimitOrderStopOut struct {
 	// Localized display name
 	DisplayName *string `json:"display_name,omitempty"`
 
-	// Stop out amount
+	// Stop out amount for display purpose.
+	DisplayOrderAmount *string `json:"display_order_amount,omitempty"`
+
+	// Stop out amount. Will be deprecated soon. Please use [display_order_amount].
 	OrderAmount *float64 `json:"order_amount,omitempty"`
 
 	// Stop out order epoch
@@ -754,7 +760,10 @@ type ProposalOpenContractRespProposalOpenContractLimitOrderTakeProfit struct {
 	// Localized display name
 	DisplayName *string `json:"display_name,omitempty"`
 
-	// Take profit amount
+	// Take profit amount for display purpose.
+	DisplayOrderAmount *string `json:"display_order_amount,omitempty"`
+
+	// Take profit amount. Will be deprecated soon. Please use [display_order_amount].
 	OrderAmount *float64 `json:"order_amount,omitempty"`
 
 	// Take profit order epoch

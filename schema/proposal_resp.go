@@ -117,7 +117,7 @@ type ProposalRespProposal struct {
 
 	// [Only for Turbos] The choices of predefined payout per point for client to
 	// choose
-	PayoutChoices []float64 `json:"payout_choices,omitempty"`
+	PayoutChoices []string `json:"payout_choices,omitempty"`
 
 	// Spot value (if there are no Exchange data-feed licensing restrictions for the
 	// underlying symbol).
@@ -206,7 +206,10 @@ type ProposalRespProposalLimitOrderStopLoss struct {
 	// Localized display name
 	DisplayName *string `json:"display_name,omitempty"`
 
-	// Stop loss amount
+	// Stop loss amount for display purpose.
+	DisplayOrderAmount *string `json:"display_order_amount,omitempty"`
+
+	// Stop loss amount. Will be deprecated soon. Please use [display_order_amount].
 	OrderAmount *float64 `json:"order_amount,omitempty"`
 
 	// Stop loss order epoch
@@ -222,7 +225,10 @@ type ProposalRespProposalLimitOrderStopOut struct {
 	// Localized display name
 	DisplayName *string `json:"display_name,omitempty"`
 
-	// Stop out amount
+	// Stop out amount for display purpose.
+	DisplayOrderAmount *string `json:"display_order_amount,omitempty"`
+
+	// Stop out amount. Will be deprecated soon. Please use [display_order_amount].
 	OrderAmount *float64 `json:"order_amount,omitempty"`
 
 	// Stop out order epoch
@@ -238,7 +244,10 @@ type ProposalRespProposalLimitOrderTakeProfit struct {
 	// Localized display name
 	DisplayName *string `json:"display_name,omitempty"`
 
-	// Take profit amount
+	// Take profit amount for display purpose.
+	DisplayOrderAmount *string `json:"display_order_amount,omitempty"`
+
+	// Take profit amount. Will be deprecated soon. Please use [display_order_amount].
 	OrderAmount *float64 `json:"order_amount,omitempty"`
 
 	// Take profit order epoch

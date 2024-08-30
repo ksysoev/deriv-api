@@ -65,6 +65,10 @@ type PartnerSettingsRespPartnerSettings struct {
 	// Defines whether this partner is an individual or a company.
 	PartnerType *PartnerSettingsRespPartnerSettingsPartnerType `json:"partner_type,omitempty"`
 
+	// Platform URL for Dynamic works dashboard to be redirected from Partners Hub
+	// which will be set in BackOffice.
+	PlatformURL *string `json:"platform_URL,omitempty"`
+
 	// Defines the provider platform.
 	Provider *PartnerSettingsRespPartnerSettingsProvider `json:"provider,omitempty"`
 
