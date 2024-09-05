@@ -265,6 +265,9 @@ type ProposalRespProposalValidationParams struct {
 	// [Only for Accumulators] Maximum ticks for the contract.
 	MaxTicks *int `json:"max_ticks,omitempty"`
 
+	// Contains information for minimum and maximum payout amount for the contract.
+	Payout *ProposalRespProposalValidationParamsPayout `json:"payout,omitempty"`
+
 	// Contains information for minimum and maximum stake amount for the contract.
 	Stake *ProposalRespProposalValidationParamsStake `json:"stake,omitempty"`
 
@@ -275,6 +278,12 @@ type ProposalRespProposalValidationParams struct {
 	// Contains information for minimum and maximum take profit amount for the
 	// contract.
 	TakeProfit *ProposalRespProposalValidationParamsTakeProfit `json:"take_profit,omitempty"`
+}
+
+// Contains information for minimum and maximum payout amount for the contract.
+type ProposalRespProposalValidationParamsPayout struct {
+	// Maximum payout allowed
+	Max *string `json:"max,omitempty"`
 }
 
 // Contains information for minimum and maximum stake amount for the contract.
