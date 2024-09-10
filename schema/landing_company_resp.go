@@ -191,9 +191,6 @@ type LandingCompanyRespLandingCompany struct {
 	// Available CTrader accounts.
 	Ctrader *LandingCompanyRespLandingCompanyCtrader `json:"ctrader,omitempty"`
 
-	// Available DerivEZ accounts.
-	Derivez *LandingCompanyRespLandingCompanyDerivez `json:"derivez,omitempty"`
-
 	// Available Deriv X all account types (Synthetic Indices and Financials).
 	DxtradeAllCompany *LandingCompanyRespLandingCompanyDxtradeAllCompany `json:"dxtrade_all_company,omitempty"`
 
@@ -366,48 +363,6 @@ func (j *LandingCompanyRespLandingCompanyCtraderAllStandard) UnmarshalJSON(b []b
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyCtraderAllStandard, v)
 	}
 	*j = LandingCompanyRespLandingCompanyCtraderAllStandard(v)
-	return nil
-}
-
-// Available DerivEZ accounts.
-type LandingCompanyRespLandingCompanyDerivez struct {
-	// DerivEZ all account types (Synthetic Indices and Financials).
-	All *LandingCompanyRespLandingCompanyDerivezAll `json:"all,omitempty"`
-}
-
-// DerivEZ all account types (Synthetic Indices and Financials).
-type LandingCompanyRespLandingCompanyDerivezAll struct {
-	// For standard client
-	Standard *LandingCompanyRespLandingCompanyDerivezAllStandard `json:"standard,omitempty"`
-}
-
-type LandingCompanyRespLandingCompanyDerivezAllStandard string
-
-const LandingCompanyRespLandingCompanyDerivezAllStandardNone LandingCompanyRespLandingCompanyDerivezAllStandard = "none"
-const LandingCompanyRespLandingCompanyDerivezAllStandardSvg LandingCompanyRespLandingCompanyDerivezAllStandard = "svg"
-
-var enumValues_LandingCompanyRespLandingCompanyDerivezAllStandard = []interface{}{
-	"svg",
-	"none",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *LandingCompanyRespLandingCompanyDerivezAllStandard) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_LandingCompanyRespLandingCompanyDerivezAllStandard {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_LandingCompanyRespLandingCompanyDerivezAllStandard, v)
-	}
-	*j = LandingCompanyRespLandingCompanyDerivezAllStandard(v)
 	return nil
 }
 

@@ -330,13 +330,11 @@ func (j *Mt5GetSettingsRespMt5GetSettingsSubAccountCategory) UnmarshalJSON(b []b
 
 type Mt5GetSettingsRespMt5GetSettingsSubAccountType string
 
-const Mt5GetSettingsRespMt5GetSettingsSubAccountTypeDerivez Mt5GetSettingsRespMt5GetSettingsSubAccountType = "derivez"
 const Mt5GetSettingsRespMt5GetSettingsSubAccountTypeFinancial Mt5GetSettingsRespMt5GetSettingsSubAccountType = "financial"
 const Mt5GetSettingsRespMt5GetSettingsSubAccountTypeFinancialStp Mt5GetSettingsRespMt5GetSettingsSubAccountType = "financial_stp"
 const Mt5GetSettingsRespMt5GetSettingsSubAccountTypeStandard Mt5GetSettingsRespMt5GetSettingsSubAccountType = "standard"
 
 var enumValues_Mt5GetSettingsRespMt5GetSettingsSubAccountType = []interface{}{
-	"derivez",
 	"financial",
 	"financial_stp",
 	"standard",

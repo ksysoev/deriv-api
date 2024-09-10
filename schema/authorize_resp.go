@@ -211,7 +211,6 @@ type AuthorizeRespAuthorizeAccountListElemLinkedToElem struct {
 type AuthorizeRespAuthorizeAccountListElemLinkedToElemPlatform string
 
 const AuthorizeRespAuthorizeAccountListElemLinkedToElemPlatformCtrader AuthorizeRespAuthorizeAccountListElemLinkedToElemPlatform = "ctrader"
-const AuthorizeRespAuthorizeAccountListElemLinkedToElemPlatformDerivez AuthorizeRespAuthorizeAccountListElemLinkedToElemPlatform = "derivez"
 const AuthorizeRespAuthorizeAccountListElemLinkedToElemPlatformDtrade AuthorizeRespAuthorizeAccountListElemLinkedToElemPlatform = "dtrade"
 const AuthorizeRespAuthorizeAccountListElemLinkedToElemPlatformDwallet AuthorizeRespAuthorizeAccountListElemLinkedToElemPlatform = "dwallet"
 const AuthorizeRespAuthorizeAccountListElemLinkedToElemPlatformDxtrade AuthorizeRespAuthorizeAccountListElemLinkedToElemPlatform = "dxtrade"
@@ -219,7 +218,6 @@ const AuthorizeRespAuthorizeAccountListElemLinkedToElemPlatformMt5 AuthorizeResp
 
 var enumValues_AuthorizeRespAuthorizeAccountListElemLinkedToElemPlatform = []interface{}{
 	"ctrader",
-	"derivez",
 	"dtrade",
 	"dwallet",
 	"dxtrade",
@@ -284,7 +282,6 @@ type AuthorizeRespAuthorizeLinkedToElem struct {
 type AuthorizeRespAuthorizeLinkedToElemPlatform string
 
 const AuthorizeRespAuthorizeLinkedToElemPlatformCtrader AuthorizeRespAuthorizeLinkedToElemPlatform = "ctrader"
-const AuthorizeRespAuthorizeLinkedToElemPlatformDerivez AuthorizeRespAuthorizeLinkedToElemPlatform = "derivez"
 const AuthorizeRespAuthorizeLinkedToElemPlatformDtrade AuthorizeRespAuthorizeLinkedToElemPlatform = "dtrade"
 const AuthorizeRespAuthorizeLinkedToElemPlatformDwallet AuthorizeRespAuthorizeLinkedToElemPlatform = "dwallet"
 const AuthorizeRespAuthorizeLinkedToElemPlatformDxtrade AuthorizeRespAuthorizeLinkedToElemPlatform = "dxtrade"
@@ -292,7 +289,6 @@ const AuthorizeRespAuthorizeLinkedToElemPlatformMt5 AuthorizeRespAuthorizeLinked
 
 var enumValues_AuthorizeRespAuthorizeLinkedToElemPlatform = []interface{}{
 	"ctrader",
-	"derivez",
 	"dtrade",
 	"dwallet",
 	"dxtrade",

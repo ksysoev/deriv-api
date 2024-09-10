@@ -51,9 +51,6 @@ type TransferBetweenAccountsRespAccountsElem struct {
 	// 0 for real accounts; 1 for virtual/demo accounts.
 	DemoAccount *TransferBetweenAccountsRespAccountsElemDemoAccount `json:"demo_account,omitempty"`
 
-	// The group of derivez account.
-	DerivezGroup *string `json:"derivez_group,omitempty"`
-
 	// Landing company shortcode of the Trading account.
 	LandingCompanyShort *string `json:"landing_company_short,omitempty"`
 
@@ -115,7 +112,6 @@ type TransferBetweenAccountsRespAccountsElemAccountType string
 const TransferBetweenAccountsRespAccountsElemAccountTypeBinary TransferBetweenAccountsRespAccountsElemAccountType = "binary"
 const TransferBetweenAccountsRespAccountsElemAccountTypeCrypto TransferBetweenAccountsRespAccountsElemAccountType = "crypto"
 const TransferBetweenAccountsRespAccountsElemAccountTypeCtrader TransferBetweenAccountsRespAccountsElemAccountType = "ctrader"
-const TransferBetweenAccountsRespAccountsElemAccountTypeDerivez TransferBetweenAccountsRespAccountsElemAccountType = "derivez"
 const TransferBetweenAccountsRespAccountsElemAccountTypeDoughflow TransferBetweenAccountsRespAccountsElemAccountType = "doughflow"
 const TransferBetweenAccountsRespAccountsElemAccountTypeDxtrade TransferBetweenAccountsRespAccountsElemAccountType = "dxtrade"
 const TransferBetweenAccountsRespAccountsElemAccountTypeMt5 TransferBetweenAccountsRespAccountsElemAccountType = "mt5"
@@ -131,7 +127,6 @@ var enumValues_TransferBetweenAccountsRespAccountsElemAccountType = []interface{
 	"ctrader",
 	"doughflow",
 	"dxtrade",
-	"derivez",
 	"mt5",
 	"p2p",
 	"paymentagent",

@@ -79,17 +79,29 @@ func (j *P2PAdvertiserRelations) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &plain); err != nil {
 		return err
 	}
-	if len(plain.AddBlocked) > 100 {
-		return fmt.Errorf("field %s length: must be <= %d", "add_blocked", 100)
+	if plain.AddBlocked != nil && len(plain.AddBlocked) < 1 {
+		return fmt.Errorf("field %s length: must be >= %d", "add_blocked", 1)
 	}
-	if len(plain.AddFavourites) > 100 {
-		return fmt.Errorf("field %s length: must be <= %d", "add_favourites", 100)
+	if len(plain.AddBlocked) > 5 {
+		return fmt.Errorf("field %s length: must be <= %d", "add_blocked", 5)
 	}
-	if len(plain.RemoveBlocked) > 100 {
-		return fmt.Errorf("field %s length: must be <= %d", "remove_blocked", 100)
+	if plain.AddFavourites != nil && len(plain.AddFavourites) < 1 {
+		return fmt.Errorf("field %s length: must be >= %d", "add_favourites", 1)
 	}
-	if len(plain.RemoveFavourites) > 100 {
-		return fmt.Errorf("field %s length: must be <= %d", "remove_favourites", 100)
+	if len(plain.AddFavourites) > 5 {
+		return fmt.Errorf("field %s length: must be <= %d", "add_favourites", 5)
+	}
+	if plain.RemoveBlocked != nil && len(plain.RemoveBlocked) < 1 {
+		return fmt.Errorf("field %s length: must be >= %d", "remove_blocked", 1)
+	}
+	if len(plain.RemoveBlocked) > 5 {
+		return fmt.Errorf("field %s length: must be <= %d", "remove_blocked", 5)
+	}
+	if plain.RemoveFavourites != nil && len(plain.RemoveFavourites) < 1 {
+		return fmt.Errorf("field %s length: must be >= %d", "remove_favourites", 1)
+	}
+	if len(plain.RemoveFavourites) > 5 {
+		return fmt.Errorf("field %s length: must be <= %d", "remove_favourites", 5)
 	}
 	*j = P2PAdvertiserRelations(plain)
 	return nil

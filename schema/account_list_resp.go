@@ -152,7 +152,6 @@ type AccountListRespAccountListElemLinkedToElem struct {
 type AccountListRespAccountListElemLinkedToElemPlatform string
 
 const AccountListRespAccountListElemLinkedToElemPlatformCtrader AccountListRespAccountListElemLinkedToElemPlatform = "ctrader"
-const AccountListRespAccountListElemLinkedToElemPlatformDerivez AccountListRespAccountListElemLinkedToElemPlatform = "derivez"
 const AccountListRespAccountListElemLinkedToElemPlatformDtrade AccountListRespAccountListElemLinkedToElemPlatform = "dtrade"
 const AccountListRespAccountListElemLinkedToElemPlatformDwallet AccountListRespAccountListElemLinkedToElemPlatform = "dwallet"
 const AccountListRespAccountListElemLinkedToElemPlatformDxtrade AccountListRespAccountListElemLinkedToElemPlatform = "dxtrade"
@@ -160,7 +159,6 @@ const AccountListRespAccountListElemLinkedToElemPlatformMt5 AccountListRespAccou
 
 var enumValues_AccountListRespAccountListElemLinkedToElemPlatform = []interface{}{
 	"ctrader",
-	"derivez",
 	"dtrade",
 	"dwallet",
 	"dxtrade",
