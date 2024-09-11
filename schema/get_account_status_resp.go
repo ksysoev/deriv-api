@@ -95,6 +95,8 @@ type GetAccountStatusRespGetAccountStatus struct {
 	// - `social_signup`: this client is using social signup.
 	// - `trading_experience_not_complete`: client has not completed the trading
 	// experience questionnaire.
+	// - `ukgc_funds_protection`: client has acknowledged UKGC funds protection
+	// notice.
 	// - `unwelcome`: client cannot deposit or buy contracts, but can withdraw or sell
 	// contracts.
 	// - `withdrawal_locked`: deposits allowed but withdrawals are not allowed.
@@ -117,6 +119,7 @@ type GetAccountStatusRespGetAccountStatus struct {
 	// account opening reason is missing.
 	// - `poi_expiring_soon`: the POI documents of the client will get expired soon,
 	// allow them to reupload POI documents.
+	// - `poa_authenticated_with_idv`: the POA is authenticated via IDV.
 	// - `poa_expiring_soon`: the POA documents of the client will get outdated soon,
 	// allow them to reupload POA documents.
 	// - `tin_manually_approved`: the client's tax_identification_number has been
