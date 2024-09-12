@@ -639,6 +639,14 @@ func (api *Client) P2PSettings(ctx context.Context, r schema.P2PSettings) (resp 
 	return
 }
 
+// PartnerAccounts Get All Partner Accounts (Partner account details like website, provider, company details)
+func (api *Client) PartnerAccounts(ctx context.Context, r schema.PartnerAccounts) (resp schema.PartnerAccountsResp, err error) {
+	id := api.getNextRequestID()
+	r.ReqId = &id
+	err = api.SendRequest(ctx, id, r, &resp)
+	return
+}
+
 // PartnerSettings Get Partner Settings (Partner Type, Company Details etc)
 func (api *Client) PartnerSettings(ctx context.Context, r schema.PartnerSettings) (resp schema.PartnerSettingsResp, err error) {
 	id := api.getNextRequestID()
