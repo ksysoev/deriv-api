@@ -195,12 +195,14 @@ func (j *NewAccountVirtualSignupDevice) UnmarshalJSON(b []byte) error {
 
 type NewAccountVirtualType string
 
+const NewAccountVirtualTypeDynamic NewAccountVirtualType = "dynamic"
 const NewAccountVirtualTypeTrading NewAccountVirtualType = "trading"
 const NewAccountVirtualTypeWallet NewAccountVirtualType = "wallet"
 
 var enumValues_NewAccountVirtualType = []interface{}{
 	"trading",
 	"wallet",
+	"dynamic",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.

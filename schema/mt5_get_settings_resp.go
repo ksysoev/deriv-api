@@ -332,12 +332,20 @@ type Mt5GetSettingsRespMt5GetSettingsSubAccountType string
 
 const Mt5GetSettingsRespMt5GetSettingsSubAccountTypeFinancial Mt5GetSettingsRespMt5GetSettingsSubAccountType = "financial"
 const Mt5GetSettingsRespMt5GetSettingsSubAccountTypeFinancialStp Mt5GetSettingsRespMt5GetSettingsSubAccountType = "financial_stp"
+const Mt5GetSettingsRespMt5GetSettingsSubAccountTypeIbt Mt5GetSettingsRespMt5GetSettingsSubAccountType = "ibt"
 const Mt5GetSettingsRespMt5GetSettingsSubAccountTypeStandard Mt5GetSettingsRespMt5GetSettingsSubAccountType = "standard"
+const Mt5GetSettingsRespMt5GetSettingsSubAccountTypeStp Mt5GetSettingsRespMt5GetSettingsSubAccountType = "stp"
+const Mt5GetSettingsRespMt5GetSettingsSubAccountTypeSwapFree Mt5GetSettingsRespMt5GetSettingsSubAccountType = "swap_free"
+const Mt5GetSettingsRespMt5GetSettingsSubAccountTypeZeroSpread Mt5GetSettingsRespMt5GetSettingsSubAccountType = "zero_spread"
 
 var enumValues_Mt5GetSettingsRespMt5GetSettingsSubAccountType = []interface{}{
+	"standard",
 	"financial",
 	"financial_stp",
-	"standard",
+	"swap_free",
+	"ibt",
+	"stp",
+	"zero_spread",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
