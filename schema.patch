@@ -1,8 +1,8 @@
 diff --git a/config/v3/landing_company/receive.json b/config/v3/landing_company/receive.json
-index 55f8f6ce..103aba64 100644
+index a7a69dbd..6fee40ee 100644
 --- a/config/v3/landing_company/receive.json
 +++ b/config/v3/landing_company/receive.json
-@@ -970,11 +970,11 @@
+@@ -947,11 +947,11 @@
                      "additionalProperties": false,
                      "properties": {
                          "swap_free": {
@@ -16,7 +16,21 @@ index 55f8f6ce..103aba64 100644
                              "description": "Contain details for landing company for zero_spread sub account type."
                          }
                      }
-@@ -1638,7 +1638,7 @@
+@@ -965,11 +965,11 @@
+                     "additionalProperties": false,
+                     "properties": {
+                         "financial": {
+-                            "$ref": "#/$defs/landingCompanyDetails",
++                            "$ref": "#/$defs/landingCompanyInfo",
+                             "description": "Contain details for landing company for financial subtype. The Financial account is suitable for a wide range of traders, both new and experienced. It gives you mid-range leverage and variable spreads that give you a great deal of flexibility for whatever position you wish to take in the market."
+                         },
+                         "financial_stp": {
+-                            "$ref": "#/$defs/landingCompanyDetails",
++                            "$ref": "#/$defs/landingCompanyInfo",
+                             "description": "Contain details for landing company for Financial STP subtype. The Financial STP account provides you with tight spreads, higher ticket size and offers a variety of FX pairs from majors to exotics. It is a straight through processing (STP) account with direct access to FX liquidity from various providers."
+                         }
+                     }
+@@ -1324,7 +1324,7 @@
                  }
              }
          },
@@ -26,7 +40,7 @@ index 55f8f6ce..103aba64 100644
                  "null",
                  "object"
 diff --git a/config/v3/p2p_advert_create/send.json b/config/v3/p2p_advert_create/send.json
-index dc877283..a7837e5f 100644
+index 5074d92c..5175f064 100644
 --- a/config/v3/p2p_advert_create/send.json
 +++ b/config/v3/p2p_advert_create/send.json
 @@ -27,8 +27,7 @@
@@ -67,7 +81,7 @@ index dc877283..a7837e5f 100644
 +}
 \ No newline at end of file
 diff --git a/config/v3/p2p_advert_update/send.json b/config/v3/p2p_advert_update/send.json
-index 4b4a5133..5140ce16 100644
+index d8b24274..aa8e4a4a 100644
 --- a/config/v3/p2p_advert_update/send.json
 +++ b/config/v3/p2p_advert_update/send.json
 @@ -77,8 +77,7 @@
