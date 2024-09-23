@@ -29,12 +29,12 @@ Here's an example of how to use DerivAPI to connect to the Deriv API and subscri
 ```golang
 import (
     "context"
-	"fmt"
-	"log"
+    "fmt"
+    "log"
     "time"
 
-	"github.com/ksysoev/deriv-api"
-	"github.com/ksysoev/deriv-api/schema"
+    "github.com/ksysoev/deriv-api"
+    "github.com/ksysoev/deriv-api/schema"
 )
 
 
@@ -70,11 +70,11 @@ Here's another example of how to use DerivAPI to buy contract and listen for upd
 ```golang
 import (
     "context"
-	"log"
+    "log"
     "time"
 
-	"github.com/ksysoev/deriv-api"
-	"github.com/ksysoev/deriv-api/schema"
+    "github.com/ksysoev/deriv-api"
+    "github.com/ksysoev/deriv-api/schema"
 )
 
 apiToken := "YOU_API_TOKEN_HERE"
