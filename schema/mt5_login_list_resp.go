@@ -60,6 +60,11 @@ type Mt5LoginListRespMt5LoginListElem struct {
 	// Balance of the MT5 account.
 	Balance *float64 `json:"balance,omitempty"`
 
+	// [Optional] Pertains to client KYC. Returned only if the client fails to meet
+	// the requirements, including proof of identity (POI), validity of the tax
+	// identification number (TIN), and proof of address (POA).
+	ClientKycStatus *Mt5LoginListRespMt5LoginListElemClientKycStatus `json:"client_kyc_status,omitempty"`
+
 	// Residence of the MT5 account.
 	Country *string `json:"country,omitempty"`
 
@@ -81,6 +86,9 @@ type Mt5LoginListRespMt5LoginListElem struct {
 
 	// Group type of the MT5 account, e.g. `demo\svg_financial`
 	Group *string `json:"group,omitempty"`
+
+	// Indicate if the account is a main agent - an IB account
+	IsMainAgent *bool `json:"is_main_agent,omitempty"`
 
 	// Broker name
 	LandingCompany *string `json:"landing_company,omitempty"`
@@ -158,6 +166,121 @@ func (j *Mt5LoginListRespMt5LoginListElemAccountType) UnmarshalJSON(b []byte) er
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5LoginListRespMt5LoginListElemAccountType, v)
 	}
 	*j = Mt5LoginListRespMt5LoginListElemAccountType(v)
+	return nil
+}
+
+// [Optional] Pertains to client KYC. Returned only if the client fails to meet the
+// requirements, including proof of identity (POI), validity of the tax
+// identification number (TIN), and proof of address (POA).
+type Mt5LoginListRespMt5LoginListElemClientKycStatus struct {
+	// Status of proof of address (POA).
+	PoaStatus *Mt5LoginListRespMt5LoginListElemClientKycStatusPoaStatus `json:"poa_status,omitempty"`
+
+	// Status of proof of identity (POI).
+	PoiStatus *Mt5LoginListRespMt5LoginListElemClientKycStatusPoiStatus `json:"poi_status,omitempty"`
+
+	// Indicates whether the tax identification number (TIN) is valid (1) or not (0).
+	ValidTin *Mt5LoginListRespMt5LoginListElemClientKycStatusValidTin `json:"valid_tin,omitempty"`
+}
+
+type Mt5LoginListRespMt5LoginListElemClientKycStatusPoaStatus string
+
+const Mt5LoginListRespMt5LoginListElemClientKycStatusPoaStatusExpired Mt5LoginListRespMt5LoginListElemClientKycStatusPoaStatus = "expired"
+const Mt5LoginListRespMt5LoginListElemClientKycStatusPoaStatusNone Mt5LoginListRespMt5LoginListElemClientKycStatusPoaStatus = "none"
+const Mt5LoginListRespMt5LoginListElemClientKycStatusPoaStatusPending Mt5LoginListRespMt5LoginListElemClientKycStatusPoaStatus = "pending"
+const Mt5LoginListRespMt5LoginListElemClientKycStatusPoaStatusRejected Mt5LoginListRespMt5LoginListElemClientKycStatusPoaStatus = "rejected"
+const Mt5LoginListRespMt5LoginListElemClientKycStatusPoaStatusVerified Mt5LoginListRespMt5LoginListElemClientKycStatusPoaStatus = "verified"
+
+var enumValues_Mt5LoginListRespMt5LoginListElemClientKycStatusPoaStatus = []interface{}{
+	"none",
+	"pending",
+	"expired",
+	"verified",
+	"rejected",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5LoginListRespMt5LoginListElemClientKycStatusPoaStatus) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5LoginListRespMt5LoginListElemClientKycStatusPoaStatus {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5LoginListRespMt5LoginListElemClientKycStatusPoaStatus, v)
+	}
+	*j = Mt5LoginListRespMt5LoginListElemClientKycStatusPoaStatus(v)
+	return nil
+}
+
+type Mt5LoginListRespMt5LoginListElemClientKycStatusPoiStatus string
+
+const Mt5LoginListRespMt5LoginListElemClientKycStatusPoiStatusExpired Mt5LoginListRespMt5LoginListElemClientKycStatusPoiStatus = "expired"
+const Mt5LoginListRespMt5LoginListElemClientKycStatusPoiStatusNone Mt5LoginListRespMt5LoginListElemClientKycStatusPoiStatus = "none"
+const Mt5LoginListRespMt5LoginListElemClientKycStatusPoiStatusPending Mt5LoginListRespMt5LoginListElemClientKycStatusPoiStatus = "pending"
+const Mt5LoginListRespMt5LoginListElemClientKycStatusPoiStatusRejected Mt5LoginListRespMt5LoginListElemClientKycStatusPoiStatus = "rejected"
+const Mt5LoginListRespMt5LoginListElemClientKycStatusPoiStatusSuspected Mt5LoginListRespMt5LoginListElemClientKycStatusPoiStatus = "suspected"
+const Mt5LoginListRespMt5LoginListElemClientKycStatusPoiStatusVerified Mt5LoginListRespMt5LoginListElemClientKycStatusPoiStatus = "verified"
+
+var enumValues_Mt5LoginListRespMt5LoginListElemClientKycStatusPoiStatus = []interface{}{
+	"none",
+	"pending",
+	"verified",
+	"suspected",
+	"rejected",
+	"expired",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5LoginListRespMt5LoginListElemClientKycStatusPoiStatus) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5LoginListRespMt5LoginListElemClientKycStatusPoiStatus {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5LoginListRespMt5LoginListElemClientKycStatusPoiStatus, v)
+	}
+	*j = Mt5LoginListRespMt5LoginListElemClientKycStatusPoiStatus(v)
+	return nil
+}
+
+type Mt5LoginListRespMt5LoginListElemClientKycStatusValidTin int
+
+var enumValues_Mt5LoginListRespMt5LoginListElemClientKycStatusValidTin = []interface{}{
+	1,
+	0,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *Mt5LoginListRespMt5LoginListElemClientKycStatusValidTin) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_Mt5LoginListRespMt5LoginListElemClientKycStatusValidTin {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_Mt5LoginListRespMt5LoginListElemClientKycStatusValidTin, v)
+	}
+	*j = Mt5LoginListRespMt5LoginListElemClientKycStatusValidTin(v)
 	return nil
 }
 
