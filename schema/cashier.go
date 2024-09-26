@@ -34,8 +34,7 @@ type Cashier struct {
 	// the `echo_req` output field.
 	Passthrough CashierPassthrough `json:"passthrough,omitempty"`
 
-	// [Optional] Cashier provider. `crypto` will be default option for crypto
-	// currency accounts.
+	// [Optional] Cashier provider.
 	Provider CashierProvider `json:"provider,omitempty"`
 
 	// [Optional] Used to map request to response.

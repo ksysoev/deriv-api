@@ -108,6 +108,9 @@ type NewAccountReal struct {
 	// multiple jurisdictions. Only applicable for real money account. Required for
 	// `maltainvest` landing company.
 	TaxResidence *string `json:"tax_residence,omitempty"`
+
+	// The tnc acceptance status of the user.
+	TncAcceptance *NewAccountRealTncAcceptance `json:"tnc_acceptance,omitempty"`
 }
 
 type NewAccountRealAccountOpeningReason string
@@ -340,6 +343,33 @@ func (j *NewAccountRealSecretQuestion) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountRealSecretQuestion, v)
 	}
 	*j = NewAccountRealSecretQuestion(v)
+	return nil
+}
+
+type NewAccountRealTncAcceptance int
+
+var enumValues_NewAccountRealTncAcceptance = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountRealTncAcceptance) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountRealTncAcceptance {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountRealTncAcceptance, v)
+	}
+	*j = NewAccountRealTncAcceptance(v)
 	return nil
 }
 

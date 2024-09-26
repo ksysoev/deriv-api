@@ -8,9 +8,6 @@ import "reflect"
 
 // To approve the latest version of terms and conditions.
 type TncApproval struct {
-	// [Optional] For Affiliate's Code of Conduct Agreement.
-	AffiliateCocAgreement *TncApprovalAffiliateCocAgreement `json:"affiliate_coc_agreement,omitempty"`
-
 	// [Optional] The login id of the user. Mandatory when multiple tokens were
 	// provided during authorize.
 	Loginid *string `json:"loginid,omitempty"`
@@ -24,32 +21,6 @@ type TncApproval struct {
 
 	// Must be `1`
 	TncApproval TncApprovalTncApproval `json:"tnc_approval"`
-}
-
-type TncApprovalAffiliateCocAgreement int
-
-var enumValues_TncApprovalAffiliateCocAgreement = []interface{}{
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *TncApprovalAffiliateCocAgreement) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_TncApprovalAffiliateCocAgreement {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_TncApprovalAffiliateCocAgreement, v)
-	}
-	*j = TncApprovalAffiliateCocAgreement(v)
-	return nil
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via

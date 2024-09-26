@@ -141,6 +141,10 @@ type GetSettingsRespGetSettings struct {
 	// jurisdictions. Only applicable for real money account.
 	TaxResidence *string `json:"tax_residence,omitempty"`
 
+	// Terms and condition status tells us whether all the accounts of this user has
+	// accepted the latest T&C version.
+	TncStatus GetSettingsRespGetSettingsTncStatus `json:"tnc_status,omitempty"`
+
 	// Boolean value 1 or 0, indicating if client has enabled the Trading Hub
 	// dashboard
 	TradingHub *int `json:"trading_hub,omitempty"`
@@ -474,6 +478,10 @@ func (j *GetSettingsRespGetSettingsRequestProfessionalStatus) UnmarshalJSON(b []
 	*j = GetSettingsRespGetSettingsRequestProfessionalStatus(v)
 	return nil
 }
+
+// Terms and condition status tells us whether all the accounts of this user has
+// accepted the latest T&C version.
+type GetSettingsRespGetSettingsTncStatus map[string]interface{}
 
 type GetSettingsRespMsgType string
 
