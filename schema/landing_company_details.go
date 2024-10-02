@@ -34,6 +34,7 @@ const LandingCompanyDetailsLandingCompanyDetailsIom LandingCompanyDetailsLanding
 const LandingCompanyDetailsLandingCompanyDetailsLabuan LandingCompanyDetailsLandingCompanyDetails = "labuan"
 const LandingCompanyDetailsLandingCompanyDetailsMalta LandingCompanyDetailsLandingCompanyDetails = "malta"
 const LandingCompanyDetailsLandingCompanyDetailsMaltainvest LandingCompanyDetailsLandingCompanyDetails = "maltainvest"
+const LandingCompanyDetailsLandingCompanyDetailsMu LandingCompanyDetailsLandingCompanyDetails = "mu"
 const LandingCompanyDetailsLandingCompanyDetailsSamoa LandingCompanyDetailsLandingCompanyDetails = "samoa"
 const LandingCompanyDetailsLandingCompanyDetailsSamoaVirtual LandingCompanyDetailsLandingCompanyDetails = "samoa-virtual"
 const LandingCompanyDetailsLandingCompanyDetailsSvg LandingCompanyDetailsLandingCompanyDetails = "svg"
@@ -52,6 +53,7 @@ var enumValues_LandingCompanyDetailsLandingCompanyDetails = []interface{}{
 	"dsl",
 	"bvi",
 	"labuan",
+	"mu",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.

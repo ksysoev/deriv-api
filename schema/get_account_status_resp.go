@@ -299,6 +299,10 @@ type GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdict
 
 	// This represents whether the client is allowed or not to create an account under
 	// this jurisdiction
+	Mu *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMu `json:"mu,omitempty"`
+
+	// This represents whether the client is allowed or not to create an account under
+	// this jurisdiction
 	Samoa *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionSamoa `json:"samoa,omitempty"`
 
 	// This represents whether the client is allowed or not to create an account under
@@ -477,6 +481,33 @@ func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJuris
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMaltainvest, v)
 	}
 	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMaltainvest(v)
+	return nil
+}
+
+type GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMu int
+
+var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMu = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMu) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMu {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMu, v)
+	}
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMu(v)
 	return nil
 }
 
