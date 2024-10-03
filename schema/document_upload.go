@@ -96,9 +96,11 @@ func (j *DocumentUploadDocumentFormat) UnmarshalJSON(b []byte) error {
 
 type DocumentUploadDocumentType string
 
+const DocumentUploadDocumentTypeAffidavit DocumentUploadDocumentType = "affidavit"
 const DocumentUploadDocumentTypeAmlglobalcheck DocumentUploadDocumentType = "amlglobalcheck"
 const DocumentUploadDocumentTypeArticleOfAssociation DocumentUploadDocumentType = "article_of_association"
 const DocumentUploadDocumentTypeAuthorisationLetter DocumentUploadDocumentType = "authorisation_letter"
+const DocumentUploadDocumentTypeBankStatement DocumentUploadDocumentType = "bank_statement"
 const DocumentUploadDocumentTypeBankstatement DocumentUploadDocumentType = "bankstatement"
 const DocumentUploadDocumentTypeBirthCertificate DocumentUploadDocumentType = "birth_certificate"
 const DocumentUploadDocumentTypeBrokerageStatement DocumentUploadDocumentType = "brokerage statement"
@@ -116,6 +118,7 @@ const DocumentUploadDocumentTypeInsuranceBill DocumentUploadDocumentType = "insu
 const DocumentUploadDocumentTypeMemorandum DocumentUploadDocumentType = "memorandum"
 const DocumentUploadDocumentTypeNationalIdentityCard DocumentUploadDocumentType = "national_identity_card"
 const DocumentUploadDocumentTypeNimcSlip DocumentUploadDocumentType = "nimc_slip"
+const DocumentUploadDocumentTypeOfficialLetter DocumentUploadDocumentType = "official_letter"
 const DocumentUploadDocumentTypeOther DocumentUploadDocumentType = "other"
 const DocumentUploadDocumentTypePanCard DocumentUploadDocumentType = "pan_card"
 const DocumentUploadDocumentTypePassport DocumentUploadDocumentType = "passport"
@@ -127,6 +130,7 @@ const DocumentUploadDocumentTypePowerOfAttorney DocumentUploadDocumentType = "po
 const DocumentUploadDocumentTypeProofOfOwnership DocumentUploadDocumentType = "proof_of_ownership"
 const DocumentUploadDocumentTypeProofaddress DocumentUploadDocumentType = "proofaddress"
 const DocumentUploadDocumentTypeProofid DocumentUploadDocumentType = "proofid"
+const DocumentUploadDocumentTypeRentalAgreement DocumentUploadDocumentType = "rental_agreement"
 const DocumentUploadDocumentTypeSelfieWithId DocumentUploadDocumentType = "selfie_with_id"
 const DocumentUploadDocumentTypeServiceIdCard DocumentUploadDocumentType = "service_id_card"
 const DocumentUploadDocumentTypeStudentCard DocumentUploadDocumentType = "student_card"
@@ -144,6 +148,7 @@ var enumValues_DocumentUploadDocumentType = []interface{}{
 	"driving_licence",
 	"utility_bill",
 	"bankstatement",
+	"bank_statement",
 	"power_of_attorney",
 	"amlglobalcheck",
 	"docverification",
@@ -175,6 +180,9 @@ var enumValues_DocumentUploadDocumentType = []interface{}{
 	"memorandum",
 	"authorisation_letter",
 	"declarations",
+	"affidavit",
+	"official_letter",
+	"rental_agreement",
 	"business_documents_others",
 }
 
