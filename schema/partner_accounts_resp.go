@@ -58,6 +58,10 @@ func (j *PartnerAccountsRespMsgType) UnmarshalJSON(b []byte) error {
 type PartnerAccountsRespPartnerAccounts struct {
 	// List of partner_settigns for all accounts associated as partners.
 	PartnerSettings []PartnerAccountsRespPartnerAccountsPartnerSettingsElem `json:"partner_settings,omitempty"`
+
+	// Platform URL for Dynamic works dashboard to be redirected from Partners Hub
+	// which will be set in BackOffice.
+	PlatformUrl PartnerAccountsRespPartnerAccountsPlatformUrl `json:"platform_url,omitempty"`
 }
 
 type PartnerAccountsRespPartnerAccountsPartnerSettingsElem struct {
@@ -76,10 +80,6 @@ type PartnerAccountsRespPartnerAccountsPartnerSettingsElem struct {
 
 	// Defines whether this partner is an individual or a company.
 	PartnerType *PartnerAccountsRespPartnerAccountsPartnerSettingsElemPartnerType `json:"partner_type,omitempty"`
-
-	// Platform URL for Dynamic works dashboard to be redirected from Partners Hub
-	// which will be set in BackOffice.
-	PlatformUrl *string `json:"platform_url,omitempty"`
 
 	// Defines the provider platform.
 	Provider *PartnerAccountsRespPartnerAccountsPartnerSettingsElemProvider `json:"provider,omitempty"`
@@ -147,6 +147,10 @@ func (j *PartnerAccountsRespPartnerAccountsPartnerSettingsElemProvider) Unmarsha
 	*j = PartnerAccountsRespPartnerAccountsPartnerSettingsElemProvider(v)
 	return nil
 }
+
+// Platform URL for Dynamic works dashboard to be redirected from Partners Hub
+// which will be set in BackOffice.
+type PartnerAccountsRespPartnerAccountsPlatformUrl map[string]interface{}
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *PartnerAccountsResp) UnmarshalJSON(b []byte) error {
