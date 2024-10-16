@@ -50,6 +50,9 @@ type NewAccountReal struct {
 	// Date of birth format: `yyyy-mm-dd`.
 	DateOfBirth *string `json:"date_of_birth,omitempty"`
 
+	// Employment Status.
+	EmploymentStatus *NewAccountRealEmploymentStatus `json:"employment_status,omitempty"`
+
 	// [Optional] Indicates client's self-declaration of FATCA.
 	FatcaDeclaration *NewAccountRealFatcaDeclaration `json:"fatca_declaration,omitempty"`
 
@@ -108,6 +111,10 @@ type NewAccountReal struct {
 	// multiple jurisdictions. Only applicable for real money account. Required for
 	// `maltainvest` landing company.
 	TaxResidence *string `json:"tax_residence,omitempty"`
+
+	// [Optional] Whether the client has skipped the TIN form. Only applicable for
+	// real money account.
+	TinSkipped *NewAccountRealTinSkipped `json:"tin_skipped,omitempty"`
 
 	// The tnc acceptance status of the user.
 	TncAcceptance *NewAccountRealTncAcceptance `json:"tnc_acceptance,omitempty"`
@@ -210,6 +217,42 @@ func (j *NewAccountRealClientType) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountRealClientType, v)
 	}
 	*j = NewAccountRealClientType(v)
+	return nil
+}
+
+type NewAccountRealEmploymentStatus string
+
+const NewAccountRealEmploymentStatusEmployed NewAccountRealEmploymentStatus = "Employed"
+const NewAccountRealEmploymentStatusPensioner NewAccountRealEmploymentStatus = "Pensioner"
+const NewAccountRealEmploymentStatusSelfEmployed NewAccountRealEmploymentStatus = "Self-Employed"
+const NewAccountRealEmploymentStatusStudent NewAccountRealEmploymentStatus = "Student"
+const NewAccountRealEmploymentStatusUnemployed NewAccountRealEmploymentStatus = "Unemployed"
+
+var enumValues_NewAccountRealEmploymentStatus = []interface{}{
+	"Employed",
+	"Pensioner",
+	"Self-Employed",
+	"Student",
+	"Unemployed",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountRealEmploymentStatus) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountRealEmploymentStatus {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountRealEmploymentStatus, v)
+	}
+	*j = NewAccountRealEmploymentStatus(v)
 	return nil
 }
 
@@ -343,6 +386,33 @@ func (j *NewAccountRealSecretQuestion) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountRealSecretQuestion, v)
 	}
 	*j = NewAccountRealSecretQuestion(v)
+	return nil
+}
+
+type NewAccountRealTinSkipped int
+
+var enumValues_NewAccountRealTinSkipped = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountRealTinSkipped) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountRealTinSkipped {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountRealTinSkipped, v)
+	}
+	*j = NewAccountRealTinSkipped(v)
 	return nil
 }
 

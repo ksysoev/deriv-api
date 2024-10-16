@@ -128,6 +128,10 @@ type SetSettings struct {
 	// maltainvest landing company.
 	TaxResidence *string `json:"tax_residence,omitempty"`
 
+	// [Optional] Whether the client has skipped the TIN form. Only applicable for
+	// real money account.
+	TinSkipped *SetSettingsTinSkipped `json:"tin_skipped,omitempty"`
+
 	// [Optional] Enable/Disable Trading Hub dashboard
 	TradingHub *SetSettingsTradingHub `json:"trading_hub,omitempty"`
 }
@@ -472,6 +476,33 @@ func (j *SetSettingsSetSettings) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsSetSettings, v)
 	}
 	*j = SetSettingsSetSettings(v)
+	return nil
+}
+
+type SetSettingsTinSkipped int
+
+var enumValues_SetSettingsTinSkipped = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *SetSettingsTinSkipped) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_SetSettingsTinSkipped {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsTinSkipped, v)
+	}
+	*j = SetSettingsTinSkipped(v)
 	return nil
 }
 

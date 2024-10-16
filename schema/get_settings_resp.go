@@ -141,6 +141,10 @@ type GetSettingsRespGetSettings struct {
 	// jurisdictions. Only applicable for real money account.
 	TaxResidence *string `json:"tax_residence,omitempty"`
 
+	// [Optional] Whether the client has skipped the TIN form. Only applicable for
+	// real money account.
+	TinSkipped *GetSettingsRespGetSettingsTinSkipped `json:"tin_skipped,omitempty"`
+
 	// Terms and condition status tells us whether all the accounts of this user has
 	// accepted the latest T&C version.
 	TncStatus GetSettingsRespGetSettingsTncStatus `json:"tnc_status,omitempty"`
@@ -476,6 +480,33 @@ func (j *GetSettingsRespGetSettingsRequestProfessionalStatus) UnmarshalJSON(b []
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetSettingsRespGetSettingsRequestProfessionalStatus, v)
 	}
 	*j = GetSettingsRespGetSettingsRequestProfessionalStatus(v)
+	return nil
+}
+
+type GetSettingsRespGetSettingsTinSkipped int
+
+var enumValues_GetSettingsRespGetSettingsTinSkipped = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetSettingsRespGetSettingsTinSkipped) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetSettingsRespGetSettingsTinSkipped {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetSettingsRespGetSettingsTinSkipped, v)
+	}
+	*j = GetSettingsRespGetSettingsTinSkipped(v)
 	return nil
 }
 

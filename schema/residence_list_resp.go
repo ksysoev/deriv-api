@@ -153,6 +153,9 @@ type ResidenceListRespResidenceListElemCommonReportingStandardTax struct {
 	// Mandatory TIN flag
 	Mandatory *bool `json:"mandatory,omitempty"`
 
+	// POI equivalent flag
+	PoiEquivalent *bool `json:"poi_equivalent,omitempty"`
+
 	// Cleanup regex
 	TinCleaner *string `json:"tin_cleaner,omitempty"`
 

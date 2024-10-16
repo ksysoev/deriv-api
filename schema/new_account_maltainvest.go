@@ -164,6 +164,10 @@ type NewAccountMaltainvest struct {
 	// `maltainvest` landing company.
 	TaxResidence string `json:"tax_residence"`
 
+	// [Optional] Whether the client has skipped the TIN form. Only applicable for
+	// real money account.
+	TinSkipped *NewAccountMaltainvestTinSkipped `json:"tin_skipped,omitempty"`
+
 	// The tnc acceptance status of the user.
 	TncAcceptance *NewAccountMaltainvestTncAcceptance `json:"tnc_acceptance,omitempty"`
 
@@ -1054,6 +1058,33 @@ func (j *NewAccountMaltainvestSourceOfWealth) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestSourceOfWealth, v)
 	}
 	*j = NewAccountMaltainvestSourceOfWealth(v)
+	return nil
+}
+
+type NewAccountMaltainvestTinSkipped int
+
+var enumValues_NewAccountMaltainvestTinSkipped = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountMaltainvestTinSkipped) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountMaltainvestTinSkipped {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountMaltainvestTinSkipped, v)
+	}
+	*j = NewAccountMaltainvestTinSkipped(v)
 	return nil
 }
 
