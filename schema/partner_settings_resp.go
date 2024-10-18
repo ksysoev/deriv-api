@@ -109,10 +109,10 @@ func (j *PartnerSettingsRespPartnerSettingsPartnerType) UnmarshalJSON(b []byte) 
 type PartnerSettingsRespPartnerSettingsProvider string
 
 const PartnerSettingsRespPartnerSettingsProviderDynamicworks PartnerSettingsRespPartnerSettingsProvider = "dynamicworks"
-const PartnerSettingsRespPartnerSettingsProviderMyaffiliates PartnerSettingsRespPartnerSettingsProvider = "myaffiliates"
+const PartnerSettingsRespPartnerSettingsProviderMyaffiliate PartnerSettingsRespPartnerSettingsProvider = "myaffiliate"
 
 var enumValues_PartnerSettingsRespPartnerSettingsProvider = []interface{}{
-	"myaffiliates",
+	"myaffiliate",
 	"dynamicworks",
 }
 

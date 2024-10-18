@@ -121,10 +121,10 @@ func (j *PartnerAccountsRespPartnerAccountsPartnerSettingsElemPartnerType) Unmar
 type PartnerAccountsRespPartnerAccountsPartnerSettingsElemProvider string
 
 const PartnerAccountsRespPartnerAccountsPartnerSettingsElemProviderDynamicworks PartnerAccountsRespPartnerAccountsPartnerSettingsElemProvider = "dynamicworks"
-const PartnerAccountsRespPartnerAccountsPartnerSettingsElemProviderMyaffiliates PartnerAccountsRespPartnerAccountsPartnerSettingsElemProvider = "myaffiliates"
+const PartnerAccountsRespPartnerAccountsPartnerSettingsElemProviderMyaffiliate PartnerAccountsRespPartnerAccountsPartnerSettingsElemProvider = "myaffiliate"
 
 var enumValues_PartnerAccountsRespPartnerAccountsPartnerSettingsElemProvider = []interface{}{
-	"myaffiliates",
+	"myaffiliate",
 	"dynamicworks",
 }
 
