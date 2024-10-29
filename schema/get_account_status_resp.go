@@ -279,6 +279,10 @@ type GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdict
 
 	// This represents whether the client is allowed or not to create an account under
 	// this jurisdiction
+	Dml *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionDml `json:"dml,omitempty"`
+
+	// This represents whether the client is allowed or not to create an account under
+	// this jurisdiction
 	Dsl *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionDsl `json:"dsl,omitempty"`
 
 	// This represents whether the client is allowed or not to create an account under
@@ -296,10 +300,6 @@ type GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdict
 	// This represents whether the client is allowed or not to create an account under
 	// this jurisdiction
 	Maltainvest *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMaltainvest `json:"maltainvest,omitempty"`
-
-	// This represents whether the client is allowed or not to create an account under
-	// this jurisdiction
-	Mu *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMu `json:"mu,omitempty"`
 
 	// This represents whether the client is allowed or not to create an account under
 	// this jurisdiction
@@ -346,6 +346,33 @@ func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJuris
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionBvi, v)
 	}
 	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionBvi(v)
+	return nil
+}
+
+type GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionDml int
+
+var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionDml = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionDml) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionDml {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionDml, v)
+	}
+	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionDml(v)
 	return nil
 }
 
@@ -481,33 +508,6 @@ func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJuris
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMaltainvest, v)
 	}
 	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMaltainvest(v)
-	return nil
-}
-
-type GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMu int
-
-var enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMu = []interface{}{
-	0,
-	1,
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMu) UnmarshalJSON(b []byte) error {
-	var v int
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMu {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMu, v)
-	}
-	*j = GetAccountStatusRespGetAccountStatusAuthenticationDocumentVerifiedJurisdictionMu(v)
 	return nil
 }
 

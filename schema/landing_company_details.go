@@ -29,12 +29,12 @@ type LandingCompanyDetails struct {
 type LandingCompanyDetailsLandingCompanyDetails string
 
 const LandingCompanyDetailsLandingCompanyDetailsBvi LandingCompanyDetailsLandingCompanyDetails = "bvi"
+const LandingCompanyDetailsLandingCompanyDetailsDml LandingCompanyDetailsLandingCompanyDetails = "dml"
 const LandingCompanyDetailsLandingCompanyDetailsDsl LandingCompanyDetailsLandingCompanyDetails = "dsl"
 const LandingCompanyDetailsLandingCompanyDetailsIom LandingCompanyDetailsLandingCompanyDetails = "iom"
 const LandingCompanyDetailsLandingCompanyDetailsLabuan LandingCompanyDetailsLandingCompanyDetails = "labuan"
 const LandingCompanyDetailsLandingCompanyDetailsMalta LandingCompanyDetailsLandingCompanyDetails = "malta"
 const LandingCompanyDetailsLandingCompanyDetailsMaltainvest LandingCompanyDetailsLandingCompanyDetails = "maltainvest"
-const LandingCompanyDetailsLandingCompanyDetailsMu LandingCompanyDetailsLandingCompanyDetails = "mu"
 const LandingCompanyDetailsLandingCompanyDetailsSamoa LandingCompanyDetailsLandingCompanyDetails = "samoa"
 const LandingCompanyDetailsLandingCompanyDetailsSamoaVirtual LandingCompanyDetailsLandingCompanyDetails = "samoa-virtual"
 const LandingCompanyDetailsLandingCompanyDetailsSvg LandingCompanyDetailsLandingCompanyDetails = "svg"
@@ -53,7 +53,7 @@ var enumValues_LandingCompanyDetailsLandingCompanyDetails = []interface{}{
 	"dsl",
 	"bvi",
 	"labuan",
-	"mu",
+	"dml",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
