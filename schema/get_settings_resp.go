@@ -395,6 +395,9 @@ type GetSettingsRespGetSettingsPhoneNumberVerification struct {
 	// available at the moment)
 	Carriers []interface{} `json:"carriers,omitempty"`
 
+	// Indicates the attempts remaining for /phone_number_challenge
+	ChallengeAttemptsRemaining *int `json:"challenge_attempts_remaining,omitempty"`
+
 	// (Optional) Indicates the timestamp for the next verification attempt
 	NextAttempt *int `json:"next_attempt,omitempty"`
 
@@ -409,6 +412,9 @@ type GetSettingsRespGetSettingsPhoneNumberVerification struct {
 
 	// Indicates the verification status of the client's phone number.
 	Verified GetSettingsRespGetSettingsPhoneNumberVerificationVerified `json:"verified"`
+
+	// Indicates the attempts remaining for /phone_number_verification
+	VerifyAttemptsRemaining *int `json:"verify_attempts_remaining,omitempty"`
 }
 
 type GetSettingsRespGetSettingsPhoneNumberVerificationVerified int
