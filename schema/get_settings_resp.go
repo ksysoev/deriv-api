@@ -391,10 +391,6 @@ func (j *GetSettingsRespGetSettingsNonPepDeclaration) UnmarshalJSON(b []byte) er
 
 // The status of the Phone Number Verification.
 type GetSettingsRespGetSettingsPhoneNumberVerification struct {
-	// A list of available carriers (if empty assume Phone Number Verification is not
-	// available at the moment)
-	Carriers []interface{} `json:"carriers,omitempty"`
-
 	// Indicates the attempts remaining for /phone_number_challenge
 	ChallengeAttemptsRemaining *int `json:"challenge_attempts_remaining,omitempty"`
 
