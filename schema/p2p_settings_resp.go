@@ -136,6 +136,12 @@ type P2PSettingsRespP2PSettings struct {
 	// Indicates if the payment methods feature is enabled.
 	PaymentMethodsEnabled P2PSettingsRespP2PSettingsPaymentMethodsEnabled `json:"payment_methods_enabled"`
 
+	// Indicates if phone number verification is required to become a P2P advertiser.
+	PnvRequired P2PSettingsRespP2PSettingsPnvRequired `json:"pnv_required"`
+
+	// Indicates if proof of address is required to become a P2P advertiser.
+	PoaRequired P2PSettingsRespP2PSettingsPoaRequired `json:"poa_required"`
+
 	// Time after successful order completion during which reviews can be created, in
 	// hours.
 	ReviewPeriod float64 `json:"review_period"`
@@ -453,6 +459,60 @@ func (j *P2PSettingsRespP2PSettingsPaymentMethodsEnabled) UnmarshalJSON(b []byte
 	return nil
 }
 
+type P2PSettingsRespP2PSettingsPnvRequired int
+
+var enumValues_P2PSettingsRespP2PSettingsPnvRequired = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PSettingsRespP2PSettingsPnvRequired) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PSettingsRespP2PSettingsPnvRequired {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsPnvRequired, v)
+	}
+	*j = P2PSettingsRespP2PSettingsPnvRequired(v)
+	return nil
+}
+
+type P2PSettingsRespP2PSettingsPoaRequired int
+
+var enumValues_P2PSettingsRespP2PSettingsPoaRequired = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PSettingsRespP2PSettingsPoaRequired) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PSettingsRespP2PSettingsPoaRequired {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsPoaRequired, v)
+	}
+	*j = P2PSettingsRespP2PSettingsPoaRequired(v)
+	return nil
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *P2PSettingsRespP2PSettings) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
@@ -518,6 +578,12 @@ func (j *P2PSettingsRespP2PSettings) UnmarshalJSON(b []byte) error {
 	}
 	if _, ok := raw["payment_methods_enabled"]; raw != nil && !ok {
 		return fmt.Errorf("field payment_methods_enabled in P2PSettingsRespP2PSettings: required")
+	}
+	if _, ok := raw["pnv_required"]; raw != nil && !ok {
+		return fmt.Errorf("field pnv_required in P2PSettingsRespP2PSettings: required")
+	}
+	if _, ok := raw["poa_required"]; raw != nil && !ok {
+		return fmt.Errorf("field poa_required in P2PSettingsRespP2PSettings: required")
 	}
 	if _, ok := raw["review_period"]; raw != nil && !ok {
 		return fmt.Errorf("field review_period in P2PSettingsRespP2PSettings: required")
