@@ -126,11 +126,13 @@ func (j *Mt5NewAccountRespMt5NewAccountAccountType) UnmarshalJSON(b []byte) erro
 type Mt5NewAccountRespMt5NewAccountMt5AccountCategory string
 
 const Mt5NewAccountRespMt5NewAccountMt5AccountCategoryConventional Mt5NewAccountRespMt5NewAccountMt5AccountCategory = "conventional"
+const Mt5NewAccountRespMt5NewAccountMt5AccountCategoryGold Mt5NewAccountRespMt5NewAccountMt5AccountCategory = "gold"
 const Mt5NewAccountRespMt5NewAccountMt5AccountCategorySwapFree Mt5NewAccountRespMt5NewAccountMt5AccountCategory = "swap_free"
 
 var enumValues_Mt5NewAccountRespMt5NewAccountMt5AccountCategory = []interface{}{
 	"conventional",
 	"swap_free",
+	"gold",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -157,12 +159,14 @@ type Mt5NewAccountRespMt5NewAccountMt5AccountType string
 
 const Mt5NewAccountRespMt5NewAccountMt5AccountTypeFinancial Mt5NewAccountRespMt5NewAccountMt5AccountType = "financial"
 const Mt5NewAccountRespMt5NewAccountMt5AccountTypeFinancialStp Mt5NewAccountRespMt5NewAccountMt5AccountType = "financial_stp"
+const Mt5NewAccountRespMt5NewAccountMt5AccountTypeGold Mt5NewAccountRespMt5NewAccountMt5AccountType = "gold"
 const Mt5NewAccountRespMt5NewAccountMt5AccountTypeStandard Mt5NewAccountRespMt5NewAccountMt5AccountType = "standard"
 
 var enumValues_Mt5NewAccountRespMt5NewAccountMt5AccountType = []interface{}{
 	"financial",
 	"financial_stp",
 	"standard",
+	"gold",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -189,6 +193,7 @@ type Mt5NewAccountRespMt5NewAccountProduct string
 
 const Mt5NewAccountRespMt5NewAccountProductBlank Mt5NewAccountRespMt5NewAccountProduct = ""
 const Mt5NewAccountRespMt5NewAccountProductFinancial Mt5NewAccountRespMt5NewAccountProduct = "financial"
+const Mt5NewAccountRespMt5NewAccountProductGold Mt5NewAccountRespMt5NewAccountProduct = "gold"
 const Mt5NewAccountRespMt5NewAccountProductStandard Mt5NewAccountRespMt5NewAccountProduct = "standard"
 const Mt5NewAccountRespMt5NewAccountProductStp Mt5NewAccountRespMt5NewAccountProduct = "stp"
 const Mt5NewAccountRespMt5NewAccountProductSwapFree Mt5NewAccountRespMt5NewAccountProduct = "swap_free"
@@ -203,6 +208,7 @@ var enumValues_Mt5NewAccountRespMt5NewAccountProduct = []interface{}{
 	"zero_spread",
 	"standard",
 	"stp",
+	"gold",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -227,6 +233,7 @@ func (j *Mt5NewAccountRespMt5NewAccountProduct) UnmarshalJSON(b []byte) error {
 
 type Mt5NewAccountRespMt5NewAccountSubAccountType string
 
+const Mt5NewAccountRespMt5NewAccountSubAccountTypeGold Mt5NewAccountRespMt5NewAccountSubAccountType = "gold"
 const Mt5NewAccountRespMt5NewAccountSubAccountTypeIbt Mt5NewAccountRespMt5NewAccountSubAccountType = "ibt"
 const Mt5NewAccountRespMt5NewAccountSubAccountTypeStandard Mt5NewAccountRespMt5NewAccountSubAccountType = "standard"
 const Mt5NewAccountRespMt5NewAccountSubAccountTypeStp Mt5NewAccountRespMt5NewAccountSubAccountType = "stp"
@@ -239,6 +246,7 @@ var enumValues_Mt5NewAccountRespMt5NewAccountSubAccountType = []interface{}{
 	"ibt",
 	"swap_free",
 	"zero_spread",
+	"gold",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.

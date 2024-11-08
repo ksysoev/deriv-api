@@ -1444,6 +1444,9 @@ type LandingCompanyRespLandingCompanyMtFinancialCompany struct {
 	// variety of FX pairs from majors to exotics. It is a straight through processing
 	// (STP) account with direct access to FX liquidity from various providers.
 	FinancialStp *LandingCompanyInfo `json:"financial_stp,omitempty"`
+
+	// Contain details for landing company for gold sub account type.
+	Gold *LandingCompanyInfo `json:"gold,omitempty"`
 }
 
 // Landing Company for MT5 standard derived contracts (Synthetic Indices),

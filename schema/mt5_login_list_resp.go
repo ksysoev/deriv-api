@@ -482,6 +482,7 @@ type Mt5LoginListRespMt5LoginListElemProduct string
 
 const Mt5LoginListRespMt5LoginListElemProductBlank Mt5LoginListRespMt5LoginListElemProduct = ""
 const Mt5LoginListRespMt5LoginListElemProductFinancial Mt5LoginListRespMt5LoginListElemProduct = "financial"
+const Mt5LoginListRespMt5LoginListElemProductGold Mt5LoginListRespMt5LoginListElemProduct = "gold"
 const Mt5LoginListRespMt5LoginListElemProductStandard Mt5LoginListRespMt5LoginListElemProduct = "standard"
 const Mt5LoginListRespMt5LoginListElemProductStp Mt5LoginListRespMt5LoginListElemProduct = "stp"
 const Mt5LoginListRespMt5LoginListElemProductSwapFree Mt5LoginListRespMt5LoginListElemProduct = "swap_free"
@@ -496,6 +497,7 @@ var enumValues_Mt5LoginListRespMt5LoginListElemProduct = []interface{}{
 	"zero_spread",
 	"standard",
 	"stp",
+	"gold",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -668,6 +670,7 @@ type Mt5LoginListRespMt5LoginListElemSubAccountCategory string
 const Mt5LoginListRespMt5LoginListElemSubAccountCategoryAb Mt5LoginListRespMt5LoginListElemSubAccountCategory = "ab"
 const Mt5LoginListRespMt5LoginListElemSubAccountCategoryBa Mt5LoginListRespMt5LoginListElemSubAccountCategory = "ba"
 const Mt5LoginListRespMt5LoginListElemSubAccountCategoryBlank Mt5LoginListRespMt5LoginListElemSubAccountCategory = ""
+const Mt5LoginListRespMt5LoginListElemSubAccountCategoryGold Mt5LoginListRespMt5LoginListElemSubAccountCategory = "gold"
 const Mt5LoginListRespMt5LoginListElemSubAccountCategoryHr Mt5LoginListRespMt5LoginListElemSubAccountCategory = "hr"
 const Mt5LoginListRespMt5LoginListElemSubAccountCategoryLim Mt5LoginListRespMt5LoginListElemSubAccountCategory = "lim"
 const Mt5LoginListRespMt5LoginListElemSubAccountCategoryStp Mt5LoginListRespMt5LoginListElemSubAccountCategory = "stp"
@@ -683,6 +686,7 @@ var enumValues_Mt5LoginListRespMt5LoginListElemSubAccountCategory = []interface{
 	"ab",
 	"ba",
 	"stp",
+	"gold",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -709,6 +713,7 @@ type Mt5LoginListRespMt5LoginListElemSubAccountType string
 
 const Mt5LoginListRespMt5LoginListElemSubAccountTypeFinancial Mt5LoginListRespMt5LoginListElemSubAccountType = "financial"
 const Mt5LoginListRespMt5LoginListElemSubAccountTypeFinancialStp Mt5LoginListRespMt5LoginListElemSubAccountType = "financial_stp"
+const Mt5LoginListRespMt5LoginListElemSubAccountTypeGold Mt5LoginListRespMt5LoginListElemSubAccountType = "gold"
 const Mt5LoginListRespMt5LoginListElemSubAccountTypeIbt Mt5LoginListRespMt5LoginListElemSubAccountType = "ibt"
 const Mt5LoginListRespMt5LoginListElemSubAccountTypeStandard Mt5LoginListRespMt5LoginListElemSubAccountType = "standard"
 const Mt5LoginListRespMt5LoginListElemSubAccountTypeStp Mt5LoginListRespMt5LoginListElemSubAccountType = "stp"
@@ -723,6 +728,7 @@ var enumValues_Mt5LoginListRespMt5LoginListElemSubAccountType = []interface{}{
 	"ibt",
 	"stp",
 	"zero_spread",
+	"gold",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.

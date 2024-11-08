@@ -218,6 +218,7 @@ type TransferBetweenAccountsRespAccountsElemProduct string
 
 const TransferBetweenAccountsRespAccountsElemProductBlank TransferBetweenAccountsRespAccountsElemProduct = ""
 const TransferBetweenAccountsRespAccountsElemProductFinancial TransferBetweenAccountsRespAccountsElemProduct = "financial"
+const TransferBetweenAccountsRespAccountsElemProductGold TransferBetweenAccountsRespAccountsElemProduct = "gold"
 const TransferBetweenAccountsRespAccountsElemProductStandard TransferBetweenAccountsRespAccountsElemProduct = "standard"
 const TransferBetweenAccountsRespAccountsElemProductStp TransferBetweenAccountsRespAccountsElemProduct = "stp"
 const TransferBetweenAccountsRespAccountsElemProductSwapFree TransferBetweenAccountsRespAccountsElemProduct = "swap_free"
@@ -232,6 +233,7 @@ var enumValues_TransferBetweenAccountsRespAccountsElemProduct = []interface{}{
 	"zero_spread",
 	"standard",
 	"stp",
+	"gold",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -258,6 +260,7 @@ type TransferBetweenAccountsRespAccountsElemSubAccountType string
 
 const TransferBetweenAccountsRespAccountsElemSubAccountTypeFinancial TransferBetweenAccountsRespAccountsElemSubAccountType = "financial"
 const TransferBetweenAccountsRespAccountsElemSubAccountTypeFinancialStp TransferBetweenAccountsRespAccountsElemSubAccountType = "financial_stp"
+const TransferBetweenAccountsRespAccountsElemSubAccountTypeGold TransferBetweenAccountsRespAccountsElemSubAccountType = "gold"
 const TransferBetweenAccountsRespAccountsElemSubAccountTypeStandard TransferBetweenAccountsRespAccountsElemSubAccountType = "standard"
 const TransferBetweenAccountsRespAccountsElemSubAccountTypeSwapFree TransferBetweenAccountsRespAccountsElemSubAccountType = "swap_free"
 const TransferBetweenAccountsRespAccountsElemSubAccountTypeZeroSpread TransferBetweenAccountsRespAccountsElemSubAccountType = "zero_spread"
@@ -268,6 +271,7 @@ var enumValues_TransferBetweenAccountsRespAccountsElemSubAccountType = []interfa
 	"standard",
 	"swap_free",
 	"zero_spread",
+	"gold",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.

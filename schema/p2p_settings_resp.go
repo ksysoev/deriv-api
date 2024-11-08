@@ -351,6 +351,9 @@ type P2PSettingsRespP2PSettingsLocalCurrenciesElem struct {
 	// Indicates that this is local currency for the current country.
 	IsDefault *P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault `json:"is_default,omitempty"`
 
+	// Indicates that floating rate adverts are available for this currency.
+	IsFloatingRateAdSupported *P2PSettingsRespP2PSettingsLocalCurrenciesElemIsFloatingRateAdSupported `json:"is_floating_rate_ad_supported,omitempty"`
+
 	// Local currency symbol
 	Symbol string `json:"symbol"`
 }
@@ -405,6 +408,33 @@ func (j *P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault) UnmarshalJSON(b
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault, v)
 	}
 	*j = P2PSettingsRespP2PSettingsLocalCurrenciesElemIsDefault(v)
+	return nil
+}
+
+type P2PSettingsRespP2PSettingsLocalCurrenciesElemIsFloatingRateAdSupported int
+
+var enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemIsFloatingRateAdSupported = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PSettingsRespP2PSettingsLocalCurrenciesElemIsFloatingRateAdSupported) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemIsFloatingRateAdSupported {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PSettingsRespP2PSettingsLocalCurrenciesElemIsFloatingRateAdSupported, v)
+	}
+	*j = P2PSettingsRespP2PSettingsLocalCurrenciesElemIsFloatingRateAdSupported(v)
 	return nil
 }
 

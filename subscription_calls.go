@@ -161,6 +161,17 @@ func (api *Client) SubscribeTicks(ctx context.Context, r schema.Ticks) (rsp sche
 	return
 }
 
+// SubscribeTicksBatch Initiate a continuous stream of spot price updates for a group symbols.
+func (api *Client) SubscribeTicksBatch(ctx context.Context, r schema.TicksBatch) (rsp schema.TicksBatchResp, s *Subsciption[schema.TicksBatchResp, schema.TicksBatchResp], err error) {
+	id := api.getNextRequestID()
+	var f schema.TicksBatchSubscribe = 1
+	r.ReqId = &id
+	r.Subscribe = &f
+	s = NewSubcription[schema.TicksBatchResp, schema.TicksBatchResp](ctx, api)
+	rsp, err = s.Start(id, r)
+	return
+}
+
 // SubscribeWebsiteStatus Request server status.
 func (api *Client) SubscribeWebsiteStatus(ctx context.Context, r schema.WebsiteStatus) (rsp schema.WebsiteStatusResp, s *Subsciption[schema.WebsiteStatusResp, schema.WebsiteStatusResp], err error) {
 	id := api.getNextRequestID()

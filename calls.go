@@ -871,6 +871,14 @@ func (api *Client) Ticks(ctx context.Context, r schema.Ticks) (resp schema.Ticks
 	return
 }
 
+// TicksBatch Initiate a continuous stream of spot price updates for a group symbols.
+func (api *Client) TicksBatch(ctx context.Context, r schema.TicksBatch) (resp schema.TicksBatchResp, err error) {
+	id := api.getNextRequestID()
+	r.ReqId = &id
+	err = api.SendRequest(ctx, id, r, &resp)
+	return
+}
+
 // TicksHistory Get historic tick data for a given symbol.
 func (api *Client) TicksHistory(ctx context.Context, r schema.TicksHistory) (resp schema.TicksHistoryResp, err error) {
 	id := api.getNextRequestID()
