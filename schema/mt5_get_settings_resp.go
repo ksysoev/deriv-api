@@ -160,6 +160,7 @@ func (j *Mt5GetSettingsRespMt5GetSettingsAccountType) UnmarshalJSON(b []byte) er
 type Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort string
 
 const Mt5GetSettingsRespMt5GetSettingsLandingCompanyShortBvi Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort = "bvi"
+const Mt5GetSettingsRespMt5GetSettingsLandingCompanyShortDml Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort = "dml"
 const Mt5GetSettingsRespMt5GetSettingsLandingCompanyShortLabuan Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort = "labuan"
 const Mt5GetSettingsRespMt5GetSettingsLandingCompanyShortMalta Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort = "malta"
 const Mt5GetSettingsRespMt5GetSettingsLandingCompanyShortMaltainvest Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort = "maltainvest"
@@ -175,6 +176,7 @@ var enumValues_Mt5GetSettingsRespMt5GetSettingsLandingCompanyShort = []interface
 	"seychelles",
 	"svg",
 	"vanuatu",
+	"dml",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.

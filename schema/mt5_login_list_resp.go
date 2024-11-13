@@ -409,6 +409,7 @@ type Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoGeolocation struct {
 type Mt5LoginListRespMt5LoginListElemLandingCompanyShort string
 
 const Mt5LoginListRespMt5LoginListElemLandingCompanyShortBvi Mt5LoginListRespMt5LoginListElemLandingCompanyShort = "bvi"
+const Mt5LoginListRespMt5LoginListElemLandingCompanyShortDml Mt5LoginListRespMt5LoginListElemLandingCompanyShort = "dml"
 const Mt5LoginListRespMt5LoginListElemLandingCompanyShortLabuan Mt5LoginListRespMt5LoginListElemLandingCompanyShort = "labuan"
 const Mt5LoginListRespMt5LoginListElemLandingCompanyShortMalta Mt5LoginListRespMt5LoginListElemLandingCompanyShort = "malta"
 const Mt5LoginListRespMt5LoginListElemLandingCompanyShortMaltainvest Mt5LoginListRespMt5LoginListElemLandingCompanyShort = "maltainvest"
@@ -424,6 +425,7 @@ var enumValues_Mt5LoginListRespMt5LoginListElemLandingCompanyShort = []interface
 	"svg",
 	"vanuatu",
 	"seychelles",
+	"dml",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
