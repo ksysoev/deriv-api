@@ -225,6 +225,9 @@ type GetAccountStatusRespGetAccountStatusAuthenticationDocument struct {
 	// This is the epoch of the document expiry date.
 	ExpiryDate *int `json:"expiry_date,omitempty"`
 
+	// Show the last reported reasons for the rejected poa cases
+	LastRejected *string `json:"last_rejected,omitempty"`
+
 	// This represents the current status of the proof of address document submitted
 	// for authentication.
 	Status *GetAccountStatusRespGetAccountStatusAuthenticationDocumentStatus `json:"status,omitempty"`
