@@ -339,6 +339,9 @@ const Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironmentDerivFXSe
 const Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironmentDerivMTServer Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment = "DerivMT-Server"
 const Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironmentDerivMTServer02 Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment = "DerivMT-Server-02"
 const Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironmentDerivMTServer03 Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment = "DerivMT-Server-03"
+const Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironmentDerivMUServer Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment = "DerivMU-Server"
+const Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironmentDerivMUServer02 Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment = "DerivMU-Server-02"
+const Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironmentDerivMUServer03 Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment = "DerivMU-Server-03"
 const Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironmentDerivSVGServer Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment = "DerivSVG-Server"
 const Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironmentDerivSVGServer02 Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment = "DerivSVG-Server-02"
 const Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironmentDerivSVGServer03 Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment = "DerivSVG-Server-03"
@@ -369,6 +372,9 @@ var enumValues_Mt5LoginListRespMt5LoginListElemErrorDetailsServerInfoEnvironment
 	"DerivBVI-Server",
 	"DerivBVI-Server-02",
 	"DerivBVI-Server-03",
+	"DerivMU-Server",
+	"DerivMU-Server-02",
+	"DerivMU-Server-03",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -600,6 +606,9 @@ const Mt5LoginListRespMt5LoginListElemServerInfoEnvironmentDerivFXServer03 Mt5Lo
 const Mt5LoginListRespMt5LoginListElemServerInfoEnvironmentDerivMTServer Mt5LoginListRespMt5LoginListElemServerInfoEnvironment = "DerivMT-Server"
 const Mt5LoginListRespMt5LoginListElemServerInfoEnvironmentDerivMTServer02 Mt5LoginListRespMt5LoginListElemServerInfoEnvironment = "DerivMT-Server-02"
 const Mt5LoginListRespMt5LoginListElemServerInfoEnvironmentDerivMTServer03 Mt5LoginListRespMt5LoginListElemServerInfoEnvironment = "DerivMT-Server-03"
+const Mt5LoginListRespMt5LoginListElemServerInfoEnvironmentDerivMUServer Mt5LoginListRespMt5LoginListElemServerInfoEnvironment = "DerivMU-Server"
+const Mt5LoginListRespMt5LoginListElemServerInfoEnvironmentDerivMUServer02 Mt5LoginListRespMt5LoginListElemServerInfoEnvironment = "DerivMU-Server-02"
+const Mt5LoginListRespMt5LoginListElemServerInfoEnvironmentDerivMUServer03 Mt5LoginListRespMt5LoginListElemServerInfoEnvironment = "DerivMU-Server-03"
 const Mt5LoginListRespMt5LoginListElemServerInfoEnvironmentDerivSVGServer Mt5LoginListRespMt5LoginListElemServerInfoEnvironment = "DerivSVG-Server"
 const Mt5LoginListRespMt5LoginListElemServerInfoEnvironmentDerivSVGServer02 Mt5LoginListRespMt5LoginListElemServerInfoEnvironment = "DerivSVG-Server-02"
 const Mt5LoginListRespMt5LoginListElemServerInfoEnvironmentDerivSVGServer03 Mt5LoginListRespMt5LoginListElemServerInfoEnvironment = "DerivSVG-Server-03"
@@ -630,6 +639,9 @@ var enumValues_Mt5LoginListRespMt5LoginListElemServerInfoEnvironment = []interfa
 	"DerivBVI-Server",
 	"DerivBVI-Server-02",
 	"DerivBVI-Server-03",
+	"DerivMU-Server",
+	"DerivMU-Server-02",
+	"DerivMU-Server-03",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
