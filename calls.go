@@ -447,6 +447,14 @@ func (api *Client) NewAccountVirtual(ctx context.Context, r schema.NewAccountVir
 	return
 }
 
+// NewPartnerAccount This call opens a new Real-Partner Account
+func (api *Client) NewPartnerAccount(ctx context.Context, r schema.NewPartnerAccount) (resp schema.NewPartnerAccountResp, err error) {
+	id := api.getNextRequestID()
+	r.ReqId = &id
+	err = api.SendRequest(ctx, id, r, &resp)
+	return
+}
+
 // OauthApps List all my used OAuth applications.
 func (api *Client) OauthApps(ctx context.Context, r schema.OauthApps) (resp schema.OauthAppsResp, err error) {
 	id := api.getNextRequestID()
