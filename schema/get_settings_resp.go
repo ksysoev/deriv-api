@@ -149,6 +149,10 @@ type GetSettingsRespGetSettings struct {
 	// accepted the latest T&C version.
 	TncStatus GetSettingsRespGetSettingsTncStatus `json:"tnc_status,omitempty"`
 
+	// The start date to inform users within a grace period, with the notification
+	// automatically deactivating after the specified duration.
+	TncUpdateNotificationStartDate *string `json:"tnc_update_notification_start_date,omitempty"`
+
 	// Boolean value 1 or 0, indicating if client has enabled the Trading Hub
 	// dashboard
 	TradingHub *int `json:"trading_hub,omitempty"`
