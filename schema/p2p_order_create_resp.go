@@ -252,6 +252,9 @@ type P2POrderCreateRespP2POrderCreateAdvertiserDetails struct {
 	// Indicates if the advertiser is currently online.
 	IsOnline P2POrderCreateRespP2POrderCreateAdvertiserDetailsIsOnline `json:"is_online"`
 
+	// Optional field, indicates if the advertiser is recommended.
+	IsRecommended *P2POrderCreateRespP2POrderCreateAdvertiserDetailsIsRecommended `json:"is_recommended,omitempty"`
+
 	// The advertiser's last name.
 	LastName *string `json:"last_name,omitempty"`
 
@@ -289,6 +292,43 @@ func (j *P2POrderCreateRespP2POrderCreateAdvertiserDetailsIsOnline) UnmarshalJSO
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderCreateRespP2POrderCreateAdvertiserDetailsIsOnline, v)
 	}
 	*j = P2POrderCreateRespP2POrderCreateAdvertiserDetailsIsOnline(v)
+	return nil
+}
+
+type P2POrderCreateRespP2POrderCreateAdvertiserDetailsIsRecommended struct {
+	Value interface{}
+}
+
+// MarshalJSON implements json.Marshaler.
+func (j *P2POrderCreateRespP2POrderCreateAdvertiserDetailsIsRecommended) MarshalJSON() ([]byte, error) {
+	return json.Marshal(j.Value)
+}
+
+var enumValues_P2POrderCreateRespP2POrderCreateAdvertiserDetailsIsRecommended = []interface{}{
+	0.0,
+	1.0,
+	nil,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2POrderCreateRespP2POrderCreateAdvertiserDetailsIsRecommended) UnmarshalJSON(b []byte) error {
+	var v struct {
+		Value interface{}
+	}
+	if err := json.Unmarshal(b, &v.Value); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2POrderCreateRespP2POrderCreateAdvertiserDetailsIsRecommended {
+		if reflect.DeepEqual(v.Value, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2POrderCreateRespP2POrderCreateAdvertiserDetailsIsRecommended, v.Value)
+	}
+	*j = P2POrderCreateRespP2POrderCreateAdvertiserDetailsIsRecommended(v)
 	return nil
 }
 
