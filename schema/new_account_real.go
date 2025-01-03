@@ -122,9 +122,11 @@ type NewAccountReal struct {
 
 type NewAccountRealAccountOpeningReason string
 
+const NewAccountRealAccountOpeningReasonAdditionalRevenue NewAccountRealAccountOpeningReason = "Additional revenue"
 const NewAccountRealAccountOpeningReasonHedging NewAccountRealAccountOpeningReason = "Hedging"
 const NewAccountRealAccountOpeningReasonIncomeEarning NewAccountRealAccountOpeningReason = "Income Earning"
 const NewAccountRealAccountOpeningReasonPeerToPeerExchange NewAccountRealAccountOpeningReason = "Peer-to-peer exchange"
+const NewAccountRealAccountOpeningReasonSavings NewAccountRealAccountOpeningReason = "Savings"
 const NewAccountRealAccountOpeningReasonSpeculative NewAccountRealAccountOpeningReason = "Speculative"
 
 var enumValues_NewAccountRealAccountOpeningReason = []interface{}{
@@ -132,6 +134,8 @@ var enumValues_NewAccountRealAccountOpeningReason = []interface{}{
 	"Income Earning",
 	"Hedging",
 	"Peer-to-peer exchange",
+	"Additional revenue",
+	"Savings",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.

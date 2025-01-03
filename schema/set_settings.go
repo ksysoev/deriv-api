@@ -138,9 +138,11 @@ type SetSettings struct {
 
 type SetSettingsAccountOpeningReason string
 
+const SetSettingsAccountOpeningReasonAdditionalRevenue SetSettingsAccountOpeningReason = "Additional revenue"
 const SetSettingsAccountOpeningReasonHedging SetSettingsAccountOpeningReason = "Hedging"
 const SetSettingsAccountOpeningReasonIncomeEarning SetSettingsAccountOpeningReason = "Income Earning"
 const SetSettingsAccountOpeningReasonPeerToPeerExchange SetSettingsAccountOpeningReason = "Peer-to-peer exchange"
+const SetSettingsAccountOpeningReasonSavings SetSettingsAccountOpeningReason = "Savings"
 const SetSettingsAccountOpeningReasonSpeculative SetSettingsAccountOpeningReason = "Speculative"
 
 var enumValues_SetSettingsAccountOpeningReason = []interface{}{
@@ -148,6 +150,8 @@ var enumValues_SetSettingsAccountOpeningReason = []interface{}{
 	"Income Earning",
 	"Hedging",
 	"Peer-to-peer exchange",
+	"Additional revenue",
+	"Savings",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.

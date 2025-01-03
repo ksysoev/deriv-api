@@ -208,14 +208,18 @@ func (j *NewAccountMaltainvestAcceptRisk) UnmarshalJSON(b []byte) error {
 
 type NewAccountMaltainvestAccountOpeningReason string
 
+const NewAccountMaltainvestAccountOpeningReasonAdditionalRevenue NewAccountMaltainvestAccountOpeningReason = "Additional revenue"
 const NewAccountMaltainvestAccountOpeningReasonHedging NewAccountMaltainvestAccountOpeningReason = "Hedging"
 const NewAccountMaltainvestAccountOpeningReasonIncomeEarning NewAccountMaltainvestAccountOpeningReason = "Income Earning"
+const NewAccountMaltainvestAccountOpeningReasonSavings NewAccountMaltainvestAccountOpeningReason = "Savings"
 const NewAccountMaltainvestAccountOpeningReasonSpeculative NewAccountMaltainvestAccountOpeningReason = "Speculative"
 
 var enumValues_NewAccountMaltainvestAccountOpeningReason = []interface{}{
 	"Speculative",
 	"Income Earning",
 	"Hedging",
+	"Additional revenue",
+	"Savings",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
