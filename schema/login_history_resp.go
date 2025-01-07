@@ -30,14 +30,38 @@ type LoginHistoryRespLoginHistoryElem struct {
 	// Type of action.
 	Action string `json:"action"`
 
+	// Browser used
+	Browser string `json:"browser"`
+
+	// Country the login originated (IP Based))
+	Country string `json:"country"`
+
+	// ISO6801 timestame of the activity
+	Datetime string `json:"datetime"`
+
+	// Client device
+	Device string `json:"device"`
+
 	// Provides details about browser, device used during login or logout
 	Environment string `json:"environment"`
+
+	// IP Address the login was from
+	Ip string `json:"ip"`
+
+	// Browser language
+	Language string `json:"language"`
+
+	// Operating system
+	Os string `json:"os"`
 
 	// Status of activity: 1 - success, 0 - failure
 	Status LoginHistoryRespLoginHistoryElemStatus `json:"status"`
 
 	// Epoch time of the activity
 	Time int `json:"time"`
+
+	// Version of the browser
+	Version string `json:"version"`
 }
 
 type LoginHistoryRespLoginHistoryElemStatus int
@@ -76,14 +100,38 @@ func (j *LoginHistoryRespLoginHistoryElem) UnmarshalJSON(b []byte) error {
 	if _, ok := raw["action"]; raw != nil && !ok {
 		return fmt.Errorf("field action in LoginHistoryRespLoginHistoryElem: required")
 	}
+	if _, ok := raw["browser"]; raw != nil && !ok {
+		return fmt.Errorf("field browser in LoginHistoryRespLoginHistoryElem: required")
+	}
+	if _, ok := raw["country"]; raw != nil && !ok {
+		return fmt.Errorf("field country in LoginHistoryRespLoginHistoryElem: required")
+	}
+	if _, ok := raw["datetime"]; raw != nil && !ok {
+		return fmt.Errorf("field datetime in LoginHistoryRespLoginHistoryElem: required")
+	}
+	if _, ok := raw["device"]; raw != nil && !ok {
+		return fmt.Errorf("field device in LoginHistoryRespLoginHistoryElem: required")
+	}
 	if _, ok := raw["environment"]; raw != nil && !ok {
 		return fmt.Errorf("field environment in LoginHistoryRespLoginHistoryElem: required")
+	}
+	if _, ok := raw["ip"]; raw != nil && !ok {
+		return fmt.Errorf("field ip in LoginHistoryRespLoginHistoryElem: required")
+	}
+	if _, ok := raw["language"]; raw != nil && !ok {
+		return fmt.Errorf("field language in LoginHistoryRespLoginHistoryElem: required")
+	}
+	if _, ok := raw["os"]; raw != nil && !ok {
+		return fmt.Errorf("field os in LoginHistoryRespLoginHistoryElem: required")
 	}
 	if _, ok := raw["status"]; raw != nil && !ok {
 		return fmt.Errorf("field status in LoginHistoryRespLoginHistoryElem: required")
 	}
 	if _, ok := raw["time"]; raw != nil && !ok {
 		return fmt.Errorf("field time in LoginHistoryRespLoginHistoryElem: required")
+	}
+	if _, ok := raw["version"]; raw != nil && !ok {
+		return fmt.Errorf("field version in LoginHistoryRespLoginHistoryElem: required")
 	}
 	type Plain LoginHistoryRespLoginHistoryElem
 	var plain Plain
