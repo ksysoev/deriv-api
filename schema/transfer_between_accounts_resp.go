@@ -116,6 +116,7 @@ const TransferBetweenAccountsRespAccountsElemAccountTypeDoughflow TransferBetwee
 const TransferBetweenAccountsRespAccountsElemAccountTypeDxtrade TransferBetweenAccountsRespAccountsElemAccountType = "dxtrade"
 const TransferBetweenAccountsRespAccountsElemAccountTypeMt5 TransferBetweenAccountsRespAccountsElemAccountType = "mt5"
 const TransferBetweenAccountsRespAccountsElemAccountTypeP2P TransferBetweenAccountsRespAccountsElemAccountType = "p2p"
+const TransferBetweenAccountsRespAccountsElemAccountTypePartner TransferBetweenAccountsRespAccountsElemAccountType = "partner"
 const TransferBetweenAccountsRespAccountsElemAccountTypePaymentagent TransferBetweenAccountsRespAccountsElemAccountType = "paymentagent"
 const TransferBetweenAccountsRespAccountsElemAccountTypePaymentagentClient TransferBetweenAccountsRespAccountsElemAccountType = "paymentagent_client"
 const TransferBetweenAccountsRespAccountsElemAccountTypeStandard TransferBetweenAccountsRespAccountsElemAccountType = "standard"
@@ -133,6 +134,7 @@ var enumValues_TransferBetweenAccountsRespAccountsElemAccountType = []interface{
 	"paymentagent_client",
 	"standard",
 	"virtual",
+	"partner",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
