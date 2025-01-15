@@ -70,6 +70,9 @@ type NewAccountVirtualRespNewAccountVirtual struct {
 	// Email of the new virtual-money account
 	Email string `json:"email"`
 
+	// [Optional] One-time code for passwordless login, valid for 1 minute
+	LoginCode *string `json:"login_code,omitempty"`
+
 	// Oauth token for the client's login session (so that the user may be logged in
 	// immediately)
 	OauthToken string `json:"oauth_token"`
