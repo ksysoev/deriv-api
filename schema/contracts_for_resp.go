@@ -86,6 +86,9 @@ type ContractsForRespContractsForAvailableElem struct {
 	// [Only for Turbos] Its selected payout per point
 	DisplayNumberOfContracts *float64 `json:"display_number_of_contracts,omitempty"`
 
+	// [Only for Snowball] Available contract durations in seconds.
+	DurationChoices []int `json:"duration_choices,omitempty"`
+
 	// Name of exchange
 	ExchangeName string `json:"exchange_name"`
 
@@ -142,6 +145,9 @@ type ContractsForRespContractsForAvailableElem struct {
 
 	// Type of submarket.
 	Submarket string `json:"submarket"`
+
+	// [Only for Snowball] Available risk profile options.
+	TradeRiskProfileChoices []string `json:"trade_risk_profile_choices,omitempty"`
 
 	// A hash of predefined trading period
 	TradingPeriod ContractsForRespContractsForAvailableElemTradingPeriod `json:"trading_period,omitempty"`
@@ -223,8 +229,14 @@ func (j *ContractsForRespContractsForAvailableElem) UnmarshalJSON(b []byte) erro
 	if plain.AvailableBarriers != nil && len(plain.AvailableBarriers) < 1 {
 		return fmt.Errorf("field %s length: must be >= %d", "available_barriers", 1)
 	}
+	if plain.DurationChoices != nil && len(plain.DurationChoices) < 1 {
+		return fmt.Errorf("field %s length: must be >= %d", "duration_choices", 1)
+	}
 	if plain.ForwardStartingOptions != nil && len(plain.ForwardStartingOptions) < 1 {
 		return fmt.Errorf("field %s length: must be >= %d", "forward_starting_options", 1)
+	}
+	if plain.TradeRiskProfileChoices != nil && len(plain.TradeRiskProfileChoices) < 1 {
+		return fmt.Errorf("field %s length: must be >= %d", "trade_risk_profile_choices", 1)
 	}
 	*j = ContractsForRespContractsForAvailableElem(plain)
 	return nil

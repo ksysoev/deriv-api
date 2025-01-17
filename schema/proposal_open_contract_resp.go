@@ -85,6 +85,10 @@ type ProposalOpenContractRespProposalOpenContract struct {
 	// Contains information about contract cancellation option.
 	Cancellation *ProposalOpenContractRespProposalOpenContractCancellation `json:"cancellation,omitempty"`
 
+	// The caution price for the Snowball contract. Breaching this price will reset
+	// the coupons accrued to 0.
+	CautionPrice *string `json:"caution_price,omitempty"`
+
 	// Commission in payout currency amount.
 	Commision *float64 `json:"commision,omitempty"`
 
@@ -96,6 +100,13 @@ type ProposalOpenContractRespProposalOpenContract struct {
 
 	// Contract type.
 	ContractType *string `json:"contract_type,omitempty"`
+
+	// The epoch times at which the coupons will be accrued for the Snowball contract.
+	CouponCollectionEpochs []int `json:"coupon_collection_epochs,omitempty"`
+
+	// The coupon rate for the Snowball contract at which the stake will grow for each
+	// coupon accrued.
+	CouponRate *string `json:"coupon_rate,omitempty"`
 
 	// The currency code of the contract.
 	Currency *string `json:"currency,omitempty"`
@@ -228,6 +239,9 @@ type ProposalOpenContractRespProposalOpenContract struct {
 	// multiplier = Payout
 	Multiplier *float64 `json:"multiplier,omitempty"`
 
+	// The maximum number of coupons available for the Snowball contract.
+	NumOfCoupons *int `json:"num_of_coupons,omitempty"`
+
 	// Payout value of the contract.
 	Payout *float64 `json:"payout,omitempty"`
 
@@ -236,6 +250,10 @@ type ProposalOpenContractRespProposalOpenContract struct {
 
 	// Profit in percentage.
 	ProfitPercentage *float64 `json:"profit_percentage,omitempty"`
+
+	// The profit price for the Snowball contract. Breaching this price will close the
+	// contract immediately.
+	ProfitPrice *string `json:"profit_price,omitempty"`
 
 	// Epoch of purchase time, will be same as `date_start` for all contracts except
 	// forward starting contracts.
@@ -293,6 +311,9 @@ type ProposalOpenContractRespProposalOpenContract struct {
 
 	// Tick stream from entry to end time.
 	TickStream []ProposalOpenContractRespProposalOpenContractTickStreamElem `json:"tick_stream,omitempty"`
+
+	// The trade risk profile for the Snowball contract.
+	TradeRiskProfile *ProposalOpenContractRespProposalOpenContractTradeRiskProfile `json:"trade_risk_profile,omitempty"`
 
 	// Every contract has buy and sell transaction ids, i.e. when you purchase a
 	// contract we associate it with buy transaction id, and if contract is already
@@ -822,6 +843,38 @@ type ProposalOpenContractRespProposalOpenContractTickStreamElem struct {
 
 	// The spot value with the correct precision at the given epoch.
 	TickDisplayValue *string `json:"tick_display_value,omitempty"`
+}
+
+type ProposalOpenContractRespProposalOpenContractTradeRiskProfile string
+
+const ProposalOpenContractRespProposalOpenContractTradeRiskProfileHigh ProposalOpenContractRespProposalOpenContractTradeRiskProfile = "high"
+const ProposalOpenContractRespProposalOpenContractTradeRiskProfileLow ProposalOpenContractRespProposalOpenContractTradeRiskProfile = "low"
+const ProposalOpenContractRespProposalOpenContractTradeRiskProfileMedium ProposalOpenContractRespProposalOpenContractTradeRiskProfile = "medium"
+
+var enumValues_ProposalOpenContractRespProposalOpenContractTradeRiskProfile = []interface{}{
+	"low",
+	"medium",
+	"high",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ProposalOpenContractRespProposalOpenContractTradeRiskProfile) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ProposalOpenContractRespProposalOpenContractTradeRiskProfile {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalOpenContractRespProposalOpenContractTradeRiskProfile, v)
+	}
+	*j = ProposalOpenContractRespProposalOpenContractTradeRiskProfile(v)
+	return nil
 }
 
 // Every contract has buy and sell transaction ids, i.e. when you purchase a

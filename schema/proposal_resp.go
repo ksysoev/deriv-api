@@ -150,6 +150,14 @@ type ProposalRespProposalContractDetails struct {
 	// Absolute difference between high/low barrier and spot
 	BarrierSpotDistance *string `json:"barrier_spot_distance,omitempty"`
 
+	// The caution price for the Snowball contract. Breaching this price will reset
+	// the coupons accrued to 0.
+	CautionPrice *string `json:"caution_price,omitempty"`
+
+	// The coupon rate for the Snowball contract at which the stake will grow for each
+	// coupon accrued.
+	CouponRate *string `json:"coupon_rate,omitempty"`
+
 	// High barrier calculated based on current spot
 	HighBarrier *string `json:"high_barrier,omitempty"`
 
@@ -173,6 +181,13 @@ type ProposalRespProposalContractDetails struct {
 	// Minimum stake that user can set to buy a contract
 	MinimumStake *string `json:"minimum_stake,omitempty"`
 
+	// The maximum number of coupons available for the Snowball contract.
+	NumOfCoupons *int `json:"num_of_coupons,omitempty"`
+
+	// The profit price for the Snowball contract. Breaching this price will close the
+	// contract immediately.
+	ProfitPrice *string `json:"profit_price,omitempty"`
+
 	// Tick size barrier for Accumulator contracts
 	TickSizeBarrier *float64 `json:"tick_size_barrier,omitempty"`
 
@@ -182,6 +197,41 @@ type ProposalRespProposalContractDetails struct {
 	// An array of numbers  to build a stat chart - each number represents the
 	// duration that spot stayed between barries
 	TicksStayedIn []int `json:"ticks_stayed_in,omitempty"`
+
+	// The trade risk profile for the Snowball contract.
+	TradeRiskProfile *ProposalRespProposalContractDetailsTradeRiskProfile `json:"trade_risk_profile,omitempty"`
+}
+
+type ProposalRespProposalContractDetailsTradeRiskProfile string
+
+const ProposalRespProposalContractDetailsTradeRiskProfileHigh ProposalRespProposalContractDetailsTradeRiskProfile = "high"
+const ProposalRespProposalContractDetailsTradeRiskProfileLow ProposalRespProposalContractDetailsTradeRiskProfile = "low"
+const ProposalRespProposalContractDetailsTradeRiskProfileMedium ProposalRespProposalContractDetailsTradeRiskProfile = "medium"
+
+var enumValues_ProposalRespProposalContractDetailsTradeRiskProfile = []interface{}{
+	"low",
+	"medium",
+	"high",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ProposalRespProposalContractDetailsTradeRiskProfile) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ProposalRespProposalContractDetailsTradeRiskProfile {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalRespProposalContractDetailsTradeRiskProfile, v)
+	}
+	*j = ProposalRespProposalContractDetailsTradeRiskProfile(v)
+	return nil
 }
 
 // Contains limit order information. (Only applicable for contract with limit

@@ -109,6 +109,9 @@ type BuyParameters struct {
 	// Symbol code
 	Symbol string `json:"symbol"`
 
+	// [For Snowball only] The trade risk profile for Snowball trade types.
+	TradeRiskProfile *BuyParametersTradeRiskProfile `json:"trade_risk_profile,omitempty"`
+
 	// [Optional] An epoch value of a predefined trading period start time
 	TradingPeriodStart *int `json:"trading_period_start,omitempty"`
 }
@@ -208,6 +211,8 @@ const BuyParametersContractTypeRESETCALL BuyParametersContractType = "RESETCALL"
 const BuyParametersContractTypeRESETPUT BuyParametersContractType = "RESETPUT"
 const BuyParametersContractTypeRUNHIGH BuyParametersContractType = "RUNHIGH"
 const BuyParametersContractTypeRUNLOW BuyParametersContractType = "RUNLOW"
+const BuyParametersContractTypeSNOWDOWN BuyParametersContractType = "SNOWDOWN"
+const BuyParametersContractTypeSNOWUP BuyParametersContractType = "SNOWUP"
 const BuyParametersContractTypeTICKHIGH BuyParametersContractType = "TICKHIGH"
 const BuyParametersContractTypeTICKLOW BuyParametersContractType = "TICKLOW"
 const BuyParametersContractTypeTURBOSLONG BuyParametersContractType = "TURBOSLONG"
@@ -217,44 +222,46 @@ const BuyParametersContractTypeVANILLALONGCALL BuyParametersContractType = "VANI
 const BuyParametersContractTypeVANILLALONGPUT BuyParametersContractType = "VANILLALONGPUT"
 
 var enumValues_BuyParametersContractType = []interface{}{
-	"MULTUP",
-	"MULTDOWN",
-	"UPORDOWN",
-	"EXPIRYRANGE",
-	"ONETOUCH",
-	"CALLE",
-	"LBHIGHLOW",
+	"ACCU",
 	"ASIAND",
-	"EXPIRYRANGEE",
-	"DIGITDIFF",
-	"DIGITMATCH",
-	"DIGITOVER",
-	"PUTE",
-	"DIGITUNDER",
-	"NOTOUCH",
-	"CALL",
-	"RANGE",
-	"LBFLOATPUT",
-	"DIGITODD",
-	"PUT",
 	"ASIANU",
-	"LBFLOATCALL",
-	"EXPIRYMISSE",
-	"EXPIRYMISS",
+	"CALL",
+	"CALLE",
+	"CALLSPREAD",
+	"DIGITDIFF",
 	"DIGITEVEN",
-	"TICKHIGH",
-	"TICKLOW",
+	"DIGITMATCH",
+	"DIGITODD",
+	"DIGITOVER",
+	"DIGITUNDER",
+	"EXPIRYMISS",
+	"EXPIRYMISSE",
+	"EXPIRYRANGE",
+	"EXPIRYRANGEE",
+	"LBFLOATCALL",
+	"LBFLOATPUT",
+	"LBHIGHLOW",
+	"MULTDOWN",
+	"MULTUP",
+	"NOTOUCH",
+	"ONETOUCH",
+	"PUT",
+	"PUTE",
+	"PUTSPREAD",
+	"RANGE",
 	"RESETCALL",
 	"RESETPUT",
-	"CALLSPREAD",
-	"PUTSPREAD",
 	"RUNHIGH",
 	"RUNLOW",
-	"ACCU",
-	"VANILLALONGCALL",
-	"VANILLALONGPUT",
+	"SNOWDOWN",
+	"SNOWUP",
+	"TICKHIGH",
+	"TICKLOW",
 	"TURBOSLONG",
 	"TURBOSSHORT",
+	"UPORDOWN",
+	"VANILLALONGCALL",
+	"VANILLALONGPUT",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -350,6 +357,38 @@ func (j *BuyParametersProductType) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_BuyParametersProductType, v)
 	}
 	*j = BuyParametersProductType(v)
+	return nil
+}
+
+type BuyParametersTradeRiskProfile string
+
+const BuyParametersTradeRiskProfileHigh BuyParametersTradeRiskProfile = "high"
+const BuyParametersTradeRiskProfileLow BuyParametersTradeRiskProfile = "low"
+const BuyParametersTradeRiskProfileMedium BuyParametersTradeRiskProfile = "medium"
+
+var enumValues_BuyParametersTradeRiskProfile = []interface{}{
+	"low",
+	"medium",
+	"high",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *BuyParametersTradeRiskProfile) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_BuyParametersTradeRiskProfile {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_BuyParametersTradeRiskProfile, v)
+	}
+	*j = BuyParametersTradeRiskProfile(v)
 	return nil
 }
 

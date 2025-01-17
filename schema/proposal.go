@@ -102,6 +102,11 @@ type Proposal struct {
 	// The short symbol name (obtained from `active_symbols` call).
 	Symbol string `json:"symbol"`
 
+	// [Only for Snowball] The trade risk profile for the Snowball contract. Higher
+	// risk profile offers higher coupon rate at the expense of higher probability of
+	// breaching caution price
+	TradeRiskProfile *ProposalTradeRiskProfile `json:"trade_risk_profile,omitempty"`
+
 	// [Optional] Required only for multi-barrier trading. Defines the epoch value of
 	// the trading period start time.
 	TradingPeriodStart *int `json:"trading_period_start,omitempty"`
@@ -202,6 +207,8 @@ const ProposalContractTypeRESETCALL ProposalContractType = "RESETCALL"
 const ProposalContractTypeRESETPUT ProposalContractType = "RESETPUT"
 const ProposalContractTypeRUNHIGH ProposalContractType = "RUNHIGH"
 const ProposalContractTypeRUNLOW ProposalContractType = "RUNLOW"
+const ProposalContractTypeSNOWDOWN ProposalContractType = "SNOWDOWN"
+const ProposalContractTypeSNOWUP ProposalContractType = "SNOWUP"
 const ProposalContractTypeTICKHIGH ProposalContractType = "TICKHIGH"
 const ProposalContractTypeTICKLOW ProposalContractType = "TICKLOW"
 const ProposalContractTypeTURBOSLONG ProposalContractType = "TURBOSLONG"
@@ -240,6 +247,8 @@ var enumValues_ProposalContractType = []interface{}{
 	"TICKLOW",
 	"RESETCALL",
 	"RESETPUT",
+	"SNOWDOWN",
+	"SNOWUP",
 	"CALLSPREAD",
 	"PUTSPREAD",
 	"RUNHIGH",
@@ -401,6 +410,38 @@ func (j *ProposalSubscribe) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalSubscribe, v)
 	}
 	*j = ProposalSubscribe(v)
+	return nil
+}
+
+type ProposalTradeRiskProfile string
+
+const ProposalTradeRiskProfileHigh ProposalTradeRiskProfile = "high"
+const ProposalTradeRiskProfileLow ProposalTradeRiskProfile = "low"
+const ProposalTradeRiskProfileMedium ProposalTradeRiskProfile = "medium"
+
+var enumValues_ProposalTradeRiskProfile = []interface{}{
+	"low",
+	"medium",
+	"high",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ProposalTradeRiskProfile) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ProposalTradeRiskProfile {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ProposalTradeRiskProfile, v)
+	}
+	*j = ProposalTradeRiskProfile(v)
 	return nil
 }
 
