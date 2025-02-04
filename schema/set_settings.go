@@ -38,6 +38,10 @@ type SetSettings struct {
 	// real money account.
 	AllowCopiers *SetSettingsAllowCopiers `json:"allow_copiers,omitempty"`
 
+	// [Optional] The phone's calling country code. Don't include the `+` sign. Up to
+	// 4 digits.
+	CallingCountryCode *string `json:"calling_country_code,omitempty"`
+
 	// [Optional] Country of legal citizenship, 2-letter country code.
 	Citizen *string `json:"citizen,omitempty"`
 
@@ -82,8 +86,8 @@ type SetSettings struct {
 	// the `echo_req` output field.
 	Passthrough SetSettingsPassthrough `json:"passthrough,omitempty"`
 
-	// [Optional] Note: not applicable for virtual account. Starting with `+` followed
-	// by 9-35 digits, hyphens or space.
+	// [Optional] The phone's national format, don't include the `+` sign nor the
+	// calling country code. Up to 15 digits are allowed.
 	Phone *string `json:"phone,omitempty"`
 
 	// [Optional] Place of birth, 2-letter country code.

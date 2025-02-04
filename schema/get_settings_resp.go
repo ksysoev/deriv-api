@@ -53,6 +53,9 @@ type GetSettingsRespGetSettings struct {
 	// account.
 	AllowCopiers *GetSettingsRespGetSettingsAllowCopiers `json:"allow_copiers,omitempty"`
 
+	// The phone's calling country code.
+	CallingCountryCode *string `json:"calling_country_code,omitempty"`
+
 	// Country of legal citizenship, 2-letter country code.
 	Citizen *string `json:"citizen,omitempty"`
 
@@ -113,7 +116,7 @@ type GetSettingsRespGetSettings struct {
 	// Person/Relatives and Close Associates). Note: returned for real accounts only.
 	NonPepDeclaration *GetSettingsRespGetSettingsNonPepDeclaration `json:"non_pep_declaration,omitempty"`
 
-	// Telephone (note: Only available for users who have at least one real account)
+	// The phone's national format phone.
 	Phone *string `json:"phone,omitempty"`
 
 	// The status of the Phone Number Verification.

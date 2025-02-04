@@ -40,6 +40,10 @@ type NewAccountMaltainvest struct {
 	// [Optional] Affiliate token, within 32 characters.
 	AffiliateToken *string `json:"affiliate_token,omitempty"`
 
+	// [Optional] The phone's calling country code. Don't include the `+` sign. Up to
+	// 4 digits.
+	CallingCountryCode *string `json:"calling_country_code,omitempty"`
+
 	// How much experience do you have in CFD trading?
 	CfdExperience *NewAccountMaltainvestCfdExperience `json:"cfd_experience,omitempty"`
 
@@ -117,7 +121,8 @@ type NewAccountMaltainvest struct {
 	// the `echo_req` output field.
 	Passthrough NewAccountMaltainvestPassthrough `json:"passthrough,omitempty"`
 
-	// [Optional] Starting with `+` followed by 9-35 digits, hyphens or space.
+	// [Optional] The phone's national format, don't include the `+` sign nor the
+	// calling country code. Up to 15 digits are allowed.
 	Phone *string `json:"phone,omitempty"`
 
 	// [Optional] Place of birth, 2-letter country code.
