@@ -606,6 +606,9 @@ type LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardRequirements struc
 	// Compliance requirements
 	Compliance *LandingCompanyRespLandingCompanyDxtradeAllCompanyStandardRequirementsCompliance `json:"compliance,omitempty"`
 
+	// Sign up requirements for partners
+	Partner []string `json:"partner,omitempty"`
+
 	// Sign up requirements
 	Signup []string `json:"signup,omitempty"`
 
@@ -1122,6 +1125,9 @@ type LandingCompanyRespLandingCompanyFinancialCompanyRequirements struct {
 	// Compliance requirements
 	Compliance *LandingCompanyRespLandingCompanyFinancialCompanyRequirementsCompliance `json:"compliance,omitempty"`
 
+	// Sign up requirements for partners
+	Partner []string `json:"partner,omitempty"`
+
 	// Sign up requirements
 	Signup []string `json:"signup,omitempty"`
 
@@ -1289,6 +1295,9 @@ type LandingCompanyRespLandingCompanyGamingCompanyRequirements struct {
 
 	// Compliance requirements
 	Compliance *LandingCompanyRespLandingCompanyGamingCompanyRequirementsCompliance `json:"compliance,omitempty"`
+
+	// Sign up requirements for partners
+	Partner []string `json:"partner,omitempty"`
 
 	// Sign up requirements
 	Signup []string `json:"signup,omitempty"`
@@ -1547,6 +1556,9 @@ type LandingCompanyRespLandingCompanyMtGamingCompanyFinancialRequirements struct
 
 	// Compliance requirements
 	Compliance *LandingCompanyRespLandingCompanyMtGamingCompanyFinancialRequirementsCompliance `json:"compliance,omitempty"`
+
+	// Sign up requirements for partners
+	Partner []string `json:"partner,omitempty"`
 
 	// Sign up requirements
 	Signup []string `json:"signup,omitempty"`
@@ -1869,6 +1881,9 @@ type LegalRequirements struct {
 
 	// Compliance requirements
 	Compliance *ComplianceRequirements `json:"compliance,omitempty"`
+
+	// Sign up requirements
+	Partner SignUpRequirements `json:"partner,omitempty"`
 
 	// Sign up requirements
 	Signup SignUpRequirements `json:"signup,omitempty"`
