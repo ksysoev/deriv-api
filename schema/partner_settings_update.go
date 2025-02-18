@@ -29,6 +29,9 @@ type PartnerSettingsUpdate struct {
 	// the `echo_req` output field.
 	Passthrough PartnerSettingsUpdatePassthrough `json:"passthrough,omitempty"`
 
+	// Name of the provider platform.
+	Provider PartnerSettingsUpdateProvider `json:"provider"`
+
 	// [Optional] Used to map request to response.
 	ReqId *int `json:"req_id,omitempty"`
 
@@ -96,6 +99,36 @@ func (j *PartnerSettingsUpdatePartnerType) UnmarshalJSON(b []byte) error {
 // the `echo_req` output field.
 type PartnerSettingsUpdatePassthrough map[string]interface{}
 
+type PartnerSettingsUpdateProvider string
+
+const PartnerSettingsUpdateProviderDynamicworks PartnerSettingsUpdateProvider = "dynamicworks"
+const PartnerSettingsUpdateProviderMyaffiliate PartnerSettingsUpdateProvider = "myaffiliate"
+
+var enumValues_PartnerSettingsUpdateProvider = []interface{}{
+	"myaffiliate",
+	"dynamicworks",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *PartnerSettingsUpdateProvider) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_PartnerSettingsUpdateProvider {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_PartnerSettingsUpdateProvider, v)
+	}
+	*j = PartnerSettingsUpdateProvider(v)
+	return nil
+}
+
 // UnmarshalJSON implements json.Unmarshaler.
 func (j *PartnerSettingsUpdate) UnmarshalJSON(b []byte) error {
 	var raw map[string]interface{}
@@ -104,6 +137,9 @@ func (j *PartnerSettingsUpdate) UnmarshalJSON(b []byte) error {
 	}
 	if _, ok := raw["partner_settings_update"]; raw != nil && !ok {
 		return fmt.Errorf("field partner_settings_update in PartnerSettingsUpdate: required")
+	}
+	if _, ok := raw["provider"]; raw != nil && !ok {
+		return fmt.Errorf("field provider in PartnerSettingsUpdate: required")
 	}
 	type Plain PartnerSettingsUpdate
 	var plain Plain
