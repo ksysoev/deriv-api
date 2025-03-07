@@ -647,6 +647,22 @@ func (api *Client) P2PSettings(ctx context.Context, r schema.P2PSettings) (resp 
 	return
 }
 
+// PartnerAccountCreation This call initiates the state machine for account creation process
+func (api *Client) PartnerAccountCreation(ctx context.Context, r schema.PartnerAccountCreation) (resp schema.PartnerAccountCreationResp, err error) {
+	id := api.getNextRequestID()
+	r.ReqId = &id
+	err = api.SendRequest(ctx, id, r, &resp)
+	return
+}
+
+// PartnerAccountCreationStatus This call polls the state machine and returns the completion status for each step.
+func (api *Client) PartnerAccountCreationStatus(ctx context.Context, r schema.PartnerAccountCreationStatus) (resp schema.PartnerAccountCreationStatusResp, err error) {
+	id := api.getNextRequestID()
+	r.ReqId = &id
+	err = api.SendRequest(ctx, id, r, &resp)
+	return
+}
+
 // PartnerAccounts Get All Partner Accounts (Partner account details like website, provider, company details)
 func (api *Client) PartnerAccounts(ctx context.Context, r schema.PartnerAccounts) (resp schema.PartnerAccountsResp, err error) {
 	id := api.getNextRequestID()
