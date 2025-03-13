@@ -311,6 +311,14 @@ func (api *Client) GetSettings(ctx context.Context, r schema.GetSettings) (resp 
 	return
 }
 
+// GetThirdPartyRedirect Get Third Party Redirect URL for sso login.
+func (api *Client) GetThirdPartyRedirect(ctx context.Context, r schema.GetThirdPartyRedirect) (resp schema.GetThirdPartyRedirectResp, err error) {
+	id := api.getNextRequestID()
+	r.ReqId = &id
+	err = api.SendRequest(ctx, id, r, &resp)
+	return
+}
+
 // IdentityVerificationDocumentAdd Adds document information such as issuing country, id and type for identity verification processes.
 func (api *Client) IdentityVerificationDocumentAdd(ctx context.Context, r schema.IdentityVerificationDocumentAdd) (resp schema.IdentityVerificationDocumentAddResp, err error) {
 	id := api.getNextRequestID()

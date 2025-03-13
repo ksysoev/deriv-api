@@ -55,11 +55,11 @@ func (j *PartnerAccountCreationStatusRespMsgType) UnmarshalJSON(b []byte) error 
 
 // Status information for the partner account creation process
 type PartnerAccountCreationStatusRespPartnerAccountCreationStatus struct {
+	// Status of CFD account creation
+	CreateCFDAccount PartnerAccountCreationStatusRespPartnerAccountCreationStatusCreateCFDAccount `json:"create_CFD_account"`
+
 	// Status of EU partner account creation
 	CreateEuPartner PartnerAccountCreationStatusRespPartnerAccountCreationStatusCreateEuPartner `json:"create_eu_partner"`
-
-	// Status of MT5 account creation
-	CreateMt5Account PartnerAccountCreationStatusRespPartnerAccountCreationStatusCreateMt5Account `json:"create_mt5_account"`
 
 	// Status of ROW partner account creation
 	CreateRowPartner PartnerAccountCreationStatusRespPartnerAccountCreationStatusCreateRowPartner `json:"create_row_partner"`
@@ -74,6 +74,18 @@ type PartnerAccountCreationStatusRespPartnerAccountCreationStatus struct {
 	LinkPartnerRow PartnerAccountCreationStatusRespPartnerAccountCreationStatusLinkPartnerRow `json:"link_partner_row"`
 }
 
+// Status of CFD account creation
+type PartnerAccountCreationStatusRespPartnerAccountCreationStatusCreateCFDAccount struct {
+	// Response data if step completed successfully
+	Response PartnerAccountCreationStatusRespPartnerAccountCreationStatusCreateCFDAccountResponse `json:"response,omitempty"`
+
+	// Current status of this step
+	Status *string `json:"status,omitempty"`
+}
+
+// Response data if step completed successfully
+type PartnerAccountCreationStatusRespPartnerAccountCreationStatusCreateCFDAccountResponse map[string]interface{}
+
 // Status of EU partner account creation
 type PartnerAccountCreationStatusRespPartnerAccountCreationStatusCreateEuPartner struct {
 	// Response data if step completed successfully
@@ -85,18 +97,6 @@ type PartnerAccountCreationStatusRespPartnerAccountCreationStatusCreateEuPartner
 
 // Response data if step completed successfully
 type PartnerAccountCreationStatusRespPartnerAccountCreationStatusCreateEuPartnerResponse map[string]interface{}
-
-// Status of MT5 account creation
-type PartnerAccountCreationStatusRespPartnerAccountCreationStatusCreateMt5Account struct {
-	// Response data if step completed successfully
-	Response PartnerAccountCreationStatusRespPartnerAccountCreationStatusCreateMt5AccountResponse `json:"response,omitempty"`
-
-	// Current status of this step
-	Status *string `json:"status,omitempty"`
-}
-
-// Response data if step completed successfully
-type PartnerAccountCreationStatusRespPartnerAccountCreationStatusCreateMt5AccountResponse map[string]interface{}
 
 // Status of ROW partner account creation
 type PartnerAccountCreationStatusRespPartnerAccountCreationStatusCreateRowPartner struct {
@@ -152,11 +152,11 @@ func (j *PartnerAccountCreationStatusRespPartnerAccountCreationStatus) Unmarshal
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
+	if _, ok := raw["create_CFD_account"]; raw != nil && !ok {
+		return fmt.Errorf("field create_CFD_account in PartnerAccountCreationStatusRespPartnerAccountCreationStatus: required")
+	}
 	if _, ok := raw["create_eu_partner"]; raw != nil && !ok {
 		return fmt.Errorf("field create_eu_partner in PartnerAccountCreationStatusRespPartnerAccountCreationStatus: required")
-	}
-	if _, ok := raw["create_mt5_account"]; raw != nil && !ok {
-		return fmt.Errorf("field create_mt5_account in PartnerAccountCreationStatusRespPartnerAccountCreationStatus: required")
 	}
 	if _, ok := raw["create_row_partner"]; raw != nil && !ok {
 		return fmt.Errorf("field create_row_partner in PartnerAccountCreationStatusRespPartnerAccountCreationStatus: required")

@@ -8,10 +8,6 @@ import "reflect"
 
 // This call initiates the state machine for account creation process
 type PartnerAccountCreation struct {
-	// Account type. If set to 'financial', setting 'mt5_account_type' is also
-	// required.
-	AccountType *PartnerAccountCreationAccountType `json:"account_type,omitempty"`
-
 	// [Optional] Within 100 characters.
 	AddressCity *string `json:"address_city,omitempty"`
 
@@ -106,40 +102,6 @@ type PartnerAccountCreation struct {
 
 	// Partner's Website URI/Promotional Platform
 	Website *string `json:"website,omitempty"`
-}
-
-type PartnerAccountCreationAccountType string
-
-const PartnerAccountCreationAccountTypeAll PartnerAccountCreationAccountType = "all"
-const PartnerAccountCreationAccountTypeDemo PartnerAccountCreationAccountType = "demo"
-const PartnerAccountCreationAccountTypeFinancial PartnerAccountCreationAccountType = "financial"
-const PartnerAccountCreationAccountTypeGaming PartnerAccountCreationAccountType = "gaming"
-
-var enumValues_PartnerAccountCreationAccountType = []interface{}{
-	"demo",
-	"gaming",
-	"financial",
-	"all",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *PartnerAccountCreationAccountType) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_PartnerAccountCreationAccountType {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_PartnerAccountCreationAccountType, v)
-	}
-	*j = PartnerAccountCreationAccountType(v)
-	return nil
 }
 
 type PartnerAccountCreationFatcaDeclaration int
