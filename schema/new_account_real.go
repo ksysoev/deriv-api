@@ -55,10 +55,13 @@ type NewAccountReal struct {
 	DateOfBirth *string `json:"date_of_birth,omitempty"`
 
 	// Employment Status.
-	EmploymentStatus *NewAccountRealEmploymentStatus `json:"employment_status,omitempty"`
+	EmploymentStatus *string `json:"employment_status,omitempty"`
 
 	// [Optional] Indicates client's self-declaration of FATCA.
 	FatcaDeclaration *NewAccountRealFatcaDeclaration `json:"fatca_declaration,omitempty"`
+
+	// [Optional] The version of the financial information form.
+	FinancialInformationVersion *string `json:"financial_information_version,omitempty"`
 
 	// Within 1-50 characters, use only letters, spaces, hyphens, full-stops or
 	// apostrophes.
@@ -226,42 +229,6 @@ func (j *NewAccountRealClientType) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountRealClientType, v)
 	}
 	*j = NewAccountRealClientType(v)
-	return nil
-}
-
-type NewAccountRealEmploymentStatus string
-
-const NewAccountRealEmploymentStatusEmployed NewAccountRealEmploymentStatus = "Employed"
-const NewAccountRealEmploymentStatusPensioner NewAccountRealEmploymentStatus = "Pensioner"
-const NewAccountRealEmploymentStatusSelfEmployed NewAccountRealEmploymentStatus = "Self-Employed"
-const NewAccountRealEmploymentStatusStudent NewAccountRealEmploymentStatus = "Student"
-const NewAccountRealEmploymentStatusUnemployed NewAccountRealEmploymentStatus = "Unemployed"
-
-var enumValues_NewAccountRealEmploymentStatus = []interface{}{
-	"Employed",
-	"Pensioner",
-	"Self-Employed",
-	"Student",
-	"Unemployed",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *NewAccountRealEmploymentStatus) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_NewAccountRealEmploymentStatus {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountRealEmploymentStatus, v)
-	}
-	*j = NewAccountRealEmploymentStatus(v)
 	return nil
 }
 

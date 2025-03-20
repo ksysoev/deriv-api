@@ -58,10 +58,13 @@ type SetSettings struct {
 	EmailConsent *SetSettingsEmailConsent `json:"email_consent,omitempty"`
 
 	// [Optional] Employment Status.
-	EmploymentStatus *SetSettingsEmploymentStatus `json:"employment_status,omitempty"`
+	EmploymentStatus *string `json:"employment_status,omitempty"`
 
 	// [Optional] Enable or disable one or multiple features.
 	FeatureFlag *SetSettingsFeatureFlag `json:"feature_flag,omitempty"`
+
+	// [Optional] The version of the financial information
+	FinancialInformationVersion *string `json:"financial_information_version,omitempty"`
 
 	// [Optional] Within 1-50 characters, use only letters, spaces, hyphens,
 	// full-stops or apostrophes (can only be changed on unauthenticated svg
@@ -256,42 +259,6 @@ func (j *SetSettingsEmailConsent) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsEmailConsent, v)
 	}
 	*j = SetSettingsEmailConsent(v)
-	return nil
-}
-
-type SetSettingsEmploymentStatus string
-
-const SetSettingsEmploymentStatusEmployed SetSettingsEmploymentStatus = "Employed"
-const SetSettingsEmploymentStatusPensioner SetSettingsEmploymentStatus = "Pensioner"
-const SetSettingsEmploymentStatusSelfEmployed SetSettingsEmploymentStatus = "Self-Employed"
-const SetSettingsEmploymentStatusStudent SetSettingsEmploymentStatus = "Student"
-const SetSettingsEmploymentStatusUnemployed SetSettingsEmploymentStatus = "Unemployed"
-
-var enumValues_SetSettingsEmploymentStatus = []interface{}{
-	"Employed",
-	"Pensioner",
-	"Self-Employed",
-	"Student",
-	"Unemployed",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *SetSettingsEmploymentStatus) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_SetSettingsEmploymentStatus {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_SetSettingsEmploymentStatus, v)
-	}
-	*j = SetSettingsEmploymentStatus(v)
 	return nil
 }
 

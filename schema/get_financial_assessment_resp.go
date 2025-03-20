@@ -27,122 +27,14 @@ type GetFinancialAssessmentRespEchoReq map[string]interface{}
 
 // Client's financial assessment details
 type GetFinancialAssessmentRespGetFinancialAssessment struct {
-	// The anticipated account turnover
-	AccountTurnover *string `json:"account_turnover,omitempty"`
-
-	// Binary options trading experience
-	BinaryOptionsTradingExperience *string `json:"binary_options_trading_experience,omitempty"`
-
-	// Binary options trading frequency
-	BinaryOptionsTradingFrequency *string `json:"binary_options_trading_frequency,omitempty"`
-
-	// How much experience do you have in CFD trading?
-	CfdExperience *string `json:"cfd_experience,omitempty"`
-
-	// How many CFD trades have you placed in the past 12 months?
-	CfdFrequency *string `json:"cfd_frequency,omitempty"`
-
 	// CFD Score
 	CfdScore *int `json:"cfd_score,omitempty"`
-
-	// In your understanding, CFD trading allows you to:
-	CfdTradingDefinition *string `json:"cfd_trading_definition,omitempty"`
-
-	// CFDs trading experience
-	CfdTradingExperience *string `json:"cfd_trading_experience,omitempty"`
-
-	// CFDs trading frequency
-	CfdTradingFrequency *string `json:"cfd_trading_frequency,omitempty"`
-
-	// Commodities trading experience
-	CommoditiesTradingExperience *string `json:"commodities_trading_experience,omitempty"`
-
-	// Commodities trading frequency
-	CommoditiesTradingFrequency *string `json:"commodities_trading_frequency,omitempty"`
-
-	// Level of Education
-	EducationLevel *string `json:"education_level,omitempty"`
-
-	// Industry of Employment
-	EmploymentIndustry *string `json:"employment_industry,omitempty"`
-
-	// Employment Status
-	EmploymentStatus *string `json:"employment_status,omitempty"`
-
-	// Estimated Net Worth
-	EstimatedWorth *string `json:"estimated_worth,omitempty"`
 
 	// Financial Information Score
 	FinancialInformationScore *int `json:"financial_information_score,omitempty"`
 
-	// Forex trading experience
-	ForexTradingExperience *string `json:"forex_trading_experience,omitempty"`
-
-	// Forex trading frequency
-	ForexTradingFrequency *string `json:"forex_trading_frequency,omitempty"`
-
-	// Income Source
-	IncomeSource *string `json:"income_source,omitempty"`
-
-	// Indices trading experience
-	IndicesTradingExperience *string `json:"indices_trading_experience,omitempty"`
-
-	// Indices trading frequency
-	IndicesTradingFrequency *string `json:"indices_trading_frequency,omitempty"`
-
-	// How does leverage affect CFD trading?
-	LeverageImpactTrading *string `json:"leverage_impact_trading,omitempty"`
-
-	// Leverage trading is high-risk, so it's a good idea to use risk management
-	// features such as stop loss. Stop loss allows you to
-	LeverageTradingHighRiskStopLoss *string `json:"leverage_trading_high_risk_stop_loss,omitempty"`
-
-	// Net Annual Income
-	NetIncome *string `json:"net_income,omitempty"`
-
-	// Occupation
-	Occupation *string `json:"occupation,omitempty"`
-
-	// Trading experience in other financial derivatives
-	OtherDerivativesTradingExperience *string `json:"other_derivatives_trading_experience,omitempty"`
-
-	// Trading frequency in other financial derivatives
-	OtherDerivativesTradingFrequency *string `json:"other_derivatives_trading_frequency,omitempty"`
-
-	// Trading experience in other financial instruments
-	OtherInstrumentsTradingExperience *string `json:"other_instruments_trading_experience,omitempty"`
-
-	// Trading frequency in other financial instruments
-	OtherInstrumentsTradingFrequency *string `json:"other_instruments_trading_frequency,omitempty"`
-
-	// When would you be required to pay an initial margin?
-	RequiredInitialMargin *string `json:"required_initial_margin,omitempty"`
-
-	// Do you understand that you could potentially lose 100% of the money you use to
-	// trade?
-	RiskTolerance *string `json:"risk_tolerance,omitempty"`
-
-	// How much knowledge and experience do you have in relation to online trading?
-	SourceOfExperience *string `json:"source_of_experience,omitempty"`
-
-	// Source of wealth
-	SourceOfWealth *string `json:"source_of_wealth,omitempty"`
-
-	// Stocks trading experience
-	StocksTradingExperience *string `json:"stocks_trading_experience,omitempty"`
-
-	// Stocks trading frequency
-	StocksTradingFrequency *string `json:"stocks_trading_frequency,omitempty"`
-
 	// Total Score
 	TotalScore *int `json:"total_score,omitempty"`
-
-	// How much experience do you have with other financial instruments?
-	TradingExperienceFinancialInstruments *string `json:"trading_experience_financial_instruments,omitempty"`
-
-	// How many trades have you placed with other financial instruments in the past 12
-	// months?
-	TradingFrequencyFinancialInstruments *string `json:"trading_frequency_financial_instruments,omitempty"`
 
 	// Trading Experience Score
 	TradingScore *int `json:"trading_score,omitempty"`

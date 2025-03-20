@@ -87,7 +87,7 @@ type GetSettingsRespGetSettings struct {
 	EmailConsent *GetSettingsRespGetSettingsEmailConsent `json:"email_consent,omitempty"`
 
 	// Employment Status.
-	EmploymentStatus *GetSettingsRespGetSettingsEmploymentStatus `json:"employment_status,omitempty"`
+	EmploymentStatus *string `json:"employment_status,omitempty"`
 
 	// Indicates client's self-declaration for FATCA.
 	FatcaDeclaration *int `json:"fatca_declaration,omitempty"`
@@ -243,42 +243,6 @@ func (j *GetSettingsRespGetSettingsEmailConsent) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetSettingsRespGetSettingsEmailConsent, v)
 	}
 	*j = GetSettingsRespGetSettingsEmailConsent(v)
-	return nil
-}
-
-type GetSettingsRespGetSettingsEmploymentStatus string
-
-const GetSettingsRespGetSettingsEmploymentStatusEmployed GetSettingsRespGetSettingsEmploymentStatus = "Employed"
-const GetSettingsRespGetSettingsEmploymentStatusPensioner GetSettingsRespGetSettingsEmploymentStatus = "Pensioner"
-const GetSettingsRespGetSettingsEmploymentStatusSelfEmployed GetSettingsRespGetSettingsEmploymentStatus = "Self-Employed"
-const GetSettingsRespGetSettingsEmploymentStatusStudent GetSettingsRespGetSettingsEmploymentStatus = "Student"
-const GetSettingsRespGetSettingsEmploymentStatusUnemployed GetSettingsRespGetSettingsEmploymentStatus = "Unemployed"
-
-var enumValues_GetSettingsRespGetSettingsEmploymentStatus = []interface{}{
-	"Employed",
-	"Pensioner",
-	"Self-Employed",
-	"Student",
-	"Unemployed",
-}
-
-// UnmarshalJSON implements json.Unmarshaler.
-func (j *GetSettingsRespGetSettingsEmploymentStatus) UnmarshalJSON(b []byte) error {
-	var v string
-	if err := json.Unmarshal(b, &v); err != nil {
-		return err
-	}
-	var ok bool
-	for _, expected := range enumValues_GetSettingsRespGetSettingsEmploymentStatus {
-		if reflect.DeepEqual(v, expected) {
-			ok = true
-			break
-		}
-	}
-	if !ok {
-		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_GetSettingsRespGetSettingsEmploymentStatus, v)
-	}
-	*j = GetSettingsRespGetSettingsEmploymentStatus(v)
 	return nil
 }
 

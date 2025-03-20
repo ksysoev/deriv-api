@@ -255,6 +255,14 @@ func (api *Client) ExchangeRates(ctx context.Context, r schema.ExchangeRates) (r
 	return
 }
 
+// FinancialAssessmentQuestions This call gets the financial assessment questionnaire structure, which defines the questions, possible answers, and flow logic for the financial assessment form.
+func (api *Client) FinancialAssessmentQuestions(ctx context.Context, r schema.FinancialAssessmentQuestions) (resp schema.FinancialAssessmentQuestionsResp, err error) {
+	id := api.getNextRequestID()
+	r.ReqId = &id
+	err = api.SendRequest(ctx, id, r, &resp)
+	return
+}
+
 // Forget Immediately cancel the real-time stream of messages with a specific ID.
 func (api *Client) Forget(ctx context.Context, r schema.Forget) (resp schema.ForgetResp, err error) {
 	id := api.getNextRequestID()
