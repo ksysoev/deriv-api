@@ -1,6 +1,6 @@
 module github.com/ksysoev/deriv-api
 
-go 1.21
+go 1.24.1
 
 require github.com/coder/websocket v1.8.13
 
