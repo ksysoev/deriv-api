@@ -5,23 +5,20 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        go-version: ["1.21.x", "1.22.x", "1.23.x"]
 
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Go ${{ matrix.go-version }}
+      - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: ${{ matrix.go-version }}
+          go-version: 1.24.x
 
       - name: Display Go version
         run: go version
       - name: Code Lint
         uses: golangci/golangci-lint-action@v6
         with:
-          version: v1.60.1
+          version: v1.64.8
       - name: Build
         run: go build -v .
       - name: Test
