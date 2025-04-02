@@ -12,6 +12,11 @@ type ConfirmEmail struct {
 	// Must be `1`
 	ConfirmEmail ConfirmEmailConfirmEmail `json:"confirm_email"`
 
+	// [Optional] Purpose of the email verification. If set to 'account_opening', the
+	// API will only return the verification response without updating the user's
+	// email verification status.
+	CreatedFor ConfirmEmailCreatedFor `json:"created_for,omitempty"`
+
 	// Boolean value: 1 or 0, indicating whether the client has given consent for
 	// marketing emails.
 	EmailConsent ConfirmEmailEmailConsent `json:"email_consent"`
@@ -51,6 +56,36 @@ func (j *ConfirmEmailConfirmEmail) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ConfirmEmailConfirmEmail, v)
 	}
 	*j = ConfirmEmailConfirmEmail(v)
+	return nil
+}
+
+type ConfirmEmailCreatedFor string
+
+const ConfirmEmailCreatedForAccountOpening ConfirmEmailCreatedFor = "account_opening"
+const ConfirmEmailCreatedForAccountVerification ConfirmEmailCreatedFor = "account_verification"
+
+var enumValues_ConfirmEmailCreatedFor = []interface{}{
+	"account_verification",
+	"account_opening",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ConfirmEmailCreatedFor) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ConfirmEmailCreatedFor {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ConfirmEmailCreatedFor, v)
+	}
+	*j = ConfirmEmailCreatedFor(v)
 	return nil
 }
 
@@ -104,6 +139,9 @@ func (j *ConfirmEmail) UnmarshalJSON(b []byte) error {
 	var plain Plain
 	if err := json.Unmarshal(b, &plain); err != nil {
 		return err
+	}
+	if v, ok := raw["created_for"]; !ok || v == nil {
+		plain.CreatedFor = "account_verification"
 	}
 	*j = ConfirmEmail(plain)
 	return nil
