@@ -783,6 +783,9 @@ type LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardRequirements
 	// Compliance requirements
 	Compliance *LandingCompanyRespLandingCompanyDxtradeFinancialCompanyStandardRequirementsCompliance `json:"compliance,omitempty"`
 
+	// Sign up requirements for partners
+	Partner []string `json:"partner,omitempty"`
+
 	// Sign up requirements
 	Signup []string `json:"signup,omitempty"`
 
