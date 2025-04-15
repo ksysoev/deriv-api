@@ -255,6 +255,14 @@ func (api *Client) ExchangeRates(ctx context.Context, r schema.ExchangeRates) (r
 	return
 }
 
+// ExchangeVerificationCode Verifies the code and returns a new code if verification is successful
+func (api *Client) ExchangeVerificationCode(ctx context.Context, r schema.ExchangeVerificationCode) (resp schema.ExchangeVerificationCodeResp, err error) {
+	id := api.getNextRequestID()
+	r.ReqId = &id
+	err = api.SendRequest(ctx, id, r, &resp)
+	return
+}
+
 // FinancialAssessmentQuestions This call gets the financial assessment questionnaire structure, which defines the questions, possible answers, and flow logic for the financial assessment form.
 func (api *Client) FinancialAssessmentQuestions(ctx context.Context, r schema.FinancialAssessmentQuestions) (resp schema.FinancialAssessmentQuestionsResp, err error) {
 	id := api.getNextRequestID()
