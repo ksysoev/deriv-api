@@ -67,6 +67,9 @@ type TinValidationsRespTinValidations struct {
 
 	// Country tax identifier formats.
 	TinFormat []string `json:"tin_format,omitempty"`
+
+	// Human-readable description of the TIN format for the selected country
+	TinFormatDescription *string `json:"tin_format_description,omitempty"`
 }
 
 type TinValidationsRespTinValidationsIsTinMandatory int
