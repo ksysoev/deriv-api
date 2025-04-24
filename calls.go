@@ -471,6 +471,22 @@ func (api *Client) NewAccountVirtual(ctx context.Context, r schema.NewAccountVir
 	return
 }
 
+// NewAccountWalletCheckDuplicateNameAndDob Check if name and date of birth match an existing account.
+func (api *Client) NewAccountWalletCheckDuplicateNameAndDob(ctx context.Context, r schema.NewAccountWalletCheckDuplicateNameAndDob) (resp schema.NewAccountWalletCheckDuplicateNameAndDobResp, err error) {
+	id := api.getNextRequestID()
+	r.ReqId = &id
+	err = api.SendRequest(ctx, id, r, &resp)
+	return
+}
+
+// NewAccountWalletCheckDuplicatePhoneAndDob Check if name and date of birth match an existing account.
+func (api *Client) NewAccountWalletCheckDuplicatePhoneAndDob(ctx context.Context, r schema.NewAccountWalletCheckDuplicatePhoneAndDob) (resp schema.NewAccountWalletCheckDuplicatePhoneAndDobResp, err error) {
+	id := api.getNextRequestID()
+	r.ReqId = &id
+	err = api.SendRequest(ctx, id, r, &resp)
+	return
+}
+
 // NewPartnerAccount This call opens a new Real-Partner Account
 func (api *Client) NewPartnerAccount(ctx context.Context, r schema.NewPartnerAccount) (resp schema.NewPartnerAccountResp, err error) {
 	id := api.getNextRequestID()
