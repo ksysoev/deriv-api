@@ -16,9 +16,7 @@ jobs:
       - name: Display Go version
         run: go version
       - name: Code Lint
-        uses: golangci/golangci-lint-action@v7
-        with:
-          version: v2.0.1
+        uses: golangci/golangci-lint-action@v8
       - name: Build
         run: go build -v .
       - name: Test
