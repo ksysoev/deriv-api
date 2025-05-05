@@ -27,7 +27,8 @@ type NewPartnerAccount struct {
 	// [Optional] Possible value receive from `states_list` call.
 	AddressState *string `json:"address_state,omitempty"`
 
-	// [Optional] The phone's calling country code.
+	// [Optional] The phone's calling country code. Don't include the `+` sign. Up to
+	// 4 digits.
 	CallingCountryCode *string `json:"calling_country_code,omitempty"`
 
 	// [Optional] Country of legal citizenship, 2-letter country code.
@@ -85,8 +86,8 @@ type NewPartnerAccount struct {
 	// the `echo_req` output field.
 	Passthrough NewPartnerAccountPassthrough `json:"passthrough,omitempty"`
 
-	// [Optional] Starting with `+` followed by 8-35 digits, allowing hyphens or
-	// space.
+	// [Optional] The phone's national format in 8-35 digits, don't include the `+`
+	// sign nor the calling country code.
 	Phone *string `json:"phone,omitempty"`
 
 	// [Optional] Name  of the provider platform.
