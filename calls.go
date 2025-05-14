@@ -447,6 +447,22 @@ func (api *Client) Mt5Withdrawal(ctx context.Context, r schema.Mt5Withdrawal) (r
 	return
 }
 
+// NewAccountCheckDuplicateNameAndDob Check if name and date of birth match an existing account.
+func (api *Client) NewAccountCheckDuplicateNameAndDob(ctx context.Context, r schema.NewAccountCheckDuplicateNameAndDob) (resp schema.NewAccountCheckDuplicateNameAndDobResp, err error) {
+	id := api.getNextRequestID()
+	r.ReqId = &id
+	err = api.SendRequest(ctx, id, r, &resp)
+	return
+}
+
+// NewAccountCheckDuplicatePhoneAndDob Check if name and date of birth match an existing account.
+func (api *Client) NewAccountCheckDuplicatePhoneAndDob(ctx context.Context, r schema.NewAccountCheckDuplicatePhoneAndDob) (resp schema.NewAccountCheckDuplicatePhoneAndDobResp, err error) {
+	id := api.getNextRequestID()
+	r.ReqId = &id
+	err = api.SendRequest(ctx, id, r, &resp)
+	return
+}
+
 // NewAccountMaltainvest This call opens a new real-money account with the `maltainvest` Landing Company. This call can be made from a virtual-money account or real-money account at Deriv (Europe) Limited. If it is the latter, client information fields in this call will be ignored and data from your existing real-money account will be used.
 func (api *Client) NewAccountMaltainvest(ctx context.Context, r schema.NewAccountMaltainvest) (resp schema.NewAccountMaltainvestResp, err error) {
 	id := api.getNextRequestID()
@@ -465,22 +481,6 @@ func (api *Client) NewAccountReal(ctx context.Context, r schema.NewAccountReal) 
 
 // NewAccountVirtual Create a new virtual-money account.
 func (api *Client) NewAccountVirtual(ctx context.Context, r schema.NewAccountVirtual) (resp schema.NewAccountVirtualResp, err error) {
-	id := api.getNextRequestID()
-	r.ReqId = &id
-	err = api.SendRequest(ctx, id, r, &resp)
-	return
-}
-
-// NewAccountWalletCheckDuplicateNameAndDob Check if name and date of birth match an existing account.
-func (api *Client) NewAccountWalletCheckDuplicateNameAndDob(ctx context.Context, r schema.NewAccountWalletCheckDuplicateNameAndDob) (resp schema.NewAccountWalletCheckDuplicateNameAndDobResp, err error) {
-	id := api.getNextRequestID()
-	r.ReqId = &id
-	err = api.SendRequest(ctx, id, r, &resp)
-	return
-}
-
-// NewAccountWalletCheckDuplicatePhoneAndDob Check if name and date of birth match an existing account.
-func (api *Client) NewAccountWalletCheckDuplicatePhoneAndDob(ctx context.Context, r schema.NewAccountWalletCheckDuplicatePhoneAndDob) (resp schema.NewAccountWalletCheckDuplicatePhoneAndDobResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
