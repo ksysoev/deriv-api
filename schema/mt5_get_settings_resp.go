@@ -295,6 +295,7 @@ type Mt5GetSettingsRespMt5GetSettingsServerInfoGeolocation struct {
 type Mt5GetSettingsRespMt5GetSettingsSubAccountCategory string
 
 const Mt5GetSettingsRespMt5GetSettingsSubAccountCategoryBlank Mt5GetSettingsRespMt5GetSettingsSubAccountCategory = ""
+const Mt5GetSettingsRespMt5GetSettingsSubAccountCategoryHr Mt5GetSettingsRespMt5GetSettingsSubAccountCategory = "hr"
 const Mt5GetSettingsRespMt5GetSettingsSubAccountCategoryIbt Mt5GetSettingsRespMt5GetSettingsSubAccountCategory = "ibt"
 const Mt5GetSettingsRespMt5GetSettingsSubAccountCategoryLim Mt5GetSettingsRespMt5GetSettingsSubAccountCategory = "lim"
 const Mt5GetSettingsRespMt5GetSettingsSubAccountCategoryStp Mt5GetSettingsRespMt5GetSettingsSubAccountCategory = "stp"
@@ -308,6 +309,7 @@ var enumValues_Mt5GetSettingsRespMt5GetSettingsSubAccountCategory = []interface{
 	"stp",
 	"swap_free",
 	"swap_free_high_risk",
+	"hr",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
