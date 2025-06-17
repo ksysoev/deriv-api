@@ -447,16 +447,8 @@ func (api *Client) Mt5Withdrawal(ctx context.Context, r schema.Mt5Withdrawal) (r
 	return
 }
 
-// NewAccountCheckDuplicateNameAndDob Check if name and date of birth match an existing account.
-func (api *Client) NewAccountCheckDuplicateNameAndDob(ctx context.Context, r schema.NewAccountCheckDuplicateNameAndDob) (resp schema.NewAccountCheckDuplicateNameAndDobResp, err error) {
-	id := api.getNextRequestID()
-	r.ReqId = &id
-	err = api.SendRequest(ctx, id, r, &resp)
-	return
-}
-
-// NewAccountCheckDuplicatePhoneAndDob Check if name and date of birth match an existing account.
-func (api *Client) NewAccountCheckDuplicatePhoneAndDob(ctx context.Context, r schema.NewAccountCheckDuplicatePhoneAndDob) (resp schema.NewAccountCheckDuplicatePhoneAndDobResp, err error) {
+// NewAccountCheckDuplicate Check if provided account details (name and DOB, or phone and DOB) match an existing account.
+func (api *Client) NewAccountCheckDuplicate(ctx context.Context, r schema.NewAccountCheckDuplicate) (resp schema.NewAccountCheckDuplicateResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
 	err = api.SendRequest(ctx, id, r, &resp)
