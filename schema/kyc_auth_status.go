@@ -15,8 +15,13 @@ type KycAuthStatus struct {
 	// Must be `1`
 	KycAuthStatus KycAuthStatusKycAuthStatus `json:"kyc_auth_status"`
 
-	// Indicates which landing companies to get the KYC authentication status for.
+	// [Optional and Deprecated - Avoid usage] Indicates which landing companies to
+	// get the KYC authentication status for.
 	LandingCompanies []KycAuthStatusLandingCompaniesElem `json:"landing_companies,omitempty"`
+
+	// [Optional] Indicates which landing company to get the KYC authentication status
+	// for.
+	LandingCompany *KycAuthStatusLandingCompany `json:"landing_company,omitempty"`
 
 	// [Optional] The login id of the user. Mandatory when multiple tokens were
 	// provided during authorize.
@@ -59,29 +64,21 @@ func (j *KycAuthStatusKycAuthStatus) UnmarshalJSON(b []byte) error {
 type KycAuthStatusLandingCompaniesElem string
 
 const KycAuthStatusLandingCompaniesElemBvi KycAuthStatusLandingCompaniesElem = "bvi"
-const KycAuthStatusLandingCompaniesElemDsl KycAuthStatusLandingCompaniesElem = "dsl"
-const KycAuthStatusLandingCompaniesElemIom KycAuthStatusLandingCompaniesElem = "iom"
+const KycAuthStatusLandingCompaniesElemDml KycAuthStatusLandingCompaniesElem = "dml"
 const KycAuthStatusLandingCompaniesElemLabuan KycAuthStatusLandingCompaniesElem = "labuan"
-const KycAuthStatusLandingCompaniesElemMalta KycAuthStatusLandingCompaniesElem = "malta"
 const KycAuthStatusLandingCompaniesElemMaltainvest KycAuthStatusLandingCompaniesElem = "maltainvest"
-const KycAuthStatusLandingCompaniesElemSamoa KycAuthStatusLandingCompaniesElem = "samoa"
-const KycAuthStatusLandingCompaniesElemSamoaVirtual KycAuthStatusLandingCompaniesElem = "samoa-virtual"
 const KycAuthStatusLandingCompaniesElemSvg KycAuthStatusLandingCompaniesElem = "svg"
 const KycAuthStatusLandingCompaniesElemVanuatu KycAuthStatusLandingCompaniesElem = "vanuatu"
 const KycAuthStatusLandingCompaniesElemVirtual KycAuthStatusLandingCompaniesElem = "virtual"
 
 var enumValues_KycAuthStatusLandingCompaniesElem = []interface{}{
-	"iom",
-	"malta",
 	"maltainvest",
 	"svg",
 	"virtual",
 	"vanuatu",
 	"labuan",
-	"samoa",
-	"samoa-virtual",
 	"bvi",
-	"dsl",
+	"dml",
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
@@ -101,6 +98,46 @@ func (j *KycAuthStatusLandingCompaniesElem) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_KycAuthStatusLandingCompaniesElem, v)
 	}
 	*j = KycAuthStatusLandingCompaniesElem(v)
+	return nil
+}
+
+type KycAuthStatusLandingCompany string
+
+const KycAuthStatusLandingCompanyBvi KycAuthStatusLandingCompany = "bvi"
+const KycAuthStatusLandingCompanyDml KycAuthStatusLandingCompany = "dml"
+const KycAuthStatusLandingCompanyLabuan KycAuthStatusLandingCompany = "labuan"
+const KycAuthStatusLandingCompanyMaltainvest KycAuthStatusLandingCompany = "maltainvest"
+const KycAuthStatusLandingCompanySvg KycAuthStatusLandingCompany = "svg"
+const KycAuthStatusLandingCompanyVanuatu KycAuthStatusLandingCompany = "vanuatu"
+const KycAuthStatusLandingCompanyVirtual KycAuthStatusLandingCompany = "virtual"
+
+var enumValues_KycAuthStatusLandingCompany = []interface{}{
+	"maltainvest",
+	"svg",
+	"virtual",
+	"vanuatu",
+	"labuan",
+	"bvi",
+	"dml",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *KycAuthStatusLandingCompany) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_KycAuthStatusLandingCompany {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_KycAuthStatusLandingCompany, v)
+	}
+	*j = KycAuthStatusLandingCompany(v)
 	return nil
 }
 
