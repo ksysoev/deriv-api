@@ -56,6 +56,10 @@ func (j *PartnerAccountsRespMsgType) UnmarshalJSON(b []byte) error {
 
 // Partner Accounts against a user
 type PartnerAccountsRespPartnerAccounts struct {
+	// Status of the partner eligibility for the user. If true, the user is allowed to
+	// become a partner
+	PartnerEligibilityStatus *float64 `json:"partner_eligibility_status,omitempty"`
+
 	// List of partner_settigns for all accounts associated as partners.
 	PartnerSettings []PartnerAccountsRespPartnerAccountsPartnerSettingsElem `json:"partner_settings,omitempty"`
 
