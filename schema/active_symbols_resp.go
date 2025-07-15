@@ -27,6 +27,9 @@ type ActiveSymbolsRespActiveSymbolsElem struct {
 	// `1` if the symbol is tradable in a forward starting contract, `0` if not.
 	AllowForwardStarting *ActiveSymbolsRespActiveSymbolsElemAllowForwardStarting `json:"allow_forward_starting,omitempty"`
 
+	// Returns `1` if symbol is set to close-only mode.
+	CloseOnly *ActiveSymbolsRespActiveSymbolsElemCloseOnly `json:"close_only,omitempty"`
+
 	// Amount the data feed is delayed (in minutes) due to Exchange licensing
 	// requirements. Only returned on `full` active symbols call.
 	DelayAmount *int `json:"delay_amount,omitempty"`
@@ -120,6 +123,33 @@ func (j *ActiveSymbolsRespActiveSymbolsElemAllowForwardStarting) UnmarshalJSON(b
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ActiveSymbolsRespActiveSymbolsElemAllowForwardStarting, v)
 	}
 	*j = ActiveSymbolsRespActiveSymbolsElemAllowForwardStarting(v)
+	return nil
+}
+
+type ActiveSymbolsRespActiveSymbolsElemCloseOnly int
+
+var enumValues_ActiveSymbolsRespActiveSymbolsElemCloseOnly = []interface{}{
+	0,
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *ActiveSymbolsRespActiveSymbolsElemCloseOnly) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_ActiveSymbolsRespActiveSymbolsElemCloseOnly {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_ActiveSymbolsRespActiveSymbolsElemCloseOnly, v)
+	}
+	*j = ActiveSymbolsRespActiveSymbolsElemCloseOnly(v)
 	return nil
 }
 
