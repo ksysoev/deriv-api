@@ -45,7 +45,8 @@ type AppRegister struct {
 	// [Optional] Used to map request to response.
 	ReqId *int `json:"req_id,omitempty"`
 
-	// List of permission scopes to grant the application.
+	// List of permission scopes to grant the application. Must not be an empty array
+	// if redirect_uri is set.
 	Scopes []AppRegisterScopesElem `json:"scopes"`
 
 	// [Optional] Used when `verify_email` called. If available, a URL containing the

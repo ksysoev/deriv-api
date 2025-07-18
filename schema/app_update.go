@@ -45,7 +45,8 @@ type AppUpdate struct {
 	// [Optional] Used to map request to response.
 	ReqId *int `json:"req_id,omitempty"`
 
-	// Change scopes will revoke all user's grants and log them out.
+	// Change scopes will revoke all user's grants and log them out. Must not be an
+	// empty array if redirect_uri is set.
 	Scopes []AppUpdateScopesElem `json:"scopes"`
 
 	// [Optional] Used when `verify_email` called. If available, a URL containing the
