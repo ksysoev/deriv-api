@@ -31,9 +31,10 @@ type BuyContractForMultipleAccounts struct {
 	// [Optional] Used to map request to response.
 	ReqId *int `json:"req_id,omitempty"`
 
-	// List of API tokens identifying the accounts for which the contract is bought.
-	// Note: If the same token appears multiple times or if multiple tokens designate
-	// the same account, the contract is bought multiple times for this account.
+	// List of API tokens identifying the trading accounts for which the contract is
+	// bought. Note: If the same token appears multiple times or if multiple tokens
+	// designate the same account, the contract is bought multiple times for this
+	// account.
 	Tokens []string `json:"tokens"`
 }
 
