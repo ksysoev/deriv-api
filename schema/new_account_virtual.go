@@ -93,6 +93,10 @@ type NewAccountVirtual struct {
 	// match Regex pattern to be recorded
 	UtmMsclkId interface{} `json:"utm_msclk_id,omitempty"`
 
+	// [Optional] The Snapchat click Identifier to track source. Value must match
+	// Regex pattern to be recorded
+	UtmSccid interface{} `json:"utm_sccid,omitempty"`
+
 	// [Optional] Identifies the source of traffic such as: search engine, newsletter,
 	// or other referral. Value must match Regex pattern to be recorded
 	UtmSource interface{} `json:"utm_source,omitempty"`
@@ -100,6 +104,10 @@ type NewAccountVirtual struct {
 	// [Optional] Used to send information related to the campaign term like paid
 	// search keywords. Value must match Regex pattern to be recorded
 	UtmTerm interface{} `json:"utm_term,omitempty"`
+
+	// [Optional] The TikTok click Identifier to track source. Value must match Regex
+	// pattern to be recorded
+	UtmTtclid interface{} `json:"utm_ttclid,omitempty"`
 
 	// Email verification code (received from a `verify_email` call, which must be
 	// done first).
