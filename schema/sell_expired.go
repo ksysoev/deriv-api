@@ -7,7 +7,7 @@ import "fmt"
 import "reflect"
 
 // This call will try to sell any expired contracts and return the number of sold
-// contracts.
+// contracts. Acc Required: Real/Virtual (CR/VR).
 type SellExpired struct {
 	// [Optional] The login id of the user. Mandatory when multiple tokens were
 	// provided during authorize.

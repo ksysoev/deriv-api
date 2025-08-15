@@ -6,7 +6,7 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Buy a Contract
+// Buy a Contract. Acc Required: Real/Virtual (CR/VR).
 type Buy struct {
 	// Either the ID received from a Price Proposal (`proposal` call), or `1` if
 	// contract buy parameters are passed in the `parameters` field.

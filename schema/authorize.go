@@ -14,9 +14,7 @@ type Authorize struct {
 	// track activity using `login_history` call.
 	AddToLoginHistory AuthorizeAddToLoginHistory `json:"add_to_login_history,omitempty"`
 
-	// Authentication token. May be retrieved from
-	// https://www.binary.com/en/user/security/api_tokenws.html. Set to MULTI when
-	// using multiple tokens.
+	// Authentication token.
 	Authorize string `json:"authorize"`
 
 	// [Optional] Used to pass data through the websocket, which may be retrieved via

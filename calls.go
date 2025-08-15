@@ -111,7 +111,7 @@ func (api *Client) Balance(ctx context.Context, r schema.Balance) (resp schema.B
 	return
 }
 
-// Buy Buy a Contract
+// Buy Buy a Contract. Acc Required: Real/Virtual (CR/VR).
 func (api *Client) Buy(ctx context.Context, r schema.Buy) (resp schema.BuyResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
@@ -119,7 +119,7 @@ func (api *Client) Buy(ctx context.Context, r schema.Buy) (resp schema.BuyResp, 
 	return
 }
 
-// BuyContractForMultipleAccounts Buy a Contract for multiple Accounts specified by the `tokens` parameter. Note, although this is an authorized call, the contract is not bought for the authorized account.
+// BuyContractForMultipleAccounts Buy a Contract for multiple Accounts specified by the `tokens` parameter. Note, although this is an authorized call, the contract is not bought for the authorized account. Acc Required: Real/Virtual (CR/VR).
 func (api *Client) BuyContractForMultipleAccounts(ctx context.Context, r schema.BuyContractForMultipleAccounts) (resp schema.BuyContractForMultipleAccountsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
@@ -127,7 +127,7 @@ func (api *Client) BuyContractForMultipleAccounts(ctx context.Context, r schema.
 	return
 }
 
-// Cancel Cancel contract with contract id
+// Cancel Cancel contract with contract id. Acc Required: Real/Virtual (CR/VR).
 func (api *Client) Cancel(ctx context.Context, r schema.Cancel) (resp schema.CancelResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
@@ -151,7 +151,7 @@ func (api *Client) ConfirmEmail(ctx context.Context, r schema.ConfirmEmail) (res
 	return
 }
 
-// ContractUpdate Update a contract condition.
+// ContractUpdate Update a contract condition. Acc Required: Real/Virtual (CR/VR).
 func (api *Client) ContractUpdate(ctx context.Context, r schema.ContractUpdate) (resp schema.ContractUpdateResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
@@ -159,7 +159,7 @@ func (api *Client) ContractUpdate(ctx context.Context, r schema.ContractUpdate) 
 	return
 }
 
-// ContractUpdateHistory Request for contract update history.
+// ContractUpdateHistory Request for contract update history. Acc Required: Real/Virtual (CR/VR).
 func (api *Client) ContractUpdateHistory(ctx context.Context, r schema.ContractUpdateHistory) (resp schema.ContractUpdateHistoryResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
@@ -183,7 +183,7 @@ func (api *Client) ContractsForCompany(ctx context.Context, r schema.ContractsFo
 	return
 }
 
-// CopyStart Start copy trader bets
+// CopyStart Start copy trader bets. Acc Required: Real/Virtual (CR/VR).
 func (api *Client) CopyStart(ctx context.Context, r schema.CopyStart) (resp schema.CopyStartResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
@@ -191,7 +191,7 @@ func (api *Client) CopyStart(ctx context.Context, r schema.CopyStart) (resp sche
 	return
 }
 
-// CopyStop Stop copy trader bets
+// CopyStop Stop copy trader bets. Acc Required: Real/Virtual (CR/VR).
 func (api *Client) CopyStop(ctx context.Context, r schema.CopyStop) (resp schema.CopyStopResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
@@ -199,7 +199,7 @@ func (api *Client) CopyStop(ctx context.Context, r schema.CopyStop) (resp schema
 	return
 }
 
-// CopytradingList Retrieves a list of active copiers and/or traders for Copy Trading
+// CopytradingList Retrieves a list of active copiers and/or traders for Copy Trading. Acc Required: Real/Virtual (CR/VR).
 func (api *Client) CopytradingList(ctx context.Context, r schema.CopytradingList) (resp schema.CopytradingListResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
@@ -799,7 +799,7 @@ func (api *Client) Ping(ctx context.Context, r schema.Ping) (resp schema.PingRes
 	return
 }
 
-// Portfolio Receive information about my current portfolio of outstanding options
+// Portfolio Receive information about my current portfolio of outstanding options. Acc Required: Real/Virtual (CR/VR).
 func (api *Client) Portfolio(ctx context.Context, r schema.Portfolio) (resp schema.PortfolioResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
@@ -807,7 +807,7 @@ func (api *Client) Portfolio(ctx context.Context, r schema.Portfolio) (resp sche
 	return
 }
 
-// ProfitTable Retrieve a summary of account Profit Table, according to given search criteria
+// ProfitTable Retrieve a summary of account Profit Table, according to given search criteria. Acc Required: Real/Virtual (CR/VR).
 func (api *Client) ProfitTable(ctx context.Context, r schema.ProfitTable) (resp schema.ProfitTableResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
@@ -823,7 +823,7 @@ func (api *Client) Proposal(ctx context.Context, r schema.Proposal) (resp schema
 	return
 }
 
-// ProposalOpenContract Get latest price (and other information) for a contract in the user's portfolio
+// ProposalOpenContract Get latest price (and other information) for a contract in the user's portfolio. Acc Required: Real/Virtual (CR/VR).
 func (api *Client) ProposalOpenContract(ctx context.Context, r schema.ProposalOpenContract) (resp schema.ProposalOpenContractResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
@@ -855,7 +855,7 @@ func (api *Client) RevokeOauthApp(ctx context.Context, r schema.RevokeOauthApp) 
 	return
 }
 
-// Sell Sell a Contract as identified from a previous `portfolio` call.
+// Sell Sell a Contract as identified from a previous `portfolio` call. Acc Required: Real/Virtual (CR/VR).
 func (api *Client) Sell(ctx context.Context, r schema.Sell) (resp schema.SellResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
@@ -863,7 +863,7 @@ func (api *Client) Sell(ctx context.Context, r schema.Sell) (resp schema.SellRes
 	return
 }
 
-// SellContractForMultipleAccounts Sell contracts for multiple accounts simultaneously. Uses the shortcode response from `buy_contract_for_multiple_accounts` to identify the contract, and authorisation tokens to select which accounts to sell those contracts on. Note that only the accounts identified by the tokens will be affected. This will not sell the contract on the currently-authorised account unless you include the token for the current account.
+// SellContractForMultipleAccounts Sell contracts for multiple accounts simultaneously. Uses the shortcode response from `buy_contract_for_multiple_accounts` to identify the contract, and authorisation tokens to select which accounts to sell those contracts on. Note that only the accounts identified by the tokens will be affected. This will not sell the contract on the currently-authorised account unless you include the token for the current account. Acc Required: Real/Virtual (CR/VR).
 func (api *Client) SellContractForMultipleAccounts(ctx context.Context, r schema.SellContractForMultipleAccounts) (resp schema.SellContractForMultipleAccountsResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id
@@ -871,7 +871,7 @@ func (api *Client) SellContractForMultipleAccounts(ctx context.Context, r schema
 	return
 }
 
-// SellExpired This call will try to sell any expired contracts and return the number of sold contracts.
+// SellExpired This call will try to sell any expired contracts and return the number of sold contracts. Acc Required: Real/Virtual (CR/VR).
 func (api *Client) SellExpired(ctx context.Context, r schema.SellExpired) (resp schema.SellExpiredResp, err error) {
 	id := api.getNextRequestID()
 	r.ReqId = &id

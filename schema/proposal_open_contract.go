@@ -6,7 +6,8 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Get latest price (and other information) for a contract in the user's portfolio
+// Get latest price (and other information) for a contract in the user's portfolio.
+// Acc Required: Real/Virtual (CR/VR).
 type ProposalOpenContract struct {
 	// [Optional] Contract ID received from a `portfolio` request. If not set, you
 	// will receive stream of all open contracts.

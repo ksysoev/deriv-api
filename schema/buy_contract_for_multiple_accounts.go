@@ -8,7 +8,7 @@ import "reflect"
 
 // Buy a Contract for multiple Accounts specified by the `tokens` parameter. Note,
 // although this is an authorized call, the contract is not bought for the
-// authorized account.
+// authorized account. Acc Required: Real/Virtual (CR/VR).
 type BuyContractForMultipleAccounts struct {
 	// Either the ID received from a Price Proposal (`proposal` call), or `1` if
 	// contract buy parameters are passed in the `parameters` field.

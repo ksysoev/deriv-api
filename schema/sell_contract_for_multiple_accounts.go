@@ -11,7 +11,7 @@ import "reflect"
 // authorisation tokens to select which accounts to sell those contracts on. Note
 // that only the accounts identified by the tokens will be affected. This will not
 // sell the contract on the currently-authorised account unless you include the
-// token for the current account.
+// token for the current account. Acc Required: Real/Virtual (CR/VR).
 type SellContractForMultipleAccounts struct {
 	// [Optional] The login id of the user. Mandatory when multiple tokens were
 	// provided during authorize.

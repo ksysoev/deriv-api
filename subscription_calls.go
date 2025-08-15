@@ -18,7 +18,7 @@ func (api *Client) SubscribeBalance(ctx context.Context, r schema.Balance) (rsp 
 	return
 }
 
-// SubscribeBuy Buy a Contract
+// SubscribeBuy Buy a Contract. Acc Required: Real/Virtual (CR/VR).
 func (api *Client) SubscribeBuy(ctx context.Context, r schema.Buy) (rsp schema.BuyResp, s *Subsciption[schema.BuyResp, schema.ProposalOpenContractResp], err error) {
 	id := api.getNextRequestID()
 	var f schema.BuySubscribe = 1
@@ -139,7 +139,7 @@ func (api *Client) SubscribeProposal(ctx context.Context, r schema.Proposal) (rs
 	return
 }
 
-// SubscribeProposalOpenContract Get latest price (and other information) for a contract in the user's portfolio
+// SubscribeProposalOpenContract Get latest price (and other information) for a contract in the user's portfolio. Acc Required: Real/Virtual (CR/VR).
 func (api *Client) SubscribeProposalOpenContract(ctx context.Context, r schema.ProposalOpenContract) (rsp schema.ProposalOpenContractResp, s *Subsciption[schema.ProposalOpenContractResp, schema.ProposalOpenContractResp], err error) {
 	id := api.getNextRequestID()
 	var f schema.ProposalOpenContractSubscribe = 1

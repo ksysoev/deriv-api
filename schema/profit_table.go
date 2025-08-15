@@ -6,7 +6,8 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Retrieve a summary of account Profit Table, according to given search criteria
+// Retrieve a summary of account Profit Table, according to given search criteria.
+// Acc Required: Real/Virtual (CR/VR).
 type ProfitTable struct {
 	// Return only contracts of the specified types
 	ContractType []ProfitTableContractTypeElem `json:"contract_type,omitempty"`

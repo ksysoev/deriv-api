@@ -5,7 +5,7 @@ package schema
 import "encoding/json"
 import "fmt"
 
-// Stop copy trader bets
+// Stop copy trader bets. Acc Required: Real/Virtual (CR/VR).
 type CopyStop struct {
 	// API tokens identifying the accounts which needs not to be copied
 	CopyStop string `json:"copy_stop"`

@@ -5,7 +5,7 @@ package schema
 import "encoding/json"
 import "fmt"
 
-// Cancel contract with contract id
+// Cancel contract with contract id. Acc Required: Real/Virtual (CR/VR).
 type Cancel struct {
 	// Value should be the `contract_id` which received from the `portfolio` call.
 	Cancel int `json:"cancel"`

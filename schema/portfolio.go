@@ -6,7 +6,8 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Receive information about my current portfolio of outstanding options
+// Receive information about my current portfolio of outstanding options. Acc
+// Required: Real/Virtual (CR/VR).
 type Portfolio struct {
 	// Return only contracts of the specified types
 	ContractType []PortfolioContractTypeElem `json:"contract_type,omitempty"`

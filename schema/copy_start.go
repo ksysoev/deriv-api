@@ -5,7 +5,7 @@ package schema
 import "encoding/json"
 import "fmt"
 
-// Start copy trader bets
+// Start copy trader bets. Acc Required: Real/Virtual (CR/VR).
 type CopyStart struct {
 	// [Optional] Used to set assets to be copied. E.x ["frxUSDJPY", "R_50"]
 	Assets interface{} `json:"assets,omitempty"`

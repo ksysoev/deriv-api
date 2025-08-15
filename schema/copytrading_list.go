@@ -6,7 +6,8 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Retrieves a list of active copiers and/or traders for Copy Trading
+// Retrieves a list of active copiers and/or traders for Copy Trading. Acc
+// Required: Real/Virtual (CR/VR).
 type CopytradingList struct {
 	// Must be `1`
 	CopytradingList CopytradingListCopytradingList `json:"copytrading_list"`

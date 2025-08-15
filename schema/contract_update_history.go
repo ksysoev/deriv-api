@@ -6,7 +6,7 @@ import "encoding/json"
 import "fmt"
 import "reflect"
 
-// Request for contract update history.
+// Request for contract update history. Acc Required: Real/Virtual (CR/VR).
 type ContractUpdateHistory struct {
 	// Internal unique contract identifier.
 	ContractId int `json:"contract_id"`

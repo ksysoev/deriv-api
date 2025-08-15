@@ -5,7 +5,8 @@ package schema
 import "encoding/json"
 import "fmt"
 
-// Sell a Contract as identified from a previous `portfolio` call.
+// Sell a Contract as identified from a previous `portfolio` call. Acc Required:
+// Real/Virtual (CR/VR).
 type Sell struct {
 	// [Optional] The login id of the user. Mandatory when multiple tokens were
 	// provided during authorize.
