@@ -684,19 +684,25 @@ type Mt5LoginListRespMt5LoginListElemSubAccountCategory string
 const Mt5LoginListRespMt5LoginListElemSubAccountCategoryAb Mt5LoginListRespMt5LoginListElemSubAccountCategory = "ab"
 const Mt5LoginListRespMt5LoginListElemSubAccountCategoryBa Mt5LoginListRespMt5LoginListElemSubAccountCategory = "ba"
 const Mt5LoginListRespMt5LoginListElemSubAccountCategoryBlank Mt5LoginListRespMt5LoginListElemSubAccountCategory = ""
+const Mt5LoginListRespMt5LoginListElemSubAccountCategoryDmr Mt5LoginListRespMt5LoginListElemSubAccountCategory = "dmr"
 const Mt5LoginListRespMt5LoginListElemSubAccountCategoryGold Mt5LoginListRespMt5LoginListElemSubAccountCategory = "gold"
 const Mt5LoginListRespMt5LoginListElemSubAccountCategoryHr Mt5LoginListRespMt5LoginListElemSubAccountCategory = "hr"
 const Mt5LoginListRespMt5LoginListElemSubAccountCategoryLim Mt5LoginListRespMt5LoginListElemSubAccountCategory = "lim"
+const Mt5LoginListRespMt5LoginListElemSubAccountCategoryMr Mt5LoginListRespMt5LoginListElemSubAccountCategory = "mr"
 const Mt5LoginListRespMt5LoginListElemSubAccountCategoryStp Mt5LoginListRespMt5LoginListElemSubAccountCategory = "stp"
 const Mt5LoginListRespMt5LoginListElemSubAccountCategorySwapFree Mt5LoginListRespMt5LoginListElemSubAccountCategory = "swap_free"
 const Mt5LoginListRespMt5LoginListElemSubAccountCategorySwapFreeHighRisk Mt5LoginListRespMt5LoginListElemSubAccountCategory = "swap_free_high_risk"
+const Mt5LoginListRespMt5LoginListElemSubAccountCategorySwapFreeMediumRisk Mt5LoginListRespMt5LoginListElemSubAccountCategory = "swap_free_medium_risk"
 
 var enumValues_Mt5LoginListRespMt5LoginListElemSubAccountCategory = []interface{}{
 	"",
 	"swap_free",
 	"swap_free_high_risk",
+	"swap_free_medium_risk",
 	"lim",
 	"hr",
+	"dmr",
+	"mr",
 	"ab",
 	"ba",
 	"stp",

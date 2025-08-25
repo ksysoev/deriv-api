@@ -9,6 +9,10 @@ import "reflect"
 // Verify an email address for various purposes. The system will send an email to
 // the address containing a security code for verification.
 type VerifyEmail struct {
+	// [Optional] Advertising platform cookie identifiers from various platforms for
+	// conversion tracking.
+	AdPlatformCookies *VerifyEmailAdPlatformCookies `json:"ad_platform_cookies,omitempty"`
+
 	// [Optional] The login id of the user. Mandatory when multiple tokens were
 	// provided during authorize.
 	Loginid *string `json:"loginid,omitempty"`
@@ -29,6 +33,52 @@ type VerifyEmail struct {
 
 	// Email address to be verified.
 	VerifyEmail string `json:"verify_email"`
+}
+
+// [Optional] Advertising platform cookie identifiers from various platforms for
+// conversion tracking.
+type VerifyEmailAdPlatformCookies struct {
+	// [Optional] Google Analytics client ID. Value must match Regex pattern to be
+	// recorded
+	Ga *string `json:"_ga,omitempty"`
+
+	// [Optional] Google Analytics measurement ID with _ga_ prefix (e.g.,
+	// _ga_DSZS6HSFWQ, _ga_R0D2Z1965W). Value must match Regex pattern to be recorded
+	GaMeasurementId *string `json:"_ga_measurement_id,omitempty"`
+
+	// [Optional] Google Analytics measurement ID specific cookie value. Value must
+	// match Regex pattern to be recorded
+	GaMeasurementValue *string `json:"_ga_measurement_value,omitempty"`
+
+	// [Optional] Facebook click identifier from _fbc cookie. Value must match Regex
+	// pattern to be recorded
+	Fbc *string `json:"fbc,omitempty"`
+
+	// [Optional] Facebook browser identifier from _fbp cookie. Value must match Regex
+	// pattern to be recorded
+	Fbp *string `json:"fbp,omitempty"`
+
+	// [Optional] Google Browser Ad ID. Value must match Regex pattern to be recorded
+	Gbraid *string `json:"gbraid,omitempty"`
+
+	// [Optional] Google Click Identifier from _gcl_aw cookie. Value must match Regex
+	// pattern to be recorded
+	Gclid *string `json:"gclid,omitempty"`
+
+	// [Optional] Microsoft Click ID. Value must match Regex pattern to be recorded
+	Msclkid *string `json:"msclkid,omitempty"`
+
+	// [Optional] Snapchat click identifier from _ScCid cookie. Value must match Regex
+	// pattern to be recorded
+	Scclid *string `json:"scclid,omitempty"`
+
+	// [Optional] TikTok click identifier. Value must match Regex pattern to be
+	// recorded
+	Ttclid *string `json:"ttclid,omitempty"`
+
+	// [Optional] Google Web Browser Ad ID. Value must match Regex pattern to be
+	// recorded
+	Wbraid *string `json:"wbraid,omitempty"`
 }
 
 // [Optional] Used to pass data through the websocket, which may be retrieved via

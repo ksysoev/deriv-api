@@ -8,6 +8,10 @@ import "reflect"
 
 // Create a new virtual-money account.
 type NewAccountVirtual struct {
+	// [Optional] Advertising platform cookie identifiers from various platforms for
+	// conversion tracking.
+	AdPlatformCookies *NewAccountVirtualAdPlatformCookies `json:"ad_platform_cookies,omitempty"`
+
 	// [Optional] Affiliate token, within 100 characters.
 	AffiliateToken *string `json:"affiliate_token,omitempty"`
 
@@ -112,6 +116,52 @@ type NewAccountVirtual struct {
 	// Email verification code (received from a `verify_email` call, which must be
 	// done first).
 	VerificationCode *string `json:"verification_code,omitempty"`
+}
+
+// [Optional] Advertising platform cookie identifiers from various platforms for
+// conversion tracking.
+type NewAccountVirtualAdPlatformCookies struct {
+	// [Optional] Google Analytics client ID. Value must match Regex pattern to be
+	// recorded
+	Ga *string `json:"_ga,omitempty"`
+
+	// [Optional] Google Analytics measurement ID with _ga_ prefix (e.g.,
+	// _ga_DSZS6HSFWQ, _ga_R0D2Z1965W). Value must match Regex pattern to be recorded
+	GaMeasurementId *string `json:"_ga_measurement_id,omitempty"`
+
+	// [Optional] Google Analytics measurement ID specific cookie value. Value must
+	// match Regex pattern to be recorded
+	GaMeasurementValue *string `json:"_ga_measurement_value,omitempty"`
+
+	// [Optional] Facebook click identifier from _fbc cookie. Value must match Regex
+	// pattern to be recorded
+	Fbc *string `json:"fbc,omitempty"`
+
+	// [Optional] Facebook browser identifier from _fbp cookie. Value must match Regex
+	// pattern to be recorded
+	Fbp *string `json:"fbp,omitempty"`
+
+	// [Optional] Google Browser Ad ID. Value must match Regex pattern to be recorded
+	Gbraid *string `json:"gbraid,omitempty"`
+
+	// [Optional] Google Click Identifier from _gcl_aw cookie. Value must match Regex
+	// pattern to be recorded
+	Gclid *string `json:"gclid,omitempty"`
+
+	// [Optional] Microsoft Click ID. Value must match Regex pattern to be recorded
+	Msclkid *string `json:"msclkid,omitempty"`
+
+	// [Optional] Snapchat click identifier from _ScCid cookie. Value must match Regex
+	// pattern to be recorded
+	Scclid *string `json:"scclid,omitempty"`
+
+	// [Optional] TikTok click identifier. Value must match Regex pattern to be
+	// recorded
+	Ttclid *string `json:"ttclid,omitempty"`
+
+	// [Optional] Google Web Browser Ad ID. Value must match Regex pattern to be
+	// recorded
+	Wbraid *string `json:"wbraid,omitempty"`
 }
 
 type NewAccountVirtualEmailConsent int
