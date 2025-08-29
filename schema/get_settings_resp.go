@@ -119,6 +119,10 @@ type GetSettingsRespGetSettings struct {
 	// The phone's national format phone.
 	Phone *string `json:"phone,omitempty"`
 
+	// The phone's country code in 2-letter ISO standard. Only available for valid
+	// phone numbers.
+	PhoneCountryCode *string `json:"phone_country_code,omitempty"`
+
 	// The status of the Phone Number Verification.
 	PhoneNumberVerification *GetSettingsRespGetSettingsPhoneNumberVerification `json:"phone_number_verification,omitempty"`
 
