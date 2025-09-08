@@ -487,6 +487,14 @@ func (api *Client) NewAccountWallet(ctx context.Context, r schema.NewAccountWall
 	return
 }
 
+// NewAccountWalletAndTrading Create a new account real-money wallet and trading accounts
+func (api *Client) NewAccountWalletAndTrading(ctx context.Context, r schema.NewAccountWalletAndTrading) (resp schema.NewAccountWalletAndTradingResp, err error) {
+	id := api.getNextRequestID()
+	r.ReqId = &id
+	err = api.SendRequest(ctx, id, r, &resp)
+	return
+}
+
 // NewPartnerAccount This call opens a new Real-Partner Account
 func (api *Client) NewPartnerAccount(ctx context.Context, r schema.NewPartnerAccount) (resp schema.NewPartnerAccountResp, err error) {
 	id := api.getNextRequestID()
