@@ -151,6 +151,22 @@ func (api *Client) ConfirmEmail(ctx context.Context, r schema.ConfirmEmail) (res
 	return
 }
 
+// ConnectCopy Copy user profile from v1 to v2
+func (api *Client) ConnectCopy(ctx context.Context, r schema.ConnectCopy) (resp schema.ConnectCopyResp, err error) {
+	id := api.getNextRequestID()
+	r.ReqId = &id
+	err = api.SendRequest(ctx, id, r, &resp)
+	return
+}
+
+// ConnectStatus Get the status of V1 client connected to V2
+func (api *Client) ConnectStatus(ctx context.Context, r schema.ConnectStatus) (resp schema.ConnectStatusResp, err error) {
+	id := api.getNextRequestID()
+	r.ReqId = &id
+	err = api.SendRequest(ctx, id, r, &resp)
+	return
+}
+
 // ContractUpdate Update a contract condition. Acc Required: Real/Virtual (CR/VR).
 func (api *Client) ContractUpdate(ctx context.Context, r schema.ContractUpdate) (resp schema.ContractUpdateResp, err error) {
 	id := api.getNextRequestID()
