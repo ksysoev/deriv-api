@@ -160,6 +160,9 @@ type VerifyEmailUrlParameters struct {
 	// [Optional] The page ID to redirect to
 	RedirectTo *int `json:"redirect_to,omitempty"`
 
+	// [Optional] 2-letter country code (obtained from `residence_list` call).
+	Residence *string `json:"residence,omitempty"`
+
 	// [Optional] Show whether user has used mobile or desktop.
 	SignupDevice *VerifyEmailUrlParametersSignupDevice `json:"signup_device,omitempty"`
 
