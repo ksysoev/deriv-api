@@ -351,14 +351,6 @@ func (api *Client) GetThirdPartyRedirect(ctx context.Context, r schema.GetThirdP
 	return
 }
 
-// IdentityVerificationDocumentAdd Adds document information such as issuing country, id and type for identity verification processes.
-func (api *Client) IdentityVerificationDocumentAdd(ctx context.Context, r schema.IdentityVerificationDocumentAdd) (resp schema.IdentityVerificationDocumentAddResp, err error) {
-	id := api.getNextRequestID()
-	r.ReqId = &id
-	err = api.SendRequest(ctx, id, r, &resp)
-	return
-}
-
 // KycAuthStatus Get KYC Authentication Status
 func (api *Client) KycAuthStatus(ctx context.Context, r schema.KycAuthStatus) (resp schema.KycAuthStatusResp, err error) {
 	id := api.getNextRequestID()
