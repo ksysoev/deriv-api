@@ -14,6 +14,7 @@ type CashierResp struct {
 	// - `ASK_UK_FUNDS_PROTECTION`: API call `tnc_approval`
 	// - `ASK_CURRENCY`: API call `set_account_currency`
 	// - `ASK_EMAIL_VERIFY`: API call `verify_email`
+	// - `ASK_TOTP_VERIFY`: enable 2FA
 	// - `ASK_FIX_DETAILS`: API call `set_settings`
 	Cashier interface{} `json:"cashier,omitempty"`
 

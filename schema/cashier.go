@@ -40,6 +40,9 @@ type Cashier struct {
 	// [Optional] Used to map request to response.
 	ReqId *int `json:"req_id,omitempty"`
 
+	// [Optional] TOTP from an Authenticator App (Authy, Google Authenticator, etc)
+	Totp *string `json:"totp,omitempty"`
+
 	// [Optional] Data is returned from the cashier. The `crypto` provider only
 	// supports `api` (not `url`) for crypto accounts.
 	Type CashierType `json:"type,omitempty"`
