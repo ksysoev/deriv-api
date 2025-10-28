@@ -157,6 +157,9 @@ type P2PAdvertiserInfoRespP2PAdvertiserInfo struct {
 	// won't be listed regardless if they are active or not.
 	IsListed P2PAdvertiserInfoRespP2PAdvertiserInfoIsListed `json:"is_listed"`
 
+	// Indicates that the advertiser has been migrated to P2P v2.
+	IsMigrated *P2PAdvertiserInfoRespP2PAdvertiserInfoIsMigrated `json:"is_migrated,omitempty"`
+
 	// Indicates if the advertiser is currently online.
 	IsOnline P2PAdvertiserInfoRespP2PAdvertiserInfoIsOnline `json:"is_online"`
 
@@ -432,6 +435,32 @@ func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoIsListed) UnmarshalJSON(b []byte)
 		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsListed, v)
 	}
 	*j = P2PAdvertiserInfoRespP2PAdvertiserInfoIsListed(v)
+	return nil
+}
+
+type P2PAdvertiserInfoRespP2PAdvertiserInfoIsMigrated int
+
+var enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsMigrated = []interface{}{
+	1,
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *P2PAdvertiserInfoRespP2PAdvertiserInfoIsMigrated) UnmarshalJSON(b []byte) error {
+	var v int
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsMigrated {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_P2PAdvertiserInfoRespP2PAdvertiserInfoIsMigrated, v)
+	}
+	*j = P2PAdvertiserInfoRespP2PAdvertiserInfoIsMigrated(v)
 	return nil
 }
 
