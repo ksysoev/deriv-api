@@ -743,6 +743,14 @@ func (api *Client) PartnerSettingsUpdate(ctx context.Context, r schema.PartnerSe
 	return
 }
 
+// PartnerToolkit Access services provided via Partner Toolkit for a specific partner.
+func (api *Client) PartnerToolkit(ctx context.Context, r schema.PartnerToolkit) (resp schema.PartnerToolkitResp, err error) {
+	id := api.getNextRequestID()
+	r.ReqId = &id
+	err = api.SendRequest(ctx, id, r, &resp)
+	return
+}
+
 // PaymentMethods Will return a list payment methods available for the given country. If the request is authenticated the client's residence country will be used.
 func (api *Client) PaymentMethods(ctx context.Context, r schema.PaymentMethods) (resp schema.PaymentMethodsResp, err error) {
 	id := api.getNextRequestID()
