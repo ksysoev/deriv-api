@@ -15,6 +15,10 @@ type NewAccountVirtual struct {
 	// [Optional] Affiliate token, within 100 characters.
 	AffiliateToken *string `json:"affiliate_token,omitempty"`
 
+	// [Optional] Type of affiliate_token, used to identify the purpose of the token
+	// (client or partner tagging)
+	AffiliateTokenType *NewAccountVirtualAffiliateTokenType `json:"affiliate_token_type,omitempty"`
+
 	// Password (Accepts any printable ASCII character. Must be within 8-25
 	// characters, and include numbers, lowercase and uppercase letters. Must not be
 	// the same as the user's email address).
@@ -162,6 +166,36 @@ type NewAccountVirtualAdPlatformCookies struct {
 	// [Optional] Google Web Browser Ad ID. Value must match Regex pattern to be
 	// recorded
 	Wbraid *string `json:"wbraid,omitempty"`
+}
+
+type NewAccountVirtualAffiliateTokenType string
+
+const NewAccountVirtualAffiliateTokenTypeClient NewAccountVirtualAffiliateTokenType = "client"
+const NewAccountVirtualAffiliateTokenTypePartner NewAccountVirtualAffiliateTokenType = "partner"
+
+var enumValues_NewAccountVirtualAffiliateTokenType = []interface{}{
+	"client",
+	"partner",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *NewAccountVirtualAffiliateTokenType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_NewAccountVirtualAffiliateTokenType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_NewAccountVirtualAffiliateTokenType, v)
+	}
+	*j = NewAccountVirtualAffiliateTokenType(v)
+	return nil
 }
 
 type NewAccountVirtualEmailConsent int

@@ -133,8 +133,12 @@ func (j *VerifyEmailType) UnmarshalJSON(b []byte) error {
 
 // [Optional] Extra parameters that can be attached to the verify email link URL.
 type VerifyEmailUrlParameters struct {
-	// [Optional] Affiliate token, within 32 characters.
+	// [Optional] Affiliate token, within 100 characters.
 	AffiliateToken *string `json:"affiliate_token,omitempty"`
+
+	// [Optional] Type of affiliate_token, used to identify the purpose of the token
+	// (client or partner tagging)
+	AffiliateTokenType *VerifyEmailUrlParametersAffiliateTokenType `json:"affiliate_token_type,omitempty"`
 
 	// [Optional] Date of first contact, format: yyyy-mm-dd in GMT timezone.
 	DateFirstContact *string `json:"date_first_contact,omitempty"`
@@ -222,6 +226,36 @@ type VerifyEmailUrlParameters struct {
 	// [Optional] The TikTok click Identifier to track source. Value must match Regex
 	// pattern to be recorded
 	UtmTtclid interface{} `json:"utm_ttclid,omitempty"`
+}
+
+type VerifyEmailUrlParametersAffiliateTokenType string
+
+const VerifyEmailUrlParametersAffiliateTokenTypeClient VerifyEmailUrlParametersAffiliateTokenType = "client"
+const VerifyEmailUrlParametersAffiliateTokenTypePartner VerifyEmailUrlParametersAffiliateTokenType = "partner"
+
+var enumValues_VerifyEmailUrlParametersAffiliateTokenType = []interface{}{
+	"client",
+	"partner",
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (j *VerifyEmailUrlParametersAffiliateTokenType) UnmarshalJSON(b []byte) error {
+	var v string
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	var ok bool
+	for _, expected := range enumValues_VerifyEmailUrlParametersAffiliateTokenType {
+		if reflect.DeepEqual(v, expected) {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return fmt.Errorf("invalid value (expected one of %#v): %#v", enumValues_VerifyEmailUrlParametersAffiliateTokenType, v)
+	}
+	*j = VerifyEmailUrlParametersAffiliateTokenType(v)
+	return nil
 }
 
 type VerifyEmailUrlParametersSignupDevice string
