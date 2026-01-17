@@ -183,8 +183,8 @@ index d9d39db9..0cc7b01d 100644
          "count": {
              "description": "[Optional] An upper limit on ticks to receive.",
              "type": "integer",
--            "default": "5000"
-+            "default": 5000
+-            "default": "1000"
++            "default": 1000
          },
          "end": {
              "description": "Epoch value representing the latest boundary of the returned ticks. If `latest` is specified, this will be the latest available timestamp.",

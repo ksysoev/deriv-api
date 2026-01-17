@@ -188,7 +188,7 @@ func (j *TicksHistory) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	if v, ok := raw["count"]; !ok || v == nil {
-		plain.Count = 5000.0
+		plain.Count = 1000.0
 	}
 	if v, ok := raw["style"]; !ok || v == nil {
 		plain.Style = "ticks"
