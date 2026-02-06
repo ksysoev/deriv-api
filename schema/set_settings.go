@@ -80,6 +80,9 @@ type SetSettings struct {
 	// provided during authorize.
 	Loginid *string `json:"loginid,omitempty"`
 
+	// [Optional] National identification number. Must contain only ASCII characters.
+	NationalIdNumber *string `json:"national_id_number,omitempty"`
+
 	// [Optional] Indicates client's self-declaration of not being a PEP/RCA
 	// (Politically Exposed Person/Relatives and Close Associates). Effective for real
 	// accounts only.

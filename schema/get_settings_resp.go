@@ -112,6 +112,9 @@ type GetSettingsRespGetSettings struct {
 	// Last name (note: Only available for users who have at least one real account)
 	LastName *string `json:"last_name,omitempty"`
 
+	// National identification number. Only returned if previously set.
+	NationalIdNumber *string `json:"national_id_number,omitempty"`
+
 	// Indicates client's self-declaration of not being a PEP/RCA (Politically Exposed
 	// Person/Relatives and Close Associates). Note: returned for real accounts only.
 	NonPepDeclaration *GetSettingsRespGetSettingsNonPepDeclaration `json:"non_pep_declaration,omitempty"`
