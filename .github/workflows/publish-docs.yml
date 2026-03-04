@@ -1,0 +1,18 @@
+name: Publish Documentation
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ksysoev/omnidex/action@main
+        with:
+          omnidex_url: ${{ vars.OMNIDEX_URL }}
+          api_key: ${{ secrets.OMNIDEX_API_KEY }}
+          docs_path: .
+          file_pattern: README.md
