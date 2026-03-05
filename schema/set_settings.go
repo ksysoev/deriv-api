@@ -83,6 +83,10 @@ type SetSettings struct {
 	// [Optional] National identification number. Must contain only ASCII characters.
 	NationalIdNumber *string `json:"national_id_number,omitempty"`
 
+	// [Optional] Justification for not providing a tax identification number. Only
+	// applicable for real money account.
+	NoTinJustification *string `json:"no_tin_justification,omitempty"`
+
 	// [Optional] Indicates client's self-declaration of not being a PEP/RCA
 	// (Politically Exposed Person/Relatives and Close Associates). Effective for real
 	// accounts only.
@@ -137,6 +141,10 @@ type SetSettings struct {
 	// multiple jurisdictions. Only applicable for real money account. Required for
 	// maltainvest landing company.
 	TaxResidence *string `json:"tax_residence,omitempty"`
+
+	// [Optional] Justification for not changing tax residence when prompted. Only
+	// applicable when the client has been flagged to update their tax residence.
+	TaxResidenceJustification *string `json:"tax_residence_justification,omitempty"`
 
 	// [Optional] Whether the client has skipped the TIN form. Only applicable for
 	// real money account.
@@ -525,11 +533,23 @@ func (j *SetSettings) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &plain); err != nil {
 		return err
 	}
+	if plain.NoTinJustification != nil && len(*plain.NoTinJustification) < 1 {
+		return fmt.Errorf("field %s length: must be >= %d", "no_tin_justification", 1)
+	}
+	if plain.NoTinJustification != nil && len(*plain.NoTinJustification) > 500 {
+		return fmt.Errorf("field %s length: must be <= %d", "no_tin_justification", 500)
+	}
 	if plain.SecretAnswer != nil && len(*plain.SecretAnswer) < 4 {
 		return fmt.Errorf("field %s length: must be >= %d", "secret_answer", 4)
 	}
 	if plain.SecretAnswer != nil && len(*plain.SecretAnswer) > 50 {
 		return fmt.Errorf("field %s length: must be <= %d", "secret_answer", 50)
+	}
+	if plain.TaxResidenceJustification != nil && len(*plain.TaxResidenceJustification) < 1 {
+		return fmt.Errorf("field %s length: must be >= %d", "tax_residence_justification", 1)
+	}
+	if plain.TaxResidenceJustification != nil && len(*plain.TaxResidenceJustification) > 500 {
+		return fmt.Errorf("field %s length: must be <= %d", "tax_residence_justification", 500)
 	}
 	*j = SetSettings(plain)
 	return nil

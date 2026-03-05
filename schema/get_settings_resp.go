@@ -115,6 +115,10 @@ type GetSettingsRespGetSettings struct {
 	// National identification number. Only returned if previously set.
 	NationalIdNumber *string `json:"national_id_number,omitempty"`
 
+	// Client's justification for not providing a tax identification number. Only
+	// returned if previously set.
+	NoTinJustification *string `json:"no_tin_justification,omitempty"`
+
 	// Indicates client's self-declaration of not being a PEP/RCA (Politically Exposed
 	// Person/Relatives and Close Associates). Note: returned for real accounts only.
 	NonPepDeclaration *GetSettingsRespGetSettingsNonPepDeclaration `json:"non_pep_declaration,omitempty"`
@@ -150,6 +154,10 @@ type GetSettingsRespGetSettings struct {
 	// Residence for tax purpose. Comma separated iso country code if multiple
 	// jurisdictions. Only applicable for real money account.
 	TaxResidence *string `json:"tax_residence,omitempty"`
+
+	// Client's justification for not changing tax residence when prompted. Only
+	// returned if previously set.
+	TaxResidenceJustification *string `json:"tax_residence_justification,omitempty"`
 
 	// [Optional] Whether the client has skipped the TIN form. Only applicable for
 	// real money account.
