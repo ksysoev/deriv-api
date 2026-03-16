@@ -275,8 +275,8 @@ func (api *Client) handleResponses(wsConn *websocket.Conn, respChan chan []byte)
 		}
 
 		buffer := bytes.NewBuffer(make([]byte, 0))
-		_, err = buffer.ReadFrom(reader)
 
+		_, err = buffer.ReadFrom(reader)
 		if err != nil {
 			api.logDebugf("Failed to read response: %s", err.Error())
 			return
@@ -337,7 +337,6 @@ func (api *Client) requestMapper(respChan, outputChan chan []byte, reqChan chan 
 // Send sends a request to the Deriv API and returns a channel that will receive the response
 func (api *Client) Send(ctx context.Context, reqID int, request any) (chan []byte, error) {
 	err := api.Connect()
-
 	if err != nil {
 		return nil, err
 	}
@@ -368,7 +367,6 @@ func (api *Client) Send(ctx context.Context, reqID int, request any) (chan []byt
 // SendRequest sends a request to the Deriv API and returns the response
 func (api *Client) SendRequest(ctx context.Context, reqID int, request, response any) error {
 	respChan, err := api.Send(ctx, reqID, request)
-
 	if err != nil {
 		return err
 	}

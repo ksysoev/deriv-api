@@ -75,7 +75,6 @@ func (s *Subsciption[initResp, Resp]) Forget() error {
 
 	if s.isActive {
 		_, err := s.API.Forget(s.ctx, schema.Forget{Forget: s.SubsciptionID})
-
 		if err != nil {
 			return err
 		}
@@ -109,7 +108,6 @@ func (s *Subsciption[initResp, Resp]) Start(reqID int, request any) (initResp, e
 	}
 
 	inChan, err := s.API.Send(s.ctx, reqID, request)
-
 	if err != nil {
 		return resp, err
 	}

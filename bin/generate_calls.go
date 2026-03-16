@@ -108,15 +108,15 @@ func main() {
 
 	for _, file := range files {
 		name := file.Name()
-		request, err := os.ReadFile(schemaPath + name + "/send.json")
 
+		request, err := os.ReadFile(schemaPath + name + "/send.json")
 		if err != nil {
 			log.Fatal(err)
 		}
 
 		var requestSchema map[string]any
-		err = json.Unmarshal(request, &requestSchema)
 
+		err = json.Unmarshal(request, &requestSchema)
 		if err != nil {
 			log.Fatal(err)
 		}

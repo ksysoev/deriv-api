@@ -13,8 +13,8 @@ import (
 func TestParseSubscription_ValidInput(t *testing.T) {
 	input := []byte(`{"subscription": {"id": "123"}}`)
 	expected := SubscriptionResponse{Subscription: SubscriptionIDResponse{ID: "123"}}
-	result, err := parseSubsciption(input)
 
+	result, err := parseSubsciption(input)
 	if err != nil {
 		t.Errorf("Unexpected error: %v", err)
 	}
@@ -35,8 +35,8 @@ func TestParseSubscription_InvalidJSONInput(t *testing.T) {
 func TestParseSubscription_InvalidSubscriptionData(t *testing.T) {
 	input := []byte(`{"subscription": {"id": "123", "status": "active"}, "error": {"code": "invalid_subscription"}}`)
 	expectedErr := &APIError{Code: "invalid_subscription"}
-	_, err := parseSubsciption(input)
 
+	_, err := parseSubsciption(input)
 	if err == nil {
 		t.Errorf("Expected an error, but got nil")
 	}
@@ -131,8 +131,8 @@ func TestStart(t *testing.T) {
 	var f schema.TicksSubscribe = 1
 
 	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
-	initResp, err := sub.Start(reqID, req)
 
+	initResp, err := sub.Start(reqID, req)
 	if err != nil {
 		t.Errorf("Unexpected error: %v", err)
 		return
@@ -186,8 +186,8 @@ func TestStartFailed(t *testing.T) {
 	var f schema.TicksSubscribe = 1
 
 	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
-	_, err := sub.Start(reqID, req)
 
+	_, err := sub.Start(reqID, req)
 	if err == nil {
 		t.Errorf("Expected an error, but got nil")
 	}
@@ -265,6 +265,7 @@ func TestForget(t *testing.T) {
 
 	go func() {
 		time.Sleep(time.Millisecond * 5)
+
 		responses <- `{
 			"echo_req": {
 			  "forget": "9ed45a5e-8f87-c735-2b63-36108719eadd"
@@ -348,8 +349,8 @@ func TestForgetFailed(t *testing.T) {
 	var f schema.TicksSubscribe = 1
 
 	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
-	_, err := sub.Start(reqID, req)
 
+	_, err := sub.Start(reqID, req)
 	if err != nil {
 		t.Errorf("Unexpected error: %v", err)
 	}
@@ -364,6 +365,7 @@ func TestForgetFailed(t *testing.T) {
 
 	go func() {
 		time.Sleep(time.Millisecond * 5)
+
 		responses <- `{
 			"echo_req": {
 			  "forget": "9ed45a5e-8f87-c735-2b63-36108719eadd"
@@ -523,8 +525,8 @@ func TestStartAPIErrorInSubscription(t *testing.T) {
 	var f schema.TicksSubscribe = 1
 
 	req := schema.Ticks{Ticks: "R50", Subscribe: &f, ReqId: &reqID}
-	initResp, err := sub.Start(reqID, req)
 
+	initResp, err := sub.Start(reqID, req)
 	if err != nil {
 		t.Errorf("Expected no error, but got %v", err)
 	}
@@ -550,6 +552,7 @@ func TestStartTimeout(t *testing.T) {
 			time.Sleep(time.Second) // to keep the connection open
 		}))
 	defer server.Close()
+
 	url := "ws://" + server.Listener.Addr().String()
 
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
