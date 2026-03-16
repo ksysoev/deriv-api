@@ -235,7 +235,6 @@ func TestSendToDisconnectedConnection(t *testing.T) {
 	respChan, err := api.Send(ctx, 1, struct {
 		ReqID int `json:"req_id"`
 	}{1})
-
 	if err == nil {
 		t.Errorf("Expected error, got nil")
 	}
@@ -255,10 +254,10 @@ func TestSendReqWhichNobodyWaits(t *testing.T) {
 	respChan, err := api.Send(ctx, 2, struct {
 		ReqID int `json:"req_id"`
 	}{1})
-
 	if err != nil {
 		t.Errorf("Failed to send message: %v", err)
 	}
+
 	select {
 	case <-respChan:
 		t.Errorf("Expected no response, but got a response")
@@ -273,6 +272,7 @@ func TestSendRequestTimeout(t *testing.T) {
 		}),
 	)
 	defer server.Close()
+
 	url := "ws://" + server.Listener.Addr().String()
 
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
@@ -314,13 +314,14 @@ func TestSendRequestAndGotInvalidJSON(t *testing.T) {
 	}
 
 	ctx := context.Background()
+
 	respChan, err := api.Send(ctx, 2, struct {
 		ReqID int `json:"req_id"`
 	}{1})
-
 	if err != nil {
 		t.Errorf("Failed to send message: %v", err)
 	}
+
 	select {
 	case _, ok := <-respChan:
 		if ok {
@@ -357,7 +358,6 @@ func TestSendRequest(t *testing.T) {
 	api, _ := NewDerivAPI(url, 123, "en", "http://example.com")
 
 	err := api.Connect()
-
 	if err != nil {
 		t.Errorf("Failed to connect to mocked WebSocket server: %v", err)
 	}
@@ -369,7 +369,6 @@ func TestSendRequest(t *testing.T) {
 	var resp schema.PingResp
 
 	err = api.SendRequest(ctx, reqID, req, &resp)
-
 	if err != nil {
 		t.Errorf("Failed to send message: %v", err)
 	}
@@ -401,7 +400,6 @@ func TestSendRequestFailed(t *testing.T) {
 	var resp schema.PingResp
 
 	err := api.SendRequest(ctx, reqID, req, &resp)
-
 	if err == nil {
 		t.Errorf("Expected error, got nil")
 	}
