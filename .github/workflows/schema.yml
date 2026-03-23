@@ -27,7 +27,7 @@ jobs:
         run: go test -coverprofile=coverage.out -covermode=atomic -v --race .
 
       - name: Commit changes
-        uses: EndBug/add-and-commit@v9
+        uses: EndBug/add-and-commit@v10
         with:
           default_author: user_info
           message: "Updates API schema"
